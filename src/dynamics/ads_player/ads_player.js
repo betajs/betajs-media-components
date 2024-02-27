@@ -259,6 +259,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             width: this.getAdWidth(),
                             height: this.getAdHeight()
                         });
+
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
                     },
@@ -354,20 +355,43 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
                     return this._videoElement;
                 },
+                isImageBlack: function(ctx, width, height) {
+                    var imageData = ctx.getImageData(0, 0, width, height);
+                    var pixels = imageData.data;
+                    for (var i = 0; i < pixels.length; i += 4) {
+                        var r = pixels[i];
+                        var g = pixels[i + 1];
+                        var b = pixels[i + 2];
+                        if (r !== 0 || g !== 0 || b !== 0) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
-                    this.getAdContainer().style.backgroundColor = 'transparent';
+                    const canvas = document.createElement("canvas");
+
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
-                    const canvas = this.parent()._drawFrame(video, this.get('currenttime'), width, height);
-                    try {
+                    setTimeout(function() {
+                        try {
+                            const img = document.createElement('img');
+                            video.currenttime = this.get('currenttime');
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext("2d");
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                        if (this.parent().isImageBlack(canvas)) {
-                            this.getAdContainer().style.backgroundImage = `url(${canvas.canvas.toDataURL("image/jpeg")})`;
-                        }
-                    } catch (e) {
-                        this.getAdContainer().style.backgroundImage = `url(${canvas.canvas.toDataURL("image/jpeg")})`;
-                    }
+                            img.onload = function(e) {};
+                            img.src = `${canvas.toDataURL("image/png")}`;
+                            if (this.isImageBlack(ctx, width, height)) {
+                                this.getAdContainer().style.backgroundImage = `url(${canvas.toDataURL("image/png")})`;
+                            }
+                        } catch (e) {}
+
+                    }.bind(this), 500);
 
                 },
 

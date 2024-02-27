@@ -1281,11 +1281,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     const ctx = canvas.getContext('2d');
                     ctx.clearRect(0, 0, canvas.width, canvas.height)
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-                    return {
-                        canvas,
-                        ctx
-                    };
+                    return canvas;
                 },
 
                 _renderVideoFrame: function(video) {
@@ -1319,20 +1315,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             });
                         });
                     } catch (e) {}
-                },
-
-                isImageBlack: function(canvas) {
-                    var imageData = canvas.ctx.getImageData(0, 0, canvas.canvas.width, canvas.canvas.height);
-                    var pixels = imageData.data;
-                    for (var i = 0; i < pixels.length; i += 4) {
-                        var r = pixels[i];
-                        var g = pixels[i + 1];
-                        var b = pixels[i + 2];
-                        if (r !== 0 || g !== 0 || b !== 0) {
-                            return false;
-                        }
-                    }
-                    return true;
                 },
 
                 _detachVideo: function() {

@@ -1070,7 +1070,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         delay: 100,
                         start: true
                     }));
-
                     this.activeElement().style.setProperty("display", "flex");
 
                     // to detect only video playing container dimensions, when there also sidebar exists
@@ -1282,7 +1281,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     const ctx = canvas.getContext('2d');
                     ctx.clearRect(0, 0, canvas.width, canvas.height)
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    return canvas;
+                    return {
+                        canvas,
+                        ctx
+                    };
                 },
 
                 _renderVideoFrame: function(video) {
@@ -1318,6 +1320,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     } catch (e) {}
                 },
 
+                isImageBlack: function(canvas) {
+                    var imageData = canvas.ctx.getImageData(0, 0, canvas.canvas.width, canvas.canvas.height);
+                    var pixels = imageData.data;
+                    for (var i = 0; i < pixels.length; i += 4) {
+                        var r = pixels[i];
+                        var g = pixels[i + 1];
+                        var b = pixels[i + 2];
+                        if (r !== 0 || g !== 0 || b !== 0) {
+                            return false;
+                        }
+                    }
+                    return true;
+                },
                 _detachVideo: function() {
                     this.set("playing", false);
                     if (this.player) this.player.weakDestroy();
@@ -1537,7 +1552,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
                             if (Info.isSafari() && !this.get("showImage")) {
-                                this._renderVideoFrame(this.__video)
+                                this._renderVideoFrame(this.__video);
                             }
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
@@ -2322,6 +2337,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.__adsControlPosition = Math.ceil(this.get("position"));
                                 this.__controlAdRolls();
                             }
+
                         }
                     } catch (e) {}
                     try {

@@ -780,9 +780,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
-                            // If we're already not set timer for ads failure, and we have some ads source
-                            // start set it here. Possible other options are via Header bidding services like Prebid
-                            this.initAdsRenderFailTimeout();
                             if (!this.get("disableadpreload")) this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
@@ -811,6 +808,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         hidebeforeadstarts
                     ) {
+                        // if autoplaywhenvisible is true we will handle it on visibility change
+                        if (!autoplaywhenvisible && adsinitialized) {
+                            // If we're already not set timer for ads failure, and we have some ads source
+                            // start set it here. Possible other options are via Header bidding services like Prebid
+                            this.initAdsRenderFailTimeout();
+                        }
                         if (hidden) return hidden;
                         if (!autoplay && !autoplaywhenvisible) return false;
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
@@ -925,6 +928,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
                             if (this.destroyed()) return;
                             this.set("autoplaywhenvisible", false);
+                            // will start timeout on viewport
+                            this.initAdsRenderFailTimeout();
                         }, this);
                     }
                     this.__attachPlayerInteractionEvents();

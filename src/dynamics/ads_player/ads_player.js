@@ -356,17 +356,19 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
-                    const canvas = document.createElement("canvas");
+                    this.getAdContainer().style.backgroundColor = 'transparent';
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
-                    video.currentTime = this.get('currenttime');
-                    setTimeout(function() {
-                        canvas.width = width;
-                        canvas.height = height;
-                        canvas.getContext("2d")
-                            .drawImage(video, 0, 0, canvas.width, canvas.height);
-                        this.getAdContainer().style.backgroundImage = `url(${canvas.toDataURL("image/jpeg")})`;
-                    }.bind(this), 100);
+                    const canvas = this.parent()._drawFrame(video, this.get('currenttime'), width, height);
+                    try {
+
+                        if (this.parent().isImageBlack(canvas)) {
+                            this.getAdContainer().style.backgroundImage = `url(${canvas.canvas.toDataURL("image/jpeg")})`;
+                        }
+                    } catch (e) {
+                        this.getAdContainer().style.backgroundImage = `url(${canvas.canvas.toDataURL("image/jpeg")})`;
+                    }
+
                 },
 
                 setEndCardBackground: function(width, height) {

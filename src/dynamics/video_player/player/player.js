@@ -3116,7 +3116,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __unmuteOnClick: function() {
                     clearTimeout(this.get('clearDebounce'));
                     const clearDebounce = setTimeout(function() {
-
                         if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
                         this.auto_destroy(new Timers.Timer({
                             delay: 500,
@@ -3137,7 +3136,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
-
                 }
             };
         }], {

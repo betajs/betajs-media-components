@@ -1273,15 +1273,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     img.src = isLocal ? (window.URL || window.webkitURL).createObjectURL(this.get("poster")) : this.get("poster");
                 },
 
-                _drawFrame: function(video, currentTime, width, height) {
-                    video.currentTime = currentTime;
+                _drawFrame: function(video, currentTime, width, height, cb) {
                     const canvas = document.createElement('canvas');
                     canvas.width = width;
                     canvas.height = height
                     const ctx = canvas.getContext('2d');
-                    ctx.clearRect(0, 0, canvas.width, canvas.height)
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    return canvas;
+                    video.currentTime = currentTime;
+                    setTimeout(function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height)
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        cb(canvas, ctx);
+                    }.bind(this), 200);
                 },
 
                 _renderVideoFrame: function(video) {

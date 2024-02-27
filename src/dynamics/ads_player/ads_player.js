@@ -494,6 +494,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (ad) this._getCompanionAds(ad);
                     }
 
+                    // reset adsrendertimeout
+                    this.parent().stopAdsRenderFailTimeout(true);
+                    // and set a new videoLoaded timeout for midroll and post-roll
+                    this._setLoadVideoTimeout();
+
                     // Additional resize will fit ads fully inside the player container
                     if (this.get("sidebar_active") && this.adsManager && this.parent()) {
                         // NOTE: can cause console error on main player, uncomment if required separately
@@ -521,16 +526,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _setLoadVideoTimeout: function() {
-                    const dyn = this.parent();
-                    // If we've set or timer still exists
-                    if (dyn && dyn.__adsRenderFailTimer && this.get("adsrendertimeout") > 0) {
-                        dyn.set("imaadsrenderingsetting", {
-                            ...dyn.get("imaadsrenderingsetting"),
-                            loadVideoTimeout: dyn.get("adsrendertimeout")
-                        });
-                        // as we will reset the adsrendertimeout,
-                        // we should define loadVideoTimeout before
-                        dyn.stopAdsRenderFailTimeout();
+                    if (this.get("adsrendertimeout") > 0 && this.get("adsrendertimeout") !== this.get("imaadsrenderingsetting.loadVideoTimeout")) {
+                        const dyn = this.parent();
+                        if (dyn) {
+                            // If we've set or timer still exists
+                            dyn.set("imaadsrenderingsetting", {
+                                ...dyn.get("imaadsrenderingsetting"),
+                                loadVideoTimeout: dyn.get("adsrendertimeout")
+                            });
+                        }
                     }
                 },
 

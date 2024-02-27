@@ -1150,6 +1150,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             fire: function() {
                                 // we're setting adsplaying true when
                                 if (this.get("adsplaying")) {
+                                    // we're not resetting adsrendertimeout, as it's also will apply to the loadVideoTimeout
                                     this.stopAdsRenderFailTimeout();
                                 }
                                 const _timer = this.get("adsrendertimeout");
@@ -1160,7 +1161,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If after passing the time, ads still not playing, we should trigger an error
                                 this.channel("ads").trigger("render-timeout");
                                 this.brakeAdsManually();
-                                this.stopAdsRenderFailTimeout();
                             }.bind(this),
                             delay: repeatMicroseconds,
                             start: true,
@@ -1175,7 +1175,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  */
                 resetAdsRenderFailTimeout: function() {
                     if (this.__adsRenderFailTimer) {
-                        this.stopAdsRenderFailTimeout();
+                        this.stopAdsRenderFailTimeout(true);
                         this.initAdsRenderFailTimeout();
                         return;
                     }
@@ -3055,6 +3055,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.channel("ads").trigger("allAdsCompleted");
                         // this.channel("ads").trigger("discardAdBreak"); // nonLinear not run discard
                     }
+                    this.stopAdsRenderFailTimeout(true);
                     this.set("adsplayer_active", false);
                 },
 

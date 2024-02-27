@@ -83,10 +83,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adsManager.destroy();
                     this._adsManager = null;
                 }
-                // if (this._adsLoader) {
-                //     this._adsLoader.destroy();
-                //     this._adsLoader = null;
-                // }
                 inherited.destroy.call(this);
             },
 

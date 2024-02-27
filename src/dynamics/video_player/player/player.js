@@ -1386,24 +1386,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     vidEle.setAttribute('crossorigin', 'anonymous')
                     vidEle.muted = true;
                     vidEle.play();
-
                     try {
                         vidEle.addEventListener("loadeddata", (event) => {
                             this._drawFrame(vidEle, currentPosition, video.videoWidth, video.videoHeight, (canvas) => {
-
                                 imgElements.forEach(img => {
-                                    if (img.parentNode)
-                                        img.parentNode.removeChild(img)
-                                })
-
+                                    if (img.parentNode) img.parentNode.removeChild(img)
+                                });
                                 img.src = `${canvas.toDataURL()}`;
                                 videoParentEle.appendChild(img);
-                        
+
                                 if (this.get("trackFrameTime") > currentPosition) {
                                     video.currentTime = this.get("trackFrameTime");
                                 }
                                 this.set('trackFrameTime', currentPosition)
-
                             })
                         });
                     } catch (e) {}

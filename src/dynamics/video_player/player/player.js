@@ -780,6 +780,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
+                            // If we're already not set timer for ads failure, and we have some ads source
+                            // start set it here. Possible other options are via Header bidding services like Prebid
+                            this.initAdsRenderFailTimeout();
                             if (!this.get("disableadpreload")) this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
@@ -1594,7 +1597,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("playbackcount", 1);
                             }, this);
                         }
-
                         this.player.on("playing", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();

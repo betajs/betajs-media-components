@@ -132,13 +132,23 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                         }
                     }
                 }
-                this._adsManager = adsManagerLoadedEvent.getAdsManager(
-                    this._options.videoElement, adsRenderingSettings
-                );
-                if (adsManagerLoadedEvent.getUserRequestContext()) {
-                    this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
-                } else {
-                    this._adsManager.setVolume(this._options?.videoElement?.volume || 0);
+                try {
+                    this._adsManager = adsManagerLoadedEvent.getAdsManager(
+                        this._options.videoElement, adsRenderingSettings
+                    );
+                    if (adsManagerLoadedEvent.getUserRequestContext()) {
+                        this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
+                    } else {
+                        this._adsManager.setVolume(this._options?.videoElement?.volume || 0);
+                    }
+                } catch (adError) {
+                    if (adError instanceof google.ima.AdError) {
+                        this.onAdError(adError);
+                    } else {
+                        this.onAdError({
+                            message: `Getting Ads Manager failed to load with settings: ${JSON.stringify(adsRenderingSettings)}. \n More details: ${JSON.stringify(adError)}`
+                        });
+                    }
                 }
                 this.addEventListeners();
                 this.__methods().forEach(function(method) {

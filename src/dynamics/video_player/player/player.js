@@ -811,12 +811,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         hidebeforeadstarts
                     ) {
-                        // if autoplaywhenvisible is true we will handle it on visibility change
-                        if (!autoplaywhenvisible && adsinitialized) {
-                            // If we're already not set timer for ads failure, and we have some ads source
-                            // start set it here. Possible other options are via Header bidding services like Prebid
-                            this.initAdsRenderFailTimeout();
-                        }
                         if (hidden) return hidden;
                         if (!autoplay && !autoplaywhenvisible) return false;
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
@@ -931,8 +925,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
                             if (this.destroyed()) return;
                             this.set("autoplaywhenvisible", false);
-                            // will start timeout on viewport
-                            this.initAdsRenderFailTimeout();
                         }, this);
                     }
                     this.__attachPlayerInteractionEvents();
@@ -1156,6 +1148,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!this.__adsRenderFailTimer && renderTimeout && renderTimeout > 0) {
                         this.__adsRenderFailTimer = new Timers.Timer({
                             fire: function() {
+                                // we're setting adsplaying true when
                                 if (this.get("adsplaying")) {
                                     this.stopAdsRenderFailTimeout();
                                 }
@@ -1192,11 +1185,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 /**
                  * Clear ads fail timout
                  */
-                stopAdsRenderFailTimeout: function() {
-                    if (!this.__adsRenderFailTimer) return;
-                    this.__adsRenderFailTimer.stop();
-                    this.__adsRenderFailTimer = null;
+                stopAdsRenderFailTimeout: function(reset) {
                     this.set("adsrendertimeout", this.get("initialoptions.adsrendertimeout"));
+                    if (!this.__adsRenderFailTimer) return;
+                    if (!this.__adsRenderFailTimer.destroyed()) {
+                        this.__adsRenderFailTimer.stop();
+                    }
+                    if (reset) this.__adsRenderFailTimer = null;
                 },
 
                 initMidRollAds: function() {

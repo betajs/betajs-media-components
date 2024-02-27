@@ -116,7 +116,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                         const dyn = this.parent();
                         if (dyn) {
-                            dyn.stopAdsRenderFailTimeout();
+                            dyn.stopAdsRenderFailTimeout(true);
                             dyn.channel("ads").trigger("ad-error");
                         }
                     },
@@ -166,7 +166,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
-                        this._setLoadVideoTimeout();
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -226,6 +225,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                     "campId": (this.getAdWidth() || 640) + "x" + (this.getAdHeight() || 360)
                                 }, this.__iasConfig));
                             }
+                            // If we're getting ad-error no need to set loadVideoTimeout
+                            this._setLoadVideoTimeout();
                             // Makes active element not redirect to click through URL on first click
                             // if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
                             //     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
@@ -241,6 +242,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }, this);
 
                     if (dynamics) {
+                        // if we've already not started timer, we should start it here
+                        dynamics.initAdsRenderFailTimeout();
                         dynamics.on("resize", function(dimensions) {
                             const width = this.getAdWidth();
                             const height = this.getAdHeight();

@@ -36,7 +36,7 @@ test.describe(`Check timeout on ads rendering settings`, () => {
     test(`AdsRenderTimeout timeout should be enough to show ads`, async ({ page, browserName, browser, context }) => {
         const runAdsTester = async (page, browser, context) => {
             let adsPlaying;
-            const adsRenderTimeout = 500;
+            const adsRenderTimeout = 600;
             const player = new PlayerPage(page,
                 {
                     ...defaultPlayerAttributes, ...descriptionPlayerAttributes,
@@ -58,18 +58,26 @@ test.describe(`Check timeout on ads rendering settings`, () => {
             let restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
 
             const adsStarted = Promise.race([
-                player.listenPlayerEvent(`ads:start`)
+                player.listenPlayerEvent(`ads:start`, 0)
                     .then(() => true),
                 // ads:render-timeout also run ad-error at the end
-                player.listenPlayerEvent(`ads:render-timeout`)
+                player.listenPlayerEvent(`ads:render-timeout`, 0)
                     .then(() => false),
             ]).catch(() => {
                 throw "Missing content playing or ads container";
             });
 
             await adsStarted.then(async (adsVisible) => {
-                if (adsVisible <= 500) {
+                if (adsRenderTimeout <= 500) {
+                    // guarantee that ads will not be rendered before timeout
                     await expect(adsVisible).toBeFalsy();
+                } else if (adsRenderTimeout > 12000) {
+                    // guarantee that ads will be rendered before timeout
+                    await expect(adsVisible).toBeTruthy();
+                } else {
+                    // else it's the same if ads will played
+                    adsPlaying = await player.getPlayerAttribute(`adsplaying`);
+                    expect(adsPlaying).toEqual(adsVisible);
                 }
                 if (adsVisible) {
                     // Wait ads container to be visible

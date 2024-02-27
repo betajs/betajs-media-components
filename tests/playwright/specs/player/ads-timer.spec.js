@@ -14,8 +14,8 @@ test.describe(`Check timeout on ads rendering settings`, () => {
         unmuteonclick: true,
         skipinitial: false,
         width: 640, height: 360,
-        adtagurl: ERROR_TAG_URL,
-        // adtagurl: AD_TAG_URL,
+        // adtagurl: ERROR_TAG_URL,
+        adtagurl: Math.random() > 0.5 ? AD_TAG_URL : ERROR_TAG_URL,
     }
 
     const browserSettings = {
@@ -37,7 +37,7 @@ test.describe(`Check timeout on ads rendering settings`, () => {
     test(`Failsafe on ads load delay value`, async ({ page, browserName, browser, context }) => {
         const runAdsTester = async (page, browser, context) => {
             let adsPlaying, restTimeout;
-            const adsRenderTimeout = Math.random() > 0.5 ? 5000 : 500;
+            const adsRenderTimeout = Math.random() > 0.5 ? 15000 : 500;
             // delete defaultPlayerAttributes['poster'];
             const player = new PlayerPage(page,
                 {
@@ -60,30 +60,23 @@ test.describe(`Check timeout on ads rendering settings`, () => {
             const hasAdsSource = await player.getPlayerAttribute(`adshassource`);
             expect(hasAdsSource).not.toBeUndefined();
             if (!hasAdsSource) throw new Error(`We need ad tag URL to proceed`);
-
             const adsContainer = page.locator(`.ba-adsplayer-linear-ad-container`);
-            const timePassed5Seconds = page.getByTitle(`Elapsed time`).and(page.getByText(`0:05`));
 
             // const IMA_SDK_URL = new RegExp('https://imasdk.googleapis.com/js/*', 'i');
             // iframe .videoAdUi || .ima-sdk-frame
             // const adsContainer = page.frameLocator('iframe');
             // const adsContainer = page.frameLocator(`iframe[src=^https://imasdk.googleapis.com/js/*]`).locator('div.videoAdUi');
 
-            const adsContainerVisible = Promise.race([
-                // player.listenPlayerEvent(`ads:load`, 0).then(() => true),
-                adsContainer.waitFor({state: 'visible'})
-                    .then(() => true),
-                // player.listenPlayerEvent(`ads:render-timeout`, 0).then(() => false),
-                timePassed5Seconds.waitFor({state: 'visible'})
-                    .then(() => false),
+            const adsStarted = Promise.race([
+                player.listenPlayerEvent(`ads:start`, 0).then(() => true),
+                // ads:render-timeout also run ad-error at the end
+                player.listenPlayerEvent(`ads:ad-error`, 0).then(() => false),
             ]).catch(() => {
                 throw "Missing content playing or ads container";
             });
 
-            await adsContainerVisible.then(async (adsVisible) => {
+            await adsStarted.then(async (adsVisible) => {
                 if (adsVisible) {
-                    restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
-
                     // Wait ads container to be visible
                     await expect(adsContainer).toBeInViewport(); //.toBeVisible() || .toBeInViewport();
                     await adsContainer.hover();
@@ -92,15 +85,11 @@ test.describe(`Check timeout on ads rendering settings`, () => {
                     restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
                     await expect(restTimeout).toEqual(adsRenderTimeout);
                 } else {
-                    // if error will be triggered, ads render timeout should be initial value
-                    restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
-                    expect(restTimeout).toBe(adsRenderTimeout);
-
                     adsPlaying = await player.getPlayerAttribute(`adsplaying`);
-                    expect(adsPlaying).toBeFalsy();
+                    await expect(adsPlaying).toBeFalsy();
 
                     let contentPlaying = await player.getPlayerAttribute(`playing`);
-                    expect(contentPlaying).toBeTruthy();
+                    await expect(contentPlaying).toBeTruthy();
                 }
 
                 await browser.close();

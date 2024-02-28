@@ -15,7 +15,9 @@ test.describe('Unmute on click behave', () => {
         width: 640, height: 360,
         adtagurl: AD_TAG_URL,
         showsidebargallery: true,
-        sidebaroptions: {}
+        sidebaroptions: {},
+        gallerysidebar: false,
+        playwhenvisible: true,
     }
 
     const browserSettings = {
@@ -35,8 +37,8 @@ test.describe('Unmute on click behave', () => {
     });
 
     test(`Unmute only on engagement inside ads`, async ({
-                                                            page, browserName, browser, context
-                                                        }) => {
+        page, browserName, browser, context
+    }) => {
         const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];
             const player = new PlayerPage(page, {
@@ -139,8 +141,8 @@ test.describe('Unmute on click behave', () => {
     });
 
     test(`Content Player Unmute only on engagement`, async ({
-                                                                page, browserName, browser, context
-                                                            }) => {
+        page, browserName, browser, context
+    }) => {
 
         const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];

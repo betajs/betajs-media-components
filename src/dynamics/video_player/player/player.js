@@ -1298,7 +1298,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     const imgElements = videoParentEle.querySelectorAll('img');
 
                     const vidEle = document.createElement('video');
-                    vidEle.src = this.get("source");;
+                    vidEle.src = this.get("source");
                     vidEle.setAttribute('crossorigin', 'anonymous')
                     vidEle.muted = true;
                     vidEle.play();
@@ -1317,7 +1317,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                                 img.src = `${canvas.toDataURL()}`;
                                 videoParentEle.appendChild(img);
-                        
+
                                 if (this.get("trackFrameTime") > currentPosition) {
                                     video.currentTime = this.get("trackFrameTime");
                                 }

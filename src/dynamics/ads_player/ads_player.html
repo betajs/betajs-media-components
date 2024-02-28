@@ -68,12 +68,7 @@
     ba-userhadplayerinteraction="{{userhadplayerinteraction}}"
     ba-currenttime={{=currenttime}}
     ba-hideoninactivity={{hideoninactivity}}
-    ba-event:resume="resume"
-    ba-event:fullscreen="{{trigger('fullscreen')}}"
     ba-fullscreened="{{fullscreened}}"
-    ba-event:pause="pause"
-    ba-event:volume="set_volume"
-    ba-event:stop="stop"
     ba-view_type="{{view_type}}"
     ba-floating="{{floating}}"
     ba-adchoicesontop="{{adchoicesontop}}"
@@ -81,4 +76,10 @@
     ba-adchoicesstring="{{string('ad-choices')}}"
     ba-controlbarstyles="{{controlbarstyles}}"
     ba-showadchoices="{{showadchoices}}"
+    ba-event:resume="resume"
+    ba-event:pause="pause"
+    ba-event:stop="stop"
+    ba-event:volume="set_volume"
+    ba-event:fullscreen="{{trigger('fullscreen')}}"
+    ba-event:toggle_volume="{{toggle_volume}}"
 ></ba-{{dyncontrolbar}}>

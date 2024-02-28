@@ -2059,6 +2059,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("volume", Maths.clamp(volume, 0, 1));
                     },
 
+                    toggle_volume: function() {
+                        this.setPlayerEngagement();
+                    },
+
                     toggle_settings_menu: function() {
                         this.set("settingsmenu_active", !this.get("settingsmenu_active"));
                     },
@@ -3073,7 +3077,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.auto_destroy(
                             this.activeElement().addEventListener(
                                 eventName, f, {
-                                    once: true
+                                    // we could require listen several additional actions from the user,
+                                    // to be able to detect user engagement
+                                    once: false
                                 }
                             ));
                     }, this);
@@ -3092,12 +3098,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
+                // Detect if user engaged with the player.
+                // It happens in some actions made by user, pause is not that action
                 setPlayerEngagement: function() {
                     if (this.get("userengagedwithplayer")) return;
                     this.set("userengagedwithplayer", true);
                     this.trigger("playerengaged");
                 },
 
+                // If user has any player interaction
                 __setPlayerHadInteraction: function() {
                     if (this.get("unmuteonclick")) {
                         if (!this.get("userengagedwithplayer")) {

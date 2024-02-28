@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.444 - 2024-02-26
+betajs-media-components - v0.0.445 - 2024-02-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.444 - 2024-02-26
+betajs-media-components - v0.0.445 - 2024-02-28
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.444",
-    "datetime": 1708977637802
+    "version": "0.0.445",
+    "datetime": 1709146706536
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5954,12 +5954,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // we can activate only once, after we should hide sidebar
                         return !showSidebar;
                     },
-                    "show_sidebar:hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
-                        hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
+                    "show_sidebar:outstream,hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
+                        outstream, hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
                     ) {
                         if (fullscreened) return false;
                         this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
-                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport) && !outstream);
                         if (this.get("gallerysidebar")) {
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);
@@ -6088,7 +6088,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
+                    "containerSizingStyles:outstream,aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
+                        outstream,
                         aspectRatio,
                         height,
                         width,
@@ -6098,7 +6099,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         fullscreened,
                         showsidebargallery,
                         gallerySidebar,
-                        layout
+                        layout,
                     ) {
                         let containerStyles, styles;
                         styles = {
@@ -6108,8 +6109,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
                         containerStyles = floatingonly ? {} : Objs.extend({}, styles);
-                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened)
-                            containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        if (!gallerysidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
+                            if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        }
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 

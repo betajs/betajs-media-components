@@ -813,7 +813,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         containerStyles = floatingonly ? {
                             height: 0
                         } : Objs.extend({}, styles);
-                        if (!gallerysidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
                             if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         }
                         if (isFloating) {

@@ -223,6 +223,7 @@
              class="{{css}}-rightbutton-container {{controlbar_hide_class}}"
              ba-on:touchend="{{toggle_volume()}}"
              ba-click="{{toggle_volume()}}" title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
+             data-testid="{{testid}}-volume-{{volume > 0 ? 'mute' : 'unmute'}}-button"
         >
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>

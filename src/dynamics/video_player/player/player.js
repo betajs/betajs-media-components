@@ -810,7 +810,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
-                        containerStyles = floatingonly ? {} : Objs.extend({}, styles);
+                        containerStyles = floatingonly ? {
+                            height: 0
+                        } : Objs.extend({}, styles);
                         if (!gallerysidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
                             if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         }
@@ -1076,11 +1078,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
 
-                    if (!this.get("sticky") && this.get("floatingoptions.floatingonly")) {
+                    if (this.get("floatingoptions.floatingonly")) {
                         this.set("view_type", "float");
-                    } else {
-                        // If sticky is enabled, disable only floating
-                        this.set("floatingoptions.floatingonly", false);
+                    }
+                    // Only init stickyHandler if floantingonly is desabled
+                    if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),

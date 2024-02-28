@@ -85,8 +85,11 @@ class PlayerPage {
      * @return {Promise<*>}
      */
     async runFunctions(functionName, args = null) {
-        if (!this.playerInstance) throw new Error(`Player instance is not set to be able to get attribute: ${arg}`);
-        return this.playerInstance.evaluate(async (ins, functionName, args) => {
+        args = args || [];
+        if (!this.playerInstance) {
+            throw new Error(`Player instance is not set to be able to get attribute: ${args}`);
+        }
+        return this.playerInstance.evaluate(async (ins, [functionName, args]) => {
             if (typeof ins[functionName] !== 'function')
                 throw new Error(`Player instance does not have ${functionName} method`);
             try {
@@ -95,7 +98,7 @@ class PlayerPage {
             } catch (e) {
                 return await Promise.reject(e);
             }
-        }, functionName, args);
+        }, [functionName, args]);
     }
 
     async getPlayerAttribute(keyName) {
@@ -165,14 +168,24 @@ class PlayerPage {
                         throw new Error(message);
                     }, timeOut * 1000);
                 }
-                playerInstance.on(eventName, (data) => {
-                    if (debug) console.log(`Will handle event ${eventName} and return data: ${data}`);
-                    if (timeoutID) clearTimeout(timeoutID);
-                    return resolve(data);
-                });
+                if (eventName.includes(":")) {
+                    const channel = eventName.split(":")[0];
+                    const event = eventName.split(":")[1];
+                    playerInstance.channel(channel).on(event, (data) => {
+                        if (debug) console.log(`Will handle event ${eventName} and return data: ${data}`);
+                        if (timeoutID) clearTimeout(timeoutID);
+                        return resolve(data);
+                    });
+                } else {
+                    playerInstance.on(eventName, (data) => {
+                        if (debug) console.log(`Will handle event ${eventName} and return data: ${data}`);
+                        if (timeoutID) clearTimeout(timeoutID);
+                        return resolve(data);
+                    });
+                }
             })
             return promise.then((d) => true).catch(() => force);
-        }, [eventName, timeOutSeconds, force, this.debug], { timeout: (timeOutSeconds + 0.5) * 1000 });
+        }, [eventName, timeOutSeconds, force, this.debug], { timeout: timeOutSeconds * 1000 });
     }
 
     /**
@@ -640,7 +653,6 @@ class PlayerPage {
             }
         }
     }
-
 }
 
 export default PlayerPage;

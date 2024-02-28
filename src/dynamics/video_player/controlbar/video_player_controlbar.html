@@ -8,6 +8,7 @@
          onmouseout="this.blur()"
          ontouchstart="{{startUpdatePosition(domEvent)}}"
          onmousedown="{{startUpdatePosition(domEvent)}}"
+         data-testid="{{testid}}-progress-bar-inner"
     >
         <div class="{{css}}-progressbar-chapters" ba-show="{{true}}">
             <div class="{{css}}-chapters-list-container"
@@ -49,7 +50,8 @@
         <div tabindex="0" data-selector="submit-video-button"
              ba-hotkey:space^enter="{{submit()}}" onmouseout="this.blur()"
              class="{{css}}-leftbutton-container {{controlbar_hide_class}}"
-             ba-if="{{submittable}}" ba-click="{{submit()}}">
+             ba-if="{{submittable}}" ba-click="{{submit()}}"
+        >
             <div class="{{css}}-button-inner">
                 {{string('submit-video')}}
             </div>
@@ -70,6 +72,7 @@
              class="{{css}}-leftbutton-container {{controlbar_hide_class}}" title="{{string('play-video')}}"
              onkeydown="{{tab_index_move(domEvent, null, 'button-icon-pause')}}" ba-if="{{!playing}}"
              ba-click="{{play()}}" ba-on:touchend="{{play()}}"
+             data-testid="{{testid}}-content-play-button"
         >
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon}}-icon-play"></i>
@@ -82,13 +85,17 @@
              onkeydown="{{tab_index_move(domEvent, null, 'button-icon-play')}}" ba-if="{{playing}}"
              ba-click="{{pause()}}" ba-on:touchend="{{pause()}}"
              title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
+             data-testid="{{testid}}-content-pause-button"
         >
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon}}-icon-pause"></i>
             </div>
         </div>
 
-        <div class="{{css}}-time-container {{csscommon}}-clickable {{controlbar_hide_class}}" ba-click="{{toggle_position_info()}}">
+        <div class="{{css}}-time-container {{csscommon}}-clickable {{controlbar_hide_class}}"
+             ba-click="{{toggle_position_info()}}"
+             data-testid="{{testid}}-timer-container"
+        >
             <div class="{{css}}-time-value"
                  title="{{revertposition ? string('remaining-time') : string('elapsed-time')}}"
             >
@@ -100,7 +107,8 @@
         </div>
 
         <div data-selector="video-title-block" class="{{css}}-title-container {{title_hide_class}}" ba-if="{{title && !prominent_title_closed}}">
-            <p class="{{css}}-title"><span ba-if="{{closeable_title}}" ba-click="{{prominent_title_closed=true}}">&#10006;</span>
+            <p class="{{css}}-title" data-testid="{{testid}}-player-title">
+                <span ba-if="{{closeable_title}}" ba-click="{{prominent_title_closed=true}}">&#10006;</span>
                 {{title}}
             </p>
         </div>
@@ -130,6 +138,7 @@
              ba-on:touchend="{{toggle_settings_menu()}}"
              ba-if="{{settingsmenubutton}}" ba-click="{{toggle_settings_menu()}}"
              title="{{string('settings')}}"
+             data-testid="{{testid}}-player-settings-button"
         >
             <div class="{{css}}-button-inner {{css}}-settings-button">
                 <i class="{{csscommon}}-icon-cog"></i>
@@ -144,6 +153,7 @@
              ba-click="{{toggle_tracks()}}"
              onmouseover="{{hover_cc(true)}}"
              onmouseleave="{{hover_cc(false)}}"
+             data-testid="{{testid}}-player-cc-button"
         >
             <div class="{{css}}-button-inner {{controlbar_hide_class}}">
                 <i class="{{csscommon}}-icon-subtitle"></i>

@@ -12,6 +12,7 @@
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
      ba-styles="{{containerSizingStyles}}"
+     data-testid="{{testid}}-player-container"
 >
     <meta itemprop="name" content="{{title || 'Video Player'}}" />
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
@@ -61,6 +62,7 @@
             ba-css="{{css}}"
             ba-cssplayer="{{cssplayer}}"
             ba-csscommon="{{csscommon}}"
+            ba-testid="{{testid}}"
             ba-duration="{{=adduration}}"
             ba-volume="{{=volume}}"
             ba-muted="{{muted}}"
@@ -101,6 +103,7 @@
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
              ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" style="{{placeholderstyle}}"
+             data-testid="{{testid}}-content-player-container"
         >
             <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
                  ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
@@ -126,6 +129,7 @@
                 ba-css="{{csscontrolbar || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
                 ba-csstheme="{{csstheme || css}}"
+                ba-testid="{{testid}}"
                 ba-logo="{{controlbar_logo}}"
                 ba-themecolor="{{themecolor}}"
                 ba-template="{{tmplcontrolbar}}"

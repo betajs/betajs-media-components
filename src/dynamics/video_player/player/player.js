@@ -1160,7 +1160,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                                 // If after passing the time, ads still not playing, we should trigger an error
                                 this.channel("ads").trigger("render-timeout");
-                                this.brakeAdsManually();
+                                this.brakeAdsManually(true);
                             }.bind(this),
                             delay: repeatMicroseconds,
                             start: true,
@@ -3048,7 +3048,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var adsPlayer = this.scopes.adsplayer;
 
                     // Only if min-suggested seconds of nonLinear ads are shown will show next ads
-                    if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear") && !hard)
+                    if (adsPlayer.get("non-linear-min-suggestion") > 0 && !this.get("linear") && !hard)
                         return;
 
                     if (!this.get("adscompleted") && !adsPlayer.get("linear")) {

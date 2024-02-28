@@ -1,0 +1,29 @@
+name: Build and commit next version
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+    - run: |
+        npm install
+        grunt
+        grunt
+        echo VERSION=$(node -e "console.log(require('./package.json').version);") >> $GITHUB_ENV
+    - uses: EndBug/add-and-commit@v9
+      with:
+        add: 'dist/ package-source.json package.json README.md'
+        default_author: github_actions
+        message: 'Build v${{ env.VERSION }}'
+    - uses: JS-DevTools/npm-publish@v3
+      with:
+        token: ${{ secrets.NPM_TOKEN }}

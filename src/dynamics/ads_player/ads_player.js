@@ -118,6 +118,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("quartile", "fourth");
                     },
                     "ads:start": function(ev) {
+                        const ad = ev.getAd();
+                        this.set("ad", ad);
+                        this.setEndCardBackground();
                         this._onStart(ev);
                     },
                     "ads:skippableStateChanged": function(event) {
@@ -140,10 +143,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
-                        const ad = event.getAd();
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
-                        this.set("ad", ad);
                         this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
@@ -228,24 +229,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
-                            const width = this.getAdWidth();
-                            const height = this.getAdHeight();
-                            if (width && height) {
-                                // This part will listen to the resize even after adsManger will be destroyed
-                                if (this.adsManager && typeof this.adsManager.resize === "function") {
-                                    this.adsManager.resize(
-                                        width,
-                                        height,
-                                        google.ima.ViewMode.NORMAL
-                                    );
-                                }
-                                if (this.shouldShowFirstFrameAsEndcard()) {
-                                    this.setEndCardBackground(width, height);
-                                    if (this._src) {
-                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
-                                    }
-                                }
-                            }
+                            this.setEndCardBackground();
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
                             this.set("volume", volume);
@@ -381,14 +365,34 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     })
                 },
 
-                setEndCardBackground: function(width, height) {
+                captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
                     if (ad) {
-                        this.updateEndCardImage(ad, width, height);
+                        this.generateEndCardImage(ad, width, height);
                     }
                 },
 
-                updateEndCardImage: function(ad, width, height) {
+                setEndCardBackground: function() {
+                    const width = this.getAdWidth();
+                    const height = this.getAdHeight();
+                    if (width && height) {
+                        if (this.adsManager && typeof this.adsManager.resize === "function") {
+                            this.adsManager.resize(
+                                width,
+                                height,
+                                google.ima.ViewMode.NORMAL
+                            );
+                        }
+                        if (this.shouldShowFirstFrameAsEndcard()) {
+                            this.captureAdEndCardBackground(width, height);
+                            if (this._src) {
+                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
+                            }
+                        }
+                    }
+                },
+
+                generateEndCardImage: function(ad, width, height) {
                     if (this._video && this._canvas && this._mediaUrl) {
                         this.resizeCanvas(width, height);
                         return;

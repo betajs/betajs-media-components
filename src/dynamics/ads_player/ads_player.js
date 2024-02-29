@@ -118,9 +118,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("quartile", "fourth");
                     },
                     "ads:start": function(ev) {
-                        const ad = ev.getAd();
-                        this.set("ad", ad);
-                        this.setEndCardBackground();
                         this._onStart(ev);
                     },
                     "ads:skippableStateChanged": function(event) {
@@ -143,6 +140,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("contentComplete");
                     },
                     "ads:loaded": function(event) {
+                        const ad = event.getAd();
+                        this.set("ad", ad);
+                        this.setEndCardBackground();
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
                         this.set("addata", adData);
@@ -400,19 +400,27 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._video = document.createElement("video");
                     this._canvas = document.createElement("canvas");
                     this._mediaUrl = ad?.data?.mediaUrl;
-                    this._video.crossOrigin = "anonymous";
-                    this._video.src = this._mediaUrl;
-                    this._video.muted = true;
-                    this._video.play();
-                    setTimeout(function() {
-                        this._canvas.width = width;
-                        this._canvas.height = height;
-                        this._canvas
-                            .getContext("2d")
-                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                        this._src = this._canvas.toDataURL("image/png");
-                        this._video.pause();
-                    }.bind(this), 1000);
+
+                    fetch(this._mediaUrl)
+                        .then(response => response.blob())
+                        .then(blob => {
+                            this._video.src = URL.createObjectURL(blob);
+                            this._video.crossOrigin = "anonymous";
+                            this._video.muted = true;
+                            return this._video.play();
+                        })
+                        .then(_ => {
+                            setTimeout(function() {
+                                this._canvas.width = width;
+                                this._canvas.height = height;
+                                this._canvas
+                                    .getContext("2d")
+                                    .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                                this._src = this._canvas.toDataURL("image/png");
+                                this._video.pause();
+                            }.bind(this), 1000);
+                        })
+                        .catch(e => console.log(e))
                 },
 
                 resizeCanvas: function(newWidth, newHeight) {

@@ -27,6 +27,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                     "chosenoption": null
                 },
 
+                constructor: function (inherited) {
+                    console.log('module:VideoPlayer.Dynamics.Tracks constructor called', inherited);
+                },
+
                 create: function() {
                     Objs.iter(this.get("tracktags"), function(subtitle) {
                         if (subtitle.kind === "subtitles") {

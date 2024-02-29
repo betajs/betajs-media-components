@@ -968,7 +968,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__testAutoplayOptions();
                         // Safari is behaving differently on the Desktop and Mobile
                         // preload in desktop allow autoplay. In mobile, it's preventing autoplay
-                        if (Info.isSafari()) this.set("preload", !Info.isMobile());
+                        if (Info.isSafari() && this.get("preload")) this.set("preload", !Info.isMobile());
                         // In Safari Desktop can cause trouble on preload, if the user will
                     }
 

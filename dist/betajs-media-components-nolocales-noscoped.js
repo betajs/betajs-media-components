@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.446 - 2024-02-28
+betajs-media-components - v0.0.447 - 2024-02-29
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.446",
-    "datetime": 1709151718157
+    "version": "0.0.447",
+    "datetime": 1709219177894
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4909,7 +4909,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         containerStyles = floatingonly ? {
                             height: 0
                         } : Objs.extend({}, styles);
-                        if (!gallerysidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
                             if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         }
                         if (isFloating) {
@@ -5394,7 +5394,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     const imgElements = videoParentEle.querySelectorAll('img');
 
                     const vidEle = document.createElement('video');
-                    vidEle.src = this.get("source");;
+                    vidEle.src = this.get("source");
                     vidEle.setAttribute('crossorigin', 'anonymous')
                     vidEle.muted = true;
                     vidEle.play();

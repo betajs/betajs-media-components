@@ -1565,7 +1565,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (Info.isSafari()) {
                                 this._renderVideoFrame(this.__video, false);
                             }
-
+                          
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.trigger("paused");

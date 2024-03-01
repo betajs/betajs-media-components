@@ -1531,9 +1531,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("loaded", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
+                            // if (Info.isSafari()) {
+                            //     this._renderVideoFrame(this.__video);
+                            // }
 
                             this.set("videowidth", this.player.videoWidth());
                             this.set("videoheight", this.player.videoHeight());
@@ -1545,9 +1545,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
+                            // if (Info.isSafari()) {
+                            //     this._renderVideoFrame(this.__video);
+                            // }
 
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);

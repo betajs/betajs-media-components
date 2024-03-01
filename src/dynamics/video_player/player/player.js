@@ -628,6 +628,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__setPlayerEngagement();
                     },
                     "next:resetNextWidget": function() {
+                        if (Info.isSafari()) {
+                            this._renderVideoFrame(this.__video, true);
+                        }
                         this.set("stayengaged", false);
                         this.set("next_active", false);
                     }
@@ -1011,6 +1014,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }));
                     }
 
+                    if (Info.isSafari()) {
+                        this.vidEle = document.createElement('video');
+                        this.imgEle = document.createElement('img');
+                    }
+
                     this.set("ie8", Info.isInternetExplorer() && Info.internetExplorerVersion() < 9);
                     this.set("firefox", Info.isFirefox());
                     this.set("mobileview", Info.isMobile());
@@ -1286,45 +1294,58 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         ctx.clearRect(0, 0, canvas.width, canvas.height)
                         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                         cb(canvas, ctx);
-                    }.bind(this), 200);
+                    }.bind(this), 250);
                 },
-                _renderVideoFrame: function(video) {
+                removeImgElements: function(imgElements) {
+                    imgElements.forEach(img => {
+                        if (img.parentNode)
+                            img.parentNode.removeChild(img);
+                    })
+                },
+                addSourcToVideo: function(source, video) {
+                    const currentPosition = this.getCurrentPosition();
+                    this.vidEle.src = source;
+                    const videoParentEle = video.parentElement;
+                    this.imgEle.style.width = '100%';
+                    this.vidEle.setAttribute('crossorigin', 'anonymous')
+                    this.vidEle.muted = true;
+                    this.set('trackFrameTime', 0);
+
+                    this.vidEle.addEventListener("loadeddata", (event) => {
+                        this.vidEle.pause();
+                        this._drawFrame(this.vidEle, currentPosition, video.videoWidth, video.videoHeight, (canvas) => {
+                            this.removeImgElements(videoParentEle.querySelectorAll('img'));
+                            this.imgEle.src = `${canvas.toDataURL()}`;
+                            videoParentEle.appendChild(this.imgEle);
+
+                        })
+                    })
+                },
+                _renderVideoFrame: function(video, isEnded) {
                     const currentPosition = this.getCurrentPosition();
                     video.style.backgroundColor = 'transparent';
                     const videoParentEle = video.parentElement;
 
-                    img = document.createElement('img');
-                    img.style.width = '100%';
-                    const imgElements = videoParentEle.querySelectorAll('img');
-
-                    const vidEle = document.createElement('video');
-                    vidEle.src = this.get("source");
-                    vidEle.setAttribute('crossorigin', 'anonymous')
-                    vidEle.muted = true;
-                    vidEle.play();
-
-
-
-
                     try {
-                        vidEle.addEventListener("loadeddata", (event) => {
-                            this._drawFrame(vidEle, currentPosition, video.videoWidth, video.videoHeight, (canvas) => {
+                        this.vidEle.pause();
+                        this.imgEle.src = '';
+                        this._drawFrame(this.vidEle, currentPosition, video.videoWidth, video.videoHeight, (canvas) => {
+                            this.removeImgElements(videoParentEle.querySelectorAll('img'));
+                            this.imgEle.src = `${canvas.toDataURL()}`;
+                            videoParentEle.appendChild(this.imgEle);
 
-                                imgElements.forEach(img => {
-                                    if (img.parentNode)
-                                        img.parentNode.removeChild(img)
-                                })
 
-                                img.src = `${canvas.toDataURL()}`;
-                                videoParentEle.appendChild(img);
-
-                                if (this.get("trackFrameTime") > currentPosition) {
+                            if (this.get("trackFrameTime") > currentPosition || isEnded) {
+                                if(isEnded){
+                                    video.currentTime = 0;
+                                } else {
                                     video.currentTime = this.get("trackFrameTime");
                                 }
-                                this.set('trackFrameTime', currentPosition)
+                                
+                            }
+                            this.set('trackFrameTime', currentPosition);
 
-                            })
-                        });
+                        })
 
                     } catch (e) {}
                 },
@@ -1387,7 +1408,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__attachRequested = false;
                     this.set("videoelement_active", true);
                     var video = this.activeElement().querySelector("[data-video='video']");
-
+                    this.addSourcToVideo(this.get('source'), video);
                     this._clearError();
                     // Just in case, be sure that player's controllers will be hidden
                     video.controls = this.get("showbuiltincontroller");
@@ -1531,10 +1552,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("loaded", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
-
                             this.set("videowidth", this.player.videoWidth());
                             this.set("videoheight", this.player.videoHeight());
                             if (this.get("sample_brightness")) this.__brightnessSampler.fire();
@@ -1546,7 +1563,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
                             if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
+                                this._renderVideoFrame(this.__video, false);
                             }
 
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
@@ -1555,9 +1572,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("ended", function() {
-                            this.set('trackFrameTime', 0);
-
-
+                            if (Info.isSafari()) {
+                                this.set('trackFrameTime', 0);
+                                this._renderVideoFrame(this.__video, true);
+                            }
+                            
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
                             this.set('playedonce', true);

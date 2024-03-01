@@ -410,18 +410,17 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 this._video.src = URL.createObjectURL(blob);
                                 this._video.crossOrigin = "anonymous";
                                 this._video.muted = true;
-                                this._video.play();
-                                setTimeout(function() {
-                                    this._canvas.width = width;
-                                    this._canvas.height = height;
-                                    this._canvas
-                                        .getContext("2d")
-                                        .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                                    this._src = this._canvas.toDataURL("image/png");
-                                    this._video.pause();
-                                }.bind(this), 1000);
+                                return this._video.play()
                             })
-                            .catch(e => console.log(e))
+                            .then(() => {
+                                this._canvas.width = width;
+                                this._canvas.height = height;
+                                this._canvas
+                                    .getContext("2d")
+                                    .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                                this._src = this._canvas.toDataURL("image/png");
+                                this._video.pause();
+                            }).catch((e) => console.log(`Error: ${e}`));
                     }
                 },
 

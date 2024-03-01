@@ -142,7 +142,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:loaded": function(event) {
                         const ad = event.getAd();
                         this.set("ad", ad);
-                        this.setEndCardBackground();
+                        this.setEndCardBackground(this.getAdWidth(), this.getAdHeight());
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
                         this.set("addata", adData);
@@ -229,7 +229,19 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
-                            this.setEndCardBackground();
+                            const width = this.getAdWidth();
+                            const height = this.getAdHeight();
+                            if (width && height) {
+                                // This part will listen to the resize even after adsManger will be destroyed
+                                if (this.adsManager && typeof this.adsManager.resize === "function") {
+                                    this.adsManager.resize(
+                                        width,
+                                        height,
+                                        google.ima.ViewMode.NORMAL
+                                    );
+                                }
+                                this.setEndCardBackground(width, height);
+                            }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
                             this.set("volume", volume);
@@ -372,17 +384,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
-                setEndCardBackground: function() {
-                    const width = this.getAdWidth();
-                    const height = this.getAdHeight();
+                setEndCardBackground: function(width, height) {
                     if (width && height) {
-                        if (this.adsManager && typeof this.adsManager.resize === "function") {
-                            this.adsManager.resize(
-                                width,
-                                height,
-                                google.ima.ViewMode.NORMAL
-                            );
-                        }
                         if (this.shouldShowFirstFrameAsEndcard()) {
                             this.captureAdEndCardBackground(width, height);
                             if (this._src) {

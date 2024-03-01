@@ -354,7 +354,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
-
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;
@@ -403,27 +402,26 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._video = document.createElement("video");
                     this._canvas = document.createElement("canvas");
                     this._mediaUrl = ad?.data?.mediaUrl;
-
-                    fetch(this._mediaUrl)
-                        .then(response => response.blob())
-                        .then(blob => {
-                            this._video.src = URL.createObjectURL(blob);
-                            this._video.crossOrigin = "anonymous";
-                            this._video.muted = true;
-                            return this._video.play();
-                        })
-                        .then(_ => {
-                            setTimeout(function() {
-                                this._canvas.width = width;
-                                this._canvas.height = height;
-                                this._canvas
-                                    .getContext("2d")
-                                    .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                                this._src = this._canvas.toDataURL("image/png");
-                                this._video.pause();
-                            }.bind(this), 1000);
-                        })
-                        .catch(e => console.log(e))
+                    if (this._mediaUrl) {
+                        fetch(this._mediaUrl)
+                            .then(response => response.blob())
+                            .then(blob => {
+                                this._video.src = URL.createObjectURL(blob);
+                                this._video.crossOrigin = "anonymous";
+                                this._video.muted = true;
+                                this._video.play();
+                                setTimeout(function() {
+                                    this._canvas.width = width;
+                                    this._canvas.height = height;
+                                    this._canvas
+                                        .getContext("2d")
+                                        .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                                    this._src = this._canvas.toDataURL("image/png");
+                                    this._video.pause();
+                                }.bind(this), 1000);
+                            })
+                            .catch(e => console.log(e))
+                    }
                 },
 
                 resizeCanvas: function(newWidth, newHeight) {

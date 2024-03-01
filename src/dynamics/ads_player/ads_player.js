@@ -141,9 +141,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:loaded": function(event) {
                         const ad = event.getAd();
+                        this.set("ad", ad);
+                        this.setEndCardBackground();
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
-                        this.set("ad", ad);
                         this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
@@ -228,24 +229,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
-                            const width = this.getAdWidth();
-                            const height = this.getAdHeight();
-                            if (width && height) {
-                                // This part will listen to the resize even after adsManger will be destroyed
-                                if (this.adsManager && typeof this.adsManager.resize === "function") {
-                                    this.adsManager.resize(
-                                        width,
-                                        height,
-                                        google.ima.ViewMode.NORMAL
-                                    );
-                                }
-                                if (this.shouldShowFirstFrameAsEndcard()) {
-                                    this.setEndCardBackground(width, height);
-                                    if (this._src) {
-                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
-                                    }
-                                }
-                            }
+                            this.setEndCardBackground();
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
                             this.set("volume", volume);
@@ -381,14 +365,34 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     })
                 },
 
-                setEndCardBackground: function(width, height) {
+                captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
                     if (ad) {
-                        this.updateEndCardImage(ad, width, height);
+                        this.generateEndCardImage(ad, width, height);
                     }
                 },
 
-                updateEndCardImage: function(ad, width, height) {
+                setEndCardBackground: function() {
+                    const width = this.getAdWidth();
+                    const height = this.getAdHeight();
+                    if (width && height) {
+                        if (this.adsManager && typeof this.adsManager.resize === "function") {
+                            this.adsManager.resize(
+                                width,
+                                height,
+                                google.ima.ViewMode.NORMAL
+                            );
+                        }
+                        if (this.shouldShowFirstFrameAsEndcard()) {
+                            this.captureAdEndCardBackground(width, height);
+                            if (this._src) {
+                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
+                            }
+                        }
+                    }
+                },
+
+                generateEndCardImage: function(ad, width, height) {
                     if (this._video && this._canvas && this._mediaUrl) {
                         this.resizeCanvas(width, height);
                         return;
@@ -396,19 +400,26 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._video = document.createElement("video");
                     this._canvas = document.createElement("canvas");
                     this._mediaUrl = ad?.data?.mediaUrl;
-                    this._video.crossOrigin = "anonymous";
-                    this._video.src = this._mediaUrl;
-                    this._video.muted = true;
-                    this._video.play();
-                    setTimeout(function() {
-                        this._canvas.width = width;
-                        this._canvas.height = height;
-                        this._canvas
-                            .getContext("2d")
-                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                        this._src = this._canvas.toDataURL("image/png");
-                        this._video.pause();
-                    }.bind(this), 1000);
+                    if (this._mediaUrl) {
+                        fetch(this._mediaUrl)
+                            .then(response => response.blob())
+                            .then(blob => {
+                                this._video.src = URL.createObjectURL(blob);
+                                this._video.crossOrigin = "anonymous";
+                                this._video.muted = true;
+                                this._video.play();
+                                setTimeout(function() {
+                                    this._canvas.width = width;
+                                    this._canvas.height = height;
+                                    this._canvas
+                                        .getContext("2d")
+                                        .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
+                                    this._src = this._canvas.toDataURL("image/png");
+                                    this._video.pause();
+                                }.bind(this), 1000);
+                            })
+                            .catch(e => console.log(e))
+                    }
                 },
 
                 resizeCanvas: function(newWidth, newHeight) {

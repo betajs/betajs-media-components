@@ -118,6 +118,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("quartile", "fourth");
                     },
                     "ads:start": function(ev) {
+                        const ad = ev.getAd();
+                        this.set("ad", ad);
+                        this.setEndCardBackground();
                         this._onStart(ev);
                     },
                     "ads:skippableStateChanged": function(event) {

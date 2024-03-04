@@ -67,6 +67,32 @@ if (params.blk) {
     showBlocks = Number(params.blk);
 }
 
+if (params.cc && Number(params.cc) === 1) {
+    attrs.tracktags = [
+        {
+            "lang": "en",
+            "kind": "subtitles",
+            "label": "English",
+            "src": "/static/demos/assets/bunny-en.vtt"
+        },
+        {
+            "lang": "de",
+            "kind": "subtitles",
+            "label": "Deutsch",
+            "src": "/static/demos/assets/bunny-de.vtt"
+        },
+        {
+            "lang": "en",
+            "kind": "chapters",
+            "src": "/static/demos/assets/video-bgbb-chapters.vtt"
+        },
+        {
+            "kind": "thumbnails",
+            "src": "/static/demos/assets/video-bgbb.vtt"
+        }
+    ]
+}
+
 // ads positions
 if (params.adp) {
     attrs.adsposition = params.adp;

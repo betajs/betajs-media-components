@@ -361,13 +361,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");
                     const ad = adObj?.data?.mediaUrl;
-                    if (Info.isSafari() && ad) {
-                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
-                    }
+                    // if (Info.isSafari() && ad) {
+                    //     this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    // }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
-                   
+
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;

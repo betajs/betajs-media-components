@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.446 - 2024-02-28
+betajs-media-components - v0.0.448 - 2024-03-01
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.446",
-    "datetime": 1709151718157
+    "version": "0.0.448",
+    "datetime": 1709305798530
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2771,9 +2771,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");
                     const ad = adObj?.data?.mediaUrl;
-                    if (Info.isSafari() && ad) {
-                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
-                    }
+                    // if (Info.isSafari() && ad) {
+                    //     this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    // }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
@@ -4909,7 +4909,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         containerStyles = floatingonly ? {
                             height: 0
                         } : Objs.extend({}, styles);
-                        if (!gallerysidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
                             if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         }
                         if (isFloating) {
@@ -5394,7 +5394,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     const imgElements = videoParentEle.querySelectorAll('img');
 
                     const vidEle = document.createElement('video');
-                    vidEle.src = this.get("source");;
+                    vidEle.src = this.get("source");
                     vidEle.setAttribute('crossorigin', 'anonymous')
                     vidEle.muted = true;
                     vidEle.play();
@@ -5627,9 +5627,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("loaded", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
+                            // if (Info.isSafari()) {
+                            //     this._renderVideoFrame(this.__video);
+                            // }
 
                             this.set("videowidth", this.player.videoWidth());
                             this.set("videoheight", this.player.videoHeight());
@@ -5641,9 +5641,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
+                            // if (Info.isSafari()) {
+                            //     this._renderVideoFrame(this.__video);
+                            // }
 
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);

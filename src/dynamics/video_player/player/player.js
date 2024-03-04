@@ -813,7 +813,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         containerStyles = floatingonly ? {
                             height: 0
                         } : Objs.extend({}, styles);
-                        if (!gallerysidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
                             if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         }
                         if (isFloating) {
@@ -1298,7 +1298,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     const imgElements = videoParentEle.querySelectorAll('img');
 
                     const vidEle = document.createElement('video');
-                    vidEle.src = this.get("source");;
+                    vidEle.src = this.get("source");
                     vidEle.setAttribute('crossorigin', 'anonymous')
                     vidEle.muted = true;
                     vidEle.play();
@@ -1317,7 +1317,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                                 img.src = `${canvas.toDataURL()}`;
                                 videoParentEle.appendChild(img);
-                        
+
                                 if (this.get("trackFrameTime") > currentPosition) {
                                     video.currentTime = this.get("trackFrameTime");
                                 }
@@ -1531,9 +1531,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("loaded", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
+                            // if (Info.isSafari()) {
+                            //     this._renderVideoFrame(this.__video);
+                            // }
 
                             this.set("videowidth", this.player.videoWidth());
                             this.set("videoheight", this.player.videoHeight());
@@ -1545,9 +1545,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
+                            // if (Info.isSafari()) {
+                            //     this._renderVideoFrame(this.__video);
+                            // }
 
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);

@@ -16,16 +16,14 @@
     <div ba-if="{{showactionbuttons && isoutstream}}"
         class="{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all"
     >
-        <div ba-if="{{showlearnmorebutton && moredetailslink}}">
-            <a
-                href="{{ moredetailslink }}" target="_blank"
-                class="{{cssadsplayer}}-action-button"
+        <div ba-if="{{showlearnmorebutton}}">
+            <button class="{{cssadsplayer}}-action-button" ba-click="{{redirect_to_more_details()}}"
                 title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
                 data-testid="{{testid}}-ads-player-more-details-button"
             >
                 <i class="{{csscommon}}-icon-share"></i>
                 {{moredetailstext ? moredetailstext : string('learn-more')}}
-            </a>
+            </button>
         </div>
         <div ba-if="{{showrepeatbutton}}">
             <button class="{{cssadsplayer}}-action-button" ba-click="{{replay()}}"

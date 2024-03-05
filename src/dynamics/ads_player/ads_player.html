@@ -16,8 +16,8 @@
     <div ba-if="{{showactionbuttons && isoutstream}}"
         class="{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all"
     >
-        <div ba-if="{{showlearnmorebutton}}">
-            <button class="{{cssadsplayer}}-action-button" ba-click="{{redirect_to_more_details()}}"
+        <div ba-if="{{showlearnmorebutton && moredetailslink}}">
+            <button class="{{cssadsplayer}}-action-button" ba-click="{{redirect(moredetailslink)}}"
                 title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
                 data-testid="{{testid}}-ads-player-more-details-button"
             >

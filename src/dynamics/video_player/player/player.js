@@ -585,9 +585,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (thisPlaylist.length === 1 && thisPlaylist[0].title === this.get('title')) return;
                             const showNextTime = Number(this.get("shownext")) || 0;
                             const engageTime = showNextTime + (Number(this.get("noengagenext")) || 0);
-                            const duration = this.get("duration");
-                            const shouldActivateNext = duration - showNextTime >= (Number(this.get("noengagenext")) || 0);
-                            if (position > showNextTime && showNextTime && !this.get("next_active" && shouldActivateNext)) {
+                            const duration = this.get("duration")
+                            const shallActivateNext = (duration - showNextTime) >= (Number(this.get("noengagenext")) || 0)
+                            if (position > showNextTime && showNextTime && !this.get("next_active") && shallActivateNext) {
                                 this.set("next_active", true);
                             }
                             if (position > engageTime && engageTime > 0) {

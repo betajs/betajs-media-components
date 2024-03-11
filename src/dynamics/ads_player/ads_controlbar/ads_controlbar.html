@@ -4,6 +4,7 @@
 >
     <div ba-show="{{skippable}}" class="{{cssadsplayer}}-skipbutton-container"
          ba-click="{{skip_linear_ad()}}"
+         data-testid="{{testid}}-ads-controlbar-ads-skip-button"
     >
         <p class="{{cssadsplayer}}-skipbutton">
             {{lefttillskip > 0 ? string('can-skip-after').replace('%d', lefttillskip) : string('skip-ad') }}
@@ -12,6 +13,7 @@
 
     <div ba-if="{{showbanner && media}}" class="{{cssadsplayer}}-media-container"
          data-ads="banner-container"
+         data-testid="{{testid}}-ads-controlbar-banner-container"
     >
         <!-- While `custom nonLinear` not supporting, below gives error on each ad start -->
         <!-- <img ba-show="{{media}}" class="{{css}}-banner-ad" src="{{media}}" alt="{{title || 'ad banner image'}}" /> -->
@@ -25,12 +27,16 @@
     <div ba-if="{{customcontroller && !media}}" class="{{css}}-overlay {{cssadsplayer}}-ad-click-tracker
         {{clickthroughurl && controlbarisvisible ? csscommon + '-clickable' : ''}}"
          ba-click="{{ad_clicked()}}"
+         data-testid="{{testid}}-ads-clickable-container"
     ></div>
 
     <div ba-if="{{!hideoninactivity && linear}}"
-         class="{{cssadsplayer}}-controlbar{{passactivitydelta && linear ? '-hidden' : ''}} {{controlbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}">
+         class="{{cssadsplayer}}-controlbar{{passactivitydelta && linear ? '-hidden' : ''}} {{controlbarisvisible ? '' : (cssplayer + '-dashboard-hidden')}}"
+    >
         <div class="{{cssadsplayer}}-progressbar-inside-controller">
-            <div class="{{cssadsplayer}}-progressbar-played" ba-styles="{{{width: Math.round(duration ? currenttime / duration * 100 : 0) + '%'}}}"></div>
+            <div class="{{cssadsplayer}}-progressbar-played"
+                 ba-styles="{{{width: Math.round(duration ? currenttime / duration * 100 : 0) + '%'}}}"
+            ></div>
         </div>
         <div tabindex="1" ba-hotkey:space^enter="{{toggle_player()}}"
              onmouseout="this.blur()" class="{{css}}-leftbutton-container"
@@ -39,20 +45,22 @@
             <div ba-if="{{!playing}}" class="{{css}}-button-inner"
                  ba-on:touchend="{{resume()}}"
                  ba-click="{{resume()}}" title="{{string('play-ad')}}"
+                 data-testid="{{testid}}-ads-controlbar-play-button"
             >
                 <i class="{{csscommon}}-icon-play"></i>
             </div>
             <div ba-if="{{playing}}" class="{{css}}-button-inner" ba-click="{{pause()}}"
                  ba-on:touchend="{{pause()}}"
                  title="{{disablepause ? string('pause-video-disabled') : string('pause-video')}}"
+                 data-testid="{{testid}}-ads-controlbar-pause-button"
             >
                 <i class="{{csscommon}}-icon-pause"></i>
             </div>
         </div>
 
         <div class="{{cssadsplayer}}-time-container">
-            <div class="{{cssadsplayer}}-time-value"
-                 title="{{string('elapsed-time')}}"
+            <div class="{{cssadsplayer}}-time-value" title="{{string('elapsed-time')}}"
+                 data-testid="{{testid}}-ads-controlbar-timer"
             >
                 {{formatTime(remaining)}} / {{formatTime(duration)}}
             </div>
@@ -63,6 +71,7 @@
              ba-hotkey:space^enter="{{toggle_fullscreen()}}" onmouseout="this.blur()"
              ba-on:touchend="{{toggle_fullscreen()}}"
              class="{{css}}-rightbutton-container" ba-click="{{toggle_fullscreen()}}"
+             data-testid="{{testid}}-ads-controlbar-fullscreen-button"
         >
             <div class="{{css}}-button-inner">
                 <i class="{{csscommon}}-icon-resize-{{fullscreened ? 'small' : 'full'}}"></i>
@@ -72,11 +81,13 @@
         <div tabindex="3" class="{{cssadsplayer}}-volumebar"
              ba-hotkey:right="{{set_volume(volume + 0.1)}}" ba-hotkey:left="{{set_volume(volume - 0.1)}}"
              ba-hotkey:up="{{set_volume(1)}}" ba-hotkey:down="{{set_volume(0)}}"
+             data-testid="{{testid}}-ads-controlbar-volumebar"
         >
             <div data-selector="button-volume-bar"
                  class="{{cssadsplayer}}-volumebar-inner"
                  onmousedown="{{startUpdateVolume(domEvent, currElement)}}"
                  ontouchstart="{{startUpdateVolume(domEvent, currElement)}}"
+                 data-testid="{{testid}}-ads-controlbar-volume-progressbar"
             >
                 <div class="{{cssadsplayer}}-volumebar-position"
                      ba-styles="{{{width: Math.min(100, Math.round(volume * 100)) + '%'}}}"
@@ -93,6 +104,7 @@
              ba-hotkey:space^enter="{{toggle_volume()}}"
              ba-on:touchend="{{toggle_volume()}}"
              title="{{string(volume > 0 ? 'volume-mute' : 'volume-unmute')}}"
+             data-testid="{{testid}}-ads-controlbar-volume-{{volume > 0 ? 'mute' : 'unmute'}}"
         >
             <div class="{{cssadsplayer}}-button-inner">
                 <i class="{{csscommon + '-icon-volume-' + (volume >= 0.5 ? 'up' : (volume > 0 ? 'down' : 'off')) }}"></i>
@@ -101,7 +113,10 @@
     </div>
     <div ba-if="{{hideoninactivity && linear}}" class="{{cssadsplayer}}-progressbar-container">
         <div class="{{cssadsplayer}}-progressbar">
-            <div class="{{cssadsplayer}}-progressbar-played" ba-styles="{{{width: Math.round(duration ? currenttime / duration * 100 : 0) + '%'}}}"></div>
+            <div class="{{cssadsplayer}}-progressbar-played"
+                 ba-styles="{{{width: Math.round(duration ? currenttime / duration * 100 : 0) + '%'}}}"
+                 data-testid="{{testid}}-ads-controlbar-progressbar-played"
+            ></div>
         </div>
     </div>
 </div>

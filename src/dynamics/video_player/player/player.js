@@ -603,6 +603,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.set("muted", volume === 0);
                     },
+                    "change:muted": function (muted) {
+                        if (this.player) {
+                            this.player.setMuted(muted);
+                        } else if (this.__video) {
+                            this.__video.mute = muted;
+                        }
+                    },
                     "change:companionads": function(companionAds) {
                         if (this.__repeatOutstream && this.get("outstreamoptions.persistentcompanionad"))
                             return;
@@ -1083,7 +1090,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("view_type", "float");
                     }
                     // Only init stickyHandler if floantingonly is desabled
-                  if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
+                    if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
@@ -1535,7 +1542,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if (Info.isSafari()) {
                             //     this._renderVideoFrame(this.__video);
                             // }
-
                             this.set("videowidth", this.player.videoWidth());
                             this.set("videoheight", this.player.videoHeight());
                             if (this.get("sample_brightness")) this.__brightnessSampler.fire();
@@ -3128,13 +3134,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __unmuteOnClick: function() {
                     clearTimeout(this.get('clearDebounce'));
                     const clearDebounce = setTimeout(function() {
-
-                        if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
+                        if (!this.get("muted") && this.get("volume") > 0) {
+                            return this.set("unmuteonclick", false);
+                        }
                         this.auto_destroy(new Timers.Timer({
                             delay: 500,
                             fire: function() {
-                                if (this.get("muted")) this.set("muted", false);
-                                if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
+                                if (this.get("muted")) {
+                                    this.set("muted", false);
+                                    // Fix on Safari not unmute on click
+                                    if (this.get("volume") > 0) {
+                                        this.set_volume(this.get("volume"));
+                                    }
+                                }
+                                if (this.get("volume") === 0) {
+                                    this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
+                                }
                                 if (!this.get("manuallypaused")) this.setPlayerEngagement();
                                 this.set("unmuteonclick", false);
                             }.bind(this),
@@ -3149,7 +3164,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
-
                 }
             };
         }], {

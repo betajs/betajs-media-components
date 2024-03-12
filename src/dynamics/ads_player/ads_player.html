@@ -17,15 +17,13 @@
         class="{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all"
     >
         <div ba-if="{{showlearnmorebutton && moredetailslink}}">
-            <a
-                href="{{ moredetailslink }}" target="_blank"
-                class="{{cssadsplayer}}-action-button"
+            <button class="{{cssadsplayer}}-action-button" ba-click="{{redirect(moredetailslink)}}"
                 title="{{moredetailstext ? moredetailstext : string('learn-more')}}"
                 data-testid="{{testid}}-ads-player-more-details-button"
             >
                 <i class="{{csscommon}}-icon-share"></i>
                 {{moredetailstext ? moredetailstext : string('learn-more')}}
-            </a>
+            </button>
         </div>
         <div ba-if="{{showrepeatbutton}}">
             <button class="{{cssadsplayer}}-action-button" ba-click="{{replay()}}"

@@ -320,6 +320,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onPlayerEngaged();
                         this._replay();
                     },
+                    redirect: function(moredetailslink) {
+                        if (moredetailslink) {
+                            window.open(moredetailslink, '_blank');
+                        }
+                    },
                     close: function() {
                         return this._hideContentPlayer();
                     },

@@ -12,6 +12,7 @@
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
      ba-styles="{{containerSizingStyles}}"
+     data-testid="{{testid}}-player-container"
 >
     <meta itemprop="name" content="{{title || 'Video Player'}}" />
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
@@ -61,6 +62,7 @@
             ba-css="{{css}}"
             ba-cssplayer="{{cssplayer}}"
             ba-csscommon="{{csscommon}}"
+            ba-testid="{{testid}}"
             ba-duration="{{=adduration}}"
             ba-volume="{{=volume}}"
             ba-muted="{{muted}}"
@@ -103,6 +105,7 @@
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
              ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" style="{{placeholderstyle}}"
+             data-testid="{{testid}}-content-player-container"
         >
             <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"
                  ba-hotkey:right="{{seek(position + skipseconds)}}" ba-hotkey:left="{{seek(position - skipseconds)}}"
@@ -128,6 +131,7 @@
                 ba-css="{{csscontrolbar || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
                 ba-csstheme="{{csstheme || css}}"
+                ba-testid="{{testid}}"
                 ba-logo="{{controlbar_logo}}"
                 ba-themecolor="{{themecolor}}"
                 ba-template="{{tmplcontrolbar}}"
@@ -143,19 +147,6 @@
                 ba-chromecast="{{chromecast}}"
                 ba-castbuttonvisble="{{castbuttonvisble}}"
                 ba-sidebar_active="{{sidebar_active}}"
-                ba-event:rerecord="rerecord"
-                ba-event:submit="submit"
-                ba-event:play="play"
-                ba-event:pause="pause"
-                ba-event:position="seek"
-                ba-event:volume="set_volume"
-                ba-event:set_speed="set_speed"
-                ba-event:settings_menu="toggle_settings_menu"
-                ba-event:fullscreen="toggle_fullscreen"
-                ba-event:toggle_player="toggle_player"
-                ba-event:tab_index_move="tab_index_move"
-                ba-event:seek="seek"
-                ba-event:toggle_tracks="toggle_tracks"
                 ba-tabindex="{{tabindex}}"
                 ba-showchaptertext="{{showchaptertext}}"
                 ba-chapterslist="{{chapterslist}}"
@@ -198,6 +189,20 @@
                 ba-is_floating="{{is_floating}}"
                 ba-isseeking="{{=isseeking}}"
                 ba-with_sidebar="{{with_sidebar}}"
+                ba-event:rerecord="rerecord"
+                ba-event:submit="submit"
+                ba-event:play="play"
+                ba-event:pause="pause"
+                ba-event:position="seek"
+                ba-event:volume="set_volume"
+                ba-event:set_speed="set_speed"
+                ba-event:settings_menu="toggle_settings_menu"
+                ba-event:fullscreen="toggle_fullscreen"
+                ba-event:toggle_player="toggle_player"
+                ba-event:tab_index_move="tab_index_move"
+                ba-event:seek="seek"
+                ba-event:toggle_tracks="toggle_tracks"
+                ba-event:toggle_volume="toggle_volume"
             ></ba-{{dyncontrolbar}}>
 
             <ba-{{dyntracks}}
@@ -325,9 +330,9 @@
             ba-nextactive="{{next_active}}"
             ba-noengagenext="{{noengagenext}}"
             ba-mobileviewport="{{mobileviewport}}"
-            ba-event:pause_ads="pause_ads"
             ba-showadchoices="{{showadchoices}}"
             ba-unknownadsrc="{{unknownadsrc}}"
+            ba-event:pause_ads="pause_ads"
         ></ba-{{dynsidebar}}>
     </div>
     <div ba-if="{{!fullscreened && is_floating && floatingoptions.closeable}}"

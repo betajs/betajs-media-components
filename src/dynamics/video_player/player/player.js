@@ -92,6 +92,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "csstopmessage": "",
                         "csscontrolbar": "",
                         "csstracks": "",
+                        "testid": "ba-testid",
                         "width": "",
                         "height": "",
                         "presetkey": null,
@@ -643,12 +644,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "next:setStay": function() {
                         this.set("stayengaged", true);
                         this.set("next_active", false);
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                     },
                     "next:playNext": function() {
                         this.trigger("play_next");
                         this.set("next_active", false);
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                     },
                     "next:resetNextWidget": function() {
                         this.set("stayengaged", false);
@@ -679,12 +680,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // we can activate only once, after we should hide sidebar
                         return !showSidebar;
                     },
-                    "show_sidebar:hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
-                        hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
+                    "show_sidebar:outstream,hide_sidebar,is_floating,with_sidebar,fullscreened,mobileviewport": function(
+                        outstream, hideSidebar, isFloating, withSidebar, fullscreened, mobileViewport
                     ) {
                         if (fullscreened) return false;
                         this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
-                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport));
+                        this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport) && !outstream);
                         if (this.get("gallerysidebar")) {
                             if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);
@@ -816,7 +817,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
+                    "containerSizingStyles:outstream,aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
+                        outstream,
                         aspectRatio,
                         height,
                         width,
@@ -826,7 +828,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         fullscreened,
                         showsidebargallery,
                         gallerySidebar,
-                        layout
+                        layout,
                     ) {
                         let containerStyles, styles;
                         styles = {
@@ -835,9 +837,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
-                        containerStyles = floatingonly ? {} : Objs.extend({}, styles);
-                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened)
-                            containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        containerStyles = floatingonly ? {
+                            height: 0
+                        } : Objs.extend({}, styles);
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
+                            if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        }
                         if (isFloating) {
                             const calculated = this.__calculateFloatingDimensions();
 
@@ -1101,11 +1106,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
 
-                    if (!this.get("sticky") && this.get("floatingoptions.floatingonly")) {
+                    if (this.get("floatingoptions.floatingonly")) {
                         this.set("view_type", "float");
-                    } else {
-                        // If sticky is enabled, disable only floating
-                        this.set("floatingoptions.floatingonly", false);
+                    }
+                    // Only init stickyHandler if floantingonly is desabled
+                  if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
@@ -1379,7 +1384,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     const imgElements = videoParentEle.querySelectorAll('img');
 
                     const vidEle = document.createElement('video');
-                    vidEle.src = this.get("source");;
+                    vidEle.src = this.get("source");
                     vidEle.setAttribute('crossorigin', 'anonymous')
                     vidEle.muted = true;
                     vidEle.play();
@@ -1599,9 +1604,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         }, this);
                         this.player.on("loaded", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
+                            // if (Info.isSafari()) {
+                            //     this._renderVideoFrame(this.__video);
+                            // }
 
                             this.set("videowidth", this.player.videoWidth());
                             this.set("videoheight", this.player.videoHeight());
@@ -1613,9 +1618,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.error())
                             this.player.trigger("error", this.player.error());
                         this.player.on("paused", function() {
-                            if (Info.isSafari()) {
-                                this._renderVideoFrame(this.__video);
-                            }
+                            // if (Info.isSafari()) {
+                            //     this._renderVideoFrame(this.__video);
+                            // }
 
                             if (this.get("sample_brightness")) this.__brightnessSampler.stop();
                             this.set("playing", false);
@@ -1950,6 +1955,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                     if (exists) this.get("tooltips").remove(exists);
                 },
+
                 hideControl: function() {
                     this.auto_destroy(new Timers.Timer({
                         delay: 4000,
@@ -1960,6 +1966,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         once: true
                     }));
                 },
+
                 showControll: function() {
                     if (this.get("playing") && !this.get('showcontroll') && this.get('trackUnmute') && this.get('isAndroid')) {
                         this.set('showcontroll', true);
@@ -1985,17 +1992,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     message_click: function() {
                         this.trigger("message:click");
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                     },
 
                     playbutton_click: function() {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         this.trigger("playbuttonclick");
                         this.host.state().play();
                     },
 
                     play: function() {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         this.trigger("playrequested");
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("play");
@@ -2070,7 +2077,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     seek: function(position) {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("seek", position);
@@ -2102,7 +2109,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_speed: function(speed, from_ui) {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         if (!this.player) return false;
                         this.player.setSpeed(speed);
                         if (!from_ui) this.updateSettingsMenuItem("playerspeeds", {
@@ -2112,13 +2119,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     set_volume: function(volume) {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("set_volume", volume);
                             return;
                         }
                         this.set("volume", Maths.clamp(volume, 0, 1));
+                    },
+
+                    toggle_volume: function() {
+                        this.setPlayerEngagement();
                     },
 
                     toggle_settings_menu: function() {
@@ -2130,7 +2141,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     toggle_fullscreen: function() {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         if (this.get("preventinteractionstatus")) return;
                         if (this._delegatedPlayer) {
                             this._delegatedPlayer.execute("toggle_fullscreen");
@@ -2184,10 +2195,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this._delegatedPlayer.execute("toggle_player");
                                 return;
                             }
-                            if (fo && this.get("unmuteonclick")) {
-                                this.set('showcontroll', this.get('isAndroid'));
-                                this.set('trackUnmute', false);
-                                return;
+                            if (fo) {
+                                this.setPlayerEngagement();
+                                if (this.get("unmuteonclick")) {
+                                    this.set('showcontroll', this.get('isAndroid'));
+                                    this.set('trackUnmute', false);
+                                    return;
+                                }
                             }
 
                             if (this.showControll()) return;
@@ -2199,7 +2213,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.pause();
                             } else if (!this.get("playing") && this.get("playonclick")) {
                                 this.trigger("play_requested");
-                                this.__setPlayerEngagement();
+                                this.setPlayerEngagement();
                                 this.play();
                             }
                         }.bind(this), 100, true);
@@ -2297,7 +2311,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     resume_ads: function() {
-                        this.__setPlayerEngagement();
+                        this.setPlayerEngagement();
                         this.channel("ads").trigger("resume");
                     },
 
@@ -3153,7 +3167,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.auto_destroy(
                             this.activeElement().addEventListener(
                                 eventName, f, {
-                                    once: true
+                                    // we could require listen several additional actions from the user,
+                                    // to be able to detect user engagement
+                                    once: false
                                 }
                             ));
                     }, this);
@@ -3172,17 +3188,26 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
-                __setPlayerEngagement: function() {
+                // Detect if user engaged with the player.
+                // It happens in some actions made by user, pause is not that action
+                setPlayerEngagement: function() {
                     if (this.get("userengagedwithplayer")) return;
-                    // User will be engaged with player if volume is not 0
-                    if (!this.get("muted")) {
-                        this.set("userengagedwithplayer", true);
-                        this.trigger("playerengaged");
-                    }
+                    this.set("userengagedwithplayer", true);
+                    this.trigger("playerengaged");
                 },
 
+                // If user has any player interaction
                 __setPlayerHadInteraction: function() {
-                    if (this.get("unmuteonclick")) this.__unmuteOnClick();
+                    if (this.get("unmuteonclick")) {
+                        if (!this.get("userengagedwithplayer")) {
+                            this.once("playerengaged", function() {
+                                this.__unmuteOnClick();
+                                this.__removePlayerInteractionEvents();
+                            }, this);
+                        }
+                        // this return required, not to allow to delete events and set unmute
+                        return;
+                    }
                     this.__removePlayerInteractionEvents();
                     if (this.get("userhadplayerinteraction")) return;
                     this.set("userhadplayerinteraction", true);
@@ -3199,7 +3224,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             fire: function() {
                                 if (this.get("muted")) this.set("muted", false);
                                 if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
-                                if (!this.get("manuallypaused")) this.__setPlayerEngagement();
+                                if (!this.get("manuallypaused")) this.setPlayerEngagement();
                                 this.set("unmuteonclick", false);
                             }.bind(this),
                             once: true

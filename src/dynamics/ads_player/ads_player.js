@@ -268,7 +268,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // this.call("requestAds");
                     },
                     ad_clicked: function() {
-                        this._onPlayerEngaged();
                         if (!this.get("userhadplayerinteraction")) {
                             this.parent().set("userhadplayerinteraction", true);
                         }
@@ -299,7 +298,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.pause();
                     },
                     resume: function() {
-                        this._onPlayerEngaged();
                         return this.adsManager.resume();
                     },
                     set_volume: function(volume) {
@@ -310,14 +308,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this.adsManager.stop();
                     },
                     fullscreen: function() {
-                        this._onPlayerEngaged();
                         this.trigger('fullscreen');
                     },
                     toggle_volume: function() {
                         this._onPlayerEngaged();
                     },
                     replay: function() {
-                        this._onPlayerEngaged();
                         this._replay();
                     },
                     redirect: function(moredetailslink) {

@@ -287,3 +287,7 @@ button.#{$cssadsplayer}-action-button.#{$cssadsplayer}-reversed-color:hover {
         text-decoration: none;
     }
 }
+
+.#{$cssadsplayer}-actions-button-container {
+    z-index: 2;
+}

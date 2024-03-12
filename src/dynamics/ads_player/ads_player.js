@@ -58,6 +58,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                         }
+                    },
+                    "change:endcardbackgroundsrc": function(endcardbackgroundsrc) {
+                        if (endcardbackgroundsrc) {
+                            this.getAdContainer().style.backgroundImage = `url("${endcardbackgroundsrc}")`;
+                        }
                     }
                 },
 
@@ -385,17 +390,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 setEndCardBackground: function(width, height) {
-                    if (width && height) {
-                        if (this.shouldShowFirstFrameAsEndcard()) {
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        if (width && height) {
                             this.captureAdEndCardBackground(width, height);
-                            if (this._src) {
-                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
-                            }
                         }
                     }
                 },
 
                 generateEndCardImage: function(ad, width, height) {
+                    // if we already captured the endcard once already
                     if (this._video && this._canvas && this._mediaUrl) {
                         this.resizeCanvas(width, height);
                         return;
@@ -413,13 +416,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 return this._video.play()
                             })
                             .then(() => {
-                                this._canvas.width = width;
-                                this._canvas.height = height;
-                                this._canvas
-                                    .getContext("2d")
-                                    .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                                this._src = this._canvas.toDataURL("image/png");
-                                this._video.pause();
+                                // add a small delay to handle cases where the beginning of video is a black screen
+                                // 800ms delay + drawFrame has a timeout of 200ms = 1s into video
+                                this.parent()._drawFrame(this._video, 0.8, width, height, (canvas, _ctx) => {
+                                    this._canvas = canvas;
+                                    this.set("endcardbackgroundsrc", this._canvas.toDataURL("image/png"));
+                                    this._video.pause();
+                                });
                             }).catch((e) => console.log(`Error: ${e}`));
                     }
                 },
@@ -430,7 +433,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._canvas
                         .getContext("2d")
                         .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                    this._src = this._canvas.toDataURL("image/png");
+                    this.set("endcardbackgroundsrc", this._canvas.toDataURL("image/png"))
                 },
 
 
@@ -538,9 +541,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
-                            }
-                            if (this.shouldShowFirstFrameAsEndcard() && this._src) {
-                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
                             }
                             if (moreDetailsLink) {
                                 this.set("moredetailslink", moreDetailsLink);

@@ -218,7 +218,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "midrollminintervalbeforeend": 5,
-                        "mindurationnext": 0,
+                        "mindurationnext": 0,  // when set to 0, mindurationnext is equal to noengagenext. Can be disabled by setting it to -1
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized

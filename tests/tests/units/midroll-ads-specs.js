@@ -20,7 +20,7 @@ QUnit.test("test midroll ads positions count", assert => {
 	const playerDuration = 60;
 	player.initMidRollAds();
 	player.set("duration", playerDuration);
-	assert.equal(player.get("midrollads").length, Math.floor(playerDuration / interVal), "midroll ads count should be greater than or equal to the midroll ads positions count");
+	assert.equal(player.get("midrollads").length, Math.floor(playerDuration / interVal), "midroll ads count should be equal to the midroll ads positions count");
 	assert.equal(player.get("midrollads")[0]?.position, interVal, "first midroll ad should be at the first midroll position");
 
 	// Will check only mid

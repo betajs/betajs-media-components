@@ -1083,7 +1083,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("view_type", "float");
                     }
                     // Only init stickyHandler if floantingonly is desabled
-                  if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
+                    if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
@@ -1128,61 +1128,59 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__adMinIntervals = this.get("minadintervals");
                         this.__adsControlPosition = 0;
                         // This will be called in the next video cases
-                        if (schedules.length > 0) {
-                            Objs.iter(schedules, function(schedule, index) {
-                                schedule = schedule.toLowerCase();
-                                // if user set schedule with time settings
-                                if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
-                                    var _s = schedule.replace('mid[', '').replace(']', '');
-                                    Objs.map(_s.split(','), function(item) {
-                                        item = item.trim();
-                                        if (/^[\d\s]+\*$/.test(item)) {
-                                            item = +item.replace("\*", '');
-                                            this.once("change:duration", function(duration) {
-                                                if (duration > 0) {
-                                                    var step = Math.floor(duration / item);
-                                                    if (duration > item) {
-                                                        for (var i = 1; i <= step; i++) {
-                                                            this.get("midrollads").push({
-                                                                position: i * item
-                                                            });
-                                                        }
+                        Objs.iter(schedules, function(schedule, index) {
+                            schedule = schedule.toLowerCase();
+                            // if user set schedule with time settings
+                            if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
+                                const _s = schedule.replace('mid[', '').replace(']', '');
+                                Objs.map(_s.split(','), function(item) {
+                                    item = item.trim();
+                                    if (/^[\d\s]+\*$/.test(item)) {
+                                        item = +item.replace("\*", '');
+                                        this.on("change:duration", function(duration) {
+                                            if (duration > 0 && this.get("midrollads").length === 0) {
+                                                var step = Math.floor(duration / item);
+                                                if (duration > item) {
+                                                    for (var i = 1; i <= step; i++) {
+                                                        this.get("midrollads").push({
+                                                            position: i * item
+                                                        });
                                                     }
                                                 }
-                                            }, this);
-                                        } else {
-                                            if (/^[\d\s]+\%$/.test(item)) {
-                                                item = parseInt(item.replace('%', '').trim(), 10);
-                                                if (item < 100 && item > 0) {
-                                                    this.get("midrollads").push({
-                                                        position: parseFloat((item / 100).toFixed(2))
-                                                    });
-                                                }
-                                            } else {
-                                                // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                            }
+                                        }, this);
+                                    } else {
+                                        if (/^[\d\s]+\%$/.test(item)) {
+                                            item = parseInt(item.replace('%', '').trim(), 10);
+                                            if (item < 100 && item > 0) {
                                                 this.get("midrollads").push({
-                                                    position: parseFloat(item)
+                                                    position: parseFloat((item / 100).toFixed(2))
                                                 });
                                             }
+                                        } else {
+                                            // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                            this.get("midrollads").push({
+                                                position: parseFloat(item)
+                                            });
                                         }
-                                    }, this);
-                                } else {
-                                    if (/^mid\[.*?\]$/.test(schedule))
-                                        console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
-                                    if (/^mid$/.test(schedule)) {
-                                        this.get("midrollads").push({
-                                            position: 0.5
-                                        });
                                     }
+                                }, this);
+                            } else {
+                                if (/^mid\[.*?\]$/.test(schedule))
+                                    console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
+                                if (/^mid$/.test(schedule)) {
+                                    this.get("midrollads").push({
+                                        position: 0.5
+                                    });
                                 }
+                            }
 
-                                // After iteration completing. If adsCollections existed should be destroyed
-                                if (((index + 1) === schedules.length) && !!this._adsRollPositionsCollection) {
-                                    this._adsRollPositionsCollection.destroy();
-                                    this._adsRollPositionsCollection = null;
-                                }
-                            }, this);
-                        }
+                            // After iteration completing. If adsCollections existed should be destroyed
+                            if (((index + 1) === schedules.length) && !!this._adsRollPositionsCollection) {
+                                this._adsRollPositionsCollection.destroy();
+                                this._adsRollPositionsCollection = null;
+                            }
+                        }, this);
                     }
                 },
 

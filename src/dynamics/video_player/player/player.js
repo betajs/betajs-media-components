@@ -603,7 +603,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.set("muted", volume === 0);
                     },
-                    "change:muted": function (muted) {
+                    "change:muted": function(muted) {
                         if (this.player) {
                             this.player.setMuted(muted);
                         } else if (this.__video) {

@@ -36,7 +36,7 @@ test.describe('Unmute on click behave', () => {
         video: 'on-first-retry',
     });
 
-    test(`Unmute only on engagement inside ads`, async ({
+    test(`ADS: Unmute only on unmute button clicked`, async ({
         page, browserName, browser, context
     }) => {
         const runTest = async (page, browser, context) => {
@@ -114,19 +114,18 @@ test.describe('Unmute on click behave', () => {
                     await expect(adsPlayButton).toBeVisible();
                     await adsPlayButton.click();
 
-                    await expect(adsMuteIcon).toBeVisible();
+                    // On ads play, player should NOT be unmuted
+                    await expect(adsUnMuteButton).toBeVisible();
                     isMuted = await player.getPlayerAttribute("muted");
-                    await expect(isMuted).toBeFalsy();
+                    await expect(isMuted).toBeTruthy();
 
+                    // Only if unmute button is clicked, ads should be unmuted
                     await playerContainer.hover({timeout: 1_000});
-
-                    await reloadPage(player, adsUnMuteButton, dataTestId);
-                    // Now click on the unmute player
                     await adsUnMuteButton.click();
-                    // Unmute will take some time to reflect
                     await expect(adsMuteIcon).toBeVisible();
                     isMuted = await player.getPlayerAttribute("muted");
                     await expect(isMuted).toBeFalsy();
+
                 } else {
                     await expect(contentPlayerContainer).toBeVisible();
                     await contentPlayerContainer.hover({timeout: 10_000});

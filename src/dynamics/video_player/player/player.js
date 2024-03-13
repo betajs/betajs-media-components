@@ -218,7 +218,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "midrollminintervalbeforeend": 5,
-                        "nextwidgetminintervalbeforeend": 0,
+                        "mindurationnext": 0,
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -586,16 +586,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (thisPlaylist.length === 1 && thisPlaylist[0].title === this.get('title')) return;
                             const showNextTime = Number(this.get("shownext")) || 0;
                             const engageTime = showNextTime + (Number(this.get("noengagenext")) || 0);
-                            const duration = this.get("duration");
-                            const remainingTime = (duration - position);
-                            const minIntervalNextWidget = this.get("nextwidgetminintervalbeforeend");
-                            const shallActivateNext = minIntervalNextWidget < 0 ? true :
-                                (duration - showNextTime) >= (Number(this.get("noengagenext")) || 0);
+                            const remainingTime = this.get("duration") - position;
+                            let minDurationNext = this.get("mindurationnext");
+                            if (!minDurationNext) minDurationNext = Number(this.get("noengagenext")) || 0;
 
-                            if (showNextTime && position > showNextTime && !this.get("next_active")) {
-                                if (minIntervalNextWidget > 0 && remainingTime >= minIntervalNextWidget || shallActivateNext) {
-                                    this.set("next_active", true);
-                                }
+                            if (remainingTime >= minDurationNext && showNextTime && position > showNextTime && !this.get("next_active")) {
+                                this.set("next_active", true);
                             }
                             if (position > engageTime && engageTime > 0) {
                                 this.channel("next").trigger("autoPlayNext");

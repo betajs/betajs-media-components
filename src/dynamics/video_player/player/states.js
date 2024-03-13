@@ -554,7 +554,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             // if player is not hidden below method will do nothing
             this.dyn.showHiddenPlayerContainer();
 
-            if (this.dyn.get("sticky") && this.dyn.stickyHandler) this.dyn.stickyHandler.start();
+            if (this.dyn.get("floating") && this.dyn.floatHandler) this.dyn.floatHandler.start();
 
             this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
 
@@ -861,8 +861,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PrerollAd", [
     }, function(inherited) {
         return {
             _started: function() {
-                if (this.dyn.get("sticky") && this.dyn.stickyHandler)
-                    this.dyn.stickyHandler.start();
+                if (this.dyn.get("floating") && this.dyn.floatHandler)
+                    this.dyn.floatHandler.start();
                 inherited._started.call(this);
             }
         };

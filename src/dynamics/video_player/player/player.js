@@ -2,7 +2,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Dynamic",
     "module:Assets",
     "module:DatasetProperties",
-    "module:StickyHandler",
+    "module:FloatHandler",
     "module:StylesMixin",
     "module:TrackTags",
     "browser:Info",
@@ -65,7 +65,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "module:VideoPlayer.Dynamics.PlayerStates.ErrorVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.PlayVideo",
     "module:VideoPlayer.Dynamics.PlayerStates.NextVideo"
-], function(Class, Assets, DatasetProperties, StickyHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, Functions, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
+], function(Class, Assets, DatasetProperties, FloatHandler, StylesMixin, TrackTags, Info, Dom, VideoPlayerWrapper, Broadcasting, PlayerSupport, Types, Objs, Strings, Collection, Maths, Time, Timers, Promise, TimeFormat, Host, ClassRegistry, Async, Functions, InitialState, PlayerStates, AdProvider, DomEvents, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -278,11 +278,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "broadcasting": false,
                         "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                         "skipseconds": 5,
-                        "sticky": false,
-                        "sticky-starts-paused": true,
-                        "sticky-threshold": undefined,
                         // sticky options
+                        "floating": false,
                         "floatingoptions": {
+                            "starts-paused": true,
+                            "threshold": undefined,
                             "sidebar": true, // show sidebar
                             "floatingonly": false, // hide and show on video player based on view port
                             "closeable": true, // show close button
@@ -468,8 +468,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "chromecast": "boolean",
                     "chromecastreceiverappid": "string",
                     "skipseconds": "integer",
-                    "sticky": "boolean",
-                    "sticky-starts-paused": "boolean",
+                    "floating": "boolean",
                     "streams": "jsonarray",
                     "sources": "jsonarray",
                     "tracktags": "jsonarray",
@@ -507,7 +506,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "slim": "boolean",
                     "prominent-title": "boolean",
                     "closeable-title": "boolean",
-                    "sticky-threshold": "float",
                     "floatingoptions": "jsonarray",
                     "presetedtooltips": "object",
                     "presetkey": "string",
@@ -865,7 +863,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.get("cssplayer") + "-floating",
                             this.get("csscommon") + "-sticky",
                             this.get("csscommon") + "-sticky-" + position || "bottom-right",
-                            this.StickyHandler && this.StickyHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
+                            this.FloatHandler && this.FloatHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
@@ -1082,11 +1080,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("floatingoptions.floatingonly")) {
                         this.set("view_type", "float");
                     }
-                    // Only init stickyHandler if floantingonly is desabled
-                  if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
+                    // Only init floatHandler if floantingonly is desabled
+                    if (this.get("floating") && !this.get("floatingoptions.floatingonly")) {
                         var stickyOptions = {
-                            threshold: this.get("sticky-threshold"),
-                            paused: this.get("sticky-starts-paused") || !this.get("sticky"),
+                            threshold: this.get("floatingoptions.threshold"),
+                            paused: this.get("floatingoptions.starts-paused") || !this.get("floating"),
                             "static": this.get("floatingoptions.static"),
                             floatCondition: function(elementRect) {
                                 if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
@@ -1096,23 +1094,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 return true;
                             }.bind(this),
                         };
-                        this.stickyHandler = this.auto_destroy(new StickyHandler(
+                        this.floatHandler = this.auto_destroy(new FloatHandler(
                             this.activeElement().firstChild,
                             this.activeElement(),
                             stickyOptions
                         ));
 
-                        this.stickyHandler.on("transitionToFloat", function() {
+                        this.floatHandler.on("transitionToFloat", function() {
                             this.set("view_type", "float");
                         }, this);
-                        this.stickyHandler.on("transitionToView", function() {
+                        this.floatHandler.on("transitionToView", function() {
                             this.set("view_type", "default");
                         }, this);
-                        this.stickyHandler.on("transitionOutOfView", function() {
+                        this.floatHandler.on("transitionOutOfView", function() {
                             this.set("view_type", "out_of_view");
                         }, this);
-                        this.delegateEvents(null, this.stickyHandler);
-                        this.stickyHandler.init();
+                        this.delegateEvents(null, this.floatHandler);
+                        this.floatHandler.init();
                     }
                 },
 
@@ -1350,23 +1348,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
                         console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
                     }
-                    if (this.get("sticky") && !(mobilePositions.includes(this.get("floatingoptions").mobile))) {
+                    if (this.get("floating") && !(mobilePositions.includes(this.get("floatingoptions").mobile))) {
                         console.warn("Please choose one of the following values instead:", mobilePositions);
                     }
 
-                    var deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth", {
-                        "sticky-position": "floatingoptions.desktop.position"
-                    }];
+                    var deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];
                     deprecatedCSS.forEach(function(parameter) {
                         if (Types.is_string(parameter)) {
                             if (this.get(parameter))
                                 console.warn(parameter + " parameter was deprecated, please use CSS instead.");
-                        } else {
-                            var key = Object.keys(parameter)[0];
-                            if (this.get(key)) {
-                                console.warn(key + " parameter was deprecated, please use " + parameter[key] + " instead.");
-                            }
                         }
+                    }.bind(this));
+
+                    var deprecatedParams = {
+                        "sticky": "floating",
+                        "sticky-position": "floatingoptions.desktop.position",
+                        "sticky-start-pause": "floatingoptions.start-pause",
+                        "sticky-threshold": "floatingoptions.threshold",
+                    };
+                    Object.keys(deprecatedParams).forEach(function(key) {
+                        if (this.get(key))
+                            console.warn(key + " parameter was deprecated, please use " + deprecatedParams[key] + " instead.");
                     }.bind(this));
                 },
 
@@ -1526,7 +1528,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                         this.player.on("playing", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
-                            if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
+                            if (this.get("floating") && this.floatHandler) this.floatHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
 
@@ -2118,8 +2120,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     toggle_player: function(fromOverlay) {
                         if (!this._debouncedToggle) this._debouncedToggle = Functions.debounce(function(fo) {
-                            if (this.get("sticky") && this.stickyHandler && this.stickyHandler.isDragging()) {
-                                this.stickyHandler.stopDragging();
+                            if (this.get("floating") && this.floatHandler && this.floatHandler.isDragging()) {
+                                this.floatHandler.stopDragging();
                                 return;
                             }
                             if (this.get("playing") && this.get("preventinteractionstatus")) return;
@@ -2250,11 +2252,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     close_floating: function(destroy) {
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
-                        if (this.get("sticky") || this.get("floatingoptions.floatingonly")) {
+                        if (this.get("floating") || this.get("floatingoptions.floatingonly")) {
                             this.pause();
-                            if (this.stickyHandler) {
-                                if (destroy) this.stickyHandler.destroy();
-                                else this.stickyHandler.stop();
+                            if (this.floatHandler) {
+                                if (destroy) this.floatHandler.destroy();
+                                else this.floatHandler.stop();
                             }
                             if (this.get("floatingoptions.hideplayeronclose") || this.get("floatingoptions.floatingonly")) {
                                 // If player is not sticky but floating we need hide whole player,
@@ -2402,8 +2404,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 showHiddenPlayerContainer: function() {
                     // Resume sticky handler if it is not destroyed
-                    if (this.stickyHandler && !this.stickyHandler.destroyed() && this.stickyHandler.observing === false) {
-                        this.stickyHandler.resume();
+                    if (this.floatHandler && !this.floatHandler.destroyed() && this.floatHandler.observing === false) {
+                        this.floatHandler.resume();
                     }
                     // If player is visible no need todo anything
                     if (!this.get("hidden")) return;

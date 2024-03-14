@@ -1091,7 +1091,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("view_type", "float");
                     }
                     // Only init stickyHandler if floantingonly is desabled
-                  if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
+                    if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),

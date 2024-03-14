@@ -48,21 +48,6 @@ test.describe('Unmute on click behave', () => {
                 blk: 1
             }]);
 
-            const reloadPage = async (player, uMuteButton, dataTestId) => {
-                const pauseButton = await page.getByTestId(`${dataTestId}-ads-controlbar-pause-button`);
-
-                await page.reload();
-                await player.setPlayerInstance();
-
-                // Ads pause button should be visible
-                await pauseButton.isVisible();
-
-                // Initially player has to be muted
-                const isMuted = await player.getPlayerAttribute("muted");
-                await expect(isMuted).toBeTruthy();
-                await uMuteButton.isVisible();
-            }
-
             // Go to the starting url before each test.
             await player.goto();
             await player.setPlayerInstance();
@@ -123,8 +108,9 @@ test.describe('Unmute on click behave', () => {
                     await playerContainer.hover({timeout: 1_000});
                     await adsUnMuteButton.click();
                     await expect(adsMuteIcon).toBeVisible();
-                    isMuted = await player.getPlayerAttribute("muted");
-                    await expect(isMuted).toBeFalsy();
+
+                    const volume = await player.getAdsPlayerAttribute("volume");
+                    await expect(volume).toBeGreaterThan(0);
 
                 } else {
                     await expect(contentPlayerContainer).toBeVisible();

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.450 - 2024-03-12
+betajs-media-components - v0.0.451 - 2024-03-14
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.450",
-    "datetime": 1710250025579
+    "version": "0.0.451",
+    "datetime": 1710410439722
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1514,11 +1514,12 @@ Scoped.define("module:TrackTags", [
     "base:Objs",
     "base:Events.EventsMixin",
     "base:Async",
+    "base:Types",
     "base:TimeFormat",
     "browser:Dom",
     "browser:Info",
     "browser:Events"
-], function(Class, Objs, EventsMixin, Async, TimeFormat, Dom, Info, DomEvents, scoped) {
+], function(Class, Objs, EventsMixin, Async, Types, TimeFormat, Dom, Info, DomEvents, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -1540,7 +1541,7 @@ Scoped.define("module:TrackTags", [
                 if (!this._video || !this._trackTags || this._trackTags.length === 0)
                     return;
                 this._loadTrackTags();
-                // To be able play default subtitle in with custom style
+                // To be able to play default subtitle in with custom style
                 if (dynamics.get("tracktagsstyled")) this._setDefaultTrackOnPlay();
 
                 // Will trigger meta tag on-load event
@@ -1591,11 +1592,23 @@ Scoped.define("module:TrackTags", [
 
                     /** kind could be on of the: subtitles, captions, descriptions, chapters, metadata */
                     try {
-                        if (subtitle.content && !subtitle.src)
-                            _trackTag.src = URL.createObjectURL(new Blob([subtitle.content], {
-                                type: 'text/plain'
-                            }));
-                    } catch (e) {}
+                        if (subtitle.content && !subtitle.src) {
+                            if (Types.is_object(subtitle.content)) {
+                                _trackTag.src = URL.createObjectURL(new Blob([
+                                    this.generateVTTFromObject(subtitle.content)
+                                ], {
+                                    type: 'text/vtt'
+                                }));
+                            } else {
+                                _trackTag.src = URL.createObjectURL(new Blob([subtitle.content], {
+                                    type: 'text/plain'
+                                }));
+                            }
+                        }
+                    } catch (e) {
+                        console.warn(e);
+                    }
+
                     switch (subtitle.kind) {
                         case 'thumbnails':
                             _trackTag.id = this._dyn.get("css") + '-track-thumbnails';
@@ -1630,6 +1643,89 @@ Scoped.define("module:TrackTags", [
                     }
                     this._video.appendChild(_trackTag);
                 }, this);
+            },
+
+            /**
+             * @param {object} content
+             * @param {number | undefined } presetTimePeriod
+             * @return {string}
+             * @private
+             */
+            generateVTTFromObject: function(content, presetTimePeriod) {
+                presetTimePeriod = presetTimePeriod || 2;
+
+                const timeKey = 'times';
+                const wordsKey = 'words';
+
+                if (!content || !Types.is_object(content))
+                    throw new Error(`No content provided for tracktags subtitles content. Expected format: "{content: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}}"`);
+
+                if (!content[wordsKey] || !content[timeKey] || (content[timeKey] && (!Types.isNumber(content[timeKey][0]?.end) || !Types.isNumber(content[timeKey][0]?.start)))) {
+                    throw new Error(`Please provide correct format for tracktags subtitles content object. Expected format: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}`);
+                }
+
+                const [words, times] = [content[wordsKey], content[timeKey]];
+
+                let wordsForCurrentPeriod = '';
+                let vttContent = "WEBVTT";
+                let startTime = times[0].start;
+                let lineNumber = 1;
+                // const wordRegex = /\w|\b[.,!?;:]/g;
+                const singleCharacterRegex = /^[,.?;:!]$/gim;
+                const wordEndedWithCharacterRegex = /\b[.,!?;:]/g;
+
+                Objs.iter(words, (text, i) => {
+                    const singleCharacter = singleCharacterRegex.test(text);
+                    const endTime = times[i].end;
+                    if (!startTime) startTime = times[i].start;
+                    if (startTime >= 0 && endTime >= 0 && Types.is_string(text) && text.length > 0) {
+                        // add space only if it's not special character (\b[.,!?;:] => \b assert position at a word boundary)
+                        if (wordsForCurrentPeriod.length > 0) {
+                            text = singleCharacter ? text : (' ' + text);
+                        } else if (singleCharacter) {
+                            // if the text only contains as special characters like dot.
+                            vttContent += text;
+                            wordsForCurrentPeriod = '';
+                            return;
+                        }
+                        wordsForCurrentPeriod += text;
+                        if (endTime > startTime + presetTimePeriod * 1000 || (wordsForCurrentPeriod.length > 15 && wordEndedWithCharacterRegex.test(wordsForCurrentPeriod))) {
+                            // add space only if it's not special character, alt: new Date(endTime).toISOString().slice(11, 23);
+                            const endTimeAsText = TimeFormat.format("HH:MM:ss.l", endTime);
+                            const startTimeAsText = TimeFormat.format("HH:MM:ss.l", startTime);
+                            vttContent += `\n\n${lineNumber}\n${startTimeAsText} --> ${endTimeAsText}\n${wordsForCurrentPeriod.trim()}`;
+
+                            lineNumber++;
+                            startTime = null;
+                            wordsForCurrentPeriod = '';
+                        }
+                    }
+                }, this);
+
+                // Add the last time period if it has any words
+                if (wordsForCurrentPeriod.length > 0) {
+                    vttContent += `\n\n${lineNumber++}\n${TimeFormat.format("HH:MM:ss.l", startTime)} --> ${TimeFormat.format("HH:MM:ss.l", times[times.length - 1].end)}\n${wordsForCurrentPeriod.trim()}`;
+                }
+
+                return vttContent;
+            },
+
+            __detectTrackTagFormat: function(data) {
+                // Trim leading/trailing white space and get the first line
+                const firstLine = data.trim().split('\n')[0];
+
+                // Check if the first line is "WEBVTT"
+                if (firstLine === "WEBVTT") {
+                    return "VTT";
+                }
+
+                // If the first line is a number, it's likely an SRT file
+                if (!isNaN(firstLine) && Number(firstLine) > 0) {
+                    return "SRT";
+                }
+
+                // If it's neither, we don't know the format
+                return "Unknown";
             },
 
             /**
@@ -6063,26 +6159,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 toggleTrackTags: function() {
                     if (!this.__trackTags) return;
                     this.set("tracktextvisible", !this.get("tracktextvisible"));
-                    var status = this.get("tracktextvisible");
-                    var _lang = this.get("tracktaglang"),
-                        _customStyled = this.get("tracktagsstyled"),
-                        _status = status ? 'showing' : 'disabled';
+                    this.resetTrackTags();
+                },
+
+                resetTrackTags: function(status) {
+                    status = Types.is_defined(status) ? status : this.get("tracktextvisible");
+                    const _lang = this.get("tracktaglang"),
+                        _customStyled = this.get("tracktagsstyled");
+                    let _status = status ? 'showing' : 'disabled';
                     _status = (status && _customStyled) ? 'hidden' : _status;
                     if (!status && this.get("tracktagsstyled")) this.set("trackcuetext", null);
-
-                    Objs.iter(this.__video.textTracks, function(track, index) {
-                        if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
-                            var _track = this.__video.textTracks[index];
-                            // If set custom style to true show cue text in our element
-                            if (_track.kind !== 'metadata') {
-                                if (_track.language === _lang) {
-                                    _track.mode = _status;
-                                    this.set("tracktextvisible", status);
-                                    this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                    if (this.__trackTags && !this.__trackTags.destroyed()) {
+                        Objs.iter(this.__video.textTracks, function(track, index) {
+                            if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
+                                var _track = this.__video.textTracks[index];
+                                // If set custom style to true show cue text in our element
+                                if (_track.kind !== 'metadata') {
+                                    if (_track.language === _lang) {
+                                        _track.mode = _status;
+                                        this.set("tracktextvisible", status);
+                                        this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                                    }
                                 }
                             }
-                        }
-                    }, this);
+                        }, this);
+                    }
                 },
 
                 _keyDownActivity: function(element, ev) {
@@ -7683,7 +7784,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
 
     });
 });
-
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"

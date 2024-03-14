@@ -458,7 +458,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "totalduration": "float",
                     "playwhenvisible": "boolean",
                     "playedonce": "boolean",
-                    "manuallypaused": "boolean",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
@@ -604,6 +603,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("muted", volume === 0);
                     },
                     "change:muted": function(muted) {
+                        // muted can be only boolean value
+                        if (!Types.is_boolean(muted)) return;
                         if (this.player) {
                             this.player.setMuted(muted);
                         } else if (this.__video) {

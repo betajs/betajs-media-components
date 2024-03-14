@@ -200,7 +200,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
     });
 });
 
-
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
 ], function(State, scoped) {

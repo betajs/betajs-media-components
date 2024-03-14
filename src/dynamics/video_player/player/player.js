@@ -1751,26 +1751,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 toggleTrackTags: function() {
                     if (!this.__trackTags) return;
                     this.set("tracktextvisible", !this.get("tracktextvisible"));
-                    var status = this.get("tracktextvisible");
-                    var _lang = this.get("tracktaglang"),
-                        _customStyled = this.get("tracktagsstyled"),
-                        _status = status ? 'showing' : 'disabled';
+                    this.resetTrackTags();
+                },
+
+                resetTrackTags: function(status) {
+                    status = Types.is_defined(status) ? status : this.get("tracktextvisible");
+                    const _lang = this.get("tracktaglang"),
+                        _customStyled = this.get("tracktagsstyled");
+                    let _status = status ? 'showing' : 'disabled';
                     _status = (status && _customStyled) ? 'hidden' : _status;
                     if (!status && this.get("tracktagsstyled")) this.set("trackcuetext", null);
-
-                    Objs.iter(this.__video.textTracks, function(track, index) {
-                        if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
-                            var _track = this.__video.textTracks[index];
-                            // If set custom style to true show cue text in our element
-                            if (_track.kind !== 'metadata') {
-                                if (_track.language === _lang) {
-                                    _track.mode = _status;
-                                    this.set("tracktextvisible", status);
-                                    this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                    if (this.__trackTags && !this.__trackTags.destroyed()) {
+                        Objs.iter(this.__video.textTracks, function(track, index) {
+                            if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
+                                var _track = this.__video.textTracks[index];
+                                // If set custom style to true show cue text in our element
+                                if (_track.kind !== 'metadata') {
+                                    if (_track.language === _lang) {
+                                        _track.mode = _status;
+                                        this.set("tracktextvisible", status);
+                                        this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                                    }
                                 }
                             }
-                        }
-                    }, this);
+                        }, this);
+                    }
                 },
 
                 _keyDownActivity: function(element, ev) {

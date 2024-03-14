@@ -48,7 +48,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 events: {
                     "change:volume": function(volume) {
                         // Muted should be pass only from the parent
-                        this.parent().set('muted', volume <= 0);
                         if (!this.adsManager || !this.adsManager.setVolume) return;
                         if (volume > 0 && this.get("unmuteonclick")) {
                             return setTimeout(function() {
@@ -145,7 +144,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const clickthroughUrl = adData.clickThroughUrl;
                         this.set("ad", ad);
                         this.set("addata", adData);
-                        this.set("volume", this.adsManager.getVolume());
+                        this._setVolume(this.adsManager.getVolume(), false);
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
@@ -248,7 +247,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
-                            this.set("volume", volume);
+                            this._setVolume(volume, true);
                         }, this);
                     }
                 },
@@ -302,7 +301,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     set_volume: function(volume) {
                         this._onPlayerEngaged();
-                        this.set("volume", Maths.clamp(volume, 0, 1));
+                        this._setVolume(Maths.clamp(volume, 0, 1), true);
                     },
                     stop: function() {
                         return this.adsManager.stop();
@@ -756,7 +755,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._hideCompanionAd();
                     dyn.hidePlayerContainer();
                     // dyn.weakDestroy(); // << Create will not work as expected
-                }
+                },
+
+                /**
+                 * @param {number} volume
+                 * @param {boolean | null} applyToParent
+                 * @private
+                 */
+                _setVolume: function(volume, applyToParent) {
+                    applyToParent = applyToParent || false;
+                    if (applyToParent && this.parent()) {
+                        this.parent().set("volume", volume);
+                        this.parent().set('muted', volume <= 0);
+                    }
+                    this.set("volume", volume);
+                },
             };
         }).register("ba-adsplayer")
         .registerFunctions({

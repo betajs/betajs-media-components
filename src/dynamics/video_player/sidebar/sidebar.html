@@ -10,7 +10,7 @@
              class="{{cssgallerysidebar}}-header-logo"
         >
             <a href="{{headerlogourl || headerlogoimgurl }}" title="{{ headerlogoname }}" target="_blank">
-                <img src="{{ headerlogoimgurl }}" alt="{{headerlogoname}}" />
+                <img ba-prop:src="{{ headerlogoimgurl }}" alt="{{headerlogoname}}" />
             </a>
         </div>
     </div>
@@ -76,7 +76,7 @@
                             ></ba-circle-progress>
                         </div>
                         <img class="{{cssgallerysidebar}}-list-item-poster"
-                             src="{{video.poster}}" alt="{{video.title}}"
+                             ba-prop:src="{{video.poster}}" alt="{{video.title}}"
                         />
                     </div>
                     <div class="{{cssgallerysidebar}}-list-item-title">
@@ -129,7 +129,7 @@
     </div>
     <div ba-if="{{headerlogoimgurl}}" class="{{cssfloatingsidebar}}-logo">
         <a href="{{ headerlogourl || headerlogoimgurl }}" title="{{headerlogoname}}" target="_blank">
-            <img src="{{headerlogoimgurl}}" alt="{{headerlogoname}}" />
+            <img ba-prop:src="{{headerlogoimgurl}}" alt="{{headerlogoname}}" />
         </a>
     </div>
 </div>

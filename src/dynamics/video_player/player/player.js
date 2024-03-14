@@ -458,7 +458,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "totalduration": "float",
                     "playwhenvisible": "boolean",
                     "playedonce": "boolean",
-                    "manuallypaused": "boolean",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
@@ -602,6 +601,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setMuted(volume <= 0);
                         }
                         this.set("muted", volume === 0);
+                    },
+                    "change:muted": function(muted) {
+                        // muted can be only boolean value
+                        if (!Types.is_boolean(muted)) return;
+                        if (this.player) {
+                            this.player.setMuted(muted);
+                        } else if (this.__video) {
+                            this.__video.mute = muted;
+                        }
                     },
                     "change:companionads": function(companionAds) {
                         if (this.__repeatOutstream && this.get("outstreamoptions.persistentcompanionad"))
@@ -1947,8 +1955,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
-
-
 
                         this.host.state().play();
                         this.set("manuallypaused", false);

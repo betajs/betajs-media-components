@@ -59,11 +59,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                         }
                     },
-                    "change:endcardbackgroundsrc": function(endcardbackgroundsrc) {
-                        if (endcardbackgroundsrc) {
-                            this.getAdContainer().style.backgroundImage = `url("${endcardbackgroundsrc}")`;
-                        }
-                    }
                 },
 
                 _deferActivate: function() {
@@ -231,6 +226,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                         this.channel("ads").trigger(event, data);
                     }, this);
+
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        // attach listener to set endcard image
+                        this.on("change:endcardbackgroundsrc", function(endcardbackgroundsrc) {
+                            if (endcardbackgroundsrc) {
+                                this.getAdContainer().style.backgroundImage = `url("${endcardbackgroundsrc}")`;
+                            }
+                        });
+                    }
 
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {

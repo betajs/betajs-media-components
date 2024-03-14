@@ -278,7 +278,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "broadcasting": false,
                         "chromecastreceiverappid": null, // Could be published custom App ID https://cast.google.com/publish/#/overview
                         "skipseconds": 5,
-                        // sticky options
+                        // floating options
                         "floating": false,
                         "floatingoptions": {
                             "starts-paused": true,

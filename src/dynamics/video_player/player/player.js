@@ -327,6 +327,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "thumbimage": {},
                         "thumbcuelist": [],
                         "showduration": false,
+                        "infiniteduration": false,
                         "showsettings": true,
                         "showsettingsmenu": true, // As a property show/hide from users
                         "posteralt": "",
@@ -430,6 +431,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": "boolean",
                     "autoplay": "boolean",
                     "autoplaywhenvisible": "boolean",
+                    "infiniteduration": "boolean",
                     "continuousplayback": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
@@ -1140,10 +1142,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         this.on("change:duration", function(duration) {
                                             if (duration > 0 && this.get("midrollads").length === 0) {
                                                 var step = Math.floor(duration / item);
+                                                if (this.get("infiniteduration"))
+                                                    step = 100;
                                                 if (duration > item) {
                                                     for (var i = 1; i <= step; i++) {
                                                         this.get("midrollads").push({
-                                                            position: i * item
+                                                            position: this.get("position") + i * item
                                                         });
                                                     }
                                                 }
@@ -2816,7 +2820,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         roll.position;
                                     // If the user does not set, and we will not get the same ad position, avoids dublication,
                                     // prevent very close ads and also wrong set position which exceeds the duration
-                                    if ((Math.abs(_position - _current) > this.__adMinIntervals) && _position < this.get("duration")) {
+                                    if ((Math.abs(_position - _current) > this.__adMinIntervals) && (this.get("infiniteduration") || _position < this.get("duration"))) {
                                         _current = _position;
                                         _nextPositionIndex = index;
                                         this._adsRollPositionsCollection.add({
@@ -2871,7 +2875,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend")) {
+                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && (this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend") || this.get("infiniteduration"))) {
                         if (this.__adMinIntervals > 0) {
                             return;
                         }

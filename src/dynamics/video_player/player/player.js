@@ -280,6 +280,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "skipseconds": 5,
                         // floating options
                         "floating": false,
+                        "sticky": false, // Deprecated
+                        "sticky-starts-paused": true, // Deprecated
+                        "sticky-threshold": undefined, // Deprecated
                         "floatingoptions": {
                             "starts-paused": true,
                             "threshold": undefined,
@@ -1081,10 +1084,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("view_type", "float");
                     }
                     // Only init floatHandler if floantingonly is desabled
-                    if (this.get("floating") && !this.get("floatingoptions.floatingonly")) {
+                    const floating = this.get("sticky") || this.get("floating");
+                    if (floating && !this.get("floatingoptions.floatingonly")) {
                         var stickyOptions = {
-                            threshold: this.get("floatingoptions.threshold"),
-                            paused: this.get("floatingoptions.starts-paused") || !this.get("floating"),
+                            threshold: this.get("sticky-threshold") || this.get("floatingoptions.threshold"),
+                            paused: (this.get("sticky-starts-paused") || this.get("floatingoptions.starts-paused")) || !floating,
                             "static": this.get("floatingoptions.static"),
                             floatCondition: function(elementRect) {
                                 if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
@@ -1527,8 +1531,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
 
                         this.player.on("playing", function() {
+                            const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
-                            if (this.get("floating") && this.floatHandler) this.floatHandler.start();
+                            if (floating && this.floatHandler) this.floatHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
 
@@ -2120,7 +2125,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     toggle_player: function(fromOverlay) {
                         if (!this._debouncedToggle) this._debouncedToggle = Functions.debounce(function(fo) {
-                            if (this.get("floating") && this.floatHandler && this.floatHandler.isDragging()) {
+                            const floating = this.get("sticky") || this.get("floating");
+                            if (floating && this.floatHandler && this.floatHandler.isDragging()) {
                                 this.floatHandler.stopDragging();
                                 return;
                             }
@@ -2252,7 +2258,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     close_floating: function(destroy) {
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
-                        if (this.get("floating") || this.get("floatingoptions.floatingonly")) {
+                        const floating = this.get("sticky") || this.get("floating");
+                        if (floating || this.get("floatingoptions.floatingonly")) {
                             this.pause();
                             if (this.floatHandler) {
                                 if (destroy) this.floatHandler.destroy();

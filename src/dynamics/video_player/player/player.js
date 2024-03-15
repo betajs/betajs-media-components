@@ -1365,14 +1365,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }.bind(this));
 
                     var deprecatedParams = {
-                        "sticky": "floating",
                         "sticky-position": "floatingoptions.desktop.position",
-                        "sticky-start-pause": "floatingoptions.start-pause",
-                        "sticky-threshold": "floatingoptions.threshold",
                     };
                     Object.keys(deprecatedParams).forEach(function(key) {
                         if (this.get(key))
                             console.warn(key + " parameter was deprecated, please use " + deprecatedParams[key] + " instead.");
+                    }.bind(this));
+
+                    var toBeDeprecatedParams = {
+                        "sticky": "floating",
+                        "sticky-start-pause": "floatingoptions.start-pause",
+                        "sticky-threshold": "floatingoptions.threshold",
+                    };
+                    Object.keys(toBeDeprecatedParams).forEach(function(key) {
+                        if (this.get(key))
+                            console.warn(key + " parameter will be deprecated on future version, please use " + deprecatedParams[key] + " instead.");
                     }.bind(this));
                 },
 

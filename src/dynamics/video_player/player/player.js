@@ -2651,9 +2651,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * NOTE: if require we also can add floating presets
                  */
                 applyPresets: function() {
-                    const presetKey = this.get("presetkey");
-                    // No need to apply presets if presetkey is not defined
-                    if (!presetKey) return;
+                    let presetKey = this.get("presetkey");
+                    // Need to apply fallback preset when there's no presetkey available
+                    presetKey = (!presetKey) ? "fallback" : presetKey;
                     const multiPresets = this.get("availablepresetoptions");
                     // both attributes should be defined
                     if (!Types.is_object(multiPresets) || !multiPresets[presetKey]) {

@@ -1635,6 +1635,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 },
 
+                _updatePlaylistByParams: function() {
+                    const playlist = [...this.get("playlist")].filter((v) => v.title !== this.get("title"));
+                    playlist.push({
+                        title: this.get("title"),
+                        poster: this.get("poster"),
+                        source: this.get("source"),
+                    });
+                    this.set("playlist", playlist);
+                },
+
                 _getSources: function() {
                     var filter = this.get("currentstream") ? this.get("currentstream").filter : this.get("sourcefilter");
                     var poster = this.get("poster");
@@ -1646,6 +1656,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (s.poster)
                             poster = s.poster;
                     });
+                    this._updatePlaylistByParams()
                     return {
                         poster: poster,
                         source: source,

@@ -58,7 +58,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                         }
-                    }
+                    },
                 },
 
                 _deferActivate: function() {
@@ -141,9 +141,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:loaded": function(event) {
                         const ad = event.getAd();
+                        this.set("ad", ad);
+                        this.setEndCardBackground(this.getAdWidth(), this.getAdHeight());
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
-                        this.set("ad", ad);
                         this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
@@ -226,6 +227,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.channel("ads").trigger(event, data);
                     }, this);
 
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        // attach listener to set endcard image
+                        this.on("change:endcardbackgroundsrc", function(endcardbackgroundsrc) {
+                            if (endcardbackgroundsrc) {
+                                this.getAdContainer().style.backgroundImage = `url("${endcardbackgroundsrc}")`;
+                            }
+                        });
+                    }
+
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
                             const width = this.getAdWidth();
@@ -239,12 +249,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                         google.ima.ViewMode.NORMAL
                                     );
                                 }
-                                if (this.shouldShowFirstFrameAsEndcard()) {
-                                    this.setEndCardBackground(width, height);
-                                    if (this._src) {
-                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
-                                    }
-                                }
+                                this.setEndCardBackground(width, height);
                             }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
@@ -397,14 +402,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     })
                 },
 
-                setEndCardBackground: function(width, height) {
+                captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
                     if (ad) {
-                        this.updateEndCardImage(ad, width, height);
+                        this.generateEndCardImage(ad, width, height);
                     }
                 },
 
-                updateEndCardImage: function(ad, width, height) {
+                setEndCardBackground: function(width, height) {
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        if (width && height) {
+                            this.captureAdEndCardBackground(width, height);
+                        }
+                    }
+                },
+
+                generateEndCardImage: function(ad, width, height) {
+                    // if we already captured the endcard once already
                     if (this._video && this._canvas && this._mediaUrl) {
                         this.resizeCanvas(width, height);
                         return;
@@ -412,19 +426,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._video = document.createElement("video");
                     this._canvas = document.createElement("canvas");
                     this._mediaUrl = ad?.data?.mediaUrl;
-                    this._video.crossOrigin = "anonymous";
-                    this._video.src = this._mediaUrl;
-                    this._video.muted = true;
-                    this._video.play();
-                    setTimeout(function() {
-                        this._canvas.width = width;
-                        this._canvas.height = height;
-                        this._canvas
-                            .getContext("2d")
-                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                        this._src = this._canvas.toDataURL("image/png");
-                        this._video.pause();
-                    }.bind(this), 1000);
+                    if (this._mediaUrl) {
+                        fetch(this._mediaUrl)
+                            .then(response => response.blob())
+                            .then(blob => {
+                                this._video.src = URL.createObjectURL(blob);
+                                this._video.crossOrigin = "anonymous";
+                                this._video.muted = true;
+                                return this._video.play()
+                            })
+                            .then(() => {
+                                // add a small delay to handle cases where the beginning of video is a black screen
+                                // 800ms delay + drawFrame has a timeout of 200ms = 1s into video
+                                this.parent()._drawFrame(this._video, 0.8, width, height, (canvas, _ctx) => {
+                                    this._canvas = canvas;
+                                    this.set("endcardbackgroundsrc", this._canvas.toDataURL("image/png"));
+                                    this._video.pause();
+                                });
+                            }).catch((e) => console.log(`Error: ${e}`));
+                    }
                 },
 
                 resizeCanvas: function(newWidth, newHeight) {
@@ -433,7 +453,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._canvas
                         .getContext("2d")
                         .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                    this._src = this._canvas.toDataURL("image/png");
+                    this.set("endcardbackgroundsrc", this._canvas.toDataURL("image/png"))
                 },
 
 
@@ -548,9 +568,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
-                            }
-                            if (this.shouldShowFirstFrameAsEndcard() && this._src) {
-                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
                             }
                             if (moreDetailsLink) {
                                 this.set("moredetailslink", moreDetailsLink);

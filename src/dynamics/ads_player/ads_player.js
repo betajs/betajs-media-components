@@ -571,6 +571,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 loadVideoTimeout: dyn.get("adsrendertimeout")
                             });
                         }
+                    }
+                },
+
                 _onPlayerEngaged: function() {
                     const parentDyn = this.parent();
                     if (parentDyn && Types.is_function(parentDyn.setPlayerEngagement)) {

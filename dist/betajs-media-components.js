@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.450 - 2024-03-12
+betajs-media-components - v0.0.457 - 2024-03-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.450 - 2024-03-12
+betajs-media-components - v0.0.457 - 2024-03-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.450",
-    "datetime": 1710250025579
+    "version": "0.0.457",
+    "datetime": 1710938322906
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2525,11 +2525,12 @@ Scoped.define("module:TrackTags", [
     "base:Objs",
     "base:Events.EventsMixin",
     "base:Async",
+    "base:Types",
     "base:TimeFormat",
     "browser:Dom",
     "browser:Info",
     "browser:Events"
-], function(Class, Objs, EventsMixin, Async, TimeFormat, Dom, Info, DomEvents, scoped) {
+], function(Class, Objs, EventsMixin, Async, Types, TimeFormat, Dom, Info, DomEvents, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
@@ -2551,7 +2552,7 @@ Scoped.define("module:TrackTags", [
                 if (!this._video || !this._trackTags || this._trackTags.length === 0)
                     return;
                 this._loadTrackTags();
-                // To be able play default subtitle in with custom style
+                // To be able to play default subtitle in with custom style
                 if (dynamics.get("tracktagsstyled")) this._setDefaultTrackOnPlay();
 
                 // Will trigger meta tag on-load event
@@ -2602,11 +2603,23 @@ Scoped.define("module:TrackTags", [
 
                     /** kind could be on of the: subtitles, captions, descriptions, chapters, metadata */
                     try {
-                        if (subtitle.content && !subtitle.src)
-                            _trackTag.src = URL.createObjectURL(new Blob([subtitle.content], {
-                                type: 'text/plain'
-                            }));
-                    } catch (e) {}
+                        if (subtitle.content && !subtitle.src) {
+                            if (Types.is_object(subtitle.content)) {
+                                _trackTag.src = URL.createObjectURL(new Blob([
+                                    this.generateVTTFromObject(subtitle.content)
+                                ], {
+                                    type: 'text/vtt'
+                                }));
+                            } else {
+                                _trackTag.src = URL.createObjectURL(new Blob([subtitle.content], {
+                                    type: 'text/plain'
+                                }));
+                            }
+                        }
+                    } catch (e) {
+                        console.warn(e);
+                    }
+
                     switch (subtitle.kind) {
                         case 'thumbnails':
                             _trackTag.id = this._dyn.get("css") + '-track-thumbnails';
@@ -2641,6 +2654,89 @@ Scoped.define("module:TrackTags", [
                     }
                     this._video.appendChild(_trackTag);
                 }, this);
+            },
+
+            /**
+             * @param {object} content
+             * @param {number | undefined } presetTimePeriod
+             * @return {string}
+             * @private
+             */
+            generateVTTFromObject: function(content, presetTimePeriod) {
+                presetTimePeriod = presetTimePeriod || 2;
+
+                const timeKey = 'times';
+                const wordsKey = 'words';
+
+                if (!content || !Types.is_object(content))
+                    throw new Error(`No content provided for tracktags subtitles content. Expected format: "{content: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}}"`);
+
+                if (!content[wordsKey] || !content[timeKey] || (content[timeKey] && (!Types.isNumber(content[timeKey][0]?.end) || !Types.isNumber(content[timeKey][0]?.start)))) {
+                    throw new Error(`Please provide correct format for tracktags subtitles content object. Expected format: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}`);
+                }
+
+                const [words, times] = [content[wordsKey], content[timeKey]];
+
+                let wordsForCurrentPeriod = '';
+                let vttContent = "WEBVTT";
+                let startTime = times[0].start;
+                let lineNumber = 1;
+                // const wordRegex = /\w|\b[.,!?;:]/g;
+                const singleCharacterRegex = /^[,.?;:!]$/gim;
+                const wordEndedWithCharacterRegex = /\b[.,!?;:]/g;
+
+                Objs.iter(words, (text, i) => {
+                    const singleCharacter = singleCharacterRegex.test(text);
+                    const endTime = times[i].end;
+                    if (!startTime) startTime = times[i].start;
+                    if (startTime >= 0 && endTime >= 0 && Types.is_string(text) && text.length > 0) {
+                        // add space only if it's not special character (\b[.,!?;:] => \b assert position at a word boundary)
+                        if (wordsForCurrentPeriod.length > 0) {
+                            text = singleCharacter ? text : (' ' + text);
+                        } else if (singleCharacter) {
+                            // if the text only contains as special characters like dot.
+                            vttContent += text;
+                            wordsForCurrentPeriod = '';
+                            return;
+                        }
+                        wordsForCurrentPeriod += text;
+                        if (endTime > startTime + presetTimePeriod * 1000 || (wordsForCurrentPeriod.length > 15 && wordEndedWithCharacterRegex.test(wordsForCurrentPeriod))) {
+                            // add space only if it's not special character, alt: new Date(endTime).toISOString().slice(11, 23);
+                            const endTimeAsText = TimeFormat.format("HH:MM:ss.l", endTime);
+                            const startTimeAsText = TimeFormat.format("HH:MM:ss.l", startTime);
+                            vttContent += `\n\n${lineNumber}\n${startTimeAsText} --> ${endTimeAsText}\n${wordsForCurrentPeriod.trim()}`;
+
+                            lineNumber++;
+                            startTime = null;
+                            wordsForCurrentPeriod = '';
+                        }
+                    }
+                }, this);
+
+                // Add the last time period if it has any words
+                if (wordsForCurrentPeriod.length > 0) {
+                    vttContent += `\n\n${lineNumber++}\n${TimeFormat.format("HH:MM:ss.l", startTime)} --> ${TimeFormat.format("HH:MM:ss.l", times[times.length - 1].end)}\n${wordsForCurrentPeriod.trim()}`;
+                }
+
+                return vttContent;
+            },
+
+            __detectTrackTagFormat: function(data) {
+                // Trim leading/trailing white space and get the first line
+                const firstLine = data.trim().split('\n')[0];
+
+                // Check if the first line is "WEBVTT"
+                if (firstLine === "WEBVTT") {
+                    return "VTT";
+                }
+
+                // If the first line is a number, it's likely an SRT file
+                if (!isNaN(firstLine) && Number(firstLine) > 0) {
+                    return "SRT";
+                }
+
+                // If it's neither, we don't know the format
+                return "Unknown";
             },
 
             /**
@@ -3670,7 +3766,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                         }
-                    }
+                    },
                 },
 
                 _deferActivate: function() {
@@ -3753,9 +3849,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:loaded": function(event) {
                         const ad = event.getAd();
+                        this.set("ad", ad);
+                        this.setEndCardBackground(this.getAdWidth(), this.getAdHeight());
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
-                        this.set("ad", ad);
                         this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
@@ -3838,6 +3935,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.channel("ads").trigger(event, data);
                     }, this);
 
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        // attach listener to set endcard image
+                        this.on("change:endcardbackgroundsrc", function(endcardbackgroundsrc) {
+                            if (endcardbackgroundsrc) {
+                                this.getAdContainer().style.backgroundImage = `url("${endcardbackgroundsrc}")`;
+                            }
+                        });
+                    }
+
                     if (dynamics) {
                         dynamics.on("resize", function(dimensions) {
                             const width = this.getAdWidth();
@@ -3851,12 +3957,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                         google.ima.ViewMode.NORMAL
                                     );
                                 }
-                                if (this.shouldShowFirstFrameAsEndcard()) {
-                                    this.setEndCardBackground(width, height);
-                                    if (this._src) {
-                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
-                                    }
-                                }
+                                this.setEndCardBackground(width, height);
                             }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
@@ -4009,14 +4110,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     })
                 },
 
-                setEndCardBackground: function(width, height) {
+                captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
                     if (ad) {
-                        this.updateEndCardImage(ad, width, height);
+                        this.generateEndCardImage(ad, width, height);
                     }
                 },
 
-                updateEndCardImage: function(ad, width, height) {
+                setEndCardBackground: function(width, height) {
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        if (width && height) {
+                            this.captureAdEndCardBackground(width, height);
+                        }
+                    }
+                },
+
+                generateEndCardImage: function(ad, width, height) {
+                    // if we already captured the endcard once already
                     if (this._video && this._canvas && this._mediaUrl) {
                         this.resizeCanvas(width, height);
                         return;
@@ -4024,19 +4134,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._video = document.createElement("video");
                     this._canvas = document.createElement("canvas");
                     this._mediaUrl = ad?.data?.mediaUrl;
-                    this._video.crossOrigin = "anonymous";
-                    this._video.src = this._mediaUrl;
-                    this._video.muted = true;
-                    this._video.play();
-                    setTimeout(function() {
-                        this._canvas.width = width;
-                        this._canvas.height = height;
-                        this._canvas
-                            .getContext("2d")
-                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                        this._src = this._canvas.toDataURL("image/png");
-                        this._video.pause();
-                    }.bind(this), 1000);
+                    if (this._mediaUrl) {
+                        fetch(this._mediaUrl)
+                            .then(response => response.blob())
+                            .then(blob => {
+                                this._video.src = URL.createObjectURL(blob);
+                                this._video.crossOrigin = "anonymous";
+                                this._video.muted = true;
+                                return this._video.play()
+                            })
+                            .then(() => {
+                                // add a small delay to handle cases where the beginning of video is a black screen
+                                // 800ms delay + drawFrame has a timeout of 200ms = 1s into video
+                                this.parent()._drawFrame(this._video, 0.8, width, height, (canvas, _ctx) => {
+                                    this._canvas = canvas;
+                                    this.set("endcardbackgroundsrc", this._canvas.toDataURL("image/png"));
+                                    this._video.pause();
+                                });
+                            }).catch((e) => console.log(`Error: ${e}`));
+                    }
                 },
 
                 resizeCanvas: function(newWidth, newHeight) {
@@ -4045,7 +4161,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._canvas
                         .getContext("2d")
                         .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                    this._src = this._canvas.toDataURL("image/png");
+                    this.set("endcardbackgroundsrc", this._canvas.toDataURL("image/png"))
                 },
 
 
@@ -4160,9 +4276,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
-                            }
-                            if (this.shouldShowFirstFrameAsEndcard() && this._src) {
-                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
                             }
                             if (moreDetailsLink) {
                                 this.set("moredetailslink", moreDetailsLink);
@@ -5542,6 +5655,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "midrollminintervalbeforeend": 5,
+                        "mindurationnext": 0, // when set to 0, mindurationnext is equal to noengagenext. Can be disabled by setting it to -1
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -5650,6 +5764,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "thumbimage": {},
                         "thumbcuelist": [],
                         "showduration": false,
+                        "infiniteduration": false,
                         "showsettings": true,
                         "showsettingsmenu": true, // As a property show/hide from users
                         "posteralt": "",
@@ -5753,6 +5868,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": "boolean",
                     "autoplay": "boolean",
                     "autoplaywhenvisible": "boolean",
+                    "infiniteduration": "boolean",
                     "continuousplayback": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
@@ -5909,7 +6025,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (thisPlaylist.length === 1 && thisPlaylist[0].title === this.get('title')) return;
                             const showNextTime = Number(this.get("shownext")) || 0;
                             const engageTime = showNextTime + (Number(this.get("noengagenext")) || 0);
-                            if (position > showNextTime && showNextTime && !this.get("next_active")) {
+                            let minDurationNext = this.get("mindurationnext");
+                            if (!minDurationNext) minDurationNext = engageTime;
+
+                            if (this.get("duration") >= minDurationNext && showNextTime && position > showNextTime && !this.get("next_active")) {
                                 this.set("next_active", true);
                             }
                             if (position > engageTime && engageTime > 0) {
@@ -6451,61 +6570,61 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__adMinIntervals = this.get("minadintervals");
                         this.__adsControlPosition = 0;
                         // This will be called in the next video cases
-                        if (schedules.length > 0) {
-                            Objs.iter(schedules, function(schedule, index) {
-                                schedule = schedule.toLowerCase();
-                                // if user set schedule with time settings
-                                if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
-                                    var _s = schedule.replace('mid[', '').replace(']', '');
-                                    Objs.map(_s.split(','), function(item) {
-                                        item = item.trim();
-                                        if (/^[\d\s]+\*$/.test(item)) {
-                                            item = +item.replace("\*", '');
-                                            this.once("change:duration", function(duration) {
-                                                if (duration > 0) {
-                                                    var step = Math.floor(duration / item);
-                                                    if (duration > item) {
-                                                        for (var i = 1; i <= step; i++) {
-                                                            this.get("midrollads").push({
-                                                                position: i * item
-                                                            });
-                                                        }
+                        Objs.iter(schedules, function(schedule, index) {
+                            schedule = schedule.toLowerCase();
+                            // if user set schedule with time settings
+                            if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
+                                const _s = schedule.replace('mid[', '').replace(']', '');
+                                Objs.map(_s.split(','), function(item) {
+                                    item = item.trim();
+                                    if (/^[\d\s]+\*$/.test(item)) {
+                                        item = +item.replace("\*", '');
+                                        this.on("change:duration", function(duration) {
+                                            if (duration > 0 && this.get("midrollads").length === 0) {
+                                                var step = Math.floor(duration / item);
+                                                if (this.get("infiniteduration"))
+                                                    step = 100;
+                                                if (duration > item) {
+                                                    for (var i = 1; i <= step; i++) {
+                                                        this.get("midrollads").push({
+                                                            position: this.get("position") + i * item
+                                                        });
                                                     }
                                                 }
-                                            }, this);
-                                        } else {
-                                            if (/^[\d\s]+\%$/.test(item)) {
-                                                item = parseInt(item.replace('%', '').trim(), 10);
-                                                if (item < 100 && item > 0) {
-                                                    this.get("midrollads").push({
-                                                        position: parseFloat((item / 100).toFixed(2))
-                                                    });
-                                                }
-                                            } else {
-                                                // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                            }
+                                        }, this);
+                                    } else {
+                                        if (/^[\d\s]+\%$/.test(item)) {
+                                            item = parseInt(item.replace('%', '').trim(), 10);
+                                            if (item < 100 && item > 0) {
                                                 this.get("midrollads").push({
-                                                    position: parseFloat(item)
+                                                    position: parseFloat((item / 100).toFixed(2))
                                                 });
                                             }
+                                        } else {
+                                            // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                            this.get("midrollads").push({
+                                                position: parseFloat(item)
+                                            });
                                         }
-                                    }, this);
-                                } else {
-                                    if (/^mid\[.*?\]$/.test(schedule))
-                                        console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
-                                    if (/^mid$/.test(schedule)) {
-                                        this.get("midrollads").push({
-                                            position: 0.5
-                                        });
                                     }
+                                }, this);
+                            } else {
+                                if (/^mid\[.*?\]$/.test(schedule))
+                                    console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
+                                if (/^mid$/.test(schedule)) {
+                                    this.get("midrollads").push({
+                                        position: 0.5
+                                    });
                                 }
+                            }
 
-                                // After iteration completing. If adsCollections existed should be destroyed
-                                if (((index + 1) === schedules.length) && !!this._adsRollPositionsCollection) {
-                                    this._adsRollPositionsCollection.destroy();
-                                    this._adsRollPositionsCollection = null;
-                                }
-                            }, this);
-                        }
+                            // After iteration completing. If adsCollections existed should be destroyed
+                            if (((index + 1) === schedules.length) && !!this._adsRollPositionsCollection) {
+                                this._adsRollPositionsCollection.destroy();
+                                this._adsRollPositionsCollection = null;
+                            }
+                        }, this);
                     }
                 },
 
@@ -7074,26 +7193,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 toggleTrackTags: function() {
                     if (!this.__trackTags) return;
                     this.set("tracktextvisible", !this.get("tracktextvisible"));
-                    var status = this.get("tracktextvisible");
-                    var _lang = this.get("tracktaglang"),
-                        _customStyled = this.get("tracktagsstyled"),
-                        _status = status ? 'showing' : 'disabled';
+                    this.resetTrackTags();
+                },
+
+                resetTrackTags: function(status) {
+                    status = Types.is_defined(status) ? status : this.get("tracktextvisible");
+                    const _lang = this.get("tracktaglang"),
+                        _customStyled = this.get("tracktagsstyled");
+                    let _status = status ? 'showing' : 'disabled';
                     _status = (status && _customStyled) ? 'hidden' : _status;
                     if (!status && this.get("tracktagsstyled")) this.set("trackcuetext", null);
-
-                    Objs.iter(this.__video.textTracks, function(track, index) {
-                        if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
-                            var _track = this.__video.textTracks[index];
-                            // If set custom style to true show cue text in our element
-                            if (_track.kind !== 'metadata') {
-                                if (_track.language === _lang) {
-                                    _track.mode = _status;
-                                    this.set("tracktextvisible", status);
-                                    this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                    if (this.__trackTags && !this.__trackTags.destroyed()) {
+                        Objs.iter(this.__video.textTracks, function(track, index) {
+                            if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
+                                var _track = this.__video.textTracks[index];
+                                // If set custom style to true show cue text in our element
+                                if (_track.kind !== 'metadata') {
+                                    if (_track.language === _lang) {
+                                        _track.mode = _status;
+                                        this.set("tracktextvisible", status);
+                                        this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                                    }
                                 }
                             }
-                        }
-                    }, this);
+                        }, this);
+                    }
                 },
 
                 _keyDownActivity: function(element, ev) {
@@ -8136,7 +8260,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         roll.position;
                                     // If the user does not set, and we will not get the same ad position, avoids dublication,
                                     // prevent very close ads and also wrong set position which exceeds the duration
-                                    if ((Math.abs(_position - _current) > this.__adMinIntervals) && _position < this.get("duration")) {
+                                    if ((Math.abs(_position - _current) > this.__adMinIntervals) && (this.get("infiniteduration") || _position < this.get("duration"))) {
                                         _current = _position;
                                         _nextPositionIndex = index;
                                         this._adsRollPositionsCollection.add({
@@ -8191,7 +8315,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend")) {
+                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && (this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend") || this.get("infiniteduration"))) {
                         if (this.__adMinIntervals > 0) {
                             return;
                         }
@@ -8694,7 +8818,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.FatalError", [
 
     });
 });
-
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Initial", [
     "module:VideoPlayer.Dynamics.PlayerStates.State"
@@ -9544,7 +9667,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
         }, [StylesMixin, function(inherited) {
             return {
 
-                template: "<div ba-if=\"{{states.gallerysidebar}}\"\n     ba-show=\"{{gallerysidebar}}\"\n     class=\"{{csscommon}}-full-height {{csscommon}}-flex-column\"\n>\n    <div class=\"{{cssgallerysidebar}}-header-container\">\n        <div class=\"{{cssgallerysidebar}}-title\">\n            <span ba-if=\"{{!adsplaying}}\">{{gallerytitletext}}</span>\n        </div>\n        <div ba-if=\"{{ headerlogoimgurl }}\"\n             class=\"{{cssgallerysidebar}}-header-logo\"\n        >\n            <a href=\"{{headerlogourl || headerlogoimgurl }}\" title=\"{{ headerlogoname }}\" target=\"_blank\">\n                <img src=\"{{ headerlogoimgurl }}\" alt=\"{{headerlogoname}}\" />\n            </a>\n        </div>\n    </div>\n\n    <div ba-if=\"{{adsplaying}}\" class=\"{{cssgallerysidebar}}-container {{cssgallerysidebar}}-ads-container\">\n        <div class=\"{{cssgallerysidebar}}-ads-body-container\">\n            <div ba-if=\"{{afteradsendtext}}\" class=\"{{cssgallerysidebar}}-ad-information-text\">\n                <p>\n                    {{afteradsendtext}}\n                </p>\n            </div>\n            <div ba-if=\"{{companionadcontent}}\"\n                 class=\"{{cssfloatingsidebar}}-companion-container\"\n            ></div>\n            <div ba-if=\"{{showlearnmorebutton && !companionadcontent}}\">\n                <ba-ads-learn-more-button\n                    ba-if=\"{{moredetailslink && !companionadcontent}}\"\n                    ba-adsplaying=\"{{adsplaying}}\"\n                    ba-cssprefix=\"{{cssgallerysidebar}}\"\n                    ba-moredetailslink=\"{{moredetailslink}}\"\n                    ba-datatestselector=\"sidebar-ads-learn-more-button\"\n                    ba-event:click_action=\"on_learn_more_click\"\n                ></ba-ads-learn-more-button>\n            </div>\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-ads-footer-container\">\n            <div class=\"{{cssgallerysidebar}}-ads-footer-right-container\">\n                <ba-ads-choices-link\n                    ba-if=\"{{adchoiceslink && showadchoices && !unknownadsrc}}\"\n                    ba-adchoiceslink=\"{{adchoiceslink}}\"\n                    ba-datatestselector=\"sidebar-ads-choices-button\"\n                    ba-event:click_action=\"on_ads_choices_click\"\n                ></ba-ads-choices-link>\n            </div>\n        </div>\n    </div>\n\n    <div ba-show=\"{{!adsplaying}}\" class=\"{{cssgallerysidebar}}-container\">\n        <div class=\"{{cssgallerysidebar}}-list-container\">\n            <div ba-if=\"{{loading}}\" class=\"{{cssgallerysidebar}}-loading-container\">\n                <ba-spinner></ba-spinner>\n            </div>\n            <ul ba-if=\"{{showplaylist}}\"\n                class=\"{{cssgallerysidebar}}-list\" ba-show=\"{{!loading}}\"\n                ba-repeat=\"{{video :: videos}}\"\n            >\n                <li ba-show=\"{{video.display && !(video.watched && hidevideoafterplay)}}\"\n                    class=\"{{cssgallerysidebar}}-list-item\n                    {{currentindex === video.index ? (cssgallerysidebar + '-currently-playing-list-item') : ''}}\"\n                    data-index=\"{{video.index}}\"\n                    data-index-selector=\"gallery-item-{{video.index}}\"\n                    onclick=\"{{play_video(video.index)}}\"\n                >\n                    <div class=\"{{cssgallerysidebar}}-list-item-poster-container\">\n                        <div class=\"{{cssgallerysidebar}}-circle-progress-container\">\n                            <ba-circle-progress\n                                ba-if=\"{{shownextloader && nextindex === video.index}}\"\n                                ba-autostart=\"{{true}}\"\n                                ba-timeout=\"{{noengagenext * 1000}}\"\n                                ba-noengagenext=\"{{noengagenext}}\"\n                                ba-paused=\"{{!playing}}\"\n                            ></ba-circle-progress>\n                        </div>\n                        <img class=\"{{cssgallerysidebar}}-list-item-poster\"\n                             src=\"{{video.poster}}\" alt=\"{{video.title}}\"\n                        />\n                    </div>\n                    <div class=\"{{cssgallerysidebar}}-list-item-title\">\n                        {{(video.title)?video.title:''}}\n                    </div>\n                </li>\n            </ul>\n\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-footer-container\"></div>\n    </div>\n</div>\n\n\n<div ba-if=\"{{floatingsidebar}}\"\n     class=\"{{cssfloatingsidebar}}-container {{csscommon}}-full-height\"\n>\n    <div ba-if=\"{{adsplaying}}\"\n         class=\"{{cssfloatingsidebar}}-ad-playing-container {{csscommon}}-full-height\"\n    >\n        <ba-ads-choices-link\n            ba-if=\"{{adchoiceslink && showadchoices && !unknownadsrc}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-datatestselector=\"sidebar-ads-choices-button\"\n            ba-event:click_action=\"on_ads_choices_click\"\n        ></ba-ads-choices-link>\n        \n        <div ba-if=\"{{companionadcontent}}\"\n             class=\"{{cssfloatingsidebar}}-companion-container\"\n        ></div>\n        <div class=\"{{cssfloatingsidebar}}-content-container\" ba-if={{showlearnmorebutton}}>\n            <ba-ads-learn-more-button\n                ba-if=\"{{moredetailslink && !companionadcontent}}\"\n                ba-adsplaying=\"{{adsplaying}}\"\n                ba-cssprefix=\"{{cssfloatingsidebar}}\"\n                ba-moredetailslink=\"{{moredetailslink}}\"\n                ba-datatestselector=\"sidebar-ads-learn-more-button\"\n                ba-event:click_action=\"on_learn_more_click\"\n            ></ba-ads-learn-more-button>\n        </div>\n        <div ba-if=\"{{!showlearnmorebutton && afteradsendtext}}\" class=\"{{cssfloatingsidebar}}-title\">\n            {{afteradsendtext}}\n        </div>\n    </div>\n    <div ba-if=\"{{!adsplaying}}\" class=\"{{cssfloatingsidebar}}-content-container {{csscommon}}-full-height\">\n        <div class=\"{{cssfloatingsidebar}}-title\">\n            {{title}}\n        </div>\n    </div>\n    <div ba-if=\"{{headerlogoimgurl}}\" class=\"{{cssfloatingsidebar}}-logo\">\n        <a href=\"{{ headerlogourl || headerlogoimgurl }}\" title=\"{{headerlogoname}}\" target=\"_blank\">\n            <img src=\"{{headerlogoimgurl}}\" alt=\"{{headerlogoname}}\" />\n        </a>\n    </div>\n</div>\n",
+                template: "<div ba-if=\"{{states.gallerysidebar}}\"\n     ba-show=\"{{gallerysidebar}}\"\n     class=\"{{csscommon}}-full-height {{csscommon}}-flex-column\"\n>\n    <div class=\"{{cssgallerysidebar}}-header-container\">\n        <div class=\"{{cssgallerysidebar}}-title\">\n            <span ba-if=\"{{!adsplaying}}\">{{gallerytitletext}}</span>\n        </div>\n        <div ba-if=\"{{ headerlogoimgurl }}\"\n             class=\"{{cssgallerysidebar}}-header-logo\"\n        >\n            <a href=\"{{headerlogourl || headerlogoimgurl }}\" title=\"{{ headerlogoname }}\" target=\"_blank\">\n                <img ba-prop:src=\"{{ headerlogoimgurl }}\" alt=\"{{headerlogoname}}\" />\n            </a>\n        </div>\n    </div>\n\n    <div ba-if=\"{{adsplaying}}\" class=\"{{cssgallerysidebar}}-container {{cssgallerysidebar}}-ads-container\">\n        <div class=\"{{cssgallerysidebar}}-ads-body-container\">\n            <div ba-if=\"{{afteradsendtext}}\" class=\"{{cssgallerysidebar}}-ad-information-text\">\n                <p>\n                    {{afteradsendtext}}\n                </p>\n            </div>\n            <div ba-if=\"{{companionadcontent}}\"\n                 class=\"{{cssfloatingsidebar}}-companion-container\"\n            ></div>\n            <div ba-if=\"{{showlearnmorebutton && !companionadcontent}}\">\n                <ba-ads-learn-more-button\n                    ba-if=\"{{moredetailslink && !companionadcontent}}\"\n                    ba-adsplaying=\"{{adsplaying}}\"\n                    ba-cssprefix=\"{{cssgallerysidebar}}\"\n                    ba-moredetailslink=\"{{moredetailslink}}\"\n                    ba-datatestselector=\"sidebar-ads-learn-more-button\"\n                    ba-event:click_action=\"on_learn_more_click\"\n                ></ba-ads-learn-more-button>\n            </div>\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-ads-footer-container\">\n            <div class=\"{{cssgallerysidebar}}-ads-footer-right-container\">\n                <ba-ads-choices-link\n                    ba-if=\"{{adchoiceslink && showadchoices && !unknownadsrc}}\"\n                    ba-adchoiceslink=\"{{adchoiceslink}}\"\n                    ba-datatestselector=\"sidebar-ads-choices-button\"\n                    ba-event:click_action=\"on_ads_choices_click\"\n                ></ba-ads-choices-link>\n            </div>\n        </div>\n    </div>\n\n    <div ba-show=\"{{!adsplaying}}\" class=\"{{cssgallerysidebar}}-container\">\n        <div class=\"{{cssgallerysidebar}}-list-container\">\n            <div ba-if=\"{{loading}}\" class=\"{{cssgallerysidebar}}-loading-container\">\n                <ba-spinner></ba-spinner>\n            </div>\n            <ul ba-if=\"{{showplaylist}}\"\n                class=\"{{cssgallerysidebar}}-list\" ba-show=\"{{!loading}}\"\n                ba-repeat=\"{{video :: videos}}\"\n            >\n                <li ba-show=\"{{video.display && !(video.watched && hidevideoafterplay)}}\"\n                    class=\"{{cssgallerysidebar}}-list-item\n                    {{currentindex === video.index ? (cssgallerysidebar + '-currently-playing-list-item') : ''}}\"\n                    data-index=\"{{video.index}}\"\n                    data-index-selector=\"gallery-item-{{video.index}}\"\n                    onclick=\"{{play_video(video.index)}}\"\n                >\n                    <div class=\"{{cssgallerysidebar}}-list-item-poster-container\">\n                        <div class=\"{{cssgallerysidebar}}-circle-progress-container\">\n                            <ba-circle-progress\n                                ba-if=\"{{shownextloader && nextindex === video.index}}\"\n                                ba-autostart=\"{{true}}\"\n                                ba-timeout=\"{{noengagenext * 1000}}\"\n                                ba-noengagenext=\"{{noengagenext}}\"\n                                ba-paused=\"{{!playing}}\"\n                            ></ba-circle-progress>\n                        </div>\n                        <img class=\"{{cssgallerysidebar}}-list-item-poster\"\n                             ba-prop:src=\"{{video.poster}}\" alt=\"{{video.title}}\"\n                        />\n                    </div>\n                    <div class=\"{{cssgallerysidebar}}-list-item-title\">\n                        {{(video.title)?video.title:''}}\n                    </div>\n                </li>\n            </ul>\n\n        </div>\n\n        <div class=\"{{cssgallerysidebar}}-footer-container\"></div>\n    </div>\n</div>\n\n\n<div ba-if=\"{{floatingsidebar}}\"\n     class=\"{{cssfloatingsidebar}}-container {{csscommon}}-full-height\"\n>\n    <div ba-if=\"{{adsplaying}}\"\n         class=\"{{cssfloatingsidebar}}-ad-playing-container {{csscommon}}-full-height\"\n    >\n        <ba-ads-choices-link\n            ba-if=\"{{adchoiceslink && showadchoices && !unknownadsrc}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-datatestselector=\"sidebar-ads-choices-button\"\n            ba-event:click_action=\"on_ads_choices_click\"\n        ></ba-ads-choices-link>\n        \n        <div ba-if=\"{{companionadcontent}}\"\n             class=\"{{cssfloatingsidebar}}-companion-container\"\n        ></div>\n        <div class=\"{{cssfloatingsidebar}}-content-container\" ba-if={{showlearnmorebutton}}>\n            <ba-ads-learn-more-button\n                ba-if=\"{{moredetailslink && !companionadcontent}}\"\n                ba-adsplaying=\"{{adsplaying}}\"\n                ba-cssprefix=\"{{cssfloatingsidebar}}\"\n                ba-moredetailslink=\"{{moredetailslink}}\"\n                ba-datatestselector=\"sidebar-ads-learn-more-button\"\n                ba-event:click_action=\"on_learn_more_click\"\n            ></ba-ads-learn-more-button>\n        </div>\n        <div ba-if=\"{{!showlearnmorebutton && afteradsendtext}}\" class=\"{{cssfloatingsidebar}}-title\">\n            {{afteradsendtext}}\n        </div>\n    </div>\n    <div ba-if=\"{{!adsplaying}}\" class=\"{{cssfloatingsidebar}}-content-container {{csscommon}}-full-height\">\n        <div class=\"{{cssfloatingsidebar}}-title\">\n            {{title}}\n        </div>\n    </div>\n    <div ba-if=\"{{headerlogoimgurl}}\" class=\"{{cssfloatingsidebar}}-logo\">\n        <a href=\"{{ headerlogourl || headerlogoimgurl }}\" title=\"{{headerlogoname}}\" target=\"_blank\">\n            <img ba-prop:src=\"{{headerlogoimgurl}}\" alt=\"{{headerlogoname}}\" />\n        </a>\n    </div>\n</div>\n",
 
                 attrs: {
                     "css": "ba-videoplayer",

@@ -220,6 +220,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "midrollminintervalbeforeend": 5,
+                        "mindurationnext": 0, // when set to 0, mindurationnext is equal to noengagenext. Can be disabled by setting it to -1
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -328,6 +329,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "thumbimage": {},
                         "thumbcuelist": [],
                         "showduration": false,
+                        "infiniteduration": false,
                         "showsettings": true,
                         "showsettingsmenu": true, // As a property show/hide from users
                         "posteralt": "",
@@ -451,6 +453,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "loopall": "boolean",
                     "autoplay": "boolean",
                     "autoplaywhenvisible": "boolean",
+                    "infiniteduration": "boolean",
                     "continuousplayback": "boolean",
                     "preload": "boolean",
                     "ready": "boolean",
@@ -609,7 +612,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (thisPlaylist.length === 1 && thisPlaylist[0].title === this.get('title')) return;
                             const showNextTime = Number(this.get("shownext")) || 0;
                             const engageTime = showNextTime + (Number(this.get("noengagenext")) || 0);
-                            if (position > showNextTime && showNextTime && !this.get("next_active")) {
+                            let minDurationNext = this.get("mindurationnext");
+                            if (!minDurationNext) minDurationNext = engageTime;
+
+                            if (this.get("duration") >= minDurationNext && showNextTime && position > showNextTime && !this.get("next_active")) {
                                 this.set("next_active", true);
                             }
                             if (position > engageTime && engageTime > 0) {
@@ -1110,7 +1116,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("view_type", "float");
                     }
                     // Only init stickyHandler if floantingonly is desabled
-                  if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
+                    if (this.get("sticky") && !this.get("floatingoptions.floatingonly")) {
                         var stickyOptions = {
                             threshold: this.get("sticky-threshold"),
                             paused: this.get("sticky-starts-paused") || !this.get("sticky"),
@@ -1213,61 +1219,61 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.__adMinIntervals = this.get("minadintervals");
                         this.__adsControlPosition = 0;
                         // This will be called in the next video cases
-                        if (schedules.length > 0) {
-                            Objs.iter(schedules, function(schedule, index) {
-                                schedule = schedule.toLowerCase();
-                                // if user set schedule with time settings
-                                if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
-                                    var _s = schedule.replace('mid[', '').replace(']', '');
-                                    Objs.map(_s.split(','), function(item) {
-                                        item = item.trim();
-                                        if (/^[\d\s]+\*$/.test(item)) {
-                                            item = +item.replace("\*", '');
-                                            this.once("change:duration", function(duration) {
-                                                if (duration > 0) {
-                                                    var step = Math.floor(duration / item);
-                                                    if (duration > item) {
-                                                        for (var i = 1; i <= step; i++) {
-                                                            this.get("midrollads").push({
-                                                                position: i * item
-                                                            });
-                                                        }
+                        Objs.iter(schedules, function(schedule, index) {
+                            schedule = schedule.toLowerCase();
+                            // if user set schedule with time settings
+                            if (/^mid\[[\d\s]+(,[\d\s]+|[\d\s]+\%|\%|[\d\s]+\*|\*)*\]*$/i.test(schedule)) {
+                                const _s = schedule.replace('mid[', '').replace(']', '');
+                                Objs.map(_s.split(','), function(item) {
+                                    item = item.trim();
+                                    if (/^[\d\s]+\*$/.test(item)) {
+                                        item = +item.replace("\*", '');
+                                        this.on("change:duration", function(duration) {
+                                            if (duration > 0 && this.get("midrollads").length === 0) {
+                                                var step = Math.floor(duration / item);
+                                                if (this.get("infiniteduration"))
+                                                    step = 100;
+                                                if (duration > item) {
+                                                    for (var i = 1; i <= step; i++) {
+                                                        this.get("midrollads").push({
+                                                            position: this.get("position") + i * item
+                                                        });
                                                     }
                                                 }
-                                            }, this);
-                                        } else {
-                                            if (/^[\d\s]+\%$/.test(item)) {
-                                                item = parseInt(item.replace('%', '').trim(), 10);
-                                                if (item < 100 && item > 0) {
-                                                    this.get("midrollads").push({
-                                                        position: parseFloat((item / 100).toFixed(2))
-                                                    });
-                                                }
-                                            } else {
-                                                // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                            }
+                                        }, this);
+                                    } else {
+                                        if (/^[\d\s]+\%$/.test(item)) {
+                                            item = parseInt(item.replace('%', '').trim(), 10);
+                                            if (item < 100 && item > 0) {
                                                 this.get("midrollads").push({
-                                                    position: parseFloat(item)
+                                                    position: parseFloat((item / 100).toFixed(2))
                                                 });
                                             }
+                                        } else {
+                                            // the user also set 0 to 1 value, as percentage, more 1 means seconds
+                                            this.get("midrollads").push({
+                                                position: parseFloat(item)
+                                            });
                                         }
-                                    }, this);
-                                } else {
-                                    if (/^mid\[.*?\]$/.test(schedule))
-                                        console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
-                                    if (/^mid$/.test(schedule)) {
-                                        this.get("midrollads").push({
-                                            position: 0.5
-                                        });
                                     }
+                                }, this);
+                            } else {
+                                if (/^mid\[.*?\]$/.test(schedule))
+                                    console.log('Seems your mid roll settings does not correctly set. It will be played only in the middle of the video.');
+                                if (/^mid$/.test(schedule)) {
+                                    this.get("midrollads").push({
+                                        position: 0.5
+                                    });
                                 }
+                            }
 
-                                // After iteration completing. If adsCollections existed should be destroyed
-                                if (((index + 1) === schedules.length) && !!this._adsRollPositionsCollection) {
-                                    this._adsRollPositionsCollection.destroy();
-                                    this._adsRollPositionsCollection = null;
-                                }
-                            }, this);
-                        }
+                            // After iteration completing. If adsCollections existed should be destroyed
+                            if (((index + 1) === schedules.length) && !!this._adsRollPositionsCollection) {
+                                this._adsRollPositionsCollection.destroy();
+                                this._adsRollPositionsCollection = null;
+                            }
+                        }, this);
                     }
                 },
 
@@ -1821,26 +1827,31 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 toggleTrackTags: function() {
                     if (!this.__trackTags) return;
                     this.set("tracktextvisible", !this.get("tracktextvisible"));
-                    var status = this.get("tracktextvisible");
-                    var _lang = this.get("tracktaglang"),
-                        _customStyled = this.get("tracktagsstyled"),
-                        _status = status ? 'showing' : 'disabled';
+                    this.resetTrackTags();
+                },
+
+                resetTrackTags: function(status) {
+                    status = Types.is_defined(status) ? status : this.get("tracktextvisible");
+                    const _lang = this.get("tracktaglang"),
+                        _customStyled = this.get("tracktagsstyled");
+                    let _status = status ? 'showing' : 'disabled';
                     _status = (status && _customStyled) ? 'hidden' : _status;
                     if (!status && this.get("tracktagsstyled")) this.set("trackcuetext", null);
-
-                    Objs.iter(this.__video.textTracks, function(track, index) {
-                        if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
-                            var _track = this.__video.textTracks[index];
-                            // If set custom style to true show cue text in our element
-                            if (_track.kind !== 'metadata') {
-                                if (_track.language === _lang) {
-                                    _track.mode = _status;
-                                    this.set("tracktextvisible", status);
-                                    this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                    if (this.__trackTags && !this.__trackTags.destroyed()) {
+                        Objs.iter(this.__video.textTracks, function(track, index) {
+                            if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
+                                var _track = this.__video.textTracks[index];
+                                // If set custom style to true show cue text in our element
+                                if (_track.kind !== 'metadata') {
+                                    if (_track.language === _lang) {
+                                        _track.mode = _status;
+                                        this.set("tracktextvisible", status);
+                                        this.__trackTags._triggerTrackChange(this.__video, _track, _status, _lang);
+                                    }
                                 }
                             }
-                        }
-                    }, this);
+                        }, this);
+                    }
                 },
 
                 _keyDownActivity: function(element, ev) {
@@ -2902,7 +2913,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         roll.position;
                                     // If the user does not set, and we will not get the same ad position, avoids dublication,
                                     // prevent very close ads and also wrong set position which exceeds the duration
-                                    if ((Math.abs(_position - _current) > this.__adMinIntervals) && _position < this.get("duration")) {
+                                    if ((Math.abs(_position - _current) > this.__adMinIntervals) && (this.get("infiniteduration") || _position < this.get("duration"))) {
                                         _current = _position;
                                         _nextPositionIndex = index;
                                         this._adsRollPositionsCollection.add({
@@ -2957,7 +2968,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend")) {
+                    if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && (this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend") || this.get("infiniteduration"))) {
                         if (this.__adMinIntervals > 0) {
                             return;
                         }

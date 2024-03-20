@@ -219,6 +219,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "midrollminintervalbeforeend": 5,
+                        "mindurationnext": 0, // when set to 0, mindurationnext is equal to noengagenext. Can be disabled by setting it to -1
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
                         "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
@@ -588,7 +589,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (thisPlaylist.length === 1 && thisPlaylist[0].title === this.get('title')) return;
                             const showNextTime = Number(this.get("shownext")) || 0;
                             const engageTime = showNextTime + (Number(this.get("noengagenext")) || 0);
-                            if (position > showNextTime && showNextTime && !this.get("next_active")) {
+                            let minDurationNext = this.get("mindurationnext");
+                            if (!minDurationNext) minDurationNext = engageTime;
+
+                            if (this.get("duration") >= minDurationNext && showNextTime && position > showNextTime && !this.get("next_active")) {
                                 this.set("next_active", true);
                             }
                             if (position > engageTime && engageTime > 0) {

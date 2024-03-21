@@ -354,6 +354,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "airplaybuttonvisible": false,
                         "castbuttonvisble": false,
                         "fullscreened": false,
+                        "shadowFullscreened": false,
                         "initialoptions": {
                             "hideoninactivity": null,
                             "volumelevel": null,
@@ -453,6 +454,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "outstreamoptions": "json",
                     "initialseek": "float",
                     "fullscreened": "boolean",
+                    "shadowFullscreened": "boolean",
                     "ias-config": "json",
                     "sharevideo": "array",
                     "sharevideourl": "string",
@@ -1507,10 +1509,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._playWhenVisible(video);
                         }
                         this.player.on("fullscreen-change", function(inFullscreen) {
-                            this.set("fullscreened", inFullscreen);
+                            if (this.isShadowRoot()) this.set("fullscreened", !this.get("shadowFullscreened"))
+                            else this.set("fullscreened", inFullscreen);
                             if (!inFullscreen && (this.get('hideoninactivity') !== this.get("initialoptions").hideoninactivity)) {
                                 this.set("hideoninactivity", this.get("initialoptions").hideoninactivity);
                             }
+                            this.set("shadowFullscreened", !this.get("shadowFullscreened"))
                         }, this);
 
 
@@ -2122,9 +2126,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }.bind(this), {
                                     once: true
                                 });
-                            } else Dom.elementEnterFullscreen(
-                                this.get("shadow") ? this.activeElement() : this.activeElement().childNodes[0],
-                            )
+                            } else Dom.elementEnterFullscreen(this.fullscreenElement())
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
@@ -2345,7 +2347,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     this.set("duration", this.get("totalduration") || new_position);
                             }
-                            if ((!Info.isiOS() || !Info.isMobile())) this.set("fullscreened", this.player.isFullscreen(this.fullscreenElement()));
+                            if ((!Info.isiOS() || !Info.isMobile()) && !this.isShadowRoot()) this.set("fullscreened", this.player.isFullscreen(this.fullscreenElement()));
                             // If setting pop-up is open, hide it together with a control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);
@@ -2997,8 +2999,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("adsplayer_active", false);
                 },
 
+                isShadowRoot: function() {
+                    return this.activeElement().parentNode.toString().includes("ShadowRoot");
+                },
+
                 fullscreenElement: function() {
-                    if (this.get("shadow")) return document.querySelector("#player");
+                    if (this.isShadowRoot()) return this.activeElement();
                     return this.activeElement().childNodes[0];
                 },
 

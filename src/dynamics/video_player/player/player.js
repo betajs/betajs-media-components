@@ -1406,7 +1406,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
-                        fullscreenedElement: this.get("shadow") ? document.querySelector("#player") : this.activeElement().childNodes[0],
+                        fullscreenedElement: this.fullscreenElement(),
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
                     })).error(function(e) {
                         if (this.destroyed())
@@ -2345,9 +2345,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     this.set("duration", this.get("totalduration") || new_position);
                             }
-                            if ((!Info.isiOS() || !Info.isMobile())) this.set("fullscreened", this.player.isFullscreen(
-                                this.get("shadow") ? document.querySelector("#player") : this.activeElement().childNodes[0],
-                            ));
+                            if ((!Info.isiOS() || !Info.isMobile())) this.set("fullscreened", this.player.isFullscreen(this.fullscreenElement()));
                             // If setting pop-up is open, hide it together with a control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);
@@ -2997,6 +2995,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // this.channel("ads").trigger("discardAdBreak"); // nonLinear not run discard
                     }
                     this.set("adsplayer_active", false);
+                },
+
+                fullscreenElement: function() {
+                    if (this.get("shadow")) return document.querySelector("#player");
+                    return this.activeElement().childNodes[0];
                 },
 
                 __testAutoplayOptions: function(video) {

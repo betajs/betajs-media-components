@@ -1406,7 +1406,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
-                        fullscreenedElement: this.activeElement().childNodes[0],
+                        fullscreenedElement: this.get("shadow") ? document.querySelector("#player") : this.activeElement().childNodes[0],
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
                     })).error(function(e) {
                         if (this.destroyed())
@@ -2122,7 +2122,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }.bind(this), {
                                     once: true
                                 });
-                            } else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
+                            } else Dom.elementEnterFullscreen(
+                                this.get("shadow") ? this.activeElement() : this.activeElement().childNodes[0],
+                            )
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
@@ -2343,7 +2345,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     this.set("duration", this.get("totalduration") || new_position);
                             }
-                            if (!Info.isiOS() || !Info.isMobile()) this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
+                            if ((!Info.isiOS() || !Info.isMobile())) this.set("fullscreened", this.player.isFullscreen(
+                                this.get("shadow") ? document.querySelector("#player") : this.activeElement().childNodes[0],
+                            ));
                             // If setting pop-up is open, hide it together with a control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);

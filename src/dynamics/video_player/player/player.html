@@ -100,6 +100,8 @@
             ba-adchoicesontop="{{adchoicesontop && !gallerysidebar}}"
             ba-presetedtooltips="{{presetedtooltips}}"
             ba-showadchoices="{{showadchoices}}"
+            ba-imaadsrenderingsetting="{{imaadsrenderingsetting}}"
+            ba-adsrendertimeout="{{adsrendertimeout}}"
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
              ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" style="{{placeholderstyle}}"
@@ -320,6 +322,7 @@
             ba-moredetailslink="{{moredetailslink}}"
             ba-moredetailstext="{{moredetailstext}}"
             ba-adsplaying="{{adsplaying}}"
+            ba-linear="{{=linear}}"
             ba-playlist="{{playlist}}"
             ba-playing="{{playing}}"
             ba-position="{{position}}"

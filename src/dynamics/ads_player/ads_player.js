@@ -58,6 +58,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         } else {
                             return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
                         }
+                    },
+                    "change:imaadsrenderingsetting": function(settings) {
+                        if (!this.adsManager || !Types.is_object(settings)) return;
+                        this.adsManager.updateAdsRenderingSettings(settings);
                     }
                 },
 
@@ -78,7 +82,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _baseRequestAdsOptions: function() {
-                    return {
+                    const requestAdsOptions = {
                         adTagUrl: this.get("adtagurl"),
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
@@ -94,6 +98,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         height: this.getAdHeight(),
                         volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
                     };
+                    if (this.get("adsrendertimeout") && this.get("adsrendertimeout") > 0)
+                        requestAdsOptions.vastLoadTimeout = this.get("adsrendertimeout");
+                    return requestAdsOptions;
                 },
 
                 channels: {
@@ -101,6 +108,16 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("adsplaying", false);
                         if (this.parent().get("outstream")) {
                             this.parent().hidePlayerContainer();
+                        }
+                    },
+                    "ads:render-timeout": function() {
+                        if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
+                            this.adsManager.destroy();
+                        }
+                        const dyn = this.parent();
+                        if (dyn) {
+                            dyn.stopAdsRenderFailTimeout(true);
+                            dyn.channel("ads").trigger("ad-error");
                         }
                     },
                     "ads:load": function() {
@@ -141,9 +158,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:loaded": function(event) {
                         const ad = event.getAd();
+                        this.set("ad", ad);
+                        this.setEndCardBackground(this.getAdWidth(), this.getAdHeight());
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
-                        this.set("ad", ad);
                         this.set("addata", adData);
                         this.set("volume", this.adsManager.getVolume());
                         this.set("duration", adData.duration);
@@ -185,11 +203,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     var adContainer = this.getAdContainer();
                     var adManagerOptions = {
                         adContainer: adContainer,
-                        adsRenderingSettings: {
-                            enablePreloading: true,
-                            useStyledNonLinearAds: true,
-                            restoreCustomPlaybackStateOnAdBreakComplete: true
-                        },
+                        adsRenderingSettings: this.get("imaadsrenderingsetting"),
                         IMASettings: this.get("imasettings")
                     };
                     if (!Info.isMobile() && this.getVideoElement()) {
@@ -212,6 +226,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                     "campId": (this.getAdWidth() || 640) + "x" + (this.getAdHeight() || 360)
                                 }, this.__iasConfig));
                             }
+                            // If we're getting ad-error no need to set loadVideoTimeout
+                            this._setLoadVideoTimeout();
                             // Makes active element not redirect to click through URL on first click
                             // if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
                             //     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
@@ -226,7 +242,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.channel("ads").trigger(event, data);
                     }, this);
 
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        // attach listener to set endcard image
+                        this.on("change:endcardbackgroundsrc", function(endcardbackgroundsrc) {
+                            if (endcardbackgroundsrc) {
+                                this.getAdContainer().style.backgroundImage = `url("${endcardbackgroundsrc}")`;
+                            }
+                        });
+                    }
+
                     if (dynamics) {
+                        // if we've already not started timer, we should start it here
+                        dynamics.initAdsRenderFailTimeout();
                         dynamics.on("resize", function(dimensions) {
                             const width = this.getAdWidth();
                             const height = this.getAdHeight();
@@ -239,12 +266,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                         google.ima.ViewMode.NORMAL
                                     );
                                 }
-                                if (this.shouldShowFirstFrameAsEndcard()) {
-                                    this.setEndCardBackground(width, height);
-                                    if (this._src) {
-                                        this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
-                                    }
-                                }
+                                this.setEndCardBackground(width, height);
                             }
                         }, this);
                         dynamics.on("unmute-ads", function(volume) {
@@ -383,7 +405,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
-
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;
@@ -397,14 +418,23 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     })
                 },
 
-                setEndCardBackground: function(width, height) {
+                captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
                     if (ad) {
-                        this.updateEndCardImage(ad, width, height);
+                        this.generateEndCardImage(ad, width, height);
                     }
                 },
 
-                updateEndCardImage: function(ad, width, height) {
+                setEndCardBackground: function(width, height) {
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        if (width && height) {
+                            this.captureAdEndCardBackground(width, height);
+                        }
+                    }
+                },
+
+                generateEndCardImage: function(ad, width, height) {
+                    // if we already captured the endcard once already
                     if (this._video && this._canvas && this._mediaUrl) {
                         this.resizeCanvas(width, height);
                         return;
@@ -412,19 +442,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._video = document.createElement("video");
                     this._canvas = document.createElement("canvas");
                     this._mediaUrl = ad?.data?.mediaUrl;
-                    this._video.crossOrigin = "anonymous";
-                    this._video.src = this._mediaUrl;
-                    this._video.muted = true;
-                    this._video.play();
-                    setTimeout(function() {
-                        this._canvas.width = width;
-                        this._canvas.height = height;
-                        this._canvas
-                            .getContext("2d")
-                            .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                        this._src = this._canvas.toDataURL("image/png");
-                        this._video.pause();
-                    }.bind(this), 1000);
+                    if (this._mediaUrl) {
+                        fetch(this._mediaUrl)
+                            .then(response => response.blob())
+                            .then(blob => {
+                                this._video.src = URL.createObjectURL(blob);
+                                this._video.crossOrigin = "anonymous";
+                                this._video.muted = true;
+                                return this._video.play()
+                            })
+                            .then(() => {
+                                // add a small delay to handle cases where the beginning of video is a black screen
+                                // 800ms delay + drawFrame has a timeout of 200ms = 1s into video
+                                this.parent()._drawFrame(this._video, 0.8, width, height, (canvas, _ctx) => {
+                                    this._canvas = canvas;
+                                    this.set("endcardbackgroundsrc", this._canvas.toDataURL("image/png"));
+                                    this._video.pause();
+                                });
+                            }).catch((e) => console.log(`Error: ${e}`));
+                    }
                 },
 
                 resizeCanvas: function(newWidth, newHeight) {
@@ -433,9 +469,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this._canvas
                         .getContext("2d")
                         .drawImage(this._video, 0, 0, this._canvas.width, this._canvas.height);
-                    this._src = this._canvas.toDataURL("image/png");
+                    this.set("endcardbackgroundsrc", this._canvas.toDataURL("image/png"))
                 },
-
 
                 shouldShowFirstFrameAsEndcard: function() {
                     const dyn = this.parent();
@@ -495,6 +530,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (ad) this._getCompanionAds(ad);
                     }
 
+                    // reset adsrendertimeout
+                    this.parent().stopAdsRenderFailTimeout(true);
+                    // and set a new videoLoaded timeout for midroll and post-roll
+                    this._setLoadVideoTimeout();
+
                     // Additional resize will fit ads fully inside the player container
                     if (this.get("sidebar_active") && this.adsManager && this.parent()) {
                         // NOTE: can cause console error on main player, uncomment if required separately
@@ -518,6 +558,19 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     if (this.__companionAdElement) {
                         this.__companionAdElement.innerHTML = "";
+                    }
+                },
+
+                _setLoadVideoTimeout: function() {
+                    if (this.get("adsrendertimeout") > 0 && this.get("adsrendertimeout") !== this.get("imaadsrenderingsetting.loadVideoTimeout")) {
+                        const dyn = this.parent();
+                        if (dyn) {
+                            // If we've set or timer still exists
+                            dyn.set("imaadsrenderingsetting", {
+                                ...dyn.get("imaadsrenderingsetting"),
+                                loadVideoTimeout: dyn.get("adsrendertimeout")
+                            });
+                        }
                     }
                 },
 
@@ -548,9 +601,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this.set("showrepeatbutton", !!dyn.get("outstreamoptions.allowRepeat"));
                             if (dyn.get("outstreamoptions.repeatText")) {
                                 this.set("repeatbuttontext", dyn.get("outstreamoptions.repeatText"));
-                            }
-                            if (this.shouldShowFirstFrameAsEndcard() && this._src) {
-                                this.getAdContainer().style.backgroundImage = `url("${this._src}")`;
                             }
                             if (moreDetailsLink) {
                                 this.set("moredetailslink", moreDetailsLink);

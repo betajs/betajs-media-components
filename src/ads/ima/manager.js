@@ -17,7 +17,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._options = options;
 
                 if (google && google.ima && options.IMASettings)
-                    this._setIMASettings(options.IMASettings);
+                    this._setIMASettings(options);
                 this._adDisplayContainer = new google.ima.AdDisplayContainer(
                     options.adContainer, options.videoElement, options.customclickthrough || null
                 );
@@ -26,7 +26,8 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, this.onAdsManagerLoaded.bind(this), false);
             },
 
-            _setIMASettings: function(settings) {
+            _setIMASettings: function(options) {
+                const settings = options.IMASettings;
                 // google.ima.ImaSdkSettings.VpaidMode.DISABLED
                 // DISABLED == 0 - VPAID ads will not play, and an error will be returned.
                 // ENABLED == 1 - VPAID ads are enabled using a cross-domain iframe
@@ -70,30 +71,14 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 if (settings.companionBackfillMode) {
                     google.ima.settings.setCompanionBackfill(companionBackfillMode);
                 }
-
-                if (settings.uiElements) {
-                    // ['adAttribution', 'countdown']
-                    var allowedUIElements = [
-                        google.ima.UiElements.AD_ATTRIBUTION, google.ima.UiElements.COUNTDOWN
-                    ];
-                    if (Types.is_array(settings.uiElements)) {
-                        var uiElements = settings.uiElements.filter(function(element) {
-                            return allowedUIElements.includes(element);
-                        });
-                        if (uiElements.length >= 0) {
-                            this.__UIElementSettings = uiElements;
-                        } else {
-                            if (settings.uiElements.length > 0) {
-                                console.log("Only the following UI elements as an array of values are allowed: ", allowedUIElements.join(", "));
-                            }
-                        }
-                    } else {
-                        console.log("IMA: uiElements must be an array of allowed UI elements. See https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/reference/js/google.ima#.UiElements for more information.");
-                    }
-                }
             },
 
             destroy: function() {
+                // Prevent error on destroying non triggered adsLoader events.
+                if (this._adsLoader) {
+                    this._adsLoader.destroy();
+                    this._adsLoader = null;
+                }
                 if (this._adsManager) {
                     this._adsManager.destroy();
                     this._adsManager = null;
@@ -122,25 +107,49 @@ Scoped.define("module:Ads.IMA.AdsManager", [
             },
 
             onAdsManagerLoaded: function(adsManagerLoadedEvent) {
-                var adsRenderingSettings = new google.ima.AdsRenderingSettings();
+                const adsRenderingSettings = new google.ima.AdsRenderingSettings();
                 if (this._options && this._options.adsRenderingSettings) {
-                    for (var setting in this._options.adsRenderingSettings) {
-                        adsRenderingSettings[setting] = this._options.adsRenderingSettings[setting];
+                    for (let setting in this._options.adsRenderingSettings) {
+                        if (setting === "uiElements") {
+                            const uiElementSettings = this._options.adsRenderingSettings[setting];
+                            // ['adAttribution', 'countdown']
+                            const allowedUIElements = [
+                                google.ima.UiElements.AD_ATTRIBUTION,
+                                google.ima.UiElements.COUNTDOWN
+                            ];
+                            if (Types.is_array(uiElementSettings)) {
+                                var uiElements = uiElementSettings.filter(function(element) {
+                                    return allowedUIElements.includes(element);
+                                });
+                                if (uiElements.length >= 0) {
+                                    adsRenderingSettings[setting] = uiElements;
+                                }
+                            } else {
+                                console.log("IMA: uiElements must be an array of allowed UI elements. See https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/reference/js/google.ima#.UiElements for more information.");
+                            }
+                        } else {
+                            adsRenderingSettings[setting] = this._options.adsRenderingSettings[setting];
+                        }
                     }
                 }
-                if (this.__UIElementSettings) {
-                    var uiRenderingSettings = this.__UIElementSettings;
-                    if (this._options.adsRenderingSettings.uiElements) {
-                        uiRenderingSettings = Objs.tree_merge(
-                            this._options.adsRenderingSettings.uiElements,
-                            uiRenderingSettings
-                        );
+                try {
+                    this._adsManager = adsManagerLoadedEvent.getAdsManager(
+                        this._options.videoElement, adsRenderingSettings
+                    );
+                    if (adsManagerLoadedEvent.getUserRequestContext()) {
+                        this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
+                    } else {
+                        this._adsManager.setVolume(this._options?.videoElement?.volume || 0);
                     }
-                    adsRenderingSettings.uiElements = uiRenderingSettings;
+                } catch (adError) {
+                    if (adError instanceof google.ima.AdError) {
+                        this.onAdError(adError);
+                    } else {
+                        this.onAdError({
+                            message: `Getting Ads Manager failed to load with settings: ${JSON.stringify(adsRenderingSettings)}. \n More details: ${JSON.stringify(adError)}`
+                        });
+                    }
                 }
-                this._adsManager = adsManagerLoadedEvent.getAdsManager(
-                    this._options.videoElement, adsRenderingSettings
-                );
                 this.addEventListeners();
                 this.__methods().forEach(function(method) {
                     this[method] = this._adsManager[method].bind(this._adsManager);

@@ -213,6 +213,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "outstream": false,
                         "outstreamoptions": {}, // can be false, string (example: '10px', '10') or numeric
                         "imasettings": {},
+                        "imaadsrenderingsetting": {},
                         "adtagurl": null,
                         "adchoiceslink": null,
                         "adtagurlfallbacks": [],
@@ -239,6 +240,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // }
                         "companionad": null, // if just set to true, it will set companionads attribute for further use cases and will not render companion ad
                         "companionads": [],
+                        "adsrendertimeout": null,
                         "linearadplayer": true,
                         "customnonlinear": false, // Currently, not fully supported
                         "minadintervals": 5,
@@ -246,7 +248,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "midrollads": [],
                         "adchoicesontop": true,
                         "mobilebreakpoint": 560,
-
 
                         /* Options */
                         "allowpip": true, // Picture-In-Picture Mode
@@ -355,10 +356,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "castbuttonvisble": false,
                         "fullscreened": false,
                         "shadowFullscreened": false,
+                        // As "initialoptions" we're setting options which were set by user, but could be required to be restored
+                        // also setting which we want to be predefined as a default settings and users are not set them
                         "initialoptions": {
+                            // below settings are will be store for further use-cases
                             "hideoninactivity": null,
                             "volumelevel": null,
                             "autoplay": null,
+                            "adsrendertimeout": null,
+                            // below are default settings
                             "outstreamoptions": {
                                 hideOnCompletion: true,
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
@@ -371,6 +377,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // repeatText: '', // repeat button text
                                 persistentcompanionad: false
                             },
+                            imaadsrenderingsetting: {
+                                enablePreloading: true,
+                                useStyledNonLinearAds: true,
+                                restoreCustomPlaybackStateOnAdBreakComplete: true, // This is setting is used primarily when the publisher passes in its content player to use for custom ad playback.
+                                // loadVideoTimeout: -1, // use -1 for the default of 8 seconds
+                                // Specifies whether the UI elements that should be displayed.
+                                // The elements in this array are ignored for AdSense/AdX ads.
+                                uiElements: [], // (null or non-null Array of string)
+                                // autoAlign: boolean,
+                                // bitrate: number,
+                                // mimeTypes: null or non-null Array of string
+                                // playAdsAfterTime: number
+                                // useStyledLinearAds: boolean // Render linear ads with full UI styling. This setting does not apply to AdSense/AdX ads or ads played in a mobile context
+                                // useStyledNonLinearAds: boolean // Render non-linear ads with a close and recall button.
+                            }
                             // rollback: {}
                         },
                         "silent_attach": false,
@@ -525,6 +546,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "sidebaroptions": "object",
                     "showadchoices": "boolean",
                     "unknownadsrc": "boolean",
+                    "adsrendertimeout": "int",
+                    "imaadsrenderingsetting": "object"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -766,6 +789,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
                             this.set("adshassource", true);
+                            // If we're already not set timer for ads failure, and we have some ads source
+                            // start set it here. Possible other options are via Header bidding services like Prebid
+                            this.initAdsRenderFailTimeout();
                             if (!this.get("disableadpreload")) this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
@@ -917,6 +943,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.__attachPlayerInteractionEvents();
                     this.set('clearDebounce', 0);
                     this.__mergeDeepAttributes();
+                    this.__mergeWithInitialOptions();
                     this._dataset = this.auto_destroy(new DatasetProperties(this.activeElement()));
                     this._dataset.bind("layout", this.properties());
                     this._dataset.bind("placement", this.properties());
@@ -1124,6 +1151,64 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                /**
+                 * Global Method, can be used when using some bidding parameters as well
+                 * initAdsRenderFailTimeout
+                 */
+                initAdsRenderFailTimeout: function() {
+                    const renderTimeout = Number(this.get("adsrendertimeout"));
+                    const repeatMicroseconds = 200;
+                    if (!this.__adsRenderFailTimer && renderTimeout && renderTimeout > 0) {
+                        this.__adsRenderFailTimer = new Timers.Timer({
+                            fire: function() {
+                                // we're setting adsplaying true when
+                                if (this.get("adsplaying")) {
+                                    // we're not resetting adsrendertimeout, as it's also will apply to the loadVideoTimeout
+                                    this.stopAdsRenderFailTimeout();
+                                }
+                                const _timer = this.get("adsrendertimeout");
+                                if (_timer > 0) {
+                                    this.set("adsrendertimeout", _timer - repeatMicroseconds);
+                                    return;
+                                }
+                                // If after passing the time, ads still not playing, we should trigger an error
+                                this.channel("ads").trigger("render-timeout");
+                                this.brakeAdsManually(true);
+                            }.bind(this),
+                            delay: repeatMicroseconds,
+                            start: true,
+                            context: this
+                        });
+                        this.auto_destroy(this.__adsRenderFailTimer);
+                    }
+                },
+
+                /**
+                 * Global Method, will reset ads fail timeout with a new function
+                 */
+                resetAdsRenderFailTimeout: function() {
+                    if (this.__adsRenderFailTimer) {
+                        this.stopAdsRenderFailTimeout(true);
+                        this.initAdsRenderFailTimeout();
+                        return;
+                    }
+                    this.initAdsRenderFailTimeout();
+                },
+
+                /**
+                 * Clear ads fail timout
+                 */
+                stopAdsRenderFailTimeout: function(reset) {
+                    reset = reset || false;
+                    if (reset)
+                        this.set("adsrendertimeout", this.get("initialoptions.adsrendertimeout"));
+                    if (!this.__adsRenderFailTimer) return;
+                    if (!this.__adsRenderFailTimer.destroyed()) {
+                        this.__adsRenderFailTimer.stop();
+                    }
+                    if (reset) this.__adsRenderFailTimer = null;
+                },
+
                 initMidRollAds: function() {
                     var schedules;
                     // Split all via comma exclude inside brackets
@@ -1311,19 +1396,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     vidEle.setAttribute('crossorigin', 'anonymous')
                     vidEle.muted = true;
                     vidEle.play();
-
-
-
-
                     try {
                         vidEle.addEventListener("loadeddata", (event) => {
                             this._drawFrame(vidEle, currentPosition, video.videoWidth, video.videoHeight, (canvas) => {
-
                                 imgElements.forEach(img => {
-                                    if (img.parentNode)
-                                        img.parentNode.removeChild(img)
-                                })
-
+                                    if (img.parentNode) img.parentNode.removeChild(img)
+                                });
                                 img.src = `${canvas.toDataURL()}`;
                                 videoParentEle.appendChild(img);
 
@@ -1331,10 +1409,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     video.currentTime = this.get("trackFrameTime");
                                 }
                                 this.set('trackFrameTime', currentPosition)
-
                             })
                         });
-
                     } catch (e) {}
                 },
                 _detachVideo: function() {
@@ -1517,8 +1593,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("shadowFullscreened", !this.get("shadowFullscreened"))
                         }, this);
 
-
-
                         // All conditions below appear on autoplay only
                         // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
                         // If user already has an interaction with player, we don't need to check it again
@@ -1532,8 +1606,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("playbackcount", 1);
                             }, this);
                         }
-
-
                         this.player.on("playing", function() {
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (this.get("sticky") && this.stickyHandler) this.stickyHandler.start();
@@ -1639,8 +1711,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.player.loaded())
                             this.player.trigger("loaded");
                     }, this);
-
-
                 },
 
                 _getSources: function() {
@@ -1957,8 +2027,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
-
-
 
                         this.host.state().play();
                         this.set("manuallypaused", false);
@@ -2286,7 +2354,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (destroy) this.destroy();
                         }
                     }
-
                 },
 
                 destroy: function() {
@@ -2598,6 +2665,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("disableadpreload", false);
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
+                        // Actually we can remove it as a new function should merge it, anyway need first test
                         this.set("outstreamoptions", Objs.tree_merge(this.get("initialoptions").outstreamoptions, this.get("outstreamoptions")));
                         // will store user set options for outstream
                         this.set("states.outstreamoptions", this.get("outstreamoptions"));
@@ -2616,6 +2684,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("preloadadsmanager", this.get("adsplaypreroll") || this.get("vmapads") || this.get("outstream"));
                         var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
                         this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
+                    }
+                },
+
+                __mergeWithInitialOptions: function() {
+                    const options = this.get("initialoptions");
+                    if (options && Types.is_object(options)) {
+                        Objs.iter(options, function(v, k) {
+                            // if value is null, then we need to set it user or default value, as initial options
+                            if (v === null) {
+                                this.set(`initialoptions.${k}`, this.get(k));
+                            } else {
+                                if (Types.is_defined(v) && typeof options[k] === typeof this.get(k)) {
+                                    const isCountable = v && this.types[k] && ["json", "array", "object", "jsonarray"].indexOf(this.types[k]) > -1;
+                                    if (isCountable && options[k] && Objs.count(options[k]) > 0) {
+                                        this.set(k, Objs.tree_merge(options[k], this.get(k)));
+                                    } else if (!Types.is_object(v)) {
+                                        this.set(k, v);
+                                    }
+                                }
+                            }
+                        }, this);
                     }
                 },
 
@@ -2921,7 +3010,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
 
                     if (!this.get("player-started")) this.set("player-started", true);
-
                 },
 
                 _checkAutoPlay: function(video) {
@@ -2989,13 +3077,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     var adsPlayer = this.scopes.adsplayer;
 
                     // Only if min-suggested seconds of nonLinear ads are shown will show next ads
-                    if (adsPlayer.get("non-linear-min-suggestion") >= 0 && !adsPlayer.get("linear") && !hard)
+                    if (adsPlayer.get("non-linear-min-suggestion") > 0 && !this.get("linear") && !hard)
                         return;
 
                     if (!this.get("adscompleted") && !adsPlayer.get("linear")) {
                         this.channel("ads").trigger("allAdsCompleted");
                         // this.channel("ads").trigger("discardAdBreak"); // nonLinear not run discard
                     }
+                    this.stopAdsRenderFailTimeout(true);
                     this.set("adsplayer_active", false);
                 },
 

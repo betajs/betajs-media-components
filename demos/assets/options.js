@@ -54,6 +54,9 @@ if (params.ad) {
             // attrs.adtagurl = 'https://kvid-demo-kargo-com.s3.amazonaws.com/functional-mocks/vast/functional-mock-2.xml';
             attrs.adtagurl = companion;
             break;
+        case 8: case '8': // with nonLinear
+            attrs.adtagurl = `https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dredirecterror&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&nofb=1&correlator=`;
+            break;
         case 9: case '9': case 'err': // with nonLinear
             attrs.adtagurl = 'https://ads.celtra.com/wrong/vpaid/error.xml';
             break;

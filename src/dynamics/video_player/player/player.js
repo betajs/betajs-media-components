@@ -1277,6 +1277,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                getFullscreenElement: function() {
+                    return this.activeElement().getRootNode().host || this.activeElement().childNodes[0];
+                },
+
                 getMediaType: function() {
                     return "video";
                 },
@@ -1482,7 +1486,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
-                        fullscreenedElement: this.activeElement().childNodes[0],
+                        fullscreenedElement: this.getFullscreenElement(),
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
                     })).error(function(e) {
                         if (this.destroyed())

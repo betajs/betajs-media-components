@@ -1278,7 +1278,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 getFullscreenElement: function() {
-                    return this.activeElement().getRootNode().host || this.activeElement().childNodes[0];
+                    let host = this.activeElement().getRootNode().host;
+                    while (host && host.getRootNode && host.getRootNode().host) {
+                        host = host.getRootNode().host;
+                    }
+                    return host || this.activeElement().childNodes[0];
                 },
 
                 getMediaType: function() {

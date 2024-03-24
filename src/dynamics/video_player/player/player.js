@@ -2410,7 +2410,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     this.set("duration", this.get("totalduration") || new_position);
                             }
-                            if (!Info.isiOS() || !Info.isMobile()) this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                             // If setting pop-up is open, hide it together with a control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);

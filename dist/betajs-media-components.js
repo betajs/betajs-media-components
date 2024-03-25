@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.459 - 2024-03-20
+betajs-media-components - v0.0.460 - 2024-03-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.459 - 2024-03-20
+betajs-media-components - v0.0.460 - 2024-03-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.459",
-    "datetime": 1710972615672
+    "version": "0.0.460",
+    "datetime": 1711373798559
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6755,6 +6755,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                getFullscreenElement: function() {
+                    let host = this.activeElement().getRootNode().host;
+                    while (host && host.getRootNode && host.getRootNode().host) {
+                        host = host.getRootNode().host;
+                    }
+                    return host || this.activeElement().childNodes[0];
+                },
+
                 getMediaType: function() {
                     return "video";
                 },
@@ -6960,7 +6968,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
-                        fullscreenedElement: this.activeElement().childNodes[0],
+                        fullscreenedElement: this.getFullscreenElement(),
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
                     })).error(function(e) {
                         if (this.destroyed())
@@ -7888,7 +7896,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     this.set("duration", this.get("totalduration") || new_position);
                             }
-                            if (!Info.isiOS() || !Info.isMobile()) this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                             // If setting pop-up is open, hide it together with a control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);

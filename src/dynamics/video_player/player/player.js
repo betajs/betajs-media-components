@@ -1277,6 +1277,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }
                 },
 
+                getFullscreenElement: function() {
+                    let host = this.activeElement().getRootNode().host;
+                    while (host && host.getRootNode && host.getRootNode().host) {
+                        host = host.getRootNode().host;
+                    }
+                    return host || this.activeElement().childNodes[0];
+                },
+
                 getMediaType: function() {
                     return "video";
                 },
@@ -1482,7 +1490,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         preload: !!this.get("preload"),
                         loop: !!this.get("loop"),
                         reloadonplay: this.get('playlist') && this.get("playlist").length > 0 ? true : !!this.get("reloadonplay"),
-                        fullscreenedElement: this.activeElement().childNodes[0],
+                        fullscreenedElement: this.getFullscreenElement(),
                         loadmetadata: Info.isChrome() && this.get("skipinitial")
                     })).error(function(e) {
                         if (this.destroyed())
@@ -2410,7 +2418,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 else
                                     this.set("duration", this.get("totalduration") || new_position);
                             }
-                            if (!Info.isiOS() || !Info.isMobile()) this.set("fullscreened", this.player.isFullscreen(this.activeElement().childNodes[0]));
                             // If setting pop-up is open, hide it together with a control-bar if hideOnInactivity is true
                             if (this.get('hideoninactivity') && (this.get('activity_delta') > this.get('hidebarafter'))) {
                                 this.set("settingsmenu_active", false);

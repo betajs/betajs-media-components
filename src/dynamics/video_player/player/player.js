@@ -1082,8 +1082,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
 
-                    if (this.get("floatingoptions.floatingonly")) {
-                        this.set("view_type", "float");
+                    const isAbleToFloatOnViewport = () => {
+                        if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
+                        if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
+                        return true;
+                    }
+                    if (this.get("floatingoptions.floatingonly") && isAbleToFloatOnViewport()) {
+                        this.set("view_type", "float")
                     }
                     // Only init floatHandler if floantingonly is desabled
                     const floating = this.get("sticky") || this.get("floating");

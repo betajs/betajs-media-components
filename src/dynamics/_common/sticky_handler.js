@@ -1,4 +1,4 @@
-Scoped.define("module:StickyHandler", [
+Scoped.define("module:FloatHandler", [
     "base:Class",
     "base:Events.EventsMixin",
     "base:Maths",
@@ -40,7 +40,7 @@ Scoped.define("module:StickyHandler", [
             },
 
             pause: function() {
-                if (this.floating) this.removeStickyStyles();
+                if (this.floating) this.removeFloatingStyles();
                 this.paused = true;
             },
 
@@ -80,7 +80,7 @@ Scoped.define("module:StickyHandler", [
             transitionToFloat: function() {
                 this.floating = true;
                 this.trigger("transitionToFloat");
-                this.addStickyStyles();
+                this.addFloatingStyles();
                 if (this.events) this._initEventListeners();
             },
 
@@ -88,12 +88,12 @@ Scoped.define("module:StickyHandler", [
                 return !!this.__elementWasDragged;
             },
 
-            addStickyStyles: function() {
+            addFloatingStyles: function() {
                 if (this._top) this.element.style.top = this._top;
                 if (this._left) this.element.style.left = this._left;
             },
 
-            removeStickyStyles: function() {
+            removeFloatingStyles: function() {
                 this.element.style.removeProperty("top");
                 this.element.style.removeProperty("left");
             },
@@ -130,7 +130,7 @@ Scoped.define("module:StickyHandler", [
                         if (!entry.isIntersecting) return;
                         this.floating = false;
                         this.trigger("transitionToView");
-                        this.removeStickyStyles();
+                        this.removeFloatingStyles();
                         if (this.events) this.events.off(this.element, "mousedown touchstart");
                         this.dragging = false;
                     }.bind(this));

@@ -359,15 +359,17 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWidth: function() {
+                    const floating = this.get("sticky") || this.get("floating");
                     if (!this.activeElement()) return null;
-                    if ((this.get("sidebar_active") || this.get("floating")) && this.parent()) {
+                    if ((this.get("sidebar_active") || floating) && this.parent()) {
                         return Dom.elementDimensions(this.parent().__playerContainer).width;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;
                 },
                 getAdHeight: function() {
+                    const floating = this.get("sticky") || this.get("floating");
                     if (!this.activeElement()) return null;
-                    if (this.get("floating") && this.parent()) {
+                    if (floating && this.parent()) {
                         return Dom.elementDimensions(this.parent().activeElement().firstChild).height;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientHeight : this.activeElement().clientHeight;
@@ -645,6 +647,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  * @return void
                  */
                 _renderCompanionAd: function(ad, options) {
+                    const floating = this.get("sticky") || this.get("floating");
                     // Do not render anything if options is boolean and false
                     if (Types.is_boolean(options) && !Boolean(options)) return;
 
@@ -664,7 +667,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     } else {
                         // if it's floating and floatingoptions.device.companionad is set to boolean true,
                         // then it will be handled by sidebar.js
-                        position = this.get("floating") && this.get("withsidebar") ? null : 'bottom';
+                        position = floating && this.get("withsidebar") ? null : 'bottom';
                     }
                     if (selector) {
                         this.__companionAdElement = document.getElementById(selector);
@@ -729,7 +732,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Write the content to the companion ad slot.
                     this.__companionAdElement.innerHTML = companionAd.getContent();
                     Dom.elementAddClass(this.__companionAdElement, this.get("cssplayer") + "-companion-ad-container" + (this.get("mobileviewport") ? '-mobile' : '-desktop'));
-                    var applyFloatingStyles = this.get("floating") && !this.get("withsidebar");
+                    var applyFloatingStyles = floating && !this.get("withsidebar");
                     if (applyFloatingStyles) {
                         // Mobile has to show in the sidebar
                         position = this.get("mobileviewport") ? null : 'top';
@@ -749,7 +752,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     } else {
                         this.__companionAdElement.removeAttribute('style');
                     }
-                    if (this.get("floating") && !this.get("mobileviewport") && applyFloatingStyles) {
+                    if (floating && !this.get("mobileviewport") && applyFloatingStyles) {
                         // On floating desktop attach to the player element
                         var _pl = this.parent().activeElement().querySelector('.ba-player-content');
                         if (_pl) playerElement = _pl;

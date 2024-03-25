@@ -485,7 +485,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "totalduration": "float",
                     "playwhenvisible": "boolean",
                     "playedonce": "boolean",
-                    "manuallypaused": "boolean",
                     "disablepause": "boolean",
                     "disableseeking": "boolean",
                     "playonclick": "boolean",
@@ -632,6 +631,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setMuted(volume <= 0);
                         }
                         this.set("muted", volume === 0);
+                    },
+                    "change:muted": function(muted) {
+                        // muted can be only boolean value
+                        if (!Types.is_boolean(muted)) return;
+                        if (this.player) {
+                            this.player.setMuted(muted);
+                        } else if (this.__video) {
+                            this.__video.mute = muted;
+                        }
                     },
                     "change:companionads": function(companionAds) {
                         if (this.__repeatOutstream && this.get("outstreamoptions.persistentcompanionad"))
@@ -3256,13 +3264,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 __unmuteOnClick: function() {
                     clearTimeout(this.get('clearDebounce'));
                     const clearDebounce = setTimeout(function() {
-
-                        if (!this.get("muted") && this.get("volume") > 0) return this.set("unmuteonclick", false);
+                        if (!this.get("muted") && this.get("volume") > 0) {
+                            return this.set("unmuteonclick", false);
+                        }
                         this.auto_destroy(new Timers.Timer({
                             delay: 500,
                             fire: function() {
-                                if (this.get("muted")) this.set("muted", false);
-                                if (this.get("volume") == 0) this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
+                                if (this.get("muted")) {
+                                    this.set("muted", false);
+                                    // Fix on Safari not unmute on click
+                                    if (this.get("volume") > 0) {
+                                        this.set_volume(this.get("volume"));
+                                    }
+                                }
+                                if (this.get("volume") === 0) {
+                                    this.set_volume(this.get("volume") || this.get("initialoptions").volumelevel || 1);
+                                }
                                 if (!this.get("manuallypaused")) this.setPlayerEngagement();
                                 this.set("unmuteonclick", false);
                             }.bind(this),

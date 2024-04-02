@@ -619,8 +619,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("next_active", true);
                             }
 
-                            const remainingTime = this.get("duration") - position;
-                            if ((position > engageTime) && engageTime > 0 && minDurationNext < remainingTime) {
+                            if (this.get("duration") >= minDurationNext && position > engageTime && engageTime > 0) {
                                 this.channel("next").trigger("autoPlayNext");
                                 this.channel("next").trigger("playNext");
                             }

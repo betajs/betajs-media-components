@@ -14,12 +14,21 @@
 
 .#{$cssplayer}-cue-content {
     @include relative-horizontally-center();
-    background: #2c2c2c;
-    color: #eeeeee;
-    text-align: center;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    width: 60%;
+    text-align: left;
+    margin-bottom: 7px;
+    width: fit-content;
+    max-width: 60%;
+    > p {
+        background-color: rgba(0,0,0,0.7);
+        color: #ffffff;
+        display: inline;
+        font-weight: normal;
+        font-size: 2.5vmin;
+        line-height: 1.5;
+        padding: 2px 4px;
+        margin: 0;
+        white-space: break-spaces;
+    }
 }
 
 .#{$csscommon}-tracks-selector-list-visible {

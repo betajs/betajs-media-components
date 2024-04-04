@@ -273,9 +273,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 this.setEndCardBackground(width, height);
                             }
                         }, this);
-                        dynamics.on("unmute-ads", function(volume) {
-                            this._setVolume(volume, false);
-                        }, this);
                     }
                 },
 

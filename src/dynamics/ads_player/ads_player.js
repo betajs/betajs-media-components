@@ -1,6 +1,5 @@
 Scoped.define("module:Ads.Dynamics.Player", [
     "base:Objs",
-    "base:Async",
     "browser:Info",
     "base:Maths",
     "base:Types",
@@ -12,7 +11,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Objs, Async, Info, Maths, Types, Timers, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Info, Maths, Types, Timers, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {

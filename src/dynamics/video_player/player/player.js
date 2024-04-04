@@ -948,6 +948,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.destroyed()) return;
                             this.set("autoplaywhenvisible", false);
                         }, this);
+                    } else {
+                        if (!this.get("autoplay") && this.get("volume") > 0 && !this.get("unmuteonclick")) {
+                            this.set("muted", false);
+                            this.set("adsunmuted", true);
+                        }
                     }
                     this.__attachPlayerInteractionEvents();
                     this.set('clearDebounce', 0);
@@ -3283,7 +3288,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }));
                         this.set("volumeafterinteraction", true);
                         if (this.get("forciblymuted")) this.set("forciblymuted", false);
-                        var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
 

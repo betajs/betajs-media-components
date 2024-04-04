@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.465 - 2024-04-03
+betajs-media-components - v0.0.466 - 2024-04-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.465",
-    "datetime": 1712161381761
+    "version": "0.0.466",
+    "datetime": 1712240152926
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2869,17 +2869,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWidth: function() {
-                    const floating = this.get("sticky") || this.get("floating");
                     if (!this.activeElement()) return null;
-                    if ((this.get("sidebar_active") || floating) && this.parent()) {
+                    if ((this.get("sidebar_active") || (this.get("sticky") || this.get("floating"))) && this.parent()) {
                         return Dom.elementDimensions(this.parent().__playerContainer).width;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;
                 },
                 getAdHeight: function() {
-                    const floating = this.get("sticky") || this.get("floating");
                     if (!this.activeElement()) return null;
-                    if (floating && this.parent()) {
+                    if ((this.get("sticky") || this.get("floating")) && this.parent()) {
                         return Dom.elementDimensions(this.parent().activeElement().firstChild).height;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientHeight : this.activeElement().clientHeight;
@@ -3157,7 +3155,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  * @return void
                  */
                 _renderCompanionAd: function(ad, options) {
-                    const floating = this.get("sticky") || this.get("floating");
                     // Do not render anything if options is boolean and false
                     if (Types.is_boolean(options) && !Boolean(options)) return;
 
@@ -3177,7 +3174,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     } else {
                         // if it's floating and floatingoptions.device.companionad is set to boolean true,
                         // then it will be handled by sidebar.js
-                        position = floating && this.get("withsidebar") ? null : 'bottom';
+                        position = (this.get("sticky") || this.get("floating")) && this.get("withsidebar") ? null : 'bottom';
                     }
                     if (selector) {
                         this.__companionAdElement = document.getElementById(selector);
@@ -3242,7 +3239,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Write the content to the companion ad slot.
                     this.__companionAdElement.innerHTML = companionAd.getContent();
                     Dom.elementAddClass(this.__companionAdElement, this.get("cssplayer") + "-companion-ad-container" + (this.get("mobileviewport") ? '-mobile' : '-desktop'));
-                    var applyFloatingStyles = floating && !this.get("withsidebar");
+                    var applyFloatingStyles = (this.get("sticky") || this.get("floating")) && !this.get("withsidebar");
                     if (applyFloatingStyles) {
                         // Mobile has to show in the sidebar
                         position = this.get("mobileviewport") ? null : 'top';
@@ -3262,7 +3259,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     } else {
                         this.__companionAdElement.removeAttribute('style');
                     }
-                    if (floating && !this.get("mobileviewport") && applyFloatingStyles) {
+                    if ((this.get("sticky") || this.get("floating")) && !this.get("mobileviewport") && applyFloatingStyles) {
                         // On floating desktop attach to the player element
                         var _pl = this.parent().activeElement().querySelector('.ba-player-content');
                         if (_pl) playerElement = _pl;

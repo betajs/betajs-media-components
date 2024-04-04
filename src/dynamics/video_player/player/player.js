@@ -227,6 +227,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
+                        "adsunmuted": false,
                         // **
                         // companionad: {
                         //  hideoncompletion: true, // FEATURE: default: true, should hide when ad is completed
@@ -3283,7 +3284,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("volumeafterinteraction", true);
                         if (this.get("forciblymuted")) this.set("forciblymuted", false);
                         var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
-                        if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
+                        if (this.get("autoplay-requires-muted") && this.get("adshassource") && this.get("adsunmuted")) {
                             // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
                             this.trigger("unmute-ads", Math.min(_initialVolume, 1));
                         }

@@ -52,10 +52,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (volume > 0 && this.get("unmuteonclick")) {
                             return setTimeout(function() {
                                 if (!this.adsManager || !this.adsManager.setVolume) return;
-                                this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                                this.adsManager.setVolume(volume);
                             }.bind(this), 200);
                         } else {
-                            return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                            return this.adsManager.setVolume(volume);
                         }
                     },
                     "change:imaadsrenderingsetting": function(settings) {
@@ -162,6 +162,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
                         this.set("addata", adData);
+                        // even we're asking ads via adWillPlayMuted:false and volume:1, it's always respond muted
+                        if (this.get('adsunmuted')) {
+                            this.adsManager.setVolume(this.get('volume'));
+                        }
                         this._setVolume(this.adsManager.getVolume(), false);
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
@@ -822,6 +826,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.parent().set('muted', volume <= 0);
                     }
                     this.set("volume", volume);
+                    this.set("adsunmuted", volume > 0);
                 }
             };
         }).register("ba-adsplayer")

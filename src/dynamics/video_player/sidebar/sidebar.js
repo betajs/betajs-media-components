@@ -243,6 +243,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 playNextVideo: function(index) {
                     this.__dyn.trigger("sidebarskip");
                     this.__dyn.set("next_video_from_playlist", index);
+                    this.__dyn.setPlayerEngagement();
                     if (index === this.get("currentindex")) {
                         this.__dyn.set("current_video_from_playlist", null);
                         this.__dyn.trigger("play_next", index);

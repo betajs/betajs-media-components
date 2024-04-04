@@ -49,6 +49,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "change:volume": function(volume) {
                         // Muted should be pass only from the parent
                         if (!this.adsManager || !this.adsManager.setVolume) return;
+                        volume = Maths.clamp(volume, 0, 1);
                         if (volume > 0 && this.get("unmuteonclick")) {
                             return setTimeout(function() {
                                 if (!this.adsManager || !this.adsManager.setVolume) return;

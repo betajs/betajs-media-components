@@ -622,7 +622,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (this.get("duration") >= minDurationNext && position > engageTime && engageTime > 0) {
                                 this.channel("next").trigger("autoPlayNext");
-                                this.channel("next").trigger("playNext");
+                                this.channel("next").trigger("playNext", true);
                             }
                         }
                     },
@@ -663,10 +663,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("next_active", false);
                         this.setPlayerEngagement();
                     },
-                    "next:playNext": function() {
+                    "next:playNext": function(automaticallyOnTimeout) {
                         this.trigger("play_next");
                         this.set("next_active", false);
-                        this.setPlayerEngagement();
+                        if (!automaticallyOnTimeout) this.setPlayerEngagement();
                     },
                     "next:resetNextWidget": function() {
                         this.set("stayengaged", false);

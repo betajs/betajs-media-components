@@ -54,7 +54,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
                                 event[0].stopPropagation();
                             }
                         this.channel("next").trigger("manualPlayNext");
-                        this.channel("next").trigger("playNext");
+                        this.channel("next").trigger("playNext", false);
                     }
                 }
             };

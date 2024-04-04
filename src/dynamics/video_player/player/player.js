@@ -1482,7 +1482,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     };
                     Object.keys(toBeDeprecatedParams).forEach(function(key) {
                         if (this.get(key))
-                            console.warn(key + " parameter will be deprecated on future version, please use " + deprecatedParams[key] + " instead.");
+                            console.warn(key + " parameter will be deprecated on future version, please use " + toBeDeprecatedParams[key] + " instead.");
                     }.bind(this));
                 },
 

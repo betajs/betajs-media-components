@@ -227,6 +227,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
+                        "adsunmuted": false,
                         // **
                         // companionad: {
                         //  hideoncompletion: true, // FEATURE: default: true, should hide when ad is completed
@@ -621,7 +622,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (this.get("duration") >= minDurationNext && position > engageTime && engageTime > 0) {
                                 this.channel("next").trigger("autoPlayNext");
-                                this.channel("next").trigger("playNext");
+                                this.channel("next").trigger("playNext", true);
                             }
                         }
                     },
@@ -662,10 +663,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("next_active", false);
                         this.setPlayerEngagement();
                     },
-                    "next:playNext": function() {
+                    "next:playNext": function(automaticallyOnTimeout) {
                         this.trigger("play_next");
                         this.set("next_active", false);
-                        this.setPlayerEngagement();
+                        if (!automaticallyOnTimeout) this.setPlayerEngagement();
                     },
                     "next:resetNextWidget": function() {
                         this.set("stayengaged", false);
@@ -947,6 +948,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.destroyed()) return;
                             this.set("autoplaywhenvisible", false);
                         }, this);
+                    } else {
+                        if (!this.get("autoplay") && this.get("volume") > 0 && !this.get("unmuteonclick")) {
+                            this.set("muted", false);
+                            this.set("adsunmuted", true);
+                        }
                     }
                     this.__attachPlayerInteractionEvents();
                     this.set('clearDebounce', 0);
@@ -3282,11 +3288,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }));
                         this.set("volumeafterinteraction", true);
                         if (this.get("forciblymuted")) this.set("forciblymuted", false);
-                        var _initialVolume = this.get("initialoptions").volumelevel > 1 ? 1 : this.get("initialoptions").volumelevel;
-                        if (this.get("autoplay-requires-muted") && this.get("adshassource")) {
-                            // Sometimes browser detects that unmute happens before the user has interaction, and it pauses ad
-                            this.trigger("unmute-ads", Math.min(_initialVolume, 1));
-                        }
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
 

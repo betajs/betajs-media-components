@@ -1,10 +1,9 @@
 Scoped.define("module:Ads.Dynamics.Controlbar", [
     "dynamics:Dynamic",
-    "browser:Dom",
     "base:Maths",
     "base:TimeFormat",
     "module:Assets"
-], function(Dynamic, Dom, Maths, TimeFormat, Assets, scoped) {
+], function(Dynamic, Maths, TimeFormat, Assets, scoped) {
     return Dynamic.extend({
             scoped: scoped
         }, function(inherited) {
@@ -108,7 +107,6 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
 
                     toggle_volume: function() {
                         this.trigger("toggle_volume");
-                        if (this.get("unmuteonclick")) return;
                         var volume = this.get("volume");
                         if (volume > 0) {
                             this.__oldVolume = volume;

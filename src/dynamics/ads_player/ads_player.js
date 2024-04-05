@@ -1,6 +1,5 @@
 Scoped.define("module:Ads.Dynamics.Player", [
     "base:Objs",
-    "base:Async",
     "browser:Info",
     "base:Maths",
     "base:Types",
@@ -12,7 +11,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
     "module:Ads.IMA.AdsManager"
 ], [
     "module:Ads.Dynamics.Controlbar"
-], function(Objs, Async, Info, Maths, Types, Timers, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
+], function(Objs, Info, Maths, Types, Timers, Dom, Assets, Class, IMALoader, AdsManager, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -49,13 +48,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "change:volume": function(volume) {
                         // Muted should be pass only from the parent
                         if (!this.adsManager || !this.adsManager.setVolume) return;
+                        volume = Maths.clamp(volume, 0, 1);
                         if (volume > 0 && this.get("unmuteonclick")) {
                             return setTimeout(function() {
                                 if (!this.adsManager || !this.adsManager.setVolume) return;
-                                this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                                this.adsManager.setVolume(volume);
                             }.bind(this), 200);
                         } else {
-                            return this.adsManager.setVolume(Maths.clamp(volume, 0, 1));
+                            return this.adsManager.setVolume(volume);
                         }
                     },
                     "change:imaadsrenderingsetting": function(settings) {
@@ -162,6 +162,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const adData = event.getAdData();
                         const clickthroughUrl = adData.clickThroughUrl;
                         this.set("addata", adData);
+                        // even we're asking ads via adWillPlayMuted:false and volume:1, it's always respond muted
+                        if (this.get('adsunmuted')) {
+                            this.adsManager.setVolume(this.get('volume'));
+                        }
                         this._setVolume(this.adsManager.getVolume(), false);
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
@@ -267,9 +271,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 }
                                 this.setEndCardBackground(width, height);
                             }
-                        }, this);
-                        dynamics.on("unmute-ads", function(volume) {
-                            this._setVolume(volume, false);
                         }, this);
                     }
                 },
@@ -819,6 +820,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.parent().set('muted', volume <= 0);
                     }
                     this.set("volume", volume);
+                    this.set("adsunmuted", volume > 0);
                 }
             };
         }).register("ba-adsplayer")

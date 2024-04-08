@@ -32,6 +32,8 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
 
                 channels: {
                     "ads:adProgress": function(event) {
+                        if (!this.get("duration") || this.get("duration") == 0)
+                            this.set("duration", event.getAdData().duration);
                         this.set("currenttime", event.getAdData().currentTime);
                         this.set("remaining", this.get("duration") - event.getAdData().currentTime);
                     }

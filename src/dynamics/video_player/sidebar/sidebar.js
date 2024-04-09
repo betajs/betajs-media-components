@@ -162,10 +162,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     const checkErrors = ["attach", "source", "video"];
                     Objs.iter(checkErrors, function(error) {
-                        this.auto_destroy(this.__dyn.on(`error:${error}`, function(err) {
+                        this.__dyn.on(`error:${error}`, function(err) {
                             console.warn(`Error on ${error}`, err);
                             this.setNextVideoIndex(true);
-                        }, this));
+                        }, this);
                     }, this);
 
                     // When next video actually starts to play

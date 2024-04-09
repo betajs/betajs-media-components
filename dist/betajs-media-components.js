@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.468 - 2024-04-05
+betajs-media-components - v0.0.469 - 2024-04-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.468 - 2024-04-05
+betajs-media-components - v0.0.469 - 2024-04-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.468",
-    "datetime": 1712319972456
+    "version": "0.0.469",
+    "datetime": 1712653079693
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -9992,10 +9992,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     const checkErrors = ["attach", "source", "video"];
                     Objs.iter(checkErrors, function(error) {
-                        this.auto_destroy(this.__dyn.on(`error:${error}`, function(err) {
+                        this.__dyn.on(`error:${error}`, function(err) {
                             console.warn(`Error on ${error}`, err);
                             this.setNextVideoIndex(true);
-                        }, this));
+                        }, this);
                     }, this);
 
                     // When next video actually starts to play

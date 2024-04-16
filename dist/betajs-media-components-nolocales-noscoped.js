@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.470 - 2024-04-15
+betajs-media-components - v0.0.471 - 2024-04-16
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.470",
-    "datetime": 1713212744209
+    "version": "0.0.471",
+    "datetime": 1713284217062
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2866,6 +2866,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     renderCompanionAd: function() {
                         return this._renderCompanionAd();
+                    },
+                    removeBackImageFromAds: function() {
+                        if (Info.isSafari() && this.getAdContainer().style.backgroundImage && !this.get("endcardbackgroundsrc")) {
+                            this.getAdContainer().style.backgroundImage = 'none';
+                        }
                     }
                 },
 
@@ -2910,9 +2915,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");
                     const ad = adObj?.data?.mediaUrl;
-                    // if (Info.isSafari() && ad) {
-                    //     this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
-                    // }
+                    if (Info.isSafari() && ad) {
+                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
@@ -3054,9 +3059,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onAdComplete: function(ev) {
-                    if (Info.isSafari() && this.getAdContainer().style.backgroundImage) {
-                        this.getAdContainer().style.backgroundImage = 'none';
-                    }
                     // NOTE: As below codes only companion ads related code will be better return.
                     // Non companion ads code should be applied above of this line
                     if (this.get("persistentcompanionad")) return;
@@ -5697,6 +5699,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         cb(canvas, ctx);
                     }.bind(this), 250);
                 },
+                removeAdsBackgroundInSafari: function() {
+                    this.scopes.adsplayer.execute('removeBackImageFromAds');
+                },
                 addSourcToVideo: function(source, video) {
                     try {
                         this.vidEle.src = source;
@@ -5928,6 +5933,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                         this.player.on("playing", function() {
+                            if (Info.isSafari()) {
+                                this.removeAdsBackgroundInSafari();
+                            }
                             const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (floating && this.floatHandler) this.floatHandler.start();

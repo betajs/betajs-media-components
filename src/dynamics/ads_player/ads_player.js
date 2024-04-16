@@ -351,6 +351,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     renderCompanionAd: function() {
                         return this._renderCompanionAd();
+                    },
+                    removeBackImageFromAds: function() {
+                        if (Info.isSafari() && this.getAdContainer().style.backgroundImage) {
+                            this.getAdContainer().style.backgroundImage = 'none';
+                        }
                     }
                 },
 
@@ -395,9 +400,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");
                     const ad = adObj?.data?.mediaUrl;
-                    // if (Info.isSafari() && ad) {
-                    //     this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
-                    // }
+                    if (Info.isSafari() && ad) {
+                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
@@ -539,9 +544,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onAdComplete: function(ev) {
-                    if (Info.isSafari() && this.getAdContainer().style.backgroundImage) {
-                        this.getAdContainer().style.backgroundImage = 'none';
-                    }
                     // NOTE: As below codes only companion ads related code will be better return.
                     // Non companion ads code should be applied above of this line
                     if (this.get("persistentcompanionad")) return;

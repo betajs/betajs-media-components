@@ -353,7 +353,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return this._renderCompanionAd();
                     },
                     removeBackImageFromAds: function() {
-                        if (Info.isSafari() && this.getAdContainer().style.backgroundImage) {
+                        if (Info.isSafari() && this.getAdContainer().style.backgroundImage && !this.get("endcardbackgroundsrc")) {
                             this.getAdContainer().style.backgroundImage = 'none';
                         }
                     }

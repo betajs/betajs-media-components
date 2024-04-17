@@ -35,16 +35,6 @@
             ba-noengagenext="{{noengagenext}}"
             ba-gallerysidebar="{{gallerysidebar}}"
         ></ba-{{dynnext}}>
-        <div class="{{css}}-tooltips-list-container"
-             ba-repeat="{{tooltip :: tooltips}}"
-        >
-            <ba-{{dyntooltip}}
-                ba-if="{{tooltip.tooltiptext}}"
-                ba-tooltip="{{tooltip}}"
-                ba-playing="{{playing}}"
-                ba-adsplaying="{{adsplaying}}"
-            ></ba-{{dyntooltip}}>
-        </div>
         <div ba-show="{{(videoelement_active || !imageelement_active) && !silent_attach}}" class="{{css}}-video-container">
             <video tabindex="-1" class="{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit" data-video="video"
                    preload="{{preload ? 'auto' : 'metadata'}}"
@@ -85,6 +75,7 @@
             ba-tmplcontrolbar="{{tmpladscontrolbar}}"
             ba-dyncontrolbar="{{dynadscontrolbar}}"
             ba-companionad="{{companionad}}"
+            ba-tooltips="{{tooltips}}"
             ba-companionads="{{=companionads}}"
             ba-hideoninactivity="{{(activity_delta > hidebarafter) && hideoninactivity}}"
             ba-view_type="{{view_type}}"

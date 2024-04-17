@@ -3,7 +3,7 @@
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}
-     {{is_floating ? cssfloatingclasses : ''}}
+     {{is_floating ? cssfloatingclasses : cssplayer + '-in-article'}}
      {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}
      {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}
      {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
@@ -12,7 +12,7 @@
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
      ba-styles="{{containerSizingStyles}}"
-     data-testid="{{testid}}-player-container"
+     data-testid="{{testid}}-container"
 >
     <meta itemprop="name" content="{{title || 'Video Player'}}" />
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
@@ -21,6 +21,7 @@
     <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}" />
     <meta itemprop="contentUrl" content="{{contenturl}}" />
     <div class="{{cssplayer}}-content" data-selector="ba-player-container"
+         data-testid="{{testid}}-player-container"
          ba-styles="{{playercontainerstyles}}"
     >
         <ba-{{dynnext}}
@@ -321,6 +322,8 @@
             ba-showsidebargallery="{{showsidebargallery}}"
             ba-gallerysidebar="{{gallerysidebar}}"
             ba-adchoiceslink="{{adchoiceslink}}"
+            ba-companionsidebar="{{companionsidebar}}"
+            ba-showcompanionsidebar="{{=showcompanionsidebar}}"
             ba-moredetailslink="{{moredetailslink}}"
             ba-moredetailstext="{{moredetailstext}}"
             ba-adsplaying="{{adsplaying}}"

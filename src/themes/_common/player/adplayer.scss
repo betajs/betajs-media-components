@@ -18,11 +18,17 @@
     }
 }
 
-.#{$cssfloatingsidebar}-companion-container {
-    align-items: center;
+.#{$csscommon}-companion-sidebar-container {
     display: flex;
     height: 100%;
     justify-content: center;
+    & > div {
+        align-items: center;
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        width: 100%;
+    }
 }
 
 .#{$cssadsplayer}-click-tracker {

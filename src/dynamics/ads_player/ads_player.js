@@ -362,14 +362,16 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 getAdWidth: function() {
                     if (!this.activeElement()) return null;
-                    if ((this.get("sidebar_active") || (this.get("sticky") || this.get("floating"))) && this.parent()) {
+                    const isFloating = this.get("sticky") || this.get("floating");
+                    if ((this.get("sidebar_active") || isFloating) && this.parent()) {
                         return Dom.elementDimensions(this.parent().__playerContainer).width;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientWidth : this.activeElement().clientWidth;
                 },
                 getAdHeight: function() {
                     if (!this.activeElement()) return null;
-                    if ((this.get("sticky") || this.get("floating")) && this.parent()) {
+                    const isFloating = this.get("sticky") || this.get("floating");
+                    if (isFloating && this.parent()) {
                         return Dom.elementDimensions(this.parent().activeElement().firstChild).height;
                     }
                     return this.activeElement().firstChild ? this.activeElement().firstChild.clientHeight : this.activeElement().clientHeight;
@@ -545,6 +547,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onAdComplete: function(ev) {
+                    this._resetCompanionAds();
                     // NOTE: As below codes only companion ads related code will be better return.
                     // Non companion ads code should be applied above of this line
                     if (this.get("persistentcompanionad")) return;
@@ -646,6 +649,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 _renderCompanionAd: function(ad, options) {
                     // Do not render anything if options is boolean and false
                     if (Types.is_boolean(options) && !Boolean(options)) return;
+                    const floating = this.get("sticky") || this.get("floating");
 
                     ad = ad || this.get("ad");
                     options = options || this.get("companionad");
@@ -663,7 +667,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     } else {
                         // if it's floating and floatingoptions.device.companionad is set to boolean true,
                         // then it will be handled by sidebar.js
-                        position = (this.get("sticky") || this.get("floating")) && this.get("withsidebar") ? null : 'bottom';
+                        position = floating && this.get("withsidebar") ? null : 'bottom';
                     }
                     if (selector) {
                         this.__companionAdElement = document.getElementById(selector);
@@ -728,7 +732,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Write the content to the companion ad slot.
                     this.__companionAdElement.innerHTML = companionAd.getContent();
                     Dom.elementAddClass(this.__companionAdElement, this.get("cssplayer") + "-companion-ad-container" + (this.get("mobileviewport") ? '-mobile' : '-desktop'));
-                    var applyFloatingStyles = (this.get("sticky") || this.get("floating")) && !this.get("withsidebar");
+                    var applyFloatingStyles = floating && !this.get("withsidebar");
                     if (applyFloatingStyles) {
                         // Mobile has to show in the sidebar
                         position = this.get("mobileviewport") ? null : 'top';
@@ -748,7 +752,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     } else {
                         this.__companionAdElement.removeAttribute('style');
                     }
-                    if ((this.get("sticky") || this.get("floating")) && !this.get("mobileviewport") && applyFloatingStyles) {
+                    if (floating && !this.get("mobileviewport") && applyFloatingStyles) {
                         // On floating desktop attach to the player element
                         var _pl = this.parent().activeElement().querySelector('.ba-player-content');
                         if (_pl) playerElement = _pl;
@@ -824,6 +828,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     this.set("volume", volume);
                     this.set("adsunmuted", volume > 0);
+                },
+
+                _resetCompanionAds: function() {
+                    if (this.get("persistentcompanionad")) return;
+                    if (this.get("companionads") && this.get("companionads").length > 0) {
+                        this.set("companionads", []);
+                    }
+                    if (this.get("multicompanionads") && this.get("multicompanionads").length > 0) {
+                        Objs.iter(this.get("multicompanionads"), function(element, index) {
+                            element.innerHTML = "";
+                            delete this.get("multicompanionads")[index];
+                        }, this);
+                    }
+                    if (this.__companionAdElement) {
+                        this.__companionAdElement.innerHTML = "";
+                    }
                 }
             };
         }).register("ba-adsplayer")

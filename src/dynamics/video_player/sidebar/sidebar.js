@@ -52,7 +52,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     hideloaderafter: 1700,
                     states: {},
                     shownextloader: false,
-                    nextunplayed: false
+                    nextunplayed: false,
+                    closable: false
                 },
 
                 events: {
@@ -77,6 +78,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     },
                     "change:fullscreened": function(fullscreened) {
                         if (!fullscreened && !this.get("adsplaying")) this.scrollTop();
+                    },
+                    "change:is_floating": function(isFloating) {
+                        this.__setClosableState(isFloating);
                     }
                 },
 
@@ -150,6 +154,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             }
                         }, this)
                     }
+                    this.__setClosableState();
                 },
 
                 /**
@@ -224,6 +229,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     on_ads_choices_click: function() {
                         this.pauseAds();
+                    },
+
+                    close_sidebar: function() {
+                        this.closeSidebar();
                     }
                 },
 
@@ -260,6 +269,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             }
                         }, this);
                     }
+                },
+
+                closeSidebar: function() {
+                    if (!this.get(`closable`)) return;
+                    this.__dyn.set(`states.sidebarclosed`, true);
+                    this.__dyn.set(`sidebar_active`, false);
                 },
 
                 /**
@@ -583,7 +598,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     const currentIndex = currentVideo ? currentVideo.get("index") : null;
                     if (currentIndex) this.set("currentindex", currentIndex);
                     return currentVideo;
+                },
+
+                __setClosableState: function(isFloating) {
+                    isFloating = isFloating || this.get(`is_floating`);
+                    if (
+                        (!isFloating && this.get(`sidebaroptions.closable`)) ||
+                        (isFloating && this.get(`floatingoptions.sidebarclosable`))
+                    ) {
+                        this.set(`closable`, true);
+                    }
+
                 }
+
             };
         }])
         .register("ba-videoplayer-sidebar")

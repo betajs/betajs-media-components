@@ -133,3 +133,10 @@
         </a>
     </div>
 </div>
+
+<ba-close-icon-button
+    ba-if="{{closable}}"
+    ba-css="{{cssplayer}}"
+    ba-click="close_sidebar()"
+    ba-on:touchend="{{close_sidebar()}}"
+></ba-close-icon-button>

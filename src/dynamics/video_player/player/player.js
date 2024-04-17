@@ -46,6 +46,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
     "dynamics:Partials.StylesPartial",
     "dynamics:Partials.TemplatePartial",
     "dynamics:Partials.HotkeyPartial",
+    "module:Common.Dynamics.CloseIconButton",
     "module:VideoPlayer.Dynamics.PlayerStates.TextTrackUploading",
     "module:VideoPlayer.Dynamics.PlayerStates.FatalError",
     "module:VideoPlayer.Dynamics.PlayerStates.Initial",
@@ -113,7 +114,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "hidevideoafterplay": false,
                             "autonext": true,
                             // Currently it's playing next video in the list, but if required watch next un-watched one, set it as true
-                            "nextunplayed": false
+                            "nextunplayed": false,
+                            closable: false,
                         },
                         "popup-width": "",
                         "popup-height": "",
@@ -413,6 +415,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "userhadplayerinteraction": false,
                         // If settings are open and visible
                         "states": {
+                            sidebarclosed: false,
                             "poster_error": {
                                 "ignore": false,
                                 "click_play": true
@@ -684,9 +687,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
                         return aspectRatio || fallback;
                     },
-                    "hide_sidebar:with_sidebar,is_floating,showsidebargallery,playlist": function(
-                        withSidebar, isFloating, showSidebarGallery, playlist
+                    "hide_sidebar:with_sidebar,is_floating,showsidebargallery,playlist,states.sidebarclosed": function(
+                        withSidebar, isFloating, showSidebarGallery, playlist, sidebarClosed
                     ) {
+                        if (sidebarClosed) {
+                            return true;
+                        }
                         if (!showSidebarGallery && Types.is_defined(this.get("initialoptions.nextwidget"))) {
                             this.set("nextwidget", this.get("initialoptions.nextwidget"));
                         }
@@ -1647,8 +1653,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.player.on("playing", function() {
                             if (Info.isSafari()) {
-                               this.removeAdsBackgroundInSafari();
-                            }   
+                                this.removeAdsBackgroundInSafari();
+                            }
                             const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (floating && this.floatHandler) this.floatHandler.start();
@@ -2372,6 +2378,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     close_floating: function(destroy) {
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
+                        this.set(`states.floatingclosed`, true);
                         const floating = this.get("sticky") || this.get("floating");
                         if (floating || this.get("floatingoptions.floatingonly")) {
                             this.pause();

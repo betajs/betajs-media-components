@@ -41,7 +41,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     companionads: [],
                     companionadcontent: null,
                     customclickthrough: false,
-                    persistentcompanionad: false
+                    persistentcompanionad: false,
+                    parentcontainersizingstyles: {},
                 },
 
                 events: {

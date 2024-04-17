@@ -926,7 +926,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return view_type === "float" || (view_type && this.get("floatingoptions.floatingonly"));
                     },
                     "layout:mobileviewport": function(mobileviewport) {
-                        this.applyPresets();
+                        this.applyPresets(mobileviewport);
                         return mobileviewport ? "mobile" : "desktop";
                     },
                     "placement:outstream": function(outstream) {
@@ -1071,7 +1071,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("firefox", Info.isFirefox());
                     this.set("mobileview", Info.isMobile());
                     this.set("mobileviewport", this.__isInMobileViewport());
-                    this.applyPresets();
+                    this.applyPresets(this.get("mobileviewport"));
                     this.set("hasnext", this.get("loop") || this.get("loopall") || this.get("playlist") && this.get("playlist").length > 1);
                     // For Apple, it's very important that their users always remain in control of the volume of the sounds their devices emit
                     this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
@@ -2807,7 +2807,25 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * we have to set via mobile boolean false or object key.
                  * NOTE: if require we also can add floating presets
                  */
-                applyPresets: function() {
+                applyPresets: function(isMobileView) {
+                    isMobileView = isMobileView || this.__isInMobileViewport();
+                    // if we have mobile view, then we need to calculate mobile presets
+                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
+                    [`sidebaroptions`, `floatingoptions`].forEach((k) => {
+                        let currentOptions = {
+                            ...this.get(k)
+                        };
+                        if (currentOptions && Types.is_object(currentOptions)) {
+                            const deviceRelatedSidebarOptions = isMobileView ?
+                                (currentOptions[`mobile`] || {}) : (currentOptions[`desktop`] || {});
+                            currentOptions = {
+                                ...currentOptions,
+                                ...deviceRelatedSidebarOptions
+                            }
+                            this.set(k, currentOptions);
+                        }
+                    });
+
                     const presetKey = this.get("presetkey");
                     // No need to apply presets if presetkey is not defined
                     if (!presetKey) return;
@@ -2820,10 +2838,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     // will check if attribute exists in root level or in object level
                     const existingAttribute = (key) => Types.is_defined(this.attrs()[key]) || (Types.is_string(key) && key.split('.').some(k => this.attrs()[k]));
-
-                    // if we have mobile view, then we need to calculate mobile presets
-                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
-                    const isMobileView = this.__isInMobileViewport();
 
                     // If it's true then we previously applied all presets
                     if (Types.is_defined(this.get("initialoptions.mobilepresets"))) {

@@ -39,7 +39,7 @@
             ba-repeat="{{tooltip :: tooltips}}"
         >
             <ba-{{dyntooltip}}
-                id="{{tooltip.id}}"
+                class="{{csscommon}}-{{tooltip.id}}"
                 ba-if="{{tooltip.tooltiptext}}"
                 ba-tooltip="{{tooltip}}"
                 ba-playing="{{playing}}"

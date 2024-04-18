@@ -6,10 +6,12 @@ const player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
 	element: $("#visible-fixture").get(0),
 	attrs: {
 		adsposition: `mid[${interVal}*]`,
+		position: 0
 	}
 });
 
 const reset = () => {
+  player.set("position", 0.0)
 	player.set("midrollads", []);
 	player.initMidRollAds();
 	// set duration after calling above function

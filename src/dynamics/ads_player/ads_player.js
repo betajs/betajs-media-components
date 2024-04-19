@@ -289,11 +289,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
                     },
-                    ad_clicked: function() {
-                        if (!this.get("userhadplayerinteraction")) {
-                            this.parent().set("userhadplayerinteraction", true);
-                        }
-                    },
                     reset: function() {
                         this.set("linear", true);
                         this.set("adscompleted", true);

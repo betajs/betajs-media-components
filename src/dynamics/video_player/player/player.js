@@ -647,6 +647,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.__repeatOutstream && this.get("outstreamoptions.persistentcompanionad"))
                             return;
                         if (companionAds && companionAds.length > 0 && this.get("companionad")) {
+                            let testString = "some string";
                             if (this.get("companionad.locations")) {
                                 this._renderMultiCompanionAds();
                             } else if (this.scopes.adsplayer && Types.is_string(this.get("companionad")) || Types.is_boolean(this.get("companionad"))) {

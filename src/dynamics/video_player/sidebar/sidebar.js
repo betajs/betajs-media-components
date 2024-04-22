@@ -241,6 +241,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * @param index
                  */
                 playNextVideo: function(index) {
+                    console.log("playNextVideo: ");
                     this.__dyn.trigger("sidebarskip");
                     this.__dyn.set("next_video_from_playlist", index);
                     this.__dyn.setPlayerEngagement();
@@ -592,7 +593,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "up-next": "Up Next",
+            "up-next": "Up Next khm",
             "continue-on-ads-end": "Content will resume after this advertisement."
         });
 });

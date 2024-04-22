@@ -1,233 +1,237 @@
-'language:it':
-  ba-videoplayer-playbutton.tooltip: Clicca per riprodurre il video.
-  ba-videoplayer-playbutton.rerecord: Riprova
-  ba-videoplayer-playbutton.submit-video: Conferma il video
-  ba-videoplayer-loader.tooltip: Caricamento video...
-  ba-videoplayer-controlbar.change-resolution: Cambia la risoluzione
-  ba-videoplayer-controlbar.video-progress: Progresso video
-  ba-videoplayer-controlbar.rerecord-video: Riprova?
-  ba-videoplayer-controlbar.submit-video: Conferma il video
-  ba-videoplayer-controlbar.play-video: Guarda il video
-  ba-videoplayer-controlbar.pause-video: Pausa
-  ba-videoplayer-controlbar.elapsed-time: Tempo trascorso
-  ba-videoplayer-controlbar.total-time: Lunghezza totale del video
-  ba-videoplayer-controlbar.fullscreen-video: Entra a schermo intero
-  ba-videoplayer-controlbar.volume-button: Imposta il volume
-  ba-videoplayer-controlbar.volume-mute: Muta l'audio
-  ba-videoplayer-controlbar.volume-unmute: Riattiva l'audio
-  ba-videoplayer.video-error: 'Si è verificato un errore, riprova più tardi. Fai clic per riprovare.'
-  ba-videorecorder-chooser.record-video: Registra video
-  ba-videorecorder-chooser.upload-video: Carica video
-  ba-videorecorder-controlbar.settings: Impostazioni
-  ba-videorecorder-controlbar.camerahealthy: L'illuminazione è buona
-  ba-videorecorder-controlbar.cameraunhealthy: L'illuminazione non è ottimale
-  ba-videorecorder-controlbar.microphonehealthy: Il suono è buono
-  ba-videorecorder-controlbar.microphoneunhealthy: Non riesco a sentire alcun suono
-  ba-videorecorder-controlbar.record: Registra
-  ba-videorecorder-controlbar.record-tooltip: Clicca qui per registrare.
-  ba-videorecorder-controlbar.rerecord: Riprova
-  ba-videorecorder-controlbar.rerecord-tooltip: Clicca qui per riprovare.
-  ba-videorecorder-controlbar.upload-covershot: Carica foto di copertina
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Clicca qui per caricare una foto di copertina personalizzata
-  ba-videorecorder-controlbar.stop: Stop
-  ba-videorecorder-controlbar.stop-tooltip: Clicca qui per fermare.
-  ba-videorecorder-controlbar.skip: Salta
-  ba-videorecorder-controlbar.skip-tooltip: Clicca qui per saltare.
-  ba-videorecorder.recorder-error: 'Si è verificato un errore, riprova più tardi. Fare clic per riprovare.'
-  ba-videorecorder.attach-error: >-
-    Non siamo riusciti ad accedere all'interfaccia multimediale. A seconda del
-    dispositivo e del browser, potrebbe essere necessario installare Flash o
-    accedere alla pagina tramite SSL.
-  ba-videorecorder.access-forbidden: L'accesso alla camera era proibito. Fare clic per riprovare.
-  ba-videorecorder.pick-covershot: Scegli una foto di copertina.
-  ba-videorecorder.uploading: Caricamento
-  ba-videorecorder.uploading-failed: Caricamento fallito - clicca qui per riprovare.
-  ba-videorecorder.verifying: Verifica
-  ba-videorecorder.verifying-failed: Verifica non riuscita - clicca qui per riprovare.
-  ba-videorecorder.rerecord-confirm: Vuoi davvero rifare il video?
-  ba-videorecorder.video_file_too_large: >-
-    Il file video è troppo grande (%s) - clicca qui per provare di nuovo con un
-    file video più piccolo.
-  ba-videorecorder.unsupported_video_type: 'Per favore carica: %s - clicca qui per riprovare.'
-  ba-videoplayer-controlbar.exit-fullscreen-video: Esci dalla modalità a schermo intero
-  ba-videoplayer-share.share: Condividi il video
-  ba-videorecorder-chooser.record-screen: Registra schermo
-  ba-videoplayer-controlbar.pause-video-disabled: Pausa non supportata
-  ba-videorecorder-chooser.record-audio: Registra audio
-  ba-videorecorder-controlbar.stop-available-after: Il tempo di registrazione minimo è %d secondi
-  ba-videorecorder-controlbar.cancel: Annulla
-  ba-videorecorder-controlbar.cancel-tooltip: Clicca qui per annullare.
-  ba-videorecorder.cancel-confirm: Vuoi veramente annullare il tuo caricamento video?
-  ba-videoplayer-adslot.elapsed-time: Tempo trascorso
-  ba-videoplayer-adslot.volume-button: Imposta il volume
-  ba-videoplayer-adslot.volume-mute: Muta l'audio
-  ba-videoplayer-adslot.volume-unmute: Riattiva l'audio
-  ba-videoplayer-adslot.ad-will-end-after: L'annuncio terminerà dopo %s
-  ba-videoplayer-adslot.can-skip-after: Salta dopo %d
-  ba-videoplayer-adslot.skip-ad: Salta annuncio
-  ba-videorecorder.software-required: >-
-    Clicca qui sotto per installare / attivare i seguenti requisiti per
-    procedere.
-  ba-videorecorder.software-waiting: >-
-    Aspettando che i requisiti siano installati / attivati. Potrebbe essere
-    necessario aggiornare la pagina dopo il completamento.
-  ba-videoplayer-controlbar.close-tracks: Chiudi sottotitoli
-  ba-videoplayer-controlbar.show-tracks: Mostra sottotitoli
-  ba-videoplayer-tracks.upload-text-tracks: Carica file sottotitoli
-  ba-videoplayer-tracks.select-text-track-language: Lingua sottotitoli
-  ba-videoplayer-tracks.info-select-locale-first: Prima seleziona la lingua
-  ba-videoplayer-tracks.select-text-track-file: Clicca per selezionare il file
-  ba-videoplayer-tracks.back: indietro
-  ba-videorecorder.framerate-warning: >-
-    Il frame rate video è molto basso. Ti consigliamo di chiudere tutti gli
-    altri programmi e le schede del browser o di utilizzare un computer più
-    veloce.
-  ba-videorecorder.upload-error-duration: >-
-    La lunghezza del video caricato non soddisfa i requisiti: fai clic qui per
-    riprovare.
-  ba-videorecorder.resolution-constraint-error: >-
-    Il file che hai selezionato non corrisponde alla risoluzione richiesta: fai
-    clic qui per riprovare.
-  ba-videorecorder.orientation-portrait-required: Si prega di ruotare il dispositivo per registrare in modalità verticale.
-  ba-videorecorder.orientation-landscape-required: Si prega di ruotare il dispositivo per registrare in modalità orizzontale.
-  ba-imageviewer-controlbar.rerecord-image: Riprova?
-  ba-imageviewer-controlbar.submit-image: Conferma
-  ba-imageviewer-controlbar.fullscreen-image: Entra a schermo intero
-  ba-imageviewer-controlbar.exit-fullscreen-image: Esci dalla modalità a schermo intero
-  ba-imageviewer.image-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
-  ba-imagecapture-chooser.image-capture: Cattura immagine
-  ba-imagecapture-chooser.upload-image: Carica immagine
-  ba-imagecapture-controlbar.settings: Impostazioni
-  ba-imagecapture-controlbar.camerahealthy: L'illuminazione è buona
-  ba-imagecapture-controlbar.cameraunhealthy: L'illuminazione non è ottimale
-  ba-imagecapture-controlbar.record: Cattura
-  ba-imagecapture-controlbar.record-tooltip: Clicca qui per catturare.
-  ba-imagecapture-controlbar.rerecord: Riprova
-  ba-imagecapture-controlbar.rerecord-tooltip: Clicca qui per riprovare.
-  ba-imagecapture-controlbar.cancel: Annulla
-  ba-imagecapture-controlbar.cancel-tooltip: Clicca qui per annullare.
-  ba-audioplayer-controlbar.audio-progress: Progresso
-  ba-audioplayer-controlbar.rerecord-audio: Riprova?
-  ba-audioplayer-controlbar.submit-audio: Conferma
-  ba-audioplayer-controlbar.play-audio: Riproduci
-  ba-audioplayer-controlbar.pause-audio: Pausa
-  ba-audioplayer-controlbar.pause-audio-disabled: Pausa non supportata
-  ba-audioplayer-controlbar.elapsed-time: Tempo trascorso
-  ba-audioplayer-controlbar.total-time: Lunghezza totale di
-  ba-audioplayer-controlbar.volume-button: Imposta il volume
-  ba-audioplayer-controlbar.volume-mute: Muta l'audio
-  ba-audioplayer-controlbar.volume-unmute: Riattiva l'audio
-  ba-audioplayer-loader.tooltip: Caricamento in corso...
-  ba-audioplayer.audio-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
-  ba-audiorecorder-chooser.record-audio: Registra audio
-  ba-audiorecorder-chooser.upload-audio: Carica audio
-  ba-audiorecorder-controlbar.settings: Impostazioni
-  ba-audiorecorder-controlbar.microphonehealthy: Il suono è buono
-  ba-audiorecorder-controlbar.microphoneunhealthy: Non riesco a sentire alcun suono
-  ba-audiorecorder-controlbar.record: Registra
-  ba-audiorecorder-controlbar.record-tooltip: Clicca qui per registrare.
-  ba-audiorecorder-controlbar.rerecord: Riprova
-  ba-audiorecorder-controlbar.rerecord-tooltip: Clicca qui per riprovare.
-  ba-audiorecorder-controlbar.stop: Stop
-  ba-audiorecorder-controlbar.stop-tooltip: Clicca qui per interrompere.
-  ba-audiorecorder-controlbar.stop-available-after: Il tempo di registrazione minimo è %d secondi
-  ba-audiorecorder-controlbar.cancel: Annulla
-  ba-audiorecorder-controlbar.cancel-tooltip: Clicca qui per cancellare.
-  ba-videoplayer-controlbar.player-speed: Velocità di riproduzione
-  ba-videoplayer-controlbar.settings: Impostazioni
-  ba-videoplayer-controlbar.airplay: Airplay
-  ba-videoplayer-controlbar.airplay-icon: Icona Airplay.
-  ba-videoplayer.all-settings: Tutte le impostazioni
-  ba-videoplayer.player-speed: Velocità di riproduzione
-  ba-videoplayer.full-screen: A schermo intero
-  ba-videorecorder-controlbar.add-stream: Aggiungi flusso
-  ba-videorecorder.switch-camera: Cambia fotocamera
-  ba-videorecorder.prepare-covershot: Preparazione delle foto di copertina
-  ba-videorecorder.prepare-thumbnails: Preparazione delle miniature di ricerca
-  ba-videorecorder.adding-new-stream: Aggiunta di un nuovo flusso
-  ba-imagecapture.recorder-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
-  ba-imagecapture.attach-error: >-
-    Non siamo riusciti ad accedere all'interfaccia multimediale. A seconda del
-    dispositivo e del browser, potrebbe essere necessario installare Flash o
-    accedere alla pagina tramite SSL.
-  ba-imagecapture.software-required: >-
-    Clicca qui sotto per installare / attivare i seguenti requisiti per
-    procedere.
-  ba-imagecapture.software-waiting: >-
-    In attesa che i requisiti siano installati / attivati. Potrebbe essere
-    necessario aggiornare la pagina dopo il completamento.
-  ba-imagecapture.access-forbidden: L'accesso ai media era proibito. Clicca per riprovare.
-  ba-imagecapture.uploading: Caricamento
-  ba-imagecapture.uploading-failed: 'Caricamento fallito: fai clic qui per riprovare.'
-  ba-imagecapture.upload-error-duration: >-
-    La lunghezza dell'immagine caricata non soddisfa i requisiti: fai clic qui
-    per riprovare.
-  ba-imagecapture.resolution-constraint-error: >-
-    Il file che hai selezionato non corrisponde alla risoluzione richiesta: fai
-    clic qui per riprovare.
-  ba-imagecapture.verifying: Verifica
-  ba-imagecapture.verifying-failed: Verifica fallita - clicca qui per riprovare.
-  ba-imagecapture.rerecord-confirm: Vuoi veramente riprovare a scattare la tua immagine?
-  ba-imagecapture.image_file_too_large: >-
-    Il tuo file immagine è troppo grande (%s) - clicca qui per riprovare con un
-    file immagine più piccolo.
-  ba-imagecapture.unsupported_image_type: 'Per favore carica: %s - fai clic qui per riprovare.'
-  ba-imagecapture.orientation-portrait-required: Si prega di ruotare il dispositivo per registrare in modalità verticale.
-  ba-imagecapture.orientation-landscape-required: Si prega di ruotare il dispositivo per registrare in modalità orizzontale.
-  ba-audiorecorder.recorder-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
-  ba-audiorecorder.attach-error: >-
-    Non siamo riusciti ad accedere all'interfaccia multimediale. A seconda del
-    dispositivo e del browser, potrebbe essere necessario installare Flash o
-    accedere alla pagina tramite SSL.
-  ba-audiorecorder.software-required: >-
-    Clicca qui sotto per installare / attivare i seguenti requisiti per
-    procedere.
-  ba-audiorecorder.software-waiting: >-
-    In attesa che i requisiti siano installati / attivati. Potrebbe essere
-    necessario aggiornare la pagina dopo il completamento.
-  ba-audiorecorder.access-forbidden: L'accesso ai media era proibito. Clicca per riprovare.
-  ba-audiorecorder.uploading: Caricamento
-  ba-audiorecorder.uploading-failed: 'Caricamento fallito: fai clic qui per riprovare.'
-  ba-audiorecorder.upload-error-duration: >-
-    La lunghezza dell'audio caricato non soddisfa i requisiti: fai clic qui per
-    riprovare.
-  ba-audiorecorder.verifying: Verifica
-  ba-audiorecorder.verifying-failed: Verifica fallita - clicca qui per riprovare.
-  ba-audiorecorder.rerecord-confirm: Vuoi veramente riprovare a registrare il tuo audio?
-  ba-audiorecorder.cancel-confirm: Vuoi veramente cancellare il tuo caricamento audio?
-  ba-audiorecorder.audio_file_too_large: >-
-    Il tuo file audio è troppo grande (%s) - fai clic qui per riprovare con un
-    file audio più piccolo.
-  ba-audiorecorder.unsupported_audio_type: 'Carica: %s - fai clic qui per riprovare.'
-  ba-common-settingsmenu.tooltip: Clicca per riprodurre.
-  ba-common-settingsmenu.setting-menu: Tutte le impostazioni
-  ba-common-settingsmenu.source-quality: Qualità della fonte
-  ba-common-settingsmenu.player-speed: Velocità di riproduzione
-  ba-common-settingsmenu.set-menu-option: Imposta opzione
-  ba-common-settingsmenu.submit-video: Conferma il video
-  ba-common-settingsmenu.picture-in-picture: Immagine nell'immagine
-  ba-common-settingsmenu.exit-fullscreen-video: Esci dalla modalità a schermo intero
-  ba-common-settingsmenu.fullscreen-video: Entra a schermo intero
-  ba-videorecorder-chooser.multi-stream: Flusso multiplo
-  ba-videorecorder-controlbar.pause-recorder: Metti in pausa la registrazione
-  ba-videorecorder-controlbar.resume-recorder: Riprendi la registrazione
-  ba-videorecorder.missing-track: Audio o video non disponibile
-  ba-videorecorder.device-already-in-use: Almeno uno dei tuoi dispositivi di input è già in uso
-  ba-videorecorder.browser-permission-denied: 'Autorizzazione negata dal browser, concedi l''accesso e ricarica la pagina'
-  ba-audioplayer.all-settings: Tutte le impostazioni
-  ba-videoplayer-controlbar.remaining-time: Tempo rimanente
-  ba-videoplayer-controlbar.select-frame: Seleziona
-  ba-videoplayer-controlbar.trim-video: Taglia
-  ba-videoplayer-playbutton.trim: Taglia
-  ba-videoplayer-playbutton.skip: Salta
-  ba-videorecorder-imagegallery.upload-covershot: Carica copertina
-  ba-videorecorder.pick-covershot-frame: Seleziona una cornice da usare come foto di copertina.
-  ba-videorecorder.screen-recorder-is-not-supported: Il registratore dello schermo non è supportato su questo dispositivo
-  ba-videorecorder.trim-prompt: Vuoi tagliare il tuo video?
-  ba-videorecorder.trim-video: Sposta gli indicatori di inizio e fine per tagliare il tuo video
-  ba-videorecorder.wait-for-trim: In attesa del comando di ritaglio...
-  ba-videorecorder-controlbar.no-video-source: Fonte di ingresso video aggiuntiva mancante
-  ba-videorecorder-controlbar.stream-already-selected: È già stato selezionato un flusso aggiuntivo
-  ba-videorecorder.uploading-src-error: 'Impossibile riprodurre il video ora, il caricamento è ancora in corso'
-  ba-audiorecorder-controlbar.pause-recorder: Pausa registratore
-  ba-audiorecorder-controlbar.resume-recorder: Riprendi registratore
+ba-audiorecorder.upload-error-duration: 'La lunghezza dell''audio caricato non soddisfa
+  i requisiti: fai clic qui per riprovare.'
+ba-common-settingsmenu.tooltip: Clicca per riprodurre.
+ba-common-settingsmenu.setting-menu: Tutte le impostazioni
+ba-videorecorder-controlbar.settings: Impostazioni
+ba-imagecapture.access-forbidden: L'accesso ai media era proibito. Clicca per riprovare.
+ba-videorecorder.video_file_too_large: Il file video è troppo grande (%s) - clicca
+  qui per provare di nuovo con un file video più piccolo.
+ba-videoplayer-controlbar.settings: Impostazioni
+ba-videorecorder-controlbar.add-stream: Aggiungi flusso
+ba-imageviewer-controlbar.fullscreen-image: Entra a schermo intero
+ba-imagecapture.image_file_too_large: Il tuo file immagine è troppo grande (%s) -
+  clicca qui per riprovare con un file immagine più piccolo.
+ba-imagecapture.orientation-landscape-required: Si prega di ruotare il dispositivo
+  per registrare in modalità orizzontale.
+ba-videoplayer-controlbar.pause-video-disabled: Pausa non supportata
+ba-videorecorder-controlbar.camerahealthy: L'illuminazione è buona
+ba-common-settingsmenu.submit-video: Conferma il video
+ba-videorecorder-controlbar.record-tooltip: Clicca qui per registrare.
+ba-common-settingsmenu.picture-in-picture: Immagine nell'immagine
+ba-videoplayer-playbutton.rerecord: Riprova
+ba-videoplayer-tracks.select-text-track-language: Lingua sottotitoli
+ba-videoplayer-adslot.can-skip-after: Salta dopo %d
+ba-audiorecorder.cancel-confirm: Vuoi veramente cancellare il tuo caricamento audio?
+ba-audiorecorder.software-waiting: In attesa che i requisiti siano installati / attivati.
+  Potrebbe essere necessario aggiornare la pagina dopo il completamento.
+ba-videoplayer-tracks.info-select-locale-first: Prima seleziona la lingua
+ba-videoplayer-loader.tooltip: Caricamento video...
+ba-audiorecorder-controlbar.cancel-tooltip: Clicca qui per cancellare.
+ba-imagecapture.verifying-failed: Verifica fallita - clicca qui per riprovare.
+ba-videoplayer-playbutton.skip: Salta
+ba-videoplayer-controlbar.trim-video: Taglia
+ba-videorecorder.missing-track: Audio o video non disponibile
+ba-imagecapture.uploading-failed: 'Caricamento fallito: fai clic qui per riprovare.'
+ba-videoplayer-adslot.volume-button: Imposta il volume
+ba-imagecapture-chooser.image-capture: Cattura immagine
+ba-videorecorder.trim-prompt: Vuoi tagliare il tuo video?
+ba-videorecorder.software-waiting: Aspettando che i requisiti siano installati / attivati.
+  Potrebbe essere necessario aggiornare la pagina dopo il completamento.
+ba-audioplayer-controlbar.play-audio: Riproduci
+ba-videorecorder-controlbar.resume-recorder: Riprendi la registrazione
+ba-videorecorder-controlbar.rerecord: Riprova
+ba-audiorecorder.verifying: Verifica
+ba-videoplayer-playbutton.tooltip: Clicca per riprodurre il video.
+ba-videorecorder.trim-video: Sposta gli indicatori di inizio e fine per tagliare il
+  tuo video
+ba-videoplayer-controlbar.player-speed: Velocità di riproduzione
+ba-videorecorder-controlbar.microphonehealthy: Il suono è buono
+ba-videorecorder-chooser.multi-stream: Flusso multiplo
+ba-imagecapture.recorder-error: Si è verificato un errore, riprova più tardi. Clicca
+  per riprovare.
+ba-videorecorder-controlbar.stop-tooltip: Clicca qui per fermare.
+ba-imagecapture-controlbar.rerecord-tooltip: Clicca qui per riprovare.
+ba-videoplayer-controlbar.video-progress: Progresso video
+ba-videorecorder-controlbar.cameraunhealthy: L'illuminazione non è ottimale
+ba-audioplayer-controlbar.pause-audio: Pausa
+ba-videorecorder-controlbar.stop: Stop
+ba-imagecapture-chooser.upload-image: Carica immagine
+ba-videorecorder-imagegallery.upload-covershot: Carica copertina
+ba-audiorecorder-controlbar.resume-recorder: Riprendi registratore
+ba-videoplayer.video-error: Si è verificato un errore, riprova più tardi. Fai clic
+  per riprovare.
+ba-videorecorder.attach-error: Non siamo riusciti ad accedere all'interfaccia multimediale.
+  A seconda del dispositivo e del browser, potrebbe essere necessario installare Flash
+  o accedere alla pagina tramite SSL.
+ba-audiorecorder-controlbar.pause-recorder: Pausa registratore
+ba-audiorecorder-controlbar.stop-available-after: Il tempo di registrazione minimo
+  è %d secondi
+ba-videoplayer-controlbar.change-resolution: Cambia la risoluzione
+ba-audiorecorder.software-required: Clicca qui sotto per installare / attivare i seguenti
+  requisiti per procedere.
+ba-videoplayer-controlbar.exit-fullscreen-video: Esci dalla modalità a schermo intero
+ba-imageviewer-controlbar.rerecord-image: Riprova?
+ba-videoplayer-adslot.ad-will-end-after: L'annuncio terminerà dopo %s
+ba-imagecapture.rerecord-confirm: Vuoi veramente riprovare a scattare la tua immagine?
+ba-audioplayer-controlbar.elapsed-time: Tempo trascorso
+ba-audioplayer-controlbar.rerecord-audio: Riprova?
+ba-imageviewer-controlbar.exit-fullscreen-image: Esci dalla modalità a schermo intero
+ba-videorecorder.verifying-failed: Verifica non riuscita - clicca qui per riprovare.
+ba-videorecorder-controlbar.upload-covershot-tooltip: Clicca qui per caricare una
+  foto di copertina personalizzata
+ba-common-settingsmenu.set-menu-option: Imposta opzione
+ba-videorecorder.framerate-warning: Il frame rate video è molto basso. Ti consigliamo
+  di chiudere tutti gli altri programmi e le schede del browser o di utilizzare un
+  computer più veloce.
+ba-videorecorder.switch-camera: Cambia fotocamera
+ba-audioplayer-controlbar.volume-button: Imposta il volume
+ba-videorecorder-chooser.upload-video: Carica video
+ba-audiorecorder.verifying-failed: Verifica fallita - clicca qui per riprovare.
+ba-videorecorder-controlbar.stream-already-selected: È già stato selezionato un flusso
+  aggiuntivo
+ba-videorecorder.upload-error-duration: 'La lunghezza del video caricato non soddisfa
+  i requisiti: fai clic qui per riprovare.'
+ba-common-settingsmenu.player-speed: Velocità di riproduzione
+ba-audiorecorder-controlbar.settings: Impostazioni
+ba-videoplayer-controlbar.play-video: Guarda il video
+ba-videoplayer-controlbar.rerecord-video: Riprova?
+ba-videorecorder.recorder-error: Si è verificato un errore, riprova più tardi. Fare
+  clic per riprovare.
+ba-videorecorder.prepare-covershot: Preparazione delle foto di copertina
+ba-videorecorder.verifying: Verifica
+ba-videorecorder.unsupported_video_type: 'Per favore carica: %s - clicca qui per riprovare.'
+ba-videoplayer-playbutton.submit-video: Conferma il video
+ba-audioplayer-controlbar.total-time: Lunghezza totale di
+ba-videorecorder.prepare-thumbnails: Preparazione delle miniature di ricerca
+ba-videoplayer-controlbar.airplay: Airplay
+ba-videorecorder.access-forbidden: L'accesso alla camera era proibito. Fare clic per
+  riprovare.
+ba-videoplayer-adslot.volume-mute: Muta l'audio
+ba-imageviewer.image-error: Si è verificato un errore, riprova più tardi. Clicca per
+  riprovare.
+ba-videorecorder.resolution-constraint-error: 'Il file che hai selezionato non corrisponde
+  alla risoluzione richiesta: fai clic qui per riprovare.'
+ba-videorecorder-controlbar.pause-recorder: Metti in pausa la registrazione
+ba-imagecapture-controlbar.cameraunhealthy: L'illuminazione non è ottimale
+ba-common-settingsmenu.source-quality: Qualità della fonte
+ba-imagecapture.orientation-portrait-required: Si prega di ruotare il dispositivo
+  per registrare in modalità verticale.
+ba-audiorecorder-chooser.record-audio: Registra audio
+ba-videoplayer-controlbar.volume-mute: Muta l'audio
+ba-videorecorder.pick-covershot: Scegli una foto di copertina.
+ba-audiorecorder-controlbar.microphoneunhealthy: Non riesco a sentire alcun suono
+ba-videorecorder-controlbar.no-video-source: Fonte di ingresso video aggiuntiva mancante
+ba-audiorecorder.access-forbidden: L'accesso ai media era proibito. Clicca per riprovare.
+ba-imagecapture-controlbar.rerecord: Riprova
+ba-audiorecorder.recorder-error: Si è verificato un errore, riprova più tardi. Clicca
+  per riprovare.
+ba-videoplayer-tracks.select-text-track-file: Clicca per selezionare il file
+ba-videorecorder-controlbar.skip: Salta
+ba-imagecapture.software-required: Clicca qui sotto per installare / attivare i seguenti
+  requisiti per procedere.
+ba-videorecorder.uploading-src-error: Impossibile riprodurre il video ora, il caricamento
+  è ancora in corso
+ba-videoplayer-controlbar.volume-button: Imposta il volume
+ba-imagecapture.attach-error: Non siamo riusciti ad accedere all'interfaccia multimediale.
+  A seconda del dispositivo e del browser, potrebbe essere necessario installare Flash
+  o accedere alla pagina tramite SSL.
+ba-audiorecorder.uploading: Caricamento
+ba-audiorecorder.unsupported_audio_type: 'Carica: %s - fai clic qui per riprovare.'
+ba-imagecapture-controlbar.settings: Impostazioni
+ba-videorecorder.adding-new-stream: Aggiunta di un nuovo flusso
+ba-imagecapture.uploading: Caricamento
+ba-videorecorder.wait-for-trim: In attesa del comando di ritaglio...
+ba-imagecapture-controlbar.cancel: Annulla
+ba-videorecorder-controlbar.cancel-tooltip: Clicca qui per annullare.
+ba-audioplayer.audio-error: Si è verificato un errore, riprova più tardi. Clicca per
+  riprovare.
+ba-videoplayer-controlbar.show-tracks: Mostra sottotitoli
+ba-videoplayer.full-screen: A schermo intero
+ba-videorecorder.cancel-confirm: Vuoi veramente annullare il tuo caricamento video?
+ba-videorecorder-controlbar.cancel: Annulla
+ba-ads-controlbar.ad-will-end-after: ''
+ba-audiorecorder-controlbar.rerecord: Riprova
+ba-audiorecorder.rerecord-confirm: Vuoi veramente riprovare a registrare il tuo audio?
+ba-videoplayer-controlbar.elapsed-time: Tempo trascorso
+ba-videorecorder-controlbar.stop-available-after: Il tempo di registrazione minimo
+  è %d secondi
+ba-audioplayer.all-settings: Tutte le impostazioni
+ba-imagecapture-controlbar.camerahealthy: L'illuminazione è buona
+ba-imagecapture-controlbar.record: Cattura
+ba-audiorecorder-controlbar.record-tooltip: Clicca qui per registrare.
+ba-audioplayer-controlbar.submit-audio: Conferma
+ba-videoplayer-adslot.skip-ad: Salta annuncio
+ba-videorecorder-chooser.record-audio: Registra audio
+ba-audiorecorder.audio_file_too_large: Il tuo file audio è troppo grande (%s) - fai
+  clic qui per riprovare con un file audio più piccolo.
+ba-videorecorder.browser-permission-denied: Autorizzazione negata dal browser, concedi
+  l'accesso e ricarica la pagina
+ba-videoplayer-controlbar.pause-video: Pausa
+ba-videoplayer-adslot.volume-unmute: Riattiva l'audio
+ba-videoplayer-controlbar.submit-video: Conferma il video
+ba-videoplayer-share.share: Condividi il video
+ba-audioplayer-loader.tooltip: Caricamento in corso...
+ba-imagecapture.unsupported_image_type: 'Per favore carica: %s - fai clic qui per
+  riprovare.'
+ba-videorecorder.uploading: Caricamento
+ba-audiorecorder-controlbar.microphonehealthy: Il suono è buono
+ba-audiorecorder-controlbar.rerecord-tooltip: Clicca qui per riprovare.
+ba-videorecorder-chooser.record-screen: Registra schermo
+ba-videoplayer.all-settings: Tutte le impostazioni
+ba-videoplayer-controlbar.select-frame: Seleziona
+ba-imagecapture.resolution-constraint-error: 'Il file che hai selezionato non corrisponde
+  alla risoluzione richiesta: fai clic qui per riprovare.'
+ba-audiorecorder-controlbar.stop-tooltip: Clicca qui per interrompere.
+ba-videorecorder-controlbar.microphoneunhealthy: Non riesco a sentire alcun suono
+ba-audiorecorder-controlbar.stop: Stop
+ba-videorecorder.rerecord-confirm: Vuoi davvero rifare il video?
+ba-videoplayer-controlbar.close-tracks: Chiudi sottotitoli
+ba-videorecorder-controlbar.upload-covershot: Carica foto di copertina
+ba-videorecorder.orientation-landscape-required: Si prega di ruotare il dispositivo
+  per registrare in modalità orizzontale.
+ba-imagecapture.verifying: Verifica
+ba-imageviewer-controlbar.submit-image: Conferma
+ba-imagecapture-controlbar.cancel-tooltip: Clicca qui per annullare.
+ba-imagecapture.software-waiting: In attesa che i requisiti siano installati / attivati.
+  Potrebbe essere necessario aggiornare la pagina dopo il completamento.
+ba-common-settingsmenu.exit-fullscreen-video: Esci dalla modalità a schermo intero
+ba-videorecorder.uploading-failed: Caricamento fallito - clicca qui per riprovare.
+ba-videoplayer-playbutton.trim: Taglia
+ba-audioplayer-controlbar.volume-unmute: Riattiva l'audio
+ba-audiorecorder-controlbar.record: Registra
+ba-videorecorder.software-required: Clicca qui sotto per installare / attivare i seguenti
+  requisiti per procedere.
+ba-videoplayer-tracks.upload-text-tracks: Carica file sottotitoli
+ba-videorecorder-controlbar.skip-tooltip: Clicca qui per saltare.
+ba-videoplayer-adslot.elapsed-time: Tempo trascorso
+ba-videoplayer-controlbar.remaining-time: Tempo rimanente
+ba-imagecapture-controlbar.record-tooltip: Clicca qui per catturare.
+ba-videorecorder.device-already-in-use: Almeno uno dei tuoi dispositivi di input è
+  già in uso
+ba-audioplayer-controlbar.volume-mute: Muta l'audio
+ba-audiorecorder-chooser.upload-audio: Carica audio
+ba-imagecapture.upload-error-duration: 'La lunghezza dell''immagine caricata non soddisfa
+  i requisiti: fai clic qui per riprovare.'
+ba-audiorecorder.attach-error: Non siamo riusciti ad accedere all'interfaccia multimediale.
+  A seconda del dispositivo e del browser, potrebbe essere necessario installare Flash
+  o accedere alla pagina tramite SSL.
+ba-audiorecorder-controlbar.cancel: Annulla
+ba-videoplayer-controlbar.airplay-icon: Icona Airplay.
+ba-videoplayer.player-speed: Velocità di riproduzione
+ba-videoplayer-controlbar.fullscreen-video: Entra a schermo intero
+ba-audiorecorder.uploading-failed: 'Caricamento fallito: fai clic qui per riprovare.'
+ba-videorecorder-chooser.record-video: Registra video
+ba-videorecorder.screen-recorder-is-not-supported: Il registratore dello schermo non
+  è supportato su questo dispositivo
+ba-videoplayer-tracks.back: indietro
+ba-videorecorder.pick-covershot-frame: Seleziona una cornice da usare come foto di
+  copertina.
+ba-audioplayer-controlbar.audio-progress: Progresso
+ba-audioplayer-controlbar.pause-audio-disabled: Pausa non supportata
+ba-videoplayer-controlbar.total-time: Lunghezza totale del video
+ba-videorecorder-controlbar.rerecord-tooltip: Clicca qui per riprovare.
+ba-videorecorder.orientation-portrait-required: Si prega di ruotare il dispositivo
+  per registrare in modalità verticale.
+ba-common-settingsmenu.fullscreen-video: Entra a schermo intero
+ba-videoplayer-controlbar.volume-unmute: Riattiva l'audio
+ba-videorecorder-controlbar.record: Registra

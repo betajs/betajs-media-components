@@ -1,245 +1,278 @@
-language:kn:
-  ba-common-settingsmenu.tooltip: ಪ್ರಸ್ತುತಿಸುವಿಕೆಗಾಗಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-common-settingsmenu.setting-menu: ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗುಗಳು
-  ba-common-settingsmenu.source-quality: ಮೂಲ ಗುಣಮಟ್ಟ
-  ba-common-settingsmenu.player-speed: ಪ್ರವೃತ್ತಿಗಾಗಿ ಗತಿ
-  ba-common-settingsmenu.set-menu-option: ಆಯ್ಕೆಗೊಳಿಸಿ
-  ba-common-settingsmenu.submit-video: ವೀಡಿಯೊ ದೃಢೀಕರಿಸಿ
-  ba-common-settingsmenu.picture-in-picture: ಚಿತ್ರ ಪುಟವುಚಾಯಿಸು
-  ba-common-settingsmenu.exit-fullscreen-video: ಪೂರ್ಣ ಪರದೆಯನ್ನು ಬಿಟ್ಟುಹೋಗಿ
-  ba-common-settingsmenu.fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಲ್ಲಿ ಹೋಗಿ
-  ba-ads-controlbar.skip-ad: ಹೋಗುವ ವಿಜ್ಞಾಪನ
-  ba-ads-controlbar.play-ad: ಪ್ರಸ್ತುತಿಸು
-  ba-ads-controlbar.pause-video: ವೀಡಿಯೊ ನಿಲ್ಲಿಸು
-  ba-ads-controlbar.volume-mute: ಶಬ್ದವನ್ನು ಮ್ಯೂಟ್ ಮಾಡು
-  ba-ads-controlbar.volume-button: ಸ್ವರವನ್ನು ಹೊಂದಿಸು
-  ba-ads-controlbar.elapsed-time: ಕಳೆದ ಸಮಯ
-  ba-ads-controlbar.volume-unmute: ಶಬ್ದವನ್ನು ಚಾಲುಮಾಡು
-  ba-ads-controlbar.can-skip-after: '%d ನಂತರ ಹಾರಿಹೋಗಬಹುದು'
-  ba-ads-controlbar.fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಲ್ಲಿ ಹೋಗಿ
-  ba-ads-controlbar.exit-fullscreen-video: ಪೂರ್ಣ ಪರದೆಯನ್ನು ಬಿಟ್ಟುಹೋಗಿ
-  ba-ads-controlbar.ad-will-end-after: ವಿಜ್ಞಾಪನ ನಂತರ %s
-  ba-ads-controlbar.pause-video-disabled: ನಿಲ್ಲಿಸಲು ಬೇಕಾದ ಬೆಂಬಲವಿಲ್ಲ
-  ba-adsplayer.replay-ad: ವಿಜ್ಞಾಪನವನ್ನು ಪುನರಾರಂಭಿಸಿ
-  ba-adsplayer.close-ad: ಮುಚ್ಚಿ
-  ba-adsplayer.ad-choices: ವಿಜ್ಞಾಪನ ಆಯ್ಕೆಗಳು
-  ba-adsplayer.learn-more: ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ
-  ba-videoplayer-controlbar.video-progress: ಹೊರಗಡೆಗೆ ಹೋಗಿ
-  ba-videoplayer-controlbar.rerecord-video: ಪುನರ್ನೀರೀಕ್ಷಣೆ?
-  ba-videoplayer-controlbar.submit-video: ದೃಢೀಕರಿಸಿ
-  ba-videoplayer-controlbar.play-video: ಪ್ರಸ್ತುತಿಸು
-  ba-videoplayer-controlbar.pause-video: ನಿಲ್ಲಿಸು
-  ba-videoplayer-controlbar.pause-video-disabled: ನಿಲ್ಲಿಸಲು ಬೆಂಬಲವಿಲ್ಲ
-  ba-videoplayer-controlbar.elapsed-time: ಕಳೆದ ಸಮಯ
-  ba-videoplayer-controlbar.total-time: ಒಟ್ಟು ಸಮಯ
-  ba-videoplayer-controlbar.fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಲ್ಲಿ ಹೋಗಿ
-  ba-videoplayer-controlbar.volume-button: ಸ್ವರವನ್ನು ಹೊಂದಿಸು
-  ba-videoplayer-controlbar.volume-mute: ಶಬ್ದವನ್ನು ಮ್ಯೂಟ್ ಮಾಡು
-  ba-videoplayer-controlbar.volume-unmute: ಶಬ್ದವನ
-  ba-videoplayer-controlbar.change-resolution: ರೀಜಲ್ಯೂಷನ್ ಬದಲಾಯಿಸಿ
-  ba-videoplayer-controlbar.exit-fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಿಂದ ನಿರ್ಗಮಿಸಿ
-  ba-videoplayer-controlbar.close-tracks: ಮುಚ್ಚಿ CC
-  ba-videoplayer-controlbar.show-tracks: ತೋರಿಸಿ CC
-  ba-videoplayer-controlbar.player-speed: ಚಾಲಕ ವೇಗ
-  ba-videoplayer-controlbar.settings: ಸೆಟ್ಟಿಂಗುಗಳು
-  ba-videoplayer-controlbar.airplay: ವಾಯುವಾಹನ
-  ba-videoplayer-controlbar.airplay-icon: ವಾಯುವಾಹನ ಚಿಹ್ನೆ
-  ba-videoplayer-controlbar.remaining-time: ಉಳಿದ ಸಮಯ
-  ba-videoplayer-controlbar.select-frame: ಆಯ್ಕೆ ಮಾಡಿ
-  ba-videoplayer-controlbar.trim-video: ಮೂಲ ಕಡಿಮೆಗೊಳಿಸಿ
-  ba-videoplayer-floating-sidebar.ad-choices: ವಿಜ್ಞಾಪನ ಆಯ್ಕೆಗಳು
-  ba-videoplayer-floating-sidebar.learn-more: ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ
-  ba-videoplayer-loader.tooltip: ಲೋಡ್ ಆಗುತ್ತಿದೆ...
-  ba-videoplayer-playbutton.tooltip: ಪ್ರಸ್ತುತಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videoplayer-playbutton.rerecord: ಪುನರಾರಂಭಿಸು
-  ba-videoplayer-playbutton.submit-video: ವೀಡಿಯೊ ದೃಢೀಕರಿಸಿ
-  ba-videoplayer-playbutton.trim: ಮೂಲ ಕಡಿಮೆಗೊಳಿಸಿ
-  ba-videoplayer-playbutton.skip: ಹಾರಿಹೋಗಿ
-  ba-videoplayer-share.share: ಮಾದರಿ ಹಂಚಿಕೊಳ್ಳಿ
-  ba-videoplayer-tooltip.tooltip: ಉಪಕರಣವನ್ನು ನೋಡಿ
-  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: ಕೊನೆಗೆ ನಿಲ್ಲಿಸಲು ಟೂಲ್ ಟಿಪ್ ಹೊಂದಿರಿ
-  ba-videoplayer-tracks.upload-text-tracks: ಟೆಕ್ಸ್ಟ್ ಟ್ರ್ಯಾಕ್ ಫೈಲ್ಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
-  ba-videoplayer-tracks.select-text-track-language: ಉಪನ್ಯಾಸ ಭಾಷೆ
-  ba-videoplayer-tracks.info-select-locale-first: ಮೊದಲು ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ
-  ba-videoplayer-tracks.select-text-track-file: ಫೈಲ್ ಆಯ್ಕೆಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ
-  ba-videoplayer-tracks.back: ಹಿಂದಕ್ಕೆ
-  ba-videoplayer.video-error: ಒಂದು ದೋಷ ಏರ್ಪಟ್ಟಿದೆ, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videoplayer.all-settings: ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗುಗಳು
-  ba-videoplayer.player-speed: ಚಾಲಕ ವೇಗ
-  ba-videoplayer.full-screen: ಪೂರ್ಣ ಪರದೆ
-  ba-videorecorder-chooser.record-video: ವೀಡಿಯೊ ರಿಕಾರ್ಡ್ ಮಾಡಿ
-  ba-videorecorder-chooser.record-audio: ಸ್ವರ ರಿಕಾರ್ಡ್ ಮಾಡಿ
-  ba-videorecorder-chooser.record-screen: ತಂತ್ರಾಂಶ ರಿಕಾರ್ಡ್ ಮಾಡಿ
-  ba-videorecorder-chooser.multi-stream: ಹಲವು ತಂತ್ರಾಂಶ
-  ba-videorecorder-chooser.upload-video: ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
-  ba-videorecorder-controlbar.settings: ಸೆಟ್ಟಿಂಗುಗಳು
-  ba-videorecorder-controlbar.camerahealthy: ಬೆಳಕಿನ ಅವಸ್ಥೆ ಚೆನ್ನಾಗಿದೆ
-  ba-videorecorder-controlbar.cameraunhealthy: ಬೆಳಕು ಸರಿಯಲ್ಲ
-  ba-videorecorder-controlbar.microphonehealthy: ಧ್ವನಿ ಚೆನ್ನಾಗಿದೆ
-  ba-videorecorder-controlbar.microphoneunhealthy: ಯಾವುದೇ ಧ್ವನಿಯನ್ನು ಹಿಡಿಯಲು ಸಾಧ್ಯವಿಲ್ಲ
-  ba-videorecorder-controlbar.record: ರಿಕಾರ್ಡ್ ಮಾಡಿ
-  ba-videorecorder-controlbar.record-tooltip: ಈಗ ರಿಕಾರ್ಡ್ ಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder-controlbar.rerecord: ಪುನರಾರಂಭಿಸು
-  ba-videorecorder-controlbar.rerecord-tooltip: ಈಗ ಪುನರಾರಂಭಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder-controlbar.upload-covershot: ಕವರ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
-  ba-videorecorder-controlbar.upload-covershot-tooltip: ವೈಯಕ್ತಿಕ ಕವರ್ ಶಾಟ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಲು ಈಗ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder-controlbar.stop: ನಿಲ್ಲಿಸಿ
-  ba-videorecorder-controlbar.stop-tooltip: ಈಗ ನಿಲ್ಲಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder-controlbar.skip: ಹಾರಿಹೋಗಿ
-  ba-videorecorder-controlbar.skip-tooltip: ಈಗ ಹಾರಿಹೋಗಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder-controlbar.stop-available-after: ಕನಿಷ್ಠ ರಿಕಾರ್ಡಿಂಗ್ ಸಮಯ %d ಸೆಕೆಂಡುಗಳು
-  ba-videorecorder-controlbar.cancel: ರದ್ದುಗೊಳಿಸಿ
-  ba-videorecorder-controlbar.cancel-tooltip: ಈಗ ರದ್ದುಗೊಳಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder-controlbar.add-stream: ಹಲವು ತಂತ್ರಾಂಶ ಸೇರಿಸಿ
-  ba-videorecorder-controlbar.pause-recorder: ರಿಕಾರ್ಡರ್ ನಿಲ್ಲಿಸಿ
-  ba-videorecorder-controlbar.resume-recorder: ರಿಕಾರ್ಡರ್ ಮುಂದುವರಿಸಿ
-  ba-videorecorder-controlbar.no-video-source: ಹೆಚ್ಚಿನ ವೀಡಿಯೊ ಪ್ರವೇಶ ಮೌಲಿಕ ಅಪೂರ್ಣ
-  ba-videorecorder-controlbar.stream-already-selected: ಹೊರಗಿನ ತಂತ್ರಾಂಶ ಈಗಾಗಲೇ ಆಯ್ಕೆಯಾಗಿದೆ
-  ba-videorecorder-imagegallery.upload-covershot: ಕವರ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
-  ba-videorecorder.recorder-error: ದೋಷ ಏರ್ಪಟ್ಟಿದೆ, ದಯವಿಟ್ಟು
-  ba-videorecorder.attach-error: >-
-    ನಾವು ಮೀಡಿಯಾ ಇಂಟರ್‌ಫೇಸ್‌ಗೆ ಪ್ರವೇಶ ಮಾಡಲಾಗಿಲ್ಲ. ಸಾಧಾರಣವಾಗಿ ಯಂತ್ರ ಮತ್ತು ಬ್ರೌಸರ್ ಪ್ರಕಾರಕ್ಕೆ ಪ್ರಷ್ಟಿಸಬೇಕಾಗಬಹುದು, ಅದರ ಮೂಲಕ SSL ಮೂಲಕ ಪುಟಕ್ಕೆ ಪ್ರವೇಶಿಸಬಹುದು.
-  ba-videorecorder.software-required: >-
-    ಮುಂದುವರಿಸಲು ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ - ಇವನ್ನು ಸ್ಥಾಪಿಸಲು ಅಥವಾ ಸಕ್ರಿಯಗೊಳಿಸಲು ಹೊರಗೊಮ್ಮ ಆವಶ್ಯಕತೆಗಳನ್ನು ನಿರ್ಧರಿಸಿ.
-  ba-videorecorder.software-waiting: >-
-    ಅವಶ್ಯಕತೆಗಳು ಸ್ಥಾಪಿತ / ಸಕ್ರಿಯಗೊಂಡಿವೆಯೆಂದು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ. ನಿರ್ವೀಕ್ಷಿಸಿ ಮುಂತಾದ ನಂತರ ಪುಟವನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಬಹುದು.
-  ba-videorecorder.access-forbidden: ಮೀಡಿಯಾಕ್ಕೆ ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಯಿತು. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder.pick-covershot: ಒಂದು ಕವರ್‌ಶಾಟ್ ಆರಿಸಿ.
-  ba-videorecorder.pick-covershot-frame: ಕವರ್‌ಶಾಟ್ ಆಗಿರುವ ಒಂದು ಫ್ರೇಮ್ ಆರಿಸಿ.
-  ba-videorecorder.framerate-warning: >-
-    ವೀಡಿಯೊ ಫ್ರೇಮ್ ದರ ಅತ್ಯಂತ ಕಡಿಮೆಯಾಗಿದೆ. ನಾವು ಎಲ್ಲಾ ಇತರ ಕಾರ್ಯಗಳನ್ನೂ ಮತ್ತು ಬ್ರೌಸರ್ ಟ್ಯಾಬ್‌ಗಳನ್ನೂ ಮುಚ್ಚಿಡುವುದನ್ನು ಸಲಹಿಸುತ್ತೇವೆ ಅಥವಾ ಹೆಚ್ಚಿನ ಬ್ರಾಉಸರ್‌ನಿಂದ ವೀಡಿಯೊ ಮಾಡಬೇಕಾಗಿದೆ.
-  ba-videorecorder.uploading: ಅಪ್‌ಲೋಡಿಂಗ್
-  ba-videorecorder.uploading-src-error: ವೀಡಿಯೊ ಬಹುಮಾನ ಅಪ್‌ಲೋಡ್ ಆಗಿದೆ, ಈಗ ವೀಡಿಯೊ ಪ್ರದರ್ಶಿಸಲಾಗುವುದಿಲ್ಲ
-  ba-videorecorder.uploading-failed: ಅಪ್‌ಲೋಡಿಂಗ್ ವಿಫಲವಾಗಿದೆ - ಮರುಪ್ರಯತ್ನಿಸಲು ಈಗ ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder.upload-error-duration: >-
-    ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ವೀಡಿಯೊದ ದೈರ್ಘ್ಯ ಆವಶ್ಯಕತೆಗಳಿಗೆ ಅನುಗುಣವಾಗಿಲ್ಲ - ಮರುಪ್ರಯತ್ನಿಸಲು ಈಗ ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder.resolution-constraint-error: >-
-    ನೀವು ಆಯ್ಕೆಮಾಡಿದ ಫೈಲ್ ಅಗತ್ಯವಿರುವ ವಿನಿಯೋಗಗಳನ್ನು ಮೀರಿದೆ - ಮರುಪ್ರಯತ್ನಿಸಲು ಈಗ ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder.verifying: ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ
-  ba-videorecorder.verifying-failed: ಪರಿಶೀಲಿಸುವುದರಲ್ಲಿ ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಈಗ ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-videorecorder.rerecord-confirm: ನೀವು ನಿಮ್ಮ ವೀಡಿಯೊವನ್ನು ನಮೀನೆ ಮರುಪ್ರಯತ್ನಿಸಲು ಬಯಸುತ್ತೀರಾ?
-  ba-videorecorder.cancel-confirm: ನೀವು ನಿಮ್ಮ ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದನ್ನು ನಿರಾಕರಿಸಲು ನಿಜವಾಗಿಯೇ ಬಯಸುತ್ತೀರಾ?
-  ba-videorecorder.video_file_too_large: >-
-    ನಿಮ್ಮ ವೀಡಿಯೊ ದಾಖಲೆ ಅತ್ಯಂತ ದೊಡ್ಡದಾಗಿದೆ (%s) - ಕಿಟಕಿಗೆ ಹೋಗಿ ಹೆಚ್ಚಿನವನು ಮೆಟ್ಟಿಗೆ ವೀಡಿಯೊ ದಾಖಲೆ ಪ್ರಯತ್ನಿಸಿ.
-  ba-videorecorder.unsupported_video_type: 'ದಯವಿಟ್ಟು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ: %s - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.'
-  ba-videorecorder.orientation-portrait-required: ದಯವಿಟ್ಟು ಪೋರ್ಟ್ರೇಟ್ ಮೋಡಿನಲ್ಲಿ ರೆಕಾರ್ಡ್ ಮಾಡಲು ನಿಮ್ಮ ಯಂತ್ರವನ್ನು ತಿರುಗಿಸಿ.
-  ba-videorecorder.orientation-landscape-required: ದಯವಿಟ್ಟು ಲ್ಯಾಂಡ್ಸ್ಕೇಪ್ ಮೋಡಿನಲ್ಲಿ ರೆಕಾರ್ಡ್ ಮಾಡಲು ನಿಮ್ಮ ಯಂತ್ರವನ್ನು ತಿರುಗಿಸಿ.
-  ba-videorecorder.switch-camera: ಕ್ಯಾಮೆರಾ ಬದಲಿಸು
-  ba-videorecorder.prepare-covershot: ಕವರ್‌ಶಾಟ್ ಸಿದ್ಧಗೊಳಿಸಲಾಗುತ್ತಿದೆ
-  ba-videorecorder.prepare-thumbnails: ಹುಡುಕುವ ಥಂಬ್ನೇಲ್‌ಗಳನ್ನು ಸಿದ್ಧಗೊಳಿಸಲಾಗುತ್ತಿದೆ
-  ba-videorecorder.adding-new-stream: ಹೊಸ ಸ್ಟ್ರೀಮ್ ಸೇರಿಸಲಾಗುತ್ತಿದೆ
-  ba-videorecorder.missing-track: ಅಗತ್ಯವಿರುವ ಧ್ವನಿ ಅಥವಾ ವೀಡಿಯೊ ಟ್ರ್ಯಾಕ್ ಇಲ್ಲ
-  ba-videorecorder.device-already-in-use: ನಿಮ್ಮ ಸಂರಚನೆಯ ಒಂದು ಹಂತದಲ್ಲಿ ಕಮಿಟನ್ ಸಾಕಷ್ಟು ಹಿಂದೆ ಬಳಸಲಾಗಿದೆ
-  ba-videorecorder.browser-permission-denied: ಬ್ರೌಸರ್ ದ್ವಾರಾ ಅನುಮತಿ ನೀಡಲಾಗಿಲ್ಲ, ದಯವಿಟ್ಟು ಪ್ರವೇಶವನ್ನು ಅನುಮತಿಸಿ ಪುಟವನ್ನು ಮರುಹೊಂದಿಸಿ
-  ba-videorecorder.screen-recorder-is-not-supported: ಈ ಯಂತ್ರದಲ್ಲಿ ಸ್ಕ್ರೀನ್ ರೆಕಾರ್ಡರ್ ಬೆಂಬಲಿಸಲಾಗಿಲ್ಲ
-  ba-videorecorder.trim-prompt: ನೀವು ನಿಮ್ಮ ವೀಡಿಯೊವನ್ನು ಕತ್ತರಿಸಬೇಕೇ?  
-  ba-videorecorder.trim-video: ನಿಮ್ಮ ವೀಡಿಯೊವನ್ನು ಕತ್ತರಿಸಲು ಪ್ರಾರಂಭ ಮತ್ತು ಕೊನೆ ಮಾರ್ಕರ್‌ಗಳನ್ನು ಸೂಚಿಸಿ
-  ba-videorecorder.wait-for-trim: ಕತ್ತರಿಸುವ ಕ್ಮಾಡ್‌ನ ಕಾಯಲಾಗಿದೆ...
-  ba-videorecorder.supported-mode: ಮೀಡಿಯಾ ರೆಜೊಲ್ಯೂಷನ್ ಮೋಡು '%s' ಆಗಿರಬೇಕು.
-  ba-videorecorder.re-choose-action: ದಯವಿಟ್ಟು ಇನ್ಪುಟ್ ಉಪಕರಣವನ್ನು ಮರುಪರಿಶೀಲಿಸಲು ಅಥವಾ ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imageviewer-controlbar.rerecord-image: ಮರುಪ್ರಯತ್ನಿಸಲು?
-  ba-imageviewer-controlbar.submit-image: ದೃಢೀಕರಿಸಿ
-  ba-imageviewer-controlbar.fullscreen-image: ಪೂರ್ಣಪ್ರದರ್ಶನಕ್ಕೆ ಹೋಗಿ
-  ba-imageviewer-controlbar.exit-fullscreen-image: ಪೂರ್ಣಪ್ರದರ್ಶನದಿಂದ ಹೊರಬಾರಿಸಿ
-  ba-imageviewer.image-error: ತರಗತಿ ತಪ್ಪಾಯಿತು, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture-chooser.image-capture: ಚಿತ್ರ ಎಟುಕೊಳ್ಳಿ
-  ba-imagecapture-chooser.upload-image: ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
-  ba-imagecapture-controlbar.settings: ಸೆಟ್ಟಿಂಗುಗಳು
-  ba-imagecapture-controlbar.camerahealthy: ಬೆಳಕು ಚೆನ್ನಾಗಿದೆ
-  ba-imagecapture-controlbar.cameraunhealthy: ಬೆಳಕು ಆರೋಗ್ಯಕರವಲ್ಲ
-  ba-imagecapture-controlbar.record: ಎಟುಕೊಳ್ಳಿ
-  ba-imagecapture-controlbar.record-tooltip: ಇಲ್ಲಿ ಎಟುಕೊಳ್ಳಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture-controlbar.rerecord: ಮರುಪ್ರಯತ್ನಿಸಲು
-  ba-imagecapture-controlbar.rerecord-tooltip: ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture-controlbar.cancel: ರದ್ದುಮಾಡಿ
-  ba-imagecapture-controlbar.cancel-tooltip: ರದ್ದುಮಾಡಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture.recorder-error: ತರಗತಿ ತಪ್ಪಾಯಿತು, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture.attach-error: >-
-    ನಾವು ಮೀಡಿಯಾ ಇಂಟರ್ಫೇಸ್‌ಗೆ ಪ್ರವೇಶಿಸಲಾಗಿಲ್ಲ. ಯಾವ ಯಂತ್ರ ಮತ್ತು ವೆಬ್‌ಬ್ರೌಸರ್‌ನ ಆಧಾರದ ಮೇಲೆ ನಿಮಗೆ SSL ವಾಗಿ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಬೇಕಾಗಬಹುದು.
-  ba-imagecapture.software-required: >-
-    ಮುಂದುವರಿಯಲು ದಯವಿಟ್ಟು ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಅಥವಾ ಕ್ರಮೀಕರಿಸಲು ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿದ ಅನುಶ್ರೀಣಿಗಳನ್ನು ಇನ್ಸ್ಟಾಲ್ ಮಾಡಿ / ಸಕ್ರಿಯಗೊಳಿಸಿ.
-  ba-imagecapture.software-waiting: >-
-    ಅವಶ್ಯಕತೆಗಳ ಸ್ಥಾಪಿಸಲು / ಸಕ್ರಿಯಗೊಳಿಸಲು ಕಾಯುತ್ತಿದೆ. ಪೂರ್ಣಗೊಳಿಸಿದ ನಂತರ ಪುಟವನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಬೇಕಾಗಬಹುದು.
-  ba-imagecapture.access-forbidden: ಮೀಡಿಯಾ ಪ್ರವೇಶಕ್ಕೆ ನಿಷೇಧ. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture.uploading: ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ
-  ba-imagecapture.uploading-failed: ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದು ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture.upload-error-duration: >-
-    ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ಚಿತ್ರದ ದೈರ್ಘ್ಯ ಅವಶ್ಯಕತೆಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿಲ್ಲ - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture.resolution-constraint-error: >-
-    ನೀವು ಆಯ್ಕೆಮಾಡಿದ ಫೈಲ್ ಅವಶ್ಯಕ ರೆಜೊಲ್ಯೂಷನ್ ಹೊಂದಿಲ್ಲ - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-imagecapture.verifying: ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ
-  ba-imagecapture.verifying-failed: ಪರಿಶೀಲಿಸುವುದರಲ್ಲಿ ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿ
-  ba-imagecapture.rerecord-confirm: ನೀವು ನಿಮ್ಮ ಚಿತ್ರವನ್ನು ಮರುಪ್ರಯತ್ನಿಸಲು ನಿಜವಾಗಿಯೇ ಬಯಸುತ್ತೀರಾ?
-  ba-imagecapture.image_file_too_large: 'ನಿಮ್ಮ ಚಿತ್ರ ಫೈಲ್ ಅತ್ಯಂತ ದೊಡ್ಡದಾಗಿದೆ (%s) - ಹೊಸ ಚಿತ್ರ ಫೈಲ್ ನಿಮ್ಮ ಪ್ರಯಾಸವನ್ನು ನೀವು ಈಗಲೇ ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.'
-  ba-imagecapture.unsupported_image_type: 'ದಯವಿಟ್ಟು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ: %s - ಪುನಃ ಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.'
-  ba-imagecapture.orientation-portrait-required: ದಯವಿಟ್ಟು ನಿಮ್ಮ ಯಂತ್ರವನ್ನು ಪೋರ್ಟ್ರೇಟ್ ಮೋಡಿನಲ್ಲಿ ಅಥವಾ ನೋಡಲಿ.
-  ba-imagecapture.orientation-landscape-required: ದಯವಿಟ್ಟು ನಿಮ್ಮ ಯಂತ್ರವನ್ನು ಲ್ಯಾಂಡ್‌ಸ್ಕೇಪ್ ಮೋಡಿನಲ್ಲಿ ಅಥವಾ ನೋಡಲಿ.
-  ba-audioplayer-controlbar.audio-progress: ಪ್ರೋಗ್ರೆಸ್
-  ba-audioplayer-controlbar.rerecord-audio: ಮರುಪ್ರಯತ್ನಿಸಲು?
-  ba-audioplayer-controlbar.submit-audio: ದೃಢೀಕರಿಸಿ
-  ba-audioplayer-controlbar.play-audio: ಹಾಡಿ
-  ba-audioplayer-controlbar.pause-audio: ನಿಲ್ಲಿಸಿ
-  ba-audioplayer-controlbar.pause-audio-disabled: ನಿಲ್ಲಿಸುವುದು ಬೇಕಾದರೆ ಬೇರೆ ಬೇಡ
-  ba-audioplayer-controlbar.elapsed-time: ಹೊತ್ತ ಸಮಯ
-  ba-audioplayer-controlbar.total-time: ಒಟ್ಟು ಸಮಯ
-  ba-audioplayer-controlbar.volume-button: ಧ್ವನಿ ಹೊಡೆಯಿರಿ
-  ba-audioplayer-controlbar.volume-mute: ಧ್ವನಿಯನ್ನು ನಿಶ್ಶಬ್ದಗೊಳಿಸಿ
-  ba-audioplayer-controlbar.volume-unmute: ಧ್ವನಿ ಇಲ್ಲದಂತೆ ಮಾಡಿ
-  ba-audioplayer-loader.tooltip: ಲೋಡಿಂಗ್...
-  ba-audioplayer.audio-error: ತರಗತಿ ತಪ್ಪಾಯಿತು, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audioplayer.all-settings: ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗುಗಳು
-  ba-audiorecorder-chooser.record-audio: ಧ್ವನಿ ರಿಕಾರ್ಡ್ ಮಾಡಿ
-  ba-audiorecorder-chooser.upload-audio: ಧ್ವನಿ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
-  ba-audiorecorder-controlbar.settings: ಸೆಟ್ಟಿಂಗುಗಳು
-  ba-audiorecorder-controlbar.microphonehealthy: ಧ್ವನಿ ಚೆನ್ನಾಗಿದೆ
-  ba-audiorecorder-controlbar.microphoneunhealthy: ಯಾವುದೇ ಧ್ವನಿಯನ್ನು ತಲುಪಲಾಗಿಲ್ಲ
-  ba-audiorecorder-controlbar.record: ರಿಕಾರ್ಡ್ ಮಾಡಿ
-  ba-audiorecorder-controlbar.record-tooltip: ರಿಕಾರ್ಡ್ ಮಾಡಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder-controlbar.rerecord: ಮರುಪ್ರಯತ್ನಿಸಲು
-  ba-audiorecorder-controlbar.rerecord-tooltip: ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder-controlbar.stop: ನಿಲ್ಲಿಸಿ
-  ba-audiorecorder-controlbar.stop-tooltip: ನಿಲ್ಲಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder-controlbar.stop-available-after: ಕನಿಷ್ಠ ರಿಕಾರ್ಡಿಂಗ್ ಸಮಯ %d ಸೆಕೆಂಡ್‌ಗಳು
-  ba-audiorecorder-controlbar.cancel: ರದ್ದುಮಾಡಿ
-  ba-audiorecorder-controlbar.cancel-tooltip: ರದ್ದುಮಾಡಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder-controlbar.pause-recorder: ರಿಕಾರ್ಡರ್ ನಿಲ್ಲಿಸಿ
-  ba-audiorecorder-controlbar.resume-recorder: ರಿಕಾರ್ಡರ್ ಮತ್ತೊಮ್ಮೆ ಪ್ರಾರಂಭಿಸಿ
-  ba-audiorecorder.recorder-error: ತರಗತಿ ತಪ್ಪಾಯಿತು, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder.attach-error: >-
-    ನಾವು ಮೀಡಿಯಾ ಇಂಟರ್ಫೇಸ್‌ಗೆ ಪ್ರವೇಶಿಸಲಾಗಿಲ್ಲ. ಯಾವ ಯಂತ್ರ ಮತ್ತು ವೆಬ್‌ಬ್ರೌಸರ್‌ನ ಆಧಾರದ ಮೇಲೆ ನಿಮಗೆ SSL ವಾಗಿ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಬೇಕಾಗಬಹುದು.
-  ba-audiorecorder.software-required: >-
-    ಮುಂದುವರಿಯಲು ದಯವಿಟ್ಟು ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಅಥವಾ ಕ್ರಮೀಕರಿಸಲು ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder.software-waiting: >-
-    ಅವಶ್ಯಕತೆಗಳನ್ನು ಸ್ಥಾಪಿಸಲು / ಸಕ್ರಿಯಗೊಳಿಸಲು ಕಾಯುತ್ತಿದೆ. ಪೂರ್ಣಗೊಳಿಸಿದ ನಂತರ ಪುಟವನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಬೇಕಾಗಬಹುದು.
-  ba-audiorecorder.access-forbidden: ಮೀಡಿಯಾ ಪ್ರವೇಶಕ್ಕೆ ನಿಷೇಧ. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder.uploading: ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ
-  ba-audiorecorder.uploading-failed: ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದು ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder.upload-error-duration: >-
-    ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ಧ್ವನಿ ಫೈಲ್ ಅವಶ್ಯಕ ದೈರ್ಘ್ಯದ ಮಾರ್ಗವನ್ನು ಹೊಂದಿಲ್ಲ - ಹೊಸ ಧ್ವನಿ ಫೈಲ್ ನಿಮ್ಮ ಪ್ರಯಾಸವನ್ನು ನೀವು ಈಗಲೇ ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.
-  ba-audiorecorder.verifying: ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ
-  ba-audiorecorder.verifying-failed: ಪರಿಶೀಲಿಸುವುದರಲ್ಲಿ ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-audiorecorder.rerecord-confirm: ನೀವು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಮರುಪ್ರಯತ್ನಿಸಲು ನಿಜವಾಗಿಯೇ ಬಯಸುತ್ತೀರಾ?
-  ba-audiorecorder.cancel-confirm: ನೀವು ನಿಮ್ಮ ಧ್ವನಿ ಅಪ್‌ಲೋಡ್ ರದ್ದಿಸಲು ನಿಜವಾಗಿಯೇ ಬಯಸುತ್ತೀರಾ?
-  ba-audiorecorder.audio_file_too_large: >-
-    ನಿಮ್ಮ ಧ್ವನಿ ಫೈಲ್ ಅತ್ಯಂತ ದೊಡ್ಡದಾಗಿದೆ (%s) - ಹೊಸ ಧ್ವನಿ ಫೈಲ್ ನಿಮ್ಮ ಪ್ರಯಾಸವನ್ನು ಈಗಲೇ ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.
-  ba-audiorecorder.unsupported_audio_type: 'ದಯವಿಟ್ಟು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ: %s - ಪುನಃ ಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.'
-  ba-audiorecorder.uploading-src-error: ಈಗ ಧ್ವನಿ ಅಪ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ, ಧ್ವನಿ ಪ್ರತಿಸ್ಪರ್ಧಿಸಲಾಗುತ್ತಿಲ್ಲ
-  ba-audiorecorder.missing-track: ಅಗತ್ಯವಿರುವ ಧ್ವನಿ ಟ್ರ್ಯಾಕ್ ಕಾಣಿಸುತ್ತಿಲ್ಲ
-  ba-audiorecorder.device-already-in-use: ನಿಮ್ಮ ಒಟ್ಟು ಯಂತ್ರದಲ್ಲಿ ಕಮಿಯ ಅಪರ್ಯಾಪ್ತ ದಯವಿಟ್ಟು ಬಳಸಿ
-  ba-audiorecorder.browser-permission-denied: ಬ್ರೌಸರ್‌ದಿಂದ ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ, ದಯವಿಟ್ಟು ಅನುಮತಿ ನೀಡಿ ಪುಟವನ್ನು ರೀಫ್ರೆಶ್ ಮಾಡಿ
-  ba-local-view.local-camera-connection-error: ಸ್ಥಳೀಯ ಕ್ಯಾಮೆರಾ ಸಂಪರ್ಕಿಸಲು ದೋಷ ಒದಗಿದೆ. ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-call-controlbar.camera-button: ಕ್ಯಾಮೆರಾ ತೋರಿಸಿ / ಮರುಮರುಗುವಿಕೆ
-  ba-call-controlbar.leave-button: ಕರೆ ಬಿಟ್ಟುಹಾಕಿ
-  ba-call-controlbar.mute-button: ಸ್ವರ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ / ಸ್ವರ ಸಕ್ರಿಯಗೊಳಿಸಿ
-  ba-call-lobby.camera-button: ಕ್ಯಾಮೆರಾ
-  ba-call-lobby.description-create: ನೀವು ಸಿದ್ಧರಾದ ಹಾಗೆ ಕ್ಲಿಕ್ ಮಾಡಿದ ನಂತರ ಕರೆ ರಚಿಸಲು ಕೆಳಗಿನ ಬಟನ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-call-lobby.description-join: ನೀವು ಸಿದ್ಧರಾದ ಹಾಗೆ ಕ್ಲಿಕ್ ಮಾಡಿದ ನಂತರ ಕರೆಗೆ ಸೇರಲು ಕೆಳಗಿನ ಬಟನ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.
-  ba-call-lobby.join-button: ಸೇರಿ
-  ba-call-lobby.create-button: ರಚಿಸಿ
-  ba-call-lobby.mute-button: ಧ್ವನಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ
-  ba-call-lobby.title-create: ಕರೆ ರಚಿಸಿ
-  ba-call-lobby.title-join: ಕರೆಗೆ ಸೇರಿ
-  ba-video-call.call-ended: ಕರೆ ಮುಗಿಯಿತು
-  ba-video-call.connecting: ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...
-  ba-video-call.connection-error: ಸಂಪರ್ಕಿಸುವಾಗ ದೋಷ ಒದಗಿದೆ, ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
-
+ba-audiorecorder.upload-error-duration: ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ಧ್ವನಿ ಫೈಲ್ ಅವಶ್ಯಕ ದೈರ್ಘ್ಯದ
+  ಮಾರ್ಗವನ್ನು ಹೊಂದಿಲ್ಲ - ಹೊಸ ಧ್ವನಿ ಫೈಲ್ ನಿಮ್ಮ ಪ್ರಯಾಸವನ್ನು ನೀವು ಈಗಲೇ ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.
+ba-common-settingsmenu.tooltip: ಪ್ರಸ್ತುತಿಸುವಿಕೆಗಾಗಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-common-settingsmenu.setting-menu: ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗುಗಳು
+ba-videorecorder-controlbar.settings: ಸೆಟ್ಟಿಂಗುಗಳು
+ba-imagecapture.access-forbidden: ಮೀಡಿಯಾ ಪ್ರವೇಶಕ್ಕೆ ನಿಷೇಧ. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-adsplayer.ad-choices: ವಿಜ್ಞಾಪನ ಆಯ್ಕೆಗಳು
+ba-videorecorder.video_file_too_large: ನಿಮ್ಮ ವೀಡಿಯೊ ದಾಖಲೆ ಅತ್ಯಂತ ದೊಡ್ಡದಾಗಿದೆ (%s)
+  - ಕಿಟಕಿಗೆ ಹೋಗಿ ಹೆಚ್ಚಿನವನು ಮೆಟ್ಟಿಗೆ ವೀಡಿಯೊ ದಾಖಲೆ ಪ್ರಯತ್ನಿಸಿ.
+ba-videoplayer-controlbar.settings: ಸೆಟ್ಟಿಂಗುಗಳು
+ba-videorecorder-controlbar.add-stream: ಹಲವು ತಂತ್ರಾಂಶ ಸೇರಿಸಿ
+ba-imageviewer-controlbar.fullscreen-image: ಪೂರ್ಣಪ್ರದರ್ಶನಕ್ಕೆ ಹೋಗಿ
+ba-imagecapture.image_file_too_large: ನಿಮ್ಮ ಚಿತ್ರ ಫೈಲ್ ಅತ್ಯಂತ ದೊಡ್ಡದಾಗಿದೆ (%s) - ಹೊಸ
+  ಚಿತ್ರ ಫೈಲ್ ನಿಮ್ಮ ಪ್ರಯಾಸವನ್ನು ನೀವು ಈಗಲೇ ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.
+ba-imagecapture.orientation-landscape-required: ದಯವಿಟ್ಟು ನಿಮ್ಮ ಯಂತ್ರವನ್ನು ಲ್ಯಾಂಡ್‌ಸ್ಕೇಪ್
+  ಮೋಡಿನಲ್ಲಿ ಅಥವಾ ನೋಡಲಿ.
+ba-videoplayer-controlbar.pause-video-disabled: ನಿಲ್ಲಿಸಲು ಬೆಂಬಲವಿಲ್ಲ
+ba-videorecorder-controlbar.camerahealthy: ಬೆಳಕಿನ ಅವಸ್ಥೆ ಚೆನ್ನಾಗಿದೆ
+ba-common-settingsmenu.submit-video: ವೀಡಿಯೊ ದೃಢೀಕರಿಸಿ
+ba-videorecorder-controlbar.record-tooltip: ಈಗ ರಿಕಾರ್ಡ್ ಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-common-settingsmenu.picture-in-picture: ಚಿತ್ರ ಪುಟವುಚಾಯಿಸು
+ba-videoplayer-playbutton.rerecord: ಪುನರಾರಂಭಿಸು
+ba-videoplayer-tracks.select-text-track-language: ಉಪನ್ಯಾಸ ಭಾಷೆ
+ba-video-call.connection-error: ಸಂಪರ್ಕಿಸುವಾಗ ದೋಷ ಒದಗಿದೆ, ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audiorecorder.cancel-confirm: ನೀವು ನಿಮ್ಮ ಧ್ವನಿ ಅಪ್‌ಲೋಡ್ ರದ್ದಿಸಲು ನಿಜವಾಗಿಯೇ ಬಯಸುತ್ತೀರಾ?
+ba-audiorecorder.software-waiting: ಅವಶ್ಯಕತೆಗಳನ್ನು ಸ್ಥಾಪಿಸಲು / ಸಕ್ರಿಯಗೊಳಿಸಲು ಕಾಯುತ್ತಿದೆ.
+  ಪೂರ್ಣಗೊಳಿಸಿದ ನಂತರ ಪುಟವನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಬೇಕಾಗಬಹುದು.
+ba-videoplayer-tracks.info-select-locale-first: ಮೊದಲು ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ
+ba-videoplayer-loader.tooltip: ಲೋಡ್ ಆಗುತ್ತಿದೆ...
+ba-audiorecorder-controlbar.cancel-tooltip: ರದ್ದುಮಾಡಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-imagecapture.verifying-failed: ಪರಿಶೀಲಿಸುವುದರಲ್ಲಿ ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ
+  ಕ್ಲಿ
+ba-videoplayer-playbutton.skip: ಹಾರಿಹೋಗಿ
+ba-ads-controlbar.exit-fullscreen-video: ಪೂರ್ಣ ಪರದೆಯನ್ನು ಬಿಟ್ಟುಹೋಗಿ
+ba-videoplayer-tooltip.tooltip: ಉಪಕರಣವನ್ನು ನೋಡಿ
+ba-videoplayer-controlbar.trim-video: ಮೂಲ ಕಡಿಮೆಗೊಳಿಸಿ
+ba-videorecorder.missing-track: ಅಗತ್ಯವಿರುವ ಧ್ವನಿ ಅಥವಾ ವೀಡಿಯೊ ಟ್ರ್ಯಾಕ್ ಇಲ್ಲ
+ba-imagecapture.uploading-failed: ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದು ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-call-controlbar.leave-button: ಕರೆ ಬಿಟ್ಟುಹಾಕಿ
+ba-imagecapture-chooser.image-capture: ಚಿತ್ರ ಎಟುಕೊಳ್ಳಿ
+ba-videorecorder.trim-prompt: ನೀವು ನಿಮ್ಮ ವೀಡಿಯೊವನ್ನು ಕತ್ತರಿಸಬೇಕೇ?
+ba-videorecorder.software-waiting: ಅವಶ್ಯಕತೆಗಳು ಸ್ಥಾಪಿತ / ಸಕ್ರಿಯಗೊಂಡಿವೆಯೆಂದು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ.
+  ನಿರ್ವೀಕ್ಷಿಸಿ ಮುಂತಾದ ನಂತರ ಪುಟವನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಬಹುದು.
+ba-audioplayer-controlbar.play-audio: ಹಾಡಿ
+ba-videorecorder-controlbar.resume-recorder: ರಿಕಾರ್ಡರ್ ಮುಂದುವರಿಸಿ
+ba-videorecorder-controlbar.rerecord: ಪುನರಾರಂಭಿಸು
+ba-audiorecorder.verifying: ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ
+ba-videoplayer-playbutton.tooltip: ಪ್ರಸ್ತುತಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder.trim-video: ನಿಮ್ಮ ವೀಡಿಯೊವನ್ನು ಕತ್ತರಿಸಲು ಪ್ರಾರಂಭ ಮತ್ತು ಕೊನೆ ಮಾರ್ಕರ್‌ಗಳನ್ನು
+  ಸೂಚಿಸಿ
+ba-videoplayer-controlbar.player-speed: ಚಾಲಕ ವೇಗ
+ba-videorecorder-controlbar.microphonehealthy: ಧ್ವನಿ ಚೆನ್ನಾಗಿದೆ
+ba-videorecorder-chooser.multi-stream: ಹಲವು ತಂತ್ರಾಂಶ
+ba-imagecapture.recorder-error: ತರಗತಿ ತಪ್ಪಾಯಿತು, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮರುಪ್ರಯತ್ನಿಸಲು
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videoplayer-tooltip.hover-to-pause-tooltip-close: ಕೊನೆಗೆ ನಿಲ್ಲಿಸಲು ಟೂಲ್ ಟಿಪ್ ಹೊಂದಿರಿ
+ba-videorecorder-controlbar.stop-tooltip: ಈಗ ನಿಲ್ಲಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-imagecapture-controlbar.rerecord-tooltip: ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videoplayer-controlbar.video-progress: ಹೊರಗಡೆಗೆ ಹೋಗಿ
+ba-videorecorder-controlbar.cameraunhealthy: ಬೆಳಕು ಸರಿಯಲ್ಲ
+ba-audioplayer-controlbar.pause-audio: ನಿಲ್ಲಿಸಿ
+ba-videorecorder-controlbar.stop: ನಿಲ್ಲಿಸಿ
+ba-imagecapture-chooser.upload-image: ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
+ba-videorecorder-imagegallery.upload-covershot: ಕವರ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
+ba-audiorecorder-controlbar.resume-recorder: ರಿಕಾರ್ಡರ್ ಮತ್ತೊಮ್ಮೆ ಪ್ರಾರಂಭಿಸಿ
+ba-videoplayer.video-error: ಒಂದು ದೋಷ ಏರ್ಪಟ್ಟಿದೆ, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲು
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder.attach-error: ನಾವು ಮೀಡಿಯಾ ಇಂಟರ್‌ಫೇಸ್‌ಗೆ ಪ್ರವೇಶ ಮಾಡಲಾಗಿಲ್ಲ. ಸಾಧಾರಣವಾಗಿ
+  ಯಂತ್ರ ಮತ್ತು ಬ್ರೌಸರ್ ಪ್ರಕಾರಕ್ಕೆ ಪ್ರಷ್ಟಿಸಬೇಕಾಗಬಹುದು, ಅದರ ಮೂಲಕ SSL ಮೂಲಕ ಪುಟಕ್ಕೆ ಪ್ರವೇಶಿಸಬಹುದು.
+ba-audiorecorder-controlbar.pause-recorder: ರಿಕಾರ್ಡರ್ ನಿಲ್ಲಿಸಿ
+ba-audiorecorder-controlbar.stop-available-after: ಕನಿಷ್ಠ ರಿಕಾರ್ಡಿಂಗ್ ಸಮಯ %d ಸೆಕೆಂಡ್‌ಗಳು
+ba-videoplayer-controlbar.change-resolution: ರೀಜಲ್ಯೂಷನ್ ಬದಲಾಯಿಸಿ
+ba-audiorecorder.software-required: ಮುಂದುವರಿಯಲು ದಯವಿಟ್ಟು ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಅಥವಾ ಕ್ರಮೀಕರಿಸಲು
+  ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videoplayer-controlbar.exit-fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಿಂದ ನಿರ್ಗಮಿಸಿ
+ba-imageviewer-controlbar.rerecord-image: ಮರುಪ್ರಯತ್ನಿಸಲು?
+ba-imagecapture.rerecord-confirm: ನೀವು ನಿಮ್ಮ ಚಿತ್ರವನ್ನು ಮರುಪ್ರಯತ್ನಿಸಲು ನಿಜವಾಗಿಯೇ ಬಯಸುತ್ತೀರಾ?
+ba-audioplayer-controlbar.elapsed-time: ಹೊತ್ತ ಸಮಯ
+ba-call-lobby.title-create: ಕರೆ ರಚಿಸಿ
+ba-audioplayer-controlbar.rerecord-audio: ಮರುಪ್ರಯತ್ನಿಸಲು?
+ba-imageviewer-controlbar.exit-fullscreen-image: ಪೂರ್ಣಪ್ರದರ್ಶನದಿಂದ ಹೊರಬಾರಿಸಿ
+ba-ads-controlbar.elapsed-time: ಕಳೆದ ಸಮಯ
+ba-videorecorder.verifying-failed: ಪರಿಶೀಲಿಸುವುದರಲ್ಲಿ ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಈಗ
+  ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audiorecorder.missing-track: ಅಗತ್ಯವಿರುವ ಧ್ವನಿ ಟ್ರ್ಯಾಕ್ ಕಾಣಿಸುತ್ತಿಲ್ಲ
+ba-videorecorder-controlbar.upload-covershot-tooltip: ವೈಯಕ್ತಿಕ ಕವರ್ ಶಾಟ್ ಅಪ್‌ಲೋಡ್
+  ಮಾಡಲು ಈಗ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-common-settingsmenu.set-menu-option: ಆಯ್ಕೆಗೊಳಿಸಿ
+ba-ads-controlbar.pause-video-disabled: ನಿಲ್ಲಿಸಲು ಬೇಕಾದ ಬೆಂಬಲವಿಲ್ಲ
+ba-videorecorder.framerate-warning: ವೀಡಿಯೊ ಫ್ರೇಮ್ ದರ ಅತ್ಯಂತ ಕಡಿಮೆಯಾಗಿದೆ. ನಾವು ಎಲ್ಲಾ
+  ಇತರ ಕಾರ್ಯಗಳನ್ನೂ ಮತ್ತು ಬ್ರೌಸರ್ ಟ್ಯಾಬ್‌ಗಳನ್ನೂ ಮುಚ್ಚಿಡುವುದನ್ನು ಸಲಹಿಸುತ್ತೇವೆ ಅಥವಾ ಹೆಚ್ಚಿನ
+  ಬ್ರಾಉಸರ್‌ನಿಂದ ವೀಡಿಯೊ ಮಾಡಬೇಕಾಗಿದೆ.
+ba-videorecorder.switch-camera: ಕ್ಯಾಮೆರಾ ಬದಲಿಸು
+ba-audioplayer-controlbar.volume-button: ಧ್ವನಿ ಹೊಡೆಯಿರಿ
+ba-videorecorder-chooser.upload-video: ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
+ba-ads-controlbar.volume-mute: ಶಬ್ದವನ್ನು ಮ್ಯೂಟ್ ಮಾಡು
+ba-audiorecorder.verifying-failed: ಪರಿಶೀಲಿಸುವುದರಲ್ಲಿ ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder-controlbar.stream-already-selected: ಹೊರಗಿನ ತಂತ್ರಾಂಶ ಈಗಾಗಲೇ ಆಯ್ಕೆಯಾಗಿದೆ
+ba-videorecorder.upload-error-duration: ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ವೀಡಿಯೊದ ದೈರ್ಘ್ಯ ಆವಶ್ಯಕತೆಗಳಿಗೆ
+  ಅನುಗುಣವಾಗಿಲ್ಲ - ಮರುಪ್ರಯತ್ನಿಸಲು ಈಗ ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-ads-controlbar.volume-unmute: ಶಬ್ದವನ್ನು ಚಾಲುಮಾಡು
+ba-adsplayer.close-ad: ಮುಚ್ಚಿ
+ba-common-settingsmenu.player-speed: ಪ್ರವೃತ್ತಿಗಾಗಿ ಗತಿ
+ba-call-lobby.create-button: ರಚಿಸಿ
+ba-ads-controlbar.fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಲ್ಲಿ ಹೋಗಿ
+ba-audiorecorder-controlbar.settings: ಸೆಟ್ಟಿಂಗುಗಳು
+ba-videoplayer-controlbar.play-video: ಪ್ರಸ್ತುತಿಸು
+ba-videoplayer-controlbar.rerecord-video: ಪುನರ್ನೀರೀಕ್ಷಣೆ?
+ba-videorecorder.recorder-error: ದೋಷ ಏರ್ಪಟ್ಟಿದೆ, ದಯವಿಟ್ಟು
+ba-videorecorder.prepare-covershot: ಕವರ್‌ಶಾಟ್ ಸಿದ್ಧಗೊಳಿಸಲಾಗುತ್ತಿದೆ
+ba-videoplayer-floating-sidebar.ad-choices: ವಿಜ್ಞಾಪನ ಆಯ್ಕೆಗಳು
+ba-videorecorder.verifying: ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ
+ba-videorecorder.unsupported_video_type: 'ದಯವಿಟ್ಟು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ: %s - ಮರುಪ್ರಯತ್ನಿಸಲು
+  ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.'
+ba-videoplayer-playbutton.submit-video: ವೀಡಿಯೊ ದೃಢೀಕರಿಸಿ
+ba-audioplayer-controlbar.total-time: ಒಟ್ಟು ಸಮಯ
+ba-videorecorder.prepare-thumbnails: ಹುಡುಕುವ ಥಂಬ್ನೇಲ್‌ಗಳನ್ನು ಸಿದ್ಧಗೊಳಿಸಲಾಗುತ್ತಿದೆ
+ba-videoplayer-controlbar.airplay: ವಾಯುವಾಹನ
+ba-videorecorder.access-forbidden: ಮೀಡಿಯಾಕ್ಕೆ ಪ್ರವೇಶ ನಿರಾಕರಿಸಲಾಯಿತು. ಮರುಪ್ರಯತ್ನಿಸಲು
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-adsplayer.replay-ad: ವಿಜ್ಞಾಪನವನ್ನು ಪುನರಾರಂಭಿಸಿ
+ba-video-call.connecting: ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ...
+ba-imageviewer.image-error: ತರಗತಿ ತಪ್ಪಾಯಿತು, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮರುಪ್ರಯತ್ನಿಸಲು
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder.resolution-constraint-error: ನೀವು ಆಯ್ಕೆಮಾಡಿದ ಫೈಲ್ ಅಗತ್ಯವಿರುವ ವಿನಿಯೋಗಗಳನ್ನು
+  ಮೀರಿದೆ - ಮರುಪ್ರಯತ್ನಿಸಲು ಈಗ ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder-controlbar.pause-recorder: ರಿಕಾರ್ಡರ್ ನಿಲ್ಲಿಸಿ
+ba-imagecapture-controlbar.cameraunhealthy: ಬೆಳಕು ಆರೋಗ್ಯಕರವಲ್ಲ
+ba-common-settingsmenu.source-quality: ಮೂಲ ಗುಣಮಟ್ಟ
+ba-imagecapture.orientation-portrait-required: ದಯವಿಟ್ಟು ನಿಮ್ಮ ಯಂತ್ರವನ್ನು ಪೋರ್ಟ್ರೇಟ್
+  ಮೋಡಿನಲ್ಲಿ ಅಥವಾ ನೋಡಲಿ.
+ba-call-lobby.title-join: ಕರೆಗೆ ಸೇರಿ
+ba-audiorecorder-chooser.record-audio: ಧ್ವನಿ ರಿಕಾರ್ಡ್ ಮಾಡಿ
+ba-videoplayer-controlbar.volume-mute: ಶಬ್ದವನ್ನು ಮ್ಯೂಟ್ ಮಾಡು
+ba-videorecorder.pick-covershot: ಒಂದು ಕವರ್‌ಶಾಟ್ ಆರಿಸಿ.
+ba-audiorecorder-controlbar.microphoneunhealthy: ಯಾವುದೇ ಧ್ವನಿಯನ್ನು ತಲುಪಲಾಗಿಲ್ಲ
+ba-videorecorder-controlbar.no-video-source: ಹೆಚ್ಚಿನ ವೀಡಿಯೊ ಪ್ರವೇಶ ಮೌಲಿಕ ಅಪೂರ್ಣ
+ba-audiorecorder.access-forbidden: ಮೀಡಿಯಾ ಪ್ರವೇಶಕ್ಕೆ ನಿಷೇಧ. ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್
+  ಮಾಡಿ.
+ba-imagecapture-controlbar.rerecord: ಮರುಪ್ರಯತ್ನಿಸಲು
+ba-audiorecorder.recorder-error: ತರಗತಿ ತಪ್ಪಾಯಿತು, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮರುಪ್ರಯತ್ನಿಸಲು
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videoplayer-tracks.select-text-track-file: ಫೈಲ್ ಆಯ್ಕೆಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ
+ba-videorecorder-controlbar.skip: ಹಾರಿಹೋಗಿ
+ba-imagecapture.software-required: ಮುಂದುವರಿಯಲು ದಯವಿಟ್ಟು ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಅಥವಾ ಕ್ರಮೀಕರಿಸಲು
+  ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿದ ಅನುಶ್ರೀಣಿಗಳನ್ನು ಇನ್ಸ್ಟಾಲ್ ಮಾಡಿ / ಸಕ್ರಿಯಗೊಳಿಸಿ.
+ba-audiorecorder.browser-permission-denied: ಬ್ರೌಸರ್‌ದಿಂದ ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ, ದಯವಿಟ್ಟು
+  ಅನುಮತಿ ನೀಡಿ ಪುಟವನ್ನು ರೀಫ್ರೆಶ್ ಮಾಡಿ
+ba-videorecorder.uploading-src-error: ವೀಡಿಯೊ ಬಹುಮಾನ ಅಪ್‌ಲೋಡ್ ಆಗಿದೆ, ಈಗ ವೀಡಿಯೊ ಪ್ರದರ್ಶಿಸಲಾಗುವುದಿಲ್ಲ
+ba-videoplayer-controlbar.volume-button: ಸ್ವರವನ್ನು ಹೊಂದಿಸು
+ba-imagecapture.attach-error: ನಾವು ಮೀಡಿಯಾ ಇಂಟರ್ಫೇಸ್‌ಗೆ ಪ್ರವೇಶಿಸಲಾಗಿಲ್ಲ. ಯಾವ ಯಂತ್ರ
+  ಮತ್ತು ವೆಬ್‌ಬ್ರೌಸರ್‌ನ ಆಧಾರದ ಮೇಲೆ ನಿಮಗೆ SSL ವಾಗಿ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಬೇಕಾಗಬಹುದು.
+ba-audiorecorder.uploading: ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ
+ba-audiorecorder.unsupported_audio_type: 'ದಯವಿಟ್ಟು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ: %s - ಪುನಃ ಪ್ರಯತ್ನಿಸಲು
+  ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.'
+ba-ads-controlbar.play-ad: ಪ್ರಸ್ತುತಿಸು
+ba-imagecapture-controlbar.settings: ಸೆಟ್ಟಿಂಗುಗಳು
+ba-videorecorder.adding-new-stream: ಹೊಸ ಸ್ಟ್ರೀಮ್ ಸೇರಿಸಲಾಗುತ್ತಿದೆ
+ba-call-lobby.mute-button: ಧ್ವನಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ
+ba-imagecapture.uploading: ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ
+ba-videorecorder.wait-for-trim: ಕತ್ತರಿಸುವ ಕ್ಮಾಡ್‌ನ ಕಾಯಲಾಗಿದೆ...
+ba-imagecapture-controlbar.cancel: ರದ್ದುಮಾಡಿ
+ba-videorecorder-controlbar.cancel-tooltip: ಈಗ ರದ್ದುಗೊಳಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audioplayer.audio-error: ತರಗತಿ ತಪ್ಪಾಯಿತು, ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ. ಮರುಪ್ರಯತ್ನಿಸಲು
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audiorecorder.device-already-in-use: ನಿಮ್ಮ ಒಟ್ಟು ಯಂತ್ರದಲ್ಲಿ ಕಮಿಯ ಅಪರ್ಯಾಪ್ತ ದಯವಿಟ್ಟು
+  ಬಳಸಿ
+ba-ads-controlbar.pause-video: ವೀಡಿಯೊ ನಿಲ್ಲಿಸು
+ba-call-lobby.camera-button: ಕ್ಯಾಮೆರಾ
+ba-videoplayer-controlbar.show-tracks: ತೋರಿಸಿ CC
+ba-videoplayer.full-screen: ಪೂರ್ಣ ಪರದೆ
+ba-videorecorder.re-choose-action: ದಯವಿಟ್ಟು ಇನ್ಪುಟ್ ಉಪಕರಣವನ್ನು ಮರುಪರಿಶೀಲಿಸಲು ಅಥವಾ
+  ಮರುಪ್ರಯತ್ನಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-call-lobby.join-button: ಸೇರಿ
+ba-videorecorder.cancel-confirm: ನೀವು ನಿಮ್ಮ ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದನ್ನು ನಿರಾಕರಿಸಲು
+  ನಿಜವಾಗಿಯೇ ಬಯಸುತ್ತೀರಾ?
+ba-videorecorder-controlbar.cancel: ರದ್ದುಗೊಳಿಸಿ
+ba-ads-controlbar.can-skip-after: '%d ನಂತರ ಹಾರಿಹೋಗಬಹುದು'
+ba-ads-controlbar.ad-will-end-after: ವಿಜ್ಞಾಪನ ನಂತರ %s
+ba-audiorecorder-controlbar.rerecord: ಮರುಪ್ರಯತ್ನಿಸಲು
+ba-audiorecorder.rerecord-confirm: ನೀವು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಮರುಪ್ರಯತ್ನಿಸಲು ನಿಜವಾಗಿಯೇ
+  ಬಯಸುತ್ತೀರಾ?
+ba-videoplayer-controlbar.elapsed-time: ಕಳೆದ ಸಮಯ
+ba-videorecorder-controlbar.stop-available-after: ಕನಿಷ್ಠ ರಿಕಾರ್ಡಿಂಗ್ ಸಮಯ %d ಸೆಕೆಂಡುಗಳು
+ba-audioplayer.all-settings: ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗುಗಳು
+ba-imagecapture-controlbar.camerahealthy: ಬೆಳಕು ಚೆನ್ನಾಗಿದೆ
+ba-imagecapture-controlbar.record: ಎಟುಕೊಳ್ಳಿ
+ba-audiorecorder-controlbar.record-tooltip: ರಿಕಾರ್ಡ್ ಮಾಡಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audioplayer-controlbar.submit-audio: ದೃಢೀಕರಿಸಿ
+ba-call-controlbar.camera-button: ಕ್ಯಾಮೆರಾ ತೋರಿಸಿ / ಮರುಮರುಗುವಿಕೆ
+ba-call-controlbar.mute-button: ಸ್ವರ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ / ಸ್ವರ ಸಕ್ರಿಯಗೊಳಿಸಿ
+ba-videorecorder-chooser.record-audio: ಸ್ವರ ರಿಕಾರ್ಡ್ ಮಾಡಿ
+ba-audiorecorder.audio_file_too_large: ನಿಮ್ಮ ಧ್ವನಿ ಫೈಲ್ ಅತ್ಯಂತ ದೊಡ್ಡದಾಗಿದೆ (%s) -
+  ಹೊಸ ಧ್ವನಿ ಫೈಲ್ ನಿಮ್ಮ ಪ್ರಯಾಸವನ್ನು ಈಗಲೇ ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.
+ba-videorecorder.browser-permission-denied: ಬ್ರೌಸರ್ ದ್ವಾರಾ ಅನುಮತಿ ನೀಡಲಾಗಿಲ್ಲ, ದಯವಿಟ್ಟು
+  ಪ್ರವೇಶವನ್ನು ಅನುಮತಿಸಿ ಪುಟವನ್ನು ಮರುಹೊಂದಿಸಿ
+ba-videoplayer-controlbar.pause-video: ನಿಲ್ಲಿಸು
+ba-videoplayer-controlbar.submit-video: ದೃಢೀಕರಿಸಿ
+ba-videoplayer-share.share: ಮಾದರಿ ಹಂಚಿಕೊಳ್ಳಿ
+ba-audioplayer-loader.tooltip: ಲೋಡಿಂಗ್...
+ba-imagecapture.unsupported_image_type: 'ದಯವಿಟ್ಟು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ: %s - ಪುನಃ ಪ್ರಯತ್ನಿಸಲು
+  ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.'
+ba-videorecorder.uploading: ಅಪ್‌ಲೋಡಿಂಗ್
+ba-audiorecorder-controlbar.microphonehealthy: ಧ್ವನಿ ಚೆನ್ನಾಗಿದೆ
+ba-call-lobby.description-join: ನೀವು ಸಿದ್ಧರಾದ ಹಾಗೆ ಕ್ಲಿಕ್ ಮಾಡಿದ ನಂತರ ಕರೆಗೆ ಸೇರಲು ಕೆಳಗಿನ
+  ಬಟನ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audiorecorder-controlbar.rerecord-tooltip: ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder-chooser.record-screen: ತಂತ್ರಾಂಶ ರಿಕಾರ್ಡ್ ಮಾಡಿ
+ba-videoplayer.all-settings: ಎಲ್ಲಾ ಸೆಟ್ಟಿಂಗುಗಳು
+ba-videoplayer-controlbar.select-frame: ಆಯ್ಕೆ ಮಾಡಿ
+ba-adsplayer.learn-more: ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ
+ba-imagecapture.resolution-constraint-error: ನೀವು ಆಯ್ಕೆಮಾಡಿದ ಫೈಲ್ ಅವಶ್ಯಕ ರೆಜೊಲ್ಯೂಷನ್
+  ಹೊಂದಿಲ್ಲ - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audiorecorder-controlbar.stop-tooltip: ನಿಲ್ಲಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder-controlbar.microphoneunhealthy: ಯಾವುದೇ ಧ್ವನಿಯನ್ನು ಹಿಡಿಯಲು ಸಾಧ್ಯವಿಲ್ಲ
+ba-audiorecorder-controlbar.stop: ನಿಲ್ಲಿಸಿ
+ba-videorecorder.rerecord-confirm: ನೀವು ನಿಮ್ಮ ವೀಡಿಯೊವನ್ನು ನಮೀನೆ ಮರುಪ್ರಯತ್ನಿಸಲು ಬಯಸುತ್ತೀರಾ?
+ba-local-view.local-camera-connection-error: ಸ್ಥಳೀಯ ಕ್ಯಾಮೆರಾ ಸಂಪರ್ಕಿಸಲು ದೋಷ ಒದಗಿದೆ.
+  ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder.supported-mode: ಮೀಡಿಯಾ ರೆಜೊಲ್ಯೂಷನ್ ಮೋಡು '%s' ಆಗಿರಬೇಕು.
+ba-videoplayer-controlbar.close-tracks: ಮುಚ್ಚಿ CC
+ba-videorecorder-controlbar.upload-covershot: ಕವರ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
+ba-videorecorder.orientation-landscape-required: ದಯವಿಟ್ಟು ಲ್ಯಾಂಡ್ಸ್ಕೇಪ್ ಮೋಡಿನಲ್ಲಿ
+  ರೆಕಾರ್ಡ್ ಮಾಡಲು ನಿಮ್ಮ ಯಂತ್ರವನ್ನು ತಿರುಗಿಸಿ.
+ba-imagecapture.verifying: ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ
+ba-imageviewer-controlbar.submit-image: ದೃಢೀಕರಿಸಿ
+ba-imagecapture-controlbar.cancel-tooltip: ರದ್ದುಮಾಡಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-imagecapture.software-waiting: ಅವಶ್ಯಕತೆಗಳ ಸ್ಥಾಪಿಸಲು / ಸಕ್ರಿಯಗೊಳಿಸಲು ಕಾಯುತ್ತಿದೆ.
+  ಪೂರ್ಣಗೊಳಿಸಿದ ನಂತರ ಪುಟವನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಬೇಕಾಗಬಹುದು.
+ba-common-settingsmenu.exit-fullscreen-video: ಪೂರ್ಣ ಪರದೆಯನ್ನು ಬಿಟ್ಟುಹೋಗಿ
+ba-videorecorder.uploading-failed: ಅಪ್‌ಲೋಡಿಂಗ್ ವಿಫಲವಾಗಿದೆ - ಮರುಪ್ರಯತ್ನಿಸಲು ಈಗ ಇಲ್ಲಿ
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videoplayer-playbutton.trim: ಮೂಲ ಕಡಿಮೆಗೊಳಿಸಿ
+ba-audioplayer-controlbar.volume-unmute: ಧ್ವನಿ ಇಲ್ಲದಂತೆ ಮಾಡಿ
+ba-audiorecorder-controlbar.record: ರಿಕಾರ್ಡ್ ಮಾಡಿ
+ba-videorecorder.software-required: ಮುಂದುವರಿಸಲು ಕೆಳಗೆ ಕ್ಲಿಕ್ ಮಾಡಿ - ಇವನ್ನು ಸ್ಥಾಪಿಸಲು
+  ಅಥವಾ ಸಕ್ರಿಯಗೊಳಿಸಲು ಹೊರಗೊಮ್ಮ ಆವಶ್ಯಕತೆಗಳನ್ನು ನಿರ್ಧರಿಸಿ.
+ba-videoplayer-tracks.upload-text-tracks: ಟೆಕ್ಸ್ಟ್ ಟ್ರ್ಯಾಕ್ ಫೈಲ್ಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
+ba-call-lobby.description-create: ನೀವು ಸಿದ್ಧರಾದ ಹಾಗೆ ಕ್ಲಿಕ್ ಮಾಡಿದ ನಂತರ ಕರೆ ರಚಿಸಲು
+  ಕೆಳಗಿನ ಬಟನ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder-controlbar.skip-tooltip: ಈಗ ಹಾರಿಹೋಗಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-ads-controlbar.volume-button: ಸ್ವರವನ್ನು ಹೊಂದಿಸು
+ba-videoplayer-controlbar.remaining-time: ಉಳಿದ ಸಮಯ
+ba-imagecapture-controlbar.record-tooltip: ಇಲ್ಲಿ ಎಟುಕೊಳ್ಳಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder.device-already-in-use: ನಿಮ್ಮ ಸಂರಚನೆಯ ಒಂದು ಹಂತದಲ್ಲಿ ಕಮಿಟನ್ ಸಾಕಷ್ಟು
+  ಹಿಂದೆ ಬಳಸಲಾಗಿದೆ
+ba-audioplayer-controlbar.volume-mute: ಧ್ವನಿಯನ್ನು ನಿಶ್ಶಬ್ದಗೊಳಿಸಿ
+ba-audiorecorder-chooser.upload-audio: ಧ್ವನಿ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ
+ba-imagecapture.upload-error-duration: ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ಚಿತ್ರದ ದೈರ್ಘ್ಯ ಅವಶ್ಯಕತೆಗಳನ್ನು
+  ಪೂರ್ಣಗೊಳಿಸಿಲ್ಲ - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audiorecorder.attach-error: ನಾವು ಮೀಡಿಯಾ ಇಂಟರ್ಫೇಸ್‌ಗೆ ಪ್ರವೇಶಿಸಲಾಗಿಲ್ಲ. ಯಾವ ಯಂತ್ರ
+  ಮತ್ತು ವೆಬ್‌ಬ್ರೌಸರ್‌ನ ಆಧಾರದ ಮೇಲೆ ನಿಮಗೆ SSL ವಾಗಿ ಪುಟವನ್ನು ಪ್ರವೇಶಿಸಬೇಕಾಗಬಹುದು.
+ba-ads-controlbar.skip-ad: ಹೋಗುವ ವಿಜ್ಞಾಪನ
+ba-audiorecorder-controlbar.cancel: ರದ್ದುಮಾಡಿ
+ba-videoplayer-controlbar.airplay-icon: ವಾಯುವಾಹನ ಚಿಹ್ನೆ
+ba-videoplayer.player-speed: ಚಾಲಕ ವೇಗ
+ba-videoplayer-controlbar.fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಲ್ಲಿ ಹೋಗಿ
+ba-audiorecorder.uploading-failed: ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದು ವಿಫಲವಾಯಿತು - ಮರುಪ್ರಯತ್ನಿಸಲು ಇಲ್ಲಿ
+  ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-audiorecorder.uploading-src-error: ಈಗ ಧ್ವನಿ ಅಪ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ, ಧ್ವನಿ ಪ್ರತಿಸ್ಪರ್ಧಿಸಲಾಗುತ್ತಿಲ್ಲ
+ba-videorecorder-chooser.record-video: ವೀಡಿಯೊ ರಿಕಾರ್ಡ್ ಮಾಡಿ
+ba-videorecorder.screen-recorder-is-not-supported: ಈ ಯಂತ್ರದಲ್ಲಿ ಸ್ಕ್ರೀನ್ ರೆಕಾರ್ಡರ್
+  ಬೆಂಬಲಿಸಲಾಗಿಲ್ಲ
+ba-videoplayer-tracks.back: ಹಿಂದಕ್ಕೆ
+ba-videorecorder.pick-covershot-frame: ಕವರ್‌ಶಾಟ್ ಆಗಿರುವ ಒಂದು ಫ್ರೇಮ್ ಆರಿಸಿ.
+ba-audioplayer-controlbar.audio-progress: ಪ್ರೋಗ್ರೆಸ್
+ba-audioplayer-controlbar.pause-audio-disabled: ನಿಲ್ಲಿಸುವುದು ಬೇಕಾದರೆ ಬೇರೆ ಬೇಡ
+ba-video-call.call-ended: ಕರೆ ಮುಗಿಯಿತು
+ba-videoplayer-controlbar.total-time: ಒಟ್ಟು ಸಮಯ
+ba-videorecorder-controlbar.rerecord-tooltip: ಈಗ ಪುನರಾರಂಭಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ.
+ba-videorecorder.orientation-portrait-required: ದಯವಿಟ್ಟು ಪೋರ್ಟ್ರೇಟ್ ಮೋಡಿನಲ್ಲಿ ರೆಕಾರ್ಡ್
+  ಮಾಡಲು ನಿಮ್ಮ ಯಂತ್ರವನ್ನು ತಿರುಗಿಸಿ.
+ba-common-settingsmenu.fullscreen-video: ಪೂರ್ಣ ಪರದೆಯಲ್ಲಿ ಹೋಗಿ
+ba-videoplayer-controlbar.volume-unmute: ಶಬ್ದವನ
+ba-videoplayer-floating-sidebar.learn-more: ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ
+ba-videorecorder-controlbar.record: ರಿಕಾರ್ಡ್ ಮಾಡಿ

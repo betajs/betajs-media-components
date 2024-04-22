@@ -1,237 +1,238 @@
-'language:hu':
-  ba-videoplayer-playbutton.tooltip: Kattintson ide a videó lejátszásához.
-  ba-videoplayer-playbutton.rerecord: Újra
-  ba-videoplayer-playbutton.submit-video: Erősítse videó
-  ba-videoplayer-loader.tooltip: Videó betöltése ...
-  ba-videoplayer-controlbar.change-resolution: a felbontás módosítása
-  ba-videoplayer-controlbar.video-progress: videó haladás
-  ba-videoplayer-controlbar.rerecord-video: Újra videót?
-  ba-videoplayer-controlbar.submit-video: Erősítse videó
-  ba-videoplayer-controlbar.play-video: videó lejátszása
-  ba-videoplayer-controlbar.pause-video: Videó megállítása
-  ba-videoplayer-controlbar.elapsed-time: Eltelt idő
-  ba-videoplayer-controlbar.total-time: Teljes hossza videó
-  ba-videoplayer-controlbar.fullscreen-video: a teljes képernyős
-  ba-videoplayer-controlbar.volume-button: Állítsa be a hangerőt
-  ba-videoplayer-controlbar.volume-mute: hang elnémítása
-  ba-videoplayer-controlbar.volume-unmute: Unmute hang
-  ba-videoplayer.video-error: 'Hiba történt. Kérjük, próbálkozzon később. Kattintson ide újra.'
-  ba-videorecorder-chooser.record-video: Videó rögzítése
-  ba-videorecorder-chooser.upload-video: Videó feltöltése
-  ba-videorecorder-controlbar.settings: Beállítások
-  ba-videorecorder-controlbar.camerahealthy: Világítás jó
-  ba-videorecorder-controlbar.cameraunhealthy: Világítás nem optimális
-  ba-videorecorder-controlbar.microphonehealthy: Hang jó
-  ba-videorecorder-controlbar.microphoneunhealthy: Nem lehet felvenni minden hang
-  ba-videorecorder-controlbar.record: Rekord
-  ba-videorecorder-controlbar.record-tooltip: 'Kattintson ide a rögzítéshez.'
-  ba-videorecorder-controlbar.rerecord: Újra
-  ba-videorecorder-controlbar.rerecord-tooltip: 'Kattintson ide, hogy újra.'
-  ba-videorecorder-controlbar.upload-covershot: Feltöltés
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Kattintson ide feltölthető egyedi fedél lövés
-  ba-videorecorder-controlbar.stop: Állj meg
-  ba-videorecorder-controlbar.stop-tooltip: 'Kattintson ide, hogy hagyja abba.'
-  ba-videorecorder-controlbar.skip: Skip
-  ba-videorecorder-controlbar.skip-tooltip: 'Kattintson ide, hogy kihagyja.'
-  ba-videorecorder.recorder-error: 'Hiba történt. Kérjük, próbálkozzon később. Kattintson ide újra.'
-  ba-videorecorder.attach-error: >-
-    Nem tudtuk elérni a kamera interface. Attól függően, hogy a készülék és a
-    böngészőben, akkor telepítenie kell a Flash vagy elérni az oldalt SSL.
-  ba-videorecorder.access-forbidden: Hozzáférés a kamera tilos volt. Kattintson ide újra.
-  ba-videorecorder.pick-covershot: Válassz egy covershot.
-  ba-videorecorder.uploading: Feltöltés
-  ba-videorecorder.uploading-failed: Feltöltés sikertelen - ide kattintva újra.
-  ba-videorecorder.verifying: ellenőrzése
-  ba-videorecorder.verifying-failed: Ellenőrzéséért sikertelen - ide kattintva újra.
-  ba-videorecorder.rerecord-confirm: Tényleg azt akarja ismételni a videó?
-  ba-videorecorder.video_file_too_large: >-
-    A videó fájl túl nagy (%s) - ide kattintva próbálkozzon újra egy kisebb
-    video fájlt.
-  ba-videorecorder.unsupported_video_type: 'Kérjük, töltsön fel: %s - ide kattintva újra.'
-  ba-videoplayer-controlbar.exit-fullscreen-video: Kilépés a teljes képernyős
-  ba-videoplayer-share.share: Videó megosztása
-  ba-videorecorder-chooser.record-screen: Felvétel képernyő
-  ba-videoplayer-controlbar.pause-video-disabled: A szüneteltetés nem támogatott
-  ba-videorecorder-chooser.record-audio: Hang rögzítése
-  ba-videorecorder-controlbar.stop-available-after: A minimális felvételi idő %d másodperc
-  ba-videorecorder-controlbar.cancel: Megszünteti
-  ba-videorecorder-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
-  ba-videorecorder.cancel-confirm: Tényleg törölni szeretné a videó feltöltését?
-  ba-videoplayer-adslot.elapsed-time: Elkelt idő
-  ba-videoplayer-adslot.volume-button: Állítsa be a hangerőt
-  ba-videoplayer-adslot.volume-mute: Elnémítja a hangot
-  ba-videoplayer-adslot.volume-unmute: Csengessen a hang
-  ba-videoplayer-adslot.ad-will-end-after: A hirdetés a %s után befejeződik
-  ba-videoplayer-adslot.can-skip-after: Ugrás a %d után
-  ba-videoplayer-adslot.skip-ad: Hirdetés átugrása
-  ba-videorecorder.software-required: >-
-    Kérjük, kattintson az alábbi gombra a következő követelmények telepítéséhez
-    / aktiválásához a folytatáshoz.
-  ba-videorecorder.software-waiting: >-
-    Várakozás a telepítés / aktiválás követelményeire. Lehet, hogy frissítenie
-    kell az oldalt befejezése után.
-  ba-videoplayer-controlbar.close-tracks: Közeli CC
-  ba-videoplayer-controlbar.show-tracks: CC mutatása
-  ba-videoplayer-tracks.upload-text-tracks: Pálya szöveges fájlok feltöltése
-  ba-videoplayer-tracks.select-text-track-language: Felirat nyelve
-  ba-videoplayer-tracks.info-select-locale-first: Először válassza a helyi beállítást
-  ba-videoplayer-tracks.select-text-track-file: Kattintson a fájl kiválasztásához
-  ba-videoplayer-tracks.back: hát
-  ba-videorecorder.framerate-warning: >-
-    A videó képaránya nagyon alacsony. Javasoljuk, hogy zárja be az összes többi
-    programot és böngészőlapot, vagy gyorsabb számítógépet használjon.
-  ba-videorecorder.upload-error-duration: >-
-    A feltöltött videó hossza nem felel meg a követelményeknek - kattintson ide
-    újrapróbálkozáshoz.
-  ba-videorecorder.resolution-constraint-error: >-
-    A kiválasztott fájl nem egyezik meg a szükséges felbontással - kattintson
-    ide újrapróbálkozáshoz.
-  ba-videorecorder.orientation-portrait-required: Forgassa el a készüléket állókép rögzítéséhez.
-  ba-videorecorder.orientation-landscape-required: Forgassa el a készüléket fekvő módban történő rögzítéshez.
-  ba-imageviewer-controlbar.rerecord-image: Újra?
-  ba-imageviewer-controlbar.submit-image: megerősít
-  ba-imageviewer-controlbar.fullscreen-image: Lépjen be a teljes képernyőre
-  ba-imageviewer-controlbar.exit-fullscreen-image: Kilépés a teljes képernyőről
-  ba-imageviewer.image-error: >-
-    Hiba történt. Kérjük, próbálkozzon később. Kattintson újra az
-    újrapróbáláshoz.
-  ba-imagecapture-chooser.image-capture: Kép rögzítése
-  ba-imagecapture-chooser.upload-image: Kép feltöltése
-  ba-imagecapture-controlbar.settings: Beállítások
-  ba-imagecapture-controlbar.camerahealthy: A világítás jó
-  ba-imagecapture-controlbar.cameraunhealthy: A világítás nem optimális
-  ba-imagecapture-controlbar.record: Elfog
-  ba-imagecapture-controlbar.record-tooltip: Kattintson ide a rögzítéshez.
-  ba-imagecapture-controlbar.rerecord: Újra
-  ba-imagecapture-controlbar.rerecord-tooltip: Kattintson ide újra.
-  ba-imagecapture-controlbar.cancel: Megszünteti
-  ba-imagecapture-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
-  ba-audioplayer-controlbar.audio-progress: A hangfelvétel folyamatban van
-  ba-audioplayer-controlbar.rerecord-audio: Újra?
-  ba-audioplayer-controlbar.submit-audio: megerősít
-  ba-audioplayer-controlbar.play-audio: Játék
-  ba-audioplayer-controlbar.pause-audio: Szünet
-  ba-audioplayer-controlbar.pause-audio-disabled: A szüneteltetés nem támogatott
-  ba-audioplayer-controlbar.elapsed-time: Elkelt idő
-  ba-audioplayer-controlbar.total-time: Teljes hossza
-  ba-audioplayer-controlbar.volume-button: Állítsa be a hangerőt
-  ba-audioplayer-controlbar.volume-mute: Elnémítja a hangot
-  ba-audioplayer-controlbar.volume-unmute: Csengessen a hang
-  ba-audioplayer-loader.tooltip: Betöltés...
-  ba-audioplayer.audio-error: >-
-    Hiba történt. Kérjük, próbálkozzon később. Kattintson újra az
-    újrapróbáláshoz.
-  ba-audiorecorder-chooser.record-audio: Hang rögzítése
-  ba-audiorecorder-chooser.upload-audio: Hang feltöltése
-  ba-audiorecorder-controlbar.settings: Beállítások
-  ba-audiorecorder-controlbar.microphonehealthy: A hang jó
-  ba-audiorecorder-controlbar.microphoneunhealthy: Nem hallható hang
-  ba-audiorecorder-controlbar.record: Rekord
-  ba-audiorecorder-controlbar.record-tooltip: Kattintson ide a felvételhez.
-  ba-audiorecorder-controlbar.rerecord: Újra
-  ba-audiorecorder-controlbar.rerecord-tooltip: Kattintson ide újra.
-  ba-audiorecorder-controlbar.stop: Állj meg
-  ba-audiorecorder-controlbar.stop-tooltip: Kattintson ide a leállításhoz.
-  ba-audiorecorder-controlbar.stop-available-after: A minimális felvételi idő %d másodperc
-  ba-audiorecorder-controlbar.cancel: Megszünteti
-  ba-audiorecorder-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
-  ba-videoplayer-controlbar.player-speed: Játékos sebessége
-  ba-videoplayer-controlbar.settings: Beállítások
-  ba-videoplayer-controlbar.airplay: Airplay
-  ba-videoplayer-controlbar.airplay-icon: Airplay ikonra.
-  ba-videoplayer.all-settings: Minden beállítás
-  ba-videoplayer.player-speed: Játékos sebessége
-  ba-videoplayer.full-screen: Teljes képernyő
-  ba-videorecorder-controlbar.add-stream: Adja hozzá az adatfolyamot
-  ba-videorecorder.switch-camera: Kapcsolja be a kamerát
-  ba-videorecorder.prepare-covershot: Coverhots készítése
-  ba-videorecorder.prepare-thumbnails: A miniatűrök keresésének előkészítése
-  ba-videorecorder.adding-new-stream: Új adatfolyam hozzáadása
-  ba-imagecapture.recorder-error: Hiba történt. Próbálja újra később. Kattintson az újrapróbálkozásra.
-  ba-imagecapture.attach-error: >-
-    Nem tudtuk elérni a média interfészt. Az eszköztől és a böngészőtől függően
-    előfordulhat, hogy telepítenie kell a Flash-et vagy az SSL-en keresztül az
-    oldalt.
-  ba-imagecapture.software-required: >-
-    Az alábbi követelmények telepítéséhez / aktiválásához kattintson az alábbi
-    gombra.
-  ba-imagecapture.software-waiting: >-
-    Várakozás a követelmények telepítésére / aktiválására. Lehet, hogy a
-    befejezés után frissítenie kell az oldalt.
-  ba-imagecapture.access-forbidden: Tilos a médiához való hozzáférés. Kattintson az újrapróbálkozásra.
-  ba-imagecapture.uploading: Feltöltés
-  ba-imagecapture.uploading-failed: 'A feltöltés sikertelen - kattintson ide, hogy újra próbálkozzon.'
-  ba-imagecapture.upload-error-duration: >-
-    A feltöltött kép hossza nem felel meg a követelményeknek - kattintson ide az
-    újrapróbálkozáshoz.
-  ba-imagecapture.resolution-constraint-error: >-
-    A kiválasztott fájl nem egyezik meg a szükséges felbontással - kattintson
-    ide, hogy újra próbálkozzon.
-  ba-imagecapture.verifying: ellenőrzése
-  ba-imagecapture.verifying-failed: 'Sikertelen ellenőrzés - kattintson ide, hogy újra próbálkozzon.'
-  ba-imagecapture.rerecord-confirm: Tényleg meg akarja ismételni a képet?
-  ba-imagecapture.image_file_too_large: >-
-    A képfájl túl nagy (%s) - kattintson ide, ha megpróbál egy kisebb képfájl
-    használatával.
-  ba-imagecapture.unsupported_image_type: 'Kérjük, töltse fel: %s - kattintson ide, hogy újra próbálkozzon.'
-  ba-imagecapture.orientation-portrait-required: 'Kérjük, forgassa el a készüléket, hogy portré módban rögzítse.'
-  ba-imagecapture.orientation-landscape-required: 'Kérjük, forgassa el a készüléket, hogy tájolást készítsen.'
-  ba-audiorecorder.recorder-error: Hiba történt. Próbálja újra később. Kattintson az újrapróbálkozásra.
-  ba-audiorecorder.attach-error: >-
-    Nem tudtuk elérni a média interfészt. Az eszköztől és a böngészőtől függően
-    előfordulhat, hogy telepítenie kell a Flash-et vagy az SSL-en keresztül az
-    oldalt.
-  ba-audiorecorder.software-required: >-
-    Az alábbi követelmények telepítéséhez / aktiválásához kattintson az alábbi
-    gombra.
-  ba-audiorecorder.software-waiting: >-
-    Várakozás a követelmények telepítésére / aktiválására. Lehet, hogy a
-    befejezés után frissítenie kell az oldalt.
-  ba-audiorecorder.access-forbidden: Tilos a médiához való hozzáférés. Kattintson az újrapróbálkozásra.
-  ba-audiorecorder.uploading: Feltöltés
-  ba-audiorecorder.uploading-failed: 'A feltöltés sikertelen - kattintson ide, hogy újra próbálkozzon.'
-  ba-audiorecorder.upload-error-duration: >-
-    A feltöltött hang hossza nem felel meg a követelményeknek - kattintson ide
-    az újrapróbálkozáshoz.
-  ba-audiorecorder.verifying: ellenőrzése
-  ba-audiorecorder.verifying-failed: 'Sikertelen ellenőrzés - kattintson ide, hogy újra próbálkozzon.'
-  ba-audiorecorder.rerecord-confirm: Tényleg meg szeretné újítani a hangját?
-  ba-audiorecorder.cancel-confirm: Tényleg törölni szeretné a hangfelvételét?
-  ba-audiorecorder.audio_file_too_large: >-
-    A hangfájl túl nagy (%s) - kattints ide, ha megpróbálsz újra egy kisebb
-    hangfájl segítségével.
-  ba-audiorecorder.unsupported_audio_type: 'Kérjük, töltse fel: %s - kattintson ide, hogy újra próbálkozzon.'
-  ba-common-settingsmenu.tooltip: Kattintson a játék elkezdéséhez.
-  ba-common-settingsmenu.setting-menu: Minden beállítás
-  ba-common-settingsmenu.source-quality: Forrás minősége
-  ba-common-settingsmenu.player-speed: Játékos sebessége
-  ba-common-settingsmenu.set-menu-option: Beállítás opció
-  ba-common-settingsmenu.submit-video: Videó megerősítése
-  ba-common-settingsmenu.picture-in-picture: Kép a képen
-  ba-common-settingsmenu.exit-fullscreen-video: Kilépés a teljes képernyős képernyőről
-  ba-common-settingsmenu.fullscreen-video: Lépjen be teljes képernyősre
-  ba-videorecorder-chooser.multi-stream: Több adatfolyam
-  ba-videorecorder-controlbar.pause-recorder: A felvevő szüneteltetése
-  ba-videorecorder-controlbar.resume-recorder: Felvétel folytatása
-  ba-videorecorder.missing-track: Hiányzik a szükséges audio vagy video sáv
-  ba-videorecorder.device-already-in-use: Legalább az egyik beviteli eszköz már használatban van
-  ba-videorecorder.browser-permission-denied: >-
-    Az engedélyt a böngésző megtagadta. Kérjük, adjon hozzáférést és töltse be
-    újra az oldalt
-  ba-audioplayer.all-settings: Minden beállítás
-  ba-videoplayer-controlbar.remaining-time: Hátralévő idő
-  ba-videoplayer-controlbar.select-frame: Válasszon ki egy filmkockát
-  ba-videoplayer-controlbar.trim-video: Vágás
-  ba-videoplayer-playbutton.trim: Vágás
-  ba-videoplayer-playbutton.skip: Ugrás
-  ba-videorecorder-imagegallery.upload-covershot: Borító feltöltése
-  ba-videorecorder.pick-covershot-frame: 'Válasszon ki egy képet, amelyet fedőképként használni szeretne.'
-  ba-videorecorder.screen-recorder-is-not-supported: Ez a készülék nem támogatja a képernyőfelvevőt
-  ba-videorecorder.trim-prompt: Le akarja vágni a videódat?
-  ba-videorecorder.trim-video: Mozgassa a kezdő és a befejező jelzőt a videó vágásához
-  ba-videorecorder.wait-for-trim: Várakozás a trim parancsra ...
-  ba-videorecorder-controlbar.no-video-source: Hiányzik a további videó bemeneti forrás
-  ba-videorecorder-controlbar.stream-already-selected: További adatfolyam már kiválasztva
-  ba-videorecorder.uploading-src-error: 'A videót most nem lehet lejátszani, a feltöltés még folyamatban van'
-  ba-audiorecorder-controlbar.pause-recorder: Szüneteltesse a felvevőt
-  ba-audiorecorder-controlbar.resume-recorder: Felvétel folytatása
+ba-imagecapture.uploading: Feltöltés
+ba-audiorecorder.upload-error-duration: A feltöltött hang hossza nem felel meg a követelményeknek
+  - kattintson ide az újrapróbálkozáshoz.
+ba-common-settingsmenu.tooltip: Kattintson a játék elkezdéséhez.
+ba-videorecorder.wait-for-trim: Várakozás a trim parancsra ...
+ba-common-settingsmenu.setting-menu: Minden beállítás
+ba-videorecorder-controlbar.settings: Beállítások
+ba-imagecapture.access-forbidden: Tilos a médiához való hozzáférés. Kattintson az
+  újrapróbálkozásra.
+ba-imagecapture-controlbar.cancel: Megszünteti
+ba-videorecorder.video_file_too_large: A videó fájl túl nagy (%s) - ide kattintva
+  próbálkozzon újra egy kisebb video fájlt.
+ba-videoplayer-controlbar.settings: Beállítások
+ba-videorecorder-controlbar.add-stream: Adja hozzá az adatfolyamot
+ba-videorecorder-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
+ba-imageviewer-controlbar.fullscreen-image: Lépjen be a teljes képernyőre
+ba-audioplayer.audio-error: Hiba történt. Kérjük, próbálkozzon később. Kattintson
+  újra az újrapróbáláshoz.
+ba-imagecapture.image_file_too_large: A képfájl túl nagy (%s) - kattintson ide, ha
+  megpróbál egy kisebb képfájl használatával.
+ba-videoplayer-controlbar.show-tracks: CC mutatása
+ba-imagecapture.orientation-landscape-required: Kérjük, forgassa el a készüléket,
+  hogy tájolást készítsen.
+ba-videoplayer.full-screen: Teljes képernyő
+ba-videoplayer-controlbar.pause-video-disabled: A szüneteltetés nem támogatott
+ba-videorecorder.cancel-confirm: Tényleg törölni szeretné a videó feltöltését?
+ba-videorecorder-controlbar.camerahealthy: Világítás jó
+ba-common-settingsmenu.submit-video: Videó megerősítése
+ba-videorecorder-controlbar.record-tooltip: Kattintson ide a rögzítéshez.
+ba-videorecorder-controlbar.cancel: Megszünteti
+ba-common-settingsmenu.picture-in-picture: Kép a képen
+ba-audiorecorder-controlbar.rerecord: Újra
+ba-audiorecorder.rerecord-confirm: Tényleg meg szeretné újítani a hangját?
+ba-videoplayer-playbutton.rerecord: Újra
+ba-videoplayer-tracks.select-text-track-language: Felirat nyelve
+ba-videoplayer-adslot.can-skip-after: Ugrás a %d után
+ba-audiorecorder.cancel-confirm: Tényleg törölni szeretné a hangfelvételét?
+ba-videoplayer-controlbar.elapsed-time: Eltelt idő
+ba-videorecorder-controlbar.stop-available-after: A minimális felvételi idő %d másodperc
+ba-audioplayer.all-settings: Minden beállítás
+ba-imagecapture-controlbar.camerahealthy: A világítás jó
+ba-imagecapture-controlbar.record: Elfog
+ba-audiorecorder.software-waiting: Várakozás a követelmények telepítésére / aktiválására.
+  Lehet, hogy a befejezés után frissítenie kell az oldalt.
+ba-videoplayer-tracks.info-select-locale-first: Először válassza a helyi beállítást
+ba-videoplayer-loader.tooltip: Videó betöltése ...
+ba-audiorecorder-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
+ba-audiorecorder-controlbar.record-tooltip: Kattintson ide a felvételhez.
+ba-audioplayer-controlbar.submit-audio: megerősít
+ba-imagecapture.verifying-failed: Sikertelen ellenőrzés - kattintson ide, hogy újra
+  próbálkozzon.
+ba-videoplayer-playbutton.skip: Ugrás
+ba-videoplayer-controlbar.trim-video: Vágás
+ba-videorecorder.missing-track: Hiányzik a szükséges audio vagy video sáv
+ba-imagecapture.uploading-failed: A feltöltés sikertelen - kattintson ide, hogy újra
+  próbálkozzon.
+ba-videoplayer-adslot.skip-ad: Hirdetés átugrása
+ba-videoplayer-adslot.volume-button: Állítsa be a hangerőt
+ba-videorecorder-chooser.record-audio: Hang rögzítése
+ba-audiorecorder.audio_file_too_large: A hangfájl túl nagy (%s) - kattints ide, ha
+  megpróbálsz újra egy kisebb hangfájl segítségével.
+ba-imagecapture-chooser.image-capture: Kép rögzítése
+ba-videorecorder.trim-prompt: Le akarja vágni a videódat?
+ba-videorecorder.software-waiting: Várakozás a telepítés / aktiválás követelményeire.
+  Lehet, hogy frissítenie kell az oldalt befejezése után.
+ba-audioplayer-controlbar.play-audio: Játék
+ba-videorecorder.browser-permission-denied: Az engedélyt a böngésző megtagadta. Kérjük,
+  adjon hozzáférést és töltse be újra az oldalt
+ba-videoplayer-controlbar.pause-video: Videó megállítása
+ba-videoplayer-adslot.volume-unmute: Csengessen a hang
+ba-videorecorder-controlbar.resume-recorder: Felvétel folytatása
+ba-videoplayer-controlbar.submit-video: Erősítse videó
+ba-videorecorder-controlbar.rerecord: Újra
+ba-videoplayer-share.share: Videó megosztása
+ba-audioplayer-loader.tooltip: Betöltés...
+ba-imagecapture.unsupported_image_type: 'Kérjük, töltse fel: %s - kattintson ide,
+  hogy újra próbálkozzon.'
+ba-videorecorder.uploading: Feltöltés
+ba-audiorecorder.verifying: ellenőrzése
+ba-videoplayer-playbutton.tooltip: Kattintson ide a videó lejátszásához.
+ba-audiorecorder-controlbar.microphonehealthy: A hang jó
+ba-videorecorder.trim-video: Mozgassa a kezdő és a befejező jelzőt a videó vágásához
+ba-videoplayer-controlbar.player-speed: Játékos sebessége
+ba-videorecorder-controlbar.microphonehealthy: Hang jó
+ba-videorecorder-chooser.multi-stream: Több adatfolyam
+ba-imagecapture.recorder-error: Hiba történt. Próbálja újra később. Kattintson az
+  újrapróbálkozásra.
+ba-videorecorder-controlbar.stop-tooltip: Kattintson ide, hogy hagyja abba.
+ba-audiorecorder-controlbar.rerecord-tooltip: Kattintson ide újra.
+ba-imagecapture-controlbar.rerecord-tooltip: Kattintson ide újra.
+ba-videorecorder-chooser.record-screen: Felvétel képernyő
+ba-videoplayer.all-settings: Minden beállítás
+ba-videoplayer-controlbar.select-frame: Válasszon ki egy filmkockát
+ba-imagecapture.resolution-constraint-error: A kiválasztott fájl nem egyezik meg a
+  szükséges felbontással - kattintson ide, hogy újra próbálkozzon.
+ba-videoplayer-controlbar.video-progress: videó haladás
+ba-videorecorder-controlbar.cameraunhealthy: Világítás nem optimális
+ba-audioplayer-controlbar.pause-audio: Szünet
+ba-videorecorder-controlbar.stop: Állj meg
+ba-audiorecorder-controlbar.stop-tooltip: Kattintson ide a leállításhoz.
+ba-videorecorder-controlbar.microphoneunhealthy: Nem lehet felvenni minden hang
+ba-imagecapture-chooser.upload-image: Kép feltöltése
+ba-videorecorder-imagegallery.upload-covershot: Borító feltöltése
+ba-audiorecorder-controlbar.resume-recorder: Felvétel folytatása
+ba-audiorecorder-controlbar.stop: Állj meg
+ba-videoplayer.video-error: Hiba történt. Kérjük, próbálkozzon később. Kattintson
+  ide újra.
+ba-videorecorder.attach-error: Nem tudtuk elérni a kamera interface. Attól függően,
+  hogy a készülék és a böngészőben, akkor telepítenie kell a Flash vagy elérni az
+  oldalt SSL.
+ba-audiorecorder-controlbar.pause-recorder: Szüneteltesse a felvevőt
+ba-videorecorder.rerecord-confirm: Tényleg azt akarja ismételni a videó?
+ba-audiorecorder-controlbar.stop-available-after: A minimális felvételi idő %d másodperc
+ba-videoplayer-controlbar.change-resolution: a felbontás módosítása
+ba-audiorecorder.software-required: Az alábbi követelmények telepítéséhez / aktiválásához
+  kattintson az alábbi gombra.
+ba-videoplayer-controlbar.exit-fullscreen-video: Kilépés a teljes képernyős
+ba-imageviewer-controlbar.rerecord-image: Újra?
+ba-videoplayer-adslot.ad-will-end-after: A hirdetés a %s után befejeződik
+ba-imagecapture.rerecord-confirm: Tényleg meg akarja ismételni a képet?
+ba-audioplayer-controlbar.elapsed-time: Elkelt idő
+ba-videoplayer-controlbar.close-tracks: Közeli CC
+ba-videorecorder-controlbar.upload-covershot: Feltöltés
+ba-audioplayer-controlbar.rerecord-audio: Újra?
+ba-videorecorder.orientation-landscape-required: Forgassa el a készüléket fekvő módban
+  történő rögzítéshez.
+ba-imagecapture.verifying: ellenőrzése
+ba-imageviewer-controlbar.submit-image: megerősít
+ba-imagecapture-controlbar.cancel-tooltip: Kattintson ide a lemondáshoz.
+ba-imagecapture.software-waiting: Várakozás a követelmények telepítésére / aktiválására.
+  Lehet, hogy a befejezés után frissítenie kell az oldalt.
+ba-imageviewer-controlbar.exit-fullscreen-image: Kilépés a teljes képernyőről
+ba-videorecorder.verifying-failed: Ellenőrzéséért sikertelen - ide kattintva újra.
+ba-videorecorder-controlbar.upload-covershot-tooltip: Kattintson ide feltölthető egyedi
+  fedél lövés
+ba-common-settingsmenu.set-menu-option: Beállítás opció
+ba-common-settingsmenu.exit-fullscreen-video: Kilépés a teljes képernyős képernyőről
+ba-videorecorder.framerate-warning: A videó képaránya nagyon alacsony. Javasoljuk,
+  hogy zárja be az összes többi programot és böngészőlapot, vagy gyorsabb számítógépet
+  használjon.
+ba-videorecorder.switch-camera: Kapcsolja be a kamerát
+ba-audioplayer-controlbar.volume-button: Állítsa be a hangerőt
+ba-videorecorder.uploading-failed: Feltöltés sikertelen - ide kattintva újra.
+ba-videoplayer-playbutton.trim: Vágás
+ba-videorecorder-chooser.upload-video: Videó feltöltése
+ba-audioplayer-controlbar.volume-unmute: Csengessen a hang
+ba-audiorecorder-controlbar.record: Rekord
+ba-videorecorder.software-required: Kérjük, kattintson az alábbi gombra a következő
+  követelmények telepítéséhez / aktiválásához a folytatáshoz.
+ba-audiorecorder.verifying-failed: Sikertelen ellenőrzés - kattintson ide, hogy újra
+  próbálkozzon.
+ba-videorecorder-controlbar.stream-already-selected: További adatfolyam már kiválasztva
+ba-videorecorder.upload-error-duration: A feltöltött videó hossza nem felel meg a
+  követelményeknek - kattintson ide újrapróbálkozáshoz.
+ba-common-settingsmenu.player-speed: Játékos sebessége
+ba-audiorecorder-controlbar.settings: Beállítások
+ba-videoplayer-controlbar.play-video: videó lejátszása
+ba-videoplayer-tracks.upload-text-tracks: Pálya szöveges fájlok feltöltése
+ba-videorecorder-controlbar.skip-tooltip: Kattintson ide, hogy kihagyja.
+ba-videoplayer-adslot.elapsed-time: Elkelt idő
+ba-videoplayer-controlbar.rerecord-video: Újra videót?
+ba-videoplayer-controlbar.remaining-time: Hátralévő idő
+ba-imagecapture-controlbar.record-tooltip: Kattintson ide a rögzítéshez.
+ba-videorecorder.device-already-in-use: Legalább az egyik beviteli eszköz már használatban
+  van
+ba-videorecorder.recorder-error: Hiba történt. Kérjük, próbálkozzon később. Kattintson
+  ide újra.
+ba-audioplayer-controlbar.volume-mute: Elnémítja a hangot
+ba-audiorecorder-chooser.upload-audio: Hang feltöltése
+ba-imagecapture.upload-error-duration: A feltöltött kép hossza nem felel meg a követelményeknek
+  - kattintson ide az újrapróbálkozáshoz.
+ba-audiorecorder.attach-error: Nem tudtuk elérni a média interfészt. Az eszköztől
+  és a böngészőtől függően előfordulhat, hogy telepítenie kell a Flash-et vagy az
+  SSL-en keresztül az oldalt.
+ba-audiorecorder-controlbar.cancel: Megszünteti
+ba-videoplayer-controlbar.airplay-icon: Airplay ikonra.
+ba-videorecorder.prepare-covershot: Coverhots készítése
+ba-videoplayer.player-speed: Játékos sebessége
+ba-videorecorder.verifying: ellenőrzése
+ba-videoplayer-controlbar.fullscreen-video: a teljes képernyős
+ba-audiorecorder.uploading-failed: A feltöltés sikertelen - kattintson ide, hogy újra
+  próbálkozzon.
+ba-videorecorder.unsupported_video_type: 'Kérjük, töltsön fel: %s - ide kattintva
+  újra.'
+ba-videorecorder-chooser.record-video: Videó rögzítése
+ba-videoplayer-playbutton.submit-video: Erősítse videó
+ba-audioplayer-controlbar.total-time: Teljes hossza
+ba-videorecorder.prepare-thumbnails: A miniatűrök keresésének előkészítése
+ba-videorecorder.screen-recorder-is-not-supported: Ez a készülék nem támogatja a képernyőfelvevőt
+ba-videoplayer-controlbar.airplay: Airplay
+ba-videoplayer-tracks.back: hát
+ba-videorecorder.access-forbidden: Hozzáférés a kamera tilos volt. Kattintson ide
+  újra.
+ba-videoplayer-adslot.volume-mute: Elnémítja a hangot
+ba-videorecorder.pick-covershot-frame: Válasszon ki egy képet, amelyet fedőképként
+  használni szeretne.
+ba-audioplayer-controlbar.audio-progress: A hangfelvétel folyamatban van
+ba-imageviewer.image-error: Hiba történt. Kérjük, próbálkozzon később. Kattintson
+  újra az újrapróbáláshoz.
+ba-audioplayer-controlbar.pause-audio-disabled: A szüneteltetés nem támogatott
+ba-videorecorder.resolution-constraint-error: A kiválasztott fájl nem egyezik meg
+  a szükséges felbontással - kattintson ide újrapróbálkozáshoz.
+ba-videorecorder-controlbar.pause-recorder: A felvevő szüneteltetése
+ba-imagecapture-controlbar.cameraunhealthy: A világítás nem optimális
+ba-common-settingsmenu.source-quality: Forrás minősége
+ba-imagecapture.orientation-portrait-required: Kérjük, forgassa el a készüléket, hogy
+  portré módban rögzítse.
+ba-videoplayer-controlbar.total-time: Teljes hossza videó
+ba-videorecorder-controlbar.rerecord-tooltip: Kattintson ide, hogy újra.
+ba-videorecorder.orientation-portrait-required: Forgassa el a készüléket állókép rögzítéséhez.
+ba-audiorecorder-chooser.record-audio: Hang rögzítése
+ba-videoplayer-controlbar.volume-mute: hang elnémítása
+ba-videorecorder.pick-covershot: Válassz egy covershot.
+ba-audiorecorder-controlbar.microphoneunhealthy: Nem hallható hang
+ba-videorecorder-controlbar.no-video-source: Hiányzik a további videó bemeneti forrás
+ba-common-settingsmenu.fullscreen-video: Lépjen be teljes képernyősre
+ba-audiorecorder.access-forbidden: Tilos a médiához való hozzáférés. Kattintson az
+  újrapróbálkozásra.
+ba-imagecapture-controlbar.rerecord: Újra
+ba-audiorecorder.recorder-error: Hiba történt. Próbálja újra később. Kattintson az
+  újrapróbálkozásra.
+ba-videoplayer-tracks.select-text-track-file: Kattintson a fájl kiválasztásához
+ba-videorecorder-controlbar.skip: Skip
+ba-imagecapture.software-required: Az alábbi követelmények telepítéséhez / aktiválásához
+  kattintson az alábbi gombra.
+ba-videorecorder.uploading-src-error: A videót most nem lehet lejátszani, a feltöltés
+  még folyamatban van
+ba-videoplayer-controlbar.volume-unmute: Unmute hang
+ba-videoplayer-controlbar.volume-button: Állítsa be a hangerőt
+ba-imagecapture.attach-error: Nem tudtuk elérni a média interfészt. Az eszköztől és
+  a böngészőtől függően előfordulhat, hogy telepítenie kell a Flash-et vagy az SSL-en
+  keresztül az oldalt.
+ba-audiorecorder.uploading: Feltöltés
+ba-audiorecorder.unsupported_audio_type: 'Kérjük, töltse fel: %s - kattintson ide,
+  hogy újra próbálkozzon.'
+ba-imagecapture-controlbar.settings: Beállítások
+ba-videorecorder-controlbar.record: Rekord
+ba-videorecorder.adding-new-stream: Új adatfolyam hozzáadása

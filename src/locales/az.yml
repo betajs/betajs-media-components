@@ -1,245 +1,243 @@
-'language:az':
-  ba-videoplayer-playbutton.tooltip: Videoya baxmaq üçün basın.
-  ba-videoplayer-playbutton.rerecord: Yenidən yazmaq
-  ba-videoplayer-playbutton.submit-video: Videonu təsdiq et
-  ba-videoplayer-loader.tooltip: Video yüklənir ...
-  ba-videoplayer-controlbar.change-resolution: Görüntünün keyfiyyətini dəyiş
-  ba-videoplayer-controlbar.video-progress: Videonun davamiyyəti
-  ba-videoplayer-controlbar.rerecord-video: Video yenidən yazılsın?
-  ba-videoplayer-controlbar.submit-video: Videonu təsdiq et
-  ba-videoplayer-controlbar.play-video: Videonu göstər
-  ba-videoplayer-controlbar.pause-video: Videonu dayandır
-  ba-videoplayer-controlbar.elapsed-time: Keçən vaxt
-  ba-videoplayer-controlbar.total-time: Videonu tam uzunluğu
-  ba-videoplayer-controlbar.fullscreen-video: Tam ekran edin
-  ba-videoplayer-controlbar.volume-button: Səs düyməsi
-  ba-videoplayer-controlbar.volume-mute: Səssiz et
-  ba-videoplayer-controlbar.volume-unmute: Səsli et
-  ba-videoplayer.video-error: >-
-    Xəta baş vermişdir. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən
-    yoxlamaq üçün basın.
-  ba-videorecorder-chooser.record-video: Videonu yaz
-  ba-videorecorder-chooser.upload-video: Videonu yüklə
-  ba-videorecorder-controlbar.settings: Ayarlar
-  ba-videorecorder-controlbar.camerahealthy: İşıqlandırma yaxşıdır
-  ba-videorecorder-controlbar.cameraunhealthy: İşıqlandırma optimal deyil
-  ba-videorecorder-controlbar.microphonehealthy: Səs yaxşı eşidilir
-  ba-videorecorder-controlbar.microphoneunhealthy: Mikrofonun səsi eşidilmir
-  ba-videorecorder-controlbar.record: Yazmaq
-  ba-videorecorder-controlbar.record-tooltip: Videonu yazmaq üçün basın
-  ba-videorecorder-controlbar.rerecord: Videonu yenidən yaz
-  ba-videorecorder-controlbar.rerecord-tooltip: Yenidən yazmaq üçün basın.
-  ba-videorecorder-controlbar.upload-covershot: Yüklə
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Üzlük şəkli yükləmək üçün basın
-  ba-videorecorder-controlbar.stop: Dayandırmaq
-  ba-videorecorder-controlbar.stop-tooltip: Dayandırmaq üçün basın.
-  ba-videorecorder-controlbar.skip: Nəzərə alma
-  ba-videorecorder-controlbar.skip-tooltip: Nəzərə almadan keçmək üçün basın.
-  ba-videorecorder.recorder-error: >-
-    Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən
-    yoxlamaq üçün basın.
-  ba-videorecorder.attach-error: >-
-    Kamera görüntüsünü əldə etmək mümkün olmadı. Sizin istifadə etdiyiniz
-    cihazdan və brauzerdən asılı olaraq siz ya Flash proqramı yüklənməli və ya
-    veb səhifəyə SSL ilə daxil olmalısız.
-  ba-videorecorder.access-forbidden: Kamera görüntüsünə icazə verilmədi. Yenidən yoxlamaq üçün basın.
-  ba-videorecorder.pick-covershot: Üzlük şəklini seçin.
-  ba-videorecorder.uploading: Yüklənir
-  ba-videorecorder.uploading-failed: 'Yüklənmə zamanı xəta baş verdi, təkrar etmək üçün buraya basın.'
-  ba-videorecorder.verifying: Yoxlama
-  ba-videorecorder.verifying-failed: Yoxlama uğursuzluqla bitdi - təkrar üçün buraya basın.
-  ba-videorecorder.rerecord-confirm: 'Siz, həqiqətən, videonu yenidən yazmaq istəyirsiniz?'
-  ba-videorecorder.video_file_too_large: >-
-    Sizin video faylın həcmi (%s) çox böyükdür - kiçik həcmli video fayl ilə
-    yenidən cəhd üçün buraya basın.
-  ba-videorecorder.unsupported_video_type: 'Yükləyin: %s - yenidən yoxlamaq üçün buraya basın.'
-  ba-videoplayer-controlbar.exit-fullscreen-video: Tam ekran rejimindən çıxış
-  ba-videoplayer-share.share: Videonu paylaş
-  ba-videorecorder-chooser.record-screen: Səs ekranı
-  ba-videoplayer-controlbar.pause-video-disabled: Pauza dəstəklənmir
-  ba-videorecorder-chooser.record-audio: Record Audio
-  ba-videorecorder-controlbar.stop-available-after: Minimum qeydiyyatdan keçmə müddəti %d saniyədir
-  ba-videorecorder-controlbar.cancel: Ləğv et
-  ba-videorecorder-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
-  ba-videorecorder.cancel-confirm: Video yükləməyini həqiqətən ləğv etmək istəyirsiniz?
-  ba-videoplayer-adslot.elapsed-time: Keçən vaxt
-  ba-videoplayer-adslot.volume-button: Həcmi seçin
-  ba-videoplayer-adslot.volume-mute: Səs səsi
-  ba-videoplayer-adslot.volume-unmute: Səsin səsləndirilməsi
-  ba-videoplayer-adslot.ad-will-end-after: Reklam %s sonra sona çatacaq
-  ba-videoplayer-adslot.can-skip-after: '%d sonra atlayın'
-  ba-videoplayer-adslot.skip-ad: Reklamı atlayın
-  ba-videorecorder.software-required: >-
-    Davam etmək üçün aşağıdakı tələbləri qurmaq / aktivləşdirmək üçün aşağıya
-    basın.
-  ba-videorecorder.software-waiting: >-
-    Qurulacaq / aktivləşdiriləcək tələbləri gözləyirəm. Tamamlandıqdan sonra
-    səhifəni yeniləmək lazımdır.
-  ba-videoplayer-controlbar.close-tracks: CC'yi bağlayın
-  ba-videoplayer-controlbar.show-tracks: CC göstər
-  ba-videoplayer-tracks.upload-text-tracks: Track mətn fayllarını yükləyin
-  ba-videoplayer-tracks.select-text-track-language: Altyazı dili
-  ba-videoplayer-tracks.info-select-locale-first: Əvvəlcədən yerli seçin
-  ba-videoplayer-tracks.select-text-track-file: Fayl seçmək üçün basın
-  ba-videoplayer-tracks.back: geri
-  ba-videorecorder.framerate-warning: >-
-    Video çərçivəsi dərəcəsi çox aşağıdır. Bütün digər proqramları və brauzer
-    nişanlarını bağlamaq və ya daha sürətli bir kompüter istifadə etmək üçün
-    gəlir.
-  ba-videorecorder.upload-error-duration: >-
-    Yüklənmiş videonun uzunluğu tələblərə cavab vermir - yenidən cəhd etmək üçün
-    buraya vurun.
-  ba-videorecorder.resolution-constraint-error: >-
-    Seçdiyiniz fayl lazımi qətnaməyə uyğun deyil - yenidən cəhd etmək üçün
-    buraya vurun.
-  ba-videorecorder.orientation-portrait-required: Portret rejimində qeyd etmək üçün cihazınızı döndərin.
-  ba-videorecorder.orientation-landscape-required: Landşaft rejimində qeyd etmək üçün cihazınızı döndərin.
-  ba-imageviewer-controlbar.rerecord-image: Redo?
-  ba-imageviewer-controlbar.submit-image: Təsdiq edin
-  ba-imageviewer-controlbar.fullscreen-image: Tam ekrana daxil olun
-  ba-imageviewer-controlbar.exit-fullscreen-image: Tam ekrandan çıxın
-  ba-imageviewer.image-error: >-
-    Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən cəhd
-    etmək üçün basın.
-  ba-imagecapture-chooser.image-capture: Şəkil çəkin
-  ba-imagecapture-chooser.upload-image: Şəkil yükləyin
-  ba-imagecapture-controlbar.settings: Ayarlar
-  ba-imagecapture-controlbar.camerahealthy: İşıqlandırma yaxşıdır
-  ba-imagecapture-controlbar.cameraunhealthy: İşıqlandırma optimal deyil
-  ba-imagecapture-controlbar.record: Capture
-  ba-imagecapture-controlbar.record-tooltip: Tutmaq üçün bura vurun.
-  ba-imagecapture-controlbar.rerecord: Redo
-  ba-imagecapture-controlbar.rerecord-tooltip: Yenidən yerinə yetirmək üçün buraya basın.
-  ba-imagecapture-controlbar.cancel: Ləğv et
-  ba-imagecapture-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
-  ba-audioplayer-controlbar.audio-progress: Tərəqqi
-  ba-audioplayer-controlbar.rerecord-audio: Redo?
-  ba-audioplayer-controlbar.submit-audio: Təsdiq edin
-  ba-audioplayer-controlbar.play-audio: Oynamaq
-  ba-audioplayer-controlbar.pause-audio: Pauza
-  ba-audioplayer-controlbar.pause-audio-disabled: Pauza dəstəklənmir
-  ba-audioplayer-controlbar.elapsed-time: Keçən vaxt
-  ba-audioplayer-controlbar.total-time: Ümumi uzunluğu
-  ba-audioplayer-controlbar.volume-button: Həcmi seçin
-  ba-audioplayer-controlbar.volume-mute: Səs səsi
-  ba-audioplayer-controlbar.volume-unmute: Səsin səsləndirilməsi
-  ba-audioplayer-loader.tooltip: Yüklənir ...
-  ba-audioplayer.audio-error: >-
-    Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən cəhd
-    etmək üçün basın.
-  ba-audiorecorder-chooser.record-audio: Record Audio
-  ba-audiorecorder-chooser.upload-audio: Audio yüklə
-  ba-audiorecorder-controlbar.settings: Ayarlar
-  ba-audiorecorder-controlbar.microphonehealthy: Səs yaxşıdır
-  ba-audiorecorder-controlbar.microphoneunhealthy: Heç bir səs ala bilmir
-  ba-audiorecorder-controlbar.record: Record
-  ba-audiorecorder-controlbar.record-tooltip: Qeyd etmək üçün buraya vurun.
-  ba-audiorecorder-controlbar.rerecord: Redo
-  ba-audiorecorder-controlbar.rerecord-tooltip: Yenidən yerinə yetirmək üçün buraya basın.
-  ba-audiorecorder-controlbar.stop: Dur
-  ba-audiorecorder-controlbar.stop-tooltip: Durmaq üçün bura vurun.
-  ba-audiorecorder-controlbar.stop-available-after: Minimum qeydiyyatdan keçmə müddəti %d saniyədir
-  ba-audiorecorder-controlbar.cancel: Ləğv et
-  ba-audiorecorder-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
-  ba-videoplayer-controlbar.player-speed: Oyunçu sürəti
-  ba-videoplayer-controlbar.settings: Ayarlar
-  ba-videoplayer-controlbar.airplay: Airplay
-  ba-videoplayer-controlbar.airplay-icon: Airplay simgesi.
-  ba-videoplayer.all-settings: Bütün parametrlər
-  ba-videoplayer.player-speed: Oyunçu sürəti
-  ba-videoplayer.full-screen: Tam ekran
-  ba-videorecorder-controlbar.add-stream: Stream et
-  ba-videorecorder.switch-camera: Kameranı dəyişin
-  ba-videorecorder.prepare-covershot: Şişirtmələrin hazırlanması
-  ba-videorecorder.prepare-thumbnails: Kiçik axtarmağa hazırlaşmaq
-  ba-videorecorder.adding-new-stream: Yeni axın əlavə et
-  ba-imagecapture.recorder-error: >-
-    Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən cəhd
-    etmək üçün basın.
-  ba-imagecapture.attach-error: >-
-    Media mediasına daxil ola bilmədi. Qurğu və brauzerdən asılı olaraq, Flash-u
-    yükləmək və ya SSL vasitəsilə səhifəyə daxil olmanız tələb oluna bilər.
-  ba-imagecapture.software-required: >-
-    Davam etmək üçün aşağıdakı tələbləri qurmaq / aktivləşdirmək üçün aşağıya
-    basın.
-  ba-imagecapture.software-waiting: >-
-    Qurulacaq / aktivləşdiriləcək tələbləri gözləyirəm. Tamamlandıqdan sonra
-    səhifəni yeniləmək lazımdır.
-  ba-imagecapture.access-forbidden: KİV-ə giriş qadağandır. Yenidən cəhd etmək üçün basın.
-  ba-imagecapture.uploading: Yüklənmə
-  ba-imagecapture.uploading-failed: Yüklənmə başarısız oldu - yenidən cəhd etmək üçün bura vurun.
-  ba-imagecapture.upload-error-duration: >-
-    Yüklənən görüntünün uzunluğu tələbləri ödəmir - yenidən cəhd etmək üçün
-    buraya vurun.
-  ba-imagecapture.resolution-constraint-error: >-
-    Seçdiyiniz fayl, lazımi qətnamə ilə uyğun gəlmir - yenidən cəhd etmək üçün
-    bura vurun.
-  ba-imagecapture.verifying: Təsdiqləmə
-  ba-imagecapture.verifying-failed: Doğru yoxlanıldı - yenidən cəhd etmək üçün buraya vurun.
-  ba-imagecapture.rerecord-confirm: Həqiqətən resminizi bərpa etmək istəyirsiniz?
-  ba-imagecapture.image_file_too_large: >-
-    Resim faylınız çox böyükdür (%s) - daha kiçik bir görüntü faylı ilə yenidən
-    sınanmaq üçün buraya vurun.
-  ba-imagecapture.unsupported_image_type: 'Xahiş edirik yükləyin: %s - yenidən cəhd etmək üçün buraya vurun.'
-  ba-imagecapture.orientation-portrait-required: Portret rejimində qeyd etmək üçün cihazınızı döndərin.
-  ba-imagecapture.orientation-landscape-required: Landşaft rejimində qeyd etmək üçün cihazınızı döndərin.
-  ba-audiorecorder.recorder-error: >-
-    Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd edin. Yenidən cəhd
-    etmək üçün basın.
-  ba-audiorecorder.attach-error: >-
-    Media mediasına daxil ola bilmədi. Qurğu və brauzerdən asılı olaraq, Flash-u
-    yükləmək və ya SSL vasitəsilə səhifəyə daxil olmanız tələb oluna bilər.
-  ba-audiorecorder.software-required: >-
-    Davam etmək üçün aşağıdakı tələbləri qurmaq / aktivləşdirmək üçün aşağıya
-    basın.
-  ba-audiorecorder.software-waiting: >-
-    Qurulacaq / aktivləşdiriləcək tələbləri gözləyirəm. Tamamlandıqdan sonra
-    səhifəni yeniləmək lazımdır.
-  ba-audiorecorder.access-forbidden: KİV-ə giriş qadağandır. Yenidən cəhd etmək üçün basın.
-  ba-audiorecorder.uploading: Yüklənmə
-  ba-audiorecorder.uploading-failed: Yüklənmə başarısız oldu - yenidən cəhd etmək üçün bura vurun.
-  ba-audiorecorder.upload-error-duration: >-
-    Yüklənən audio uzunluğu tələblərə cavab vermir - yenidən cəhd etmək üçün
-    buraya vurun.
-  ba-audiorecorder.verifying: Təsdiqləmə
-  ba-audiorecorder.verifying-failed: Doğru yoxlanıldı - yenidən cəhd etmək üçün buraya vurun.
-  ba-audiorecorder.rerecord-confirm: Həqiqətən səsinizi təkrarlamaq istəyirsiniz?
-  ba-audiorecorder.cancel-confirm: 'Həqiqətən, audio yükləməni ləğv etmək istəyirsiniz?'
-  ba-audiorecorder.audio_file_too_large: >-
-    Sizin audio faylınız çox böyükdür (%s) - daha kiçik bir audio faylı ilə
-    yenidən cəhd etmək üçün buraya vurun.
-  ba-audiorecorder.unsupported_audio_type: 'Xahiş edirik yükləyin: %s - yenidən cəhd etmək üçün buraya vurun.'
-  ba-common-settingsmenu.tooltip: Oynamaq üçün vurun.
-  ba-common-settingsmenu.setting-menu: Bütün parametrlər
-  ba-common-settingsmenu.source-quality: Mənbə keyfiyyəti
-  ba-common-settingsmenu.player-speed: Oyunçu sürəti
-  ba-common-settingsmenu.set-menu-option: Seçimi seçin
-  ba-common-settingsmenu.submit-video: Videonu təsdiq edin
-  ba-common-settingsmenu.picture-in-picture: Şəkildə şəkil
-  ba-common-settingsmenu.exit-fullscreen-video: Tam ekrandan çıxın
-  ba-common-settingsmenu.fullscreen-video: Tam ekrana daxil olun
-  ba-videorecorder-chooser.multi-stream: Çox axın
-  ba-videorecorder-controlbar.pause-recorder: Yazıcıyı dayandırın
-  ba-videorecorder-controlbar.resume-recorder: Yazıcıya davam edin
-  ba-videorecorder.missing-track: Tələb olunan səs və ya video parçası yoxdur
-  ba-videorecorder.device-already-in-use: Giriş cihazlarınızdan ən azı biri artıq istifadədədir
-  ba-videorecorder.browser-permission-denied: >-
-    Brauzer tərəfindən icazə rədd edildi, zəhmət olmasa giriş verin və səhifəni
-    yenidən yükləyin
-  ba-audioplayer.all-settings: Bütün parametrlər
-  ba-videoplayer-controlbar.remaining-time: Qalan vaxt
-  ba-videoplayer-controlbar.select-frame: Seçin
-  ba-videoplayer-controlbar.trim-video: Kəsin
-  ba-videoplayer-playbutton.trim: Kəsin
-  ba-videoplayer-playbutton.skip: Keç
-  ba-videorecorder-imagegallery.upload-covershot: Qapağı yükləyin
-  ba-videorecorder.pick-covershot-frame: Örtük şəklində istifadə etmək üçün bir çərçivə seçin.
-  ba-videorecorder.screen-recorder-is-not-supported: Ekran qeyd cihazı bu cihazda dəstəklənmir
-  ba-videorecorder.trim-prompt: Videonuzu kəsmək istəyirsiniz?
-  ba-videorecorder.trim-video: Videonuzu düzəltmək üçün başlanğıc və bitmə işarələrini hərəkət etdirin
-  ba-videorecorder.wait-for-trim: Kəsmə əmri gözlənilir ...
-  ba-videorecorder-controlbar.no-video-source: Əlavə video giriş mənbəyi yoxdur
-  ba-videorecorder-controlbar.stream-already-selected: Əlavə axın artıq seçilib
-  ba-videorecorder.uploading-src-error: 'Videonu indi oxutmaq mümkün deyil, yükləmə hələ də davam edir'
-  ba-audiorecorder-controlbar.pause-recorder: Yazıcıyı durdurun
-  ba-audiorecorder-controlbar.resume-recorder: Recume Recume
+ba-imagecapture.uploading: Yüklənmə
+ba-audiorecorder.upload-error-duration: Yüklənən audio uzunluğu tələblərə cavab vermir
+  - yenidən cəhd etmək üçün buraya vurun.
+ba-common-settingsmenu.tooltip: Oynamaq üçün vurun.
+ba-videorecorder.wait-for-trim: Kəsmə əmri gözlənilir ...
+ba-common-settingsmenu.setting-menu: Bütün parametrlər
+ba-videorecorder-controlbar.settings: Ayarlar
+ba-imagecapture.access-forbidden: KİV-ə giriş qadağandır. Yenidən cəhd etmək üçün
+  basın.
+ba-imagecapture-controlbar.cancel: Ləğv et
+ba-videorecorder.video_file_too_large: Sizin video faylın həcmi (%s) çox böyükdür
+  - kiçik həcmli video fayl ilə yenidən cəhd üçün buraya basın.
+ba-videoplayer-controlbar.settings: Ayarlar
+ba-videorecorder-controlbar.add-stream: Stream et
+ba-videorecorder-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
+ba-imageviewer-controlbar.fullscreen-image: Tam ekrana daxil olun
+ba-audioplayer.audio-error: Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd
+  edin. Yenidən cəhd etmək üçün basın.
+ba-imagecapture.image_file_too_large: Resim faylınız çox böyükdür (%s) - daha kiçik
+  bir görüntü faylı ilə yenidən sınanmaq üçün buraya vurun.
+ba-videoplayer-controlbar.show-tracks: CC göstər
+ba-imagecapture.orientation-landscape-required: Landşaft rejimində qeyd etmək üçün
+  cihazınızı döndərin.
+ba-videoplayer.full-screen: Tam ekran
+ba-videoplayer-controlbar.pause-video-disabled: Pauza dəstəklənmir
+ba-videorecorder.cancel-confirm: Video yükləməyini həqiqətən ləğv etmək istəyirsiniz?
+ba-videorecorder-controlbar.camerahealthy: İşıqlandırma yaxşıdır
+ba-common-settingsmenu.submit-video: Videonu təsdiq edin
+ba-videorecorder-controlbar.record-tooltip: Videonu yazmaq üçün basın
+ba-videorecorder-controlbar.cancel: Ləğv et
+ba-common-settingsmenu.picture-in-picture: Şəkildə şəkil
+ba-audiorecorder-controlbar.rerecord: Redo
+ba-audiorecorder.rerecord-confirm: Həqiqətən səsinizi təkrarlamaq istəyirsiniz?
+ba-videoplayer-playbutton.rerecord: Yenidən yazmaq
+ba-videoplayer-tracks.select-text-track-language: Altyazı dili
+ba-videoplayer-adslot.can-skip-after: '%d sonra atlayın'
+ba-audiorecorder.cancel-confirm: Həqiqətən, audio yükləməni ləğv etmək istəyirsiniz?
+ba-videoplayer-controlbar.elapsed-time: Keçən vaxt
+ba-videorecorder-controlbar.stop-available-after: Minimum qeydiyyatdan keçmə müddəti
+  %d saniyədir
+ba-audioplayer.all-settings: Bütün parametrlər
+ba-imagecapture-controlbar.camerahealthy: İşıqlandırma yaxşıdır
+ba-imagecapture-controlbar.record: Capture
+ba-audiorecorder.software-waiting: Qurulacaq / aktivləşdiriləcək tələbləri gözləyirəm.
+  Tamamlandıqdan sonra səhifəni yeniləmək lazımdır.
+ba-videoplayer-tracks.info-select-locale-first: Əvvəlcədən yerli seçin
+ba-videoplayer-loader.tooltip: Video yüklənir ...
+ba-audiorecorder-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
+ba-audiorecorder-controlbar.record-tooltip: Qeyd etmək üçün buraya vurun.
+ba-audioplayer-controlbar.submit-audio: Təsdiq edin
+ba-imagecapture.verifying-failed: Doğru yoxlanıldı - yenidən cəhd etmək üçün buraya
+  vurun.
+ba-videoplayer-playbutton.skip: Keç
+ba-videoplayer-controlbar.trim-video: Kəsin
+ba-videorecorder.missing-track: Tələb olunan səs və ya video parçası yoxdur
+ba-imagecapture.uploading-failed: Yüklənmə başarısız oldu - yenidən cəhd etmək üçün
+  bura vurun.
+ba-videoplayer-adslot.skip-ad: Reklamı atlayın
+ba-videoplayer-adslot.volume-button: Həcmi seçin
+ba-videorecorder-chooser.record-audio: Record Audio
+ba-audiorecorder.audio_file_too_large: Sizin audio faylınız çox böyükdür (%s) - daha
+  kiçik bir audio faylı ilə yenidən cəhd etmək üçün buraya vurun.
+ba-imagecapture-chooser.image-capture: Şəkil çəkin
+ba-videorecorder.trim-prompt: Videonuzu kəsmək istəyirsiniz?
+ba-videorecorder.software-waiting: Qurulacaq / aktivləşdiriləcək tələbləri gözləyirəm.
+  Tamamlandıqdan sonra səhifəni yeniləmək lazımdır.
+ba-audioplayer-controlbar.play-audio: Oynamaq
+ba-videorecorder.browser-permission-denied: Brauzer tərəfindən icazə rədd edildi,
+  zəhmət olmasa giriş verin və səhifəni yenidən yükləyin
+ba-videoplayer-controlbar.pause-video: Videonu dayandır
+ba-videoplayer-adslot.volume-unmute: Səsin səsləndirilməsi
+ba-videorecorder-controlbar.resume-recorder: Yazıcıya davam edin
+ba-videoplayer-controlbar.submit-video: Videonu təsdiq et
+ba-videorecorder-controlbar.rerecord: Videonu yenidən yaz
+ba-videoplayer-share.share: Videonu paylaş
+ba-audioplayer-loader.tooltip: Yüklənir ...
+ba-imagecapture.unsupported_image_type: 'Xahiş edirik yükləyin: %s - yenidən cəhd
+  etmək üçün buraya vurun.'
+ba-videorecorder.uploading: Yüklənir
+ba-audiorecorder.verifying: Təsdiqləmə
+ba-videoplayer-playbutton.tooltip: Videoya baxmaq üçün basın.
+ba-audiorecorder-controlbar.microphonehealthy: Səs yaxşıdır
+ba-videorecorder.trim-video: Videonuzu düzəltmək üçün başlanğıc və bitmə işarələrini
+  hərəkət etdirin
+ba-videoplayer-controlbar.player-speed: Oyunçu sürəti
+ba-videorecorder-controlbar.microphonehealthy: Səs yaxşı eşidilir
+ba-videorecorder-chooser.multi-stream: Çox axın
+ba-imagecapture.recorder-error: Xəta baş verdi. Xahiş edirik bir az sonra yenidən
+  cəhd edin. Yenidən cəhd etmək üçün basın.
+ba-videorecorder-controlbar.stop-tooltip: Dayandırmaq üçün basın.
+ba-audiorecorder-controlbar.rerecord-tooltip: Yenidən yerinə yetirmək üçün buraya
+  basın.
+ba-imagecapture-controlbar.rerecord-tooltip: Yenidən yerinə yetirmək üçün buraya basın.
+ba-videorecorder-chooser.record-screen: Səs ekranı
+ba-videoplayer.all-settings: Bütün parametrlər
+ba-videoplayer-controlbar.select-frame: Seçin
+ba-imagecapture.resolution-constraint-error: Seçdiyiniz fayl, lazımi qətnamə ilə uyğun
+  gəlmir - yenidən cəhd etmək üçün bura vurun.
+ba-videoplayer-controlbar.video-progress: Videonun davamiyyəti
+ba-videorecorder-controlbar.cameraunhealthy: İşıqlandırma optimal deyil
+ba-audioplayer-controlbar.pause-audio: Pauza
+ba-videorecorder-controlbar.stop: Dayandırmaq
+ba-audiorecorder-controlbar.stop-tooltip: Durmaq üçün bura vurun.
+ba-videorecorder-controlbar.microphoneunhealthy: Mikrofonun səsi eşidilmir
+ba-imagecapture-chooser.upload-image: Şəkil yükləyin
+ba-videorecorder-imagegallery.upload-covershot: Qapağı yükləyin
+ba-audiorecorder-controlbar.resume-recorder: Recume Recume
+ba-audiorecorder-controlbar.stop: Dur
+ba-videoplayer.video-error: Xəta baş vermişdir. Xahiş edirik bir az sonra yenidən
+  cəhd edin. Yenidən yoxlamaq üçün basın.
+ba-videorecorder.attach-error: Kamera görüntüsünü əldə etmək mümkün olmadı. Sizin
+  istifadə etdiyiniz cihazdan və brauzerdən asılı olaraq siz ya Flash proqramı yüklənməli
+  və ya veb səhifəyə SSL ilə daxil olmalısız.
+ba-audiorecorder-controlbar.pause-recorder: Yazıcıyı durdurun
+ba-videorecorder.rerecord-confirm: Siz, həqiqətən, videonu yenidən yazmaq istəyirsiniz?
+ba-audiorecorder-controlbar.stop-available-after: Minimum qeydiyyatdan keçmə müddəti
+  %d saniyədir
+ba-videoplayer-controlbar.change-resolution: Görüntünün keyfiyyətini dəyiş
+ba-audiorecorder.software-required: Davam etmək üçün aşağıdakı tələbləri qurmaq /
+  aktivləşdirmək üçün aşağıya basın.
+ba-videoplayer-controlbar.exit-fullscreen-video: Tam ekran rejimindən çıxış
+ba-imageviewer-controlbar.rerecord-image: Redo?
+ba-videoplayer-adslot.ad-will-end-after: Reklam %s sonra sona çatacaq
+ba-imagecapture.rerecord-confirm: Həqiqətən resminizi bərpa etmək istəyirsiniz?
+ba-audioplayer-controlbar.elapsed-time: Keçən vaxt
+ba-videoplayer-controlbar.close-tracks: CC'yi bağlayın
+ba-videorecorder-controlbar.upload-covershot: Yüklə
+ba-audioplayer-controlbar.rerecord-audio: Redo?
+ba-videorecorder.orientation-landscape-required: Landşaft rejimində qeyd etmək üçün
+  cihazınızı döndərin.
+ba-imagecapture.verifying: Təsdiqləmə
+ba-imageviewer-controlbar.submit-image: Təsdiq edin
+ba-imagecapture-controlbar.cancel-tooltip: Ləğv etmək üçün buraya basın.
+ba-imagecapture.software-waiting: Qurulacaq / aktivləşdiriləcək tələbləri gözləyirəm.
+  Tamamlandıqdan sonra səhifəni yeniləmək lazımdır.
+ba-imageviewer-controlbar.exit-fullscreen-image: Tam ekrandan çıxın
+ba-videorecorder.verifying-failed: Yoxlama uğursuzluqla bitdi - təkrar üçün buraya
+  basın.
+ba-videorecorder-controlbar.upload-covershot-tooltip: Üzlük şəkli yükləmək üçün basın
+ba-common-settingsmenu.set-menu-option: Seçimi seçin
+ba-common-settingsmenu.exit-fullscreen-video: Tam ekrandan çıxın
+ba-videorecorder.framerate-warning: Video çərçivəsi dərəcəsi çox aşağıdır. Bütün digər
+  proqramları və brauzer nişanlarını bağlamaq və ya daha sürətli bir kompüter istifadə
+  etmək üçün gəlir.
+ba-videorecorder.switch-camera: Kameranı dəyişin
+ba-audioplayer-controlbar.volume-button: Həcmi seçin
+ba-videorecorder.uploading-failed: Yüklənmə zamanı xəta baş verdi, təkrar etmək üçün
+  buraya basın.
+ba-videoplayer-playbutton.trim: Kəsin
+ba-videorecorder-chooser.upload-video: Videonu yüklə
+ba-audioplayer-controlbar.volume-unmute: Səsin səsləndirilməsi
+ba-audiorecorder-controlbar.record: Record
+ba-videorecorder.software-required: Davam etmək üçün aşağıdakı tələbləri qurmaq /
+  aktivləşdirmək üçün aşağıya basın.
+ba-audiorecorder.verifying-failed: Doğru yoxlanıldı - yenidən cəhd etmək üçün buraya
+  vurun.
+ba-videorecorder-controlbar.stream-already-selected: Əlavə axın artıq seçilib
+ba-videorecorder.upload-error-duration: Yüklənmiş videonun uzunluğu tələblərə cavab
+  vermir - yenidən cəhd etmək üçün buraya vurun.
+ba-common-settingsmenu.player-speed: Oyunçu sürəti
+ba-audiorecorder-controlbar.settings: Ayarlar
+ba-videoplayer-controlbar.play-video: Videonu göstər
+ba-videoplayer-tracks.upload-text-tracks: Track mətn fayllarını yükləyin
+ba-videorecorder-controlbar.skip-tooltip: Nəzərə almadan keçmək üçün basın.
+ba-videoplayer-adslot.elapsed-time: Keçən vaxt
+ba-videoplayer-controlbar.rerecord-video: Video yenidən yazılsın?
+ba-videoplayer-controlbar.remaining-time: Qalan vaxt
+ba-imagecapture-controlbar.record-tooltip: Tutmaq üçün bura vurun.
+ba-videorecorder.device-already-in-use: Giriş cihazlarınızdan ən azı biri artıq istifadədədir
+ba-videorecorder.recorder-error: Xəta baş verdi. Xahiş edirik bir az sonra yenidən
+  cəhd edin. Yenidən yoxlamaq üçün basın.
+ba-audioplayer-controlbar.volume-mute: Səs səsi
+ba-audiorecorder-chooser.upload-audio: Audio yüklə
+ba-imagecapture.upload-error-duration: Yüklənən görüntünün uzunluğu tələbləri ödəmir
+  - yenidən cəhd etmək üçün buraya vurun.
+ba-audiorecorder.attach-error: Media mediasına daxil ola bilmədi. Qurğu və brauzerdən
+  asılı olaraq, Flash-u yükləmək və ya SSL vasitəsilə səhifəyə daxil olmanız tələb
+  oluna bilər.
+ba-audiorecorder-controlbar.cancel: Ləğv et
+ba-videoplayer-controlbar.airplay-icon: Airplay simgesi.
+ba-videorecorder.prepare-covershot: Şişirtmələrin hazırlanması
+ba-videoplayer.player-speed: Oyunçu sürəti
+ba-videorecorder.verifying: Yoxlama
+ba-videoplayer-controlbar.fullscreen-video: Tam ekran edin
+ba-audiorecorder.uploading-failed: Yüklənmə başarısız oldu - yenidən cəhd etmək üçün
+  bura vurun.
+ba-videorecorder.unsupported_video_type: 'Yükləyin: %s - yenidən yoxlamaq üçün buraya
+  basın.'
+ba-videorecorder-chooser.record-video: Videonu yaz
+ba-videoplayer-playbutton.submit-video: Videonu təsdiq et
+ba-audioplayer-controlbar.total-time: Ümumi uzunluğu
+ba-videorecorder.prepare-thumbnails: Kiçik axtarmağa hazırlaşmaq
+ba-videorecorder.screen-recorder-is-not-supported: Ekran qeyd cihazı bu cihazda dəstəklənmir
+ba-videoplayer-controlbar.airplay: Airplay
+ba-videoplayer-tracks.back: geri
+ba-videorecorder.access-forbidden: Kamera görüntüsünə icazə verilmədi. Yenidən yoxlamaq
+  üçün basın.
+ba-videoplayer-adslot.volume-mute: Səs səsi
+ba-videorecorder.pick-covershot-frame: Örtük şəklində istifadə etmək üçün bir çərçivə
+  seçin.
+ba-audioplayer-controlbar.audio-progress: Tərəqqi
+ba-imageviewer.image-error: Xəta baş verdi. Xahiş edirik bir az sonra yenidən cəhd
+  edin. Yenidən cəhd etmək üçün basın.
+ba-audioplayer-controlbar.pause-audio-disabled: Pauza dəstəklənmir
+ba-videorecorder.resolution-constraint-error: Seçdiyiniz fayl lazımi qətnaməyə uyğun
+  deyil - yenidən cəhd etmək üçün buraya vurun.
+ba-videorecorder-controlbar.pause-recorder: Yazıcıyı dayandırın
+ba-imagecapture-controlbar.cameraunhealthy: İşıqlandırma optimal deyil
+ba-common-settingsmenu.source-quality: Mənbə keyfiyyəti
+ba-imagecapture.orientation-portrait-required: Portret rejimində qeyd etmək üçün cihazınızı
+  döndərin.
+ba-videoplayer-controlbar.total-time: Videonu tam uzunluğu
+ba-videorecorder-controlbar.rerecord-tooltip: Yenidən yazmaq üçün basın.
+ba-videorecorder.orientation-portrait-required: Portret rejimində qeyd etmək üçün
+  cihazınızı döndərin.
+ba-audiorecorder-chooser.record-audio: Record Audio
+ba-videoplayer-controlbar.volume-mute: Səssiz et
+ba-videorecorder.pick-covershot: Üzlük şəklini seçin.
+ba-audiorecorder-controlbar.microphoneunhealthy: Heç bir səs ala bilmir
+ba-videorecorder-controlbar.no-video-source: Əlavə video giriş mənbəyi yoxdur
+ba-common-settingsmenu.fullscreen-video: Tam ekrana daxil olun
+ba-audiorecorder.access-forbidden: KİV-ə giriş qadağandır. Yenidən cəhd etmək üçün
+  basın.
+ba-imagecapture-controlbar.rerecord: Redo
+ba-audiorecorder.recorder-error: Xəta baş verdi. Xahiş edirik bir az sonra yenidən
+  cəhd edin. Yenidən cəhd etmək üçün basın.
+ba-videoplayer-tracks.select-text-track-file: Fayl seçmək üçün basın
+ba-videorecorder-controlbar.skip: Nəzərə alma
+ba-imagecapture.software-required: Davam etmək üçün aşağıdakı tələbləri qurmaq / aktivləşdirmək
+  üçün aşağıya basın.
+ba-videorecorder.uploading-src-error: Videonu indi oxutmaq mümkün deyil, yükləmə hələ
+  də davam edir
+ba-videoplayer-controlbar.volume-unmute: Səsli et
+ba-videoplayer-controlbar.volume-button: Səs düyməsi
+ba-imagecapture.attach-error: Media mediasına daxil ola bilmədi. Qurğu və brauzerdən
+  asılı olaraq, Flash-u yükləmək və ya SSL vasitəsilə səhifəyə daxil olmanız tələb
+  oluna bilər.
+ba-audiorecorder.uploading: Yüklənmə
+ba-audiorecorder.unsupported_audio_type: 'Xahiş edirik yükləyin: %s - yenidən cəhd
+  etmək üçün buraya vurun.'
+ba-imagecapture-controlbar.settings: Ayarlar
+ba-videorecorder-controlbar.record: Yazmaq
+ba-videorecorder.adding-new-stream: Yeni axın əlavə et

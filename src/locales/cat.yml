@@ -1,251 +1,245 @@
-'language:cat':
-  ba-videoplayer-playbutton.tooltip: Feu clic per veure el vídeo.
-  ba-videoplayer-playbutton.rerecord: refer
-  ba-videoplayer-playbutton.submit-video: confirmar vídeo
-  ba-videoplayer-loader.tooltip: Carregant vídeo ...
-  ba-videoplayer-controlbar.change-resolution: Canviar la resolució
-  ba-videoplayer-controlbar.video-progress: el progrés de vídeo
-  ba-videoplayer-controlbar.rerecord-video: Torneu a fer el vídeo?
-  ba-videoplayer-controlbar.submit-video: confirmar vídeo
-  ba-videoplayer-controlbar.play-video: reproducció de vídeo
-  ba-videoplayer-controlbar.pause-video: pausa de vídeo
-  ba-videoplayer-controlbar.elapsed-time: Temps transcorregut
-  ba-videoplayer-controlbar.total-time: Durada total de vídeo
-  ba-videoplayer-controlbar.fullscreen-video: Introduïu a pantalla completa
-  ba-videoplayer-controlbar.volume-button: volum de sèries
-  ba-videoplayer-controlbar.volume-mute: silenciar so
-  ba-videoplayer-controlbar.volume-unmute: activar so
-  ba-videoplayer.video-error: >-
-    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
-    tornar a intentar-ho.
-  ba-videorecorder-chooser.record-video: Gravar el vídeo
-  ba-videorecorder-chooser.upload-video: Pujar vídeo
-  ba-videorecorder-controlbar.settings: ajustos
-  ba-videorecorder-controlbar.camerahealthy: La il·luminació és bona
-  ba-videorecorder-controlbar.cameraunhealthy: La il·luminació no és òptima
-  ba-videorecorder-controlbar.microphonehealthy: El so és bo
-  ba-videorecorder-controlbar.microphoneunhealthy: No es pot recollir qualsevol so
-  ba-videorecorder-controlbar.record: registre
-  ba-videorecorder-controlbar.record-tooltip: Feu clic aquí per gravar.
-  ba-videorecorder-controlbar.rerecord: refer
-  ba-videorecorder-controlbar.rerecord-tooltip: Cliqueu aquí per fer de nou.
-  ba-videorecorder-controlbar.upload-covershot: Pujar
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Feu clic aquí per pujar foto de portada personalitzada
-  ba-videorecorder-controlbar.stop: aturar
-  ba-videorecorder-controlbar.stop-tooltip: Feu clic aquí per aturar.
-  ba-videorecorder-controlbar.skip: Omet
-  ba-videorecorder-controlbar.skip-tooltip: Feu clic aquí per saltar.
-  ba-videorecorder.recorder-error: >-
-    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
-    tornar a intentar-ho.
-  ba-videorecorder.attach-error: >-
-    No hem pogut accedir a la interfície de la càmera. En funció del dispositiu
-    i del navegador, és possible que hagi de instal · lar Flash o accedir a la
-    pàgina a través de SSL.
-  ba-videorecorder.access-forbidden: Estava prohibit l'accés a la càmera. Feu clic per tornar a intentar-ho.
-  ba-videorecorder.pick-covershot: Tria una covershot.
-  ba-videorecorder.uploading: pujant
-  ba-videorecorder.uploading-failed: Càrrega fallat - fer clic aquí per tornar a intentar-ho.
-  ba-videorecorder.verifying: verificant
-  ba-videorecorder.verifying-failed: fallat la verificació de - fer clic aquí per tornar a intentar-ho.
-  ba-videorecorder.rerecord-confirm: De veritat vol tornar a fer el vídeo?
-  ba-videorecorder.video_file_too_large: >-
-    L'arxiu de vídeo és massa gran (%s) - fer clic aquí per tornar a intentar-ho
-    amb un arxiu de vídeo més petita.
-  ba-videorecorder.unsupported_video_type: 'Si us plau, puja: %s - fer clic aquí per tornar a intentar-ho.'
-  ba-videoplayer-controlbar.exit-fullscreen-video: Surt de la pantalla completa
-  ba-videoplayer-share.share: compartir vídeo
-  ba-videorecorder-chooser.record-screen: Pantalla de registre
-  ba-videoplayer-controlbar.pause-video-disabled: Pausa no és compatible
-  ba-videorecorder-chooser.record-audio: Enregistrament d'àudio
-  ba-videorecorder-controlbar.stop-available-after: El temps d'enregistrament mínim és %d segons
-  ba-videorecorder-controlbar.cancel: Cancel · lar
-  ba-videorecorder-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
-  ba-videorecorder.cancel-confirm: Realment vols cancel·lar la càrrega del teu vídeo?
-  ba-videoplayer-adslot.elapsed-time: Temps transcorregut
-  ba-videoplayer-adslot.volume-button: Estableix el volum
-  ba-videoplayer-adslot.volume-mute: Silenciar el so
-  ba-videoplayer-adslot.volume-unmute: Silenciar el so
-  ba-videoplayer-adslot.ad-will-end-after: L'anunci finalitzarà després de %s
-  ba-videoplayer-adslot.can-skip-after: Passa després de %d
-  ba-videoplayer-adslot.skip-ad: Saltar anunci
-  ba-videorecorder.software-required: >-
-    Feu clic a sota per instal·lar / activar els requisits següents per
-    continuar.
-  ba-videorecorder.software-waiting: >-
-    Esperant que s'instal·lin / activin els requisits. És possible que hàgiu
-    d'actualitzar la pàgina una vegada finalitzada.
-  ba-videoplayer-controlbar.close-tracks: Tanca CC
-  ba-videoplayer-controlbar.show-tracks: Mostra CC
-  ba-videoplayer-tracks.upload-text-tracks: Penja fitxers de text de la pista
-  ba-videoplayer-tracks.select-text-track-language: Llenguatge de subtítols
-  ba-videoplayer-tracks.info-select-locale-first: Primer seleccioneu la configuració regional
-  ba-videoplayer-tracks.select-text-track-file: Feu clic per seleccionar el fitxer
-  ba-videoplayer-tracks.back: esquena
-  ba-videorecorder.framerate-warning: >-
-    La velocitat de marc de vídeo és molt baixa. Recomanem tancar tots els
-    altres programes i pestanyes del navegador o utilitzar una computadora més
-    ràpida.
-  ba-videorecorder.upload-error-duration: >-
-    La durada del vídeo carregat no compleix els requisits: feu clic aquí per
-    tornar-ho a provar.
-  ba-videorecorder.resolution-constraint-error: >-
-    El fitxer que heu seleccionat no coincideix amb la resolució necessària: feu
-    clic aquí per tornar-ho a provar.
-  ba-videorecorder.orientation-portrait-required: Gireu el dispositiu per gravar en mode vertical.
-  ba-videorecorder.orientation-landscape-required: Gireu el dispositiu per gravar en mode horitzontal.
-  ba-imageviewer-controlbar.rerecord-image: Redo?
-  ba-imageviewer-controlbar.submit-image: Confirma
-  ba-imageviewer-controlbar.fullscreen-image: Introduïu la pantalla completa
-  ba-imageviewer-controlbar.exit-fullscreen-image: Sortir de pantalla completa
-  ba-imageviewer.image-error: >-
-    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
-    tornar-ho a intentar.
-  ba-imagecapture-chooser.image-capture: Imatge de captura
-  ba-imagecapture-chooser.upload-image: Penja la imatge
-  ba-imagecapture-controlbar.settings: Configuració
-  ba-imagecapture-controlbar.camerahealthy: La il·luminació és bona
-  ba-imagecapture-controlbar.cameraunhealthy: La il·luminació no és òptima
-  ba-imagecapture-controlbar.record: Captura
-  ba-imagecapture-controlbar.record-tooltip: Feu clic aquí per capturar.
-  ba-imagecapture-controlbar.rerecord: Redo
-  ba-imagecapture-controlbar.rerecord-tooltip: Feu clic aquí per tornar a fer-ho.
-  ba-imagecapture-controlbar.cancel: Cancel · lar
-  ba-imagecapture-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
-  ba-audioplayer-controlbar.audio-progress: 'Progrés, progressar'
-  ba-audioplayer-controlbar.rerecord-audio: Redo?
-  ba-audioplayer-controlbar.submit-audio: Confirma
-  ba-audioplayer-controlbar.play-audio: Jugar
-  ba-audioplayer-controlbar.pause-audio: Pausa
-  ba-audioplayer-controlbar.pause-audio-disabled: Pausa no és compatible
-  ba-audioplayer-controlbar.elapsed-time: Temps transcorregut
-  ba-audioplayer-controlbar.total-time: Durada total de
-  ba-audioplayer-controlbar.volume-button: Estableix el volum
-  ba-audioplayer-controlbar.volume-mute: Silenciar el so
-  ba-audioplayer-controlbar.volume-unmute: Silenciar el so
-  ba-audioplayer-loader.tooltip: S'està carregant ...
-  ba-audioplayer.audio-error: >-
-    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
-    tornar-ho a intentar.
-  ba-audiorecorder-chooser.record-audio: Enregistrament d'àudio
-  ba-audiorecorder-chooser.upload-audio: Penja l'àudio
-  ba-audiorecorder-controlbar.settings: Configuració
-  ba-audiorecorder-controlbar.microphonehealthy: El so és bo
-  ba-audiorecorder-controlbar.microphoneunhealthy: No es pot recuperar cap so
-  ba-audiorecorder-controlbar.record: Registre
-  ba-audiorecorder-controlbar.record-tooltip: Feu clic aquí per registrar.
-  ba-audiorecorder-controlbar.rerecord: Redo
-  ba-audiorecorder-controlbar.rerecord-tooltip: Feu clic aquí per tornar a fer-ho.
-  ba-audiorecorder-controlbar.stop: Aturar
-  ba-audiorecorder-controlbar.stop-tooltip: Feu clic aquí per aturar.
-  ba-audiorecorder-controlbar.stop-available-after: El temps d'enregistrament mínim és %d segons
-  ba-audiorecorder-controlbar.cancel: Cancel · lar
-  ba-audiorecorder-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
-  ba-videoplayer-controlbar.player-speed: Velocitat del jugador
-  ba-videoplayer-controlbar.settings: Configuració
-  ba-videoplayer-controlbar.airplay: Airplay
-  ba-videoplayer-controlbar.airplay-icon: Icona Airplay.
-  ba-videoplayer.all-settings: Tots els paràmetres
-  ba-videoplayer.player-speed: Velocitat del jugador
-  ba-videoplayer.full-screen: Pantalla completa
-  ba-videorecorder-controlbar.add-stream: Afegeix corrent
-  ba-videorecorder.switch-camera: Canvia la càmera
-  ba-videorecorder.prepare-covershot: Preparació de captures de pantalla
-  ba-videorecorder.prepare-thumbnails: Preparant la cerca de miniatures
-  ba-videorecorder.adding-new-stream: Addició de corrent nova
-  ba-imagecapture.recorder-error: >-
-    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
-    tornar a provar.
-  ba-imagecapture.attach-error: >-
-    No hem pogut accedir a la interfície multimèdia. Depenent del dispositiu i
-    del navegador, és possible que hagueu d'instal·lar Flash o accedir a la
-    pàgina mitjançant SSL.
-  ba-imagecapture.software-required: >-
-    Per continuar, feu clic a continuació per instal·lar / activar els següents
-    requisits.
-  ba-imagecapture.software-waiting: >-
-    S’espera que s’instal·lin / activin els requisits. Potser haureu
-    d’actualitzar la pàgina un cop finalitzada.
-  ba-imagecapture.access-forbidden: >-
-    L’accés als mitjans de comunicació estava prohibit. Feu clic per tornar a
-    provar.
-  ba-imagecapture.uploading: Càrrega
-  ba-imagecapture.uploading-failed: 'Ha fallat la càrrega: feu clic aquí per tornar-ho a provar.'
-  ba-imagecapture.upload-error-duration: >-
-    La longitud de la imatge carregada no compleix els requisits: feu clic aquí
-    per tornar-ho a provar.
-  ba-imagecapture.resolution-constraint-error: >-
-    El fitxer que heu seleccionat no coincideix amb la resolució necessària: feu
-    clic aquí per tornar-ho a provar.
-  ba-imagecapture.verifying: Verificació
-  ba-imagecapture.verifying-failed: 'Verificació fallida: feu clic aquí per tornar-ho a provar.'
-  ba-imagecapture.rerecord-confirm: Segur que voleu reprendre la vostra imatge?
-  ba-imagecapture.image_file_too_large: >-
-    El vostre fitxer d'imatge és massa gran (%s): feu clic aquí per tornar-ho a
-    provar amb un fitxer d'imatge més petit.
-  ba-imagecapture.unsupported_image_type: 'Pengeu: %s: feu clic aquí per tornar-ho a provar.'
-  ba-imagecapture.orientation-portrait-required: Gireu el dispositiu per gravar en mode vertical.
-  ba-imagecapture.orientation-landscape-required: Gireu el dispositiu per gravar en mode horitzontal.
-  ba-audiorecorder.recorder-error: >-
-    Hi ha hagut un error. Siusplau, torni a intentar-ho més tard. Feu clic per
-    tornar a provar.
-  ba-audiorecorder.attach-error: >-
-    No hem pogut accedir a la interfície multimèdia. Depenent del dispositiu i
-    del navegador, és possible que hagueu d'instal·lar Flash o accedir a la
-    pàgina mitjançant SSL.
-  ba-audiorecorder.software-required: >-
-    Per continuar, feu clic a continuació per instal·lar / activar els següents
-    requisits.
-  ba-audiorecorder.software-waiting: >-
-    S’espera que s’instal·lin / activin els requisits. Potser haureu
-    d’actualitzar la pàgina un cop finalitzada.
-  ba-audiorecorder.access-forbidden: >-
-    L’accés als mitjans de comunicació estava prohibit. Feu clic per tornar a
-    provar.
-  ba-audiorecorder.uploading: Càrrega
-  ba-audiorecorder.uploading-failed: 'Ha fallat la càrrega: feu clic aquí per tornar-ho a provar.'
-  ba-audiorecorder.upload-error-duration: >-
-    La durada de l’àudio carregat no compleix els requisits: feu clic aquí per
-    tornar-ho a provar.
-  ba-audiorecorder.verifying: Verificació
-  ba-audiorecorder.verifying-failed: 'Verificació fallida: feu clic aquí per tornar-ho a provar.'
-  ba-audiorecorder.rerecord-confirm: Esteu segur que voleu referir l’àudio?
-  ba-audiorecorder.cancel-confirm: Segur que voleu cancel·lar la càrrega d’àudio?
-  ba-audiorecorder.audio_file_too_large: >-
-    El vostre fitxer d’àudio és massa gran (%s): feu clic aquí per tornar-ho a
-    provar amb un fitxer d’àudio més petit.
-  ba-audiorecorder.unsupported_audio_type: 'Pengeu: %s: feu clic aquí per tornar-ho a provar.'
-  ba-common-settingsmenu.tooltip: Feu clic per jugar.
-  ba-common-settingsmenu.setting-menu: Tots els paràmetres
-  ba-common-settingsmenu.source-quality: Qualitat de la font
-  ba-common-settingsmenu.player-speed: Velocitat del jugador
-  ba-common-settingsmenu.set-menu-option: Estableix l'opció
-  ba-common-settingsmenu.submit-video: Confirmeu el vídeo
-  ba-common-settingsmenu.picture-in-picture: Imatge en imatge
-  ba-common-settingsmenu.exit-fullscreen-video: Surt de la pantalla completa
-  ba-common-settingsmenu.fullscreen-video: Introduïu la pantalla completa
-  ba-videorecorder-chooser.multi-stream: Multitransmissió
-  ba-videorecorder-controlbar.pause-recorder: Grava en pausa
-  ba-videorecorder-controlbar.resume-recorder: Reprèn la gravadora
-  ba-videorecorder.missing-track: Falta la pista d’àudio o vídeo requerida
-  ba-videorecorder.device-already-in-use: Almenys un dels vostres dispositius d'entrada ja està en ús
-  ba-videorecorder.browser-permission-denied: >-
-    El navegador ha denegat el permís, concediu accés i torneu a carregar la
-    pàgina
-  ba-audioplayer.all-settings: Tots els paràmetres
-  ba-videoplayer-controlbar.remaining-time: Temps restant
-  ba-videoplayer-controlbar.select-frame: Seleccioneu
-  ba-videoplayer-controlbar.trim-video: Retallar
-  ba-videoplayer-playbutton.trim: Retallar
-  ba-videoplayer-playbutton.skip: Omet
-  ba-videorecorder-imagegallery.upload-covershot: Carrega la portada
-  ba-videorecorder.pick-covershot-frame: Seleccioneu un marc per utilitzar-lo com a captura de pantalla.
-  ba-videorecorder.screen-recorder-is-not-supported: La gravadora de pantalla no és compatible amb aquest dispositiu
-  ba-videorecorder.trim-prompt: Voleu retallar el vostre vídeo?
-  ba-videorecorder.trim-video: Mou els marcadors d’inici i de finalització per retallar el vídeo
-  ba-videorecorder.wait-for-trim: S'està esperant l'ordre de retallada ...
-  ba-videorecorder-controlbar.no-video-source: Falta una font d’entrada de vídeo addicional
-  ba-videorecorder-controlbar.stream-already-selected: Ja s'ha seleccionat un flux addicional
-  ba-videorecorder.uploading-src-error: Ara no es pot reproduir el vídeo; la càrrega encara està en curs
-  ba-audiorecorder-controlbar.pause-recorder: Grava en pausa
-  ba-audiorecorder-controlbar.resume-recorder: Reprèn la gravadora
+ba-imagecapture.uploading: Càrrega
+ba-audiorecorder.upload-error-duration: 'La durada de l’àudio carregat no compleix
+  els requisits: feu clic aquí per tornar-ho a provar.'
+ba-common-settingsmenu.tooltip: Feu clic per jugar.
+ba-videorecorder.wait-for-trim: S'està esperant l'ordre de retallada ...
+ba-common-settingsmenu.setting-menu: Tots els paràmetres
+ba-videorecorder-controlbar.settings: ajustos
+ba-imagecapture.access-forbidden: L’accés als mitjans de comunicació estava prohibit.
+  Feu clic per tornar a provar.
+ba-imagecapture-controlbar.cancel: Cancel · lar
+ba-videorecorder.video_file_too_large: L'arxiu de vídeo és massa gran (%s) - fer clic
+  aquí per tornar a intentar-ho amb un arxiu de vídeo més petita.
+ba-videoplayer-controlbar.settings: Configuració
+ba-videorecorder-controlbar.add-stream: Afegeix corrent
+ba-videorecorder-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
+ba-imageviewer-controlbar.fullscreen-image: Introduïu la pantalla completa
+ba-audioplayer.audio-error: Hi ha hagut un error. Siusplau, torni a intentar-ho més
+  tard. Feu clic per tornar-ho a intentar.
+ba-imagecapture.image_file_too_large: 'El vostre fitxer d''imatge és massa gran (%s):
+  feu clic aquí per tornar-ho a provar amb un fitxer d''imatge més petit.'
+ba-videoplayer-controlbar.show-tracks: Mostra CC
+ba-imagecapture.orientation-landscape-required: Gireu el dispositiu per gravar en
+  mode horitzontal.
+ba-videoplayer.full-screen: Pantalla completa
+ba-videoplayer-controlbar.pause-video-disabled: Pausa no és compatible
+ba-videorecorder.cancel-confirm: Realment vols cancel·lar la càrrega del teu vídeo?
+ba-videorecorder-controlbar.camerahealthy: La il·luminació és bona
+ba-common-settingsmenu.submit-video: Confirmeu el vídeo
+ba-videorecorder-controlbar.record-tooltip: Feu clic aquí per gravar.
+ba-videorecorder-controlbar.cancel: Cancel · lar
+ba-common-settingsmenu.picture-in-picture: Imatge en imatge
+ba-audiorecorder-controlbar.rerecord: Redo
+ba-audiorecorder.rerecord-confirm: Esteu segur que voleu referir l’àudio?
+ba-videoplayer-playbutton.rerecord: refer
+ba-videoplayer-tracks.select-text-track-language: Llenguatge de subtítols
+ba-videoplayer-adslot.can-skip-after: Passa després de %d
+ba-audiorecorder.cancel-confirm: Segur que voleu cancel·lar la càrrega d’àudio?
+ba-videoplayer-controlbar.elapsed-time: Temps transcorregut
+ba-videorecorder-controlbar.stop-available-after: El temps d'enregistrament mínim
+  és %d segons
+ba-audioplayer.all-settings: Tots els paràmetres
+ba-imagecapture-controlbar.camerahealthy: La il·luminació és bona
+ba-imagecapture-controlbar.record: Captura
+ba-audiorecorder.software-waiting: S’espera que s’instal·lin / activin els requisits.
+  Potser haureu d’actualitzar la pàgina un cop finalitzada.
+ba-videoplayer-tracks.info-select-locale-first: Primer seleccioneu la configuració
+  regional
+ba-videoplayer-loader.tooltip: Carregant vídeo ...
+ba-audiorecorder-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
+ba-audiorecorder-controlbar.record-tooltip: Feu clic aquí per registrar.
+ba-audioplayer-controlbar.submit-audio: Confirma
+ba-imagecapture.verifying-failed: 'Verificació fallida: feu clic aquí per tornar-ho
+  a provar.'
+ba-videoplayer-playbutton.skip: Omet
+ba-videoplayer-controlbar.trim-video: Retallar
+ba-videorecorder.missing-track: Falta la pista d’àudio o vídeo requerida
+ba-imagecapture.uploading-failed: 'Ha fallat la càrrega: feu clic aquí per tornar-ho
+  a provar.'
+ba-videoplayer-adslot.skip-ad: Saltar anunci
+ba-videoplayer-adslot.volume-button: Estableix el volum
+ba-videorecorder-chooser.record-audio: Enregistrament d'àudio
+ba-audiorecorder.audio_file_too_large: 'El vostre fitxer d’àudio és massa gran (%s):
+  feu clic aquí per tornar-ho a provar amb un fitxer d’àudio més petit.'
+ba-imagecapture-chooser.image-capture: Imatge de captura
+ba-videorecorder.trim-prompt: Voleu retallar el vostre vídeo?
+ba-videorecorder.software-waiting: Esperant que s'instal·lin / activin els requisits.
+  És possible que hàgiu d'actualitzar la pàgina una vegada finalitzada.
+ba-audioplayer-controlbar.play-audio: Jugar
+ba-videorecorder.browser-permission-denied: El navegador ha denegat el permís, concediu
+  accés i torneu a carregar la pàgina
+ba-videoplayer-controlbar.pause-video: pausa de vídeo
+ba-videoplayer-adslot.volume-unmute: Silenciar el so
+ba-videorecorder-controlbar.resume-recorder: Reprèn la gravadora
+ba-videoplayer-controlbar.submit-video: confirmar vídeo
+ba-videorecorder-controlbar.rerecord: refer
+ba-videoplayer-share.share: compartir vídeo
+ba-audioplayer-loader.tooltip: S'està carregant ...
+ba-imagecapture.unsupported_image_type: 'Pengeu: %s: feu clic aquí per tornar-ho a
+  provar.'
+ba-videorecorder.uploading: pujant
+ba-audiorecorder.verifying: Verificació
+ba-videoplayer-playbutton.tooltip: Feu clic per veure el vídeo.
+ba-audiorecorder-controlbar.microphonehealthy: El so és bo
+ba-videorecorder.trim-video: Mou els marcadors d’inici i de finalització per retallar
+  el vídeo
+ba-videoplayer-controlbar.player-speed: Velocitat del jugador
+ba-videorecorder-controlbar.microphonehealthy: El so és bo
+ba-videorecorder-chooser.multi-stream: Multitransmissió
+ba-imagecapture.recorder-error: Hi ha hagut un error. Siusplau, torni a intentar-ho
+  més tard. Feu clic per tornar a provar.
+ba-videorecorder-controlbar.stop-tooltip: Feu clic aquí per aturar.
+ba-audiorecorder-controlbar.rerecord-tooltip: Feu clic aquí per tornar a fer-ho.
+ba-imagecapture-controlbar.rerecord-tooltip: Feu clic aquí per tornar a fer-ho.
+ba-videorecorder-chooser.record-screen: Pantalla de registre
+ba-videoplayer.all-settings: Tots els paràmetres
+ba-videoplayer-controlbar.select-frame: Seleccioneu
+ba-imagecapture.resolution-constraint-error: 'El fitxer que heu seleccionat no coincideix
+  amb la resolució necessària: feu clic aquí per tornar-ho a provar.'
+ba-videoplayer-controlbar.video-progress: el progrés de vídeo
+ba-videorecorder-controlbar.cameraunhealthy: La il·luminació no és òptima
+ba-audioplayer-controlbar.pause-audio: Pausa
+ba-videorecorder-controlbar.stop: aturar
+ba-audiorecorder-controlbar.stop-tooltip: Feu clic aquí per aturar.
+ba-videorecorder-controlbar.microphoneunhealthy: No es pot recollir qualsevol so
+ba-imagecapture-chooser.upload-image: Penja la imatge
+ba-videorecorder-imagegallery.upload-covershot: Carrega la portada
+ba-audiorecorder-controlbar.resume-recorder: Reprèn la gravadora
+ba-audiorecorder-controlbar.stop: Aturar
+ba-videoplayer.video-error: Hi ha hagut un error. Siusplau, torni a intentar-ho més
+  tard. Feu clic per tornar a intentar-ho.
+ba-videorecorder.attach-error: No hem pogut accedir a la interfície de la càmera.
+  En funció del dispositiu i del navegador, és possible que hagi de instal · lar Flash
+  o accedir a la pàgina a través de SSL.
+ba-audiorecorder-controlbar.pause-recorder: Grava en pausa
+ba-videorecorder.rerecord-confirm: De veritat vol tornar a fer el vídeo?
+ba-audiorecorder-controlbar.stop-available-after: El temps d'enregistrament mínim
+  és %d segons
+ba-videoplayer-controlbar.change-resolution: Canviar la resolució
+ba-audiorecorder.software-required: Per continuar, feu clic a continuació per instal·lar
+  / activar els següents requisits.
+ba-videoplayer-controlbar.exit-fullscreen-video: Surt de la pantalla completa
+ba-imageviewer-controlbar.rerecord-image: Redo?
+ba-videoplayer-adslot.ad-will-end-after: L'anunci finalitzarà després de %s
+ba-imagecapture.rerecord-confirm: Segur que voleu reprendre la vostra imatge?
+ba-audioplayer-controlbar.elapsed-time: Temps transcorregut
+ba-videoplayer-controlbar.close-tracks: Tanca CC
+ba-videorecorder-controlbar.upload-covershot: Pujar
+ba-audioplayer-controlbar.rerecord-audio: Redo?
+ba-videorecorder.orientation-landscape-required: Gireu el dispositiu per gravar en
+  mode horitzontal.
+ba-imagecapture.verifying: Verificació
+ba-imageviewer-controlbar.submit-image: Confirma
+ba-imagecapture-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
+ba-imagecapture.software-waiting: S’espera que s’instal·lin / activin els requisits.
+  Potser haureu d’actualitzar la pàgina un cop finalitzada.
+ba-imageviewer-controlbar.exit-fullscreen-image: Sortir de pantalla completa
+ba-videorecorder.verifying-failed: fallat la verificació de - fer clic aquí per tornar
+  a intentar-ho.
+ba-videorecorder-controlbar.upload-covershot-tooltip: Feu clic aquí per pujar foto
+  de portada personalitzada
+ba-common-settingsmenu.set-menu-option: Estableix l'opció
+ba-common-settingsmenu.exit-fullscreen-video: Surt de la pantalla completa
+ba-videorecorder.framerate-warning: La velocitat de marc de vídeo és molt baixa. Recomanem
+  tancar tots els altres programes i pestanyes del navegador o utilitzar una computadora
+  més ràpida.
+ba-videorecorder.switch-camera: Canvia la càmera
+ba-audioplayer-controlbar.volume-button: Estableix el volum
+ba-videorecorder.uploading-failed: Càrrega fallat - fer clic aquí per tornar a intentar-ho.
+ba-videoplayer-playbutton.trim: Retallar
+ba-videorecorder-chooser.upload-video: Pujar vídeo
+ba-audioplayer-controlbar.volume-unmute: Silenciar el so
+ba-audiorecorder-controlbar.record: Registre
+ba-videorecorder.software-required: Feu clic a sota per instal·lar / activar els requisits
+  següents per continuar.
+ba-audiorecorder.verifying-failed: 'Verificació fallida: feu clic aquí per tornar-ho
+  a provar.'
+ba-videorecorder-controlbar.stream-already-selected: Ja s'ha seleccionat un flux addicional
+ba-videorecorder.upload-error-duration: 'La durada del vídeo carregat no compleix
+  els requisits: feu clic aquí per tornar-ho a provar.'
+ba-common-settingsmenu.player-speed: Velocitat del jugador
+ba-audiorecorder-controlbar.settings: Configuració
+ba-videoplayer-controlbar.play-video: reproducció de vídeo
+ba-videoplayer-tracks.upload-text-tracks: Penja fitxers de text de la pista
+ba-videorecorder-controlbar.skip-tooltip: Feu clic aquí per saltar.
+ba-videoplayer-adslot.elapsed-time: Temps transcorregut
+ba-videoplayer-controlbar.rerecord-video: Torneu a fer el vídeo?
+ba-videoplayer-controlbar.remaining-time: Temps restant
+ba-imagecapture-controlbar.record-tooltip: Feu clic aquí per capturar.
+ba-videorecorder.device-already-in-use: Almenys un dels vostres dispositius d'entrada
+  ja està en ús
+ba-videorecorder.recorder-error: Hi ha hagut un error. Siusplau, torni a intentar-ho
+  més tard. Feu clic per tornar a intentar-ho.
+ba-audioplayer-controlbar.volume-mute: Silenciar el so
+ba-audiorecorder-chooser.upload-audio: Penja l'àudio
+ba-imagecapture.upload-error-duration: 'La longitud de la imatge carregada no compleix
+  els requisits: feu clic aquí per tornar-ho a provar.'
+ba-audiorecorder.attach-error: No hem pogut accedir a la interfície multimèdia. Depenent
+  del dispositiu i del navegador, és possible que hagueu d'instal·lar Flash o accedir
+  a la pàgina mitjançant SSL.
+ba-audiorecorder-controlbar.cancel: Cancel · lar
+ba-videoplayer-controlbar.airplay-icon: Icona Airplay.
+ba-videorecorder.prepare-covershot: Preparació de captures de pantalla
+ba-videoplayer.player-speed: Velocitat del jugador
+ba-videorecorder.verifying: verificant
+ba-videoplayer-controlbar.fullscreen-video: Introduïu a pantalla completa
+ba-audiorecorder.uploading-failed: 'Ha fallat la càrrega: feu clic aquí per tornar-ho
+  a provar.'
+ba-videorecorder.unsupported_video_type: 'Si us plau, puja: %s - fer clic aquí per
+  tornar a intentar-ho.'
+ba-videorecorder-chooser.record-video: Gravar el vídeo
+ba-videoplayer-playbutton.submit-video: confirmar vídeo
+ba-audioplayer-controlbar.total-time: Durada total de
+ba-videorecorder.prepare-thumbnails: Preparant la cerca de miniatures
+ba-videorecorder.screen-recorder-is-not-supported: La gravadora de pantalla no és
+  compatible amb aquest dispositiu
+ba-videoplayer-controlbar.airplay: Airplay
+ba-videoplayer-tracks.back: esquena
+ba-videorecorder.access-forbidden: Estava prohibit l'accés a la càmera. Feu clic per
+  tornar a intentar-ho.
+ba-videoplayer-adslot.volume-mute: Silenciar el so
+ba-videorecorder.pick-covershot-frame: Seleccioneu un marc per utilitzar-lo com a
+  captura de pantalla.
+ba-audioplayer-controlbar.audio-progress: Progrés, progressar
+ba-imageviewer.image-error: Hi ha hagut un error. Siusplau, torni a intentar-ho més
+  tard. Feu clic per tornar-ho a intentar.
+ba-audioplayer-controlbar.pause-audio-disabled: Pausa no és compatible
+ba-videorecorder.resolution-constraint-error: 'El fitxer que heu seleccionat no coincideix
+  amb la resolució necessària: feu clic aquí per tornar-ho a provar.'
+ba-videorecorder-controlbar.pause-recorder: Grava en pausa
+ba-imagecapture-controlbar.cameraunhealthy: La il·luminació no és òptima
+ba-common-settingsmenu.source-quality: Qualitat de la font
+ba-imagecapture.orientation-portrait-required: Gireu el dispositiu per gravar en mode
+  vertical.
+ba-videoplayer-controlbar.total-time: Durada total de vídeo
+ba-videorecorder-controlbar.rerecord-tooltip: Cliqueu aquí per fer de nou.
+ba-videorecorder.orientation-portrait-required: Gireu el dispositiu per gravar en
+  mode vertical.
+ba-audiorecorder-chooser.record-audio: Enregistrament d'àudio
+ba-videoplayer-controlbar.volume-mute: silenciar so
+ba-videorecorder.pick-covershot: Tria una covershot.
+ba-audiorecorder-controlbar.microphoneunhealthy: No es pot recuperar cap so
+ba-videorecorder-controlbar.no-video-source: Falta una font d’entrada de vídeo addicional
+ba-common-settingsmenu.fullscreen-video: Introduïu la pantalla completa
+ba-audiorecorder.access-forbidden: L’accés als mitjans de comunicació estava prohibit.
+  Feu clic per tornar a provar.
+ba-imagecapture-controlbar.rerecord: Redo
+ba-audiorecorder.recorder-error: Hi ha hagut un error. Siusplau, torni a intentar-ho
+  més tard. Feu clic per tornar a provar.
+ba-videoplayer-tracks.select-text-track-file: Feu clic per seleccionar el fitxer
+ba-videorecorder-controlbar.skip: Omet
+ba-imagecapture.software-required: Per continuar, feu clic a continuació per instal·lar
+  / activar els següents requisits.
+ba-videorecorder.uploading-src-error: Ara no es pot reproduir el vídeo; la càrrega
+  encara està en curs
+ba-videoplayer-controlbar.volume-unmute: activar so
+ba-videoplayer-controlbar.volume-button: volum de sèries
+ba-imagecapture.attach-error: No hem pogut accedir a la interfície multimèdia. Depenent
+  del dispositiu i del navegador, és possible que hagueu d'instal·lar Flash o accedir
+  a la pàgina mitjançant SSL.
+ba-audiorecorder.uploading: Càrrega
+ba-audiorecorder.unsupported_audio_type: 'Pengeu: %s: feu clic aquí per tornar-ho
+  a provar.'
+ba-imagecapture-controlbar.settings: Configuració
+ba-videorecorder-controlbar.record: registre
+ba-videorecorder.adding-new-stream: Addició de corrent nova

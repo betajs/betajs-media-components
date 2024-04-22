@@ -1,227 +1,231 @@
-'language:fi':
-  ba-videoplayer-playbutton.tooltip: Toista video.
-  ba-videoplayer-playbutton.rerecord: Uudelleen
-  ba-videoplayer-playbutton.submit-video: Vahvista video
-  ba-videoplayer-loader.tooltip: Ladataan videota ...
-  ba-videoplayer-controlbar.change-resolution: Muuta resoluutiota
-  ba-videoplayer-controlbar.video-progress: Video edistyminen
-  ba-videoplayer-controlbar.rerecord-video: Uudestaan?
-  ba-videoplayer-controlbar.submit-video: Vahvista video
-  ba-videoplayer-controlbar.play-video: Toista video
-  ba-videoplayer-controlbar.pause-video: Tauko
-  ba-videoplayer-controlbar.elapsed-time: Kulunut aika
-  ba-videoplayer-controlbar.total-time: Kokonaispituus
-  ba-videoplayer-controlbar.fullscreen-video: Kokonäyttö
-  ba-videoplayer-controlbar.volume-button: Äänenvoimakkuus
-  ba-videoplayer-controlbar.volume-mute: Äänenmykistys
-  ba-videoplayer-controlbar.volume-unmute: Poista mykistys
-  ba-videoplayer.video-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.'
-  ba-videorecorder-chooser.record-video: Nauhoita video
-  ba-videorecorder-chooser.upload-video: Lataa video
-  ba-videorecorder-controlbar.settings: Asetukset
-  ba-videorecorder-controlbar.camerahealthy: Valaistus on riittävä
-  ba-videorecorder-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
-  ba-videorecorder-controlbar.microphonehealthy: Äänitys toimii
-  ba-videorecorder-controlbar.microphoneunhealthy: 'Ääni ei tallennu, tarkista mikrofoniasetus'
-  ba-videorecorder-controlbar.record: Nauhoita
-  ba-videorecorder-controlbar.record-tooltip: Aloita videon nauhoitus.
-  ba-videorecorder-controlbar.rerecord: Uudelleen
-  ba-videorecorder-controlbar.rerecord-tooltip: Paina aloittaaksesi uudelleen.
-  ba-videorecorder-controlbar.upload-covershot: Lataa
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Paina tästä lataaksesi aloituskuvan
-  ba-videorecorder-controlbar.stop: Stop
-  ba-videorecorder-controlbar.stop-tooltip: Lopeta nauhoitus painamalla tästä.
-  ba-videorecorder-controlbar.skip: Ohita
-  ba-videorecorder-controlbar.skip-tooltip: Paina tästä ohittaaksesi.
-  ba-videorecorder.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.'
-  ba-videorecorder.attach-error: >-
-    Emme voineet käyttää kamera-rajapintaa. Laitteesta ja selaimesta riippuen,
-    sinun on ehkä asennettava Flash tai käytettävä sivun kautta SSL.
-  ba-videorecorder.access-forbidden: Pääsy kameraan oli kielletty. Yritä uudelleen klikkaamalla.
-  ba-videorecorder.pick-covershot: Valitse aloituskuva.
-  ba-videorecorder.uploading: Ladataan
-  ba-videorecorder.uploading-failed: Lataaminen epäonnistui - klikkaa tästä ja yritä uudelleen.
-  ba-videorecorder.verifying: Tarkistetaan
-  ba-videorecorder.verifying-failed: Varmentaa epäonnistui - klikkaa tästä ja yritä uudelleen.
-  ba-videorecorder.rerecord-confirm: Haluatko todella tehdä uudelleen videon?
-  ba-videorecorder.video_file_too_large: >-
-    Videotiedosto on liian suuri (%s) - klikkaa tästä yrittääksesi uudelleen
-    pienemmällä videotiedostolla.
-  ba-videorecorder.unsupported_video_type: 'Lataa: %s - klikkaa tästä yritääksesi uudelleen.'
-  ba-videoplayer-controlbar.exit-fullscreen-video: Poistu kokonäytöltä
-  ba-videoplayer-share.share: Jaa video
-  ba-videorecorder-chooser.record-screen: Ruudunkaappaus
-  ba-videoplayer-controlbar.pause-video-disabled: Tauko ei ole tuettu
-  ba-videorecorder-chooser.record-audio: Äänitä ääntä
-  ba-videorecorder-controlbar.stop-available-after: Minimi tallennusaika on %d sekuntia
-  ba-videorecorder-controlbar.cancel: Peruuta
-  ba-videorecorder-controlbar.cancel-tooltip: Peruuta napsauttamalla tätä.
-  ba-videorecorder.cancel-confirm: Haluatko todella peruuttaa videon lähettämisen?
-  ba-videoplayer-adslot.elapsed-time: Kulunut aika
-  ba-videoplayer-adslot.volume-button: Aseta äänenvoimakkuus
-  ba-videoplayer-adslot.volume-mute: Mykistä ääni
-  ba-videoplayer-adslot.volume-unmute: Palauta ääni
-  ba-videoplayer-adslot.ad-will-end-after: 'Mainos päättyy %s: n jälkeen'
-  ba-videoplayer-adslot.can-skip-after: Ohita %d jälkeen
-  ba-videoplayer-adslot.skip-ad: Ohita mainos
-  ba-videorecorder.software-required: >-
-    Napsauta alla olevaa asentaaksesi / aktivoi seuraavat vaatimukset
-    jatkaaksesi.
-  ba-videorecorder.software-waiting: >-
-    Odottaa, että vaatimukset asennetaan / aktivoidaan. Sinun on ehkä
-    päivitettävä sivusi lopuksi.
-  ba-videoplayer-controlbar.close-tracks: Sulje CC
-  ba-videoplayer-controlbar.show-tracks: Näytä CC
-  ba-videoplayer-tracks.upload-text-tracks: Lataa tekstitiedostoja
-  ba-videoplayer-tracks.select-text-track-language: Tekstityskieli
-  ba-videoplayer-tracks.info-select-locale-first: Valitse ensin sijainti
-  ba-videoplayer-tracks.select-text-track-file: Paina valitaksesi tiedoston
-  ba-videoplayer-tracks.back: takaisin
-  ba-videorecorder.framerate-warning: >-
-    Videon frame-rate on hyvin alhainen. Suosittelemme kaikkien muiden ohjelmien
-    ja selainvälilehtien sulkemista tai nopeamman tietokoneen käyttöä.
-  ba-videorecorder.upload-error-duration: >-
-    Lähetetyn videon pituus ei täytä vaatimuksia - klikkaa tästä yrittääksesi
-    uudelleen.
-  ba-videorecorder.resolution-constraint-error: >-
-    Valitsemasi tiedosto ei vastaa vaadittua tarkkuutta - napsauta tätä
-    uudelleen yrittääksesi.
-  ba-videorecorder.orientation-portrait-required: Kierrä laitetta pystyasentoon.
-  ba-videorecorder.orientation-landscape-required: Kierrä laitetta nauhoittaaksesi vaakasuunnassa.
-  ba-imageviewer-controlbar.rerecord-image: Uudelleen?
-  ba-imageviewer-controlbar.submit-image: Vahvista
-  ba-imageviewer-controlbar.fullscreen-image: Siirry kokonäyttöön
-  ba-imageviewer-controlbar.exit-fullscreen-image: Poistu kokonäytöstä
-  ba-imageviewer.image-error: Tapahtui virhe. Yritä myöhemmin uudelleen. Paina ja aloita uudelleen.
-  ba-imagecapture-chooser.image-capture: Kuvan kaappaus
-  ba-imagecapture-chooser.upload-image: Lähetä kuva
-  ba-imagecapture-controlbar.settings: Asetukset
-  ba-imagecapture-controlbar.camerahealthy: Valaistus on riittävä
-  ba-imagecapture-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
-  ba-imagecapture-controlbar.record: Kaappaus
-  ba-imagecapture-controlbar.record-tooltip: Paina tästä kaapataksesi.
-  ba-imagecapture-controlbar.rerecord: Tee uudelleen
-  ba-imagecapture-controlbar.rerecord-tooltip: Paina tästä tehdäksesi uudelleen.
-  ba-imagecapture-controlbar.cancel: Peruuttaa
-  ba-imagecapture-controlbar.cancel-tooltip: Peruuta painamalla tätä.
-  ba-audioplayer-controlbar.audio-progress: Edistyminen
-  ba-audioplayer-controlbar.rerecord-audio: Uudelleen?
-  ba-audioplayer-controlbar.submit-audio: Vahvista
-  ba-audioplayer-controlbar.play-audio: Toista
-  ba-audioplayer-controlbar.pause-audio: Tauko
-  ba-audioplayer-controlbar.pause-audio-disabled: Tauko ei ole mahdollinen
-  ba-audioplayer-controlbar.elapsed-time: Kulunut aika
-  ba-audioplayer-controlbar.total-time: Kokonaispituus
-  ba-audioplayer-controlbar.volume-button: Aseta äänenvoimakkuus
-  ba-audioplayer-controlbar.volume-mute: Mykistä ääni
-  ba-audioplayer-controlbar.volume-unmute: Palauta ääni
-  ba-audioplayer-loader.tooltip: Ladataan...
-  ba-audioplayer.audio-error: Tapahtui virhe. Yritä myöhemmin uudelleen. Paina yrittääksesi uudelleen.
-  ba-audiorecorder-chooser.record-audio: Äänitä ääntä
-  ba-audiorecorder-chooser.upload-audio: Lähetä äänitiedosto
-  ba-audiorecorder-controlbar.settings: Asetukset
-  ba-audiorecorder-controlbar.microphonehealthy: Ääni on hyvä
-  ba-audiorecorder-controlbar.microphoneunhealthy: Äänitys ei toimi
-  ba-audiorecorder-controlbar.record: Nauhoita
-  ba-audiorecorder-controlbar.record-tooltip: Paina nauhoittaaksesi.
-  ba-audiorecorder-controlbar.rerecord: Tee uudelleen
-  ba-audiorecorder-controlbar.rerecord-tooltip: Paina tästä tehdäksesi uudelleen.
-  ba-audiorecorder-controlbar.stop: Stop
-  ba-audiorecorder-controlbar.stop-tooltip: Napsauta tästä lopettaaksesi.
-  ba-audiorecorder-controlbar.stop-available-after: Minimi tallennusaika on %d sekuntia
-  ba-audiorecorder-controlbar.cancel: Peruuttaa
-  ba-audiorecorder-controlbar.cancel-tooltip: Peruuta napsauttamalla tätä.
-  ba-videoplayer-controlbar.player-speed: Toiston nopeus
-  ba-videoplayer-controlbar.settings: Asetukset
-  ba-videoplayer-controlbar.airplay: Airplay
-  ba-videoplayer-controlbar.airplay-icon: Airplay-kuvake.
-  ba-videoplayer.all-settings: Kaikki asetukset
-  ba-videoplayer.player-speed: Toiston nopeus
-  ba-videoplayer.full-screen: Kokonäyttö
-  ba-videorecorder-controlbar.add-stream: Lisää Stream
-  ba-videorecorder.switch-camera: Vaihda kamera
-  ba-videorecorder.prepare-covershot: Aloituskuvan valmistelu
-  ba-videorecorder.prepare-thumbnails: Pienoiskuvien etsiminen
-  ba-videorecorder.adding-new-stream: Streamin lisääminen
-  ba-imagecapture.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Paina yrittääksesi uudelleen.'
-  ba-imagecapture.attach-error: >-
-    Emme voineet käyttää mediarajapintaa. Laitteesta ja selaimesta riippuen
-    sinun on ehkä asennettava Flash tai avattava sivu SSL:n kautta.
-  ba-imagecapture.software-required: Klikkaa asentaaksesi / aktivoidaksesi seuraavat vaatimukset jatkaaksesi.
-  ba-imagecapture.software-waiting: >-
-    Odotetaan, että vaatimukset asennetaan / aktivoidaan. Saatat joutua
-    päivittämään sivun valmistumisen jälkeen.
-  ba-imagecapture.access-forbidden: Pääsy tiedotusvälineisiin oli kielletty. Napsauta uudelleen yrittääksesi.
-  ba-imagecapture.uploading: lataaminen
-  ba-imagecapture.uploading-failed: Lataaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
-  ba-imagecapture.upload-error-duration: >-
-    Lähetetyn kuvan pituus ei täytä vaatimuksia - yritä uudelleen napsauttamalla
-    tätä.
-  ba-imagecapture.resolution-constraint-error: >-
-    Valitsemasi tiedosto ei vastaa vaadittua tarkkuutta - yritä uudelleen
-    napsauttamalla tätä.
-  ba-imagecapture.verifying: Tarkistetaan
-  ba-imagecapture.verifying-failed: Vahvistaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
-  ba-imagecapture.rerecord-confirm: Haluatko todella ottaa kuvan uudelleen?
-  ba-imagecapture.image_file_too_large: >-
-    Kuvatiedosto on liian suuri (%s) - napsauta tätä, jos haluat kokeilla
-    uudelleen pienempää kuvatiedostoa.
-  ba-imagecapture.unsupported_image_type: 'Lähetä: %s - napsauta tätä, jos haluat yrittää uudelleen.'
-  ba-imagecapture.orientation-portrait-required: Käännä laitetta tallentaaksesi muotokuvaustilassa.
-  ba-imagecapture.orientation-landscape-required: Kierrä laitetta kuvaamaan vaakasuunnassa.
-  ba-audiorecorder.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Napsauta uudelleen yrittääksesi.'
-  ba-audiorecorder.attach-error: >-
-    Emme voineet käyttää mediarajapintaa. Laitteesta ja selaimesta riippuen
-    sinun on ehkä asennettava Flash tai avattava sivu SSL: n kautta.
-  ba-audiorecorder.software-required: >-
-    Klikkaa alla asentaaksesi / aktivoidaksesi seuraavat vaatimukset
-    jatkaaksesi.
-  ba-audiorecorder.software-waiting: >-
-    Odotetaan että vaatimukset asennetaan / aktivoidaan. Saatat joutua
-    päivittämään sivun valmistumisen jälkeen.
-  ba-audiorecorder.access-forbidden: Pääsy mediatiedostoon oli evätty. Napsauta yrittääksesi uudelleen.
-  ba-audiorecorder.uploading: Ladataan
-  ba-audiorecorder.uploading-failed: Lataaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
-  ba-audiorecorder.upload-error-duration: >-
-    Lähetetyn äänityksen pituus ei täytä vaatimuksia - yritä uudelleen
-    napsauttamalla tätä.
-  ba-audiorecorder.verifying: Tarkistetaan
-  ba-audiorecorder.verifying-failed: Vahvistaminen epäonnistui - yritä uudelleen napsauttamalla tätä.
-  ba-audiorecorder.rerecord-confirm: Haluatko todella nauhoittaa uudelleen?
-  ba-audiorecorder.cancel-confirm: Haluatko todella peruuttaa äänilatauksen?
-  ba-audiorecorder.audio_file_too_large: >-
-    Äänitiedosto on liian suuri (%s) - napsauta tätä, jos haluat kokeilla
-    uudelleen pienempää äänitiedostoa.
-  ba-audiorecorder.unsupported_audio_type: 'Lähetä: %s - napsauta tätä, jos haluat yrittää uudelleen.'
-  ba-common-settingsmenu.tooltip: Klikkaa pelataksesi.
-  ba-common-settingsmenu.setting-menu: Kaikki asetukset
-  ba-common-settingsmenu.source-quality: Lähteen laatu
-  ba-common-settingsmenu.player-speed: Pelaajan nopeus
-  ba-common-settingsmenu.set-menu-option: Aseta vaihtoehto
-  ba-common-settingsmenu.submit-video: Vahvista video
-  ba-common-settingsmenu.picture-in-picture: Kuva kuvassa
-  ba-common-settingsmenu.exit-fullscreen-video: Poistu koko näytöstä
-  ba-common-settingsmenu.fullscreen-video: Siirry koko näyttöön
-  ba-videorecorder-chooser.multi-stream: Monivirta
-  ba-videorecorder-controlbar.pause-recorder: Keskeytä tallennin
-  ba-videorecorder-controlbar.resume-recorder: Jatka tallenninta
-  ba-videorecorder.missing-track: Vaadittu ääni- tai videoraita puuttuu
-  ba-videorecorder.device-already-in-use: Ainakin yksi syöttölaitteistasi on jo käytössä
-  ba-videorecorder.browser-permission-denied: Selain ei myöntänyt lupaa. Anna käyttöoikeus ja lataa sivu uudelleen
-  ba-audioplayer.all-settings: Kaikki asetukset
-  ba-videoplayer-controlbar.remaining-time: Jäljellä oleva aika
-  ba-videoplayer-controlbar.select-frame: Valitse
-  ba-videoplayer-controlbar.trim-video: Trimmata
-  ba-videoplayer-playbutton.trim: Trimmata
-  ba-videoplayer-playbutton.skip: Ohita
-  ba-videorecorder-imagegallery.upload-covershot: Lähetä kansi
-  ba-videorecorder.pick-covershot-frame: 'Valitse kehys, jota käytetään kansikuvana.'
-  ba-videorecorder.screen-recorder-is-not-supported: Näytön tallenninta ei tueta tässä laitteessa
-  ba-videorecorder.trim-prompt: Haluatko leikata videosi?
-  ba-videorecorder.trim-video: Leikkaa videota siirtämällä aloitus- ja lopetusmerkkejä
-  ba-videorecorder.wait-for-trim: Odotetaan leikkauskomentoa ...
-  ba-videorecorder-controlbar.no-video-source: Lisävideon tulolähde puuttuu
-  ba-videorecorder-controlbar.stream-already-selected: Lisävirta on jo valittu
-  ba-videorecorder.uploading-src-error: 'Videon toistaminen ei onnistu, lataaminen on edelleen kesken'
-  ba-audiorecorder-controlbar.pause-recorder: Keskeytä tallennin
-  ba-audiorecorder-controlbar.resume-recorder: Jatka tallenninta
+ba-imagecapture.uploading: lataaminen
+ba-audiorecorder.upload-error-duration: Lähetetyn äänityksen pituus ei täytä vaatimuksia
+  - yritä uudelleen napsauttamalla tätä.
+ba-common-settingsmenu.tooltip: Klikkaa pelataksesi.
+ba-videorecorder.wait-for-trim: Odotetaan leikkauskomentoa ...
+ba-common-settingsmenu.setting-menu: Kaikki asetukset
+ba-videorecorder-controlbar.settings: Asetukset
+ba-imagecapture.access-forbidden: Pääsy tiedotusvälineisiin oli kielletty. Napsauta
+  uudelleen yrittääksesi.
+ba-imagecapture-controlbar.cancel: Peruuttaa
+ba-videorecorder.video_file_too_large: Videotiedosto on liian suuri (%s) - klikkaa
+  tästä yrittääksesi uudelleen pienemmällä videotiedostolla.
+ba-videoplayer-controlbar.settings: Asetukset
+ba-videorecorder-controlbar.add-stream: Lisää Stream
+ba-videorecorder-controlbar.cancel-tooltip: Peruuta napsauttamalla tätä.
+ba-imageviewer-controlbar.fullscreen-image: Siirry kokonäyttöön
+ba-audioplayer.audio-error: Tapahtui virhe. Yritä myöhemmin uudelleen. Paina yrittääksesi
+  uudelleen.
+ba-imagecapture.image_file_too_large: Kuvatiedosto on liian suuri (%s) - napsauta
+  tätä, jos haluat kokeilla uudelleen pienempää kuvatiedostoa.
+ba-videoplayer-controlbar.show-tracks: Näytä CC
+ba-imagecapture.orientation-landscape-required: Kierrä laitetta kuvaamaan vaakasuunnassa.
+ba-videoplayer.full-screen: Kokonäyttö
+ba-videoplayer-controlbar.pause-video-disabled: Tauko ei ole tuettu
+ba-videorecorder.cancel-confirm: Haluatko todella peruuttaa videon lähettämisen?
+ba-videorecorder-controlbar.camerahealthy: Valaistus on riittävä
+ba-common-settingsmenu.submit-video: Vahvista video
+ba-videorecorder-controlbar.record-tooltip: Aloita videon nauhoitus.
+ba-videorecorder-controlbar.cancel: Peruuta
+ba-common-settingsmenu.picture-in-picture: Kuva kuvassa
+ba-audiorecorder-controlbar.rerecord: Tee uudelleen
+ba-audiorecorder.rerecord-confirm: Haluatko todella nauhoittaa uudelleen?
+ba-videoplayer-playbutton.rerecord: Uudelleen
+ba-videoplayer-tracks.select-text-track-language: Tekstityskieli
+ba-videoplayer-adslot.can-skip-after: Ohita %d jälkeen
+ba-audiorecorder.cancel-confirm: Haluatko todella peruuttaa äänilatauksen?
+ba-videoplayer-controlbar.elapsed-time: Kulunut aika
+ba-videorecorder-controlbar.stop-available-after: Minimi tallennusaika on %d sekuntia
+ba-audioplayer.all-settings: Kaikki asetukset
+ba-imagecapture-controlbar.camerahealthy: Valaistus on riittävä
+ba-imagecapture-controlbar.record: Kaappaus
+ba-audiorecorder.software-waiting: Odotetaan että vaatimukset asennetaan / aktivoidaan.
+  Saatat joutua päivittämään sivun valmistumisen jälkeen.
+ba-videoplayer-tracks.info-select-locale-first: Valitse ensin sijainti
+ba-videoplayer-loader.tooltip: Ladataan videota ...
+ba-audiorecorder-controlbar.cancel-tooltip: Peruuta napsauttamalla tätä.
+ba-audiorecorder-controlbar.record-tooltip: Paina nauhoittaaksesi.
+ba-audioplayer-controlbar.submit-audio: Vahvista
+ba-imagecapture.verifying-failed: Vahvistaminen epäonnistui - yritä uudelleen napsauttamalla
+  tätä.
+ba-videoplayer-playbutton.skip: Ohita
+ba-videoplayer-controlbar.trim-video: Trimmata
+ba-videorecorder.missing-track: Vaadittu ääni- tai videoraita puuttuu
+ba-imagecapture.uploading-failed: Lataaminen epäonnistui - yritä uudelleen napsauttamalla
+  tätä.
+ba-videoplayer-adslot.skip-ad: Ohita mainos
+ba-videoplayer-adslot.volume-button: Aseta äänenvoimakkuus
+ba-videorecorder-chooser.record-audio: Äänitä ääntä
+ba-audiorecorder.audio_file_too_large: Äänitiedosto on liian suuri (%s) - napsauta
+  tätä, jos haluat kokeilla uudelleen pienempää äänitiedostoa.
+ba-imagecapture-chooser.image-capture: Kuvan kaappaus
+ba-videorecorder.trim-prompt: Haluatko leikata videosi?
+ba-videorecorder.software-waiting: Odottaa, että vaatimukset asennetaan / aktivoidaan.
+  Sinun on ehkä päivitettävä sivusi lopuksi.
+ba-audioplayer-controlbar.play-audio: Toista
+ba-videorecorder.browser-permission-denied: Selain ei myöntänyt lupaa. Anna käyttöoikeus
+  ja lataa sivu uudelleen
+ba-videoplayer-controlbar.pause-video: Tauko
+ba-videoplayer-adslot.volume-unmute: Palauta ääni
+ba-videorecorder-controlbar.resume-recorder: Jatka tallenninta
+ba-videoplayer-controlbar.submit-video: Vahvista video
+ba-videorecorder-controlbar.rerecord: Uudelleen
+ba-videoplayer-share.share: Jaa video
+ba-audioplayer-loader.tooltip: Ladataan...
+ba-imagecapture.unsupported_image_type: 'Lähetä: %s - napsauta tätä, jos haluat yrittää
+  uudelleen.'
+ba-videorecorder.uploading: Ladataan
+ba-audiorecorder.verifying: Tarkistetaan
+ba-videoplayer-playbutton.tooltip: Toista video.
+ba-audiorecorder-controlbar.microphonehealthy: Ääni on hyvä
+ba-videorecorder.trim-video: Leikkaa videota siirtämällä aloitus- ja lopetusmerkkejä
+ba-videoplayer-controlbar.player-speed: Toiston nopeus
+ba-videorecorder-controlbar.microphonehealthy: Äänitys toimii
+ba-videorecorder-chooser.multi-stream: Monivirta
+ba-imagecapture.recorder-error: Tapahtui virhe, yritä myöhemmin uudelleen. Paina yrittääksesi
+  uudelleen.
+ba-videorecorder-controlbar.stop-tooltip: Lopeta nauhoitus painamalla tästä.
+ba-audiorecorder-controlbar.rerecord-tooltip: Paina tästä tehdäksesi uudelleen.
+ba-imagecapture-controlbar.rerecord-tooltip: Paina tästä tehdäksesi uudelleen.
+ba-videorecorder-chooser.record-screen: Ruudunkaappaus
+ba-videoplayer.all-settings: Kaikki asetukset
+ba-videoplayer-controlbar.select-frame: Valitse
+ba-imagecapture.resolution-constraint-error: Valitsemasi tiedosto ei vastaa vaadittua
+  tarkkuutta - yritä uudelleen napsauttamalla tätä.
+ba-videoplayer-controlbar.video-progress: Video edistyminen
+ba-videorecorder-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
+ba-audioplayer-controlbar.pause-audio: Tauko
+ba-videorecorder-controlbar.stop: Stop
+ba-audiorecorder-controlbar.stop-tooltip: Napsauta tästä lopettaaksesi.
+ba-videorecorder-controlbar.microphoneunhealthy: Ääni ei tallennu, tarkista mikrofoniasetus
+ba-imagecapture-chooser.upload-image: Lähetä kuva
+ba-videorecorder-imagegallery.upload-covershot: Lähetä kansi
+ba-audiorecorder-controlbar.resume-recorder: Jatka tallenninta
+ba-audiorecorder-controlbar.stop: Stop
+ba-videoplayer.video-error: Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen
+  klikkaamalla.
+ba-videorecorder.attach-error: Emme voineet käyttää kamera-rajapintaa. Laitteesta
+  ja selaimesta riippuen, sinun on ehkä asennettava Flash tai käytettävä sivun kautta
+  SSL.
+ba-audiorecorder-controlbar.pause-recorder: Keskeytä tallennin
+ba-videorecorder.rerecord-confirm: Haluatko todella tehdä uudelleen videon?
+ba-audiorecorder-controlbar.stop-available-after: Minimi tallennusaika on %d sekuntia
+ba-videoplayer-controlbar.change-resolution: Muuta resoluutiota
+ba-audiorecorder.software-required: Klikkaa alla asentaaksesi / aktivoidaksesi seuraavat
+  vaatimukset jatkaaksesi.
+ba-videoplayer-controlbar.exit-fullscreen-video: Poistu kokonäytöltä
+ba-imageviewer-controlbar.rerecord-image: Uudelleen?
+ba-videoplayer-adslot.ad-will-end-after: 'Mainos päättyy %s: n jälkeen'
+ba-imagecapture.rerecord-confirm: Haluatko todella ottaa kuvan uudelleen?
+ba-audioplayer-controlbar.elapsed-time: Kulunut aika
+ba-videoplayer-controlbar.close-tracks: Sulje CC
+ba-videorecorder-controlbar.upload-covershot: Lataa
+ba-audioplayer-controlbar.rerecord-audio: Uudelleen?
+ba-videorecorder.orientation-landscape-required: Kierrä laitetta nauhoittaaksesi vaakasuunnassa.
+ba-imagecapture.verifying: Tarkistetaan
+ba-imageviewer-controlbar.submit-image: Vahvista
+ba-imagecapture-controlbar.cancel-tooltip: Peruuta painamalla tätä.
+ba-imagecapture.software-waiting: Odotetaan, että vaatimukset asennetaan / aktivoidaan.
+  Saatat joutua päivittämään sivun valmistumisen jälkeen.
+ba-imageviewer-controlbar.exit-fullscreen-image: Poistu kokonäytöstä
+ba-videorecorder.verifying-failed: Varmentaa epäonnistui - klikkaa tästä ja yritä
+  uudelleen.
+ba-videorecorder-controlbar.upload-covershot-tooltip: Paina tästä lataaksesi aloituskuvan
+ba-common-settingsmenu.set-menu-option: Aseta vaihtoehto
+ba-common-settingsmenu.exit-fullscreen-video: Poistu koko näytöstä
+ba-videorecorder.framerate-warning: Videon frame-rate on hyvin alhainen. Suosittelemme
+  kaikkien muiden ohjelmien ja selainvälilehtien sulkemista tai nopeamman tietokoneen
+  käyttöä.
+ba-videorecorder.switch-camera: Vaihda kamera
+ba-audioplayer-controlbar.volume-button: Aseta äänenvoimakkuus
+ba-videorecorder.uploading-failed: Lataaminen epäonnistui - klikkaa tästä ja yritä
+  uudelleen.
+ba-videoplayer-playbutton.trim: Trimmata
+ba-videorecorder-chooser.upload-video: Lataa video
+ba-audioplayer-controlbar.volume-unmute: Palauta ääni
+ba-audiorecorder-controlbar.record: Nauhoita
+ba-videorecorder.software-required: Napsauta alla olevaa asentaaksesi / aktivoi seuraavat
+  vaatimukset jatkaaksesi.
+ba-audiorecorder.verifying-failed: Vahvistaminen epäonnistui - yritä uudelleen napsauttamalla
+  tätä.
+ba-videorecorder-controlbar.stream-already-selected: Lisävirta on jo valittu
+ba-videorecorder.upload-error-duration: Lähetetyn videon pituus ei täytä vaatimuksia
+  - klikkaa tästä yrittääksesi uudelleen.
+ba-common-settingsmenu.player-speed: Pelaajan nopeus
+ba-audiorecorder-controlbar.settings: Asetukset
+ba-videoplayer-controlbar.play-video: Toista video
+ba-videoplayer-tracks.upload-text-tracks: Lataa tekstitiedostoja
+ba-videorecorder-controlbar.skip-tooltip: Paina tästä ohittaaksesi.
+ba-videoplayer-adslot.elapsed-time: Kulunut aika
+ba-videoplayer-controlbar.rerecord-video: Uudestaan?
+ba-videoplayer-controlbar.remaining-time: Jäljellä oleva aika
+ba-imagecapture-controlbar.record-tooltip: Paina tästä kaapataksesi.
+ba-videorecorder.device-already-in-use: Ainakin yksi syöttölaitteistasi on jo käytössä
+ba-videorecorder.recorder-error: Tapahtui virhe, yritä myöhemmin uudelleen. Yritä
+  uudelleen klikkaamalla.
+ba-audioplayer-controlbar.volume-mute: Mykistä ääni
+ba-audiorecorder-chooser.upload-audio: Lähetä äänitiedosto
+ba-imagecapture.upload-error-duration: Lähetetyn kuvan pituus ei täytä vaatimuksia
+  - yritä uudelleen napsauttamalla tätä.
+ba-audiorecorder.attach-error: 'Emme voineet käyttää mediarajapintaa. Laitteesta ja
+  selaimesta riippuen sinun on ehkä asennettava Flash tai avattava sivu SSL: n kautta.'
+ba-audiorecorder-controlbar.cancel: Peruuttaa
+ba-videoplayer-controlbar.airplay-icon: Airplay-kuvake.
+ba-videorecorder.prepare-covershot: Aloituskuvan valmistelu
+ba-videoplayer.player-speed: Toiston nopeus
+ba-videorecorder.verifying: Tarkistetaan
+ba-videoplayer-controlbar.fullscreen-video: Kokonäyttö
+ba-audiorecorder.uploading-failed: Lataaminen epäonnistui - yritä uudelleen napsauttamalla
+  tätä.
+ba-videorecorder.unsupported_video_type: 'Lataa: %s - klikkaa tästä yritääksesi uudelleen.'
+ba-videorecorder-chooser.record-video: Nauhoita video
+ba-videoplayer-playbutton.submit-video: Vahvista video
+ba-audioplayer-controlbar.total-time: Kokonaispituus
+ba-videorecorder.prepare-thumbnails: Pienoiskuvien etsiminen
+ba-videorecorder.screen-recorder-is-not-supported: Näytön tallenninta ei tueta tässä
+  laitteessa
+ba-videoplayer-controlbar.airplay: Airplay
+ba-videoplayer-tracks.back: takaisin
+ba-videorecorder.access-forbidden: Pääsy kameraan oli kielletty. Yritä uudelleen klikkaamalla.
+ba-videoplayer-adslot.volume-mute: Mykistä ääni
+ba-videorecorder.pick-covershot-frame: Valitse kehys, jota käytetään kansikuvana.
+ba-audioplayer-controlbar.audio-progress: Edistyminen
+ba-imageviewer.image-error: Tapahtui virhe. Yritä myöhemmin uudelleen. Paina ja aloita
+  uudelleen.
+ba-audioplayer-controlbar.pause-audio-disabled: Tauko ei ole mahdollinen
+ba-videorecorder.resolution-constraint-error: Valitsemasi tiedosto ei vastaa vaadittua
+  tarkkuutta - napsauta tätä uudelleen yrittääksesi.
+ba-videorecorder-controlbar.pause-recorder: Keskeytä tallennin
+ba-imagecapture-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
+ba-common-settingsmenu.source-quality: Lähteen laatu
+ba-imagecapture.orientation-portrait-required: Käännä laitetta tallentaaksesi muotokuvaustilassa.
+ba-videoplayer-controlbar.total-time: Kokonaispituus
+ba-videorecorder-controlbar.rerecord-tooltip: Paina aloittaaksesi uudelleen.
+ba-videorecorder.orientation-portrait-required: Kierrä laitetta pystyasentoon.
+ba-audiorecorder-chooser.record-audio: Äänitä ääntä
+ba-videoplayer-controlbar.volume-mute: Äänenmykistys
+ba-videorecorder.pick-covershot: Valitse aloituskuva.
+ba-audiorecorder-controlbar.microphoneunhealthy: Äänitys ei toimi
+ba-videorecorder-controlbar.no-video-source: Lisävideon tulolähde puuttuu
+ba-common-settingsmenu.fullscreen-video: Siirry koko näyttöön
+ba-audiorecorder.access-forbidden: Pääsy mediatiedostoon oli evätty. Napsauta yrittääksesi
+  uudelleen.
+ba-imagecapture-controlbar.rerecord: Tee uudelleen
+ba-audiorecorder.recorder-error: Tapahtui virhe, yritä myöhemmin uudelleen. Napsauta
+  uudelleen yrittääksesi.
+ba-videoplayer-tracks.select-text-track-file: Paina valitaksesi tiedoston
+ba-videorecorder-controlbar.skip: Ohita
+ba-imagecapture.software-required: Klikkaa asentaaksesi / aktivoidaksesi seuraavat
+  vaatimukset jatkaaksesi.
+ba-videorecorder.uploading-src-error: Videon toistaminen ei onnistu, lataaminen on
+  edelleen kesken
+ba-videoplayer-controlbar.volume-unmute: Poista mykistys
+ba-videoplayer-controlbar.volume-button: Äänenvoimakkuus
+ba-imagecapture.attach-error: Emme voineet käyttää mediarajapintaa. Laitteesta ja
+  selaimesta riippuen sinun on ehkä asennettava Flash tai avattava sivu SSL:n kautta.
+ba-audiorecorder.uploading: Ladataan
+ba-audiorecorder.unsupported_audio_type: 'Lähetä: %s - napsauta tätä, jos haluat yrittää
+  uudelleen.'
+ba-imagecapture-controlbar.settings: Asetukset
+ba-videorecorder-controlbar.record: Nauhoita
+ba-videorecorder.adding-new-stream: Streamin lisääminen

@@ -1,244 +1,242 @@
-'language:ru':
-  ba-videoplayer-playbutton.tooltip: 'Нажмите, чтобы воспроизвести видео.'
-  ba-videoplayer-playbutton.rerecord: Перезаписать
-  ba-videoplayer-loader.tooltip: Загрузка видео ...
-  ba-videoplayer-controlbar.change-resolution: Изменить разрешение
-  ba-videoplayer-controlbar.video-progress: Ход видео
-  ba-videoplayer-controlbar.rerecord-video: Перезаписать видео?
-  ba-videoplayer-controlbar.play-video: Проиграть видео
-  ba-videoplayer-controlbar.pause-video: Приостановить видео
-  ba-videoplayer-controlbar.elapsed-time: Пройденное время
-  ba-videoplayer-controlbar.total-time: Общая длина видео
-  ba-videoplayer-controlbar.fullscreen-video: Полноэкранный режим
-  ba-videoplayer-controlbar.volume-button: Громкость
-  ba-videoplayer-controlbar.volume-mute: Отключить звук
-  ba-videoplayer-controlbar.volume-unmute: Включить звук
-  ba-videoplayer.video-error: >-
-    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
-    повторить попытку.
-  ba-videorecorder-chooser.record-video: Запишите свое видео
-  ba-videorecorder-chooser.upload-video: Загрузить видео
-  ba-videorecorder-controlbar.settings: Настройки
-  ba-videorecorder-controlbar.camerahealthy: Освещение хорошее
-  ba-videorecorder-controlbar.cameraunhealthy: Слабое освещение
-  ba-videorecorder-controlbar.microphonehealthy: Звук хороший
-  ba-videorecorder-controlbar.microphoneunhealthy: Невозможно получить звук
-  ba-videorecorder-controlbar.record: Запись
-  ba-videorecorder-controlbar.record-tooltip: 'Нажмите здесь, чтобы записать.'
-  ba-videorecorder-controlbar.stop: Стоп
-  ba-videorecorder-controlbar.stop-tooltip: 'Нажмите здесь, чтобы остановить.'
-  ba-videorecorder-controlbar.skip: Пропустить
-  ba-videorecorder-controlbar.skip-tooltip: 'Нажмите здесь, чтобы пропустить.'
-  ba-videorecorder.recorder-error: >-
-    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
-    повторить попытку.
-  ba-videorecorder.access-forbidden: 'Доступ к камере был запрещен. Нажмите, чтобы повторить попытку.'
-  ba-videorecorder.pick-covershot: Выберите снимок.
-  ba-videorecorder.uploading: Загрузка
-  ba-videorecorder.uploading-failed: 'Ошибка загрузки: нажмите здесь, чтобы повторить попытку.'
-  ba-videorecorder.verifying: Проверка
-  ba-videorecorder.verifying-failed: 'Ошибка подтверждения. Нажмите здесь, чтобы повторить попытку.'
-  ba-videorecorder.rerecord-confirm: Вы действительно хотите перезаписать видео?
-  ba-videorecorder.video_file_too_large: >-
-    Ваш видеофайл слишком велик (%s) - нажмите здесь, чтобы повторить попытку с
-    меньшим видеофайлом.
-  ba-videorecorder.unsupported_video_type: 'Пожалуйста загрузите: %s - нажмите здесь, чтобы повторить попытку.'
-  ba-videoplayer-playbutton.submit-video: Подтвердить видео
-  ba-videoplayer-controlbar.submit-video: Подтвердить видео
-  ba-videorecorder-controlbar.rerecord: Переделать
-  ba-videorecorder-controlbar.rerecord-tooltip: Нажмите чтобы перезаписать
-  ba-videorecorder-controlbar.upload-covershot: Загрузить
-  ba-videorecorder-controlbar.upload-covershot-tooltip: 'Нажмите здесь, чтобы загрузить личную обложку'
-  ba-videorecorder.attach-error: >-
-    "Не удалось получить доступ к камере. В зависимости от устройства или
-    браузера, вам может понадобиться установить Flash или получить доступ к
-    сайту через SSL."
-  ba-videoplayer-controlbar.exit-fullscreen-video: Выйти из режима полного окна
-  ba-videoplayer-share.share: Поделиться с видео
-  ba-videorecorder-chooser.record-screen: Экран записи
-  ba-videoplayer-controlbar.pause-video-disabled: Пауза не поддерживается
-  ba-videorecorder-chooser.record-audio: Запись аудио
-  ba-videorecorder-controlbar.stop-available-after: 'Минимальное время записи: %d секунд'
-  ba-videorecorder-controlbar.cancel: Отмена
-  ba-videorecorder-controlbar.cancel-tooltip: 'Нажмите здесь, чтобы отменить.'
-  ba-videorecorder.cancel-confirm: Вы действительно хотите отменить загрузку видео?
-  ba-videoplayer-adslot.elapsed-time: Укороченное время
-  ba-videoplayer-adslot.volume-button: Установить громкость
-  ba-videoplayer-adslot.volume-mute: Отключить звук
-  ba-videoplayer-adslot.volume-unmute: Включить звук
-  ba-videoplayer-adslot.ad-will-end-after: Объявление будет завершено после %s
-  ba-videoplayer-adslot.can-skip-after: Пропустить после %d
-  ba-videoplayer-adslot.skip-ad: Пропустить рекламу
-  ba-videorecorder.software-required: >-
-    Пожалуйста, нажмите ниже, чтобы установить / активировать следующие
-    требования, чтобы продолжить.
-  ba-videorecorder.software-waiting: >-
-    Ожидание требований к установке / активации. Возможно, вам придется обновить
-    страницу после завершения.
-  ba-videoplayer-controlbar.close-tracks: Закрыть CC
-  ba-videoplayer-controlbar.show-tracks: Показать CC
-  ba-videoplayer-tracks.upload-text-tracks: Загрузить дорожки
-  ba-videoplayer-tracks.select-text-track-language: Язык субтитров
-  ba-videoplayer-tracks.info-select-locale-first: Сначала выберите язык
-  ba-videoplayer-tracks.select-text-track-file: 'Нажмите, чтобы выбрать файл'
-  ba-videoplayer-tracks.back: назад
-  ba-videorecorder.framerate-warning: >-
-    Частота кадров видео очень низкая. Мы рекомендуем закрыть все другие
-    программы и вкладки браузера или использовать более быстрый компьютер.
-  ba-videorecorder.upload-error-duration: >-
-    Длина загруженного видео не соответствует требованиям - нажмите здесь, чтобы
-    повторить попытку.
-  ba-videorecorder.resolution-constraint-error: >-
-    Выбранный файл не соответствует требуемому разрешению - нажмите здесь, чтобы
-    повторить попытку.
-  ba-videorecorder.orientation-portrait-required: Поверните устройство для записи в портретном режиме.
-  ba-videorecorder.orientation-landscape-required: Поверните устройство для записи в альбомном режиме.
-  ba-imageviewer-controlbar.rerecord-image: Повторить?
-  ba-imageviewer-controlbar.submit-image: подтвердить
-  ba-imageviewer-controlbar.fullscreen-image: Войти в полноэкранный режим
-  ba-imageviewer-controlbar.exit-fullscreen-image: Выход из полноэкранного режима
-  ba-imageviewer.image-error: >-
-    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
-    повторить попытку.
-  ba-imagecapture-chooser.image-capture: Захват изображения
-  ba-imagecapture-chooser.upload-image: Загрузить изображение
-  ba-imagecapture-controlbar.settings: настройки
-  ba-imagecapture-controlbar.camerahealthy: Освещение хорошее
-  ba-imagecapture-controlbar.cameraunhealthy: Освещение не является оптимальным
-  ba-imagecapture-controlbar.record: Захватить
-  ba-imagecapture-controlbar.record-tooltip: 'Нажмите здесь, чтобы сделать снимок.'
-  ba-imagecapture-controlbar.rerecord: переделывать
-  ba-imagecapture-controlbar.rerecord-tooltip: 'Нажмите здесь, чтобы повторить.'
-  ba-imagecapture-controlbar.cancel: Отмена
-  ba-imagecapture-controlbar.cancel-tooltip: 'Нажмите здесь, чтобы отменить.'
-  ba-audioplayer-controlbar.audio-progress: Прогресс
-  ba-audioplayer-controlbar.rerecord-audio: Повторить?
-  ba-audioplayer-controlbar.submit-audio: подтвердить
-  ba-audioplayer-controlbar.play-audio: Играть
-  ba-audioplayer-controlbar.pause-audio: Пауза
-  ba-audioplayer-controlbar.pause-audio-disabled: Пауза не поддерживается
-  ba-audioplayer-controlbar.elapsed-time: Укороченное время
-  ba-audioplayer-controlbar.total-time: Общая длина
-  ba-audioplayer-controlbar.volume-button: Установить громкость
-  ba-audioplayer-controlbar.volume-mute: Отключить звук
-  ba-audioplayer-controlbar.volume-unmute: Включить звук
-  ba-audioplayer-loader.tooltip: Loading ...
-  ba-audioplayer.audio-error: >-
-    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
-    повторить попытку.
-  ba-audiorecorder-chooser.record-audio: Запись аудио
-  ba-audiorecorder-chooser.upload-audio: Загрузить аудио
-  ba-audiorecorder-controlbar.settings: настройки
-  ba-audiorecorder-controlbar.microphonehealthy: Звук хорош
-  ba-audiorecorder-controlbar.microphoneunhealthy: Невозможно подобрать звук
-  ba-audiorecorder-controlbar.record: запись
-  ba-audiorecorder-controlbar.record-tooltip: 'Нажмите здесь, чтобы записать.'
-  ba-audiorecorder-controlbar.rerecord: переделывать
-  ba-audiorecorder-controlbar.rerecord-tooltip: 'Нажмите здесь, чтобы повторить.'
-  ba-audiorecorder-controlbar.stop: Стоп
-  ba-audiorecorder-controlbar.stop-tooltip: 'Нажмите здесь, чтобы остановиться.'
-  ba-audiorecorder-controlbar.stop-available-after: 'Минимальное время записи: %d секунд'
-  ba-audiorecorder-controlbar.cancel: Отмена
-  ba-audiorecorder-controlbar.cancel-tooltip: 'Нажмите здесь, чтобы отменить.'
-  ba-videoplayer-controlbar.player-speed: Скорость игрока
-  ba-videoplayer-controlbar.settings: настройки
-  ba-videoplayer-controlbar.airplay: трансляция звукозаписи
-  ba-videoplayer-controlbar.airplay-icon: Значок Airplay.
-  ba-videoplayer.all-settings: Все настройки
-  ba-videoplayer.player-speed: Скорость игрока
-  ba-videoplayer.full-screen: Полноэкранный
-  ba-videorecorder-controlbar.add-stream: Добавить поток
-  ba-videorecorder.switch-camera: Переключить камеру
-  ba-videorecorder.prepare-covershot: Подготовка обложек
-  ba-videorecorder.prepare-thumbnails: Подготовка поиска миниатюр
-  ba-videorecorder.adding-new-stream: Добавление нового потока
-  ba-imagecapture.recorder-error: >-
-    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
-    повторить попытку.
-  ba-imagecapture.attach-error: >-
-    Мы не смогли получить доступ к медиаинтерфейсу. В зависимости от устройства
-    и браузера, вам может потребоваться установить Flash или получить доступ к
-    странице через SSL.
-  ba-imagecapture.software-required: >-
-    Пожалуйста, нажмите ниже, чтобы установить / активировать следующие
-    требования, чтобы продолжить.
-  ba-imagecapture.software-waiting: >-
-    В ожидании требований, которые будут установлены / активированы. Возможно,
-    вам придется обновить страницу после завершения.
-  ba-imagecapture.access-forbidden: 'Доступ к СМИ был запрещен. Нажмите, чтобы повторить попытку.'
-  ba-imagecapture.uploading: Выгрузка
-  ba-imagecapture.uploading-failed: 'Загрузка не удалась - нажмите здесь, чтобы повторить попытку.'
-  ba-imagecapture.upload-error-duration: >-
-    Длина загруженного изображения не соответствует требованиям - нажмите здесь,
-    чтобы повторить попытку.
-  ba-imagecapture.resolution-constraint-error: >-
-    Выбранный вами файл не соответствует требуемому разрешению - нажмите здесь,
-    чтобы повторить попытку.
-  ba-imagecapture.verifying: проверка
-  ba-imagecapture.verifying-failed: 'Проверка не удалась - нажмите здесь, чтобы повторить попытку.'
-  ba-imagecapture.rerecord-confirm: Вы действительно хотите вернуть свой образ?
-  ba-imagecapture.image_file_too_large: >-
-    Файл изображения слишком велик (%s) - нажмите здесь, чтобы повторить попытку
-    с меньшим файлом изображения.
-  ba-imagecapture.unsupported_image_type: 'Загрузите: %s - нажмите здесь, чтобы повторить попытку.'
-  ba-imagecapture.orientation-portrait-required: 'Пожалуйста, поверните устройство для записи в портретном режиме.'
-  ba-imagecapture.orientation-landscape-required: 'Пожалуйста, поверните устройство для записи в ландшафтном режиме.'
-  ba-audiorecorder.recorder-error: >-
-    Произошла ошибка. Пожалуйста, повторите попытку позже. Нажмите, чтобы
-    повторить попытку.
-  ba-audiorecorder.attach-error: >-
-    Мы не смогли получить доступ к медиаинтерфейсу. В зависимости от устройства
-    и браузера, вам может потребоваться установить Flash или получить доступ к
-    странице через SSL.
-  ba-audiorecorder.software-required: >-
-    Пожалуйста, нажмите ниже, чтобы установить / активировать следующие
-    требования, чтобы продолжить.
-  ba-audiorecorder.software-waiting: >-
-    В ожидании требований, которые будут установлены / активированы. Возможно,
-    вам придется обновить страницу после завершения.
-  ba-audiorecorder.access-forbidden: 'Доступ к СМИ был запрещен. Нажмите, чтобы повторить попытку.'
-  ba-audiorecorder.uploading: Выгрузка
-  ba-audiorecorder.uploading-failed: 'Загрузка не удалась - нажмите здесь, чтобы повторить попытку.'
-  ba-audiorecorder.upload-error-duration: >-
-    Длина загруженного аудио не соответствует требованиям - нажмите здесь, чтобы
-    повторить попытку.
-  ba-audiorecorder.verifying: проверка
-  ba-audiorecorder.verifying-failed: 'Проверка не удалась - нажмите здесь, чтобы повторить попытку.'
-  ba-audiorecorder.rerecord-confirm: Вы действительно хотите повторить аудио?
-  ba-audiorecorder.cancel-confirm: Вы действительно хотите отменить загрузку аудио?
-  ba-audiorecorder.audio_file_too_large: >-
-    Ваш аудиофайл слишком большой (%s) - нажмите здесь, чтобы повторить попытку
-    с меньшим аудиофайлом.
-  ba-audiorecorder.unsupported_audio_type: 'Загрузите: %s - нажмите здесь, чтобы повторить попытку.'
-  ba-common-settingsmenu.tooltip: 'Нажмите, чтобы играть.'
-  ba-common-settingsmenu.setting-menu: Все настройки
-  ba-common-settingsmenu.source-quality: Качество источника
-  ba-common-settingsmenu.player-speed: Скорость игрока
-  ba-common-settingsmenu.set-menu-option: Установить вариант
-  ba-common-settingsmenu.submit-video: Подтвердить видео
-  ba-common-settingsmenu.picture-in-picture: Картинка в картинке
-  ba-common-settingsmenu.exit-fullscreen-video: Выйти из полноэкранного режима
-  ba-common-settingsmenu.fullscreen-video: Войти в полноэкранный режим
-  ba-videorecorder-chooser.multi-stream: Многопоточный
-  ba-videorecorder-controlbar.pause-recorder: Приостановить рекордер
-  ba-videorecorder-controlbar.resume-recorder: Рекордер резюме
-  ba-videorecorder.missing-track: Отсутствует необходимая звуковая или видеодорожка
-  ba-videorecorder.device-already-in-use: Как минимум одно из ваших устройств ввода уже используется
-  ba-videorecorder.browser-permission-denied: 'Браузер отказал в разрешении, предоставьте доступ и перезагрузите страницу'
-  ba-audioplayer.all-settings: Все настройки
-  ba-videoplayer-controlbar.remaining-time: Оставшееся время
-  ba-videoplayer-controlbar.select-frame: Выбирать
-  ba-videoplayer-controlbar.trim-video: Отделка
-  ba-videoplayer-playbutton.trim: Отделка
-  ba-videoplayer-playbutton.skip: Пропускать
-  ba-videorecorder-imagegallery.upload-covershot: Загрузить обложку
-  ba-videorecorder.pick-covershot-frame: Выберите кадр для использования в качестве обложки.
-  ba-videorecorder.screen-recorder-is-not-supported: Запись с экрана не поддерживается на этом устройстве
-  ba-videorecorder.trim-prompt: Вы хотите обрезать видео?
-  ba-videorecorder.trim-video: 'Переместите маркеры начала и конца, чтобы обрезать видео'
-  ba-videorecorder.wait-for-trim: Ожидание команды обрезки ...
-  ba-videorecorder-controlbar.no-video-source: Отсутствует дополнительный источник видеовхода
-  ba-videorecorder-controlbar.stream-already-selected: Дополнительный поток уже выбран
-  ba-videorecorder.uploading-src-error: 'Невозможно воспроизвести видео, загрузка все еще продолжается'
-  ba-audiorecorder-controlbar.pause-recorder: Приостановить рекордер
-  ba-audiorecorder-controlbar.resume-recorder: Рекордер резюме
+ba-audiorecorder.upload-error-duration: Длина загруженного аудио не соответствует
+  требованиям - нажмите здесь, чтобы повторить попытку.
+ba-common-settingsmenu.tooltip: Нажмите, чтобы играть.
+ba-common-settingsmenu.setting-menu: Все настройки
+ba-videorecorder-controlbar.settings: Настройки
+ba-imagecapture.access-forbidden: Доступ к СМИ был запрещен. Нажмите, чтобы повторить
+  попытку.
+ba-videorecorder.video_file_too_large: Ваш видеофайл слишком велик (%s) - нажмите
+  здесь, чтобы повторить попытку с меньшим видеофайлом.
+ba-videoplayer-controlbar.settings: настройки
+ba-videorecorder-controlbar.add-stream: Добавить поток
+ba-imageviewer-controlbar.fullscreen-image: Войти в полноэкранный режим
+ba-imagecapture.image_file_too_large: Файл изображения слишком велик (%s) - нажмите
+  здесь, чтобы повторить попытку с меньшим файлом изображения.
+ba-imagecapture.orientation-landscape-required: Пожалуйста, поверните устройство для
+  записи в ландшафтном режиме.
+ba-videoplayer-controlbar.pause-video-disabled: Пауза не поддерживается
+ba-videorecorder-controlbar.camerahealthy: Освещение хорошее
+ba-common-settingsmenu.submit-video: Подтвердить видео
+ba-videorecorder-controlbar.record-tooltip: Нажмите здесь, чтобы записать.
+ba-common-settingsmenu.picture-in-picture: Картинка в картинке
+ba-videoplayer-playbutton.rerecord: Перезаписать
+ba-videoplayer-tracks.select-text-track-language: Язык субтитров
+ba-videoplayer-adslot.can-skip-after: Пропустить после %d
+ba-audiorecorder.cancel-confirm: Вы действительно хотите отменить загрузку аудио?
+ba-audiorecorder.software-waiting: В ожидании требований, которые будут установлены
+  / активированы. Возможно, вам придется обновить страницу после завершения.
+ba-videoplayer-tracks.info-select-locale-first: Сначала выберите язык
+ba-videoplayer-loader.tooltip: Загрузка видео ...
+ba-audiorecorder-controlbar.cancel-tooltip: Нажмите здесь, чтобы отменить.
+ba-imagecapture.verifying-failed: Проверка не удалась - нажмите здесь, чтобы повторить
+  попытку.
+ba-videoplayer-playbutton.skip: Пропускать
+ba-videoplayer-controlbar.trim-video: Отделка
+ba-videorecorder.missing-track: Отсутствует необходимая звуковая или видеодорожка
+ba-imagecapture.uploading-failed: Загрузка не удалась - нажмите здесь, чтобы повторить
+  попытку.
+ba-videoplayer-adslot.volume-button: Установить громкость
+ba-imagecapture-chooser.image-capture: Захват изображения
+ba-videorecorder.trim-prompt: Вы хотите обрезать видео?
+ba-videorecorder.software-waiting: Ожидание требований к установке / активации. Возможно,
+  вам придется обновить страницу после завершения.
+ba-audioplayer-controlbar.play-audio: Играть
+ba-videorecorder-controlbar.resume-recorder: Рекордер резюме
+ba-videorecorder-controlbar.rerecord: Переделать
+ba-audiorecorder.verifying: проверка
+ba-videoplayer-playbutton.tooltip: Нажмите, чтобы воспроизвести видео.
+ba-videorecorder.trim-video: Переместите маркеры начала и конца, чтобы обрезать видео
+ba-videoplayer-controlbar.player-speed: Скорость игрока
+ba-videorecorder-controlbar.microphonehealthy: Звук хороший
+ba-videorecorder-chooser.multi-stream: Многопоточный
+ba-imagecapture.recorder-error: Произошла ошибка. Пожалуйста, повторите попытку позже.
+  Нажмите, чтобы повторить попытку.
+ba-videorecorder-controlbar.stop-tooltip: Нажмите здесь, чтобы остановить.
+ba-imagecapture-controlbar.rerecord-tooltip: Нажмите здесь, чтобы повторить.
+ba-videoplayer-controlbar.video-progress: Ход видео
+ba-videorecorder-controlbar.cameraunhealthy: Слабое освещение
+ba-audioplayer-controlbar.pause-audio: Пауза
+ba-videorecorder-controlbar.stop: Стоп
+ba-imagecapture-chooser.upload-image: Загрузить изображение
+ba-videorecorder-imagegallery.upload-covershot: Загрузить обложку
+ba-audiorecorder-controlbar.resume-recorder: Рекордер резюме
+ba-videoplayer.video-error: Произошла ошибка. Пожалуйста, повторите попытку позже.
+  Нажмите, чтобы повторить попытку.
+ba-videorecorder.attach-error: '"Не удалось получить доступ к камере. В зависимости
+  от устройства или браузера, вам может понадобиться установить Flash или получить
+  доступ к сайту через SSL."'
+ba-audiorecorder-controlbar.pause-recorder: Приостановить рекордер
+ba-audiorecorder-controlbar.stop-available-after: 'Минимальное время записи: %d секунд'
+ba-videoplayer-controlbar.change-resolution: Изменить разрешение
+ba-audiorecorder.software-required: Пожалуйста, нажмите ниже, чтобы установить / активировать
+  следующие требования, чтобы продолжить.
+ba-videoplayer-controlbar.exit-fullscreen-video: Выйти из режима полного окна
+ba-imageviewer-controlbar.rerecord-image: Повторить?
+ba-videoplayer-adslot.ad-will-end-after: Объявление будет завершено после %s
+ba-imagecapture.rerecord-confirm: Вы действительно хотите вернуть свой образ?
+ba-audioplayer-controlbar.elapsed-time: Укороченное время
+ba-audioplayer-controlbar.rerecord-audio: Повторить?
+ba-imageviewer-controlbar.exit-fullscreen-image: Выход из полноэкранного режима
+ba-videorecorder.verifying-failed: Ошибка подтверждения. Нажмите здесь, чтобы повторить
+  попытку.
+ba-videorecorder-controlbar.upload-covershot-tooltip: Нажмите здесь, чтобы загрузить
+  личную обложку
+ba-common-settingsmenu.set-menu-option: Установить вариант
+ba-videorecorder.framerate-warning: Частота кадров видео очень низкая. Мы рекомендуем
+  закрыть все другие программы и вкладки браузера или использовать более быстрый компьютер.
+ba-videorecorder.switch-camera: Переключить камеру
+ba-audioplayer-controlbar.volume-button: Установить громкость
+ba-videorecorder-chooser.upload-video: Загрузить видео
+ba-audiorecorder.verifying-failed: Проверка не удалась - нажмите здесь, чтобы повторить
+  попытку.
+ba-videorecorder-controlbar.stream-already-selected: Дополнительный поток уже выбран
+ba-videorecorder.upload-error-duration: Длина загруженного видео не соответствует
+  требованиям - нажмите здесь, чтобы повторить попытку.
+ba-common-settingsmenu.player-speed: Скорость игрока
+ba-audiorecorder-controlbar.settings: настройки
+ba-videoplayer-controlbar.play-video: Проиграть видео
+ba-videoplayer-controlbar.rerecord-video: Перезаписать видео?
+ba-videorecorder.recorder-error: Произошла ошибка. Пожалуйста, повторите попытку позже.
+  Нажмите, чтобы повторить попытку.
+ba-videorecorder.prepare-covershot: Подготовка обложек
+ba-videorecorder.verifying: Проверка
+ba-videorecorder.unsupported_video_type: 'Пожалуйста загрузите: %s - нажмите здесь,
+  чтобы повторить попытку.'
+ba-videoplayer-playbutton.submit-video: Подтвердить видео
+ba-audioplayer-controlbar.total-time: Общая длина
+ba-videorecorder.prepare-thumbnails: Подготовка поиска миниатюр
+ba-videoplayer-controlbar.airplay: трансляция звукозаписи
+ba-videorecorder.access-forbidden: Доступ к камере был запрещен. Нажмите, чтобы повторить
+  попытку.
+ba-videoplayer-adslot.volume-mute: Отключить звук
+ba-imageviewer.image-error: Произошла ошибка. Пожалуйста, повторите попытку позже.
+  Нажмите, чтобы повторить попытку.
+ba-videorecorder.resolution-constraint-error: Выбранный файл не соответствует требуемому
+  разрешению - нажмите здесь, чтобы повторить попытку.
+ba-videorecorder-controlbar.pause-recorder: Приостановить рекордер
+ba-imagecapture-controlbar.cameraunhealthy: Освещение не является оптимальным
+ba-common-settingsmenu.source-quality: Качество источника
+ba-imagecapture.orientation-portrait-required: Пожалуйста, поверните устройство для
+  записи в портретном режиме.
+ba-audiorecorder-chooser.record-audio: Запись аудио
+ba-videoplayer-controlbar.volume-mute: Отключить звук
+ba-videorecorder.pick-covershot: Выберите снимок.
+ba-audiorecorder-controlbar.microphoneunhealthy: Невозможно подобрать звук
+ba-videorecorder-controlbar.no-video-source: Отсутствует дополнительный источник видеовхода
+ba-audiorecorder.access-forbidden: Доступ к СМИ был запрещен. Нажмите, чтобы повторить
+  попытку.
+ba-imagecapture-controlbar.rerecord: переделывать
+ba-audiorecorder.recorder-error: Произошла ошибка. Пожалуйста, повторите попытку позже.
+  Нажмите, чтобы повторить попытку.
+ba-videoplayer-tracks.select-text-track-file: Нажмите, чтобы выбрать файл
+ba-videorecorder-controlbar.skip: Пропустить
+ba-imagecapture.software-required: Пожалуйста, нажмите ниже, чтобы установить / активировать
+  следующие требования, чтобы продолжить.
+ba-videorecorder.uploading-src-error: Невозможно воспроизвести видео, загрузка все
+  еще продолжается
+ba-videoplayer-controlbar.volume-button: Громкость
+ba-imagecapture.attach-error: Мы не смогли получить доступ к медиаинтерфейсу. В зависимости
+  от устройства и браузера, вам может потребоваться установить Flash или получить
+  доступ к странице через SSL.
+ba-audiorecorder.uploading: Выгрузка
+ba-audiorecorder.unsupported_audio_type: 'Загрузите: %s - нажмите здесь, чтобы повторить
+  попытку.'
+ba-imagecapture-controlbar.settings: настройки
+ba-videorecorder.adding-new-stream: Добавление нового потока
+ba-imagecapture.uploading: Выгрузка
+ba-videorecorder.wait-for-trim: Ожидание команды обрезки ...
+ba-imagecapture-controlbar.cancel: Отмена
+ba-videorecorder-controlbar.cancel-tooltip: Нажмите здесь, чтобы отменить.
+ba-audioplayer.audio-error: Произошла ошибка. Пожалуйста, повторите попытку позже.
+  Нажмите, чтобы повторить попытку.
+ba-videoplayer-controlbar.show-tracks: Показать CC
+ba-videoplayer.full-screen: Полноэкранный
+ba-videorecorder.cancel-confirm: Вы действительно хотите отменить загрузку видео?
+ba-videorecorder-controlbar.cancel: Отмена
+ba-audiorecorder-controlbar.rerecord: переделывать
+ba-audiorecorder.rerecord-confirm: Вы действительно хотите повторить аудио?
+ba-videoplayer-controlbar.elapsed-time: Пройденное время
+ba-videorecorder-controlbar.stop-available-after: 'Минимальное время записи: %d секунд'
+ba-audioplayer.all-settings: Все настройки
+ba-imagecapture-controlbar.camerahealthy: Освещение хорошее
+ba-imagecapture-controlbar.record: Захватить
+ba-audiorecorder-controlbar.record-tooltip: Нажмите здесь, чтобы записать.
+ba-audioplayer-controlbar.submit-audio: подтвердить
+ba-videoplayer-adslot.skip-ad: Пропустить рекламу
+ba-videorecorder-chooser.record-audio: Запись аудио
+ba-audiorecorder.audio_file_too_large: Ваш аудиофайл слишком большой (%s) - нажмите
+  здесь, чтобы повторить попытку с меньшим аудиофайлом.
+ba-videorecorder.browser-permission-denied: Браузер отказал в разрешении, предоставьте
+  доступ и перезагрузите страницу
+ba-videoplayer-controlbar.pause-video: Приостановить видео
+ba-videoplayer-adslot.volume-unmute: Включить звук
+ba-videoplayer-controlbar.submit-video: Подтвердить видео
+ba-videoplayer-share.share: Поделиться с видео
+ba-audioplayer-loader.tooltip: Loading ...
+ba-imagecapture.unsupported_image_type: 'Загрузите: %s - нажмите здесь, чтобы повторить
+  попытку.'
+ba-videorecorder.uploading: Загрузка
+ba-audiorecorder-controlbar.microphonehealthy: Звук хорош
+ba-audiorecorder-controlbar.rerecord-tooltip: Нажмите здесь, чтобы повторить.
+ba-videorecorder-chooser.record-screen: Экран записи
+ba-videoplayer.all-settings: Все настройки
+ba-videoplayer-controlbar.select-frame: Выбирать
+ba-videoplayer-sidebar.up-next: пупупу
+ba-imagecapture.resolution-constraint-error: Выбранный вами файл не соответствует
+  требуемому разрешению - нажмите здесь, чтобы повторить попытку.
+ba-audiorecorder-controlbar.stop-tooltip: Нажмите здесь, чтобы остановиться.
+ba-videorecorder-controlbar.microphoneunhealthy: Невозможно получить звук
+ba-audiorecorder-controlbar.stop: Стоп
+ba-videorecorder.rerecord-confirm: Вы действительно хотите перезаписать видео?
+ba-videoplayer-controlbar.close-tracks: Закрыть CC
+ba-videorecorder-controlbar.upload-covershot: Загрузить
+ba-videorecorder.orientation-landscape-required: Поверните устройство для записи в
+  альбомном режиме.
+ba-imagecapture.verifying: проверка
+ba-imageviewer-controlbar.submit-image: подтвердить
+ba-imagecapture-controlbar.cancel-tooltip: Нажмите здесь, чтобы отменить.
+ba-imagecapture.software-waiting: В ожидании требований, которые будут установлены
+  / активированы. Возможно, вам придется обновить страницу после завершения.
+ba-common-settingsmenu.exit-fullscreen-video: Выйти из полноэкранного режима
+ba-videorecorder.uploading-failed: 'Ошибка загрузки: нажмите здесь, чтобы повторить
+  попытку.'
+ba-videoplayer-playbutton.trim: Отделка
+ba-audioplayer-controlbar.volume-unmute: Включить звук
+ba-audiorecorder-controlbar.record: запись
+ba-videorecorder.software-required: Пожалуйста, нажмите ниже, чтобы установить / активировать
+  следующие требования, чтобы продолжить.
+ba-videoplayer-tracks.upload-text-tracks: Загрузить дорожки
+ba-videorecorder-controlbar.skip-tooltip: Нажмите здесь, чтобы пропустить.
+ba-videoplayer-adslot.elapsed-time: Укороченное время
+ba-videoplayer-controlbar.remaining-time: Оставшееся время
+ba-imagecapture-controlbar.record-tooltip: Нажмите здесь, чтобы сделать снимок.
+ba-videorecorder.device-already-in-use: Как минимум одно из ваших устройств ввода
+  уже используется
+ba-audioplayer-controlbar.volume-mute: Отключить звук
+ba-audiorecorder-chooser.upload-audio: Загрузить аудио
+ba-imagecapture.upload-error-duration: Длина загруженного изображения не соответствует
+  требованиям - нажмите здесь, чтобы повторить попытку.
+ba-audiorecorder.attach-error: Мы не смогли получить доступ к медиаинтерфейсу. В зависимости
+  от устройства и браузера, вам может потребоваться установить Flash или получить
+  доступ к странице через SSL.
+ba-audiorecorder-controlbar.cancel: Отмена
+ba-videoplayer-controlbar.airplay-icon: Значок Airplay.
+ba-videoplayer.player-speed: Скорость игрока
+ba-videoplayer-controlbar.fullscreen-video: Полноэкранный режим
+ba-audiorecorder.uploading-failed: Загрузка не удалась - нажмите здесь, чтобы повторить
+  попытку.
+ba-videorecorder-chooser.record-video: Запишите свое видео
+ba-videorecorder.screen-recorder-is-not-supported: Запись с экрана не поддерживается
+  на этом устройстве
+ba-videoplayer-tracks.back: назад
+ba-videorecorder.pick-covershot-frame: Выберите кадр для использования в качестве
+  обложки.
+ba-audioplayer-controlbar.audio-progress: Прогресс
+ba-audioplayer-controlbar.pause-audio-disabled: Пауза не поддерживается
+ba-videoplayer-controlbar.total-time: Общая длина видео
+ba-videorecorder-controlbar.rerecord-tooltip: Нажмите чтобы перезаписать
+ba-videorecorder.orientation-portrait-required: Поверните устройство для записи в
+  портретном режиме.
+ba-common-settingsmenu.fullscreen-video: Войти в полноэкранный режим
+ba-videoplayer-controlbar.volume-unmute: Включить звук
+ba-videorecorder-controlbar.record: Запись

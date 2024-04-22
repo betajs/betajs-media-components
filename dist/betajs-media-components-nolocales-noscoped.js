@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.470 - 2024-04-15
+betajs-media-components - v0.0.471 - 2024-04-22
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.470",
-    "datetime": 1713212744209
+    "version": "0.0.471",
+    "datetime": 1713792408232
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4932,6 +4932,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.__repeatOutstream && this.get("outstreamoptions.persistentcompanionad"))
                             return;
                         if (companionAds && companionAds.length > 0 && this.get("companionad")) {
+                            let testString = "some string";
                             if (this.get("companionad.locations")) {
                                 this._renderMultiCompanionAds();
                             } else if (this.scopes.adsplayer && Types.is_string(this.get("companionad")) || Types.is_boolean(this.get("companionad"))) {
@@ -8496,6 +8497,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     }, {
 
         _started: function() {
+            console.log("_started: ");
             this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
             this.dyn.set("playbackcount", this.dyn.get("playbackcount") + 1);
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
@@ -8515,6 +8517,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || !this.dyn.get("lastplaylistitem"));
 
                 var nextVideo = this.dyn.get("playlist")[nextIndex];
+                console.log("playlist: " + JSON.stringify(this.dyn.get("playlist")));
+                // console.log("playlist: " + this.dyn.get("playlist").toString());
+
                 this.dyn.set("current_video_from_playlist", nextIndex);
                 this.dyn.setAll(nextVideo);
 
@@ -8869,6 +8874,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  * @param index
                  */
                 playNextVideo: function(index) {
+                    console.log("playNextVideo: ");
                     this.__dyn.trigger("sidebarskip");
                     this.__dyn.set("next_video_from_playlist", index);
                     this.__dyn.setPlayerEngagement();
@@ -9220,7 +9226,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
         })
         .attachStringTable(Assets.strings)
         .addStrings({
-            "up-next": "Up Next",
+            "up-next": "Up Next khm",
             "continue-on-ads-end": "Content will resume after this advertisement."
         });
 });

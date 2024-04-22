@@ -898,6 +898,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
     }, {
 
         _started: function() {
+            console.log("_started: ");
             this.dyn.set("autoplay", this.dyn.get("continuousplayback"));
             this.dyn.set("playbackcount", this.dyn.get("playbackcount") + 1);
             if (this.dyn.get("playlist") && this.dyn.get("playlist").length > 0) {
@@ -917,6 +918,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || !this.dyn.get("lastplaylistitem"));
 
                 var nextVideo = this.dyn.get("playlist")[nextIndex];
+                console.log("playlist: " + JSON.stringify(this.dyn.get("playlist")));
+                // console.log("playlist: " + this.dyn.get("playlist").toString());
+
                 this.dyn.set("current_video_from_playlist", nextIndex);
                 this.dyn.setAll(nextVideo);
 

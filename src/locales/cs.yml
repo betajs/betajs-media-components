@@ -1,226 +1,239 @@
-'language:cs':
-  ba-videoplayer-playbutton.tooltip: Klikněte pro přehrání.
-  ba-videoplayer-playbutton.rerecord: Předělat
-  ba-videoplayer-playbutton.submit-video: Potvrďte video
-  ba-videoplayer-loader.tooltip: Načítání...
-  ba-videoplayer-controlbar.change-resolution: Změnit rozlišení
-  ba-videoplayer-controlbar.video-progress: Pokrok
-  ba-videoplayer-controlbar.rerecord-video: Předělat?
-  ba-videoplayer-controlbar.submit-video: Potvrdit
-  ba-videoplayer-controlbar.play-video: Hrát si
-  ba-videoplayer-controlbar.pause-video: Pauza
-  ba-videoplayer-controlbar.elapsed-time: Uplynulý čas
-  ba-videoplayer-controlbar.total-time: Celková délka
-  ba-videoplayer-controlbar.fullscreen-video: Přejděte na celou obrazovku
-  ba-videoplayer-controlbar.volume-button: Nastavte hlasitost
-  ba-videoplayer-controlbar.volume-mute: Ztlumit zvuk
-  ba-videoplayer-controlbar.volume-unmute: Zapnout zvuk
-  ba-videoplayer.video-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím to zkuste znovu.
-  ba-videorecorder-chooser.record-video: Nahrát video
-  ba-videorecorder-chooser.upload-video: Nahrát video
-  ba-videorecorder-controlbar.settings: Nastavení
-  ba-videorecorder-controlbar.camerahealthy: Osvětlení je dobré
-  ba-videorecorder-controlbar.cameraunhealthy: Osvětlení není optimální
-  ba-videorecorder-controlbar.microphonehealthy: Zvuk je dobrý
-  ba-videorecorder-controlbar.microphoneunhealthy: Nelze zachytit žádný zvuk
-  ba-videorecorder-controlbar.record: Záznam
-  ba-videorecorder-controlbar.record-tooltip: Klepnutím sem spustíte nahrávání.
-  ba-videorecorder-controlbar.rerecord: Předělat
-  ba-videorecorder-controlbar.rerecord-tooltip: Klikněte znovu pro opakování.
-  ba-videorecorder-controlbar.upload-covershot: Nahrajte obálku
-  ba-videorecorder-controlbar.upload-covershot-tooltip: Kliknutím sem nahrajete vlastní snímek obálky
-  ba-videorecorder-controlbar.stop: Stop
-  ba-videorecorder-controlbar.stop-tooltip: Kliknutím sem zastavíte.
-  ba-videorecorder-controlbar.skip: Přeskočit
-  ba-videorecorder-controlbar.skip-tooltip: Kliknutím sem přeskočíte.
-  ba-videorecorder.recorder-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím to zkuste znovu.
-  ba-videorecorder.attach-error: >-
-    Nelze získat přístup k mediálnímu rozhraní. V závislosti na zařízení a
-    prohlížeči možná budete muset nainstalovat Flash nebo přistupovat na stránku
-    pomocí SSL.
-  ba-videorecorder.access-forbidden: Přístup k médiím byl zakázán. Kliknutím to zkuste znovu.
-  ba-videorecorder.pick-covershot: Vyberte si krycí snímek.
-  ba-videorecorder.uploading: Nahrávám
-  ba-videorecorder.uploading-failed: Nahrávání se nezdařilo - kliknutím sem to zkuste znovu.
-  ba-videorecorder.verifying: Ověření
-  ba-videorecorder.verifying-failed: Ověření se nezdařilo - kliknutím sem to zkuste znovu.
-  ba-videorecorder.rerecord-confirm: Opravdu chcete své video zopakovat?
-  ba-videorecorder.video_file_too_large: >-
-    Váš video soubor je příliš velký (%s) - kliknutím sem to zkuste znovu s
-    menším video souborem.
-  ba-videorecorder.unsupported_video_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste znovu.'
-  ba-videoplayer-controlbar.exit-fullscreen-video: Ukončit režim celé obrazovky
-  ba-videoplayer-share.share: Sdílejte média
-  ba-videorecorder-chooser.record-screen: Záznamová obrazovka
-  ba-videoplayer-controlbar.pause-video-disabled: Pauza není podporována
-  ba-videorecorder-chooser.record-audio: Záznam zvuku
-  ba-videorecorder-controlbar.stop-available-after: Minimální doba záznamu je %d sekund
-  ba-videorecorder-controlbar.cancel: zrušení
-  ba-videorecorder-controlbar.cancel-tooltip: Kliknutím sem akci zrušíte.
-  ba-videorecorder.cancel-confirm: Opravdu chcete zrušit nahrávání videa?
-  ba-videoplayer-adslot.elapsed-time: Uplynulý čas
-  ba-videoplayer-adslot.volume-button: Nastavte hlasitost
-  ba-videoplayer-adslot.volume-mute: Ztlumit zvuk
-  ba-videoplayer-adslot.volume-unmute: Zapnout zvuk
-  ba-videoplayer-adslot.ad-will-end-after: Reklama skončí po %s
-  ba-videoplayer-adslot.can-skip-after: Přeskočit po %d
-  ba-videoplayer-adslot.skip-ad: Přeskočit reklamu
-  ba-videorecorder.software-required: >-
-    Chcete-li pokračovat, klikněte níže a nainstalujte / aktivujte následující
-    požadavky.
-  ba-videorecorder.software-waiting: >-
-    Čekání na instalaci / aktivaci požadavků. Po dokončení možná budete muset
-    stránku obnovit.
-  ba-videoplayer-controlbar.close-tracks: Zavřít CC
-  ba-videoplayer-controlbar.show-tracks: Zobrazit CC
-  ba-videoplayer-tracks.upload-text-tracks: Nahrajte textové soubory stopy
-  ba-videoplayer-tracks.select-text-track-language: Jazyk titulků
-  ba-videoplayer-tracks.info-select-locale-first: Nejprve vyberte národní prostředí
-  ba-videoplayer-tracks.select-text-track-file: Klepnutím vyberte soubor
-  ba-videoplayer-tracks.back: zadní
-  ba-videorecorder.framerate-warning: >-
-    Snímková frekvence videa je velmi nízká. Doporučujeme zavřít všechny ostatní
-    programy a karty prohlížeče nebo použít rychlejší počítač.
-  ba-videorecorder.upload-error-duration: Délka nahraného videa nesplňuje požadavky - kliknutím sem to zkuste znovu.
-  ba-videorecorder.resolution-constraint-error: >-
-    Soubor, který jste vybrali, neodpovídá požadovanému rozlišení - kliknutím
-    sem to zkuste znovu.
-  ba-videorecorder.orientation-portrait-required: 'Chcete-li nahrávat v režimu na výšku, otočte zařízení.'
-  ba-videorecorder.orientation-landscape-required: 'Chcete-li nahrávat v režimu na šířku, otočte zařízení.'
-  ba-imageviewer-controlbar.rerecord-image: Předělat?
-  ba-imageviewer-controlbar.submit-image: Potvrdit
-  ba-imageviewer-controlbar.fullscreen-image: Přejděte na celou obrazovku
-  ba-imageviewer-controlbar.exit-fullscreen-image: Ukončit režim celé obrazovky
-  ba-imageviewer.image-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím to zkuste znovu.
-  ba-imagecapture-chooser.image-capture: Zachyťte obrázek
-  ba-imagecapture-chooser.upload-image: Nahrát obrázek
-  ba-imagecapture-controlbar.settings: Nastavení
-  ba-imagecapture-controlbar.camerahealthy: Osvětlení je dobré
-  ba-imagecapture-controlbar.cameraunhealthy: Osvětlení není optimální
-  ba-imagecapture-controlbar.record: Zachyťte
-  ba-imagecapture-controlbar.record-tooltip: Kliknutím sem pořídíte snímek.
-  ba-imagecapture-controlbar.rerecord: Předělat
-  ba-imagecapture-controlbar.rerecord-tooltip: Klikněte znovu pro opakování.
-  ba-imagecapture-controlbar.cancel: zrušení
-  ba-imagecapture-controlbar.cancel-tooltip: Kliknutím sem akci zrušíte.
-  ba-audioplayer-controlbar.audio-progress: Pokrok
-  ba-audioplayer-controlbar.rerecord-audio: Předělat?
-  ba-audioplayer-controlbar.submit-audio: Potvrdit
-  ba-audioplayer-controlbar.play-audio: Hrát si
-  ba-audioplayer-controlbar.pause-audio: Pauza
-  ba-audioplayer-controlbar.pause-audio-disabled: Pauza není podporována
-  ba-audioplayer-controlbar.elapsed-time: Uplynulý čas
-  ba-audioplayer-controlbar.total-time: Celková délka
-  ba-audioplayer-controlbar.volume-button: Nastavte hlasitost
-  ba-audioplayer-controlbar.volume-mute: Ztlumit zvuk
-  ba-audioplayer-controlbar.volume-unmute: Zapnout zvuk
-  ba-audioplayer-loader.tooltip: Načítání...
-  ba-audioplayer.audio-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím to zkuste znovu.
-  ba-audiorecorder-chooser.record-audio: Záznam zvuku
-  ba-audiorecorder-chooser.upload-audio: Nahrát zvuk
-  ba-audiorecorder-controlbar.settings: Nastavení
-  ba-audiorecorder-controlbar.microphonehealthy: Zvuk je dobrý
-  ba-audiorecorder-controlbar.microphoneunhealthy: Nelze zachytit žádný zvuk
-  ba-audiorecorder-controlbar.record: Záznam
-  ba-audiorecorder-controlbar.record-tooltip: Klepnutím sem spustíte nahrávání.
-  ba-audiorecorder-controlbar.rerecord: Předělat
-  ba-audiorecorder-controlbar.rerecord-tooltip: Klikněte znovu pro opakování.
-  ba-audiorecorder-controlbar.stop: Stop
-  ba-audiorecorder-controlbar.stop-tooltip: Kliknutím sem zastavíte.
-  ba-audiorecorder-controlbar.stop-available-after: Minimální doba záznamu je %d sekund
-  ba-audiorecorder-controlbar.cancel: zrušení
-  ba-audiorecorder-controlbar.cancel-tooltip: Kliknutím sem akci zrušíte.
-  ba-videoplayer-controlbar.player-speed: Rychlost hráče
-  ba-videoplayer-controlbar.settings: Nastavení
-  ba-videoplayer-controlbar.airplay: Airplay
-  ba-videoplayer-controlbar.airplay-icon: Ikona Airplay.
-  ba-videoplayer.all-settings: Všechna nastavení
-  ba-videoplayer.player-speed: Rychlost hráče
-  ba-videoplayer.full-screen: Celá obrazovka
-  ba-videorecorder-controlbar.add-stream: Přidat stream
-  ba-videorecorder.switch-camera: Přepnout kameru
-  ba-videorecorder.prepare-covershot: Příprava pokusů
-  ba-videorecorder.prepare-thumbnails: Příprava hledání miniatur
-  ba-videorecorder.adding-new-stream: Přidání nového streamu
-  ba-imagecapture.recorder-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím to zkuste znovu.
-  ba-imagecapture.attach-error: >-
-    Nelze získat přístup k mediálnímu rozhraní. V závislosti na zařízení a
-    prohlížeči možná budete muset nainstalovat Flash nebo přistupovat na stránku
-    pomocí SSL.
-  ba-imagecapture.software-required: >-
-    Chcete-li pokračovat, klikněte níže a nainstalujte / aktivujte následující
-    požadavky.
-  ba-imagecapture.software-waiting: >-
-    Čekání na instalaci / aktivaci požadavků. Po dokončení možná budete muset
-    stránku obnovit.
-  ba-imagecapture.access-forbidden: Přístup k médiím byl zakázán. Kliknutím to zkuste znovu.
-  ba-imagecapture.uploading: Nahrávám
-  ba-imagecapture.uploading-failed: Nahrávání se nezdařilo - kliknutím sem to zkuste znovu.
-  ba-imagecapture.upload-error-duration: Délka nahraného obrázku nesplňuje požadavky - kliknutím sem to zkuste znovu.
-  ba-imagecapture.resolution-constraint-error: >-
-    Soubor, který jste vybrali, neodpovídá požadovanému rozlišení - kliknutím
-    sem to zkuste znovu.
-  ba-imagecapture.verifying: Ověření
-  ba-imagecapture.verifying-failed: Ověření se nezdařilo - kliknutím sem to zkuste znovu.
-  ba-imagecapture.rerecord-confirm: Opravdu chcete znovu pořídit svůj obrázek?
-  ba-imagecapture.image_file_too_large: >-
-    Váš obrazový soubor je příliš velký (%s) - kliknutím sem to zkuste znovu s
-    menším obrazovým souborem.
-  ba-imagecapture.unsupported_image_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste znovu.'
-  ba-imagecapture.orientation-portrait-required: 'Chcete-li nahrávat v režimu na výšku, otočte zařízení.'
-  ba-imagecapture.orientation-landscape-required: 'Chcete-li nahrávat v režimu na šířku, otočte zařízení.'
-  ba-audiorecorder.recorder-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím to zkuste znovu.
-  ba-audiorecorder.attach-error: >-
-    Nelze získat přístup k mediálnímu rozhraní. V závislosti na zařízení a
-    prohlížeči možná budete muset nainstalovat Flash nebo přistupovat na stránku
-    pomocí SSL.
-  ba-audiorecorder.software-required: >-
-    Chcete-li pokračovat, klikněte níže a nainstalujte / aktivujte následující
-    požadavky.
-  ba-audiorecorder.software-waiting: >-
-    Čekání na instalaci / aktivaci požadavků. Po dokončení možná budete muset
-    stránku obnovit.
-  ba-audiorecorder.access-forbidden: Přístup k médiím byl zakázán. Kliknutím to zkuste znovu.
-  ba-audiorecorder.uploading: Nahrávám
-  ba-audiorecorder.uploading-failed: Nahrávání se nezdařilo - kliknutím sem to zkuste znovu.
-  ba-audiorecorder.upload-error-duration: Délka nahraného zvuku nesplňuje požadavky - kliknutím sem to zkuste znovu.
-  ba-audiorecorder.verifying: Ověření
-  ba-audiorecorder.verifying-failed: Ověření se nezdařilo - kliknutím sem to zkuste znovu.
-  ba-audiorecorder.rerecord-confirm: Opravdu chcete předělat zvuk?
-  ba-audiorecorder.cancel-confirm: Opravdu chcete zrušit nahrávání zvuku?
-  ba-audiorecorder.audio_file_too_large: >-
-    Váš zvukový soubor je příliš velký (%s) - kliknutím sem to zkuste znovu s
-    menším zvukovým souborem.
-  ba-audiorecorder.unsupported_audio_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste znovu.'
-  ba-common-settingsmenu.tooltip: Klikněte pro přehrání.
-  ba-common-settingsmenu.setting-menu: Všechna nastavení
-  ba-common-settingsmenu.source-quality: Kvalita zdroje
-  ba-common-settingsmenu.player-speed: Rychlost hráče
-  ba-common-settingsmenu.set-menu-option: Nastavit možnost
-  ba-common-settingsmenu.submit-video: Potvrďte video
-  ba-common-settingsmenu.picture-in-picture: Obraz v obraze
-  ba-common-settingsmenu.exit-fullscreen-video: Ukončit režim celé obrazovky
-  ba-common-settingsmenu.fullscreen-video: Přejděte na celou obrazovku
-  ba-videorecorder-chooser.multi-stream: Multi Stream
-  ba-videorecorder-controlbar.pause-recorder: Pozastavit záznam
-  ba-videorecorder-controlbar.resume-recorder: Obnovte záznam
-  ba-videorecorder.missing-track: Chybí požadovaná zvuková nebo obrazová stopa
-  ba-videorecorder.device-already-in-use: Alespoň jedno z vašich vstupních zařízení se již používá
-  ba-videorecorder.browser-permission-denied: 'Prohlížeč zamítl oprávnění, udělejte prosím přístup a znovu načtěte stránku'
-  ba-audioplayer.all-settings: Všechna nastavení
-  ba-videoplayer-controlbar.remaining-time: Zbývající čas
-  ba-videoplayer-controlbar.select-frame: Vybrat
-  ba-videoplayer-controlbar.trim-video: Oříznout
-  ba-videoplayer-playbutton.trim: Oříznout
-  ba-videoplayer-playbutton.skip: Přeskočit
-  ba-videorecorder-imagegallery.upload-covershot: Nahrajte obálku
-  ba-videorecorder.pick-covershot-frame: 'Vyberte snímek, který chcete použít jako krycí snímek.'
-  ba-videorecorder.screen-recorder-is-not-supported: Rekordér obrazovky není na tomto zařízení podporován
-  ba-videorecorder.trim-prompt: Chcete video oříznout?
-  ba-videorecorder.trim-video: Posunutím počátečních a koncových značek ořízněte video
-  ba-videorecorder.wait-for-trim: Čekání na příkaz oříznutí ...
-  ba-videorecorder-controlbar.no-video-source: Chybí další zdroj vstupu videa
-  ba-videorecorder-controlbar.stream-already-selected: Další stream již byl vybrán
-  ba-videorecorder.uploading-src-error: 'Nyní nelze přehrát video, nahrávání stále probíhá'
-  ba-audiorecorder-controlbar.pause-recorder: Pozastavit rekordér
-  ba-audiorecorder-controlbar.resume-recorder: Obnovit záznamník
+ba-imagecapture.uploading: Nahrávám
+ba-audiorecorder.upload-error-duration: Délka nahraného zvuku nesplňuje požadavky
+  - kliknutím sem to zkuste znovu.
+ba-common-settingsmenu.tooltip: Klikněte pro přehrání.
+ba-videorecorder.wait-for-trim: Čekání na příkaz oříznutí ...
+ba-common-settingsmenu.setting-menu: Všechna nastavení
+ba-videorecorder-controlbar.settings: Nastavení
+ba-imagecapture.access-forbidden: Přístup k médiím byl zakázán. Kliknutím to zkuste
+  znovu.
+ba-imagecapture-controlbar.cancel: zrušení
+ba-videorecorder.video_file_too_large: Váš video soubor je příliš velký (%s) - kliknutím
+  sem to zkuste znovu s menším video souborem.
+ba-videoplayer-controlbar.settings: Nastavení
+ba-videorecorder-controlbar.add-stream: Přidat stream
+ba-videorecorder-controlbar.cancel-tooltip: Kliknutím sem akci zrušíte.
+ba-imageviewer-controlbar.fullscreen-image: Přejděte na celou obrazovku
+ba-audioplayer.audio-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím
+  to zkuste znovu.
+ba-imagecapture.image_file_too_large: Váš obrazový soubor je příliš velký (%s) - kliknutím
+  sem to zkuste znovu s menším obrazovým souborem.
+ba-videoplayer-controlbar.show-tracks: Zobrazit CC
+ba-imagecapture.orientation-landscape-required: Chcete-li nahrávat v režimu na šířku,
+  otočte zařízení.
+ba-videoplayer.full-screen: Celá obrazovka
+ba-videoplayer-controlbar.pause-video-disabled: Pauza není podporována
+ba-videorecorder.cancel-confirm: Opravdu chcete zrušit nahrávání videa?
+ba-videorecorder-controlbar.camerahealthy: Osvětlení je dobré
+ba-common-settingsmenu.submit-video: Potvrďte video
+ba-videorecorder-controlbar.record-tooltip: Klepnutím sem spustíte nahrávání.
+ba-videorecorder-controlbar.cancel: zrušení
+ba-common-settingsmenu.picture-in-picture: Obraz v obraze
+ba-audiorecorder-controlbar.rerecord: Předělat
+ba-audiorecorder.rerecord-confirm: Opravdu chcete předělat zvuk?
+ba-videoplayer-playbutton.rerecord: Předělat
+ba-videoplayer-tracks.select-text-track-language: Jazyk titulků
+ba-videoplayer-adslot.can-skip-after: Přeskočit po %d
+ba-audiorecorder.cancel-confirm: Opravdu chcete zrušit nahrávání zvuku?
+ba-videoplayer-controlbar.elapsed-time: Uplynulý čas
+ba-videorecorder-controlbar.stop-available-after: Minimální doba záznamu je %d sekund
+ba-audioplayer.all-settings: Všechna nastavení
+ba-imagecapture-controlbar.camerahealthy: Osvětlení je dobré
+ba-imagecapture-controlbar.record: Zachyťte
+ba-audiorecorder.software-waiting: Čekání na instalaci / aktivaci požadavků. Po dokončení
+  možná budete muset stránku obnovit.
+ba-videoplayer-tracks.info-select-locale-first: Nejprve vyberte národní prostředí
+ba-videoplayer-loader.tooltip: Načítání...
+ba-audiorecorder-controlbar.cancel-tooltip: Kliknutím sem akci zrušíte.
+ba-audiorecorder-controlbar.record-tooltip: Klepnutím sem spustíte nahrávání.
+ba-audioplayer-controlbar.submit-audio: Potvrdit
+ba-imagecapture.verifying-failed: Ověření se nezdařilo - kliknutím sem to zkuste znovu.
+ba-videoplayer-playbutton.skip: Přeskočit
+ba-videoplayer-controlbar.trim-video: Oříznout
+ba-videorecorder.missing-track: Chybí požadovaná zvuková nebo obrazová stopa
+ba-imagecapture.uploading-failed: Nahrávání se nezdařilo - kliknutím sem to zkuste
+  znovu.
+ba-videoplayer-adslot.skip-ad: Přeskočit reklamu
+ba-videoplayer-adslot.volume-button: Nastavte hlasitost
+ba-videorecorder-chooser.record-audio: Záznam zvuku
+ba-audiorecorder.audio_file_too_large: Váš zvukový soubor je příliš velký (%s) - kliknutím
+  sem to zkuste znovu s menším zvukovým souborem.
+ba-imagecapture-chooser.image-capture: Zachyťte obrázek
+ba-videorecorder.trim-prompt: Chcete video oříznout?
+ba-videorecorder.software-waiting: Čekání na instalaci / aktivaci požadavků. Po dokončení
+  možná budete muset stránku obnovit.
+ba-audioplayer-controlbar.play-audio: Hrát si
+ba-videorecorder.browser-permission-denied: Prohlížeč zamítl oprávnění, udělejte prosím
+  přístup a znovu načtěte stránku
+ba-videoplayer-controlbar.pause-video: Pauza
+ba-videoplayer-adslot.volume-unmute: Zapnout zvuk
+ba-videorecorder-controlbar.resume-recorder: Obnovte záznam
+ba-videoplayer-controlbar.submit-video: Potvrdit
+ba-videorecorder-controlbar.rerecord: Předělat
+ba-videoplayer-share.share: Sdílejte média
+ba-audioplayer-loader.tooltip: Načítání...
+ba-imagecapture.unsupported_image_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste
+  znovu.'
+ba-videorecorder.uploading: Nahrávám
+ba-audiorecorder.verifying: Ověření
+ba-videoplayer-playbutton.tooltip: Klikněte pro přehrání.
+ba-audiorecorder-controlbar.microphonehealthy: Zvuk je dobrý
+ba-videorecorder.trim-video: Posunutím počátečních a koncových značek ořízněte video
+ba-videoplayer-controlbar.player-speed: Rychlost hráče
+ba-videorecorder-controlbar.microphonehealthy: Zvuk je dobrý
+ba-videorecorder-chooser.multi-stream: Multi Stream
+ba-imagecapture.recorder-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím
+  to zkuste znovu.
+ba-videorecorder-controlbar.stop-tooltip: Kliknutím sem zastavíte.
+ba-audiorecorder-controlbar.rerecord-tooltip: Klikněte znovu pro opakování.
+ba-imagecapture-controlbar.rerecord-tooltip: Klikněte znovu pro opakování.
+ba-videorecorder-chooser.record-screen: Záznamová obrazovka
+ba-videoplayer.all-settings: Všechna nastavení
+ba-videoplayer-controlbar.select-frame: Vybrat
+ba-imagecapture.resolution-constraint-error: Soubor, který jste vybrali, neodpovídá
+  požadovanému rozlišení - kliknutím sem to zkuste znovu.
+ba-videoplayer-controlbar.video-progress: Pokrok
+ba-videorecorder-controlbar.cameraunhealthy: Osvětlení není optimální
+ba-audioplayer-controlbar.pause-audio: Pauza
+ba-videorecorder-controlbar.stop: Stop
+ba-audiorecorder-controlbar.stop-tooltip: Kliknutím sem zastavíte.
+ba-videorecorder-controlbar.microphoneunhealthy: Nelze zachytit žádný zvuk
+ba-imagecapture-chooser.upload-image: Nahrát obrázek
+ba-videorecorder-imagegallery.upload-covershot: Nahrajte obálku
+ba-audiorecorder-controlbar.resume-recorder: Obnovit záznamník
+ba-audiorecorder-controlbar.stop: Stop
+ba-videoplayer.video-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím
+  to zkuste znovu.
+ba-videorecorder.attach-error: Nelze získat přístup k mediálnímu rozhraní. V závislosti
+  na zařízení a prohlížeči možná budete muset nainstalovat Flash nebo přistupovat
+  na stránku pomocí SSL.
+ba-audiorecorder-controlbar.pause-recorder: Pozastavit rekordér
+ba-videorecorder.rerecord-confirm: Opravdu chcete své video zopakovat?
+ba-audiorecorder-controlbar.stop-available-after: Minimální doba záznamu je %d sekund
+ba-videoplayer-controlbar.change-resolution: Změnit rozlišení
+ba-audiorecorder.software-required: Chcete-li pokračovat, klikněte níže a nainstalujte
+  / aktivujte následující požadavky.
+ba-videoplayer-controlbar.exit-fullscreen-video: Ukončit režim celé obrazovky
+ba-imageviewer-controlbar.rerecord-image: Předělat?
+ba-videoplayer-adslot.ad-will-end-after: Reklama skončí po %s
+ba-imagecapture.rerecord-confirm: Opravdu chcete znovu pořídit svůj obrázek?
+ba-audioplayer-controlbar.elapsed-time: Uplynulý čas
+ba-videoplayer-controlbar.close-tracks: Zavřít CC
+ba-videorecorder-controlbar.upload-covershot: Nahrajte obálku
+ba-audioplayer-controlbar.rerecord-audio: Předělat?
+ba-videorecorder.orientation-landscape-required: Chcete-li nahrávat v režimu na šířku,
+  otočte zařízení.
+ba-imagecapture.verifying: Ověření
+ba-imageviewer-controlbar.submit-image: Potvrdit
+ba-imagecapture-controlbar.cancel-tooltip: Kliknutím sem akci zrušíte.
+ba-imagecapture.software-waiting: Čekání na instalaci / aktivaci požadavků. Po dokončení
+  možná budete muset stránku obnovit.
+ba-imageviewer-controlbar.exit-fullscreen-image: Ukončit režim celé obrazovky
+ba-videorecorder.verifying-failed: Ověření se nezdařilo - kliknutím sem to zkuste
+  znovu.
+ba-videorecorder-controlbar.upload-covershot-tooltip: Kliknutím sem nahrajete vlastní
+  snímek obálky
+ba-common-settingsmenu.set-menu-option: Nastavit možnost
+ba-common-settingsmenu.exit-fullscreen-video: Ukončit režim celé obrazovky
+ba-videorecorder.framerate-warning: Snímková frekvence videa je velmi nízká. Doporučujeme
+  zavřít všechny ostatní programy a karty prohlížeče nebo použít rychlejší počítač.
+ba-videorecorder.switch-camera: Přepnout kameru
+ba-audioplayer-controlbar.volume-button: Nastavte hlasitost
+ba-videorecorder.uploading-failed: Nahrávání se nezdařilo - kliknutím sem to zkuste
+  znovu.
+ba-videoplayer-playbutton.trim: Oříznout
+ba-videorecorder-chooser.upload-video: Nahrát video
+ba-audioplayer-controlbar.volume-unmute: Zapnout zvuk
+ba-audiorecorder-controlbar.record: Záznam
+ba-videorecorder.software-required: Chcete-li pokračovat, klikněte níže a nainstalujte
+  / aktivujte následující požadavky.
+ba-audiorecorder.verifying-failed: Ověření se nezdařilo - kliknutím sem to zkuste
+  znovu.
+ba-videorecorder-controlbar.stream-already-selected: Další stream již byl vybrán
+ba-videorecorder.upload-error-duration: Délka nahraného videa nesplňuje požadavky
+  - kliknutím sem to zkuste znovu.
+ba-common-settingsmenu.player-speed: Rychlost hráče
+ba-audiorecorder-controlbar.settings: Nastavení
+ba-videoplayer-controlbar.play-video: Hrát si
+ba-videoplayer-tracks.upload-text-tracks: Nahrajte textové soubory stopy
+ba-videorecorder-controlbar.skip-tooltip: Kliknutím sem přeskočíte.
+ba-videoplayer-adslot.elapsed-time: Uplynulý čas
+ba-videoplayer-controlbar.rerecord-video: Předělat?
+ba-videoplayer-controlbar.remaining-time: Zbývající čas
+ba-imagecapture-controlbar.record-tooltip: Kliknutím sem pořídíte snímek.
+ba-videorecorder.device-already-in-use: Alespoň jedno z vašich vstupních zařízení
+  se již používá
+ba-videorecorder.recorder-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím
+  to zkuste znovu.
+ba-audioplayer-controlbar.volume-mute: Ztlumit zvuk
+ba-audiorecorder-chooser.upload-audio: Nahrát zvuk
+ba-imagecapture.upload-error-duration: Délka nahraného obrázku nesplňuje požadavky
+  - kliknutím sem to zkuste znovu.
+ba-audiorecorder.attach-error: Nelze získat přístup k mediálnímu rozhraní. V závislosti
+  na zařízení a prohlížeči možná budete muset nainstalovat Flash nebo přistupovat
+  na stránku pomocí SSL.
+ba-audiorecorder-controlbar.cancel: zrušení
+ba-videoplayer-controlbar.airplay-icon: Ikona Airplay.
+ba-videorecorder.prepare-covershot: Příprava pokusů
+ba-videoplayer.player-speed: Rychlost hráče
+ba-videorecorder.verifying: Ověření
+ba-videoplayer-controlbar.fullscreen-video: Přejděte na celou obrazovku
+ba-audiorecorder.uploading-failed: Nahrávání se nezdařilo - kliknutím sem to zkuste
+  znovu.
+ba-videorecorder.unsupported_video_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste
+  znovu.'
+ba-videorecorder-chooser.record-video: Nahrát video
+ba-videoplayer-playbutton.submit-video: Potvrďte video
+ba-audioplayer-controlbar.total-time: Celková délka
+ba-videorecorder.prepare-thumbnails: Příprava hledání miniatur
+ba-videorecorder.screen-recorder-is-not-supported: Rekordér obrazovky není na tomto
+  zařízení podporován
+ba-videoplayer-controlbar.airplay: Airplay
+ba-videoplayer-tracks.back: zadní
+ba-videorecorder.access-forbidden: Přístup k médiím byl zakázán. Kliknutím to zkuste
+  znovu.
+ba-videoplayer-adslot.volume-mute: Ztlumit zvuk
+ba-videorecorder.pick-covershot-frame: Vyberte snímek, který chcete použít jako krycí
+  snímek.
+ba-audioplayer-controlbar.audio-progress: Pokrok
+ba-imageviewer.image-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím
+  to zkuste znovu.
+ba-audioplayer-controlbar.pause-audio-disabled: Pauza není podporována
+ba-videorecorder.resolution-constraint-error: Soubor, který jste vybrali, neodpovídá
+  požadovanému rozlišení - kliknutím sem to zkuste znovu.
+ba-videorecorder-controlbar.pause-recorder: Pozastavit záznam
+ba-imagecapture-controlbar.cameraunhealthy: Osvětlení není optimální
+ba-common-settingsmenu.source-quality: Kvalita zdroje
+ba-imagecapture.orientation-portrait-required: Chcete-li nahrávat v režimu na výšku,
+  otočte zařízení.
+ba-videoplayer-controlbar.total-time: Celková délka
+ba-videorecorder-controlbar.rerecord-tooltip: Klikněte znovu pro opakování.
+ba-videorecorder.orientation-portrait-required: Chcete-li nahrávat v režimu na výšku,
+  otočte zařízení.
+ba-audiorecorder-chooser.record-audio: Záznam zvuku
+ba-videoplayer-controlbar.volume-mute: Ztlumit zvuk
+ba-videorecorder.pick-covershot: Vyberte si krycí snímek.
+ba-audiorecorder-controlbar.microphoneunhealthy: Nelze zachytit žádný zvuk
+ba-videorecorder-controlbar.no-video-source: Chybí další zdroj vstupu videa
+ba-common-settingsmenu.fullscreen-video: Přejděte na celou obrazovku
+ba-audiorecorder.access-forbidden: Přístup k médiím byl zakázán. Kliknutím to zkuste
+  znovu.
+ba-imagecapture-controlbar.rerecord: Předělat
+ba-audiorecorder.recorder-error: Vyskytla se chyba. Zkuste to prosím později. Kliknutím
+  to zkuste znovu.
+ba-videoplayer-tracks.select-text-track-file: Klepnutím vyberte soubor
+ba-videorecorder-controlbar.skip: Přeskočit
+ba-imagecapture.software-required: Chcete-li pokračovat, klikněte níže a nainstalujte
+  / aktivujte následující požadavky.
+ba-videorecorder.uploading-src-error: Nyní nelze přehrát video, nahrávání stále probíhá
+ba-videoplayer-controlbar.volume-unmute: Zapnout zvuk
+ba-videoplayer-controlbar.volume-button: Nastavte hlasitost
+ba-imagecapture.attach-error: Nelze získat přístup k mediálnímu rozhraní. V závislosti
+  na zařízení a prohlížeči možná budete muset nainstalovat Flash nebo přistupovat
+  na stránku pomocí SSL.
+ba-audiorecorder.uploading: Nahrávám
+ba-audiorecorder.unsupported_audio_type: 'Nahrajte prosím: %s - kliknutím sem to zkuste
+  znovu.'
+ba-imagecapture-controlbar.settings: Nastavení
+ba-videorecorder-controlbar.record: Záznam
+ba-videorecorder.adding-new-stream: Přidání nového streamu

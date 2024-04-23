@@ -533,7 +533,7 @@ module.exports = function(grunt) {
         var yaml = require("js-yaml");
 
         var loadLocale = function (filename) {
-            var raw = yaml.safeLoad(grunt.file.read(filename));
+            var raw = yaml.load(grunt.file.read(filename));
             for (var key in raw) {
                 return {
                     language: key.split(":").pop(),

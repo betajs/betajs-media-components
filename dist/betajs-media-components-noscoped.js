@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.470 - 2024-04-15
+betajs-media-components - v0.0.471 - 2024-04-22
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.470",
-    "datetime": 1713212744207
+    "version": "0.0.471",
+    "datetime": 1713810408587
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -65,6 +65,1151 @@ Scoped.assumeVersion('media:version', '~0.0.191');
 
     Scoped.define("module:Assets.Languages.el", ["module:Assets"], function (Assets) {
         Assets.strings.register({"ba-videoplayer-playbutton.tooltip":"&#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3B3;&#x3C9;&#x3B3;&#x3AE;.","ba-videoplayer-playbutton.rerecord":"&#x395;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;","ba-videoplayer-playbutton.submit-video":"&#x395;&#x3C0;&#x3B9;&#x3B2;&#x3B5;&#x3B2;&#x3B1;&#x3B9;&#x3CE;&#x3C3;&#x3C4;&#x3B5; &#x3C4;&#x3BF; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF;","ba-videoplayer-loader.tooltip":"&#x3A6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7;...","ba-videoplayer-controlbar.change-resolution":"&#x391;&#x3BB;&#x3BB;&#x3B1;&#x3B3;&#x3AE; &#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3C5;&#x3C3;&#x3B7;&#x3C2;","ba-videoplayer-controlbar.video-progress":"&#x3A0;&#x3C1;&#x3CC;&#x3BF;&#x3B4;&#x3BF;&#x3C2;","ba-videoplayer-controlbar.rerecord-video":"&#x395;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;;","ba-videoplayer-controlbar.submit-video":"&#x395;&#x3C0;&#x3B9;&#x3B2;&#x3B5;&#x3B2;&#x3B1;&#x3AF;&#x3C9;&#x3C3;&#x3B7;","ba-videoplayer-controlbar.play-video":"&#x391;&#x3BD;&#x3B1;&#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3B3;&#x3C9;&#x3B3;&#x3AE;","ba-videoplayer-controlbar.pause-video":"&#x3A0;&#x3C1;&#x3BF;&#x3C3;&#x3C9;&#x3C1;&#x3B9;&#x3BD;&#x3AE; &#x3C0;&#x3B1;&#x3CD;&#x3C3;&#x3B7;","ba-videoplayer-controlbar.elapsed-time":"&#x3A7;&#x3C1;&#x3CC;&#x3BD;&#x3BF;&#x3C2; &#x3C0;&#x3BF;&#x3C5; &#x3C0;&#x3B1;&#x3C1;&#x3AE;&#x3BB;&#x3B8;&#x3B5;","ba-videoplayer-controlbar.total-time":"&#x3A3;&#x3C5;&#x3BD;&#x3BF;&#x3BB;&#x3B9;&#x3BA;&#x3AE; &#x3B4;&#x3B9;&#x3AC;&#x3C1;&#x3BA;&#x3B5;&#x3B9;&#x3B1; &#x3C4;&#x3BF;&#x3C5;","ba-videoplayer-controlbar.fullscreen-video":"&#x39C;&#x3B5;&#x3C4;&#x3AC;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3B5; &#x3C0;&#x3BB;&#x3AE;&#x3C1;&#x3B7; &#x3BF;&#x3B8;&#x3CC;&#x3BD;&#x3B7;","ba-videoplayer-controlbar.volume-button":"&#x39F;&#x3C1;&#x3B9;&#x3C3;&#x3BC;&#x3CC;&#x3C2; &#x3AD;&#x3BD;&#x3C4;&#x3B1;&#x3C3;&#x3B7;&#x3C2;","ba-videoplayer-controlbar.volume-mute":"&#x3A3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-videoplayer-controlbar.volume-unmute":"&#x391;&#x3BD;&#x3B1;&#x3AF;&#x3C1;&#x3B5;&#x3C3;&#x3B7; &#x3C3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7;&#x3C2; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-videoplayer.video-error":"&#x3A3;&#x3C5;&#x3BD;&#x3AD;&#x3B2;&#x3B7; &#x3BA;&#x3AC;&#x3C0;&#x3BF;&#x3B9;&#x3BF; &#x3BB;&#x3AC;&#x3B8;&#x3BF;&#x3C2;, &#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3B1;&#x3BB;&#x3BF;&#x3CD;&#x3BC;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3C4;&#x3B5; &#x3B1;&#x3C1;&#x3B3;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3B1;. &#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-videorecorder-chooser.record-video":"&#x395;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF;","ba-videorecorder-chooser.upload-video":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF;","ba-videorecorder-controlbar.settings":"&#x3A1;&#x3C5;&#x3B8;&#x3BC;&#x3AF;&#x3C3;&#x3B5;&#x3B9;&#x3C2;","ba-videorecorder-controlbar.camerahealthy":"&#x39F; &#x3C6;&#x3C9;&#x3C4;&#x3B9;&#x3C3;&#x3BC;&#x3CC;&#x3C2; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3BA;&#x3B1;&#x3BB;&#x3CC;&#x3C2;","ba-videorecorder-controlbar.cameraunhealthy":"&#x39F; &#x3C6;&#x3C9;&#x3C4;&#x3B9;&#x3C3;&#x3BC;&#x3CC;&#x3C2; &#x3B4;&#x3B5;&#x3BD; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3B9;&#x3BA;&#x3B1;&#x3BD;&#x3BF;&#x3C0;&#x3BF;&#x3B9;&#x3B7;&#x3C4;&#x3B9;&#x3BA;&#x3CC;&#x3C2;","ba-videorecorder-controlbar.microphonehealthy":"&#x39F; &#x3AE;&#x3C7;&#x3BF;&#x3C2; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3BA;&#x3B1;&#x3BB;&#x3CC;&#x3C2;","ba-videorecorder-controlbar.microphoneunhealthy":"&#x394;&#x3B5;&#x3BD; &#x3B1;&#x3BA;&#x3BF;&#x3CD;&#x3B3;&#x3B5;&#x3C4;&#x3B1;&#x3B9; &#x3BA;&#x3B1;&#x3B8;&#x3CC;&#x3BB;&#x3BF;&#x3C5; &#x3AE;&#x3C7;&#x3BF;&#x3C2;","ba-videorecorder-controlbar.record":"&#x395;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;","ba-videorecorder-controlbar.record-tooltip":"&#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;.","ba-videorecorder-controlbar.rerecord":"&#x395;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;","ba-videorecorder-controlbar.rerecord-tooltip":"&#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-videorecorder-controlbar.upload-covershot":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7;","ba-videorecorder-controlbar.upload-covershot-tooltip":"&#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3CE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BC;&#x3AF;&#x3B1; &#x3B4;&#x3B9;&#x3BA;&#x3AE; &#x3C3;&#x3B1;&#x3C2; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1; &#x3B5;&#x3C0;&#x3B9;&#x3C3;&#x3BA;&#x3CC;&#x3C0;&#x3B7;&#x3C3;&#x3B7;&#x3C2;","ba-videorecorder-controlbar.stop":"&#x394;&#x3B9;&#x3B1;&#x3BA;&#x3BF;&#x3C0;&#x3AE;","ba-videorecorder-controlbar.stop-tooltip":"&#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B4;&#x3B9;&#x3B1;&#x3BA;&#x3BF;&#x3C0;&#x3AE;.","ba-videorecorder-controlbar.skip":"&#x3A0;&#x3B1;&#x3C1;&#x3AC;&#x3BB;&#x3B5;&#x3B9;&#x3C8;&#x3B7;","ba-videorecorder-controlbar.skip-tooltip":"&#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3C0;&#x3B1;&#x3C1;&#x3AC;&#x3BB;&#x3B5;&#x3B9;&#x3C8;&#x3B7;.","ba-videorecorder.recorder-error":"&#x3A3;&#x3C5;&#x3BD;&#x3AD;&#x3B2;&#x3B7; &#x3BA;&#x3AC;&#x3C0;&#x3BF;&#x3B9;&#x3BF; &#x3BB;&#x3AC;&#x3B8;&#x3BF;&#x3C2;, &#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3B1;&#x3BB;&#x3BF;&#x3CD;&#x3BC;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3C4;&#x3B5; &#x3B1;&#x3C1;&#x3B3;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3B1;. &#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-videorecorder.attach-error":"&#x394;&#x3B5;&#x3BD; &#x3BC;&#x3C0;&#x3BF;&#x3C1;&#x3AD;&#x3C3;&#x3B1;&#x3BC;&#x3B5; &#x3BD;&#x3B1; &#x3B1;&#x3C0;&#x3BF;&#x3BA;&#x3C4;&#x3AE;&#x3C3;&#x3BF;&#x3C5;&#x3BC;&#x3B5; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3C4;&#x3B7;&#x3BD; &#x3BA;&#x3AC;&#x3BC;&#x3B5;&#x3C1;&#x3B1;. &#x391;&#x3BD;&#x3AC;&#x3BB;&#x3BF;&#x3B3;&#x3B1; &#x3BC;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3BA;&#x3B1;&#x3B9; &#x3C4;&#x3BF;&#x3BD; browser &#x3C0;&#x3BF;&#x3C5; &#x3C7;&#x3C1;&#x3B7;&#x3C3;&#x3B9;&#x3BC;&#x3BF;&#x3C0;&#x3BF;&#x3B9;&#x3B5;&#x3AF;&#x3C4;&#x3B5;, &#x3BC;&#x3C0;&#x3BF;&#x3C1;&#x3B5;&#x3AF; &#x3BD;&#x3B1; &#x3C7;&#x3C1;&#x3B5;&#x3B9;&#x3B1;&#x3C3;&#x3C4;&#x3B5;&#x3AF; &#x3BD;&#x3B1; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3B1;&#x3C3;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3BF; Flash &#x3AE; &#x3BD;&#x3B1; &#x3BC;&#x3C0;&#x3B5;&#x3AF;&#x3C4;&#x3B5; &#x3C3;&#x3C4;&#x3B7; &#x3C3;&#x3B5;&#x3BB;&#x3AF;&#x3B4;&#x3B1; &#x3BC;&#x3AD;&#x3C3;&#x3C9; SSL.","ba-videorecorder.access-forbidden":"&#x394;&#x3B5;&#x3BD; &#x3B5;&#x3C0;&#x3B9;&#x3C4;&#x3C1;&#x3AC;&#x3C0;&#x3B7;&#x3BA;&#x3B5; &#x3B7; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3C4;&#x3B7;&#x3BD; &#x3BA;&#x3AC;&#x3BC;&#x3B5;&#x3C1;&#x3B1;. &#x39A;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3C4;&#x3B5;.","ba-videorecorder.pick-covershot":"&#x395;&#x3C0;&#x3B9;&#x3BB;&#x3AD;&#x3BE;&#x3C4;&#x3B5; &#x3BC;&#x3B9;&#x3B1; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1; &#x3B5;&#x3C0;&#x3B9;&#x3C3;&#x3BA;&#x3CC;&#x3C0;&#x3B7;&#x3C3;&#x3B7;&#x3C2;.","ba-videorecorder.uploading":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7;","ba-videorecorder.uploading-failed":"&#x397; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3B1;&#x3C0;&#x3AD;&#x3C4;&#x3C5;&#x3C7;&#x3B5; - &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-videorecorder.verifying":"&#x395;&#x3C0;&#x3B9;&#x3B2;&#x3B5;&#x3B2;&#x3B1;&#x3AF;&#x3C9;&#x3C3;&#x3B7;","ba-videorecorder.verifying-failed":"&#x397; &#x3B5;&#x3C0;&#x3B9;&#x3B2;&#x3B5;&#x3B2;&#x3B1;&#x3AF;&#x3C9;&#x3C3;&#x3B7; &#x3B1;&#x3C0;&#x3AD;&#x3C4;&#x3C5;&#x3C7;&#x3B5;- &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-videorecorder.rerecord-confirm":"&#x3A3;&#x3AF;&#x3B3;&#x3BF;&#x3BF;&#x3C5;&#x3C1;&#x3B1; &#x3B8;&#x3AD;&#x3BB;&#x3B5;&#x3C4;&#x3B5; &#x3BD;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3B1;&#x3BB;&#x3AC;&#x3B2;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF;-&#x3BB;&#x3AE;&#x3C8;&#x3B7;;","ba-videorecorder.video_file_too_large":"&#x3A4;&#x3BF; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3C0;&#x3BF;&#x3BB;&#x3CD; &#x3BC;&#x3B5;&#x3B3;&#x3AC;&#x3BB;&#x3BF; (%s) - &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BC;&#x3B5; &#x3AD;&#x3BD;&#x3B1; &#x3BC;&#x3B5;&#x3B3;&#x3B1;&#x3BB;&#x3CD;&#x3C4;&#x3B5;&#x3C1;&#x3BF;  &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF;.","ba-videorecorder.unsupported_video_type":"&#x3A0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3B1;&#x3BB;&#x3BF;&#x3CD;&#x3BC;&#x3B5; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3CE;&#x3C3;&#x3C4;&#x3B5;: %s - &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-videoplayer-controlbar.exit-fullscreen-video":"&#x388;&#x3BE;&#x3BF;&#x3B4;&#x3BF;&#x3C2; &#x3B1;&#x3C0;&#x3CC; &#x3C0;&#x3BB;&#x3AE;&#x3C1;&#x3B7; &#x3BF;&#x3B8;&#x3CC;&#x3BD;&#x3B7;","ba-videoplayer-share.share":"&#x394;&#x3B9;&#x3B1;&#x3BC;&#x3BF;&#x3B9;&#x3C1;&#x3B1;&#x3C3;&#x3BC;&#x3CC;&#x3C2;","ba-videoplayer-controlbar.pause-video-disabled":"&#x397; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C9;&#x3C1;&#x3B9;&#x3BD;&#x3AE; &#x3C0;&#x3B1;&#x3CD;&#x3C3;&#x3B7; &#x3B4;&#x3B5;&#x3BD; &#x3C5;&#x3C0;&#x3BF;&#x3C3;&#x3B7;&#x3C1;&#x3AF;&#x3B6;&#x3B5;&#x3C4;&#x3B1;&#x3B9;","ba-videorecorder-chooser.record-audio":"&#x395;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-videorecorder-chooser.record-screen":"&#x39F;&#x3B8;&#x3CC;&#x3BD;&#x3B7; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;&#x3C2;","ba-videorecorder-controlbar.stop-available-after":"&#x39F; &#x3B5;&#x3BB;&#x3AC;&#x3C7;&#x3B9;&#x3C3;&#x3C4;&#x3BF;&#x3C2; &#x3C7;&#x3C1;&#x3CC;&#x3BD;&#x3BF;&#x3C2; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;&#x3C2; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; %d &#x3B4;&#x3B5;&#x3C5;&#x3C4;&#x3B5;&#x3C1;&#x3CC;&#x3BB;&#x3B5;&#x3C0;&#x3C4;&#x3B1;","ba-videorecorder-controlbar.cancel":"&#x39C;&#x3B1;&#x3C4;&#x3B1;&#x3AF;&#x3C9;&#x3C3;&#x3B7;","ba-videorecorder-controlbar.cancel-tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B1;&#x3BA;&#x3CD;&#x3C1;&#x3C9;&#x3C3;&#x3B7;.","ba-videorecorder.cancel-confirm":"&#x398;&#x3AD;&#x3BB;&#x3B5;&#x3C4;&#x3B5; &#x3C0;&#x3C1;&#x3B1;&#x3B3;&#x3BC;&#x3B1;&#x3C4;&#x3B9;&#x3BA;&#x3AC; &#x3BD;&#x3B1; &#x3B1;&#x3BA;&#x3C5;&#x3C1;&#x3CE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3C4;&#x3BF;&#x3C5; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3CC; &#x3C3;&#x3B1;&#x3C2;;","ba-videoplayer-adslot.elapsed-time":"&#x3A7;&#x3C1;&#x3CC;&#x3BD;&#x3BF;&#x3C2; &#x3C0;&#x3BF;&#x3C5; &#x3C0;&#x3B1;&#x3C1;&#x3AE;&#x3BB;&#x3B8;&#x3B5;","ba-videoplayer-adslot.volume-button":"&#x3A1;&#x3CD;&#x3B8;&#x3BC;&#x3B9;&#x3C3;&#x3B7; &#x3AD;&#x3BD;&#x3C4;&#x3B1;&#x3C3;&#x3B7;&#x3C2;","ba-videoplayer-adslot.volume-mute":"&#x3A3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-videoplayer-adslot.volume-unmute":"&#x3A3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-videoplayer-adslot.ad-will-end-after":"&#x397; &#x3B4;&#x3B9;&#x3B1;&#x3C6;&#x3AE;&#x3BC;&#x3B9;&#x3C3;&#x3B7; &#x3B8;&#x3B1; &#x3BB;&#x3AE;&#x3BE;&#x3B5;&#x3B9; &#x3BC;&#x3B5;&#x3C4;&#x3AC; &#x3C4;&#x3BF; %s","ba-videoplayer-adslot.can-skip-after":"&#x3A0;&#x3B1;&#x3C1;&#x3AC;&#x3BB;&#x3B5;&#x3B9;&#x3C8;&#x3B7; &#x3BC;&#x3B5;&#x3C4;&#x3AC; &#x3C4;&#x3BF; %d","ba-videoplayer-adslot.skip-ad":"&#x3A0;&#x3B1;&#x3C1;&#x3AC;&#x3BA;&#x3B1;&#x3BC;&#x3C8;&#x3B7; &#x3B4;&#x3B9;&#x3B1;&#x3C6;&#x3AE;&#x3BC;&#x3B9;&#x3C3;&#x3B7;&#x3C2;","ba-videorecorder.software-required":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3AC;&#x3C4;&#x3C9; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3B1;&#x3C3;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; / &#x3B5;&#x3BD;&#x3B5;&#x3C1;&#x3B3;&#x3BF;&#x3C0;&#x3BF;&#x3B9;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B9;&#x3C2; &#x3B1;&#x3BA;&#x3CC;&#x3BB;&#x3BF;&#x3C5;&#x3B8;&#x3B5;&#x3C2; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3B9;&#x3C2; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C7;&#x3C9;&#x3C1;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-videorecorder.software-waiting":"&#x391;&#x3BD;&#x3B1;&#x3BC;&#x3BF;&#x3BD;&#x3AE; &#x3B3;&#x3B9;&#x3B1; &#x3C4;&#x3B7;&#x3BD; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3AC;&#x3C3;&#x3C4;&#x3B1;&#x3C3;&#x3B7; / &#x3B5;&#x3BD;&#x3B5;&#x3C1;&#x3B3;&#x3BF;&#x3C0;&#x3BF;&#x3AF;&#x3B7;&#x3C3;&#x3B7; &#x3C4;&#x3C9;&#x3BD; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C9;&#x3BD;. &#x38A;&#x3C3;&#x3C9;&#x3C2; &#x3C7;&#x3C1;&#x3B5;&#x3B9;&#x3B1;&#x3C3;&#x3C4;&#x3B5;&#x3AF; &#x3BD;&#x3B1; &#x3B1;&#x3BD;&#x3B1;&#x3BD;&#x3B5;&#x3CE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3B5;&#x3BB;&#x3AF;&#x3B4;&#x3B1; &#x3BC;&#x3B5;&#x3C4;&#x3AC; &#x3C4;&#x3B7;&#x3BD; &#x3BF;&#x3BB;&#x3BF;&#x3BA;&#x3BB;&#x3AE;&#x3C1;&#x3C9;&#x3C3;&#x3B7;.","ba-videoplayer-controlbar.close-tracks":"&#x39A;&#x3BB;&#x3B5;&#x3AF;&#x3C3;&#x3B9;&#x3BC;&#x3BF; CC","ba-videoplayer-controlbar.show-tracks":"&#x395;&#x3BC;&#x3C6;&#x3AC;&#x3BD;&#x3B9;&#x3C3;&#x3B7; CC","ba-videoplayer-tracks.upload-text-tracks":"&#x391;&#x3BD;&#x3B5;&#x3B2;&#x3AC;&#x3C3;&#x3C4;&#x3B5; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3B1; &#x3BA;&#x3B5;&#x3B9;&#x3BC;&#x3AD;&#x3BD;&#x3BF;&#x3C5; &#x3BA;&#x3BF;&#x3BC;&#x3BC;&#x3B1;&#x3C4;&#x3B9;&#x3BF;&#x3CD;","ba-videoplayer-tracks.select-text-track-language":"&#x393;&#x3BB;&#x3CE;&#x3C3;&#x3C3;&#x3B1; &#x3C5;&#x3C0;&#x3BF;&#x3C4;&#x3AF;&#x3C4;&#x3BB;&#x3C9;&#x3BD;","ba-videoplayer-tracks.info-select-locale-first":"&#x3A0;&#x3C1;&#x3CE;&#x3C4;&#x3B1; &#x3B5;&#x3C0;&#x3B9;&#x3BB;&#x3AD;&#x3BE;&#x3C4;&#x3B5; &#x3C4;&#x3BF;&#x3C0;&#x3B9;&#x3BA;&#x3AD;&#x3C2; &#x3C1;&#x3C5;&#x3B8;&#x3BC;&#x3AF;&#x3C3;&#x3B5;&#x3B9;&#x3C2;","ba-videoplayer-tracks.select-text-track-file":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3B5;&#x3C0;&#x3B9;&#x3BB;&#x3AD;&#x3BE;&#x3B5;&#x3C4;&#x3B5; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF;","ba-videoplayer-tracks.back":"&#x3C0;&#x3AF;&#x3C3;&#x3C9;","ba-videorecorder.framerate-warning":"&#x39F; &#x3C1;&#x3C5;&#x3B8;&#x3BC;&#x3CC;&#x3C2; &#x3BA;&#x3B1;&#x3C1;&#x3AD; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3C0;&#x3BF;&#x3BB;&#x3CD; &#x3C7;&#x3B1;&#x3BC;&#x3B7;&#x3BB;&#x3CC;&#x3C2;. &#x3A3;&#x3B1;&#x3C2; &#x3C3;&#x3C5;&#x3BD;&#x3B9;&#x3C3;&#x3C4;&#x3BF;&#x3CD;&#x3BC;&#x3B5; &#x3BD;&#x3B1; &#x3BA;&#x3BB;&#x3B5;&#x3AF;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3CC;&#x3BB;&#x3B1; &#x3C4;&#x3B1; &#x3AC;&#x3BB;&#x3BB;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3B3;&#x3C1;&#x3AC;&#x3BC;&#x3BC;&#x3B1;&#x3C4;&#x3B1; &#x3BA;&#x3B1;&#x3B9; &#x3C4;&#x3B9;&#x3C2; &#x3BA;&#x3B1;&#x3C1;&#x3C4;&#x3AD;&#x3BB;&#x3B5;&#x3C2; &#x3C4;&#x3BF;&#x3C5; &#x3C0;&#x3C1;&#x3BF;&#x3B3;&#x3C1;&#x3AC;&#x3BC;&#x3BC;&#x3B1;&#x3C4;&#x3BF;&#x3C2; &#x3C0;&#x3B5;&#x3C1;&#x3B9;&#x3AE;&#x3B3;&#x3B7;&#x3C3;&#x3B7;&#x3C2; &#x3AE; &#x3BD;&#x3B1; &#x3C7;&#x3C1;&#x3B7;&#x3C3;&#x3B9;&#x3BC;&#x3BF;&#x3C0;&#x3BF;&#x3B9;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3AD;&#x3BD;&#x3B1;&#x3BD; &#x3B3;&#x3C1;&#x3B7;&#x3B3;&#x3BF;&#x3C1;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3BF; &#x3C5;&#x3C0;&#x3BF;&#x3BB;&#x3BF;&#x3B3;&#x3B9;&#x3C3;&#x3C4;&#x3AE;.","ba-videorecorder.upload-error-duration":"&#x3A4;&#x3BF; &#x3BC;&#x3AE;&#x3BA;&#x3BF;&#x3C2; &#x3C4;&#x3BF;&#x3C5; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3C9;&#x3BC;&#x3AD;&#x3BD;&#x3BF;&#x3C5; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF; &#x3B4;&#x3B5;&#x3BD; &#x3C0;&#x3BB;&#x3B7;&#x3C1;&#x3BF;&#x3AF; &#x3C4;&#x3B9;&#x3C2; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3B9;&#x3C2; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-videorecorder.resolution-constraint-error":"&#x3A4;&#x3BF; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF; &#x3C0;&#x3BF;&#x3C5; &#x3B5;&#x3C0;&#x3B9;&#x3BB;&#x3AD;&#x3BE;&#x3B1;&#x3C4;&#x3B5; &#x3B4;&#x3B5;&#x3BD; &#x3C4;&#x3B1;&#x3B9;&#x3C1;&#x3B9;&#x3AC;&#x3B6;&#x3B5;&#x3B9; &#x3BC;&#x3B5; &#x3C4;&#x3B7;&#x3BD; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3BF;&#x3CD;&#x3BC;&#x3B5;&#x3BD;&#x3B7; &#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3C5;&#x3C3;&#x3B7; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-videorecorder.orientation-portrait-required":"&#x3A0;&#x3B5;&#x3C1;&#x3B9;&#x3C3;&#x3C4;&#x3C1;&#x3AD;&#x3C8;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3C3;&#x3B1;&#x3C2; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE; &#x3C3;&#x3B5; &#x3BA;&#x3B1;&#x3C4;&#x3B1;&#x3BA;&#x3CC;&#x3C1;&#x3C5;&#x3C6;&#x3B7; &#x3BB;&#x3B5;&#x3B9;&#x3C4;&#x3BF;&#x3C5;&#x3C1;&#x3B3;&#x3AF;&#x3B1;.","ba-videorecorder.orientation-landscape-required":"&#x3A0;&#x3B5;&#x3C1;&#x3B9;&#x3C3;&#x3C4;&#x3C1;&#x3AD;&#x3C8;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3C3;&#x3B1;&#x3C2; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE; &#x3C3;&#x3B5; &#x3BF;&#x3C1;&#x3B9;&#x3B6;&#x3CC;&#x3BD;&#x3C4;&#x3B9;&#x3B1; &#x3BB;&#x3B5;&#x3B9;&#x3C4;&#x3BF;&#x3C5;&#x3C1;&#x3B3;&#x3AF;&#x3B1;.","ba-imageviewer-controlbar.rerecord-image":"&#x39E;&#x3B1;&#x3BD;&#x3B1;&#x3BA;&#x3AC;&#x3BD;&#x3C9;?","ba-imageviewer-controlbar.submit-image":"&#x395;&#x3C0;&#x3B9;&#x3B2;&#x3B5;&#x3B2;&#x3B1;&#x3B9;&#x3CE;&#x3BD;&#x3C9;","ba-imageviewer-controlbar.fullscreen-image":"&#x395;&#x3B9;&#x3C3;&#x3B1;&#x3B3;&#x3AC;&#x3B3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7;&#x3BD; &#x3C0;&#x3BB;&#x3AE;&#x3C1;&#x3B7; &#x3BF;&#x3B8;&#x3CC;&#x3BD;&#x3B7;","ba-imageviewer-controlbar.exit-fullscreen-image":"&#x388;&#x3BE;&#x3BF;&#x3B4;&#x3BF;&#x3C2; &#x3B1;&#x3C0;&#x3CC; &#x3C0;&#x3BB;&#x3AE;&#x3C1;&#x3B7; &#x3BF;&#x3B8;&#x3CC;&#x3BD;&#x3B7;","ba-imageviewer.image-error":"&#x395;&#x3BC;&#x3C6;&#x3B1;&#x3BD;&#x3AF;&#x3C3;&#x3C4;&#x3B7;&#x3BA;&#x3B5; &#x3BA;&#x3AC;&#x3C0;&#x3BF;&#x3B9;&#x3BF; &#x3C3;&#x3C6;&#x3AC;&#x3BB;&#x3BC;&#x3B1;. &#x3A0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3B1;&#x3BB;&#x3CE; &#x3B4;&#x3BF;&#x3BA;&#x3B9;&#x3BC;&#x3AC;&#x3C3;&#x3C4;&#x3B5; &#x3B1;&#x3C1;&#x3B3;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3B1;. &#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-imagecapture-chooser.image-capture":"&#x39B;&#x3AE;&#x3C8;&#x3B7; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1;&#x3C2;","ba-imagecapture-chooser.upload-image":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1;&#x3C2;","ba-imagecapture-controlbar.settings":"&#x3A1;&#x3C5;&#x3B8;&#x3BC;&#x3AF;&#x3C3;&#x3B5;&#x3B9;&#x3C2;","ba-imagecapture-controlbar.camerahealthy":"&#x39F; &#x3C6;&#x3C9;&#x3C4;&#x3B9;&#x3C3;&#x3BC;&#x3CC;&#x3C2; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3BA;&#x3B1;&#x3BB;&#x3CC;&#x3C2;","ba-imagecapture-controlbar.cameraunhealthy":"&#x39F; &#x3C6;&#x3C9;&#x3C4;&#x3B9;&#x3C3;&#x3BC;&#x3CC;&#x3C2; &#x3B4;&#x3B5;&#x3BD; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3B2;&#x3AD;&#x3BB;&#x3C4;&#x3B9;&#x3C3;&#x3C4;&#x3BF;&#x3C2;","ba-imagecapture-controlbar.record":"&#x3A0;&#x3B9;&#x3AC;&#x3BD;&#x3C9;","ba-imagecapture-controlbar.record-tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BB;&#x3AE;&#x3C8;&#x3B7;.","ba-imagecapture-controlbar.rerecord":"&#x39E;&#x3B1;&#x3BD;&#x3B1;&#x3BA;&#x3AC;&#x3BD;&#x3C9;","ba-imagecapture-controlbar.rerecord-tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-imagecapture-controlbar.cancel":"&#x39C;&#x3B1;&#x3C4;&#x3B1;&#x3AF;&#x3C9;&#x3C3;&#x3B7;","ba-imagecapture-controlbar.cancel-tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B1;&#x3BA;&#x3CD;&#x3C1;&#x3C9;&#x3C3;&#x3B7;.","ba-audioplayer-controlbar.audio-progress":"&#x3A0;&#x3C1;&#x3CC;&#x3BF;&#x3B4;&#x3BF;&#x3C2;","ba-audioplayer-controlbar.rerecord-audio":"&#x39E;&#x3B1;&#x3BD;&#x3B1;&#x3BA;&#x3AC;&#x3BD;&#x3C9;?","ba-audioplayer-controlbar.submit-audio":"&#x395;&#x3C0;&#x3B9;&#x3B2;&#x3B5;&#x3B2;&#x3B1;&#x3B9;&#x3CE;&#x3BD;&#x3C9;","ba-audioplayer-controlbar.play-audio":"&#x3A0;&#x3B1;&#x3AF;&#x3B6;&#x3C9;","ba-audioplayer-controlbar.pause-audio":"&#x3A0;&#x3B1;&#x3CD;&#x3C3;&#x3B7;","ba-audioplayer-controlbar.pause-audio-disabled":"&#x397; &#x3C0;&#x3B1;&#x3CD;&#x3C3;&#x3B7; &#x3B4;&#x3B5;&#x3BD; &#x3C5;&#x3C0;&#x3BF;&#x3C3;&#x3C4;&#x3B7;&#x3C1;&#x3AF;&#x3B6;&#x3B5;&#x3C4;&#x3B1;&#x3B9;","ba-audioplayer-controlbar.elapsed-time":"&#x3A7;&#x3C1;&#x3CC;&#x3BD;&#x3BF;&#x3C2; &#x3C0;&#x3BF;&#x3C5; &#x3C0;&#x3B1;&#x3C1;&#x3AE;&#x3BB;&#x3B8;&#x3B5;","ba-audioplayer-controlbar.total-time":"&#x3A3;&#x3C5;&#x3BD;&#x3BF;&#x3BB;&#x3B9;&#x3BA;&#x3CC; &#x3BC;&#x3AE;&#x3BA;&#x3BF;&#x3C2;","ba-audioplayer-controlbar.volume-button":"&#x3A1;&#x3CD;&#x3B8;&#x3BC;&#x3B9;&#x3C3;&#x3B7; &#x3AD;&#x3BD;&#x3C4;&#x3B1;&#x3C3;&#x3B7;&#x3C2;","ba-audioplayer-controlbar.volume-mute":"&#x3A3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-audioplayer-controlbar.volume-unmute":"&#x3A3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-audioplayer-loader.tooltip":"&#x3A6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7;...","ba-audioplayer.audio-error":"&#x395;&#x3BC;&#x3C6;&#x3B1;&#x3BD;&#x3AF;&#x3C3;&#x3C4;&#x3B7;&#x3BA;&#x3B5; &#x3BA;&#x3AC;&#x3C0;&#x3BF;&#x3B9;&#x3BF; &#x3C3;&#x3C6;&#x3AC;&#x3BB;&#x3BC;&#x3B1;. &#x3A0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3B1;&#x3BB;&#x3CE; &#x3B4;&#x3BF;&#x3BA;&#x3B9;&#x3BC;&#x3AC;&#x3C3;&#x3C4;&#x3B5; &#x3B1;&#x3C1;&#x3B3;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3B1;. &#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-audiorecorder-chooser.record-audio":"&#x395;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-audiorecorder-chooser.upload-audio":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-audiorecorder-controlbar.settings":"&#x3A1;&#x3C5;&#x3B8;&#x3BC;&#x3AF;&#x3C3;&#x3B5;&#x3B9;&#x3C2;","ba-audiorecorder-controlbar.microphonehealthy":"&#x39F; &#x3AE;&#x3C7;&#x3BF;&#x3C2; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3BA;&#x3B1;&#x3BB;&#x3CC;&#x3C2;","ba-audiorecorder-controlbar.microphoneunhealthy":"&#x394;&#x3B5;&#x3BD; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3B4;&#x3C5;&#x3BD;&#x3B1;&#x3C4;&#x3AE; &#x3B7; &#x3BB;&#x3AE;&#x3C8;&#x3B7; &#x3AE;&#x3C7;&#x3BF;&#x3C5;","ba-audiorecorder-controlbar.record":"&#x3A1;&#x3B5;&#x3BA;&#x3CC;&#x3C1;","ba-audiorecorder-controlbar.record-tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;.","ba-audiorecorder-controlbar.rerecord":"&#x39E;&#x3B1;&#x3BD;&#x3B1;&#x3BA;&#x3AC;&#x3BD;&#x3C9;","ba-audiorecorder-controlbar.rerecord-tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-audiorecorder-controlbar.stop":"&#x39D;&#x3B1; &#x3C3;&#x3C4;&#x3B1;&#x3BC;&#x3B1;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3B9;","ba-audiorecorder-controlbar.stop-tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C3;&#x3C4;&#x3B1;&#x3BC;&#x3B1;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-audiorecorder-controlbar.stop-available-after":"&#x39F; &#x3B5;&#x3BB;&#x3AC;&#x3C7;&#x3B9;&#x3C3;&#x3C4;&#x3BF;&#x3C2; &#x3C7;&#x3C1;&#x3CC;&#x3BD;&#x3BF;&#x3C2; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;&#x3C2; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; %d &#x3B4;&#x3B5;&#x3C5;&#x3C4;&#x3B5;&#x3C1;&#x3CC;&#x3BB;&#x3B5;&#x3C0;&#x3C4;&#x3B1;","ba-audiorecorder-controlbar.cancel":"&#x39C;&#x3B1;&#x3C4;&#x3B1;&#x3AF;&#x3C9;&#x3C3;&#x3B7;","ba-audiorecorder-controlbar.cancel-tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3B1;&#x3BA;&#x3CD;&#x3C1;&#x3C9;&#x3C3;&#x3B7;.","ba-videoplayer-controlbar.player-speed":"&#x3A4;&#x3B1;&#x3C7;&#x3CD;&#x3C4;&#x3B7;&#x3C4;&#x3B1; &#x3C0;&#x3B1;&#x3AF;&#x3BA;&#x3C4;&#x3B7;","ba-videoplayer-controlbar.settings":"&#x3A1;&#x3C5;&#x3B8;&#x3BC;&#x3AF;&#x3C3;&#x3B5;&#x3B9;&#x3C2;","ba-videoplayer-controlbar.airplay":"Airplay","ba-videoplayer-controlbar.airplay-icon":"&#x395;&#x3B9;&#x3BA;&#x3BF;&#x3BD;&#x3AF;&#x3B4;&#x3B9;&#x3BF; Airplay.","ba-videoplayer.all-settings":"&#x38C;&#x3BB;&#x3B5;&#x3C2; &#x3BF;&#x3B9; &#x3C1;&#x3C5;&#x3B8;&#x3BC;&#x3AF;&#x3C3;&#x3B5;&#x3B9;&#x3C2;","ba-videoplayer.player-speed":"&#x3A4;&#x3B1;&#x3C7;&#x3CD;&#x3C4;&#x3B7;&#x3C4;&#x3B1; &#x3C0;&#x3B1;&#x3AF;&#x3BA;&#x3C4;&#x3B7;","ba-videoplayer.full-screen":"&#x3A0;&#x39B;&#x397;&#x3A1;&#x397;&#x3A3; &#x39F;&#x398;&#x39F;&#x39D;&#x397;","ba-videorecorder-controlbar.add-stream":"&#x3A0;&#x3C1;&#x3BF;&#x3C3;&#x3B8;&#x3AE;&#x3BA;&#x3B7; &#x3C1;&#x3BF;&#x3AE;&#x3C2;","ba-videorecorder.switch-camera":"&#x395;&#x3BD;&#x3B1;&#x3BB;&#x3BB;&#x3B1;&#x3B3;&#x3AE; &#x3BA;&#x3AC;&#x3BC;&#x3B5;&#x3C1;&#x3B1;&#x3C2;","ba-videorecorder.prepare-covershot":"&#x3A0;&#x3C1;&#x3BF;&#x3B5;&#x3C4;&#x3BF;&#x3B9;&#x3BC;&#x3B1;&#x3C3;&#x3AF;&#x3B1; &#x3B5;&#x3BE;&#x3CE;&#x3C6;&#x3C5;&#x3BB;&#x3BB;&#x3C9;&#x3BD;","ba-videorecorder.prepare-thumbnails":"&#x3A0;&#x3C1;&#x3BF;&#x3B5;&#x3C4;&#x3BF;&#x3B9;&#x3BC;&#x3B1;&#x3C3;&#x3AF;&#x3B1; &#x3B1;&#x3BD;&#x3B1;&#x3B6;&#x3AE;&#x3C4;&#x3B7;&#x3C3;&#x3B7;&#x3C2; &#x3BC;&#x3B9;&#x3BA;&#x3C1;&#x3BF;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3B9;&#x3CE;&#x3BD;","ba-videorecorder.adding-new-stream":"&#x3A0;&#x3C1;&#x3BF;&#x3C3;&#x3B8;&#x3AE;&#x3BA;&#x3B7; &#x3BD;&#x3AD;&#x3B1;&#x3C2; &#x3C1;&#x3BF;&#x3AE;&#x3C2;","ba-imagecapture.recorder-error":"&#x395;&#x3BC;&#x3C6;&#x3B1;&#x3BD;&#x3AF;&#x3C3;&#x3C4;&#x3B7;&#x3BA;&#x3B5; &#x3BA;&#x3AC;&#x3C0;&#x3BF;&#x3B9;&#x3BF; &#x3C3;&#x3C6;&#x3AC;&#x3BB;&#x3BC;&#x3B1;. &#x3A0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3B1;&#x3BB;&#x3CE; &#x3B4;&#x3BF;&#x3BA;&#x3B9;&#x3BC;&#x3AC;&#x3C3;&#x3C4;&#x3B5; &#x3B1;&#x3C1;&#x3B3;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3B1;. &#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-imagecapture.attach-error":"&#x394;&#x3B5;&#x3BD; &#x3AE;&#x3C4;&#x3B1;&#x3BD; &#x3B4;&#x3C5;&#x3BD;&#x3B1;&#x3C4;&#x3AE; &#x3B7; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3C4;&#x3B7; &#x3B4;&#x3B9;&#x3B5;&#x3C0;&#x3B1;&#x3C6;&#x3AE; &#x3C0;&#x3BF;&#x3BB;&#x3C5;&#x3BC;&#x3AD;&#x3C3;&#x3C9;&#x3BD;. &#x391;&#x3BD;&#x3AC;&#x3BB;&#x3BF;&#x3B3;&#x3B1; &#x3BC;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3BA;&#x3B1;&#x3B9; &#x3C4;&#x3BF; &#x3C0;&#x3C1;&#x3CC;&#x3B3;&#x3C1;&#x3B1;&#x3BC;&#x3BC;&#x3B1; &#x3C0;&#x3B5;&#x3C1;&#x3B9;&#x3AE;&#x3B3;&#x3B7;&#x3C3;&#x3B7;&#x3C2;, &#x3AF;&#x3C3;&#x3C9;&#x3C2; &#x3C7;&#x3C1;&#x3B5;&#x3B9;&#x3B1;&#x3C3;&#x3C4;&#x3B5;&#x3AF; &#x3BD;&#x3B1; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3B1;&#x3C3;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3BF; Flash &#x3AE; &#x3BD;&#x3B1; &#x3B1;&#x3C0;&#x3BF;&#x3BA;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3C4;&#x3B7; &#x3C3;&#x3B5;&#x3BB;&#x3AF;&#x3B4;&#x3B1; &#x3BC;&#x3AD;&#x3C3;&#x3C9; SSL.","ba-imagecapture.software-required":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3AC;&#x3C4;&#x3C9; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3B1;&#x3C3;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; / &#x3B5;&#x3BD;&#x3B5;&#x3C1;&#x3B3;&#x3BF;&#x3C0;&#x3BF;&#x3B9;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B9;&#x3C2; &#x3B1;&#x3BA;&#x3CC;&#x3BB;&#x3BF;&#x3C5;&#x3B8;&#x3B5;&#x3C2; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3B9;&#x3C2; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C7;&#x3C9;&#x3C1;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-imagecapture.software-waiting":"&#x391;&#x3BD;&#x3B1;&#x3BC;&#x3BF;&#x3BD;&#x3AE; &#x3B3;&#x3B9;&#x3B1; &#x3C4;&#x3B7;&#x3BD; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3AC;&#x3C3;&#x3C4;&#x3B1;&#x3C3;&#x3B7; / &#x3B5;&#x3BD;&#x3B5;&#x3C1;&#x3B3;&#x3BF;&#x3C0;&#x3BF;&#x3AF;&#x3B7;&#x3C3;&#x3B7; &#x3C4;&#x3C9;&#x3BD; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C9;&#x3BD;. &#x38A;&#x3C3;&#x3C9;&#x3C2; &#x3C7;&#x3C1;&#x3B5;&#x3B9;&#x3B1;&#x3C3;&#x3C4;&#x3B5;&#x3AF; &#x3BD;&#x3B1; &#x3B1;&#x3BD;&#x3B1;&#x3BD;&#x3B5;&#x3CE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3B5;&#x3BB;&#x3AF;&#x3B4;&#x3B1; &#x3BC;&#x3B5;&#x3C4;&#x3AC; &#x3C4;&#x3B7;&#x3BD; &#x3BF;&#x3BB;&#x3BF;&#x3BA;&#x3BB;&#x3AE;&#x3C1;&#x3C9;&#x3C3;&#x3B7;.","ba-imagecapture.access-forbidden":"&#x391;&#x3C0;&#x3B1;&#x3B3;&#x3BF;&#x3C1;&#x3B5;&#x3CD;&#x3C4;&#x3B7;&#x3BA;&#x3B5; &#x3B7; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3C4;&#x3B1; &#x3BC;&#x3AD;&#x3C3;&#x3B1; &#x3B5;&#x3BD;&#x3B7;&#x3BC;&#x3AD;&#x3C1;&#x3C9;&#x3C3;&#x3B7;&#x3C2;. &#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-imagecapture.uploading":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7;","ba-imagecapture.uploading-failed":"&#x397; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3B1;&#x3C0;&#x3AD;&#x3C4;&#x3C5;&#x3C7;&#x3B5; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-imagecapture.upload-error-duration":"&#x3A4;&#x3BF; &#x3BC;&#x3AE;&#x3BA;&#x3BF;&#x3C2; &#x3C4;&#x3B7;&#x3C2; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3C9;&#x3BC;&#x3AD;&#x3BD;&#x3B7;&#x3C2; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1;&#x3C2; &#x3B4;&#x3B5;&#x3BD; &#x3C0;&#x3BB;&#x3B7;&#x3C1;&#x3BF;&#x3AF; &#x3C4;&#x3B9;&#x3C2; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3B9;&#x3C2; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-imagecapture.resolution-constraint-error":"&#x3A4;&#x3BF; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF; &#x3C0;&#x3BF;&#x3C5; &#x3B5;&#x3C0;&#x3B9;&#x3BB;&#x3AD;&#x3BE;&#x3B1;&#x3C4;&#x3B5; &#x3B4;&#x3B5;&#x3BD; &#x3C4;&#x3B1;&#x3B9;&#x3C1;&#x3B9;&#x3AC;&#x3B6;&#x3B5;&#x3B9; &#x3BC;&#x3B5; &#x3C4;&#x3B7;&#x3BD; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3BF;&#x3CD;&#x3BC;&#x3B5;&#x3BD;&#x3B7; &#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3C5;&#x3C3;&#x3B7; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-imagecapture.verifying":"&#x395;&#x3C0;&#x3B1;&#x3BB;&#x3AE;&#x3B8;&#x3B5;&#x3C5;&#x3C3;&#x3B7;","ba-imagecapture.verifying-failed":"&#x397; &#x3B5;&#x3C0;&#x3B1;&#x3BB;&#x3AE;&#x3B8;&#x3B5;&#x3C5;&#x3C3;&#x3B7; &#x3B1;&#x3C0;&#x3AD;&#x3C4;&#x3C5;&#x3C7;&#x3B5; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-imagecapture.rerecord-confirm":"&#x398;&#x3AD;&#x3BB;&#x3B5;&#x3C4;&#x3B5; &#x3C0;&#x3C1;&#x3B1;&#x3B3;&#x3BC;&#x3B1;&#x3C4;&#x3B9;&#x3BA;&#x3AC; &#x3BD;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3B1;&#x3BB;&#x3AC;&#x3B2;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7;&#x3BD; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1; &#x3C3;&#x3B1;&#x3C2;;","ba-imagecapture.image_file_too_large":"&#x3A4;&#x3BF; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1;&#x3C2; &#x3C3;&#x3B1;&#x3C2; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3C0;&#x3BF;&#x3BB;&#x3CD; &#x3BC;&#x3B5;&#x3B3;&#x3AC;&#x3BB;&#x3BF; (%s) - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC; &#x3BC;&#x3B5; &#x3AD;&#x3BD;&#x3B1; &#x3BC;&#x3B9;&#x3BA;&#x3C1;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3BF; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1;&#x3C2;.","ba-imagecapture.unsupported_image_type":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3CE;&#x3C3;&#x3C4;&#x3B5;: %s - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-imagecapture.orientation-portrait-required":"&#x3A0;&#x3B5;&#x3C1;&#x3B9;&#x3C3;&#x3C4;&#x3C1;&#x3AD;&#x3C8;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3C3;&#x3B1;&#x3C2; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE; &#x3C3;&#x3B5; &#x3BA;&#x3B1;&#x3C4;&#x3B1;&#x3BA;&#x3CC;&#x3C1;&#x3C5;&#x3C6;&#x3B7; &#x3BB;&#x3B5;&#x3B9;&#x3C4;&#x3BF;&#x3C5;&#x3C1;&#x3B3;&#x3AF;&#x3B1;.","ba-imagecapture.orientation-landscape-required":"&#x3A0;&#x3B5;&#x3C1;&#x3B9;&#x3C3;&#x3C4;&#x3C1;&#x3AD;&#x3C8;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3C3;&#x3B1;&#x3C2; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE; &#x3C3;&#x3B5; &#x3BF;&#x3C1;&#x3B9;&#x3B6;&#x3CC;&#x3BD;&#x3C4;&#x3B9;&#x3B1; &#x3BB;&#x3B5;&#x3B9;&#x3C4;&#x3BF;&#x3C5;&#x3C1;&#x3B3;&#x3AF;&#x3B1;.","ba-audiorecorder.recorder-error":"&#x395;&#x3BC;&#x3C6;&#x3B1;&#x3BD;&#x3AF;&#x3C3;&#x3C4;&#x3B7;&#x3BA;&#x3B5; &#x3BA;&#x3AC;&#x3C0;&#x3BF;&#x3B9;&#x3BF; &#x3C3;&#x3C6;&#x3AC;&#x3BB;&#x3BC;&#x3B1;. &#x3A0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3B1;&#x3BB;&#x3CE; &#x3B4;&#x3BF;&#x3BA;&#x3B9;&#x3BC;&#x3AC;&#x3C3;&#x3C4;&#x3B5; &#x3B1;&#x3C1;&#x3B3;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3B1;. &#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-audiorecorder.attach-error":"&#x394;&#x3B5;&#x3BD; &#x3AE;&#x3C4;&#x3B1;&#x3BD; &#x3B4;&#x3C5;&#x3BD;&#x3B1;&#x3C4;&#x3AE; &#x3B7; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3C4;&#x3B7; &#x3B4;&#x3B9;&#x3B5;&#x3C0;&#x3B1;&#x3C6;&#x3AE; &#x3C0;&#x3BF;&#x3BB;&#x3C5;&#x3BC;&#x3AD;&#x3C3;&#x3C9;&#x3BD;. &#x391;&#x3BD;&#x3AC;&#x3BB;&#x3BF;&#x3B3;&#x3B1; &#x3BC;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3BA;&#x3B1;&#x3B9; &#x3C4;&#x3BF; &#x3C0;&#x3C1;&#x3CC;&#x3B3;&#x3C1;&#x3B1;&#x3BC;&#x3BC;&#x3B1; &#x3C0;&#x3B5;&#x3C1;&#x3B9;&#x3AE;&#x3B3;&#x3B7;&#x3C3;&#x3B7;&#x3C2;, &#x3AF;&#x3C3;&#x3C9;&#x3C2; &#x3C7;&#x3C1;&#x3B5;&#x3B9;&#x3B1;&#x3C3;&#x3C4;&#x3B5;&#x3AF; &#x3BD;&#x3B1; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3B1;&#x3C3;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3BF; Flash &#x3AE; &#x3BD;&#x3B1; &#x3B1;&#x3C0;&#x3BF;&#x3BA;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3C4;&#x3B7; &#x3C3;&#x3B5;&#x3BB;&#x3AF;&#x3B4;&#x3B1; &#x3BC;&#x3AD;&#x3C3;&#x3C9; SSL.","ba-audiorecorder.software-required":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3AC;&#x3C4;&#x3C9; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3B1;&#x3C3;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; / &#x3B5;&#x3BD;&#x3B5;&#x3C1;&#x3B3;&#x3BF;&#x3C0;&#x3BF;&#x3B9;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B9;&#x3C2; &#x3B1;&#x3BA;&#x3CC;&#x3BB;&#x3BF;&#x3C5;&#x3B8;&#x3B5;&#x3C2; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3B9;&#x3C2; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C7;&#x3C9;&#x3C1;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5;.","ba-audiorecorder.software-waiting":"&#x391;&#x3BD;&#x3B1;&#x3BC;&#x3BF;&#x3BD;&#x3AE; &#x3B3;&#x3B9;&#x3B1; &#x3C4;&#x3B7;&#x3BD; &#x3B5;&#x3B3;&#x3BA;&#x3B1;&#x3C4;&#x3AC;&#x3C3;&#x3C4;&#x3B1;&#x3C3;&#x3B7; / &#x3B5;&#x3BD;&#x3B5;&#x3C1;&#x3B3;&#x3BF;&#x3C0;&#x3BF;&#x3AF;&#x3B7;&#x3C3;&#x3B7; &#x3C4;&#x3C9;&#x3BD; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3C9;&#x3BD;. &#x38A;&#x3C3;&#x3C9;&#x3C2; &#x3C7;&#x3C1;&#x3B5;&#x3B9;&#x3B1;&#x3C3;&#x3C4;&#x3B5;&#x3AF; &#x3BD;&#x3B1; &#x3B1;&#x3BD;&#x3B1;&#x3BD;&#x3B5;&#x3CE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3C3;&#x3B5;&#x3BB;&#x3AF;&#x3B4;&#x3B1; &#x3BC;&#x3B5;&#x3C4;&#x3AC; &#x3C4;&#x3B7;&#x3BD; &#x3BF;&#x3BB;&#x3BF;&#x3BA;&#x3BB;&#x3AE;&#x3C1;&#x3C9;&#x3C3;&#x3B7;.","ba-audiorecorder.access-forbidden":"&#x391;&#x3C0;&#x3B1;&#x3B3;&#x3BF;&#x3C1;&#x3B5;&#x3CD;&#x3C4;&#x3B7;&#x3BA;&#x3B5; &#x3B7; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3C3;&#x3C4;&#x3B1; &#x3BC;&#x3AD;&#x3C3;&#x3B1; &#x3B5;&#x3BD;&#x3B7;&#x3BC;&#x3AD;&#x3C1;&#x3C9;&#x3C3;&#x3B7;&#x3C2;. &#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3B7;&#x3C8;&#x3B7;.","ba-audiorecorder.uploading":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7;","ba-audiorecorder.uploading-failed":"&#x397; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3B1;&#x3C0;&#x3AD;&#x3C4;&#x3C5;&#x3C7;&#x3B5; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-audiorecorder.upload-error-duration":"&#x3A4;&#x3BF; &#x3BC;&#x3AE;&#x3BA;&#x3BF;&#x3C2; &#x3C4;&#x3BF;&#x3C5; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3C9;&#x3BC;&#x3AD;&#x3BD;&#x3BF;&#x3C5; &#x3AE;&#x3C7;&#x3BF;&#x3C5; &#x3B4;&#x3B5;&#x3BD; &#x3C0;&#x3BB;&#x3B7;&#x3C1;&#x3BF;&#x3AF; &#x3C4;&#x3B9;&#x3C2; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3AE;&#x3C3;&#x3B5;&#x3B9;&#x3C2; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-audiorecorder.verifying":"&#x395;&#x3C0;&#x3B1;&#x3BB;&#x3AE;&#x3B8;&#x3B5;&#x3C5;&#x3C3;&#x3B7;","ba-audiorecorder.verifying-failed":"&#x397; &#x3B5;&#x3C0;&#x3B1;&#x3BB;&#x3AE;&#x3B8;&#x3B5;&#x3C5;&#x3C3;&#x3B7; &#x3B1;&#x3C0;&#x3AD;&#x3C4;&#x3C5;&#x3C7;&#x3B5; - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-audiorecorder.rerecord-confirm":"&#x398;&#x3AD;&#x3BB;&#x3B5;&#x3C4;&#x3B5; &#x3C0;&#x3C1;&#x3B1;&#x3B3;&#x3BC;&#x3B1;&#x3C4;&#x3B9;&#x3BA;&#x3AC; &#x3BD;&#x3B1; &#x3B5;&#x3C0;&#x3B1;&#x3BD;&#x3B1;&#x3BB;&#x3AC;&#x3B2;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3BF;&#x3BD; &#x3AE;&#x3C7;&#x3BF; &#x3C3;&#x3B1;&#x3C2;;","ba-audiorecorder.cancel-confirm":"&#x398;&#x3AD;&#x3BB;&#x3B5;&#x3C4;&#x3B5; &#x3C0;&#x3C1;&#x3B1;&#x3B3;&#x3BC;&#x3B1;&#x3C4;&#x3B9;&#x3BA;&#x3AC; &#x3BD;&#x3B1; &#x3B1;&#x3BA;&#x3C5;&#x3C1;&#x3CE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3AE;&#x3C7;&#x3BF;&#x3C5;;","ba-audiorecorder.audio_file_too_large":"&#x3A4;&#x3BF; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF; &#x3AE;&#x3C7;&#x3BF;&#x3C5; &#x3C3;&#x3B1;&#x3C2; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3C0;&#x3BF;&#x3BB;&#x3CD; &#x3BC;&#x3B5;&#x3B3;&#x3AC;&#x3BB;&#x3BF; (%s) - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3B4;&#x3BF;&#x3BA;&#x3B9;&#x3BC;&#x3AC;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC; &#x3BC;&#x3B5; &#x3AD;&#x3BD;&#x3B1; &#x3BC;&#x3B9;&#x3BA;&#x3C1;&#x3CC;&#x3C4;&#x3B5;&#x3C1;&#x3BF; &#x3B1;&#x3C1;&#x3C7;&#x3B5;&#x3AF;&#x3BF; &#x3AE;&#x3C7;&#x3BF;&#x3C5;.","ba-audiorecorder.unsupported_audio_type":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3CE;&#x3C3;&#x3C4;&#x3B5;: %s - &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B5;&#x3B4;&#x3CE; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-common-settingsmenu.tooltip":"&#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3B1;&#x3AF;&#x3BE;&#x3B5;&#x3C4;&#x3B5;.","ba-common-settingsmenu.setting-menu":"&#x38C;&#x3BB;&#x3B5;&#x3C2; &#x3BF;&#x3B9; &#x3C1;&#x3C5;&#x3B8;&#x3BC;&#x3AF;&#x3C3;&#x3B5;&#x3B9;&#x3C2;","ba-common-settingsmenu.source-quality":"&#x3A0;&#x3BF;&#x3B9;&#x3CC;&#x3C4;&#x3B7;&#x3C4;&#x3B1; &#x3C0;&#x3B7;&#x3B3;&#x3AE;&#x3C2;","ba-common-settingsmenu.player-speed":"&#x3A4;&#x3B1;&#x3C7;&#x3CD;&#x3C4;&#x3B7;&#x3C4;&#x3B1; &#x3C0;&#x3B1;&#x3AF;&#x3BA;&#x3C4;&#x3B7;","ba-common-settingsmenu.set-menu-option":"&#x39F;&#x3C1;&#x3AF;&#x3C3;&#x3C4;&#x3B5; &#x3C4;&#x3B7;&#x3BD; &#x3B5;&#x3C0;&#x3B9;&#x3BB;&#x3BF;&#x3B3;&#x3AE;","ba-common-settingsmenu.submit-video":"&#x395;&#x3C0;&#x3B9;&#x3B2;&#x3B5;&#x3B2;&#x3B1;&#x3AF;&#x3C9;&#x3C3;&#x3B7; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF;","ba-common-settingsmenu.picture-in-picture":"&#x395;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1; &#x3C3;&#x3B5; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1;","ba-common-settingsmenu.exit-fullscreen-video":"&#x388;&#x3BE;&#x3BF;&#x3B4;&#x3BF;&#x3C2; &#x3B1;&#x3C0;&#x3CC; &#x3C0;&#x3BB;&#x3AE;&#x3C1;&#x3B7; &#x3BF;&#x3B8;&#x3CC;&#x3BD;&#x3B7;","ba-common-settingsmenu.fullscreen-video":"&#x395;&#x3B9;&#x3C3;&#x3B1;&#x3B3;&#x3AC;&#x3B3;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3B7;&#x3BD; &#x3C0;&#x3BB;&#x3AE;&#x3C1;&#x3B7; &#x3BF;&#x3B8;&#x3CC;&#x3BD;&#x3B7;","ba-videorecorder-chooser.multi-stream":"&#x3A0;&#x3BF;&#x3BB;&#x3BB;&#x3B1;&#x3C0;&#x3BB;&#x3AE; &#x3C1;&#x3BF;&#x3AE;","ba-videorecorder-controlbar.pause-recorder":"&#x3A0;&#x3B1;&#x3CD;&#x3C3;&#x3B7; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;&#x3C2;","ba-videorecorder-controlbar.resume-recorder":"&#x3A3;&#x3C5;&#x3BD;&#x3AD;&#x3C7;&#x3B9;&#x3C3;&#x3B7; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;&#x3C2;","ba-videorecorder.missing-track":"&#x39B;&#x3B5;&#x3AF;&#x3C0;&#x3B5;&#x3B9; &#x3C4;&#x3BF; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3BF;&#x3CD;&#x3BC;&#x3B5;&#x3BD;&#x3BF; &#x3BA;&#x3BF;&#x3BC;&#x3BC;&#x3AC;&#x3C4;&#x3B9; &#x3AE;&#x3C7;&#x3BF;&#x3C5; &#x3AE; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF;","ba-videorecorder.device-already-in-use":"&#x3A4;&#x3BF;&#x3C5;&#x3BB;&#x3AC;&#x3C7;&#x3B9;&#x3C3;&#x3C4;&#x3BF;&#x3BD; &#x3BC;&#x3AF;&#x3B1; &#x3B1;&#x3C0;&#x3CC; &#x3C4;&#x3B9;&#x3C2; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AD;&#x3C2; &#x3B5;&#x3B9;&#x3C3;&#x3CC;&#x3B4;&#x3BF;&#x3C5; &#x3C3;&#x3B1;&#x3C2; &#x3C7;&#x3C1;&#x3B7;&#x3C3;&#x3B9;&#x3BC;&#x3BF;&#x3C0;&#x3BF;&#x3B9;&#x3B5;&#x3AF;&#x3C4;&#x3B1;&#x3B9; &#x3AE;&#x3B4;&#x3B7;","ba-videorecorder.browser-permission-denied":"&#x394;&#x3B5;&#x3BD; &#x3B5;&#x3C0;&#x3B9;&#x3C4;&#x3C1;&#x3AD;&#x3C0;&#x3B5;&#x3C4;&#x3B1;&#x3B9; &#x3B7; &#x3AC;&#x3B4;&#x3B5;&#x3B9;&#x3B1; &#x3B1;&#x3C0;&#x3CC; &#x3C4;&#x3BF; &#x3C0;&#x3C1;&#x3CC;&#x3B3;&#x3C1;&#x3B1;&#x3BC;&#x3BC;&#x3B1; &#x3C0;&#x3B5;&#x3C1;&#x3B9;&#x3AE;&#x3B3;&#x3B7;&#x3C3;&#x3B7;&#x3C2;, &#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3C7;&#x3C9;&#x3C1;&#x3AE;&#x3C3;&#x3C4;&#x3B5; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3BA;&#x3B1;&#x3B9; &#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3CE;&#x3C3;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC; &#x3C4;&#x3B7; &#x3C3;&#x3B5;&#x3BB;&#x3AF;&#x3B4;&#x3B1;","ba-audioplayer.all-settings":"&#x38C;&#x3BB;&#x3B5;&#x3C2; &#x3BF;&#x3B9; &#x3C1;&#x3C5;&#x3B8;&#x3BC;&#x3AF;&#x3C3;&#x3B5;&#x3B9;&#x3C2;","ba-videoplayer-controlbar.remaining-time":"&#x3A7;&#x3C1;&#x3CC;&#x3BD;&#x3BF;&#x3C2; &#x3C0;&#x3BF;&#x3C5; &#x3B1;&#x3C0;&#x3BF;&#x3BC;&#x3AD;&#x3BD;&#x3B5;&#x3B9;","ba-videoplayer-controlbar.select-frame":"&#x395;&#x3C0;&#x3B9;&#x3BB;&#x3AD;&#x3B3;&#x3C9;","ba-videoplayer-controlbar.trim-video":"&#x3A4;&#x3B1;&#x3BA;&#x3C4;&#x3BF;&#x3C0;&#x3BF;&#x3AF;&#x3B7;&#x3C3;&#x3B7;","ba-videoplayer-playbutton.trim":"&#x3A4;&#x3B1;&#x3BA;&#x3C4;&#x3BF;&#x3C0;&#x3BF;&#x3AF;&#x3B7;&#x3C3;&#x3B7;","ba-videoplayer-playbutton.skip":"&#x3A0;&#x3B1;&#x3C1;&#x3B1;&#x3BB;&#x3B5;&#x3AF;&#x3C0;&#x3C9;","ba-videorecorder-imagegallery.upload-covershot":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3B5;&#x3BE;&#x3C9;&#x3C6;&#x3CD;&#x3BB;&#x3BB;&#x3BF;&#x3C5;","ba-videorecorder.pick-covershot-frame":"&#x395;&#x3C0;&#x3B9;&#x3BB;&#x3AD;&#x3BE;&#x3C4;&#x3B5; &#x3AD;&#x3BD;&#x3B1; &#x3C0;&#x3BB;&#x3B1;&#x3AF;&#x3C3;&#x3B9;&#x3BF; &#x3B3;&#x3B9;&#x3B1; &#x3C7;&#x3C1;&#x3AE;&#x3C3;&#x3B7; &#x3C9;&#x3C2; &#x3BA;&#x3AC;&#x3BB;&#x3C5;&#x3C8;&#x3B7;.","ba-videorecorder.screen-recorder-is-not-supported":"&#x397; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;&#x3C2; &#x3BF;&#x3B8;&#x3CC;&#x3BD;&#x3B7;&#x3C2; &#x3B4;&#x3B5;&#x3BD; &#x3C5;&#x3C0;&#x3BF;&#x3C3;&#x3C4;&#x3B7;&#x3C1;&#x3AF;&#x3B6;&#x3B5;&#x3C4;&#x3B1;&#x3B9; &#x3C3;&#x3B5; &#x3B1;&#x3C5;&#x3C4;&#x3AE;&#x3BD; &#x3C4;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE;","ba-videorecorder.trim-prompt":"&#x398;&#x3AD;&#x3BB;&#x3B5;&#x3C4;&#x3B5; &#x3BD;&#x3B1; &#x3BA;&#x3CC;&#x3C8;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3BF; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3CC; &#x3C3;&#x3B1;&#x3C2;;","ba-videorecorder.trim-video":"&#x39C;&#x3B5;&#x3C4;&#x3B1;&#x3BA;&#x3B9;&#x3BD;&#x3AE;&#x3C3;&#x3C4;&#x3B5; &#x3C4;&#x3BF;&#x3C5;&#x3C2; &#x3B4;&#x3B5;&#x3AF;&#x3BA;&#x3C4;&#x3B5;&#x3C2; &#x3AD;&#x3BD;&#x3B1;&#x3C1;&#x3BE;&#x3B7;&#x3C2; &#x3BA;&#x3B1;&#x3B9; &#x3C4;&#x3AD;&#x3BB;&#x3BF;&#x3C5;&#x3C2; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3BA;&#x3CC;&#x3C8;&#x3B5;&#x3C4;&#x3B5; &#x3C4;&#x3BF; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3CC; &#x3C3;&#x3B1;&#x3C2;","ba-videorecorder.wait-for-trim":"&#x391;&#x3BD;&#x3B1;&#x3BC;&#x3BF;&#x3BD;&#x3AE; &#x3B3;&#x3B9;&#x3B1; &#x3B5;&#x3BD;&#x3C4;&#x3BF;&#x3BB;&#x3AE; &#x3C0;&#x3B5;&#x3C1;&#x3B9;&#x3BA;&#x3BF;&#x3C0;&#x3AE;&#x3C2; ...","ba-videorecorder-controlbar.no-video-source":"&#x39B;&#x3B5;&#x3AF;&#x3C0;&#x3B5;&#x3B9; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B8;&#x3B5;&#x3C4;&#x3B7; &#x3C0;&#x3B7;&#x3B3;&#x3AE; &#x3B5;&#x3B9;&#x3C3;&#x3CC;&#x3B4;&#x3BF;&#x3C5; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF;","ba-videorecorder-controlbar.stream-already-selected":"&#x397; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B8;&#x3B5;&#x3C4;&#x3B7; &#x3C1;&#x3BF;&#x3AE; &#x3AD;&#x3C7;&#x3B5;&#x3B9; &#x3AE;&#x3B4;&#x3B7; &#x3B5;&#x3C0;&#x3B9;&#x3BB;&#x3B5;&#x3B3;&#x3B5;&#x3AF;","ba-videorecorder.uploading-src-error":"&#x394;&#x3B5;&#x3BD; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3B4;&#x3C5;&#x3BD;&#x3B1;&#x3C4;&#x3AE; &#x3B7; &#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3B3;&#x3C9;&#x3B3;&#x3AE; &#x3B2;&#x3AF;&#x3BD;&#x3C4;&#x3B5;&#x3BF; &#x3C4;&#x3CE;&#x3C1;&#x3B1;, &#x3B7; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3B1;&#x3BA;&#x3CC;&#x3BC;&#x3B1; &#x3C3;&#x3B5; &#x3B5;&#x3BE;&#x3AD;&#x3BB;&#x3B9;&#x3BE;&#x3B7;","ba-audiorecorder-controlbar.pause-recorder":"&#x3A0;&#x3B1;&#x3CD;&#x3C3;&#x3B7; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;&#x3C2;","ba-audiorecorder-controlbar.resume-recorder":"&#x3A3;&#x3C5;&#x3BD;&#x3AD;&#x3C7;&#x3B9;&#x3C3;&#x3B7; &#x3B5;&#x3B3;&#x3B3;&#x3C1;&#x3B1;&#x3C6;&#x3AE;&#x3C2;","ba-ads-controlbar.elapsed-time":"&#x3A0;&#x3B1;&#x3C1;&#x3AE;&#x3BB;&#x3B8;&#x3B5; &#x3BF; &#x3C7;&#x3C1;&#x3CC;&#x3BD;&#x3BF;&#x3C2;","ba-ads-controlbar.volume-button":"&#x3A1;&#x3CD;&#x3B8;&#x3BC;&#x3B9;&#x3C3;&#x3B7; &#x3AD;&#x3BD;&#x3C4;&#x3B1;&#x3C3;&#x3B7;&#x3C2;","ba-ads-controlbar.volume-mute":"&#x3A3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7; &#x3AD;&#x3BD;&#x3C4;&#x3B1;&#x3C3;&#x3B7;&#x3C2;","ba-ads-controlbar.volume-unmute":"&#x39A;&#x3AC;&#x3C4;&#x3B1;&#x3C1;&#x3B3;&#x3B7;&#x3C3;&#x3B7; &#x3C3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7;&#x3C2; &#x3AD;&#x3BD;&#x3C4;&#x3B1;&#x3C3;&#x3B7;&#x3C2;","ba-ads-controlbar.ad-will-end-after":"&#x397; &#x3B4;&#x3B9;&#x3B1;&#x3C6;&#x3AE;&#x3BC;&#x3B9;&#x3C3;&#x3B7; &#x3B8;&#x3B1; &#x3C4;&#x3B5;&#x3BB;&#x3B5;&#x3B9;&#x3CE;&#x3C3;&#x3B5;&#x3B9; &#x3BC;&#x3B5;&#x3C4;&#x3B1; &#x3B1;&#x3C0;&#x3BF; %s","ba-ads-controlbar.can-skip-after":"&#x3A0;&#x3B1;&#x3C1;&#x3AC;&#x3BB;&#x3B5;&#x3B9;&#x3C8;&#x3B7; &#x3BC;&#x3B5;&#x3C4;&#x3AC; %d","ba-ads-controlbar.skip-ad":"&#x3A0;&#x3B1;&#x3C1;&#x3AC;&#x3BB;&#x3B5;&#x3B9;&#x3C8;&#x3B7; &#x3B4;&#x3B9;&#x3B1;&#x3C6;&#x3AE;&#x3BC;&#x3B9;&#x3C3;&#x3B7;&#x3C2;","ba-videorecorder.supported-mode":"&#x397; &#x3B1;&#x3BD;&#x3AC;&#x3BB;&#x3C5;&#x3C3;&#x3B7; &#x3C0;&#x3C1;&#x3AD;&#x3C0;&#x3B5;&#x3B9; &#x3BD;&#x3B1; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3C3;&#x3B5; &#x27;%s&#x27; &#x3BB;&#x3B5;&#x3B9;&#x3C4;&#x3BF;&#x3C5;&#x3C1;&#x3B3;&#x3AF;&#x3B1;.","ba-videorecorder.re-choose-action":"&#x3A0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3B1;&#x3BB;&#x3CE; &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3B4;&#x3B9;&#x3B1;&#x3BB;&#x3AD;&#x3BE;&#x3B5;&#x3C4;&#x3B5; &#x3AC;&#x3BB;&#x3BB;&#x3B7; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AE; &#x3AE; &#x3BE;&#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3C4;&#x3B5;.","ba-audiorecorder.uploading-src-error":"&#x39C;&#x3B7; &#x3B4;&#x3C5;&#x3BD;&#x3B1;&#x3C4;&#x3AE; &#x3B7; &#x3B1;&#x3BD;&#x3B1;&#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3B3;&#x3C9;&#x3B3;&#x3AE; &#x3AE;&#x3C7;&#x3BF;&#x3C5; &#x3C4;&#x3CE;&#x3C1;&#x3B1;, &#x3B7; &#x3BC;&#x3B5;&#x3C4;&#x3B1;&#x3C6;&#x3CC;&#x3C1;&#x3C4;&#x3C9;&#x3C3;&#x3B7; &#x3B5;&#x3AF;&#x3BD;&#x3B1;&#x3B9; &#x3C3;&#x3B5; &#x3B5;&#x3BE;&#x3AD;&#x3BB;&#x3B9;&#x3BE;&#x3B7;","ba-audiorecorder.missing-track":"&#x3A4;&#x3BF; &#x3B1;&#x3C0;&#x3B1;&#x3B9;&#x3C4;&#x3BF;&#x3CD;&#x3BC;&#x3B5;&#x3BD;&#x3BF; &#x3BA;&#x3BF;&#x3BC;&#x3BC;&#x3AC;&#x3C4;&#x3B9; &#x3AE;&#x3C7;&#x3BF;&#x3C5; &#x3BB;&#x3B5;&#x3AF;&#x3C0;&#x3B5;&#x3B9;","ba-audiorecorder.device-already-in-use":"&#x3A4;&#x3BF;&#x3C5;&#x3BB;&#x3AC;&#x3C7;&#x3B9;&#x3C3;&#x3C4;&#x3BF;&#x3BD; &#x3BC;&#x3AF;&#x3B1; &#x3B1;&#x3C0;&#x3CC; &#x3C4;&#x3B9;&#x3C2; &#x3C3;&#x3C5;&#x3C3;&#x3BA;&#x3B5;&#x3C5;&#x3AD;&#x3C2; &#x3B5;&#x3B9;&#x3C3;&#x3CC;&#x3B4;&#x3BF;&#x3C5; &#x3C7;&#x3C1;&#x3B7;&#x3C3;&#x3B9;&#x3BC;&#x3BF;&#x3C0;&#x3BF;&#x3B9;&#x3B5;&#x3AF;&#x3C4;&#x3B1;&#x3B9; &#x3AE;&#x3B4;&#x3B7;","ba-audiorecorder.browser-permission-denied":"&#x394;&#x3B5;&#x3BD; &#x3B5;&#x3C0;&#x3B9;&#x3C4;&#x3C1;&#x3AD;&#x3C0;&#x3B5;&#x3C4;&#x3B1;&#x3B9; &#x3C0;&#x3C1;&#x3CC;&#x3C3;&#x3B2;&#x3B1;&#x3C3;&#x3B7; &#x3B1;&#x3C0;&#x3CC; &#x3C4;&#x3BF; &#x3C0;&#x3C1;&#x3CC;&#x3B3;&#x3C1;&#x3B1;&#x3BC;&#x3BC;&#x3B1; &#x3C0;&#x3B5;&#x3C1;&#x3B9;&#x3AE;&#x3B3;&#x3B7;&#x3C3;&#x3B7;&#x3C2;, &#x3B4;&#x3CE;&#x3C3;&#x3C4;&#x3B5; &#x3AC;&#x3B4;&#x3B5;&#x3B9;&#x3B1; &#x3BA;&#x3B1;&#x3B9; &#x3C6;&#x3BF;&#x3C1;&#x3C4;&#x3CE;&#x3C3;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC; &#x3C4;&#x3B7; &#x3C3;&#x3B5;&#x3BB;&#x3AF;&#x3B4;&#x3B1;","ba-local-view.local-camera-connection-error":"&#x3A0;&#x3B1;&#x3C1;&#x3BF;&#x3C5;&#x3C3;&#x3B9;&#x3AC;&#x3C3;&#x3C4;&#x3B7;&#x3BA;&#x3B5; &#x3C3;&#x3C6;&#x3AC;&#x3BB;&#x3BC;&#x3B1; &#x3BA;&#x3B1;&#x3C4;&#x3AC; &#x3C4;&#x3B7; &#x3C3;&#x3CD;&#x3BD;&#x3B4;&#x3B5;&#x3C3;&#x3B7; &#x3BC;&#x3B5; &#x3C4;&#x3B7;&#x3BD; &#x3BA;&#x3AC;&#x3BC;&#x3B5;&#x3C1;&#x3B1;. &#x39A;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;.","ba-call-controlbar.camera-button":"&#x395;&#x3BC;&#x3C6;&#x3AC;&#x3BD;&#x3B9;&#x3C3;&#x3B7;/&#x391;&#x3C0;&#x3CC;&#x3BA;&#x3C1;&#x3C5;&#x3C8;&#x3B7; &#x3BA;&#x3AC;&#x3BC;&#x3B5;&#x3C1;&#x3B1;&#x3C2;","ba-call-controlbar.leave-button":"&#x391;&#x3C0;&#x3BF;&#x3C7;&#x3CE;&#x3C1;&#x3B7;&#x3C3;&#x3B7; &#x3B1;&#x3C0;&#x3CC; &#x3C4;&#x3B7;&#x3BD; &#x3BA;&#x3BB;&#x3AE;&#x3C3;&#x3B7;","ba-call-controlbar.mute-button":"&#x3A3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7;/&#x39A;&#x3B1;&#x3C4;&#x3AC;&#x3C1;&#x3B3;&#x3B7;&#x3C3;&#x3B7; &#x3C3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7;&#x3C2;","ba-call-lobby.camera-button":"&#x39A;&#x3AC;&#x3BC;&#x3B5;&#x3C1;&#x3B1;","ba-call-lobby.description-create":"&#x38C;&#x3C4;&#x3B1;&#x3BD; &#x3B5;&#x3AF;&#x3C3;&#x3C4;&#x3B5; &#x3AD;&#x3C4;&#x3BF;&#x3B9;&#x3BC;&#x3BF;&#x3B9;, &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3C3;&#x3C4;&#x3BF; &#x3BA;&#x3BF;&#x3C5;&#x3BC;&#x3C0;&#x3AF; &#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3AC;&#x3C4;&#x3C9; &#x3B3;&#x3B9;&#x3B1; &#x3B4;&#x3B7;&#x3BC;&#x3B9;&#x3BF;&#x3C5;&#x3C1;&#x3B3;&#x3AF;&#x3B1; &#x3BA;&#x3BB;&#x3AE;&#x3C3;&#x3B7;&#x3C2;.","ba-call-lobby.description-join":"&#x38C;&#x3C4;&#x3B1;&#x3BD; &#x3B5;&#x3AF;&#x3C3;&#x3C4;&#x3B5; &#x3AD;&#x3C4;&#x3BF;&#x3B9;&#x3BC;&#x3BF;&#x3B9;, &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3C3;&#x3C4;&#x3BF; &#x3BA;&#x3BF;&#x3C5;&#x3BC;&#x3C0;&#x3AF; &#x3C0;&#x3B1;&#x3C1;&#x3B1;&#x3BA;&#x3AC;&#x3C4;&#x3C9; &#x3B3;&#x3B9;&#x3B1; &#x3C3;&#x3C5;&#x3BC;&#x3BC;&#x3B5;&#x3C4;&#x3BF;&#x3C7;&#x3AE; &#x3C3;&#x3C4;&#x3B7;&#x3BD; &#x3BA;&#x3BB;&#x3AE;&#x3C3;&#x3B7;.","ba-call-lobby.join-button":"&#x3A3;&#x3C5;&#x3BC;&#x3BC;&#x3B5;&#x3C4;&#x3BF;&#x3C7;&#x3AE;","ba-call-lobby.create-button":"&#x394;&#x3B7;&#x3BC;&#x3B9;&#x3BF;&#x3C5;&#x3C1;&#x3B3;&#x3AF;&#x3B1;","ba-call-lobby.mute-button":"&#x3A3;&#x3AF;&#x3B3;&#x3B1;&#x3C3;&#x3B7;","ba-call-lobby.title-create":"&#x394;&#x3B7;&#x3BC;&#x3B9;&#x3BF;&#x3C5;&#x3C1;&#x3B3;&#x3AF;&#x3B1; &#x3BA;&#x3BB;&#x3AE;&#x3C3;&#x3B7;&#x3C2;","ba-call-lobby.title-join":"&#x3A3;&#x3C5;&#x3BC;&#x3BC;&#x3B5;&#x3C4;&#x3BF;&#x3C7;&#x3AE; &#x3C3;&#x3B5; &#x3BA;&#x3BB;&#x3AE;&#x3C3;&#x3B7;","ba-video-call.call-ended":"&#x397; &#x3BA;&#x3BB;&#x3AE;&#x3C3;&#x3B7; &#x3C4;&#x3B5;&#x3BB;&#x3B5;&#x3AF;&#x3C9;&#x3C3;&#x3B5;","ba-video-call.connecting":"&#x3A3;&#x3CD;&#x3BD;&#x3B4;&#x3B5;&#x3C3;&#x3B7;...","ba-video-call.connection-error":"&#x3A0;&#x3B1;&#x3C1;&#x3BF;&#x3C5;&#x3C3;&#x3B9;&#x3AC;&#x3C3;&#x3C4;&#x3B7;&#x3BA;&#x3B5; &#x3C3;&#x3C6;&#x3AC;&#x3BB;&#x3BC;&#x3B1; &#x3BA;&#x3B1;&#x3C4;&#x3AC; &#x3C4;&#x3B7; &#x3C3;&#x3CD;&#x3BD;&#x3B4;&#x3B5;&#x3C3;&#x3B7;, &#x3BA;&#x3AC;&#x3BD;&#x3C4;&#x3B5; &#x3BA;&#x3BB;&#x3B9;&#x3BA; &#x3B3;&#x3B9;&#x3B1; &#x3BD;&#x3B1; &#x3C0;&#x3C1;&#x3BF;&#x3C3;&#x3C0;&#x3B1;&#x3B8;&#x3AE;&#x3C3;&#x3B5;&#x3C4;&#x3B5; &#x3BE;&#x3B1;&#x3BD;&#x3AC;."}, ["language:el"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Length of the uploaded audio does not meet the requirements - click here to retry.", ["ba-audiorecorder.upload-error-duration"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click to play.", ["ba-common-settingsmenu.tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("All settings", ["ba-common-settingsmenu.setting-menu"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Settings", ["ba-videorecorder-controlbar.settings"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Access to the media was forbidden. Click to retry.", ["ba-imagecapture.access-forbidden"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Ad Choices", ["ba-adsplayer.ad-choices"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Your video file is too large (%s) - click here to try again with a smaller video file.", ["ba-videorecorder.video_file_too_large"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Settings", ["ba-videoplayer-controlbar.settings"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Add Stream", ["ba-videorecorder-controlbar.add-stream"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Enter fullscreen", ["ba-imageviewer-controlbar.fullscreen-image"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Your image file is too large (%s) - click here to try again with a smaller image file.", ["ba-imagecapture.image_file_too_large"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please rotate your device to record in landscape mode.", ["ba-imagecapture.orientation-landscape-required"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pause not supported", ["ba-videoplayer-controlbar.pause-video-disabled"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Lighting is good", ["ba-videorecorder-controlbar.camerahealthy"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Confirm video", ["ba-common-settingsmenu.submit-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to record.", ["ba-videorecorder-controlbar.record-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Picture in picture", ["ba-common-settingsmenu.picture-in-picture"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Redo", ["ba-videoplayer-playbutton.rerecord"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Subtitle Language", ["ba-videoplayer-tracks.select-text-track-language"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("There was an error while connecting, please click to try again.", ["ba-video-call.connection-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Do you really want to cancel your audio upload?", ["ba-audiorecorder.cancel-confirm"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.", ["ba-audiorecorder.software-waiting"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("First select locale", ["ba-videoplayer-tracks.info-select-locale-first"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Loading...", ["ba-videoplayer-loader.tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to cancel.", ["ba-audiorecorder-controlbar.cancel-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Verifying failed - click here to retry.", ["ba-imagecapture.verifying-failed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Skip", ["ba-videoplayer-playbutton.skip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Exit fullscreen", ["ba-ads-controlbar.exit-fullscreen-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Tooltip", ["ba-videoplayer-tooltip.tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Trim", ["ba-videoplayer-controlbar.trim-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Required audio or video track is missing", ["ba-videorecorder.missing-track"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Uploading failed - click here to retry.", ["ba-imagecapture.uploading-failed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Leave Call", ["ba-call-controlbar.leave-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Capture Image", ["ba-imagecapture-chooser.image-capture"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Do you want to trim your video?", ["ba-videorecorder.trim-prompt"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.", ["ba-videorecorder.software-waiting"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Play", ["ba-audioplayer-controlbar.play-audio"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Resume Recorder", ["ba-videorecorder-controlbar.resume-recorder"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Redo", ["ba-videorecorder-controlbar.rerecord"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Verifying", ["ba-audiorecorder.verifying"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click to play.", ["ba-videoplayer-playbutton.tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Ad Choices", ["ba-ads-choices-link.ad-choices"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Move the start and end markers to trim your video", ["ba-videorecorder.trim-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Player speed", ["ba-videoplayer-controlbar.player-speed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Sound is good", ["ba-videorecorder-controlbar.microphonehealthy"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Multi Stream", ["ba-videorecorder-chooser.multi-stream"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("An error occurred, please try again later. Click to retry.", ["ba-imagecapture.recorder-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Hold mouse on, to pause tooltip closing", ["ba-videoplayer-tooltip.hover-to-pause-tooltip-close"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to stop.", ["ba-videorecorder-controlbar.stop-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to redo.", ["ba-imagecapture-controlbar.rerecord-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Progress", ["ba-videoplayer-controlbar.video-progress"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Lighting is not optimal", ["ba-videorecorder-controlbar.cameraunhealthy"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pause", ["ba-audioplayer-controlbar.pause-audio"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Stop", ["ba-videorecorder-controlbar.stop"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Upload Image", ["ba-imagecapture-chooser.upload-image"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Upload Cover", ["ba-videorecorder-imagegallery.upload-covershot"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Resume Recorder", ["ba-audiorecorder-controlbar.resume-recorder"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("An error occurred, please try again later. Click to retry.", ["ba-videoplayer.video-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("We could not access the media interface. Depending on the device and browser, you might need to access the page via SSL.", ["ba-videorecorder.attach-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pause Recorder", ["ba-audiorecorder-controlbar.pause-recorder"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Minimum recording time is %d seconds", ["ba-audiorecorder-controlbar.stop-available-after"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Change resolution", ["ba-videoplayer-controlbar.change-resolution"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please click below to install / activate the following requirements in order to proceed.", ["ba-audiorecorder.software-required"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Exit fullscreen", ["ba-videoplayer-controlbar.exit-fullscreen-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Redo?", ["ba-imageviewer-controlbar.rerecord-image"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Do you really want to retake your image?", ["ba-imagecapture.rerecord-confirm"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Elapsed time", ["ba-audioplayer-controlbar.elapsed-time"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Create Call", ["ba-call-lobby.title-create"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Redo?", ["ba-audioplayer-controlbar.rerecord-audio"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Exit fullscreen", ["ba-imageviewer-controlbar.exit-fullscreen-image"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Elapsed time", ["ba-ads-controlbar.elapsed-time"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Verifying failed - click here to retry.", ["ba-videorecorder.verifying-failed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Required audio track is missing", ["ba-audiorecorder.missing-track"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to upload custom cover shot", ["ba-videorecorder-controlbar.upload-covershot-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Set option", ["ba-common-settingsmenu.set-menu-option"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pause not supported", ["ba-ads-controlbar.pause-video-disabled"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("The video frame rate is very low. We recommend closing all other programs and browser tabs or to use a faster computer.", ["ba-videorecorder.framerate-warning"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Switch camera", ["ba-videorecorder.switch-camera"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Set volume", ["ba-audioplayer-controlbar.volume-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Upload Video", ["ba-videorecorder-chooser.upload-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Mute sound", ["ba-ads-controlbar.volume-mute"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Verifying failed - click here to retry.", ["ba-audiorecorder.verifying-failed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Additional stream has been already selected", ["ba-videorecorder-controlbar.stream-already-selected"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Length of the uploaded video does not meet the requirements - click here to retry.", ["ba-videorecorder.upload-error-duration"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Unmute sound", ["ba-ads-controlbar.volume-unmute"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Close", ["ba-adsplayer.close-ad"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Player speed", ["ba-common-settingsmenu.player-speed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Create", ["ba-call-lobby.create-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Enter fullscreen", ["ba-ads-controlbar.fullscreen-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Settings", ["ba-audiorecorder-controlbar.settings"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Play", ["ba-videoplayer-controlbar.play-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Redo?", ["ba-videoplayer-controlbar.rerecord-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("An error occurred, please try again later. Click to retry.", ["ba-videorecorder.recorder-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Preparing covershots", ["ba-videorecorder.prepare-covershot"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Verifying", ["ba-videorecorder.verifying"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please upload: %s - click here to retry.", ["ba-videorecorder.unsupported_video_type"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Confirm video", ["ba-videoplayer-playbutton.submit-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Total length of", ["ba-audioplayer-controlbar.total-time"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Preparing seeking thumbnails", ["ba-videorecorder.prepare-thumbnails"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Airplay", ["ba-videoplayer-controlbar.airplay"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Access to the media was forbidden. Click to retry.", ["ba-videorecorder.access-forbidden"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Replay Video", ["ba-adsplayer.replay-ad"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Connecting...", ["ba-video-call.connecting"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("An error occurred, please try again later. Click to retry.", ["ba-imageviewer.image-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("The file you&#x27;ve selected does not match the required resolution - click here to retry.", ["ba-videorecorder.resolution-constraint-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pause Recorder", ["ba-videorecorder-controlbar.pause-recorder"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Lighting is not optimal", ["ba-imagecapture-controlbar.cameraunhealthy"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Source quality", ["ba-common-settingsmenu.source-quality"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please rotate your device to record in portrait mode.", ["ba-imagecapture.orientation-portrait-required"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Join Call", ["ba-call-lobby.title-join"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Record Audio", ["ba-audiorecorder-chooser.record-audio"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Mute sound", ["ba-videoplayer-controlbar.volume-mute"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pick a covershot.", ["ba-videorecorder.pick-covershot"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Cannot pick up any sound", ["ba-audiorecorder-controlbar.microphoneunhealthy"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Missing additional video input source", ["ba-videorecorder-controlbar.no-video-source"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Access to the media was forbidden. Click to retry.", ["ba-audiorecorder.access-forbidden"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Redo", ["ba-imagecapture-controlbar.rerecord"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("An error occurred, please try again later. Click to retry.", ["ba-audiorecorder.recorder-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click to select file", ["ba-videoplayer-tracks.select-text-track-file"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Skip", ["ba-videorecorder-controlbar.skip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please click below to install / activate the following requirements in order to proceed.", ["ba-imagecapture.software-required"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Permission denied by browser, please grant access and reload page", ["ba-audiorecorder.browser-permission-denied"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Unable to play back video now, uploading is still in progress", ["ba-videorecorder.uploading-src-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Set volume", ["ba-videoplayer-controlbar.volume-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("We could not access the media interface. Depending on the device and browser, you might need to access the page via SSL.", ["ba-imagecapture.attach-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Uploading", ["ba-audiorecorder.uploading"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please upload: %s - click here to retry.", ["ba-audiorecorder.unsupported_audio_type"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Play", ["ba-ads-controlbar.play-ad"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Settings", ["ba-imagecapture-controlbar.settings"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Adding New Stream", ["ba-videorecorder.adding-new-stream"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Mute", ["ba-call-lobby.mute-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Uploading", ["ba-imagecapture.uploading"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Content will resume after this advertisement.", ["ba-videoplayer-sidebar.continue-on-ads-end"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Waiting for trim command...", ["ba-videorecorder.wait-for-trim"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Cancel", ["ba-imagecapture-controlbar.cancel"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to cancel.", ["ba-videorecorder-controlbar.cancel-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("An error occurred, please try again later. Click to retry.", ["ba-audioplayer.audio-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("At least one of your input devices are already in use", ["ba-audiorecorder.device-already-in-use"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pause", ["ba-ads-controlbar.pause-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Camera", ["ba-call-lobby.camera-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Show CC", ["ba-videoplayer-controlbar.show-tracks"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Full screen", ["ba-videoplayer.full-screen"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please click to choose another input device or retry action.", ["ba-videorecorder.re-choose-action"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Join", ["ba-call-lobby.join-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Do you really want to cancel your video upload?", ["ba-videorecorder.cancel-confirm"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Learn More", ["ba-ads-learn-more-button.learn-more"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Cancel", ["ba-videorecorder-controlbar.cancel"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Skip after %d", ["ba-ads-controlbar.can-skip-after"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Ad will end after %s", ["ba-ads-controlbar.ad-will-end-after"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Redo", ["ba-audiorecorder-controlbar.rerecord"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Do you really want to redo your audio?", ["ba-audiorecorder.rerecord-confirm"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Elapsed time", ["ba-videoplayer-controlbar.elapsed-time"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Minimum recording time is %d seconds", ["ba-videorecorder-controlbar.stop-available-after"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("All settings", ["ba-audioplayer.all-settings"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Lighting is good", ["ba-imagecapture-controlbar.camerahealthy"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Capture", ["ba-imagecapture-controlbar.record"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to record.", ["ba-audiorecorder-controlbar.record-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Confirm", ["ba-audioplayer-controlbar.submit-audio"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Show/Hide Camera", ["ba-call-controlbar.camera-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Mute/Unmute", ["ba-call-controlbar.mute-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Record Audio", ["ba-videorecorder-chooser.record-audio"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Your audio file is too large (%s) - click here to try again with a smaller audio file.", ["ba-audiorecorder.audio_file_too_large"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Permission denied by browser, please grant access and reload page", ["ba-videorecorder.browser-permission-denied"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pause", ["ba-videoplayer-controlbar.pause-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Confirm", ["ba-videoplayer-controlbar.submit-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Share media", ["ba-videoplayer-share.share"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Loading...", ["ba-audioplayer-loader.tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please upload: %s - click here to retry.", ["ba-imagecapture.unsupported_image_type"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Uploading", ["ba-videorecorder.uploading"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Sound is good", ["ba-audiorecorder-controlbar.microphonehealthy"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("When you&#x27;re ready click on the button below to join the call.", ["ba-call-lobby.description-join"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to redo.", ["ba-audiorecorder-controlbar.rerecord-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Record Screen", ["ba-videorecorder-chooser.record-screen"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("All settings", ["ba-videoplayer.all-settings"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Select", ["ba-videoplayer-controlbar.select-frame"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Learn More", ["ba-adsplayer.learn-more"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Up Next test", ["ba-videoplayer-sidebar.up-next"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("The file you&#x27;ve selected does not match the required resolution - click here to retry.", ["ba-imagecapture.resolution-constraint-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to stop.", ["ba-audiorecorder-controlbar.stop-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Cannot pick up any sound", ["ba-videorecorder-controlbar.microphoneunhealthy"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Stop", ["ba-audiorecorder-controlbar.stop"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Do you really want to redo your video?", ["ba-videorecorder.rerecord-confirm"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("There was an error when connecting to local camera. Click to try again.", ["ba-local-view.local-camera-connection-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Media resolution should be in &#x27;%s&#x27; mode.", ["ba-videorecorder.supported-mode"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Close CC", ["ba-videoplayer-controlbar.close-tracks"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Upload Cover", ["ba-videorecorder-controlbar.upload-covershot"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please rotate your device to record in landscape mode.", ["ba-videorecorder.orientation-landscape-required"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Verifying", ["ba-imagecapture.verifying"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Confirm", ["ba-imageviewer-controlbar.submit-image"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to cancel.", ["ba-imagecapture-controlbar.cancel-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Waiting for the requirements to be installed / activated. You might need to refresh the page after completion.", ["ba-imagecapture.software-waiting"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Exit fullscreen", ["ba-common-settingsmenu.exit-fullscreen-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Uploading failed - click here to retry.", ["ba-videorecorder.uploading-failed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Trim", ["ba-videoplayer-playbutton.trim"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Unmute sound", ["ba-audioplayer-controlbar.volume-unmute"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Record", ["ba-audiorecorder-controlbar.record"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please click below to install / activate the following requirements in order to proceed.", ["ba-videorecorder.software-required"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Upload track text files", ["ba-videoplayer-tracks.upload-text-tracks"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("When you&#x27;re ready click on the button below to create a call.", ["ba-call-lobby.description-create"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to skip.", ["ba-videorecorder-controlbar.skip-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Set volume", ["ba-ads-controlbar.volume-button"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Remaining time", ["ba-videoplayer-controlbar.remaining-time"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to capture.", ["ba-imagecapture-controlbar.record-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("At least one of your input devices are already in use", ["ba-videorecorder.device-already-in-use"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Mute sound", ["ba-audioplayer-controlbar.volume-mute"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Upload Audio", ["ba-audiorecorder-chooser.upload-audio"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Length of the uploaded image does not meet the requirements - click here to retry.", ["ba-imagecapture.upload-error-duration"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("We could not access the media interface. Depending on the device and browser, you might need to access the page via SSL.", ["ba-audiorecorder.attach-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Skip ad", ["ba-ads-controlbar.skip-ad"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Cancel", ["ba-audiorecorder-controlbar.cancel"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Airplay icon.", ["ba-videoplayer-controlbar.airplay-icon"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Player speed", ["ba-videoplayer.player-speed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Enter fullscreen", ["ba-videoplayer-controlbar.fullscreen-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Uploading failed - click here to retry.", ["ba-audiorecorder.uploading-failed"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Enter fullscreen", ["ba-circle-progress.fullscreen-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Unable to play back audio now, uploading is still in progress", ["ba-audiorecorder.uploading-src-error"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Record Video", ["ba-videorecorder-chooser.record-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Screen recorder is not supported on this device", ["ba-videorecorder.screen-recorder-is-not-supported"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("back", ["ba-videoplayer-tracks.back"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Select a frame to use as covershot.", ["ba-videorecorder.pick-covershot-frame"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Progress", ["ba-audioplayer-controlbar.audio-progress"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Pause not supported", ["ba-audioplayer-controlbar.pause-audio-disabled"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Call ended", ["ba-video-call.call-ended"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Total length of", ["ba-videoplayer-controlbar.total-time"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Click here to redo.", ["ba-videorecorder-controlbar.rerecord-tooltip"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Please rotate your device to record in portrait mode.", ["ba-videorecorder.orientation-portrait-required"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Enter fullscreen", ["ba-common-settingsmenu.fullscreen-video"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Unmute sound", ["ba-videoplayer-controlbar.volume-unmute"]);
+        return {};
+    });
+
+    Scoped.define("module:Assets.Languages.", ["module:Assets"], function (Assets) {
+        Assets.strings.register("Record", ["ba-videorecorder-controlbar.record"]);
         return {};
     });
 

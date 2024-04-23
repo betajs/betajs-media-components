@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.471 - 2024-04-22
+betajs-media-components - v0.0.472 - 2024-04-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -9,18 +9,18 @@ Copyright (c) Oliver Friedmann
 Apache-2.0 Software License.
 */
 var Scoped = (function () {
-var Globals = (function () {  
-/** 
+var Globals = (function () {
+/**
  * This helper module provides functions for reading and writing globally accessible namespaces, both in the browser and in NodeJS.
- * 
+ *
  * @module Globals
  * @access private
  */
 return {
-		
+
 	/**
 	 * Returns the value of a global variable.
-	 * 
+	 *
 	 * @param {string} key identifier of a global variable
 	 * @return value of global variable or undefined if not existing
 	 */
@@ -34,10 +34,10 @@ return {
 		return undefined;
 	},
 
-	
+
 	/**
 	 * Sets a global variable.
-	 * 
+	 *
 	 * @param {string} key identifier of a global variable
 	 * @param value value to be set
 	 * @return value that has been set
@@ -51,16 +51,16 @@ return {
 			self[key] = value;
 		return value;
 	},
-	
-	
+
+
 	/**
 	 * Returns the value of a global variable under a namespaced path.
-	 * 
+	 *
 	 * @param {string} path namespaced path identifier of variable
 	 * @return value of global variable or undefined if not existing
-	 * 
+	 *
 	 * @example
-	 * // returns window.foo.bar / global.foo.bar 
+	 * // returns window.foo.bar / global.foo.bar
 	 * Globals.getPath("foo.bar")
 	 */
 	getPath: function (path/* : string */) {
@@ -68,7 +68,7 @@ return {
 			return this.get();
 		var args = path.split(".");
 		if (args.length == 1)
-			return this.get(path);		
+			return this.get(path);
 		var current = this.get(args[0]);
 		for (var i = 1; i < args.length; ++i) {
 			if (!current)
@@ -81,19 +81,19 @@ return {
 
 	/**
 	 * Sets a global variable under a namespaced path.
-	 * 
+	 *
 	 * @param {string} path namespaced path identifier of variable
 	 * @param value value to be set
 	 * @return value that has been set
-	 * 
+	 *
 	 * @example
-	 * // sets window.foo.bar / global.foo.bar 
+	 * // sets window.foo.bar / global.foo.bar
 	 * Globals.setPath("foo.bar", 42);
 	 */
 	setPath: function (path/* : string */, value) {
 		var args = path.split(".");
 		if (args.length == 1)
-			return this.set(path, value);		
+			return this.set(path, value);
 		var current = this.get(args[0]) || this.set(args[0], {});
 		for (var i = 1; i < args.length - 1; ++i) {
 			if (!(args[i] in current))
@@ -103,7 +103,7 @@ return {
 		current[args[args.length - 1]] = value;
 		return value;
 	}
-	
+
 };}).call(this);
 /*::
 declare module Helper {
@@ -111,21 +111,21 @@ declare module Helper {
 }
 */
 
-var Helper = (function () {  
-/** 
+var Helper = (function () {
+/**
  * This helper module provides auxiliary functions for the Scoped system.
- * 
+ *
  * @module Helper
  * @access private
  */
-return { 
-		
+return {
+
 	/**
 	 * Attached a context to a function.
-	 * 
+	 *
 	 * @param {object} obj context for the function
 	 * @param {function} func function
-	 * 
+	 *
 	 * @return function with attached context
 	 */
 	method: function (obj, func) {
@@ -134,13 +134,13 @@ return {
 		};
 	},
 
-	
+
 	/**
 	 * Extend a base object with all attributes of a second object.
-	 * 
+	 *
 	 * @param {object} base base object
 	 * @param {object} overwrite second object
-	 * 
+	 *
 	 * @return {object} extended base object
 	 */
 	extend: function (base, overwrite) {
@@ -150,25 +150,25 @@ return {
 			base[key] = overwrite[key];
 		return base;
 	},
-	
-	
+
+
 	/**
 	 * Returns the type of an object, particulary returning 'array' for arrays.
-	 * 
+	 *
 	 * @param obj object in question
-	 * 
+	 *
 	 * @return {string} type of object
 	 */
 	typeOf: function (obj) {
 		return Object.prototype.toString.call(obj) === '[object Array]' ? "array" : typeof obj;
 	},
-	
-	
+
+
 	/**
 	 * Returns whether an object is null, undefined, an empty array or an empty object.
-	 * 
+	 *
 	 * @param obj object in question
-	 * 
+	 *
 	 * @return true if object is empty
 	 */
 	isEmpty: function (obj) {
@@ -182,16 +182,16 @@ return {
 			return false;
 		return true;
 	},
-	
-	
+
+
     /**
      * Matches function arguments against some pattern.
-     * 
+     *
      * @param {array} args function arguments
      * @param {object} pattern typed pattern
-     * 
-     * @return {object} matched arguments as associative array 
-     */	
+     *
+     * @return {object} matched arguments as associative array
+     */
 	matchArgs: function (args, pattern) {
 		var i = 0;
 		var result = {};
@@ -204,39 +204,39 @@ return {
 		}
 		return result;
 	},
-	
-	
+
+
 	/**
 	 * Stringifies a value as JSON and functions to string representations.
-	 * 
+	 *
 	 * @param value value to be stringified
-	 * 
+	 *
 	 * @return stringified value
 	 */
 	stringify: function (value) {
 		if (this.typeOf(value) == "function")
 			return "" + value;
 		return JSON.stringify(value);
-	}	
+	}
 
-	
+
 };}).call(this);
-var Attach = (function () {  
-/** 
+var Attach = (function () {
+/**
  * This module provides functionality to attach the Scoped system to the environment.
- * 
+ *
  * @module Attach
  * @access private
  */
-return { 
-		
+return {
+
 	__namespace: "Scoped",
 	__revert: null,
-	
-	
+
+
 	/**
-	 * Upgrades a pre-existing Scoped system to the newest version present. 
-	 * 
+	 * Upgrades a pre-existing Scoped system to the newest version present.
+	 *
 	 * @param {string} namespace Optional namespace (default is 'Scoped')
 	 * @return {object} the attached Scoped system
 	 */
@@ -253,15 +253,15 @@ return {
 				if (my_version[i] !== current_version[i])
 					break;
 			}
-			return newer ? this.attach(namespace) : current;				
+			return newer ? this.attach(namespace) : current;
 		} else
-			return this.attach(namespace);		
+			return this.attach(namespace);
 	},
 
 
 	/**
-	 * Attaches the Scoped system to the environment. 
-	 * 
+	 * Attaches the Scoped system to the environment.
+	 *
 	 * @param {string} namespace Optional namespace (default is 'Scoped')
 	 * @return {object} the attached Scoped system
 	 */
@@ -284,11 +284,11 @@ return {
 		Globals.set(Attach.__namespace, this);
 		return this;
 	},
-	
+
 
 	/**
-	 * Detaches the Scoped system from the environment. 
-	 * 
+	 * Detaches the Scoped system from the environment.
+	 *
 	 * @param {boolean} forceDetach Overwrite any attached scoped system by null.
 	 * @return {object} the detached Scoped system
 	 */
@@ -302,11 +302,11 @@ return {
 			this.__importScoped(Attach.__exportBackup);
 		return this;
 	},
-	
+
 
 	/**
-	 * Exports an object as a module if possible. 
-	 * 
+	 * Exports an object as a module if possible.
+	 *
 	 * @param {object} mod a module object (optional, default is 'module')
 	 * @param {object} object the object to be exported
 	 * @param {boolean} forceExport overwrite potentially pre-existing exports
@@ -317,7 +317,7 @@ return {
 		if (typeof mod == "object" && mod && "exports" in mod && (forceExport || mod.exports === this || !mod.exports || Helper.isEmpty(mod.exports)))
 			mod.exports = object || this;
 		return this;
-	}	
+	}
 
 };}).call(this);
 
@@ -356,9 +356,9 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 			lazy: []
 		};
 	}
-	
+
 	var nsRoot = initNode({ready: true});
-	
+
 	if (options.tree) {
 		if (options.global) {
 			try {
@@ -376,7 +376,7 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 		} else
 			nsRoot.data = options.root;
 	}
-	
+
 	function nodeDigest(node/* : Node */) {
 		if (node.ready)
 			return;
@@ -394,7 +394,7 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 				nodeDigest(node.children[key]);
 		}
 	}
-	
+
 	function nodeEnforce(node/* : Node */) {
 		if (node.ready)
 			return;
@@ -409,7 +409,7 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 			node.watchers[i].callback.call(node.watchers[i].context || this, node.data);
 		node.watchers = [];
 	}
-	
+
 	function nodeSetData(node/* : Node */, value) {
 		if (typeof value == "object" && node.ready) {
 			for (var key in value)
@@ -426,14 +426,14 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 		for (var k in node.children)
 			nodeDigest(node.children[k]);
 	}
-	
+
 	function nodeClearData(node/* : Node */) {
 		if (node.ready && node.data) {
 			for (var key in node.data)
 				delete node.data[key];
 		}
 	}
-	
+
 	function nodeNavigate(path/* : ?String */) {
 		if (!path)
 			return nsRoot;
@@ -453,7 +453,7 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 		}
 		return current;
 	}
-	
+
 	function nodeAddWatcher(node/* : Node */, callback, context) {
 		if (node.ready)
 			callback.call(context || this, node.data);
@@ -474,7 +474,7 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 			}
 		}
 	}
-	
+
 	function nodeUnresolvedWatchers(node/* : Node */, base, result) {
 		node = node || nsRoot;
 		result = result || [];
@@ -488,27 +488,27 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 		return result;
 	}
 
-	/** 
+	/**
 	 * The namespace module manages a namespace in the Scoped system.
-	 * 
+	 *
 	 * @module Namespace
 	 * @access public
 	 */
 	return {
-		
+
 		/**
 		 * Extend a node in the namespace by an object.
-		 * 
+		 *
 		 * @param {string} path path to the node in the namespace
 		 * @param {object} value object that should be used for extend the namespace node
 		 */
 		extend: function (path, value) {
 			nodeSetData(nodeNavigate(path), value);
 		},
-		
+
 		/**
 		 * Set the object value of a node in the namespace.
-		 * 
+		 *
 		 * @param {string} path path to the node in the namespace
 		 * @param {object} value object that should be used as value for the namespace node
 		 */
@@ -518,10 +518,10 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 				nodeClearData(node);
 			nodeSetData(node, value);
 		},
-		
+
 		/**
 		 * Read the object value of a node in the namespace.
-		 * 
+		 *
 		 * @param {string} path path to the node in the namespace
 		 * @return {object} object value of the node or null if undefined
 		 */
@@ -529,7 +529,7 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 			var node = nodeNavigate(path);
 			return node.ready ? node.data : null;
 		},
-		
+
 		/**
 		 * Lazily navigate to a node in the namespace.
 		 * Will asynchronously call the callback as soon as the node is being touched.
@@ -549,16 +549,16 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 				});
 			}
 		},
-		
+
 		/**
 		 * Digest a node path, checking whether it has been defined by an external system.
-		 * 
+		 *
 		 * @param {string} path path to the node in the namespace
 		 */
 		digest: function (path) {
 			nodeDigest(nodeNavigate(path));
 		},
-		
+
 		/**
 		 * Asynchronously access a node in the namespace.
 		 * Will asynchronously call the callback as soon as the node is being defined.
@@ -570,34 +570,34 @@ function newNamespace (opts/* : {tree ?: boolean, global ?: boolean, root ?: Obj
 		obtain: function (path, callback, context) {
 			nodeAddWatcher(nodeNavigate(path), callback, context);
 		},
-		
+
 		/**
 		 * Returns all unresolved watchers under a certain path.
-		 * 
+		 *
 		 * @param {string} path path to the node in the namespace
-		 * @return {array} list of all unresolved watchers 
+		 * @return {array} list of all unresolved watchers
 		 */
 		unresolvedWatchers: function (path) {
 			return nodeUnresolvedWatchers(nodeNavigate(path), path);
 		},
-		
+
 		__export: function () {
 			return {
 				options: options,
 				nsRoot: nsRoot
 			};
 		},
-		
+
 		__import: function (data) {
 			options = data.options;
 			nsRoot = data.nsRoot;
 		}
-		
+
 	};
-	
+
 }
 function newScope (parent, parentNS, rootNS, globalNS) {
-	
+
 	var self = this;
 	var nextScope = null;
 	var childScopes = [];
@@ -606,7 +606,7 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 	var globalNamespace = globalNS;
 	var localNamespace = newNamespace({tree: true});
 	var privateNamespace = newNamespace({tree: false});
-	
+
 	var bindings = {
 		"global": {
 			namespace: globalNamespace
@@ -623,7 +623,7 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 			readonly: false
 		}
 	};
-	
+
 	var custom = function (argmts, name, callback) {
 		var args = Helper.matchArgs(argmts, {
 			options: "object",
@@ -633,13 +633,13 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 			callback: true,
 			context: "object"
 		});
-		
+
 		var options = Helper.extend({
 			lazy: this.options.lazy
 		}, args.options || {});
-		
+
 		var ns = this.resolve(args.namespaceLocator);
-		
+
 		var execute = function () {
 			this.require(args.dependencies, args.hiddenDependencies, function () {
                 var _arguments = [];
@@ -669,7 +669,7 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 				callback.call(this, ns, result);
 			}, this);
 		};
-		
+
 		if (options.lazy)
 			ns.namespace.lazy(ns.path, execute, this);
 		else
@@ -677,33 +677,33 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 
 		return this;
 	};
-	
-	/** 
+
+	/**
 	 * This module provides all functionality in a scope.
-	 * 
+	 *
 	 * @module Scoped
 	 * @access public
 	 */
 	return {
-		
+
 		getGlobal: Helper.method(Globals, Globals.getPath),
 		setGlobal: Helper.method(Globals, Globals.setPath),
-		
+
 		options: {
 			lazy: false,
 			ident: "Scoped",
 			compile: false,
 			dependencies: false
 		},
-		
+
 		compiled: "",
-		
+
 		dependencies: {},
-		
-		
+
+
 		/**
 		 * Returns a reference to the next scope that will be obtained by a subScope call.
-		 * 
+		 *
 		 * @return {object} next scope
 		 */
 		nextScope: function () {
@@ -711,10 +711,10 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 				nextScope = newScope(this, localNamespace, rootNamespace, globalNamespace);
 			return nextScope;
 		},
-		
+
 		/**
 		 * Creates a sub scope of the current scope and returns it.
-		 * 
+		 *
 		 * @return {object} sub scope
 		 */
 		subScope: function () {
@@ -723,14 +723,14 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 			nextScope = null;
 			return sub;
 		},
-		
+
 		/**
-		 * Creates a binding within in the scope. 
-		 * 
+		 * Creates a binding within in the scope.
+		 *
 		 * @param {string} alias identifier of the new binding
 		 * @param {string} namespaceLocator identifier of an existing namespace path
 		 * @param {object} options options for the binding
-		 * 
+		 *
 		 */
 		binding: function (alias, namespaceLocator, options) {
 			if (!bindings[alias] || !bindings[alias].readonly) {
@@ -741,7 +741,7 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 							tree: true,
 							root: namespaceLocator
 						}),
-						path: null	
+						path: null
 					};
 				} else
 					ns = this.resolve(namespaceLocator);
@@ -749,14 +749,14 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 			}
 			return this;
 		},
-		
-		
+
+
 		/**
 		 * Resolves a name space locator to a name space.
-		 * 
+		 *
 		 * @param {string} namespaceLocator name space locator
 		 * @return {object} resolved name space
-		 * 
+		 *
 		 */
 		resolve: function (namespaceLocator) {
 			var parts = namespaceLocator.split(":");
@@ -773,16 +773,16 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 			}
 		},
 
-		
+
 		/**
 		 * Defines a new name space once a list of name space locators is available.
-		 * 
+		 *
 		 * @param {string} namespaceLocator the name space that is to be defined
 		 * @param {array} dependencies a list of name space locator dependencies (optional)
 		 * @param {array} hiddenDependencies a list of hidden name space locators (optional)
 		 * @param {function} callback a callback function accepting all dependencies as arguments and returning the new definition
 		 * @param {object} context a callback context (optional)
-		 * 
+		 *
 		 */
 		define: function () {
 			return custom.call(this, arguments, "define", function (ns, result) {
@@ -791,14 +791,14 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 				ns.namespace.set(ns.path, result);
 			});
 		},
-		
-		
+
+
 		/**
 		 * Assume a specific version of a module and fail if it is not met.
-		 * 
+		 *
 		 * @param {string} assumption name space locator
 		 * @param {string} version assumed version
-		 * 
+		 *
 		 */
 		assumeVersion: function () {
 			var args = Helper.matchArgs(arguments, {
@@ -827,33 +827,33 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 				}
 			});
 		},
-		
-		
+
+
 		/**
 		 * Extends a potentially existing name space once a list of name space locators is available.
-		 * 
+		 *
 		 * @param {string} namespaceLocator the name space that is to be defined
 		 * @param {array} dependencies a list of name space locator dependencies (optional)
 		 * @param {array} hiddenDependencies a list of hidden name space locators (optional)
 		 * @param {function} callback a callback function accepting all dependencies as arguments and returning the new additional definitions.
 		 * @param {object} context a callback context (optional)
-		 * 
+		 *
 		 */
 		extend: function () {
 			return custom.call(this, arguments, "extend", function (ns, result) {
 				ns.namespace.extend(ns.path, result);
 			});
 		},
-				
-		
+
+
 		/**
 		 * Requires a list of name space locators and calls a function once they are present.
-		 * 
+		 *
 		 * @param {array} dependencies a list of name space locator dependencies (optional)
 		 * @param {array} hiddenDependencies a list of hidden name space locators (optional)
 		 * @param {function} callback a callback function accepting all dependencies as arguments
 		 * @param {object} context a callback context (optional)
-		 * 
+		 *
 		 */
 		require: function () {
 			var args = Helper.matchArgs(arguments, {
@@ -894,10 +894,10 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 			return this;
 		},
 
-		
+
 		/**
 		 * Digest a name space locator, checking whether it has been defined by an external system.
-		 * 
+		 *
 		 * @param {string} namespaceLocator name space locator
 		 */
 		digest: function (namespaceLocator) {
@@ -905,22 +905,22 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 			ns.namespace.digest(ns.path);
 			return this;
 		},
-		
-		
+
+
 		/**
 		 * Returns all unresolved definitions under a namespace locator
-		 * 
+		 *
 		 * @param {string} namespaceLocator name space locator, e.g. "global:"
-		 * @return {array} list of all unresolved definitions 
+		 * @return {array} list of all unresolved definitions
 		 */
 		unresolved: function (namespaceLocator) {
 			var ns = this.resolve(namespaceLocator);
 			return ns.namespace.unresolvedWatchers(ns.path);
 		},
-		
+
 		/**
 		 * Exports the scope.
-		 * 
+		 *
 		 * @return {object} exported scope
 		 */
 		__export: function () {
@@ -932,12 +932,12 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 				privateNamespace: privateNamespace.__export()
 			};
 		},
-		
+
 		/**
 		 * Imports a scope from an exported scope.
-		 * 
+		 *
 		 * @param {object} data exported scope to be imported
-		 * 
+		 *
 		 */
 		__import: function (data) {
 			parentNamespace.__import(data.parentNamespace);
@@ -946,38 +946,38 @@ function newScope (parent, parentNS, rootNS, globalNS) {
 			localNamespace.__import(data.localNamespace);
 			privateNamespace.__import(data.privateNamespace);
 		}
-		
+
 	};
-	
+
 }
 var globalNamespace = newNamespace({tree: true, global: true});
 var rootNamespace = newNamespace({tree: true});
 var rootScope = newScope(null, rootNamespace, rootNamespace, globalNamespace);
 
-var Public = Helper.extend(rootScope, (function () {  
-/** 
+var Public = Helper.extend(rootScope, (function () {
+/**
  * This module includes all public functions of the Scoped system.
- * 
+ *
  * It includes all methods of the root scope and the Attach module.
- * 
+ *
  * @module Public
  * @access public
  */
 return {
-		
+
 	guid: "4b6878ee-cb6a-46b3-94ac-27d91f58d666",
 	version: '0.0.22',
 
 	upgradable: true,
-		
+
 	upgrade: Attach.upgrade,
 	attach: Attach.attach,
 	detach: Attach.detach,
 	exports: Attach.exports,
-	
+
 	/**
 	 * Exports all data contained in the Scoped system.
-	 * 
+	 *
 	 * @return data of the Scoped system.
 	 * @access private
 	 */
@@ -988,10 +988,10 @@ return {
 			rootScope: rootScope.__export()
 		};
 	},
-	
+
 	/**
 	 * Import data into the Scoped system.
-	 * 
+	 *
 	 * @param data of the Scoped system.
 	 * @access private
 	 */
@@ -1000,7 +1000,7 @@ return {
 		rootNamespace.__import(data.rootNamespace);
 		rootScope.__import(data.rootScope);
 	}
-	
+
 };
 
 }).call(this));
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.471 - 2024-04-22
+betajs-media-components - v0.0.472 - 2024-04-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.471",
-    "datetime": 1713810408587
+    "version": "0.0.472",
+    "datetime": 1713516427553
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4878,7 +4878,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{floating ? {} : parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\" data-testid=\"{{testid}}-ads-player-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n        data-testid=\"{{testid}}-top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{showlearnmorebutton && moredetailslink}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{redirect(moredetailslink)}}\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n                data-testid=\"{{testid}}-ads-player-more-details-button\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </button>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                    title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n                    data-testid=\"{{testid}}-ads-player-replay-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </button>\n        </div>\n        <div ba-if=\"{{!hideclosebutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                    title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n                    data-testid=\"{{testid}}-ads-player-close-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </button>\n        </div>\n    </div>\n    <div ba-if=\"{{ adsclicktroughurl && customclickthrough }}\"\n         data-selector=\"ba-ads-clickthrough-container\"\n         class=\"{{css}}-overlay {{csscommon}}-clickable\"\n    ></div>\n    <div ba-if=\"{{!userhadplayerinteraction && unmuteonclick && linear}}\"\n         class=\"{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable\"\n         ba-click=\"{{ad_clicked()}}\"\n    ></div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-testid=\"{{testid}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-skipvisible=\"{{skipvisible}}\"\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n    ba-showadchoices=\"{{showadchoices}}\"\n    ba-event:resume=\"resume\"\n    ba-event:pause=\"pause\"\n    ba-event:stop=\"stop\"\n    ba-event:volume=\"set_volume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-event:toggle_volume=\"{{toggle_volume}}\"\n></ba-{{dyncontrolbar}}>\n",
+                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{floating ? {} : parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\" data-testid=\"{{testid}}-ads-player-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n        data-testid=\"{{testid}}-top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{showlearnmorebutton && moredetailslink}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{redirect(moredetailslink)}}\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n                data-testid=\"{{testid}}-ads-player-more-details-button\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </button>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                    title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n                    data-testid=\"{{testid}}-ads-player-replay-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </button>\n        </div>\n        <div ba-if=\"{{!hideclosebutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                    title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n                    data-testid=\"{{testid}}-ads-player-close-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </button>\n        </div>\n    </div>\n    <div ba-if=\"{{ adsclicktroughurl && customclickthrough }}\"\n         data-selector=\"ba-ads-clickthrough-container\"\n         class=\"{{css}}-overlay {{csscommon}}-clickable\"\n    ></div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-testid=\"{{testid}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-skipvisible=\"{{skipvisible}}\"\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n    ba-showadchoices=\"{{showadchoices}}\"\n    ba-event:resume=\"resume\"\n    ba-event:pause=\"pause\"\n    ba-event:stop=\"stop\"\n    ba-event:volume=\"set_volume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-event:toggle_volume=\"{{toggle_volume}}\"\n></ba-{{dyncontrolbar}}>\n",
 
                 attrs: {
                     dyncontrolbar: "ads-controlbar",
@@ -5151,11 +5151,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
                     },
-                    ad_clicked: function() {
-                        if (!this.get("userhadplayerinteraction")) {
-                            this.parent().set("userhadplayerinteraction", true);
-                        }
-                    },
                     reset: function() {
                         this.set("linear", true);
                         this.set("adscompleted", true);
@@ -5213,6 +5208,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     renderCompanionAd: function() {
                         return this._renderCompanionAd();
+                    },
+                    removeBackImageFromAds: function() {
+                        if (Info.isSafari() && this.getAdContainer().style.backgroundImage && !this.get("endcardbackgroundsrc")) {
+                            this.getAdContainer().style.backgroundImage = 'none';
+                        }
                     }
                 },
 
@@ -5257,9 +5257,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");
                     const ad = adObj?.data?.mediaUrl;
-                    // if (Info.isSafari() && ad) {
-                    //     this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
-                    // }
+                    if (Info.isSafari() && ad) {
+                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
                     const video = document.createElement("video");
@@ -5401,9 +5401,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onAdComplete: function(ev) {
-                    if (Info.isSafari() && this.getAdContainer().style.backgroundImage) {
-                        this.getAdContainer().style.backgroundImage = 'none';
-                    }
                     // NOTE: As below codes only companion ads related code will be better return.
                     // Non companion ads code should be applied above of this line
                     if (this.get("persistentcompanionad")) return;
@@ -5687,7 +5684,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             };
         }).register("ba-adsplayer")
         .registerFunctions({
-            /**/"linear ? (css + '-overlay') : ''": function (obj) { return obj.linear ? (obj.css + '-overlay') : ''; }, "cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')": function (obj) { return obj.cssadsplayer + (obj.linear ? '-linear-ad-container' : '-non-linear-ad-container'); }, "hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''": function (obj) { return obj.hideoninactivity ? (obj.cssplayer + '-controlbar-hidden') : ''; }, "floating ? {} : parentcontainersizingstyles": function (obj) { return obj.floating ? {} : obj.parentcontainersizingstyles; }, "testid": function (obj) { return obj.testid; }, "showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active": function (obj) { return obj.showadchoices && obj.adchoiceslink && obj.adchoicesontop && obj.adsplaying && !obj.floating && !obj.sidebar_active; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "cssadsplayer": function (obj) { return obj.cssadsplayer; }, "showactionbuttons && isoutstream": function (obj) { return obj.showactionbuttons && obj.isoutstream; }, "csscommon": function (obj) { return obj.csscommon; }, "showlearnmorebutton && moredetailslink": function (obj) { return obj.showlearnmorebutton && obj.moredetailslink; }, "redirect(moredetailslink)": function (obj) { return obj.redirect(obj.moredetailslink); }, "moredetailstext ? moredetailstext : string('learn-more')": function (obj) { return obj.moredetailstext ? obj.moredetailstext : obj.string('learn-more'); }, "showrepeatbutton": function (obj) { return obj.showrepeatbutton; }, "replay()": function (obj) { return obj.replay(); }, "repeatbuttontext ? repeatbuttontext : string('replay-ad')": function (obj) { return obj.repeatbuttontext ? obj.repeatbuttontext : obj.string('replay-ad'); }, "!hideclosebutton": function (obj) { return !obj.hideclosebutton; }, "string('close-ad')": function (obj) { return obj.string('close-ad'); }, "close()": function (obj) { return obj.close(); }, "adsclicktroughurl && customclickthrough": function (obj) { return obj.adsclicktroughurl && obj.customclickthrough; }, "css": function (obj) { return obj.css; }, "!userhadplayerinteraction && unmuteonclick && linear": function (obj) { return !obj.userhadplayerinteraction && obj.unmuteonclick && obj.linear; }, "ad_clicked()": function (obj) { return obj.ad_clicked(); }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "!hidecontrolbar && linear && !showactionbuttons": function (obj) { return !obj.hidecontrolbar && obj.linear && !obj.showactionbuttons; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "linear": function (obj) { return obj.linear; }, "duration": function (obj) { return obj.duration; }, "volume": function (obj) { return obj.volume; }, "muted": function (obj) { return obj.muted; }, "remaining": function (obj) { return obj.remaining; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "playing": function (obj) { return obj.playing; }, "skipvisible": function (obj) { return obj.skipvisible; }, "userhadplayerinteraction": function (obj) { return obj.userhadplayerinteraction; }, "currenttime": function (obj) { return obj.currenttime; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "fullscreened": function (obj) { return obj.fullscreened; }, "view_type": function (obj) { return obj.view_type; }, "floating": function (obj) { return obj.floating; }, "adchoicesontop": function (obj) { return obj.adchoicesontop; }, "string('ad-choices')": function (obj) { return obj.string('ad-choices'); }, "controlbarstyles": function (obj) { return obj.controlbarstyles; }, "showadchoices": function (obj) { return obj.showadchoices; }, "trigger('fullscreen')": function (obj) { return obj.trigger('fullscreen'); }, "toggle_volume": function (obj) { return obj.toggle_volume; }/**/
+            /**/"linear ? (css + '-overlay') : ''": function (obj) { return obj.linear ? (obj.css + '-overlay') : ''; }, "cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')": function (obj) { return obj.cssadsplayer + (obj.linear ? '-linear-ad-container' : '-non-linear-ad-container'); }, "hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''": function (obj) { return obj.hideoninactivity ? (obj.cssplayer + '-controlbar-hidden') : ''; }, "floating ? {} : parentcontainersizingstyles": function (obj) { return obj.floating ? {} : obj.parentcontainersizingstyles; }, "testid": function (obj) { return obj.testid; }, "showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active": function (obj) { return obj.showadchoices && obj.adchoiceslink && obj.adchoicesontop && obj.adsplaying && !obj.floating && !obj.sidebar_active; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "cssadsplayer": function (obj) { return obj.cssadsplayer; }, "showactionbuttons && isoutstream": function (obj) { return obj.showactionbuttons && obj.isoutstream; }, "csscommon": function (obj) { return obj.csscommon; }, "showlearnmorebutton && moredetailslink": function (obj) { return obj.showlearnmorebutton && obj.moredetailslink; }, "redirect(moredetailslink)": function (obj) { return obj.redirect(obj.moredetailslink); }, "moredetailstext ? moredetailstext : string('learn-more')": function (obj) { return obj.moredetailstext ? obj.moredetailstext : obj.string('learn-more'); }, "showrepeatbutton": function (obj) { return obj.showrepeatbutton; }, "replay()": function (obj) { return obj.replay(); }, "repeatbuttontext ? repeatbuttontext : string('replay-ad')": function (obj) { return obj.repeatbuttontext ? obj.repeatbuttontext : obj.string('replay-ad'); }, "!hideclosebutton": function (obj) { return !obj.hideclosebutton; }, "string('close-ad')": function (obj) { return obj.string('close-ad'); }, "close()": function (obj) { return obj.close(); }, "adsclicktroughurl && customclickthrough": function (obj) { return obj.adsclicktroughurl && obj.customclickthrough; }, "css": function (obj) { return obj.css; }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "!hidecontrolbar && linear && !showactionbuttons": function (obj) { return !obj.hidecontrolbar && obj.linear && !obj.showactionbuttons; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "linear": function (obj) { return obj.linear; }, "duration": function (obj) { return obj.duration; }, "volume": function (obj) { return obj.volume; }, "muted": function (obj) { return obj.muted; }, "remaining": function (obj) { return obj.remaining; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "playing": function (obj) { return obj.playing; }, "skipvisible": function (obj) { return obj.skipvisible; }, "userhadplayerinteraction": function (obj) { return obj.userhadplayerinteraction; }, "currenttime": function (obj) { return obj.currenttime; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "fullscreened": function (obj) { return obj.fullscreened; }, "view_type": function (obj) { return obj.view_type; }, "floating": function (obj) { return obj.floating; }, "adchoicesontop": function (obj) { return obj.adchoicesontop; }, "string('ad-choices')": function (obj) { return obj.string('ad-choices'); }, "controlbarstyles": function (obj) { return obj.controlbarstyles; }, "showadchoices": function (obj) { return obj.showadchoices; }, "trigger('fullscreen')": function (obj) { return obj.trigger('fullscreen'); }, "toggle_volume": function (obj) { return obj.toggle_volume; }/**/
         }).attachStringTable(Assets.strings)
         .addStrings({
             "replay-ad": "Replay Video",
@@ -8044,6 +8041,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         cb(canvas, ctx);
                     }.bind(this), 250);
                 },
+                removeAdsBackgroundInSafari: function() {
+                    this.scopes.adsplayer.execute('removeBackImageFromAds');
+                },
                 addSourcToVideo: function(source, video) {
                     try {
                         this.vidEle.src = source;
@@ -8275,6 +8275,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                         this.player.on("playing", function() {
+                            if (Info.isSafari()) {
+                                this.removeAdsBackgroundInSafari();
+                            }
                             const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (floating && this.floatHandler) this.floatHandler.start();

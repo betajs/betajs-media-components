@@ -2,7 +2,7 @@ const Types = BetaJS.Types;
 const Objs = BetaJS.Objs;
 const Comparators = BetaJS.Comparators;
 
-import deepCheck from './utils/deepCheck.js';
+import deepCheck from '../utils/deepCheck.js';
 
 const attrs = {
     width: 200,
@@ -100,4 +100,71 @@ QUnit.test("test preset attributes correctness", assert => {
     } else {
         assert.ok(false, "Preset attributes are not defined");
     }
+});
+
+
+QUnit.test("test device related settings applied", assert => {
+  let isMobile = true;
+  const currentAttrs = player.cloneAttrs();
+  let settings = {
+    sidebaroptions: {
+      foo: `bar`,
+      mobile: {
+        foo: `baz`,
+      },
+      desktop: {
+        foo: `baz-baz`,
+      }
+    },
+    floatingoptions: {
+      floatingonly: false,
+      sidebar: true,
+      mobile: {
+        sidebar: false,
+      },
+      desktop: {
+        floatingonly: true,
+      }
+    }
+  };
+
+  player.setAll({
+    sidebaroptions: {
+      ...currentAttrs[`sidebaroptions`],
+      ...settings.sidebaroptions,
+      mobile: {
+        ...currentAttrs.sidebaroptions?.mobile,
+        ...settings[`sidebaroptions`][`mobile`],
+      },
+      desktop: {
+        ...currentAttrs.sidebaroptions?.desktop,
+        ...settings[`sidebaroptions`][`desktop`],
+      }
+    },
+    floatingoptions: {
+      ...currentAttrs[`floatingoptions`],
+      ...settings.floatingoptions,
+      mobile: {
+        ...currentAttrs.floatingoptions?.mobile,
+        ...settings[`floatingoptions`][`mobile`],
+      },
+      desktop: {
+        ...currentAttrs.floatingoptions?.desktop,
+        ...settings[`floatingoptions`][`desktop`],
+      }
+    },
+  });
+
+  player.applyPresets(isMobile);
+  assert.equal(player.get(`sidebaroptions.foo`), settings.sidebaroptions[`mobile`].foo);
+  assert.equal(player.get(`floatingoptions.sidebar`), settings.floatingoptions[`mobile`].sidebar);
+  assert.equal(player.get(`floatingoptions.position`), currentAttrs.floatingoptions.mobile.position);
+  assert.notEqual(player.get(`floatingoptions.position`), currentAttrs.floatingoptions.desktop.position);
+
+  // Apply as desktop view
+  player.applyPresets(!isMobile);
+  assert.equal(player.get(`sidebaroptions.foo`), settings.sidebaroptions[`desktop`].foo);
+  assert.equal(player.get(`floatingoptions.floatingonly`), settings.floatingoptions[`desktop`].floatingonly);
+  assert.equal(player.get(`floatingoptions.position`), currentAttrs.floatingoptions.desktop.position);
+  assert.notEqual(player.get(`floatingoptions.position`), currentAttrs.floatingoptions.mobile.position);
 });

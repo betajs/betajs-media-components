@@ -1,5 +1,4 @@
-<div ba-if="{{states.gallerysidebar}}"
-     ba-show="{{gallerysidebar}}"
+<div ba-show="{{gallerysidebar && !showcompanionsidebar && !floatingsidebar}}"
      class="{{csscommon}}-full-height {{csscommon}}-flex-column"
 >
     <div class="{{cssgallerysidebar}}-header-container">
@@ -9,7 +8,7 @@
         <div ba-if="{{ headerlogoimgurl }}"
              class="{{cssgallerysidebar}}-header-logo"
         >
-            <a href="{{headerlogourl || headerlogoimgurl }}" title="{{ headerlogoname }}" target="_blank">
+            <a href="{{headerlogourl || headerlogoimgurll}}" title="{{headerlogoname}}" target="_blank">
                 <img ba-prop:src="{{ headerlogoimgurl }}" alt="{{headerlogoname}}" />
             </a>
         </div>
@@ -22,12 +21,9 @@
                     {{afteradsendtext}}
                 </p>
             </div>
-            <div ba-if="{{companionadcontent}}"
-                 class="{{cssfloatingsidebar}}-companion-container"
-            ></div>
-            <div ba-if="{{showlearnmorebutton && !companionadcontent}}">
+            <div ba-if="{{showlearnmorebutton}}">
                 <ba-ads-learn-more-button
-                    ba-if="{{moredetailslink && !companionadcontent}}"
+                    ba-if="{{moredetailslink}}"
                     ba-adsplaying="{{adsplaying}}"
                     ba-cssprefix="{{cssgallerysidebar}}"
                     ba-moredetailslink="{{moredetailslink}}"
@@ -92,7 +88,7 @@
 </div>
 
 <!-- Show gallery more prioritized than sidebar -->
-<div ba-if="{{floatingsidebar}}"
+<div ba-if="{{floatingsidebar && !companionsidebar}}"
      class="{{cssfloatingsidebar}}-container {{csscommon}}-full-height"
 >
     <div ba-if="{{adsplaying}}"
@@ -104,13 +100,9 @@
             ba-datatestselector="sidebar-ads-choices-button"
             ba-event:click_action="on_ads_choices_click"
         ></ba-ads-choices-link>
-        <!-- Companion ad content will be set as innerHTML  -->
-        <div ba-if="{{companionadcontent}}"
-             class="{{cssfloatingsidebar}}-companion-container"
-        ></div>
         <div class="{{cssfloatingsidebar}}-content-container" ba-if={{showlearnmorebutton}}>
             <ba-ads-learn-more-button
-                ba-if="{{moredetailslink && !companionadcontent}}"
+                ba-if="{{moredetailslink}}"
                 ba-adsplaying="{{adsplaying}}"
                 ba-cssprefix="{{cssfloatingsidebar}}"
                 ba-moredetailslink="{{moredetailslink}}"
@@ -133,3 +125,14 @@
         </a>
     </div>
 </div>
+
+<div ba-if="{{showcompanionsidebar}}"
+     class="{{csscommon}}-companion-sidebar-container {{csscommon}}-full-height"
+></div>
+
+<ba-close-icon-button
+    ba-if="{{closable}}"
+    ba-css="{{cssplayer}}"
+    ba-click="close_sidebar()"
+    ba-on:touchend="{{close_sidebar()}}"
+></ba-close-icon-button>

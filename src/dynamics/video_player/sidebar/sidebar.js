@@ -7,14 +7,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "browser:Dom",
     "module:Assets",
     "base:Timers.Timer",
-    "module:StylesMixin",
-    "browser:DomMutation.MutationObserverNodeInsertObserver"
+    "module:StylesMixin"
 ], [
     "module:Common.Dynamics.Spinner",
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
+], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {
@@ -52,7 +51,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     hideloaderafter: 1700,
                     states: {},
                     shownextloader: false,
-                    nextunplayed: false
+                    nextunplayed: false,
+                    closable: false
                 },
 
                 events: {
@@ -74,9 +74,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                                 }
                             }, this, 50);
                         }
+                        this.set("showcompanionsidebar", adsPlaying && !!this.get("companionadcontent"));
                     },
                     "change:fullscreened": function(fullscreened) {
                         if (!fullscreened && !this.get("adsplaying")) this.scrollTop();
+                    },
+                    "change:is_floating": function(isFloating) {
+                        this.__setClosableState(isFloating);
                     }
                 },
 
@@ -150,6 +154,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             }
                         }, this)
                     }
+                    this.__setClosableState();
                 },
 
                 /**
@@ -200,9 +205,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                 _afterActivate: function(element) {
                     inherited._afterActivate.call(this, element);
                     if (
-                        this.get("floatingoptions.showcompanionad") && this.get("floatingsidebar") ||
-                        (this.get("sidebaroptions.showcompanionad") && this.get("floatingsidebar"))
+                        (this.get("floatingoptions.showcompanionad") && this.get("floatingsidebar")) ||
+                        this.get("sidebaroptions.showcompanionad")
                     ) {
+                        this.on("change:companionadcontent", (content) => {
+                            this.set("showcompanionsidebar", this.get("adsplaying") && !!this.get("companionadcontent"));
+                            const container = this.activeElement().querySelector("." + this.get("csscommon") + '-companion-sidebar-container');
+                            if (container && !content) container.innerHTML = "";
+                        }, this);
                         if (this.get("companionads") && this.get("companionads").length > 0) {
                             this.__generateCompanionAdContent();
                         } else {
@@ -224,6 +234,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
 
                     on_ads_choices_click: function() {
                         this.pauseAds();
+                    },
+
+                    close_sidebar: function() {
+                        this.closeSidebar();
                     }
                 },
 
@@ -260,6 +274,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             }
                         }, this);
                     }
+                },
+
+                closeSidebar: function() {
+                    if (!this.get(`closable`)) return;
+                    this.__dyn.set(`states.sidebarclosed`, true);
+                    this.__dyn.set(`sidebar_active`, false);
                 },
 
                 /**
@@ -520,30 +540,38 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     companionads = companionads || this.get("companionads");
                     if (companionads && companionads.length > 0) {
                         const isMobile = this.get("mobileviewport");
-                        if (
-                            (this.get("floatingoptions.desktop.companionad") && !isMobile) ||
-                            (this.get("floatingoptions.mobile.companionad") && isMobile) ||
-                            (this.get("gallerysidebar") && this.get("sidebaroptions.showcompanionad") && !isMobile)
-                        ) {
-                            const dimensions = DOM.elementDimensions(this.activeElement());
-                            let ar, closestIndex, closestAr;
-                            ar = dimensions.width / dimensions.height;
-                            Objs.iter(companionads, function(companion, index) {
-                                const _data = companion.data;
-                                const _ar = _data.width / _data.height;
-                                const _currentDiff = Math.abs(_ar - ar);
-                                if (index === 0 || closestAr > _currentDiff) {
-                                    closestAr = _currentDiff;
-                                    closestIndex = index;
-                                }
-                                if (companionads.length === index + 1) {
-                                    const companionAd = companionads[closestIndex];
-                                    this.set("companionadcontent", companionAd.getContent());
-                                    const container = this.activeElement().querySelector("." + this.get("cssfloatingsidebar") + '-companion-container');
-                                    if (container) this.__drawCompanionAdToContainer(container, companionAd, dimensions, ar, _ar);
-                                }
-                            }, this);
+                        // Ignore if player is floating and it's not set to show companion ad
+                        if (this.get("floating") && (
+                                (!this.get("floatingoptions.desktop.companionad") && !isMobile) ||
+                                (!this.get("floatingoptions.mobile.companionad") && isMobile)
+                            )) {
+                            // If floating will be moved back we need companion ad not to be removed
+                            // this.set("companionadcontent", null);
+                            return;
                         }
+
+                        const dimensions = DOM.elementDimensions(this.activeElement());
+                        let ar, closestIndex, closestAr;
+                        ar = dimensions.width / dimensions.height;
+                        Objs.iter(companionads, function(companion, index) {
+                            const _data = companion.data;
+                            const _ar = _data.width / _data.height;
+                            const _currentDiff = Math.abs(_ar - ar);
+                            if (index === 0 || closestAr > _currentDiff) {
+                                closestAr = _currentDiff;
+                                closestIndex = index;
+                            }
+                            if (companionads.length === index + 1) {
+                                const companionAd = companionads[closestIndex];
+                                const content = companionAd.getContent();
+                                this.set("companionadcontent", content || null);
+
+                                const container = this.activeElement().querySelector("." + this.get("csscommon") + '-companion-sidebar-container');
+                                if (container) {
+                                    this.__drawCompanionAdToContainer(container, companionAd, dimensions, ar, _ar);
+                                }
+                            }
+                        }, this);
                     }
                 },
 
@@ -558,7 +586,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                  */
                 __drawCompanionAdToContainer: function(container, companionAd, dimensions, ar, _ar) {
                     container.innerHTML = this.get("companionadcontent");
-                    var image = container.querySelector('img');
+                    // If companion ad is image, we will set its dimensions to fit container
+                    const image = container.querySelector('img');
                     if (image && _ar && dimensions) {
                         _ar = companionAd.data.width / companionAd.data.height;
                         if (_ar < ar) {
@@ -583,7 +612,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                     const currentIndex = currentVideo ? currentVideo.get("index") : null;
                     if (currentIndex) this.set("currentindex", currentIndex);
                     return currentVideo;
+                },
+
+                __setClosableState: function(isFloating) {
+                    isFloating = isFloating || this.get(`is_floating`);
+                    if (
+                        (!isFloating && this.get(`sidebaroptions.closable`)) ||
+                        (isFloating && this.get(`floatingoptions.sidebarclosable`))
+                    ) {
+                        this.set(`closable`, true);
+                    }
+
                 }
+
             };
         }])
         .register("ba-videoplayer-sidebar")

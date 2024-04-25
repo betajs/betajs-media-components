@@ -3,7 +3,7 @@
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}
-     {{is_floating ? cssfloatingclasses : ''}}
+     {{is_floating ? cssfloatingclasses : cssplayer + '-in-article'}}
      {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}
      {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}
      {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
@@ -12,7 +12,7 @@
      ba-on:mousedown="{{user_activity(true)}}"
      ba-on:touchstart="{{user_activity(true)}}"
      ba-styles="{{containerSizingStyles}}"
-     data-testid="{{testid}}-player-container"
+     data-testid="{{testid}}-container"
 >
     <meta itemprop="name" content="{{title || 'Video Player'}}" />
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
@@ -21,6 +21,7 @@
     <meta itemprop="thumbnailUrl" content="{{thumbnailurl}}" />
     <meta itemprop="contentUrl" content="{{contenturl}}" />
     <div class="{{cssplayer}}-content" data-selector="ba-player-container"
+         data-testid="{{testid}}-player-container"
          ba-styles="{{playercontainerstyles}}"
     >
         <ba-{{dynnext}}
@@ -63,6 +64,7 @@
             ba-css="{{css}}"
             ba-cssplayer="{{cssplayer}}"
             ba-csscommon="{{csscommon}}"
+            ba-parentcontainersizingstyles="{{playercontainerstyles}}"
             ba-testid="{{testid}}"
             ba-duration="{{=adduration}}"
             ba-volume="{{adsunmuted ? volume : 0}}"
@@ -322,6 +324,8 @@
             ba-showsidebargallery="{{showsidebargallery}}"
             ba-gallerysidebar="{{gallerysidebar}}"
             ba-adchoiceslink="{{adchoiceslink}}"
+            ba-companionsidebar="{{companionsidebar}}"
+            ba-showcompanionsidebar="{{=showcompanionsidebar}}"
             ba-moredetailslink="{{moredetailslink}}"
             ba-moredetailstext="{{moredetailstext}}"
             ba-adsplaying="{{adsplaying}}"
@@ -338,16 +342,10 @@
             ba-event:pause_ads="pause_ads"
         ></ba-{{dynsidebar}}>
     </div>
-    <div ba-if="{{!fullscreened && is_floating && floatingoptions.closeable}}"
-         class="{{cssplayer}}-close-container"
-         ba-click="close_floating()"
-         ba-on:touchend="{{close_floating()}}"
-    >
-        <svg viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="m17.459 16.014 8.239-8.194a.992.992 0 0 0 0-1.414 1.016 1.016 0 0 0-1.428 0l-8.232 8.187L7.73 6.284a1.009 1.009 0 0 0-1.428 0 1.015 1.015 0 0 0 0 1.432l8.302 8.303-8.332 8.286a.994.994 0 0 0 0 1.414 1.016 1.016 0 0 0 1.428 0l8.325-8.279 8.275 8.276a1.009 1.009 0 0 0 1.428 0 1.015 1.015 0 0 0 0-1.432l-8.269-8.27z"
-                class="{{cssplayer}}-close-svg-button"
-            ></path>
-        </svg>
-    </div>
+    <ba-close-icon-button
+        ba-if="{{!fullscreened && is_floating && floatingoptions.closeable}}"
+        ba-css="{{cssplayer}}"
+        ba-click="close_floating()"
+        ba-on:touchend="{{close_floating()}}"
+    ></ba-close-icon-button>
 </div>

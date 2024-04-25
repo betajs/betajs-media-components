@@ -108,7 +108,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (this.parent().get("outstream")) {
                             this.parent().hidePlayerContainer();
                         }
-                        this.trackAdsPerformance(`ad-error`);
                     },
                     "ads:render-timeout": function() {
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
@@ -117,15 +116,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const dyn = this.parent();
                         if (dyn) {
                             dyn.stopAdsRenderFailTimeout(true);
-                            dyn.channel("ads").trigger("ad-error");
+                            // dyn.trigger("ad-error", {
+                            //     message: `Render ads took a too much time`
+                            // });
                         }
-                        this.trackAdsPerformance(`ads-render-timeout`);
                     },
                     "ads:load": function() {
                         this.set("skipvisible", false);
                         this.call("load");
                         this.set("quartile", "first");
-                        this.trackAdsPerformance(`ads-load-start`);
                     },
                     "ads:firstQuartile": function() {
                         this.set("quartile", "second");
@@ -138,7 +137,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:start": function(ev) {
                         this._onStart(ev);
-                        this.trackAdsPerformance(`ads-start`);
                     },
                     "ads:skippableStateChanged": function(event) {
                         this.set("skipvisible", true);
@@ -147,7 +145,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
-                        this.trackAdsPerformance(`ads-all-completed`);
                         if (this.parent() && (
                                 this.parent().get("outstreamoptions").noEndCard ||
                                 this.parent().get("outstreamoptions.allowRepeat")
@@ -175,7 +172,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
-                        this.trackAdsPerformance(`ads-loaded`);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -200,7 +196,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:contentPauseRequested": function() {
                         this.set("adsplaying", true);
-                        this.trackAdsPerformance(`ads-content-pause-requested`);
                     }
                 },
 
@@ -228,7 +223,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
-                    this.adsManager.on("all", function(event, data) {
+                    this.adsManager.on("all", function(event, ad, ...rest) {
                         if (event === "adsManagerLoaded") {
                             this.set("adsmanagerloaded", true);
                             if (this.__iasConfig() && typeof googleImaVansAdapter !== "undefined") {
@@ -238,18 +233,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }
                             // If we're getting ad-error no need to set loadVideoTimeout
                             this._setLoadVideoTimeout();
-                            // Makes active element not redirect to click through URL on first click
-                            // if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
-                            //     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
-                            //         if (hasInteraction) {
-                            //             if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
-                            //                 dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
-                            //             }
-                            //         }
-                            //     }, dynamics);
-                            // }
                         }
-                        this.channel("ads").trigger(event, data);
+                        this.channel("ads").trigger(event, ad, rest);
                     }, this);
 
                     if (this.shouldShowFirstFrameAsEndcard()) {
@@ -493,10 +478,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 getAdWillPlayMuted: function() {
                     return this.get("muted") || this.get("volume") === 0;
-                },
-
-                trackAdsPerformance: function(name) {
-                    this.parent()._recordPerformance(name);
                 },
 
                 _onStart: function(ev) {

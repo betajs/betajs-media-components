@@ -125,6 +125,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         performancerecords: [],
                         // can be applied only some nodes, https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/elementtiming
                         performancerendertiming: [`ba-player-video`, `ba-player-poster`],
+                        performanceobservedtypes: ["measure", "mark", "navigation", "element"],
+                        performancerecordeditems: [{
+                                type: `mark`,
+                                keys: [`duration`, `startTime`],
+                            },
+                            {
+                                type: `measure`,
+                                keys: [`duration`],
+                            },
+                            {
+                                type: `navigation`,
+                                keys: [`domInteractive`, `loadEventEnd`, `domComplete`]
+                            },
+                            {
+                                type: `element`,
+                                keys: [`loadTime`, `naturalHeight`, `naturalWidth`, `renderTime`]
+                            }
+                        ],
                         /* Themes */
                         "theme": "",
                         "csstheme": "",
@@ -550,7 +568,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showadchoices": "boolean",
                     "unknownadsrc": "boolean",
                     "adsrendertimeout": "int",
-                    "imaadsrenderingsetting": "object"
+                    "imaadsrenderingsetting": "object",
+                    performanceprefix: "string",
+                    performancerendertiming: "array",
+                    performanceobservedtypes: "jsonarray",
+                    performancerecordeditems: "array"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -951,7 +973,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     );
                     this._performanceObserver.observe({
                         // https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
-                        entryTypes: ["measure", "mark", "navigation", "element"]
+                        entryTypes: this.get(`performanceobservedtypes`)
                     });
 
                     if (this.get("autoplaywhenvisible")) {
@@ -3312,7 +3334,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("forciblymuted")) this.set("forciblymuted", false);
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
-
                 },
 
                 _recordPerformance: function(name) {
@@ -3346,23 +3367,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         const perf = index > -1 ? this.get(`performancerecords`)[index] : {
                             name
                         };
-                        const records = [{
-                                type: `mark`,
-                                keys: [`duration`, `startTime`],
-                            },
-                            {
-                                type: `measure`,
-                                keys: [`duration`],
-                            },
-                            {
-                                type: `navigation`,
-                                keys: [`domInteractive`, `loadEventEnd`, `domComplete`]
-                            },
-                            {
-                                type: `element`,
-                                keys: [`loadTime`, `naturalHeight`, `naturalWidth`, `renderTime`]
-                            }
-                        ];
+                        const records = this.get(`performancerecordeditems`);
                         records.forEach((k) => {
                             if (!k.keys || !k.type || entry.entryType !== k.type) return;
                             k.keys.forEach((key) => {

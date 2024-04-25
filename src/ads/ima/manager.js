@@ -69,7 +69,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 // Sets the companion backfill mode. See the various modes available in ImaSdkSettings.CompanionBackfillMode.
                 // The default mode is ImaSdkSettings.CompanionBackfillMode.ALWAYS.
                 if (settings.companionBackfillMode) {
-                    google.ima.settings.setCompanionBackfill(companionBackfillMode);
+                    google.ima.settings.setCompanionBackfill(settings.companionBackfillMode);
                 }
             },
 

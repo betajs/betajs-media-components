@@ -80,7 +80,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Tooltip", [
 
                 destroy: function() {
                     this.set("tooltiptext", null);
-                    this.parent().hideTooltip(this.get("position"), this.get("id"));
+                    if (this.parent().hideTooltip) this.parent().hideTooltip(this.get("position"), this.get("id"));
                     if (!this.destroyed()) inherited.destroy.call(this);
                 }
             };

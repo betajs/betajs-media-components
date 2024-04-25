@@ -1413,6 +1413,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         cb(canvas, ctx);
                     }.bind(this), 250);
                 },
+                removeAdsBackgroundInSafari: function() {
+                    this.scopes.adsplayer.execute('removeBackImageFromAds');
+                },
                 addSourcToVideo: function(source, video) {
                     try {
                         this.vidEle.src = source;
@@ -1644,6 +1647,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                         this.player.on("playing", function() {
+                            if (Info.isSafari()) {
+                               this.removeAdsBackgroundInSafari();
+                            }   
                             const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (floating && this.floatHandler) this.floatHandler.start();

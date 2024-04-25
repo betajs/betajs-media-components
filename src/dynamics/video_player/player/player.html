@@ -36,10 +36,11 @@
             ba-gallerysidebar="{{gallerysidebar}}"
         ></ba-{{dynnext}}>
         <div class="{{css}}-tooltips-list-container"
-             ba-repeat="{{tooltip :: tooltips}}"
+            ba-repeat="{{tooltip :: tooltips}}"
         >
             <ba-{{dyntooltip}}
                 ba-if="{{tooltip.tooltiptext}}"
+                ba-id="{{tooltip.id}}"
                 ba-tooltip="{{tooltip}}"
                 ba-playing="{{playing}}"
                 ba-adsplaying="{{adsplaying}}"
@@ -85,6 +86,7 @@
             ba-tmplcontrolbar="{{tmpladscontrolbar}}"
             ba-dyncontrolbar="{{dynadscontrolbar}}"
             ba-companionad="{{companionad}}"
+            ba-tooltips="{{tooltips}}"
             ba-companionads="{{=companionads}}"
             ba-hideoninactivity="{{(activity_delta > hidebarafter) && hideoninactivity}}"
             ba-view_type="{{view_type}}"

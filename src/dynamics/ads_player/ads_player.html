@@ -48,10 +48,6 @@
          data-selector="ba-ads-clickthrough-container"
          class="{{css}}-overlay {{csscommon}}-clickable"
     ></div>
-    <div ba-if="{{!userhadplayerinteraction && unmuteonclick && linear}}"
-         class="{{css}}-overlay {{cssadsplayer}}-ad-click-tracker {{csscommon}}-clickable"
-         ba-click="{{ad_clicked()}}"
-    ></div>
 </div>
 <ba-{{dyncontrolbar}}
     ba-if="{{!hidecontrolbar && linear && !showactionbuttons}}"
@@ -71,6 +67,8 @@
     ba-userhadplayerinteraction="{{userhadplayerinteraction}}"
     ba-currenttime={{=currenttime}}
     ba-hideoninactivity={{hideoninactivity}}
+    ba-tooltips="{{tooltips}}"
+    ba-adsplaying="{{adsplaying}}"
     ba-fullscreened="{{fullscreened}}"
     ba-view_type="{{view_type}}"
     ba-floating="{{floating}}"

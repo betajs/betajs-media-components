@@ -116,9 +116,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const dyn = this.parent();
                         if (dyn) {
                             dyn.stopAdsRenderFailTimeout(true);
-                            // dyn.trigger("ad-error", {
-                            //     message: `Render ads took a too much time`
-                            // });
+                            dyn.trigger("ad-error", {
+                                message: `Render ads took a too much time`
+                            });
                         }
                     },
                     "ads:load": function() {

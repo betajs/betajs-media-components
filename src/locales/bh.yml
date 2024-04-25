@@ -1,287 +1,290 @@
-ba-audiorecorder.upload-error-duration: अपलोड की गई ऑडियो फ़ाइल की लंबाई आवश्यकताओं
-  को पूरा नहीं करती - पुनः प्रयास के लिए यहाँ क्लिक करें।
-ba-common-settingsmenu.tooltip: क्लिक करें ताकि चलाया जाए।
-ba-common-settingsmenu.setting-menu: सभी सेटिंग्स
-ba-videorecorder-controlbar.settings: सेटिंग्स
-ba-imagecapture.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास
-  के लिए क्लिक करें।
-ba-adsplayer.ad-choices: विज्ञापन विकल्प
-ba-videorecorder.video_file_too_large: आपकी वीडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी
-  वीडियो फ़ाइल के साथ पुनः प्रयास के लिए यहाँ क्लिक करें।
-ba-videoplayer-controlbar.settings: सेटिंग्स
-ba-videorecorder-controlbar.add-stream: स्ट्रीम जोड़ें
-ba-imageviewer-controlbar.fullscreen-image: पूर्ण स्क्रीन में जाएं
-ba-imagecapture.image_file_too_large: आपकी छवि फ़ाइल बहुत बड़ी है (%s) - एक छोटी छवि
-  फ़ाइल के साथ पुनः प्रयास करने के लिए यहाँ क्लिक करें।
-ba-imagecapture.orientation-landscape-required: कृपया अपनी उपकरण को लैंडस्केप मोड
-  में रिकॉर्ड करने के लिए घुमाएं।
-ba-videoplayer-controlbar.pause-video-disabled: रोकना समर्थित नहीं है
-ba-videorecorder-controlbar.camerahealthy: प्रकाश सही है
-ba-common-settingsmenu.submit-video: वीडियो की पुष्टि करें
-ba-videorecorder-controlbar.record-tooltip: रिकॉर्ड करने के लिए यहाँ क्लिक करें।
-ba-common-settingsmenu.picture-in-picture: चित्र में चित्र
-ba-videoplayer-playbutton.rerecord: पुनः आवाज
-ba-videoplayer-tracks.select-text-track-language: सबटाइटल भाषा
-ba-video-call.connection-error: कनेक्ट करते समय एक त्रुटि हुई थी, कृपया पुनः प्रयास
-  के लिए क्लिक करें।
-ba-audiorecorder.cancel-confirm: क्या आप वाकई अपनी ऑडियो अपलोड करने को रद्द करना चाहते
-  हैं?
-ba-audiorecorder.software-waiting: आवश्यकताओं को स्थापित / सक्रिय करने की प्रतीक्षा
-  कर रहे हैं। पूरा होने के बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
-ba-videoplayer-tracks.info-select-locale-first: पहले स्थानीयता का चयन करें
-ba-videoplayer-loader.tooltip: लोड हो रहा है...
-ba-audiorecorder-controlbar.cancel-tooltip: यहाँ क्लिक करें रद्द करने के लिए।
-ba-imagecapture.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ
-  क्लिक करें।
-ba-videoplayer-playbutton.skip: छोड़ें
-ba-ads-controlbar.exit-fullscreen-video: पूर्णस्क्रीन से बाहर निकलें
-ba-videoplayer-tooltip.tooltip: टूलटिप
-ba-videoplayer-controlbar.trim-video: छँटाई करें
-ba-videorecorder.missing-track: आवश्यक ऑडियो या वीडियो ट्रैक अनुपस्थित है
-ba-imagecapture.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक करें।
-ba-call-controlbar.leave-button: कॉल छोड़ें
-ba-imagecapture-chooser.image-capture: छवि कैप्चर करें
-ba-videorecorder.trim-prompt: क्या आप अपने वीडियो को छँटना चाहते हैं?
-ba-videorecorder.software-waiting: आवश्यकताओं को स्थापित / सक्रिय करने के लिए प्रतीक्षा
-  कर रहे हैं। पूरा होने के बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
-ba-audioplayer-controlbar.play-audio: चलाएं
-ba-videorecorder-controlbar.resume-recorder: रिकॉर्डर को फिर से शुरू करें
-ba-videorecorder-controlbar.rerecord: पुनः आवाज
-ba-audiorecorder.verifying: सत्यापित किया जा रहा है
-ba-videoplayer-playbutton.tooltip: चलाने के लिए क्लिक करें।
-ba-videorecorder.trim-video: अपने वीडियो को छँटने के लिए शुरुआत और समापन मार्कर्स
-  को मूव करें
-ba-videoplayer-controlbar.player-speed: प्लेयर की गति
-ba-videorecorder-controlbar.microphonehealthy: आवाज ठीक है
-ba-videorecorder-chooser.multi-stream: बहु-प्रस्ताव
-ba-imagecapture.recorder-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक
-  करें बारही करने के लिए।
-ba-videoplayer-tooltip.hover-to-pause-tooltip-close: टूलटिप बंद करने के लिए माउस पर
-  रखें
-ba-videorecorder-controlbar.stop-tooltip: यहाँ रुकने के लिए क्लिक करें।
-ba-imagecapture-controlbar.rerecord-tooltip: पुनः आवाज करने के लिए यहाँ क्लिक करें।
-ba-videoplayer-controlbar.video-progress: प्रगति
-ba-videorecorder-controlbar.cameraunhealthy: प्रकाश अनुकूल नहीं है
-ba-audioplayer-controlbar.pause-audio: विराम
-ba-videorecorder-controlbar.stop: रुकें
-ba-imagecapture-chooser.upload-image: छवि अपलोड करें
-ba-videorecorder-imagegallery.upload-covershot: कवर अपलोड करें
-ba-audiorecorder-controlbar.resume-recorder: रिकॉर्डर को फिर से शुरू करें
-ba-videoplayer.video-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक
-  करें बारही करने के लिए।
-ba-videorecorder.attach-error: हम मीडिया इंटरफ़ेस तक पहुंच नहीं सकते। यह उपकरण और
-  ब्राउज़र की आवश्यकता है, आपको अपडेट करने की आवश्यकता हो सकती है।
-ba-audiorecorder-controlbar.pause-recorder: रिकॉर्डर को रोकें
-ba-audiorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय है %d सेकंड्स
-ba-videoplayer-controlbar.change-resolution: रिज़ॉल्यूशन बदलें
-ba-audiorecorder.software-required: आगे बढ़ने के लिए कृपया निम्नलिखित आवश्यकताओं को
-  स्थापित / सक्रिय करने के लिए नीचे क्लिक करें।
-ba-videoplayer-controlbar.exit-fullscreen-video: पूर्णस्क्रीन से बाहर निकलें
-ba-imageviewer-controlbar.rerecord-image: पुनः आवाज
-ba-imagecapture.rerecord-confirm: क्या आप वाकई अपनी छवि को पुनः लेना चाहते हैं?
-ba-audioplayer-controlbar.elapsed-time: बीता हुआ समय
-ba-call-lobby.title-create: कॉल बनाएं
-ba-audioplayer-controlbar.rerecord-audio: पुनः आवाज
-ba-imageviewer-controlbar.exit-fullscreen-image: पूर्ण स्क्रीन से बाहर निकलें
-ba-ads-controlbar.elapsed-time: बीता हुआ समय
-ba-videorecorder.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ
-  क्लिक करें।
-ba-audiorecorder.missing-track: आवश्यक ऑडियो ट्रैक गायब है
-ba-videorecorder-controlbar.upload-covershot-tooltip: कस्टम कवर शॉट अपलोड करने के
-  लिए यहाँ क्लिक करें।
-ba-common-settingsmenu.set-menu-option: विकल्प सेट करें
-ba-ads-controlbar.pause-video-disabled: रोकना समर्थित नहीं है
-ba-videorecorder.framerate-warning: वीडियो फ्रेम दर बहुत कम है। हम सभी अन्य कार्यक्रमों
-  और ब्राउज़र टैबों को बंद करने और एक तेज़ कंप्यूटर का उपयोग करने की सिफारिश करते
-  हैं।
-ba-videorecorder.switch-camera: कैमरा बदलें
-ba-audioplayer-controlbar.volume-button: आवाज सेट करें
-ba-videorecorder-chooser.upload-video: वीडियो अपलोड करें
-ba-ads-controlbar.volume-mute: आवाज बंद करें
-ba-audiorecorder.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ
-  क्लिक करें।
-ba-videorecorder-controlbar.stream-already-selected: अतिरिक्त स्ट्रीम पहले ही चयन
-  की गई है
-ba-videorecorder.upload-error-duration: अपलोड की गई वीडियो की लंबाई आवश्यकताओं को
-  पूरा नहीं करती - पुनः प्रयास के लिए यहाँ क्लिक करें।
-ba-ads-controlbar.volume-unmute: आवाज चालू करें
-ba-adsplayer.close-ad: बंद करें
-ba-common-settingsmenu.player-speed: प्लेयर की गति
-ba-call-lobby.create-button: बनाएं
-ba-ads-controlbar.fullscreen-video: पूर्णस्क्रीन में जाएं
-ba-audiorecorder-controlbar.settings: सेटिंग्स
-ba-videoplayer-controlbar.play-video: चलाएं
-ba-videoplayer-controlbar.rerecord-video: फिर से आवाज
-ba-videorecorder.recorder-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें।
-  बारही करने के लिए क्लिक करें।
-ba-videorecorder.prepare-covershot: कवरशॉट तैयार कर रहा है|
-ba-videoplayer-floating-sidebar.ad-choices: विज्ञापन विकल्प
-ba-videorecorder.verifying: सत्यापित किया जा रहा है
-ba-videorecorder.unsupported_video_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए
-  यहाँ क्लिक करें।'
-ba-videoplayer-playbutton.submit-video: वीडियो की पुष्टि करें
-ba-audioplayer-controlbar.total-time: कुल लंबाई
-ba-videorecorder.prepare-thumbnails: खोज के थंबनेल्स को तैयार कर रहा है|
-ba-videoplayer-controlbar.airplay: एयरप्ले
-ba-videorecorder.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास
-  के लिए क्लिक करें।
-ba-adsplayer.replay-ad: वीडियो फिर से चलाएं
-ba-video-call.connecting: कनेक्ट हो रहा है...
-ba-imageviewer.image-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक
-  करें बारही करने के लिए।
-ba-videorecorder.resolution-constraint-error: आपके द्वारा चयनित फ़ाइल का आवश्यक निर्धारित
-  रिज़ॉल्यूशन के साथ मेल नहीं खाता है - यहाँ क्लिक करें पुनः प्रयास के लिए।
-ba-videorecorder-controlbar.pause-recorder: रिकॉर्डर को रोकें
-ba-imagecapture-controlbar.cameraunhealthy: प्रकाश अनुकूल नहीं है
-ba-common-settingsmenu.source-quality: स्रोत गुणवत्ता
-ba-imagecapture.orientation-portrait-required: कृपया अपनी उपकरण को पोर्ट्रेट मोड में
-  रिकॉर्ड करने के लिए घुमाएं।
-ba-call-lobby.title-join: कॉल में शामिल हों
-ba-audiorecorder-chooser.record-audio: ऑडियो रिकॉर्ड करें
-ba-videoplayer-controlbar.volume-mute: आवाज बंद करें
-ba-videorecorder.pick-covershot: एक कवर फोटो चुनें।
-ba-audiorecorder-controlbar.microphoneunhealthy: कोई ध्वनि उठा नहीं सकता
-ba-videorecorder-controlbar.no-video-source: अतिरिक्त वीडियो इनपुट स्रोत गायब है
-ba-audiorecorder.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास
-  के लिए क्लिक करें।
-ba-imagecapture-controlbar.rerecord: पुनः आवाज
-ba-audiorecorder.recorder-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें।
-  क्लिक करें बारही करने के लिए।
-ba-videoplayer-tracks.select-text-track-file: फ़ाइल का चयन करने के लिए क्लिक करें
-ba-videorecorder-controlbar.skip: छोड़ें
-ba-imagecapture.software-required: कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय
-  करने के लिए नीचे क्लिक करें ताकि आगे बढ़ा जा सके।
-ba-audiorecorder.browser-permission-denied: ब्राउज़र द्वारा अनुमति नहीं दी गई है,
-  कृपया पहुंच अनुमति दें और पृष्ठ को पुनः लोड करें
-ba-videorecorder.uploading-src-error: वीडियो अभी चलाया नहीं जा सकता, अपलोड अभी भी
-  जारी है
-ba-videoplayer-controlbar.volume-button: वॉल्यूम सेट करें
-ba-imagecapture.attach-error: हम मीडिया इंटरफेस तक पहुंच नहीं सकते थे। उपकरण और ब्राउज़र
-  के आधार पर, आपको SSL के माध्यम से पृष्ठ तक पहुंचने की आवश्यकता हो सकती है।
-ba-audiorecorder.uploading: अपलोड हो रहा है
-ba-audiorecorder.unsupported_audio_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए
-  यहाँ क्लिक करें।'
-ba-ads-controlbar.play-ad: चलाएं
-ba-imagecapture-controlbar.settings: सेटिंग्स
-ba-videorecorder.adding-new-stream: नया स्ट्रीम जोड़ रहा है
-ba-call-lobby.mute-button: म्यूट करें
-ba-imagecapture.uploading: अपलोड हो रहा है
-ba-videorecorder.wait-for-trim: छँटाई के आदेश का इंतजार कर रहे हैं...
-ba-imagecapture-controlbar.cancel: रद्द करें
-ba-videorecorder-controlbar.cancel-tooltip: रद्द करने के लिए यहाँ क्लिक करें।
-ba-audioplayer.audio-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक
-  करें बारही करने के लिए।
-ba-audiorecorder.device-already-in-use: आपके इनपुट उपकरणों में से कम से कम एक पहले
-  से ही उपयोग किया जा रहा है
-ba-ads-controlbar.pause-video: वीडियो को रोकें
-ba-call-lobby.camera-button: कैमरा
-ba-videoplayer-controlbar.show-tracks: दिखाएँ सीसी
-ba-videoplayer.full-screen: पूर्ण स्क्रीन
-ba-videorecorder.re-choose-action: कृपया एक अन्य इनपुट उपकरण चुनने या पुनः प्रयास
-  करने के लिए यहाँ क्लिक करें।
-ba-call-lobby.join-button: शामिल हों
-ba-videorecorder.cancel-confirm: क्या आप वाकई अपनी वीडियो अपलोड रद्द करना चाहते हैं?
-ba-videorecorder-controlbar.cancel: रद्द करें
-ba-ads-controlbar.can-skip-after: '%d के बाद छोड़ सकते हैं'
-ba-ads-controlbar.ad-will-end-after: '%s के बाद विज्ञापन समाप्त हो जाएगा'
-ba-audiorecorder-controlbar.rerecord: पुनः आवाज
-ba-audiorecorder.rerecord-confirm: क्या आप वाकई अपनी ऑडियो को पुनः करना चाहते हैं?
-ba-videoplayer-controlbar.elapsed-time: बीता हुआ समय
-ba-videorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय %d सेकंड्स
-  है
-ba-audioplayer.all-settings: सभी सेटिंग्स
-ba-imagecapture-controlbar.camerahealthy: प्रकाश सही है
-ba-imagecapture-controlbar.record: कैप्चर करें
-ba-audiorecorder-controlbar.record-tooltip: रिकॉर्ड करने के लिए यहाँ क्लिक करें।
-ba-audioplayer-controlbar.submit-audio: पुष्टि करें
-ba-call-controlbar.camera-button: कैमरा दिखाएं/छुपाएं
-ba-call-controlbar.mute-button: म्यूट/अनम्यूट
-ba-videorecorder-chooser.record-audio: ऑडियो रिकॉर्ड करें
-ba-audiorecorder.audio_file_too_large: आपकी ऑडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी
-  ऑडियो फ़ाइल के साथ पुनः प्रयास करने के लिए यहाँ क्लिक करें।
-ba-videorecorder.browser-permission-denied: ब्राउज़र ने अनुमति देने से मना कर दिया
-  है, कृपया पहुंच दें और पृष्ठ को पुनः लोड करें
-ba-videoplayer-controlbar.pause-video: रोकें
-ba-videoplayer-controlbar.submit-video: पुष्टि करें
-ba-videoplayer-share.share: मीडिया साझा करें
-ba-audioplayer-loader.tooltip: लोड हो रहा है...
-ba-imagecapture.unsupported_image_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए
-  यहाँ क्लिक करें।'
-ba-videorecorder.uploading: अपलोड हो रहा है
-ba-audiorecorder-controlbar.microphonehealthy: ध्वनि ठीक है
-ba-call-lobby.description-join: जब आप तैयार हों, तो नीचे दिए गए बटन पर क्लिक करें
-  और कॉल में शामिल हों।
-ba-audiorecorder-controlbar.rerecord-tooltip: यहाँ क्लिक करें आवाज को पुनः करने के
-  लिए।
-ba-videorecorder-chooser.record-screen: स्क्रीन रिकॉर्ड करें
-ba-videoplayer.all-settings: सभी सेटिंग्स
-ba-videoplayer-controlbar.select-frame: चयन करें
-ba-adsplayer.learn-more: और जानें
-ba-imagecapture.resolution-constraint-error: आपके द्वारा चयनित फ़ाइल का आवश्यक निर्धारित
-  रिज़ॉल्यूशन के साथ मेल नहीं खाता है - यहाँ क्लिक करें पुनः प्रयास के लिए।
-ba-audiorecorder-controlbar.stop-tooltip: यहाँ क्लिक करें रुकने के लिए।
-ba-videorecorder-controlbar.microphoneunhealthy: कोई भी आवाज नहीं सुनाई दे रहा है
-ba-audiorecorder-controlbar.stop: रुकें
-ba-videorecorder.rerecord-confirm: क्या आप वाकई अपने वीडियो को पुनः करना चाहते हैं?
-ba-local-view.local-camera-connection-error: स्थानीय कैमरा से कनेक्ट करते समय एक त्रुटि
-  हुई थी। पुनः प्रयास के लिए क्लिक करें।
-ba-videorecorder.supported-mode: मीडिया रिज़ॉल्यूशन '%s' मोड में होनी चाहिए।
-ba-videoplayer-controlbar.close-tracks: बंद करें सीसी
-ba-videorecorder-controlbar.upload-covershot: कवर अपलोड करें
-ba-videorecorder.orientation-landscape-required: कृपया अपनी उपकरण को लैंडस्केप मोड
-  में रिकॉर्ड करने के लिए घुमाएं।
-ba-imagecapture.verifying: सत्यापित किया जा रहा है
-ba-imageviewer-controlbar.submit-image: पुष्टि करें
-ba-imagecapture-controlbar.cancel-tooltip: रद्द करने के लिए यहाँ क्लिक करें।
-ba-imagecapture.software-waiting: आवश्यकताओं को स्थापित / सक्रिय करने के लिए प्रतीक्षा
-  कर रहे हैं। पूरा होने के बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
-ba-common-settingsmenu.exit-fullscreen-video: पूर्णस्क्रीन से बाहर निकलें
-ba-videorecorder.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक
-  करें।
-ba-videoplayer-playbutton.trim: छँटाई करें
-ba-audioplayer-controlbar.volume-unmute: ध्वनि अनम्यूट करें
-ba-audiorecorder-controlbar.record: रिकॉर्ड करें
-ba-videorecorder.software-required: कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय
-  करने के लिए नीचे क्लिक करें जारी रखने के लिए।
-ba-videoplayer-tracks.upload-text-tracks: पाठ ट्रैक फ़ाइलें अपलोड करें
-ba-call-lobby.description-create: जब आप तैयार हों, तो नीचे दिए गए बटन पर क्लिक करें
-  और एक कॉल बनाएं।
-ba-videorecorder-controlbar.skip-tooltip: यहाँ छोड़ने के लिए क्लिक करें।
-ba-ads-controlbar.volume-button: वॉल्यूम सेट करें
-ba-videoplayer-controlbar.remaining-time: शेष समय
-ba-imagecapture-controlbar.record-tooltip: कैप्चर करने के लिए यहाँ क्लिक करें।
-ba-videorecorder.device-already-in-use: आपके इनपुट उपकरणों में से कम से कम एक पहले
-  से ही प्रयुक्त हो रहा है
-ba-audioplayer-controlbar.volume-mute: ध्वनि मूक करें
-ba-audiorecorder-chooser.upload-audio: ऑडियो अपलोड करें
-ba-imagecapture.upload-error-duration: अपलोड की गई छवि की लंबाई आवश्यकताओं को पूरा
-  नहीं करती - पुनः प्रयास के लिए यहाँ क्लिक करें।
-ba-audiorecorder.attach-error: हम मीडिया इंटरफ़ेस तक पहुंच नहीं सकते थे। उपकरण और
-  ब्राउज़र के आधार पर, आपको SSL के माध्यम से पृष्ठ तक पहुंचने की आवश्यकता हो सकती
-  है।
-ba-ads-controlbar.skip-ad: विज्ञापन को छोड़ें
-ba-audiorecorder-controlbar.cancel: रद्द करें
-ba-videoplayer-controlbar.airplay-icon: एयरप्ले प्रतीक।
-ba-videoplayer.player-speed: प्लेयर की गति
-ba-videoplayer-controlbar.fullscreen-video: पूर्णस्क्रीन में जाएं
-ba-audiorecorder.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक
-  करें।
-ba-audiorecorder.uploading-src-error: वर्तमान में ऑडियो प्लेबैक नहीं किया जा सकता
-  है, अपलोड अभी भी प्रगति में है
-ba-videorecorder-chooser.record-video: वीडियो रिकॉर्ड करें
-ba-videorecorder.screen-recorder-is-not-supported: इस उपकरण पर स्क्रीन रिकॉर्डर समर्थित
-  नहीं है
-ba-videoplayer-tracks.back: पीछे
-ba-videorecorder.pick-covershot-frame: कवर फोटो के रूप में उपयोग करने के लिए एक फ्रेम
-  चुनें।
-ba-audioplayer-controlbar.audio-progress: प्रगति
-ba-audioplayer-controlbar.pause-audio-disabled: विराम समर्थित नहीं है
-ba-video-call.call-ended: कॉल समाप्त हो गई
-ba-videoplayer-controlbar.total-time: कुल समय
-ba-videorecorder-controlbar.rerecord-tooltip: पुनः आवाज करने के लिए यहाँ क्लिक करें।
-ba-videorecorder.orientation-portrait-required: कृपया अपनी उपकरण को पोर्ट्रेट मोड
-  में रिकॉर्ड करने के लिए घुमाएं।
-ba-common-settingsmenu.fullscreen-video: पूर्णस्क्रीन में जाएं
-ba-videoplayer-controlbar.volume-unmute: आवाज चालू करें
-ba-videoplayer-floating-sidebar.learn-more: और जानें
-ba-videorecorder-controlbar.record: रिकॉर्ड करें
+language:bh:
+  ba-common-settingsmenu.tooltip: क्लिक करें ताकि चलाया जाए।
+  ba-common-settingsmenu.setting-menu: सभी सेटिंग्स
+  ba-common-settingsmenu.source-quality: स्रोत गुणवत्ता
+  ba-common-settingsmenu.player-speed: प्लेयर की गति
+  ba-common-settingsmenu.set-menu-option: विकल्प सेट करें
+  ba-common-settingsmenu.submit-video: वीडियो की पुष्टि करें
+  ba-common-settingsmenu.picture-in-picture: चित्र में चित्र
+  ba-common-settingsmenu.exit-fullscreen-video: पूर्णस्क्रीन से बाहर निकलें
+  ba-common-settingsmenu.fullscreen-video: पूर्णस्क्रीन में जाएं
+  ba-ads-controlbar.skip-ad: विज्ञापन को छोड़ें
+  ba-ads-controlbar.play-ad: चलाएं
+  ba-ads-controlbar.pause-video: वीडियो को रोकें
+  ba-ads-controlbar.volume-mute: आवाज बंद करें
+  ba-ads-controlbar.volume-button: वॉल्यूम सेट करें
+  ba-ads-controlbar.elapsed-time: बीता हुआ समय
+  ba-ads-controlbar.volume-unmute: आवाज चालू करें
+  ba-ads-controlbar.can-skip-after: '%d के बाद छोड़ सकते हैं'
+  ba-ads-controlbar.fullscreen-video: पूर्णस्क्रीन में जाएं
+  ba-ads-controlbar.exit-fullscreen-video: पूर्णस्क्रीन से बाहर निकलें
+  ba-ads-controlbar.ad-will-end-after: '%s के बाद विज्ञापन समाप्त हो जाएगा'
+  ba-ads-controlbar.pause-video-disabled: रोकना समर्थित नहीं है
+  ba-adsplayer.replay-ad: वीडियो फिर से चलाएं
+  ba-adsplayer.close-ad: बंद करें
+  ba-adsplayer.ad-choices: विज्ञापन विकल्प
+  ba-adsplayer.learn-more: और जानें
+  ba-videoplayer-controlbar.video-progress: प्रगति
+  ba-videoplayer-controlbar.rerecord-video: फिर से आवाज
+  ba-videoplayer-controlbar.submit-video: पुष्टि करें
+  ba-videoplayer-controlbar.play-video: चलाएं
+  ba-videoplayer-controlbar.pause-video: रोकें
+  ba-videoplayer-controlbar.pause-video-disabled: रोकना समर्थित नहीं है
+  ba-videoplayer-controlbar.elapsed-time: बीता हुआ समय
+  ba-videoplayer-controlbar.total-time: कुल समय
+  ba-videoplayer-controlbar.fullscreen-video: पूर्णस्क्रीन में जाएं
+  ba-videoplayer-controlbar.volume-button: वॉल्यूम सेट करें
+  ba-videoplayer-controlbar.volume-mute: आवाज बंद करें
+  ba-videoplayer-controlbar.volume-unmute: आवाज चालू करें
+  ba-videoplayer-controlbar.change-resolution: रिज़ॉल्यूशन बदलें
+  ba-videoplayer-controlbar.exit-fullscreen-video: पूर्णस्क्रीन से बाहर निकलें
+  ba-videoplayer-controlbar.close-tracks: बंद करें सीसी
+  ba-videoplayer-controlbar.show-tracks: दिखाएँ सीसी
+  ba-videoplayer-controlbar.player-speed: प्लेयर की गति
+  ba-videoplayer-controlbar.settings: सेटिंग्स
+  ba-videoplayer-controlbar.airplay: एयरप्ले
+  ba-videoplayer-controlbar.airplay-icon: एयरप्ले प्रतीक।
+  ba-videoplayer-controlbar.remaining-time: शेष समय
+  ba-videoplayer-controlbar.select-frame: चयन करें
+  ba-videoplayer-controlbar.trim-video: छँटाई करें
+  ba-videoplayer-floating-sidebar.ad-choices: विज्ञापन विकल्प
+  ba-videoplayer-floating-sidebar.learn-more: और जानें
+  ba-videoplayer-loader.tooltip: लोड हो रहा है...
+  ba-videoplayer-playbutton.tooltip: चलाने के लिए क्लिक करें।
+  ba-videoplayer-playbutton.rerecord: पुनः आवाज
+  ba-videoplayer-playbutton.submit-video: वीडियो की पुष्टि करें
+  ba-videoplayer-playbutton.trim: छँटाई करें
+  ba-videoplayer-playbutton.skip: छोड़ें
+  ba-videoplayer-share.share: मीडिया साझा करें
+  ba-videoplayer-tooltip.tooltip: टूलटिप
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: टूलटिप बंद करने के लिए माउस पर रखें
+  ba-videoplayer-tracks.upload-text-tracks: पाठ ट्रैक फ़ाइलें अपलोड करें
+  ba-videoplayer-tracks.select-text-track-language: सबटाइटल भाषा
+  ba-videoplayer-tracks.info-select-locale-first: पहले स्थानीयता का चयन करें
+  ba-videoplayer-tracks.select-text-track-file: फ़ाइल का चयन करने के लिए क्लिक करें
+  ba-videoplayer-tracks.back: पीछे
+  ba-videoplayer.video-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
+  ba-videoplayer.all-settings: सभी सेटिंग्स
+  ba-videoplayer.player-speed: प्लेयर की गति
+  ba-videoplayer.full-screen: पूर्ण स्क्रीन
+  ba-videorecorder-chooser.record-video: वीडियो रिकॉर्ड करें
+  ba-videorecorder-chooser.record-audio: ऑडियो रिकॉर्ड करें
+  ba-videorecorder-chooser.record-screen: स्क्रीन रिकॉर्ड करें
+  ba-videorecorder-chooser.multi-stream: बहु-प्रस्ताव
+  ba-videorecorder-chooser.upload-video: वीडियो अपलोड करें
+  ba-videorecorder-controlbar.settings: सेटिंग्स
+  ba-videorecorder-controlbar.camerahealthy: प्रकाश सही है
+  ba-videorecorder-controlbar.cameraunhealthy: प्रकाश अनुकूल नहीं है
+  ba-videorecorder-controlbar.microphonehealthy: आवाज ठीक है
+  ba-videorecorder-controlbar.microphoneunhealthy: कोई भी आवाज नहीं सुनाई दे रहा है
+  ba-videorecorder-controlbar.record: रिकॉर्ड करें
+  ba-videorecorder-controlbar.record-tooltip: रिकॉर्ड करने के लिए यहाँ क्लिक करें।
+  ba-videorecorder-controlbar.rerecord: पुनः आवाज
+  ba-videorecorder-controlbar.rerecord-tooltip: पुनः आवाज करने के लिए यहाँ क्लिक करें।
+  ba-videorecorder-controlbar.upload-covershot: कवर अपलोड करें
+  ba-videorecorder-controlbar.upload-covershot-tooltip: कस्टम कवर शॉट अपलोड करने के लिए यहाँ क्लिक करें।
+  ba-videorecorder-controlbar.stop: रुकें
+  ba-videorecorder-controlbar.stop-tooltip: यहाँ रुकने के लिए क्लिक करें।
+  ba-videorecorder-controlbar.skip: छोड़ें
+  ba-videorecorder-controlbar.skip-tooltip: यहाँ छोड़ने के लिए क्लिक करें।
+  ba-videorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय %d सेकंड्स है
+  ba-videorecorder-controlbar.cancel: रद्द करें
+  ba-videorecorder-controlbar.cancel-tooltip: रद्द करने के लिए यहाँ क्लिक करें।
+  ba-videorecorder-controlbar.add-stream: स्ट्रीम जोड़ें
+  ba-videorecorder-controlbar.pause-recorder: रिकॉर्डर को रोकें
+  ba-videorecorder-controlbar.resume-recorder: रिकॉर्डर को फिर से शुरू करें
+  ba-videorecorder-controlbar.no-video-source: अतिरिक्त वीडियो इनपुट स्रोत गायब है
+  ba-videorecorder-controlbar.stream-already-selected: अतिरिक्त स्ट्रीम पहले ही चयन की गई है
+  ba-videorecorder-imagegallery.upload-covershot: कवर अपलोड करें
+  ba-videorecorder.recorder-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। बारही करने के लिए क्लिक
+    करें।
+  ba-videorecorder.attach-error: >-
+    हम मीडिया इंटरफ़ेस तक पहुंच नहीं सकते। यह उपकरण और ब्राउज़र की आवश्यकता है,
+    आपको अपडेट करने की आवश्यकता हो सकती है।
+  ba-videorecorder.software-required: >-
+    कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए नीचे क्लिक करें
+    जारी रखने के लिए।
+  ba-videorecorder.software-waiting: >-
+    आवश्यकताओं को स्थापित / सक्रिय करने के लिए प्रतीक्षा कर रहे हैं। पूरा होने
+    के बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
+  ba-videorecorder.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास के लिए क्लिक करें।
+  ba-videorecorder.pick-covershot: एक कवर फोटो चुनें।
+  ba-videorecorder.pick-covershot-frame: कवर फोटो के रूप में उपयोग करने के लिए एक फ्रेम चुनें।
+  ba-videorecorder.framerate-warning: >-
+    वीडियो फ्रेम दर बहुत कम है। हम सभी अन्य कार्यक्रमों और ब्राउज़र टैबों को बंद
+    करने और एक तेज़ कंप्यूटर का उपयोग करने की सिफारिश करते हैं।
+  ba-videorecorder.uploading: अपलोड हो रहा है
+  ba-videorecorder.uploading-src-error: वीडियो अभी चलाया नहीं जा सकता, अपलोड अभी भी जारी है
+  ba-videorecorder.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक करें।
+  ba-videorecorder.upload-error-duration: >-
+    अपलोड की गई वीडियो की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास के
+    लिए यहाँ क्लिक करें।
+  ba-videorecorder.resolution-constraint-error: >-
+    आपके द्वारा चयनित फ़ाइल का आवश्यक निर्धारित रिज़ॉल्यूशन के साथ मेल नहीं खाता
+    है - यहाँ क्लिक करें पुनः प्रयास के लिए।
+  ba-videorecorder.verifying: सत्यापित किया जा रहा है
+  ba-videorecorder.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ क्लिक करें।
+  ba-videorecorder.rerecord-confirm: क्या आप वाकई अपने वीडियो को पुनः करना चाहते हैं?
+  ba-videorecorder.cancel-confirm: क्या आप वाकई अपनी वीडियो अपलोड रद्द करना चाहते हैं?
+  ba-videorecorder.video_file_too_large: >-
+    आपकी वीडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी वीडियो फ़ाइल के साथ पुनः
+    प्रयास के लिए यहाँ क्लिक करें।
+  ba-videorecorder.unsupported_video_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए यहाँ क्लिक करें।'
+  ba-videorecorder.orientation-portrait-required: कृपया अपनी उपकरण को पोर्ट्रेट मोड में रिकॉर्ड करने के लिए घुमाएं।
+  ba-videorecorder.orientation-landscape-required: कृपया अपनी उपकरण को लैंडस्केप मोड में रिकॉर्ड करने के लिए घुमाएं।
+  ba-videorecorder.switch-camera: कैमरा बदलें
+  ba-videorecorder.prepare-covershot: कवरशॉट तैयार कर रहा है|
+  ba-videorecorder.prepare-thumbnails: खोज के थंबनेल्स को तैयार कर रहा है|
+  ba-videorecorder.adding-new-stream: नया स्ट्रीम जोड़ रहा है
+  ba-videorecorder.missing-track: आवश्यक ऑडियो या वीडियो ट्रैक अनुपस्थित है
+  ba-videorecorder.device-already-in-use: आपके इनपुट उपकरणों में से कम से कम एक पहले से ही प्रयुक्त हो रहा है
+  ba-videorecorder.browser-permission-denied: >-
+    ब्राउज़र ने अनुमति देने से मना कर दिया है, कृपया पहुंच दें और पृष्ठ को पुनः
+    लोड करें
+  ba-videorecorder.screen-recorder-is-not-supported: इस उपकरण पर स्क्रीन रिकॉर्डर समर्थित नहीं है
+  ba-videorecorder.trim-prompt: क्या आप अपने वीडियो को छँटना चाहते हैं?
+  ba-videorecorder.trim-video: अपने वीडियो को छँटने के लिए शुरुआत और समापन मार्कर्स को मूव करें
+  ba-videorecorder.wait-for-trim: छँटाई के आदेश का इंतजार कर रहे हैं...
+  ba-videorecorder.supported-mode: मीडिया रिज़ॉल्यूशन '%s' मोड में होनी चाहिए।
+  ba-videorecorder.re-choose-action: कृपया एक अन्य इनपुट उपकरण चुनने या पुनः प्रयास करने के लिए यहाँ क्लिक करें।
+  ba-imageviewer-controlbar.rerecord-image: पुनः आवाज
+  ba-imageviewer-controlbar.submit-image: पुष्टि करें
+  ba-imageviewer-controlbar.fullscreen-image: पूर्ण स्क्रीन में जाएं
+  ba-imageviewer-controlbar.exit-fullscreen-image: पूर्ण स्क्रीन से बाहर निकलें
+  ba-imageviewer.image-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
+  ba-imagecapture-chooser.image-capture: छवि कैप्चर करें
+  ba-imagecapture-chooser.upload-image: छवि अपलोड करें
+  ba-imagecapture-controlbar.settings: सेटिंग्स
+  ba-imagecapture-controlbar.camerahealthy: प्रकाश सही है
+  ba-imagecapture-controlbar.cameraunhealthy: प्रकाश अनुकूल नहीं है
+  ba-imagecapture-controlbar.record: कैप्चर करें
+  ba-imagecapture-controlbar.record-tooltip: कैप्चर करने के लिए यहाँ क्लिक करें।
+  ba-imagecapture-controlbar.rerecord: पुनः आवाज
+  ba-imagecapture-controlbar.rerecord-tooltip: पुनः आवाज करने के लिए यहाँ क्लिक करें।
+  ba-imagecapture-controlbar.cancel: रद्द करें
+  ba-imagecapture-controlbar.cancel-tooltip: रद्द करने के लिए यहाँ क्लिक करें।
+  ba-imagecapture.recorder-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
+  ba-imagecapture.attach-error: >-
+    हम मीडिया इंटरफेस तक पहुंच नहीं सकते थे। उपकरण और ब्राउज़र के आधार पर, आपको
+    SSL के माध्यम से पृष्ठ तक पहुंचने की आवश्यकता हो सकती है।
+  ba-imagecapture.software-required: >-
+    कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए नीचे क्लिक करें
+    ताकि आगे बढ़ा जा सके।
+  ba-imagecapture.software-waiting: >-
+    आवश्यकताओं को स्थापित / सक्रिय करने के लिए प्रतीक्षा कर रहे हैं। पूरा होने
+    के बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
+  ba-imagecapture.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास के लिए क्लिक करें।
+  ba-imagecapture.uploading: अपलोड हो रहा है
+  ba-imagecapture.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक करें।
+  ba-imagecapture.upload-error-duration: >-
+    अपलोड की गई छवि की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास के लिए
+    यहाँ क्लिक करें।
+  ba-imagecapture.resolution-constraint-error: >-
+    आपके द्वारा चयनित फ़ाइल का आवश्यक निर्धारित रिज़ॉल्यूशन के साथ मेल नहीं खाता
+    है - यहाँ क्लिक करें पुनः प्रयास के लिए।
+  ba-imagecapture.verifying: सत्यापित किया जा रहा है
+  ba-imagecapture.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ क्लिक करें।
+  ba-imagecapture.rerecord-confirm: क्या आप वाकई अपनी छवि को पुनः लेना चाहते हैं?
+  ba-imagecapture.image_file_too_large: >-
+    आपकी छवि फ़ाइल बहुत बड़ी है (%s) - एक छोटी छवि फ़ाइल के साथ पुनः प्रयास करने
+    के लिए यहाँ क्लिक करें।
+  ba-imagecapture.unsupported_image_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए यहाँ क्लिक करें।'
+  ba-imagecapture.orientation-portrait-required: कृपया अपनी उपकरण को पोर्ट्रेट मोड में रिकॉर्ड करने के लिए घुमाएं।
+  ba-imagecapture.orientation-landscape-required: कृपया अपनी उपकरण को लैंडस्केप मोड में रिकॉर्ड करने के लिए घुमाएं।
+  ba-audioplayer-controlbar.audio-progress: प्रगति
+  ba-audioplayer-controlbar.rerecord-audio: पुनः आवाज
+  ba-audioplayer-controlbar.submit-audio: पुष्टि करें
+  ba-audioplayer-controlbar.play-audio: चलाएं
+  ba-audioplayer-controlbar.pause-audio: विराम
+  ba-audioplayer-controlbar.pause-audio-disabled: विराम समर्थित नहीं है
+  ba-audioplayer-controlbar.elapsed-time: बीता हुआ समय
+  ba-audioplayer-controlbar.total-time: कुल लंबाई
+  ba-audioplayer-controlbar.volume-button: आवाज सेट करें
+  ba-audioplayer-controlbar.volume-mute: ध्वनि मूक करें
+  ba-audioplayer-controlbar.volume-unmute: ध्वनि अनम्यूट करें
+  ba-audioplayer-loader.tooltip: लोड हो रहा है...
+  ba-audioplayer.audio-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
+  ba-audioplayer.all-settings: सभी सेटिंग्स
+  ba-audiorecorder-chooser.record-audio: ऑडियो रिकॉर्ड करें
+  ba-audiorecorder-chooser.upload-audio: ऑडियो अपलोड करें
+  ba-audiorecorder-controlbar.settings: सेटिंग्स
+  ba-audiorecorder-controlbar.microphonehealthy: ध्वनि ठीक है
+  ba-audiorecorder-controlbar.microphoneunhealthy: कोई ध्वनि उठा नहीं सकता
+  ba-audiorecorder-controlbar.record: रिकॉर्ड करें
+  ba-audiorecorder-controlbar.record-tooltip: रिकॉर्ड करने के लिए यहाँ क्लिक करें।
+  ba-audiorecorder-controlbar.rerecord: पुनः आवाज
+  ba-audiorecorder-controlbar.rerecord-tooltip: यहाँ क्लिक करें आवाज को पुनः करने के लिए।
+  ba-audiorecorder-controlbar.stop: रुकें
+  ba-audiorecorder-controlbar.stop-tooltip: यहाँ क्लिक करें रुकने के लिए।
+  ba-audiorecorder-controlbar.stop-available-after: न्यूनतम रिकॉर्डिंग समय है %d सेकंड्स
+  ba-audiorecorder-controlbar.cancel: रद्द करें
+  ba-audiorecorder-controlbar.cancel-tooltip: यहाँ क्लिक करें रद्द करने के लिए।
+  ba-audiorecorder-controlbar.pause-recorder: रिकॉर्डर को रोकें
+  ba-audiorecorder-controlbar.resume-recorder: रिकॉर्डर को फिर से शुरू करें
+  ba-audiorecorder.recorder-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
+  ba-audiorecorder.attach-error: >-
+    हम मीडिया इंटरफ़ेस तक पहुंच नहीं सकते थे। उपकरण और ब्राउज़र के आधार पर, आपको
+    SSL के माध्यम से पृष्ठ तक पहुंचने की आवश्यकता हो सकती है।
+  ba-audiorecorder.software-required: >-
+    आगे बढ़ने के लिए कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए
+    नीचे क्लिक करें।
+  ba-audiorecorder.software-waiting: >-
+    आवश्यकताओं को स्थापित / सक्रिय करने की प्रतीक्षा कर रहे हैं। पूरा होने के
+    बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
+  ba-audiorecorder.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास के लिए क्लिक करें।
+  ba-audiorecorder.uploading: अपलोड हो रहा है
+  ba-audiorecorder.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक करें।
+  ba-audiorecorder.upload-error-duration: >-
+    अपलोड की गई ऑडियो फ़ाइल की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास
+    के लिए यहाँ क्लिक करें।
+  ba-audiorecorder.verifying: सत्यापित किया जा रहा है
+  ba-audiorecorder.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ क्लिक करें।
+  ba-audiorecorder.rerecord-confirm: क्या आप वाकई अपनी ऑडियो को पुनः करना चाहते हैं?
+  ba-audiorecorder.cancel-confirm: क्या आप वाकई अपनी ऑडियो अपलोड करने को रद्द करना चाहते हैं?
+  ba-audiorecorder.audio_file_too_large: >-
+    आपकी ऑडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी ऑडियो फ़ाइल के साथ पुनः प्रयास
+    करने के लिए यहाँ क्लिक करें।
+  ba-audiorecorder.unsupported_audio_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए यहाँ क्लिक करें।'
+  ba-audiorecorder.uploading-src-error: वर्तमान में ऑडियो प्लेबैक नहीं किया जा सकता है, अपलोड अभी भी प्रगति में है
+  ba-audiorecorder.missing-track: आवश्यक ऑडियो ट्रैक गायब है
+  ba-audiorecorder.device-already-in-use: आपके इनपुट उपकरणों में से कम से कम एक पहले से ही उपयोग किया जा रहा है
+  ba-audiorecorder.browser-permission-denied: >-
+    ब्राउज़र द्वारा अनुमति नहीं दी गई है, कृपया पहुंच अनुमति दें और पृष्ठ को
+    पुनः लोड करें
+  ba-local-view.local-camera-connection-error: >-
+    स्थानीय कैमरा से कनेक्ट करते समय एक त्रुटि हुई थी। पुनः प्रयास के लिए क्लिक
+    करें।
+  ba-call-controlbar.camera-button: कैमरा दिखाएं/छुपाएं
+  ba-call-controlbar.leave-button: कॉल छोड़ें
+  ba-call-controlbar.mute-button: म्यूट/अनम्यूट
+  ba-call-lobby.camera-button: कैमरा
+  ba-call-lobby.description-create: जब आप तैयार हों, तो नीचे दिए गए बटन पर क्लिक करें और एक कॉल बनाएं।
+  ba-call-lobby.description-join: जब आप तैयार हों, तो नीचे दिए गए बटन पर क्लिक करें और कॉल में शामिल हों।
+  ba-call-lobby.join-button: शामिल हों
+  ba-call-lobby.create-button: बनाएं
+  ba-call-lobby.mute-button: म्यूट करें
+  ba-call-lobby.title-create: कॉल बनाएं
+  ba-call-lobby.title-join: कॉल में शामिल हों
+  ba-video-call.call-ended: कॉल समाप्त हो गई
+  ba-video-call.connecting: कनेक्ट हो रहा है...
+  ba-video-call.connection-error: कनेक्ट करते समय एक त्रुटि हुई थी, कृपया पुनः प्रयास के लिए क्लिक करें।
+  ba-circle-progress.fullscreen-video: फुलस्क्रीन में प्रवेश करीं
+  ba-ads-choices-link.ad-choices: विज्ञापन के विकल्प बा
+  ba-ads-learn-more-button.learn-more: अउरी जाने खातिर देखीं
+  ba-videoplayer-sidebar.up-next: ऊपर आगे के बा
+  ba-videoplayer-sidebar.continue-on-ads-end: एह विज्ञापन का बाद सामग्री फेर से शुरू हो जाई.
+  ba-videoplayer-next.stay: ठहरीं
+  ba-videoplayer-next.next: अगिला
+  ba-videorecorder-trimmer.trim: कांट-छांट कईल
+  ba-videorecorder-trimmer.skip: छोड़ दऽ

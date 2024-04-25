@@ -1,239 +1,302 @@
-ba-audiorecorder.upload-error-duration: De lengte van de geüploade audio voldoet niet
-  aan de vereisten. Klik hier om opnieuw te proberen.
-ba-common-settingsmenu.tooltip: Klik om te spelen.
-ba-common-settingsmenu.setting-menu: Alle instellingen
-ba-videorecorder-controlbar.settings: Instellingen
-ba-imagecapture.access-forbidden: Toegang tot de media was verboden. Klik om opnieuw
-  te proberen.
-ba-videorecorder.video_file_too_large: Uw video bestand is te groot (%s) - klik hier
-  om opnieuw te proberen met een kleiner bestand.
-ba-videoplayer-controlbar.settings: instellingen
-ba-videorecorder-controlbar.add-stream: Stream toevoegen
-ba-imageviewer-controlbar.fullscreen-image: Voer het volledige scherm in
-ba-imagecapture.image_file_too_large: Uw afbeeldingsbestand is te groot (%s) - klik
-  hier om het opnieuw te proberen met een kleiner afbeeldingsbestand.
-ba-imagecapture.orientation-landscape-required: Draai je apparaat om op te nemen in
-  liggende modus.
-ba-videoplayer-controlbar.pause-video-disabled: Pauzeren niet ondersteund
-ba-videorecorder-controlbar.camerahealthy: Verlichting is goed
-ba-common-settingsmenu.submit-video: Bevestig video
-ba-videorecorder-controlbar.record-tooltip: Klik hier om te registreren.
-ba-common-settingsmenu.picture-in-picture: Foto in foto
-ba-videoplayer-playbutton.rerecord: Opnieuw
-ba-videoplayer-tracks.select-text-track-language: Taal ondertitels
-ba-videoplayer-adslot.can-skip-after: Skip na %d
-ba-audiorecorder.cancel-confirm: Wil je echt je audio-upload annuleren?
-ba-audiorecorder.software-waiting: Wacht tot de vereisten zijn geïnstalleerd / geactiveerd.
-  Mogelijk moet u de pagina na voltooiing vernieuwen.
-ba-videoplayer-tracks.info-select-locale-first: Selecteer eerst locale
-ba-videoplayer-loader.tooltip: Laden...
-ba-audiorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.
-ba-imagecapture.verifying-failed: Verifiëren mislukt - klik hier om het opnieuw te
-  proberen.
-ba-videoplayer-playbutton.skip: Overspringen
-ba-videoplayer-controlbar.trim-video: Trimmen
-ba-videorecorder.missing-track: Vereiste audio- of videotrack ontbreekt
-ba-imagecapture.uploading-failed: Uploaden mislukt - klik hier om het opnieuw te proberen.
-ba-videoplayer-adslot.volume-button: Volume
-ba-imagecapture-chooser.image-capture: Capture Image
-ba-videorecorder.trim-prompt: Wil je je video inkorten?
-ba-videorecorder.software-waiting: Wacht tot de vereisten zijn geïnstalleerd / geactiveerd.
-  Mogelijk moet u de pagina na voltooiing vernieuwen.
-ba-audioplayer-controlbar.play-audio: Spelen
-ba-videorecorder-controlbar.resume-recorder: Hervat de recorder
-ba-videorecorder-controlbar.rerecord: Opnieuw opnemen
-ba-audiorecorder.verifying: Het verifiëren
-ba-videoplayer-playbutton.tooltip: Klik om video af te spelen.
-ba-videorecorder.trim-video: Verplaats de begin- en eindmarkeringen om je video bij
-  te snijden
-ba-videoplayer-controlbar.player-speed: Snelheid van de speler
-ba-videorecorder-controlbar.microphonehealthy: Het geluid is goed
-ba-videorecorder-chooser.multi-stream: Multi-stream
-ba-imagecapture.recorder-error: Er is een fout opgetreden. Probeer het later opnieuw.
-  Klik om opnieuw te proberen.
-ba-videorecorder-controlbar.stop-tooltip: Klik hier om te stoppen.
-ba-imagecapture-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
-ba-videoplayer-controlbar.video-progress: Vooruitgang
-ba-videorecorder-controlbar.cameraunhealthy: Verlichting is niet optimaal
-ba-audioplayer-controlbar.pause-audio: Pauze
-ba-videorecorder-controlbar.stop: Stop
-ba-imagecapture-chooser.upload-image: Afbeelding uploaden
-ba-videorecorder-imagegallery.upload-covershot: Omslag uploaden
-ba-audiorecorder-controlbar.resume-recorder: Recorder hervatten
-ba-videoplayer.video-error: Er is een fout opgetreden, probeer het later opnieuw.
-  Klik hier om opnieuw te proberen.
-ba-videorecorder.attach-error: We konden geen toegang krijgen tot de camera. Afhankelijk
-  van het apparaat en de browser, moet u misschien Flash installeren of toegang tot
-  de pagina via SSL.
-ba-audiorecorder-controlbar.pause-recorder: Recorder pauzeren
-ba-audiorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
-ba-videoplayer-controlbar.change-resolution: Resolutie veranderen
-ba-audiorecorder.software-required: Klik hieronder om de volgende vereisten te installeren
-  / activeren om door te gaan.
-ba-videoplayer-controlbar.exit-fullscreen-video: Verlaat volledig scherm
-ba-imageviewer-controlbar.rerecord-image: Opnieuw doen?
-ba-videoplayer-adslot.ad-will-end-after: Advertentie eindigt na %s
-ba-imagecapture.rerecord-confirm: Wil je echt je foto opnieuw maken?
-ba-audioplayer-controlbar.elapsed-time: Verstreken tijd
-ba-audioplayer-controlbar.rerecord-audio: Opnieuw doen?
-ba-imageviewer-controlbar.exit-fullscreen-image: Verlaat volledig scherm
-ba-videorecorder.verifying-failed: Verificatie mislukt - klik hier om opnieuw te proberen.
-ba-videorecorder-controlbar.upload-covershot-tooltip: Klik hier om je aangepaste cover
-  te uploaden
-ba-common-settingsmenu.set-menu-option: Optie instellen
-ba-videorecorder.framerate-warning: De videoframesnelheid is erg laag. We raden aan
-  om alle andere programma's en browsertabs te sluiten of om een ​​snellere computer
-  te gebruiken.
-ba-videorecorder.switch-camera: Schakel camera
-ba-audioplayer-controlbar.volume-button: Volume instellen
-ba-videorecorder-chooser.upload-video: Video uploaden
-ba-audiorecorder.verifying-failed: Verifiëren mislukt - klik hier om het opnieuw te
-  proberen.
-ba-videorecorder-controlbar.stream-already-selected: Extra stream is al geselecteerd
-ba-videorecorder.upload-error-duration: De lengte van de geüploade video voldoet niet
-  aan de vereisten. Klik hier om opnieuw te proberen.
-ba-common-settingsmenu.player-speed: Speler snelheid
-ba-audiorecorder-controlbar.settings: instellingen
-ba-videoplayer-controlbar.play-video: Afspelen
-ba-videoplayer-controlbar.rerecord-video: Opnieuw opnemen?
-ba-videorecorder.recorder-error: Er is een fout opgetreden, probeer het later opnieuw.
-  Klik hier om opnieuw te proberen.
-ba-videorecorder.prepare-covershot: Dekkinghots voorbereiden
-ba-videorecorder.verifying: Verifiëren
-ba-videorecorder.unsupported_video_type: 'Upload: %s - klik hier om opnieuw te proberen.'
-ba-videoplayer-playbutton.submit-video: Bevestigen
-ba-audioplayer-controlbar.total-time: Totale lengte van
-ba-videorecorder.prepare-thumbnails: Voorbereiden op het zoeken naar miniaturen
-ba-videoplayer-controlbar.airplay: airplay
-ba-videorecorder.access-forbidden: De toegang tot de camera was verboden. Klik hier
-  om opnieuw te proberen.
-ba-videoplayer-adslot.volume-mute: Geluid dempen
-ba-imageviewer.image-error: Er is een fout opgetreden. Probeer het later opnieuw.
-  Klik om opnieuw te proberen.
-ba-videorecorder.resolution-constraint-error: Het bestand dat je hebt geselecteerd
-  komt niet overeen met de vereiste resolutie - klik hier om het opnieuw te proberen.
-ba-videorecorder-controlbar.pause-recorder: Pauzeer de recorder
-ba-imagecapture-controlbar.cameraunhealthy: Verlichting is niet optimaal
-ba-common-settingsmenu.source-quality: Bronkwaliteit
-ba-imagecapture.orientation-portrait-required: Draai uw apparaat om op te nemen in
-  staande modus.
-ba-audiorecorder-chooser.record-audio: Geluid opnemen
-ba-videoplayer-controlbar.volume-mute: Geluid dempen
-ba-videorecorder.pick-covershot: Kies een covershot.
-ba-audiorecorder-controlbar.microphoneunhealthy: Kan geen geluid oppikken
-ba-videorecorder-controlbar.no-video-source: Ontbrekende extra video-invoerbron
-ba-audiorecorder.access-forbidden: Toegang tot de media was verboden. Klik om opnieuw
-  te proberen.
-ba-imagecapture-controlbar.rerecord: Opnieuw doen
-ba-audiorecorder.recorder-error: Er is een fout opgetreden. Probeer het later opnieuw.
-  Klik om opnieuw te proberen.
-ba-videoplayer-tracks.select-text-track-file: Klik om bestand te selecteren
-ba-videorecorder-controlbar.skip: Overslaan
-ba-imagecapture.software-required: Klik hieronder om de volgende vereisten te installeren
-  / activeren om door te gaan.
-ba-videorecorder.uploading-src-error: Kan de video nu niet afspelen, het uploaden
-  is nog bezig
-ba-videoplayer-controlbar.volume-button: Volume instellen
-ba-imagecapture.attach-error: We hadden geen toegang tot de media-interface. Afhankelijk
-  van het apparaat en de browser, moet u mogelijk Flash installeren of de pagina openen
-  via SSL.
-ba-audiorecorder.uploading: uploaden
-ba-audiorecorder.unsupported_audio_type: 'Upload alstublieft: %s - klik hier om het
-  opnieuw te proberen.'
-ba-imagecapture-controlbar.settings: instellingen
-ba-videorecorder.adding-new-stream: Nieuwe stream toevoegen
-ba-imagecapture.uploading: uploaden
-ba-videorecorder.wait-for-trim: Wachten op trimcommando...
-ba-imagecapture-controlbar.cancel: Annuleer
-ba-videorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.
-ba-audioplayer.audio-error: Er is een fout opgetreden. Probeer het later opnieuw.
-  Klik om opnieuw te proberen.
-ba-videoplayer-controlbar.show-tracks: Toon CC
-ba-videoplayer.full-screen: Volledig scherm
-ba-videorecorder.cancel-confirm: Wil je je upload echt annuleren?
-ba-videorecorder-controlbar.cancel: Annuleren
-ba-ads-controlbar.ad-will-end-after: ''
-ba-audiorecorder-controlbar.rerecord: Opnieuw doen
-ba-audiorecorder.rerecord-confirm: Wil je je audio echt opnieuw spelen?
-ba-videoplayer-controlbar.elapsed-time: Verstreken tijd
-ba-videorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
-ba-audioplayer.all-settings: Alle instellingen
-ba-imagecapture-controlbar.camerahealthy: Verlichting is goed
-ba-imagecapture-controlbar.record: Gevangen nemen
-ba-audiorecorder-controlbar.record-tooltip: Klik hier om op te nemen.
-ba-audioplayer-controlbar.submit-audio: Bevestigen
-ba-videoplayer-adslot.skip-ad: Advertentie overslaan
-ba-videorecorder-chooser.record-audio: Geluid opnemen
-ba-audiorecorder.audio_file_too_large: Je audiobestand is te groot (%s) - klik hier
-  om het opnieuw te proberen met een kleiner audiobestand.
-ba-videorecorder.browser-permission-denied: Toestemming geweigerd door browser, geef
-  toegang en laad de pagina opnieuw
-ba-videoplayer-controlbar.pause-video: Pauze
-ba-videoplayer-adslot.volume-unmute: Geluid inschakelen
-ba-videoplayer-controlbar.submit-video: Bevestigen
-ba-videoplayer-share.share: Video Helen
-ba-audioplayer-loader.tooltip: Bezig met laden...
-ba-imagecapture.unsupported_image_type: 'Upload alstublieft: %s - klik hier om het
-  opnieuw te proberen.'
-ba-videorecorder.uploading: Uploaden
-ba-audiorecorder-controlbar.microphonehealthy: Geluid is goed
-ba-audiorecorder-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
-ba-videorecorder-chooser.record-screen: Scherm opnemen
-ba-videoplayer.all-settings: Alle instellingen
-ba-videoplayer-controlbar.select-frame: Selecteer
-ba-imagecapture.resolution-constraint-error: Het bestand dat u heeft geselecteerd
-  komt niet overeen met de vereiste resolutie - klik hier om het opnieuw te proberen.
-ba-audiorecorder-controlbar.stop-tooltip: Klik hier om te stoppen.
-ba-videorecorder-controlbar.microphoneunhealthy: Geluid is niet optimaal
-ba-audiorecorder-controlbar.stop: Hou op
-ba-videorecorder.rerecord-confirm: Wil je echt je video opnieuw opnemen?
-ba-videoplayer-controlbar.close-tracks: Sluit CC
-ba-videorecorder-controlbar.upload-covershot: Video uploaden
-ba-videorecorder.orientation-landscape-required: Draai je apparaat om in de liggende
-  modus op te nemen.
-ba-imagecapture.verifying: Het verifiëren
-ba-imageviewer-controlbar.submit-image: Bevestigen
-ba-imagecapture-controlbar.cancel-tooltip: Klik hier om te annuleren.
-ba-imagecapture.software-waiting: Wacht tot de vereisten zijn geïnstalleerd / geactiveerd.
-  Mogelijk moet u de pagina na voltooiing vernieuwen.
-ba-common-settingsmenu.exit-fullscreen-video: Verlaat volledig scherm
-ba-videorecorder.uploading-failed: Uploaden mislukt - klik hier om opnieuw te proberen.
-ba-videoplayer-playbutton.trim: Trimmen
-ba-audioplayer-controlbar.volume-unmute: Geluid dempen
-ba-audiorecorder-controlbar.record: Record
-ba-videorecorder.software-required: Klik hieronder om de volgende vereisten te installeren
-  / activeren om door te gaan.
-ba-videoplayer-tracks.upload-text-tracks: Uploadtekstbestanden uploaden
-ba-videorecorder-controlbar.skip-tooltip: Klik hier om over te slaan.
-ba-videoplayer-adslot.elapsed-time: Verstreken tijd
-ba-videoplayer-controlbar.remaining-time: Overgebleven tijd
-ba-imagecapture-controlbar.record-tooltip: Klik hier om vast te leggen.
-ba-videorecorder.device-already-in-use: Minstens een van uw invoerapparaten is al
-  in gebruik
-ba-audioplayer-controlbar.volume-mute: Geluid dempen
-ba-audiorecorder-chooser.upload-audio: Upload audio
-ba-imagecapture.upload-error-duration: De lengte van de geüploade afbeelding voldoet
-  niet aan de vereisten. Klik hier om opnieuw te proberen.
-ba-audiorecorder.attach-error: We hadden geen toegang tot de media-interface. Afhankelijk
-  van het apparaat en de browser, moet u mogelijk Flash installeren of de pagina openen
-  via SSL.
-ba-audiorecorder-controlbar.cancel: Annuleer
-ba-videoplayer-controlbar.airplay-icon: Airplay-pictogram.
-ba-videoplayer.player-speed: Snelheid van de speler
-ba-videoplayer-controlbar.fullscreen-video: Volledig scherm
-ba-audiorecorder.uploading-failed: Uploaden mislukt - klik hier om het opnieuw te
-  proberen.
-ba-videorecorder-chooser.record-video: Video opnemen
-ba-videorecorder.screen-recorder-is-not-supported: Schermrecorder wordt niet ondersteund
-  op dit apparaat
-ba-videoplayer-tracks.back: terug
-ba-videorecorder.pick-covershot-frame: Selecteer een frame om als covershot te gebruiken.
-ba-audioplayer-controlbar.audio-progress: Vooruitgang
-ba-audioplayer-controlbar.pause-audio-disabled: Pauzeren niet ondersteund
-ba-videoplayer-controlbar.total-time: De totale lengte van de video
-ba-videorecorder-controlbar.rerecord-tooltip: Opnieuw opnemen
-ba-videorecorder.orientation-portrait-required: Draai uw apparaat om op te nemen in
-  staande modus.
-ba-common-settingsmenu.fullscreen-video: Volledig scherm openen
-ba-videoplayer-controlbar.volume-unmute: Geluid inschakelen
-ba-videorecorder-controlbar.record: Opnemen
+language:nl:
+  ba-videoplayer-playbutton.tooltip: Klik om video af te spelen.
+  ba-videoplayer-playbutton.rerecord: Opnieuw
+  ba-videoplayer-playbutton.submit-video: Bevestigen
+  ba-videoplayer-loader.tooltip: Laden...
+  ba-videoplayer-controlbar.change-resolution: Resolutie veranderen
+  ba-videoplayer-controlbar.video-progress: Vooruitgang
+  ba-videoplayer-controlbar.rerecord-video: Opnieuw opnemen?
+  ba-videoplayer-controlbar.submit-video: Bevestigen
+  ba-videoplayer-controlbar.play-video: Afspelen
+  ba-videoplayer-controlbar.pause-video: Pauze
+  ba-videoplayer-controlbar.elapsed-time: Verstreken tijd
+  ba-videoplayer-controlbar.total-time: De totale lengte van de video
+  ba-videoplayer-controlbar.fullscreen-video: Volledig scherm
+  ba-videoplayer-controlbar.volume-button: Volume instellen
+  ba-videoplayer-controlbar.volume-mute: Geluid dempen
+  ba-videoplayer-controlbar.volume-unmute: Geluid inschakelen
+  ba-videoplayer.video-error: >-
+    Er is een fout opgetreden, probeer het later opnieuw. Klik hier om opnieuw
+    te proberen.
+  ba-videorecorder-chooser.record-video: Video opnemen
+  ba-videorecorder-chooser.upload-video: Video uploaden
+  ba-videorecorder-controlbar.settings: Instellingen
+  ba-videorecorder-controlbar.camerahealthy: Verlichting is goed
+  ba-videorecorder-controlbar.cameraunhealthy: Verlichting is niet optimaal
+  ba-videorecorder-controlbar.microphonehealthy: Het geluid is goed
+  ba-videorecorder-controlbar.microphoneunhealthy: Geluid is niet optimaal
+  ba-videorecorder-controlbar.record: Opnemen
+  ba-videorecorder-controlbar.record-tooltip: Klik hier om te registreren.
+  ba-videorecorder-controlbar.rerecord: Opnieuw opnemen
+  ba-videorecorder-controlbar.rerecord-tooltip: Opnieuw opnemen
+  ba-videorecorder-controlbar.upload-covershot: Video uploaden
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Klik hier om je aangepaste cover te uploaden
+  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.stop-tooltip: Klik hier om te stoppen.
+  ba-videorecorder-controlbar.skip: Overslaan
+  ba-videorecorder-controlbar.skip-tooltip: Klik hier om over te slaan.
+  ba-videorecorder.recorder-error: >-
+    Er is een fout opgetreden, probeer het later opnieuw. Klik hier om opnieuw
+    te proberen.
+  ba-videorecorder.attach-error: >-
+    We konden geen toegang krijgen tot de camera. Afhankelijk van het apparaat
+    en de browser, moet u misschien Flash installeren of toegang tot de pagina
+    via SSL.
+  ba-videorecorder.access-forbidden: De toegang tot de camera was verboden. Klik hier om opnieuw te proberen.
+  ba-videorecorder.pick-covershot: Kies een covershot.
+  ba-videorecorder.uploading: Uploaden
+  ba-videorecorder.uploading-failed: Uploaden mislukt - klik hier om opnieuw te proberen.
+  ba-videorecorder.verifying: Verifiëren
+  ba-videorecorder.verifying-failed: Verificatie mislukt - klik hier om opnieuw te proberen.
+  ba-videorecorder.rerecord-confirm: Wil je echt je video opnieuw opnemen?
+  ba-videorecorder.video_file_too_large: >-
+    Uw video bestand is te groot (%s) - klik hier om opnieuw te proberen met een
+    kleiner bestand.
+  ba-videorecorder.unsupported_video_type: 'Upload: %s - klik hier om opnieuw te proberen.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Verlaat volledig scherm
+  ba-videoplayer-share.share: Video Helen
+  ba-videorecorder-chooser.record-screen: Scherm opnemen
+  ba-videoplayer-controlbar.pause-video-disabled: Pauzeren niet ondersteund
+  ba-videorecorder-chooser.record-audio: Geluid opnemen
+  ba-videorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
+  ba-videorecorder-controlbar.cancel: Annuleren
+  ba-videorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.
+  ba-videorecorder.cancel-confirm: Wil je je upload echt annuleren?
+  ba-videoplayer-adslot.elapsed-time: Verstreken tijd
+  ba-videoplayer-adslot.volume-button: Volume
+  ba-videoplayer-adslot.volume-mute: Geluid dempen
+  ba-videoplayer-adslot.volume-unmute: Geluid inschakelen
+  ba-videoplayer-adslot.ad-will-end-after: Advertentie eindigt na %s
+  ba-videoplayer-adslot.can-skip-after: Skip na %d
+  ba-videoplayer-adslot.skip-ad: Advertentie overslaan
+  ba-videorecorder.software-required: >-
+    Klik hieronder om de volgende vereisten te installeren / activeren om door
+    te gaan.
+  ba-videorecorder.software-waiting: >-
+    Wacht tot de vereisten zijn geïnstalleerd / geactiveerd. Mogelijk moet u de
+    pagina na voltooiing vernieuwen.
+  ba-videoplayer-controlbar.close-tracks: Sluit CC
+  ba-videoplayer-controlbar.show-tracks: Toon CC
+  ba-videoplayer-tracks.upload-text-tracks: Uploadtekstbestanden uploaden
+  ba-videoplayer-tracks.select-text-track-language: Taal ondertitels
+  ba-videoplayer-tracks.info-select-locale-first: Selecteer eerst locale
+  ba-videoplayer-tracks.select-text-track-file: Klik om bestand te selecteren
+  ba-videoplayer-tracks.back: terug
+  ba-videorecorder.framerate-warning: >-
+    De videoframesnelheid is erg laag. We raden aan om alle andere programma's
+    en browsertabs te sluiten of om een ​​snellere computer te gebruiken.
+  ba-videorecorder.upload-error-duration: >-
+    De lengte van de geüploade video voldoet niet aan de vereisten. Klik hier om
+    opnieuw te proberen.
+  ba-videorecorder.resolution-constraint-error: >-
+    Het bestand dat je hebt geselecteerd komt niet overeen met de vereiste
+    resolutie - klik hier om het opnieuw te proberen.
+  ba-videorecorder.orientation-portrait-required: Draai uw apparaat om op te nemen in staande modus.
+  ba-videorecorder.orientation-landscape-required: Draai je apparaat om in de liggende modus op te nemen.
+  ba-imageviewer-controlbar.rerecord-image: Opnieuw doen?
+  ba-imageviewer-controlbar.submit-image: Bevestigen
+  ba-imageviewer-controlbar.fullscreen-image: Voer het volledige scherm in
+  ba-imageviewer-controlbar.exit-fullscreen-image: Verlaat volledig scherm
+  ba-imageviewer.image-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Afbeelding uploaden
+  ba-imagecapture-controlbar.settings: instellingen
+  ba-imagecapture-controlbar.camerahealthy: Verlichting is goed
+  ba-imagecapture-controlbar.cameraunhealthy: Verlichting is niet optimaal
+  ba-imagecapture-controlbar.record: Gevangen nemen
+  ba-imagecapture-controlbar.record-tooltip: Klik hier om vast te leggen.
+  ba-imagecapture-controlbar.rerecord: Opnieuw doen
+  ba-imagecapture-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
+  ba-imagecapture-controlbar.cancel: Annuleer
+  ba-imagecapture-controlbar.cancel-tooltip: Klik hier om te annuleren.
+  ba-audioplayer-controlbar.audio-progress: Vooruitgang
+  ba-audioplayer-controlbar.rerecord-audio: Opnieuw doen?
+  ba-audioplayer-controlbar.submit-audio: Bevestigen
+  ba-audioplayer-controlbar.play-audio: Spelen
+  ba-audioplayer-controlbar.pause-audio: Pauze
+  ba-audioplayer-controlbar.pause-audio-disabled: Pauzeren niet ondersteund
+  ba-audioplayer-controlbar.elapsed-time: Verstreken tijd
+  ba-audioplayer-controlbar.total-time: Totale lengte van
+  ba-audioplayer-controlbar.volume-button: Volume instellen
+  ba-audioplayer-controlbar.volume-mute: Geluid dempen
+  ba-audioplayer-controlbar.volume-unmute: Geluid dempen
+  ba-audioplayer-loader.tooltip: Bezig met laden...
+  ba-audioplayer.audio-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-audiorecorder-chooser.record-audio: Geluid opnemen
+  ba-audiorecorder-chooser.upload-audio: Upload audio
+  ba-audiorecorder-controlbar.settings: instellingen
+  ba-audiorecorder-controlbar.microphonehealthy: Geluid is goed
+  ba-audiorecorder-controlbar.microphoneunhealthy: Kan geen geluid oppikken
+  ba-audiorecorder-controlbar.record: Record
+  ba-audiorecorder-controlbar.record-tooltip: Klik hier om op te nemen.
+  ba-audiorecorder-controlbar.rerecord: Opnieuw doen
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klik hier om opnieuw te doen.
+  ba-audiorecorder-controlbar.stop: Hou op
+  ba-audiorecorder-controlbar.stop-tooltip: Klik hier om te stoppen.
+  ba-audiorecorder-controlbar.stop-available-after: Minimale opnametijd is %d seconden
+  ba-audiorecorder-controlbar.cancel: Annuleer
+  ba-audiorecorder-controlbar.cancel-tooltip: Klik hier om te annuleren.
+  ba-videoplayer-controlbar.player-speed: Snelheid van de speler
+  ba-videoplayer-controlbar.settings: instellingen
+  ba-videoplayer-controlbar.airplay: airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay-pictogram.
+  ba-videoplayer.all-settings: Alle instellingen
+  ba-videoplayer.player-speed: Snelheid van de speler
+  ba-videoplayer.full-screen: Volledig scherm
+  ba-videorecorder-controlbar.add-stream: Stream toevoegen
+  ba-videorecorder.switch-camera: Schakel camera
+  ba-videorecorder.prepare-covershot: Dekkinghots voorbereiden
+  ba-videorecorder.prepare-thumbnails: Voorbereiden op het zoeken naar miniaturen
+  ba-videorecorder.adding-new-stream: Nieuwe stream toevoegen
+  ba-imagecapture.recorder-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-imagecapture.attach-error: >-
+    We hadden geen toegang tot de media-interface. Afhankelijk van het apparaat
+    en de browser, moet u mogelijk Flash installeren of de pagina openen via
+    SSL.
+  ba-imagecapture.software-required: >-
+    Klik hieronder om de volgende vereisten te installeren / activeren om door
+    te gaan.
+  ba-imagecapture.software-waiting: >-
+    Wacht tot de vereisten zijn geïnstalleerd / geactiveerd. Mogelijk moet u de
+    pagina na voltooiing vernieuwen.
+  ba-imagecapture.access-forbidden: Toegang tot de media was verboden. Klik om opnieuw te proberen.
+  ba-imagecapture.uploading: uploaden
+  ba-imagecapture.uploading-failed: Uploaden mislukt - klik hier om het opnieuw te proberen.
+  ba-imagecapture.upload-error-duration: >-
+    De lengte van de geüploade afbeelding voldoet niet aan de vereisten. Klik
+    hier om opnieuw te proberen.
+  ba-imagecapture.resolution-constraint-error: >-
+    Het bestand dat u heeft geselecteerd komt niet overeen met de vereiste
+    resolutie - klik hier om het opnieuw te proberen.
+  ba-imagecapture.verifying: Het verifiëren
+  ba-imagecapture.verifying-failed: Verifiëren mislukt - klik hier om het opnieuw te proberen.
+  ba-imagecapture.rerecord-confirm: Wil je echt je foto opnieuw maken?
+  ba-imagecapture.image_file_too_large: >-
+    Uw afbeeldingsbestand is te groot (%s) - klik hier om het opnieuw te
+    proberen met een kleiner afbeeldingsbestand.
+  ba-imagecapture.unsupported_image_type: 'Upload alstublieft: %s - klik hier om het opnieuw te proberen.'
+  ba-imagecapture.orientation-portrait-required: Draai uw apparaat om op te nemen in staande modus.
+  ba-imagecapture.orientation-landscape-required: Draai je apparaat om op te nemen in liggende modus.
+  ba-audiorecorder.recorder-error: >-
+    Er is een fout opgetreden. Probeer het later opnieuw. Klik om opnieuw te
+    proberen.
+  ba-audiorecorder.attach-error: >-
+    We hadden geen toegang tot de media-interface. Afhankelijk van het apparaat
+    en de browser, moet u mogelijk Flash installeren of de pagina openen via
+    SSL.
+  ba-audiorecorder.software-required: >-
+    Klik hieronder om de volgende vereisten te installeren / activeren om door
+    te gaan.
+  ba-audiorecorder.software-waiting: >-
+    Wacht tot de vereisten zijn geïnstalleerd / geactiveerd. Mogelijk moet u de
+    pagina na voltooiing vernieuwen.
+  ba-audiorecorder.access-forbidden: Toegang tot de media was verboden. Klik om opnieuw te proberen.
+  ba-audiorecorder.uploading: uploaden
+  ba-audiorecorder.uploading-failed: Uploaden mislukt - klik hier om het opnieuw te proberen.
+  ba-audiorecorder.upload-error-duration: >-
+    De lengte van de geüploade audio voldoet niet aan de vereisten. Klik hier om
+    opnieuw te proberen.
+  ba-audiorecorder.verifying: Het verifiëren
+  ba-audiorecorder.verifying-failed: Verifiëren mislukt - klik hier om het opnieuw te proberen.
+  ba-audiorecorder.rerecord-confirm: Wil je je audio echt opnieuw spelen?
+  ba-audiorecorder.cancel-confirm: Wil je echt je audio-upload annuleren?
+  ba-audiorecorder.audio_file_too_large: >-
+    Je audiobestand is te groot (%s) - klik hier om het opnieuw te proberen met
+    een kleiner audiobestand.
+  ba-audiorecorder.unsupported_audio_type: 'Upload alstublieft: %s - klik hier om het opnieuw te proberen.'
+  ba-common-settingsmenu.tooltip: Klik om te spelen.
+  ba-common-settingsmenu.setting-menu: Alle instellingen
+  ba-common-settingsmenu.source-quality: Bronkwaliteit
+  ba-common-settingsmenu.player-speed: Speler snelheid
+  ba-common-settingsmenu.set-menu-option: Optie instellen
+  ba-common-settingsmenu.submit-video: Bevestig video
+  ba-common-settingsmenu.picture-in-picture: Foto in foto
+  ba-common-settingsmenu.exit-fullscreen-video: Verlaat volledig scherm
+  ba-common-settingsmenu.fullscreen-video: Volledig scherm openen
+  ba-videorecorder-chooser.multi-stream: Multi-stream
+  ba-videorecorder-controlbar.pause-recorder: Pauzeer de recorder
+  ba-videorecorder-controlbar.resume-recorder: Hervat de recorder
+  ba-videorecorder.missing-track: Vereiste audio- of videotrack ontbreekt
+  ba-videorecorder.device-already-in-use: Minstens een van uw invoerapparaten is al in gebruik
+  ba-videorecorder.browser-permission-denied: Toestemming geweigerd door browser, geef toegang en laad de pagina opnieuw
+  ba-audioplayer.all-settings: Alle instellingen
+  ba-videoplayer-controlbar.remaining-time: Overgebleven tijd
+  ba-videoplayer-controlbar.select-frame: Selecteer
+  ba-videoplayer-controlbar.trim-video: Trimmen
+  ba-videoplayer-playbutton.trim: Trimmen
+  ba-videoplayer-playbutton.skip: Overspringen
+  ba-videorecorder-imagegallery.upload-covershot: Omslag uploaden
+  ba-videorecorder.pick-covershot-frame: Selecteer een frame om als covershot te gebruiken.
+  ba-videorecorder.screen-recorder-is-not-supported: Schermrecorder wordt niet ondersteund op dit apparaat
+  ba-videorecorder.trim-prompt: Wil je je video inkorten?
+  ba-videorecorder.trim-video: Verplaats de begin- en eindmarkeringen om je video bij te snijden
+  ba-videorecorder.wait-for-trim: Wachten op trimcommando...
+  ba-videorecorder-controlbar.no-video-source: Ontbrekende extra video-invoerbron
+  ba-videorecorder-controlbar.stream-already-selected: Extra stream is al geselecteerd
+  ba-videorecorder.uploading-src-error: Kan de video nu niet afspelen, het uploaden is nog bezig
+  ba-audiorecorder-controlbar.pause-recorder: Recorder pauzeren
+  ba-audiorecorder-controlbar.resume-recorder: Recorder hervatten
+  ba-circle-progress.fullscreen-video: Voer volledig scherm in
+  ba-ads-choices-link.ad-choices: Advertentiekeuzes
+  ba-ads-controlbar.skip-ad: Advertentie overslaan
+  ba-ads-controlbar.play-ad: Toneelstuk
+  ba-ads-controlbar.pause-video: Pauze
+  ba-ads-controlbar.volume-mute: Geluid dempen
+  ba-ads-controlbar.volume-button: Volume instellen
+  ba-ads-controlbar.elapsed-time: Verstreken tijd
+  ba-ads-controlbar.volume-unmute: Schakel het geluid uit
+  ba-ads-controlbar.can-skip-after: Overslaan na %d
+  ba-ads-controlbar.fullscreen-video: Voer volledig scherm in
+  ba-ads-controlbar.exit-fullscreen-video: Verlaat volledig scherm
+  ba-ads-controlbar.ad-will-end-after: Advertentie eindigt na %s
+  ba-ads-controlbar.pause-video-disabled: Pauze wordt niet ondersteund
+  ba-adsplayer.replay-ad: Video opnieuw afspelen
+  ba-adsplayer.close-ad: Dichtbij
+  ba-adsplayer.ad-choices: Advertentiekeuzes
+  ba-adsplayer.learn-more: Kom meer te weten
+  ba-ads-learn-more-button.learn-more: Kom meer te weten
+  ba-videoplayer-sidebar.up-next: Volgende
+  ba-videoplayer-sidebar.continue-on-ads-end: De inhoud wordt na deze advertentie hervat.
+  ba-videoplayer-tooltip.tooltip: Tooltip
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Houd de muis ingedrukt om het sluiten van de tooltip te onderbreken
+  ba-videorecorder.supported-mode: De mediaresolutie moet in de modus '%s' staan.
+  ba-videorecorder.re-choose-action: Klik om een ander invoerapparaat te kiezen of probeer het opnieuw.
+  ba-audiorecorder.uploading-src-error: Kan nu geen audio afspelen. Het uploaden is nog bezig
+  ba-audiorecorder.missing-track: Vereiste audiotrack ontbreekt
+  ba-audiorecorder.device-already-in-use: Ten minste één van uw invoerapparaten is al in gebruik
+  ba-audiorecorder.browser-permission-denied: >-
+    Toestemming geweigerd door browser. Verleen toegang en laad de pagina
+    opnieuw
+  ba-local-view.local-camera-connection-error: >-
+    Er is een fout opgetreden bij het verbinden met de lokale camera. Klik om
+    het opnieuw te proberen.
+  ba-call-controlbar.camera-button: Camera tonen/verbergen
+  ba-call-controlbar.leave-button: Verlaat oproep
+  ba-call-controlbar.mute-button: Dempen/dempen opheffen
+  ba-call-lobby.camera-button: Camera
+  ba-call-lobby.description-create: >-
+    Als u klaar bent, klikt u op de onderstaande knop om een gesprek aan te
+    maken.
+  ba-call-lobby.description-join: >-
+    Als u klaar bent, klikt u op de onderstaande knop om deel te nemen aan het
+    gesprek.
+  ba-call-lobby.join-button: Meedoen
+  ba-call-lobby.create-button: Creëren
+  ba-call-lobby.mute-button: Stom
+  ba-call-lobby.title-create: Oproep maken
+  ba-call-lobby.title-join: Doe mee met bellen
+  ba-video-call.call-ended: Oproep beëindigd
+  ba-video-call.connecting: Verbinden...
+  ba-video-call.connection-error: >-
+    Er is een fout opgetreden tijdens het verbinden. Klik om het opnieuw te
+    proberen.
+  ba-videoplayer-next.stay: Verblijf
+  ba-videoplayer-next.next: Volgende
+  ba-videorecorder-trimmer.trim: Trimmen
+  ba-videorecorder-trimmer.skip: Overslaan

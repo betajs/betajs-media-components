@@ -1,193 +1,244 @@
-ba-audiorecorder.upload-error-duration: アップロードされたオーディオの長さが要件を満たしていません-再試行するには、ここをクリックしてください。
-ba-common-settingsmenu.tooltip: クリックして再生します。
-ba-common-settingsmenu.setting-menu: すべての設定
-ba-videorecorder-controlbar.settings: 設定
-ba-imagecapture.access-forbidden: メディアへのアクセスは禁止されていました。クリックして再試行します。
-ba-videorecorder.video_file_too_large: ビデオファイルが大きすぎます(%s)-ここをクリックして、小さいビデオファイルで再試行してください。
-ba-videoplayer-controlbar.settings: 設定
-ba-videorecorder-controlbar.add-stream: ストリームを追加
-ba-imageviewer-controlbar.fullscreen-image: 全画面表示にする
-ba-imagecapture.image_file_too_large: 画像ファイルが大きすぎます（%s）-ここをクリックして、小さい画像ファイルで再試行してください。
-ba-imagecapture.orientation-landscape-required: 横向きモードで記録するには、デバイスを回転させてください。
-ba-videoplayer-controlbar.pause-video-disabled: 一時停止はサポートされていません
-ba-videorecorder-controlbar.camerahealthy: 照明は良好です
-ba-common-settingsmenu.submit-video: ビデオを確認する
-ba-videorecorder-controlbar.record-tooltip: 録画開始するにはここをクリックしてください。
-ba-common-settingsmenu.picture-in-picture: ピクチャーインピクチャー
-ba-videoplayer-playbutton.rerecord: 再録画
-ba-videoplayer-tracks.select-text-track-language: 字幕言語
-ba-videoplayer-adslot.can-skip-after: (%d)の後にスキップ
-ba-audiorecorder.cancel-confirm: 本当にオーディオのアップロードをキャンセルしますか？
-ba-audiorecorder.software-waiting: 要件がインストール/アクティブ化されるのを待っています。完了後にページを更新する必要がある場合があります。
-ba-videoplayer-tracks.info-select-locale-first: 最初にロケールを選択します
-ba-videoplayer-loader.tooltip: 読み込んでいます...
-ba-audiorecorder-controlbar.cancel-tooltip: キャンセルするには、ここをクリックしてください。
-ba-imagecapture.verifying-failed: 確認に失敗しました-ここをクリックして再試行してください。
-ba-videoplayer-playbutton.skip: スキップ
-ba-videoplayer-controlbar.trim-video: トリム
-ba-videorecorder.missing-track: 必要なオーディオまたはビデオトラックがありません
-ba-imagecapture.uploading-failed: アップロードに失敗しました-ここをクリックして再試行してください。
-ba-videoplayer-adslot.volume-button: ボリュームを設定する
-ba-imagecapture-chooser.image-capture: 画像をキャプチャする
-ba-videorecorder.trim-prompt: ビデオをトリミングしますか？
-ba-videorecorder.software-waiting: 要件がインストール/アクティブ化されるのを待っています。完了後にページを更新する必要がある場合があります。
-ba-audioplayer-controlbar.play-audio: 演奏する
-ba-videorecorder-controlbar.resume-recorder: レジュメレコーダー
-ba-videorecorder-controlbar.rerecord: 再録画
-ba-audiorecorder.verifying: 確認中
-ba-videoplayer-playbutton.tooltip: クリックして再生します。
-ba-videorecorder.trim-video: 開始マーカーと終了マーカーを移動して、ビデオをトリミングします
-ba-videoplayer-controlbar.player-speed: 再生速度
-ba-videorecorder-controlbar.microphonehealthy: 音声は良好です
-ba-videorecorder-chooser.multi-stream: マルチストリーム
-ba-imagecapture.recorder-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
-ba-videorecorder-controlbar.stop-tooltip: 停止するには、ここをクリックしてください。
-ba-imagecapture-controlbar.rerecord-tooltip: やり直すには、ここをクリックしてください。
-ba-videoplayer-controlbar.video-progress: 進捗
-ba-videorecorder-controlbar.cameraunhealthy: 照明が最適ではありません
-ba-audioplayer-controlbar.pause-audio: 一時停止
-ba-videorecorder-controlbar.stop: 停止
-ba-imagecapture-chooser.upload-image: 画像をアップロード
-ba-videorecorder-imagegallery.upload-covershot: カバーをアップロード
-ba-audiorecorder-controlbar.resume-recorder: レジュメレコーダー
-ba-videoplayer.video-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
-ba-videorecorder.attach-error: メディアインターフェイスにアクセスできませんでした。デバイスとブラウザによっては、Flashをインストールするか、SSL経由でページにアクセスする必要がある場合があります。
-ba-audiorecorder-controlbar.pause-recorder: レコーダーの一時停止
-ba-audiorecorder-controlbar.stop-available-after: 最短でも%d秒は録音が必要です
-ba-videoplayer-controlbar.change-resolution: 解像度を変更する
-ba-audiorecorder.software-required: 続行するには、以下をクリックして次の要件をインストール/アクティブ化してください。
-ba-videoplayer-controlbar.exit-fullscreen-video: 全画面表示を終了
-ba-imageviewer-controlbar.rerecord-image: やり直し？
-ba-videoplayer-adslot.ad-will-end-after: 広告は%s後に終了します
-ba-imagecapture.rerecord-confirm: 本当に自分の画像を撮り直したいですか？
-ba-audioplayer-controlbar.elapsed-time: 経過時間
-ba-audioplayer-controlbar.rerecord-audio: やり直し？
-ba-imageviewer-controlbar.exit-fullscreen-image: 全画面表示を終了
-ba-videorecorder.verifying-failed: 検証に失敗しました-ここをクリックして再試行してください。
-ba-videorecorder-controlbar.upload-covershot-tooltip: カスタムカバーショットをアップロードするには、ここをクリックしてください
-ba-common-settingsmenu.set-menu-option: オプションを設定
-ba-videorecorder.framerate-warning: ビデオのフレームレートは非常に低いです。他のすべてのプログラムとブラウザタブを閉じるか、より高速なコンピュータを使用することをお勧めします。
-ba-videorecorder.switch-camera: カメラを切り替える
-ba-audioplayer-controlbar.volume-button: ボリュームを設定する
-ba-videorecorder-chooser.upload-video: 動画アップロード
-ba-audiorecorder.verifying-failed: 確認に失敗しました-ここをクリックして再試行してください。
-ba-videorecorder-controlbar.stream-already-selected: 追加のストリームはすでに選択されています
-ba-videorecorder.upload-error-duration: アップロードされたビデオの長さが要件を満たしていません-再試行するには、ここをクリックしてください。
-ba-common-settingsmenu.player-speed: 再生速度
-ba-audiorecorder-controlbar.settings: 設定
-ba-videoplayer-controlbar.play-video: 再生する
-ba-videoplayer-controlbar.rerecord-video: 再録画？
-ba-videorecorder.recorder-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
-ba-videorecorder.prepare-covershot: カバーショットの準備
-ba-videorecorder.verifying: 検証中
-ba-videorecorder.unsupported_video_type: アップロードしてください：%s -ここをクリックして再試行してください。
-ba-videoplayer-playbutton.submit-video: ビデオを確認する
-ba-audioplayer-controlbar.total-time: の全長
-ba-videorecorder.prepare-thumbnails: サムネイルを探す準備
-ba-videoplayer-controlbar.airplay: Airplay
-ba-videorecorder.access-forbidden: メディアへのアクセスができません。クリックして再試行します。
-ba-videoplayer-adslot.volume-mute: ミュート
-ba-imageviewer.image-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
-ba-videorecorder.resolution-constraint-error: 選択したファイルが必要な解像度と一致しません-ここをクリックして再試行してください。
-ba-videorecorder-controlbar.pause-recorder: レコーダーの一時停止
-ba-imagecapture-controlbar.cameraunhealthy: 照明が最適ではありません
-ba-common-settingsmenu.source-quality: ソース品質
-ba-imagecapture.orientation-portrait-required: ポートレートモードで記録するには、デバイスを回転させてください。
-ba-audiorecorder-chooser.record-audio: レコードオーディオ
-ba-videoplayer-controlbar.volume-mute: ミュート
-ba-videorecorder.pick-covershot: カバーショットを選んでください。
-ba-audiorecorder-controlbar.microphoneunhealthy: 音声を認識できません
-ba-videorecorder-controlbar.no-video-source: 追加のビデオ入力ソースがありません
-ba-audiorecorder.access-forbidden: メディアへのアクセスは禁止されていました。クリックして再試行します。
-ba-imagecapture-controlbar.rerecord: やり直し
-ba-audiorecorder.recorder-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
-ba-videoplayer-tracks.select-text-track-file: クリックしてファイルを選択
-ba-videorecorder-controlbar.skip: スキップ
-ba-imagecapture.software-required: 続行するには、以下をクリックして次の要件をインストール/アクティブ化してください。
-ba-videorecorder.uploading-src-error: 現在動画を再生できません。アップロードはまだ進行中です
-ba-videoplayer-controlbar.volume-button: ボリュームを設定する
-ba-imagecapture.attach-error: メディアインターフェイスにアクセスできませんでした。デバイスとブラウザによっては、Flashをインストールするか、SSL経由でページにアクセスする必要がある場合があります。
-ba-audiorecorder.uploading: アップロード
-ba-audiorecorder.unsupported_audio_type: アップロードしてください：%s-ここをクリックして再試行してください。
-ba-imagecapture-controlbar.settings: 設定
-ba-videorecorder.adding-new-stream: 新しいストリームの追加
-ba-imagecapture.uploading: アップロード
-ba-videorecorder.wait-for-trim: トリムコマンドを待っています...
-ba-imagecapture-controlbar.cancel: キャンセル
-ba-videorecorder-controlbar.cancel-tooltip: キャンセルするには、ここをクリックしてください。
-ba-audioplayer.audio-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
-ba-videoplayer-controlbar.show-tracks: CCを表示
-ba-videoplayer.full-screen: 全画面表示
-ba-videorecorder.cancel-confirm: ビデオのアップロードを本当にキャンセルしますか？
-ba-videorecorder-controlbar.cancel: キャンセル
-ba-ads-controlbar.ad-will-end-after: ''
-ba-audiorecorder-controlbar.rerecord: やり直し
-ba-audiorecorder.rerecord-confirm: 本当にオーディオをやり直したいですか？
-ba-videoplayer-controlbar.elapsed-time: 経過時間
-ba-videorecorder-controlbar.stop-available-after: 最短でも%d秒は録画が必要です
-ba-audioplayer.all-settings: すべての設定
-ba-imagecapture-controlbar.camerahealthy: 照明は良好です
-ba-imagecapture-controlbar.record: キャプチャー
-ba-audiorecorder-controlbar.record-tooltip: 録音するにはここをクリックしてください。
-ba-audioplayer-controlbar.submit-audio: 確認
-ba-videoplayer-adslot.skip-ad: 広告をスキップ
-ba-videorecorder-chooser.record-audio: レコードオーディオ
-ba-audiorecorder.audio_file_too_large: オーディオファイルが大きすぎます（%s）-ここをクリックして、小さいオーディオファイルで再試行してください。
-ba-videorecorder.browser-permission-denied: ブラウザによって拒否されました。アクセスを許可してページをリロードしてください
-ba-videoplayer-controlbar.pause-video: 一時停止
-ba-videoplayer-adslot.volume-unmute: ミュート解除
-ba-videoplayer-controlbar.submit-video: 確認
-ba-videoplayer-share.share: メディアを共有する
-ba-audioplayer-loader.tooltip: 読み込んでいます...
-ba-imagecapture.unsupported_image_type: アップロードしてください：%s-ここをクリックして再試行してください。
-ba-videorecorder.uploading: アップロード
-ba-audiorecorder-controlbar.microphonehealthy: 音声は良好です
-ba-audiorecorder-controlbar.rerecord-tooltip: やり直すには、ここをクリックしてください。
-ba-videorecorder-chooser.record-screen: 画面録画
-ba-videoplayer.all-settings: すべての設定
-ba-videoplayer-controlbar.select-frame: 選択する
-ba-imagecapture.resolution-constraint-error: 選択したファイルが必要な解像度と一致しません-ここをクリックして再試行してください。
-ba-audiorecorder-controlbar.stop-tooltip: 停止するには、ここをクリックしてください。
-ba-videorecorder-controlbar.microphoneunhealthy: 音声を認識できません
-ba-audiorecorder-controlbar.stop: 停止
-ba-videorecorder.rerecord-confirm: 本当に再録画しますか？
-ba-videoplayer-controlbar.close-tracks: CCを閉じる
-ba-videorecorder-controlbar.upload-covershot: カバーをアップロード
-ba-videorecorder.orientation-landscape-required: 横向きモードで記録するには、デバイスを回転させてください。
-ba-imagecapture.verifying: 確認中
-ba-imageviewer-controlbar.submit-image: 確認
-ba-imagecapture-controlbar.cancel-tooltip: キャンセルするには、ここをクリックしてください。
-ba-imagecapture.software-waiting: 要件がインストール/アクティブ化されるのを待っています。完了後にページを更新する必要がある場合があります。
-ba-common-settingsmenu.exit-fullscreen-video: 全画面表示を終了
-ba-videorecorder.uploading-failed: アップロードに失敗しました-ここをクリックして再試行してください。
-ba-videoplayer-playbutton.trim: トリム
-ba-audioplayer-controlbar.volume-unmute: ミュート解除
-ba-audiorecorder-controlbar.record: 録音
-ba-videorecorder.software-required: 続行するには、以下をクリックして次の要件をインストール/アクティブ化してください。
-ba-videoplayer-tracks.upload-text-tracks: トラックテキストファイルをアップロードする
-ba-videorecorder-controlbar.skip-tooltip: スキップするには、ここをクリックしてください。
-ba-videoplayer-adslot.elapsed-time: 経過時間
-ba-videoplayer-controlbar.remaining-time: 残り時間
-ba-imagecapture-controlbar.record-tooltip: キャプチャするには、ここをクリックしてください。
-ba-videorecorder.device-already-in-use: 入力デバイスの少なくとも1つがすでに使用されています
-ba-audioplayer-controlbar.volume-mute: ミュート
-ba-audiorecorder-chooser.upload-audio: オーディオのアップロード
-ba-imagecapture.upload-error-duration: アップロードされた画像の長さが要件を満たしていません-再試行するには、ここをクリックしてください。
-ba-audiorecorder.attach-error: メディアインターフェイスにアクセスできませんでした。デバイスとブラウザによっては、Flashをインストールするか、SSL経由でページにアクセスする必要がある場合があります。
-ba-audiorecorder-controlbar.cancel: キャンセル
-ba-videoplayer-controlbar.airplay-icon: Airplayアイコン。
-ba-videoplayer.player-speed: 再生速度
-ba-videoplayer-controlbar.fullscreen-video: 全画面表示にする
-ba-audiorecorder.uploading-failed: アップロードに失敗しました-ここをクリックして再試行してください。
-ba-videorecorder-chooser.record-video: 録画
-ba-videorecorder.screen-recorder-is-not-supported: スクリーンレコーダーはこのデバイスではサポートされていません
-ba-videoplayer-tracks.back: バック
-ba-videorecorder.pick-covershot-frame: カバーショットとして使用するフレームを選択します。
-ba-audioplayer-controlbar.audio-progress: 進捗
-ba-audioplayer-controlbar.pause-audio-disabled: 一時停止はサポートされていません
-ba-videoplayer-controlbar.total-time: 合計時間
-ba-videorecorder-controlbar.rerecord-tooltip: 再録画するには、ここをクリックしてください。
-ba-videorecorder.orientation-portrait-required: ポートレートモードで記録するには、デバイスを回転させてください。
-ba-common-settingsmenu.fullscreen-video: 全画面表示にする
-ba-videoplayer-controlbar.volume-unmute: ミュート解除
-ba-videorecorder-controlbar.record: 録画開始
+language:ja:
+  ba-videoplayer-playbutton.tooltip: クリックして再生します。
+  ba-videoplayer-playbutton.rerecord: 再録画
+  ba-videoplayer-playbutton.submit-video: ビデオを確認する
+  ba-videoplayer-loader.tooltip: 読み込んでいます...
+  ba-videoplayer-controlbar.change-resolution: 解像度を変更する
+  ba-videoplayer-controlbar.video-progress: 進捗
+  ba-videoplayer-controlbar.rerecord-video: 再録画？
+  ba-videoplayer-controlbar.submit-video: 確認
+  ba-videoplayer-controlbar.play-video: 再生する
+  ba-videoplayer-controlbar.pause-video: 一時停止
+  ba-videoplayer-controlbar.elapsed-time: 経過時間
+  ba-videoplayer-controlbar.total-time: 合計時間
+  ba-videoplayer-controlbar.fullscreen-video: 全画面表示にする
+  ba-videoplayer-controlbar.volume-button: ボリュームを設定する
+  ba-videoplayer-controlbar.volume-mute: ミュート
+  ba-videoplayer-controlbar.volume-unmute: ミュート解除
+  ba-videoplayer.video-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
+  ba-videorecorder-chooser.record-video: 録画
+  ba-videorecorder-chooser.upload-video: 動画アップロード
+  ba-videorecorder-controlbar.settings: 設定
+  ba-videorecorder-controlbar.camerahealthy: 照明は良好です
+  ba-videorecorder-controlbar.cameraunhealthy: 照明が最適ではありません
+  ba-videorecorder-controlbar.microphonehealthy: 音声は良好です
+  ba-videorecorder-controlbar.microphoneunhealthy: 音声を認識できません
+  ba-videorecorder-controlbar.record: 録画開始
+  ba-videorecorder-controlbar.record-tooltip: 録画開始するにはここをクリックしてください。
+  ba-videorecorder-controlbar.rerecord: 再録画
+  ba-videorecorder-controlbar.rerecord-tooltip: 再録画するには、ここをクリックしてください。
+  ba-videorecorder-controlbar.upload-covershot: カバーをアップロード
+  ba-videorecorder-controlbar.upload-covershot-tooltip: カスタムカバーショットをアップロードするには、ここをクリックしてください
+  ba-videorecorder-controlbar.stop: 停止
+  ba-videorecorder-controlbar.stop-tooltip: 停止するには、ここをクリックしてください。
+  ba-videorecorder-controlbar.skip: スキップ
+  ba-videorecorder-controlbar.skip-tooltip: スキップするには、ここをクリックしてください。
+  ba-videorecorder.recorder-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
+  ba-videorecorder.attach-error: >-
+    メディアインターフェイスにアクセスできませんでした。デバイスとブラウザによっては、Flashをインストールするか、SSL経由でページにアクセスする必要がある場合があります。
+  ba-videorecorder.access-forbidden: メディアへのアクセスができません。クリックして再試行します。
+  ba-videorecorder.pick-covershot: カバーショットを選んでください。
+  ba-videorecorder.uploading: アップロード
+  ba-videorecorder.uploading-failed: アップロードに失敗しました-ここをクリックして再試行してください。
+  ba-videorecorder.verifying: 検証中
+  ba-videorecorder.verifying-failed: 検証に失敗しました-ここをクリックして再試行してください。
+  ba-videorecorder.rerecord-confirm: 本当に再録画しますか？
+  ba-videorecorder.video_file_too_large: ビデオファイルが大きすぎます(%s)-ここをクリックして、小さいビデオファイルで再試行してください。
+  ba-videorecorder.unsupported_video_type: アップロードしてください：%s -ここをクリックして再試行してください。
+  ba-videoplayer-controlbar.exit-fullscreen-video: 全画面表示を終了
+  ba-videoplayer-share.share: メディアを共有する
+  ba-videorecorder-chooser.record-screen: 画面録画
+  ba-videoplayer-controlbar.pause-video-disabled: 一時停止はサポートされていません
+  ba-videorecorder-chooser.record-audio: レコードオーディオ
+  ba-videorecorder-controlbar.stop-available-after: 最短でも%d秒は録画が必要です
+  ba-videorecorder-controlbar.cancel: キャンセル
+  ba-videorecorder-controlbar.cancel-tooltip: キャンセルするには、ここをクリックしてください。
+  ba-videorecorder.cancel-confirm: ビデオのアップロードを本当にキャンセルしますか？
+  ba-videoplayer-adslot.elapsed-time: 経過時間
+  ba-videoplayer-adslot.volume-button: ボリュームを設定する
+  ba-videoplayer-adslot.volume-mute: ミュート
+  ba-videoplayer-adslot.volume-unmute: ミュート解除
+  ba-videoplayer-adslot.ad-will-end-after: 広告は%s後に終了します
+  ba-videoplayer-adslot.can-skip-after: (%d)の後にスキップ
+  ba-videoplayer-adslot.skip-ad: 広告をスキップ
+  ba-videorecorder.software-required: 続行するには、以下をクリックして次の要件をインストール/アクティブ化してください。
+  ba-videorecorder.software-waiting: 要件がインストール/アクティブ化されるのを待っています。完了後にページを更新する必要がある場合があります。
+  ba-videoplayer-controlbar.close-tracks: CCを閉じる
+  ba-videoplayer-controlbar.show-tracks: CCを表示
+  ba-videoplayer-tracks.upload-text-tracks: トラックテキストファイルをアップロードする
+  ba-videoplayer-tracks.select-text-track-language: 字幕言語
+  ba-videoplayer-tracks.info-select-locale-first: 最初にロケールを選択します
+  ba-videoplayer-tracks.select-text-track-file: クリックしてファイルを選択
+  ba-videoplayer-tracks.back: バック
+  ba-videorecorder.framerate-warning: ビデオのフレームレートは非常に低いです。他のすべてのプログラムとブラウザタブを閉じるか、より高速なコンピュータを使用することをお勧めします。
+  ba-videorecorder.upload-error-duration: アップロードされたビデオの長さが要件を満たしていません-再試行するには、ここをクリックしてください。
+  ba-videorecorder.resolution-constraint-error: 選択したファイルが必要な解像度と一致しません-ここをクリックして再試行してください。
+  ba-videorecorder.orientation-portrait-required: ポートレートモードで記録するには、デバイスを回転させてください。
+  ba-videorecorder.orientation-landscape-required: 横向きモードで記録するには、デバイスを回転させてください。
+  ba-imageviewer-controlbar.rerecord-image: やり直し？
+  ba-imageviewer-controlbar.submit-image: 確認
+  ba-imageviewer-controlbar.fullscreen-image: 全画面表示にする
+  ba-imageviewer-controlbar.exit-fullscreen-image: 全画面表示を終了
+  ba-imageviewer.image-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
+  ba-imagecapture-chooser.image-capture: 画像をキャプチャする
+  ba-imagecapture-chooser.upload-image: 画像をアップロード
+  ba-imagecapture-controlbar.settings: 設定
+  ba-imagecapture-controlbar.camerahealthy: 照明は良好です
+  ba-imagecapture-controlbar.cameraunhealthy: 照明が最適ではありません
+  ba-imagecapture-controlbar.record: キャプチャー
+  ba-imagecapture-controlbar.record-tooltip: キャプチャするには、ここをクリックしてください。
+  ba-imagecapture-controlbar.rerecord: やり直し
+  ba-imagecapture-controlbar.rerecord-tooltip: やり直すには、ここをクリックしてください。
+  ba-imagecapture-controlbar.cancel: キャンセル
+  ba-imagecapture-controlbar.cancel-tooltip: キャンセルするには、ここをクリックしてください。
+  ba-audioplayer-controlbar.audio-progress: 進捗
+  ba-audioplayer-controlbar.rerecord-audio: やり直し？
+  ba-audioplayer-controlbar.submit-audio: 確認
+  ba-audioplayer-controlbar.play-audio: 演奏する
+  ba-audioplayer-controlbar.pause-audio: 一時停止
+  ba-audioplayer-controlbar.pause-audio-disabled: 一時停止はサポートされていません
+  ba-audioplayer-controlbar.elapsed-time: 経過時間
+  ba-audioplayer-controlbar.total-time: の全長
+  ba-audioplayer-controlbar.volume-button: ボリュームを設定する
+  ba-audioplayer-controlbar.volume-mute: ミュート
+  ba-audioplayer-controlbar.volume-unmute: ミュート解除
+  ba-audioplayer-loader.tooltip: 読み込んでいます...
+  ba-audioplayer.audio-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
+  ba-audiorecorder-chooser.record-audio: レコードオーディオ
+  ba-audiorecorder-chooser.upload-audio: オーディオのアップロード
+  ba-audiorecorder-controlbar.settings: 設定
+  ba-audiorecorder-controlbar.microphonehealthy: 音声は良好です
+  ba-audiorecorder-controlbar.microphoneunhealthy: 音声を認識できません
+  ba-audiorecorder-controlbar.record: 録音
+  ba-audiorecorder-controlbar.record-tooltip: 録音するにはここをクリックしてください。
+  ba-audiorecorder-controlbar.rerecord: やり直し
+  ba-audiorecorder-controlbar.rerecord-tooltip: やり直すには、ここをクリックしてください。
+  ba-audiorecorder-controlbar.stop: 停止
+  ba-audiorecorder-controlbar.stop-tooltip: 停止するには、ここをクリックしてください。
+  ba-audiorecorder-controlbar.stop-available-after: 最短でも%d秒は録音が必要です
+  ba-audiorecorder-controlbar.cancel: キャンセル
+  ba-audiorecorder-controlbar.cancel-tooltip: キャンセルするには、ここをクリックしてください。
+  ba-videoplayer-controlbar.player-speed: 再生速度
+  ba-videoplayer-controlbar.settings: 設定
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplayアイコン。
+  ba-videoplayer.all-settings: すべての設定
+  ba-videoplayer.player-speed: 再生速度
+  ba-videoplayer.full-screen: 全画面表示
+  ba-videorecorder-controlbar.add-stream: ストリームを追加
+  ba-videorecorder.switch-camera: カメラを切り替える
+  ba-videorecorder.prepare-covershot: カバーショットの準備
+  ba-videorecorder.prepare-thumbnails: サムネイルを探す準備
+  ba-videorecorder.adding-new-stream: 新しいストリームの追加
+  ba-imagecapture.recorder-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
+  ba-imagecapture.attach-error: >-
+    メディアインターフェイスにアクセスできませんでした。デバイスとブラウザによっては、Flashをインストールするか、SSL経由でページにアクセスする必要がある場合があります。
+  ba-imagecapture.software-required: 続行するには、以下をクリックして次の要件をインストール/アクティブ化してください。
+  ba-imagecapture.software-waiting: 要件がインストール/アクティブ化されるのを待っています。完了後にページを更新する必要がある場合があります。
+  ba-imagecapture.access-forbidden: メディアへのアクセスは禁止されていました。クリックして再試行します。
+  ba-imagecapture.uploading: アップロード
+  ba-imagecapture.uploading-failed: アップロードに失敗しました-ここをクリックして再試行してください。
+  ba-imagecapture.upload-error-duration: アップロードされた画像の長さが要件を満たしていません-再試行するには、ここをクリックしてください。
+  ba-imagecapture.resolution-constraint-error: 選択したファイルが必要な解像度と一致しません-ここをクリックして再試行してください。
+  ba-imagecapture.verifying: 確認中
+  ba-imagecapture.verifying-failed: 確認に失敗しました-ここをクリックして再試行してください。
+  ba-imagecapture.rerecord-confirm: 本当に自分の画像を撮り直したいですか？
+  ba-imagecapture.image_file_too_large: 画像ファイルが大きすぎます（%s）-ここをクリックして、小さい画像ファイルで再試行してください。
+  ba-imagecapture.unsupported_image_type: アップロードしてください：%s-ここをクリックして再試行してください。
+  ba-imagecapture.orientation-portrait-required: ポートレートモードで記録するには、デバイスを回転させてください。
+  ba-imagecapture.orientation-landscape-required: 横向きモードで記録するには、デバイスを回転させてください。
+  ba-audiorecorder.recorder-error: エラーが発生しました。しばらくしてからもう一度お試しください。クリックして再試行します。
+  ba-audiorecorder.attach-error: >-
+    メディアインターフェイスにアクセスできませんでした。デバイスとブラウザによっては、Flashをインストールするか、SSL経由でページにアクセスする必要がある場合があります。
+  ba-audiorecorder.software-required: 続行するには、以下をクリックして次の要件をインストール/アクティブ化してください。
+  ba-audiorecorder.software-waiting: 要件がインストール/アクティブ化されるのを待っています。完了後にページを更新する必要がある場合があります。
+  ba-audiorecorder.access-forbidden: メディアへのアクセスは禁止されていました。クリックして再試行します。
+  ba-audiorecorder.uploading: アップロード
+  ba-audiorecorder.uploading-failed: アップロードに失敗しました-ここをクリックして再試行してください。
+  ba-audiorecorder.upload-error-duration: アップロードされたオーディオの長さが要件を満たしていません-再試行するには、ここをクリックしてください。
+  ba-audiorecorder.verifying: 確認中
+  ba-audiorecorder.verifying-failed: 確認に失敗しました-ここをクリックして再試行してください。
+  ba-audiorecorder.rerecord-confirm: 本当にオーディオをやり直したいですか？
+  ba-audiorecorder.cancel-confirm: 本当にオーディオのアップロードをキャンセルしますか？
+  ba-audiorecorder.audio_file_too_large: オーディオファイルが大きすぎます（%s）-ここをクリックして、小さいオーディオファイルで再試行してください。
+  ba-audiorecorder.unsupported_audio_type: アップロードしてください：%s-ここをクリックして再試行してください。
+  ba-common-settingsmenu.tooltip: クリックして再生します。
+  ba-common-settingsmenu.setting-menu: すべての設定
+  ba-common-settingsmenu.source-quality: ソース品質
+  ba-common-settingsmenu.player-speed: 再生速度
+  ba-common-settingsmenu.set-menu-option: オプションを設定
+  ba-common-settingsmenu.submit-video: ビデオを確認する
+  ba-common-settingsmenu.picture-in-picture: ピクチャーインピクチャー
+  ba-common-settingsmenu.exit-fullscreen-video: 全画面表示を終了
+  ba-common-settingsmenu.fullscreen-video: 全画面表示にする
+  ba-videorecorder-chooser.multi-stream: マルチストリーム
+  ba-videorecorder-controlbar.pause-recorder: レコーダーの一時停止
+  ba-videorecorder-controlbar.resume-recorder: レジュメレコーダー
+  ba-videorecorder.missing-track: 必要なオーディオまたはビデオトラックがありません
+  ba-videorecorder.device-already-in-use: 入力デバイスの少なくとも1つがすでに使用されています
+  ba-videorecorder.browser-permission-denied: ブラウザによって拒否されました。アクセスを許可してページをリロードしてください
+  ba-audioplayer.all-settings: すべての設定
+  ba-videoplayer-controlbar.remaining-time: 残り時間
+  ba-videoplayer-controlbar.select-frame: 選択する
+  ba-videoplayer-controlbar.trim-video: トリム
+  ba-videoplayer-playbutton.trim: トリム
+  ba-videoplayer-playbutton.skip: スキップ
+  ba-videorecorder-imagegallery.upload-covershot: カバーをアップロード
+  ba-videorecorder.pick-covershot-frame: カバーショットとして使用するフレームを選択します。
+  ba-videorecorder.screen-recorder-is-not-supported: スクリーンレコーダーはこのデバイスではサポートされていません
+  ba-videorecorder.trim-prompt: ビデオをトリミングしますか？
+  ba-videorecorder.trim-video: 開始マーカーと終了マーカーを移動して、ビデオをトリミングします
+  ba-videorecorder.wait-for-trim: トリムコマンドを待っています...
+  ba-videorecorder-controlbar.no-video-source: 追加のビデオ入力ソースがありません
+  ba-videorecorder-controlbar.stream-already-selected: 追加のストリームはすでに選択されています
+  ba-videorecorder.uploading-src-error: 現在動画を再生できません。アップロードはまだ進行中です
+  ba-audiorecorder-controlbar.pause-recorder: レコーダーの一時停止
+  ba-audiorecorder-controlbar.resume-recorder: レジュメレコーダー
+  ba-circle-progress.fullscreen-video: 全画面表示
+  ba-ads-choices-link.ad-choices: 広告の選択
+  ba-ads-controlbar.skip-ad: 広告をスキップ
+  ba-ads-controlbar.play-ad: 遊ぶ
+  ba-ads-controlbar.pause-video: 一時停止
+  ba-ads-controlbar.volume-mute: 音をミュートする
+  ba-ads-controlbar.volume-button: 音量を設定する
+  ba-ads-controlbar.elapsed-time: 経過時間
+  ba-ads-controlbar.volume-unmute: サウンドのミュートを解除
+  ba-ads-controlbar.can-skip-after: '%d 以降をスキップ'
+  ba-ads-controlbar.fullscreen-video: 全画面表示
+  ba-ads-controlbar.exit-fullscreen-video: 全画面表示を終了
+  ba-ads-controlbar.ad-will-end-after: 広告は %s 後に終了します
+  ba-ads-controlbar.pause-video-disabled: 一時停止はサポートされていません
+  ba-adsplayer.replay-ad: ビデオを再生
+  ba-adsplayer.close-ad: 近い
+  ba-adsplayer.ad-choices: 広告の選択
+  ba-adsplayer.learn-more: もっと詳しく知る
+  ba-ads-learn-more-button.learn-more: もっと詳しく知る
+  ba-videoplayer-sidebar.up-next: 次に
+  ba-videoplayer-sidebar.continue-on-ads-end: この広告の後、コンテンツが再開されます。
+  ba-videoplayer-tooltip.tooltip: ツールチップ
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: マウスを長押しすると、ツールチップを閉じるのを一時停止します
+  ba-videorecorder.supported-mode: メディア解像度は '%s' モードである必要があります。
+  ba-videorecorder.re-choose-action: 別の入力デバイスを選択するか、アクションを再試行するにはクリックしてください。
+  ba-audiorecorder.uploading-src-error: 現在、オーディオを再生できません。アップロードが進行中です
+  ba-audiorecorder.missing-track: 必要なオーディオトラックがありません
+  ba-audiorecorder.device-already-in-use: 入力デバイスの少なくとも 1 つがすでに使用されています
+  ba-audiorecorder.browser-permission-denied: ブラウザによりアクセスが拒否されました。アクセスを許可してページを再読み込みしてください。
+  ba-local-view.local-camera-connection-error: ローカルカメラへの接続中にエラーが発生しました。クリックして再試行してください。
+  ba-call-controlbar.camera-button: カメラの表示/非表示
+  ba-call-controlbar.leave-button: 通話を終了
+  ba-call-controlbar.mute-button: ミュート/ミュート解除
+  ba-call-lobby.camera-button: カメラ
+  ba-call-lobby.description-create: 準備ができたら、下のボタンをクリックして通話を作成してください。
+  ba-call-lobby.description-join: 準備ができたら、下のボタンをクリックして通話に参加してください。
+  ba-call-lobby.join-button: 参加する
+  ba-call-lobby.create-button: 作成する
+  ba-call-lobby.mute-button: ミュート
+  ba-call-lobby.title-create: 通話の作成
+  ba-call-lobby.title-join: 通話に参加する
+  ba-video-call.call-ended: 通話終了
+  ba-video-call.connecting: 接続中...
+  ba-video-call.connection-error: 接続中にエラーが発生しました。クリックしてもう一度お試しください。
+  ba-videoplayer-next.stay: 滞在する
+  ba-videoplayer-next.next: 次
+  ba-videorecorder-trimmer.trim: トリム
+  ba-videorecorder-trimmer.skip: スキップ

@@ -1,241 +1,282 @@
-ba-audiorecorder.upload-error-duration: Panjang audio yang diunggah tidak memenuhi
-  persyaratan - klik di sini untuk mencoba lagi.
-ba-common-settingsmenu.tooltip: Klik untuk main.
-ba-common-settingsmenu.setting-menu: Semua pengaturan
-ba-videorecorder-controlbar.settings: Pengaturan
-ba-imagecapture.access-forbidden: Akses ke media dilarang. Klik untuk mencoba lagi.
-ba-videorecorder.video_file_too_large: File video Anda terlalu besar (%s) - klik di
-  sini untuk mencoba lagi dengan file video yang lebih kecil.
-ba-videoplayer-controlbar.settings: Pengaturan
-ba-videorecorder-controlbar.add-stream: Tambahkan Stream
-ba-imageviewer-controlbar.fullscreen-image: Memasuki layar penuh
-ba-imagecapture.image_file_too_large: File gambar Anda terlalu besar (%s) - klik di
-  sini untuk mencoba lagi dengan file gambar yang lebih kecil.
-ba-imagecapture.orientation-landscape-required: Harap putar perangkat Anda untuk merekam
-  dalam mode lansekap.
-ba-videoplayer-controlbar.pause-video-disabled: Jeda tidak didukung
-ba-videorecorder-controlbar.camerahealthy: Pencahayaan itu bagus
-ba-common-settingsmenu.submit-video: Konfirmasikan video
-ba-videorecorder-controlbar.record-tooltip: Klik di sini untuk merekam.
-ba-common-settingsmenu.picture-in-picture: Gambar di dalam gambar
-ba-videoplayer-playbutton.rerecord: Mengulangi
-ba-videoplayer-tracks.select-text-track-language: Bahasa Subtitle
-ba-videoplayer-adslot.can-skip-after: Lewati setelah %d
-ba-audiorecorder.cancel-confirm: Apakah Anda benar-benar ingin membatalkan upload
-  audio Anda?
-ba-audiorecorder.software-waiting: Menunggu persyaratan untuk diinstal / diaktifkan.
-  Anda mungkin perlu menyegarkan halaman setelah selesai.
-ba-videoplayer-tracks.info-select-locale-first: Pertama pilih lokal
-ba-videoplayer-loader.tooltip: Memuat video ...
-ba-audiorecorder-controlbar.cancel-tooltip: Klik di sini untuk membatalkan.
-ba-imagecapture.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
-ba-videoplayer-playbutton.skip: Melewatkan
-ba-videoplayer-controlbar.trim-video: Memangkas
-ba-videorecorder.missing-track: Trek audio atau video yang diperlukan tidak ada
-ba-imagecapture.uploading-failed: Gagal mengunggah - klik di sini untuk mencoba lagi.
-ba-videoplayer-adslot.volume-button: Setel volume
-ba-imagecapture-chooser.image-capture: Tangkap Gambar
-ba-videorecorder.trim-prompt: Apakah Anda ingin memangkas video Anda?
-ba-videorecorder.software-waiting: Menunggu persyaratan untuk dipasang / diaktifkan.
-  Anda mungkin perlu menyegarkan halaman setelah selesai.
-ba-audioplayer-controlbar.play-audio: Bermain
-ba-videorecorder-controlbar.resume-recorder: Lanjutkan Perekam
-ba-videorecorder-controlbar.rerecord: Mengulangi
-ba-audiorecorder.verifying: Memverifikasi
-ba-videoplayer-playbutton.tooltip: Klik untuk memutar video.
-ba-videorecorder.trim-video: Pindahkan penanda awal dan akhir untuk memangkas video
-  Anda
-ba-videoplayer-controlbar.player-speed: Kecepatan pemain
-ba-videorecorder-controlbar.microphonehealthy: Suara bagus
-ba-videorecorder-chooser.multi-stream: Multi Stream
-ba-imagecapture.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba
-  lagi.
-ba-videorecorder-controlbar.stop-tooltip: Klik di sini untuk berhenti.
-ba-imagecapture-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
-ba-videoplayer-controlbar.video-progress: Kemajuan video
-ba-videorecorder-controlbar.cameraunhealthy: Pencahayaan tidak optimal
-ba-audioplayer-controlbar.pause-audio: Berhenti sebentar
-ba-videorecorder-controlbar.stop: Berhenti
-ba-imagecapture-chooser.upload-image: Unggah Gambar
-ba-videorecorder-imagegallery.upload-covershot: Unggah Sampul
-ba-audiorecorder-controlbar.resume-recorder: Perekam Lanjutkan
-ba-videoplayer.video-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba
-  lagi.
-ba-videorecorder.attach-error: Kami tidak dapat mengakses antarmuka kamera. Bergantung
-  pada perangkat dan peramban, Anda mungkin perlu menginstal Flash atau mengakses
-  halaman melalui SSL.
-ba-audiorecorder-controlbar.pause-recorder: Jeda Perekam
-ba-audiorecorder-controlbar.stop-available-after: Waktu perekaman minimum adalah %d
-  detik
-ba-videoplayer-controlbar.change-resolution: Ubah resolusi
-ba-audiorecorder.software-required: Silakan klik di bawah ini untuk menginstal / mengaktifkan
-  persyaratan berikut untuk melanjutkan.
-ba-videoplayer-controlbar.exit-fullscreen-video: Keluar dari layar penuh
-ba-imageviewer-controlbar.rerecord-image: Mengulangi?
-ba-videoplayer-adslot.ad-will-end-after: Iklan akan berakhir setelah %s
-ba-imagecapture.rerecord-confirm: Apakah Anda benar-benar ingin mengambil kembali
-  gambar Anda?
-ba-audioplayer-controlbar.elapsed-time: Waktu berlalu
-ba-audioplayer-controlbar.rerecord-audio: Mengulangi?
-ba-imageviewer-controlbar.exit-fullscreen-image: Keluar dari layar penuh
-ba-videorecorder.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
-ba-videorecorder-controlbar.upload-covershot-tooltip: Klik di sini untuk mengunggah
-  tangkapan sampul khusus
-ba-common-settingsmenu.set-menu-option: Atur opsi
-ba-videorecorder.framerate-warning: Kecepatan bingkai video sangat rendah. Kami sarankan
-  untuk menutup semua program lain dan tab peramban atau menggunakan komputer yang
-  lebih cepat.
-ba-videorecorder.switch-camera: Ganti kamera
-ba-audioplayer-controlbar.volume-button: Setel volume
-ba-videorecorder-chooser.upload-video: Mengunggah Video
-ba-audiorecorder.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
-ba-videorecorder-controlbar.stream-already-selected: Aliran tambahan telah dipilih
-ba-videorecorder.upload-error-duration: Panjang video yang diunggah tidak memenuhi
-  persyaratan - klik di sini untuk mencoba lagi.
-ba-common-settingsmenu.player-speed: Kecepatan pemain
-ba-audiorecorder-controlbar.settings: Pengaturan
-ba-videoplayer-controlbar.play-video: Putar video
-ba-videoplayer-controlbar.rerecord-video: Rekam ulang?
-ba-videorecorder.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba
-  lagi.
-ba-videorecorder.prepare-covershot: Mempersiapkan tangkapan layar
-ba-videorecorder.verifying: Memverifikasi
-ba-videorecorder.unsupported_video_type: 'Silakan upload: %s - klik di sini untuk
-  mencoba lagi.'
-ba-videoplayer-playbutton.submit-video: Konfirmasi video
-ba-audioplayer-controlbar.total-time: Panjang total
-ba-videorecorder.prepare-thumbnails: Mempersiapkan gambar judul pencarian
-ba-videoplayer-controlbar.airplay: Diputar
-ba-videorecorder.access-forbidden: Akses ke kamera dilarang. Klik untuk mencoba lagi.
-ba-videoplayer-adslot.volume-mute: Bisu terdengar
-ba-imageviewer.image-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba
-  lagi.
-ba-videorecorder.resolution-constraint-error: File yang Anda pilih tidak sesuai dengan
-  resolusi yang diperlukan - klik di sini untuk mencoba lagi.
-ba-videorecorder-controlbar.pause-recorder: Jeda Perekam
-ba-imagecapture-controlbar.cameraunhealthy: Pencahayaan tidak optimal
-ba-common-settingsmenu.source-quality: Kualitas sumber
-ba-imagecapture.orientation-portrait-required: Harap putar perangkat Anda untuk merekam
-  dalam mode potret.
-ba-audiorecorder-chooser.record-audio: Suara rekaman
-ba-videoplayer-controlbar.volume-mute: Bisu terdengar
-ba-videorecorder.pick-covershot: Pilih sebuah gambar sampul.
-ba-audiorecorder-controlbar.microphoneunhealthy: Tidak dapat mengambil suara apa pun
-ba-videorecorder-controlbar.no-video-source: Tidak ada sumber input video tambahan
-ba-audiorecorder.access-forbidden: Akses ke media dilarang. Klik untuk mencoba lagi.
-ba-imagecapture-controlbar.rerecord: Mengulangi
-ba-audiorecorder.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba
-  lagi.
-ba-videoplayer-tracks.select-text-track-file: Klik untuk memilih file
-ba-videorecorder-controlbar.skip: Melewatkan
-ba-imagecapture.software-required: Silakan klik di bawah ini untuk menginstal / mengaktifkan
-  persyaratan berikut untuk melanjutkan.
-ba-videorecorder.uploading-src-error: Tidak dapat memutar video sekarang, pengunggahan
-  masih berlangsung
-ba-videoplayer-controlbar.volume-button: Setel volume
-ba-imagecapture.attach-error: Kami tidak dapat mengakses antarmuka media. Bergantung
-  pada perangkat dan peramban, Anda mungkin perlu menginstal Flash atau mengakses
-  halaman melalui SSL.
-ba-audiorecorder.uploading: Mengunggah
-ba-audiorecorder.unsupported_audio_type: 'Harap unggah: %s - klik di sini untuk mencoba
-  lagi.'
-ba-imagecapture-controlbar.settings: Pengaturan
-ba-videorecorder.adding-new-stream: Menambahkan Stream Baru
-ba-imagecapture.uploading: Mengunggah
-ba-videorecorder.wait-for-trim: Menunggu perintah pangkas...
-ba-imagecapture-controlbar.cancel: Membatalkan
-ba-videorecorder-controlbar.cancel-tooltip: Klik disini untuk membatalkan
-ba-audioplayer.audio-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba
-  lagi.
-ba-videoplayer-controlbar.show-tracks: Tampilkan CC
-ba-videoplayer.full-screen: Layar penuh
-ba-videorecorder.cancel-confirm: Apakah Anda benar-benar ingin membatalkan upload
-  video Anda?
-ba-videorecorder-controlbar.cancel: Membatalkan
-ba-ads-controlbar.ad-will-end-after: ''
-ba-audiorecorder-controlbar.rerecord: Mengulangi
-ba-audiorecorder.rerecord-confirm: Apakah Anda benar-benar ingin mengulang audio Anda?
-ba-videoplayer-controlbar.elapsed-time: Waktu berlalu
-ba-videorecorder-controlbar.stop-available-after: Waktu perekaman minimum adalah %d
-  detik
-ba-audioplayer.all-settings: Semua pengaturan
-ba-imagecapture-controlbar.camerahealthy: Pencahayaan bagus
-ba-imagecapture-controlbar.record: Menangkap
-ba-audiorecorder-controlbar.record-tooltip: Klik di sini untuk merekam.
-ba-audioplayer-controlbar.submit-audio: Memastikan
-ba-videoplayer-adslot.skip-ad: Melewatkan iklan
-ba-videorecorder-chooser.record-audio: Suara rekaman
-ba-audiorecorder.audio_file_too_large: File audio Anda terlalu besar (%s) - klik di
-  sini untuk mencoba lagi dengan file audio yang lebih kecil.
-ba-videorecorder.browser-permission-denied: Izin ditolak oleh browser, berikan akses
-  dan muat ulang halaman
-ba-videoplayer-controlbar.pause-video: Jeda video
-ba-videoplayer-adslot.volume-unmute: Suarakan suara
-ba-videoplayer-controlbar.submit-video: Konfirmasi video
-ba-videoplayer-share.share: Berbagi video
-ba-audioplayer-loader.tooltip: Pemuatan...
-ba-imagecapture.unsupported_image_type: 'Harap unggah: %s - klik di sini untuk mencoba
-  lagi.'
-ba-videorecorder.uploading: Mengunggah
-ba-audiorecorder-controlbar.microphonehealthy: Suara itu bagus
-ba-audiorecorder-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
-ba-videorecorder-chooser.record-screen: Layar rekam
-ba-videoplayer.all-settings: Semua pengaturan
-ba-videoplayer-controlbar.select-frame: Pilih
-ba-imagecapture.resolution-constraint-error: File yang Anda pilih tidak cocok dengan
-  resolusi yang diperlukan - klik di sini untuk mencoba lagi.
-ba-audiorecorder-controlbar.stop-tooltip: Klik di sini untuk berhenti.
-ba-videorecorder-controlbar.microphoneunhealthy: Tidak bisa mengambil suara apapun
-ba-audiorecorder-controlbar.stop: Berhenti
-ba-videorecorder.rerecord-confirm: Apakah Anda benar-benar ingin merekam ulang video
-  Anda?
-ba-videoplayer-controlbar.close-tracks: Tutup CC
-ba-videorecorder-controlbar.upload-covershot: Mengunggah
-ba-videorecorder.orientation-landscape-required: Silakan putar perangkat Anda untuk
-  merekam dalam mode lansekap.
-ba-imagecapture.verifying: Memverifikasi
-ba-imageviewer-controlbar.submit-image: Memastikan
-ba-imagecapture-controlbar.cancel-tooltip: Klik di sini untuk membatalkan.
-ba-imagecapture.software-waiting: Menunggu persyaratan untuk diinstal / diaktifkan.
-  Anda mungkin perlu menyegarkan halaman setelah selesai.
-ba-common-settingsmenu.exit-fullscreen-video: Keluar dari layar penuh
-ba-videorecorder.uploading-failed: Mengunggah gagal - klik di sini untuk mencoba lagi.
-ba-videoplayer-playbutton.trim: Memangkas
-ba-audioplayer-controlbar.volume-unmute: Bunyikan suara
-ba-audiorecorder-controlbar.record: Merekam
-ba-videorecorder.software-required: Silahkan klik di bawah ini untuk menginstal /
-  mengaktifkan persyaratan berikut agar bisa melanjutkan.
-ba-videoplayer-tracks.upload-text-tracks: Unggah file teks lagu
-ba-videorecorder-controlbar.skip-tooltip: Klik di sini untuk melompat.
-ba-videoplayer-adslot.elapsed-time: Waktu berlalu
-ba-videoplayer-controlbar.remaining-time: Waktu yang tersisa
-ba-imagecapture-controlbar.record-tooltip: Klik di sini untuk menangkap.
-ba-videorecorder.device-already-in-use: Setidaknya satu dari perangkat input Anda
-  sudah digunakan
-ba-audioplayer-controlbar.volume-mute: Bungkam suara
-ba-audiorecorder-chooser.upload-audio: Unggah Audio
-ba-imagecapture.upload-error-duration: Panjang gambar yang diunggah tidak memenuhi
-  persyaratan - klik di sini untuk mencoba lagi.
-ba-audiorecorder.attach-error: Kami tidak dapat mengakses antarmuka media. Bergantung
-  pada perangkat dan browser, Anda mungkin perlu menginstal Flash atau mengakses halaman
-  melalui SSL.
-ba-audiorecorder-controlbar.cancel: Membatalkan
-ba-videoplayer-controlbar.airplay-icon: Ikon Airplay.
-ba-videoplayer.player-speed: Kecepatan pemain
-ba-videoplayer-controlbar.fullscreen-video: Memasuki layar penuh
-ba-audiorecorder.uploading-failed: Gagal mengunggah - klik di sini untuk mencoba lagi.
-ba-videorecorder-chooser.record-video: Merekam video
-ba-videorecorder.screen-recorder-is-not-supported: Perekam layar tidak didukung pada
-  perangkat ini
-ba-videoplayer-tracks.back: kembali
-ba-videorecorder.pick-covershot-frame: Pilih bingkai untuk digunakan sebagai foto
-  sampul.
-ba-audioplayer-controlbar.audio-progress: Kemajuan
-ba-audioplayer-controlbar.pause-audio-disabled: Jeda tidak didukung
-ba-videoplayer-controlbar.total-time: Total panjang video
-ba-videorecorder-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
-ba-videorecorder.orientation-portrait-required: Silakan putar perangkat Anda untuk
-  merekam dalam mode potret.
-ba-common-settingsmenu.fullscreen-video: Memasuki layar penuh
-ba-videoplayer-controlbar.volume-unmute: Suarakan suara
-ba-videorecorder-controlbar.record: Merekam
+language:id:
+  ba-videoplayer-playbutton.tooltip: Klik untuk memutar video.
+  ba-videoplayer-playbutton.rerecord: Mengulangi
+  ba-videoplayer-playbutton.submit-video: Konfirmasi video
+  ba-videoplayer-loader.tooltip: Memuat video ...
+  ba-videoplayer-controlbar.change-resolution: Ubah resolusi
+  ba-videoplayer-controlbar.video-progress: Kemajuan video
+  ba-videoplayer-controlbar.rerecord-video: Rekam ulang?
+  ba-videoplayer-controlbar.submit-video: Konfirmasi video
+  ba-videoplayer-controlbar.play-video: Putar video
+  ba-videoplayer-controlbar.pause-video: Jeda video
+  ba-videoplayer-controlbar.elapsed-time: Waktu berlalu
+  ba-videoplayer-controlbar.total-time: Total panjang video
+  ba-videoplayer-controlbar.fullscreen-video: Memasuki layar penuh
+  ba-videoplayer-controlbar.volume-button: Setel volume
+  ba-videoplayer-controlbar.volume-mute: Bisu terdengar
+  ba-videoplayer-controlbar.volume-unmute: Suarakan suara
+  ba-videoplayer.video-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
+  ba-videorecorder-chooser.record-video: Merekam video
+  ba-videorecorder-chooser.upload-video: Mengunggah Video
+  ba-videorecorder-controlbar.settings: Pengaturan
+  ba-videorecorder-controlbar.camerahealthy: Pencahayaan itu bagus
+  ba-videorecorder-controlbar.cameraunhealthy: Pencahayaan tidak optimal
+  ba-videorecorder-controlbar.microphonehealthy: Suara bagus
+  ba-videorecorder-controlbar.microphoneunhealthy: Tidak bisa mengambil suara apapun
+  ba-videorecorder-controlbar.record: Merekam
+  ba-videorecorder-controlbar.record-tooltip: Klik di sini untuk merekam.
+  ba-videorecorder-controlbar.rerecord: Mengulangi
+  ba-videorecorder-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
+  ba-videorecorder-controlbar.upload-covershot: Mengunggah
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Klik di sini untuk mengunggah tangkapan sampul khusus
+  ba-videorecorder-controlbar.stop: Berhenti
+  ba-videorecorder-controlbar.stop-tooltip: Klik di sini untuk berhenti.
+  ba-videorecorder-controlbar.skip: Melewatkan
+  ba-videorecorder-controlbar.skip-tooltip: Klik di sini untuk melompat.
+  ba-videorecorder.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
+  ba-videorecorder.attach-error: >-
+    Kami tidak dapat mengakses antarmuka kamera. Bergantung pada perangkat dan
+    peramban, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
+    SSL.
+  ba-videorecorder.access-forbidden: Akses ke kamera dilarang. Klik untuk mencoba lagi.
+  ba-videorecorder.pick-covershot: Pilih sebuah gambar sampul.
+  ba-videorecorder.uploading: Mengunggah
+  ba-videorecorder.uploading-failed: Mengunggah gagal - klik di sini untuk mencoba lagi.
+  ba-videorecorder.verifying: Memverifikasi
+  ba-videorecorder.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
+  ba-videorecorder.rerecord-confirm: Apakah Anda benar-benar ingin merekam ulang video Anda?
+  ba-videorecorder.video_file_too_large: >-
+    File video Anda terlalu besar (%s) - klik di sini untuk mencoba lagi dengan
+    file video yang lebih kecil.
+  ba-videorecorder.unsupported_video_type: 'Silakan upload: %s - klik di sini untuk mencoba lagi.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Keluar dari layar penuh
+  ba-videoplayer-share.share: Berbagi video
+  ba-videorecorder-chooser.record-screen: Layar rekam
+  ba-videoplayer-controlbar.pause-video-disabled: Jeda tidak didukung
+  ba-videorecorder-chooser.record-audio: Suara rekaman
+  ba-videorecorder-controlbar.stop-available-after: Waktu perekaman minimum adalah %d detik
+  ba-videorecorder-controlbar.cancel: Membatalkan
+  ba-videorecorder-controlbar.cancel-tooltip: Klik disini untuk membatalkan
+  ba-videorecorder.cancel-confirm: Apakah Anda benar-benar ingin membatalkan upload video Anda?
+  ba-videoplayer-adslot.elapsed-time: Waktu berlalu
+  ba-videoplayer-adslot.volume-button: Setel volume
+  ba-videoplayer-adslot.volume-mute: Bisu terdengar
+  ba-videoplayer-adslot.volume-unmute: Suarakan suara
+  ba-videoplayer-adslot.ad-will-end-after: Iklan akan berakhir setelah %s
+  ba-videoplayer-adslot.can-skip-after: Lewati setelah %d
+  ba-videoplayer-adslot.skip-ad: Melewatkan iklan
+  ba-videorecorder.software-required: >-
+    Silahkan klik di bawah ini untuk menginstal / mengaktifkan persyaratan
+    berikut agar bisa melanjutkan.
+  ba-videorecorder.software-waiting: >-
+    Menunggu persyaratan untuk dipasang / diaktifkan. Anda mungkin perlu
+    menyegarkan halaman setelah selesai.
+  ba-videoplayer-controlbar.close-tracks: Tutup CC
+  ba-videoplayer-controlbar.show-tracks: Tampilkan CC
+  ba-videoplayer-tracks.upload-text-tracks: Unggah file teks lagu
+  ba-videoplayer-tracks.select-text-track-language: Bahasa Subtitle
+  ba-videoplayer-tracks.info-select-locale-first: Pertama pilih lokal
+  ba-videoplayer-tracks.select-text-track-file: Klik untuk memilih file
+  ba-videoplayer-tracks.back: kembali
+  ba-videorecorder.framerate-warning: >-
+    Kecepatan bingkai video sangat rendah. Kami sarankan untuk menutup semua
+    program lain dan tab peramban atau menggunakan komputer yang lebih cepat.
+  ba-videorecorder.upload-error-duration: >-
+    Panjang video yang diunggah tidak memenuhi persyaratan - klik di sini untuk
+    mencoba lagi.
+  ba-videorecorder.resolution-constraint-error: >-
+    File yang Anda pilih tidak sesuai dengan resolusi yang diperlukan - klik di
+    sini untuk mencoba lagi.
+  ba-videorecorder.orientation-portrait-required: Silakan putar perangkat Anda untuk merekam dalam mode potret.
+  ba-videorecorder.orientation-landscape-required: Silakan putar perangkat Anda untuk merekam dalam mode lansekap.
+  ba-imageviewer-controlbar.rerecord-image: Mengulangi?
+  ba-imageviewer-controlbar.submit-image: Memastikan
+  ba-imageviewer-controlbar.fullscreen-image: Memasuki layar penuh
+  ba-imageviewer-controlbar.exit-fullscreen-image: Keluar dari layar penuh
+  ba-imageviewer.image-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
+  ba-imagecapture-chooser.image-capture: Tangkap Gambar
+  ba-imagecapture-chooser.upload-image: Unggah Gambar
+  ba-imagecapture-controlbar.settings: Pengaturan
+  ba-imagecapture-controlbar.camerahealthy: Pencahayaan bagus
+  ba-imagecapture-controlbar.cameraunhealthy: Pencahayaan tidak optimal
+  ba-imagecapture-controlbar.record: Menangkap
+  ba-imagecapture-controlbar.record-tooltip: Klik di sini untuk menangkap.
+  ba-imagecapture-controlbar.rerecord: Mengulangi
+  ba-imagecapture-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
+  ba-imagecapture-controlbar.cancel: Membatalkan
+  ba-imagecapture-controlbar.cancel-tooltip: Klik di sini untuk membatalkan.
+  ba-audioplayer-controlbar.audio-progress: Kemajuan
+  ba-audioplayer-controlbar.rerecord-audio: Mengulangi?
+  ba-audioplayer-controlbar.submit-audio: Memastikan
+  ba-audioplayer-controlbar.play-audio: Bermain
+  ba-audioplayer-controlbar.pause-audio: Berhenti sebentar
+  ba-audioplayer-controlbar.pause-audio-disabled: Jeda tidak didukung
+  ba-audioplayer-controlbar.elapsed-time: Waktu berlalu
+  ba-audioplayer-controlbar.total-time: Panjang total
+  ba-audioplayer-controlbar.volume-button: Setel volume
+  ba-audioplayer-controlbar.volume-mute: Bungkam suara
+  ba-audioplayer-controlbar.volume-unmute: Bunyikan suara
+  ba-audioplayer-loader.tooltip: Pemuatan...
+  ba-audioplayer.audio-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
+  ba-audiorecorder-chooser.record-audio: Suara rekaman
+  ba-audiorecorder-chooser.upload-audio: Unggah Audio
+  ba-audiorecorder-controlbar.settings: Pengaturan
+  ba-audiorecorder-controlbar.microphonehealthy: Suara itu bagus
+  ba-audiorecorder-controlbar.microphoneunhealthy: Tidak dapat mengambil suara apa pun
+  ba-audiorecorder-controlbar.record: Merekam
+  ba-audiorecorder-controlbar.record-tooltip: Klik di sini untuk merekam.
+  ba-audiorecorder-controlbar.rerecord: Mengulangi
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klik di sini untuk mengulang.
+  ba-audiorecorder-controlbar.stop: Berhenti
+  ba-audiorecorder-controlbar.stop-tooltip: Klik di sini untuk berhenti.
+  ba-audiorecorder-controlbar.stop-available-after: Waktu perekaman minimum adalah %d detik
+  ba-audiorecorder-controlbar.cancel: Membatalkan
+  ba-audiorecorder-controlbar.cancel-tooltip: Klik di sini untuk membatalkan.
+  ba-videoplayer-controlbar.player-speed: Kecepatan pemain
+  ba-videoplayer-controlbar.settings: Pengaturan
+  ba-videoplayer-controlbar.airplay: Diputar
+  ba-videoplayer-controlbar.airplay-icon: Ikon Airplay.
+  ba-videoplayer.all-settings: Semua pengaturan
+  ba-videoplayer.player-speed: Kecepatan pemain
+  ba-videoplayer.full-screen: Layar penuh
+  ba-videorecorder-controlbar.add-stream: Tambahkan Stream
+  ba-videorecorder.switch-camera: Ganti kamera
+  ba-videorecorder.prepare-covershot: Mempersiapkan tangkapan layar
+  ba-videorecorder.prepare-thumbnails: Mempersiapkan gambar judul pencarian
+  ba-videorecorder.adding-new-stream: Menambahkan Stream Baru
+  ba-imagecapture.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
+  ba-imagecapture.attach-error: >-
+    Kami tidak dapat mengakses antarmuka media. Bergantung pada perangkat dan
+    peramban, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
+    SSL.
+  ba-imagecapture.software-required: >-
+    Silakan klik di bawah ini untuk menginstal / mengaktifkan persyaratan
+    berikut untuk melanjutkan.
+  ba-imagecapture.software-waiting: >-
+    Menunggu persyaratan untuk diinstal / diaktifkan. Anda mungkin perlu
+    menyegarkan halaman setelah selesai.
+  ba-imagecapture.access-forbidden: Akses ke media dilarang. Klik untuk mencoba lagi.
+  ba-imagecapture.uploading: Mengunggah
+  ba-imagecapture.uploading-failed: Gagal mengunggah - klik di sini untuk mencoba lagi.
+  ba-imagecapture.upload-error-duration: >-
+    Panjang gambar yang diunggah tidak memenuhi persyaratan - klik di sini untuk
+    mencoba lagi.
+  ba-imagecapture.resolution-constraint-error: >-
+    File yang Anda pilih tidak cocok dengan resolusi yang diperlukan - klik di
+    sini untuk mencoba lagi.
+  ba-imagecapture.verifying: Memverifikasi
+  ba-imagecapture.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
+  ba-imagecapture.rerecord-confirm: Apakah Anda benar-benar ingin mengambil kembali gambar Anda?
+  ba-imagecapture.image_file_too_large: >-
+    File gambar Anda terlalu besar (%s) - klik di sini untuk mencoba lagi dengan
+    file gambar yang lebih kecil.
+  ba-imagecapture.unsupported_image_type: 'Harap unggah: %s - klik di sini untuk mencoba lagi.'
+  ba-imagecapture.orientation-portrait-required: Harap putar perangkat Anda untuk merekam dalam mode potret.
+  ba-imagecapture.orientation-landscape-required: Harap putar perangkat Anda untuk merekam dalam mode lansekap.
+  ba-audiorecorder.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
+  ba-audiorecorder.attach-error: >-
+    Kami tidak dapat mengakses antarmuka media. Bergantung pada perangkat dan
+    browser, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
+    SSL.
+  ba-audiorecorder.software-required: >-
+    Silakan klik di bawah ini untuk menginstal / mengaktifkan persyaratan
+    berikut untuk melanjutkan.
+  ba-audiorecorder.software-waiting: >-
+    Menunggu persyaratan untuk diinstal / diaktifkan. Anda mungkin perlu
+    menyegarkan halaman setelah selesai.
+  ba-audiorecorder.access-forbidden: Akses ke media dilarang. Klik untuk mencoba lagi.
+  ba-audiorecorder.uploading: Mengunggah
+  ba-audiorecorder.uploading-failed: Gagal mengunggah - klik di sini untuk mencoba lagi.
+  ba-audiorecorder.upload-error-duration: >-
+    Panjang audio yang diunggah tidak memenuhi persyaratan - klik di sini untuk
+    mencoba lagi.
+  ba-audiorecorder.verifying: Memverifikasi
+  ba-audiorecorder.verifying-failed: Verifikasi gagal - klik di sini untuk mencoba lagi.
+  ba-audiorecorder.rerecord-confirm: Apakah Anda benar-benar ingin mengulang audio Anda?
+  ba-audiorecorder.cancel-confirm: Apakah Anda benar-benar ingin membatalkan upload audio Anda?
+  ba-audiorecorder.audio_file_too_large: >-
+    File audio Anda terlalu besar (%s) - klik di sini untuk mencoba lagi dengan
+    file audio yang lebih kecil.
+  ba-audiorecorder.unsupported_audio_type: 'Harap unggah: %s - klik di sini untuk mencoba lagi.'
+  ba-common-settingsmenu.tooltip: Klik untuk main.
+  ba-common-settingsmenu.setting-menu: Semua pengaturan
+  ba-common-settingsmenu.source-quality: Kualitas sumber
+  ba-common-settingsmenu.player-speed: Kecepatan pemain
+  ba-common-settingsmenu.set-menu-option: Atur opsi
+  ba-common-settingsmenu.submit-video: Konfirmasikan video
+  ba-common-settingsmenu.picture-in-picture: Gambar di dalam gambar
+  ba-common-settingsmenu.exit-fullscreen-video: Keluar dari layar penuh
+  ba-common-settingsmenu.fullscreen-video: Memasuki layar penuh
+  ba-videorecorder-chooser.multi-stream: Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: Jeda Perekam
+  ba-videorecorder-controlbar.resume-recorder: Lanjutkan Perekam
+  ba-videorecorder.missing-track: Trek audio atau video yang diperlukan tidak ada
+  ba-videorecorder.device-already-in-use: Setidaknya satu dari perangkat input Anda sudah digunakan
+  ba-videorecorder.browser-permission-denied: Izin ditolak oleh browser, berikan akses dan muat ulang halaman
+  ba-audioplayer.all-settings: Semua pengaturan
+  ba-videoplayer-controlbar.remaining-time: Waktu yang tersisa
+  ba-videoplayer-controlbar.select-frame: Pilih
+  ba-videoplayer-controlbar.trim-video: Memangkas
+  ba-videoplayer-playbutton.trim: Memangkas
+  ba-videoplayer-playbutton.skip: Melewatkan
+  ba-videorecorder-imagegallery.upload-covershot: Unggah Sampul
+  ba-videorecorder.pick-covershot-frame: Pilih bingkai untuk digunakan sebagai foto sampul.
+  ba-videorecorder.screen-recorder-is-not-supported: Perekam layar tidak didukung pada perangkat ini
+  ba-videorecorder.trim-prompt: Apakah Anda ingin memangkas video Anda?
+  ba-videorecorder.trim-video: Pindahkan penanda awal dan akhir untuk memangkas video Anda
+  ba-videorecorder.wait-for-trim: Menunggu perintah pangkas...
+  ba-videorecorder-controlbar.no-video-source: Tidak ada sumber input video tambahan
+  ba-videorecorder-controlbar.stream-already-selected: Aliran tambahan telah dipilih
+  ba-videorecorder.uploading-src-error: Tidak dapat memutar video sekarang, pengunggahan masih berlangsung
+  ba-audiorecorder-controlbar.pause-recorder: Jeda Perekam
+  ba-audiorecorder-controlbar.resume-recorder: Perekam Lanjutkan
+  ba-circle-progress.fullscreen-video: Memasuki layar penuh
+  ba-ads-choices-link.ad-choices: Pilihan Iklan
+  ba-ads-controlbar.skip-ad: Melewatkan iklan
+  ba-ads-controlbar.play-ad: Bermain
+  ba-ads-controlbar.pause-video: Berhenti sebentar
+  ba-ads-controlbar.volume-mute: Bisukan suara
+  ba-ads-controlbar.volume-button: Atur volumenya
+  ba-ads-controlbar.elapsed-time: Waktu berlalu
+  ba-ads-controlbar.volume-unmute: Suarakan suara
+  ba-ads-controlbar.can-skip-after: Lewati setelah %d
+  ba-ads-controlbar.fullscreen-video: Memasuki layar penuh
+  ba-ads-controlbar.exit-fullscreen-video: Keluar dari layar penuh
+  ba-ads-controlbar.ad-will-end-after: Iklan akan berakhir setelah %s
+  ba-ads-controlbar.pause-video-disabled: Jeda tidak didukung
+  ba-adsplayer.replay-ad: Putar Ulang Video
+  ba-adsplayer.close-ad: Menutup
+  ba-adsplayer.ad-choices: Pilihan Iklan
+  ba-adsplayer.learn-more: Belajarlah lagi
+  ba-ads-learn-more-button.learn-more: Belajarlah lagi
+  ba-videoplayer-sidebar.up-next: Berikutnya
+  ba-videoplayer-sidebar.continue-on-ads-end: Konten akan dilanjutkan setelah iklan ini.
+  ba-videoplayer-tooltip.tooltip: Keterangan alat
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Tahan mouse untuk menjeda penutupan tooltip
+  ba-videorecorder.supported-mode: Resolusi media harus dalam mode '%s'.
+  ba-videorecorder.re-choose-action: Silakan klik untuk memilih perangkat input lain atau coba lagi tindakan.
+  ba-audiorecorder.uploading-src-error: Tidak dapat memutar ulang audio sekarang, pengunggahan masih berlangsung
+  ba-audiorecorder.missing-track: Trek audio yang diperlukan tidak ada
+  ba-audiorecorder.device-already-in-use: Setidaknya satu perangkat masukan Anda sudah digunakan
+  ba-audiorecorder.browser-permission-denied: Izin ditolak oleh browser, harap berikan akses dan muat ulang halaman
+  ba-local-view.local-camera-connection-error: >-
+    Terjadi kesalahan saat menghubungkan ke kamera lokal. Klik untuk mencoba
+    lagi.
+  ba-call-controlbar.camera-button: Tampilkan/Sembunyikan Kamera
+  ba-call-controlbar.leave-button: Tinggalkan Panggilan
+  ba-call-controlbar.mute-button: Bisukan/Suarakan
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Jika Anda sudah siap, klik tombol di bawah untuk membuat panggilan.
+  ba-call-lobby.description-join: Jika Anda sudah siap, klik tombol di bawah untuk bergabung dalam panggilan.
+  ba-call-lobby.join-button: Bergabung
+  ba-call-lobby.create-button: Membuat
+  ba-call-lobby.mute-button: Bisu
+  ba-call-lobby.title-create: Buat Panggilan
+  ba-call-lobby.title-join: Gabung Panggilan
+  ba-video-call.call-ended: Panggilan berakhir
+  ba-video-call.connecting: Menghubungkan...
+  ba-video-call.connection-error: Terjadi kesalahan saat menghubungkan, silakan klik untuk mencoba lagi.
+  ba-videoplayer-next.stay: Tinggal
+  ba-videoplayer-next.next: Berikutnya
+  ba-videorecorder-trimmer.trim: Memangkas
+  ba-videorecorder-trimmer.skip: Melewati

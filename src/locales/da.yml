@@ -1,238 +1,273 @@
-ba-imagecapture.uploading: Upload
-ba-audiorecorder.upload-error-duration: Længden på den uploadede lyd opfylder ikke
-  kravene - klik her for at prøve igen.
-ba-common-settingsmenu.tooltip: Klik for at spille.
-ba-videorecorder.wait-for-trim: Venter på trimkommando ...
-ba-common-settingsmenu.setting-menu: Alle indstillinger
-ba-videorecorder-controlbar.settings: Indstillinger
-ba-imagecapture.access-forbidden: Adgang til medierne var forbudt. Klik for at prøve
-  igen.
-ba-imagecapture-controlbar.cancel: Afbestille
-ba-videorecorder.video_file_too_large: Din video filen er for stor (%s) - klik her
-  for at prøve igen med et mindre videofil.
-ba-videoplayer-controlbar.settings: Indstillinger
-ba-videorecorder-controlbar.add-stream: Tilføj Stream
-ba-videorecorder-controlbar.cancel-tooltip: Klik her for at annullere.
-ba-imageviewer-controlbar.fullscreen-image: Indtast fuldskærm
-ba-audioplayer.audio-error: Der opstod en fejl. Prøv venligst igen senere. Klik for
-  at prøve igen.
-ba-imagecapture.image_file_too_large: Din billedfil er for stor (%s) - klik her for
-  at prøve igen med en mindre billedfil.
-ba-videoplayer-controlbar.show-tracks: Vis CC
-ba-imagecapture.orientation-landscape-required: Venligst drej din enhed for at optage
-  i liggende tilstand.
-ba-videoplayer.full-screen: Fuld skærm
-ba-videoplayer-controlbar.pause-video-disabled: Pause ikke understøttet
-ba-videorecorder.cancel-confirm: Vil du virkelig annullere din video upload?
-ba-videorecorder-controlbar.camerahealthy: Belysning er god
-ba-common-settingsmenu.submit-video: Bekræft video
-ba-videorecorder-controlbar.record-tooltip: Klik her for at optage.
-ba-videorecorder-controlbar.cancel: Afbestille
-ba-common-settingsmenu.picture-in-picture: Billede i billede
-ba-audiorecorder-controlbar.rerecord: redo
-ba-audiorecorder.rerecord-confirm: Vil du virkelig lave din lyd igen?
-ba-videoplayer-playbutton.rerecord: redo
-ba-videoplayer-tracks.select-text-track-language: Undertekstsprog
-ba-videoplayer-adslot.can-skip-after: Spring over efter %d
-ba-audiorecorder.cancel-confirm: Vil du virkelig annullere din lydopload?
-ba-videoplayer-controlbar.elapsed-time: Forløbet tid
-ba-videorecorder-controlbar.stop-available-after: Mindste optagetid er %d sekunder
-ba-audioplayer.all-settings: Alle indstillinger
-ba-imagecapture-controlbar.camerahealthy: Belysning er god
-ba-imagecapture-controlbar.record: Fange
-ba-audiorecorder.software-waiting: Venter på de krav, der skal installeres / aktiveres.
-  Du skal måske opdatere siden efter færdiggørelsen.
-ba-videoplayer-tracks.info-select-locale-first: Vælg først lokalitet
-ba-videoplayer-loader.tooltip: Indlæser video ...
-ba-audiorecorder-controlbar.cancel-tooltip: Klik her for at annullere.
-ba-audiorecorder-controlbar.record-tooltip: Klik her for at optage.
-ba-audioplayer-controlbar.submit-audio: Bekræfte
-ba-imagecapture.verifying-failed: Bekræftelse mislykkedes - klik her for at prøve
-  igen.
-ba-videoplayer-playbutton.skip: Springe
-ba-videoplayer-controlbar.trim-video: Trimme
-ba-videorecorder.missing-track: Påkrævet lyd- eller videospor mangler
-ba-imagecapture.uploading-failed: Uploading mislykkedes - klik her for at prøve igen.
-ba-videoplayer-adslot.skip-ad: Spring annoncen over
-ba-videoplayer-adslot.volume-button: Indstil lydstyrke
-ba-videorecorder-chooser.record-audio: Optag lyd
-ba-audiorecorder.audio_file_too_large: Din lydfil er for stor (%s) - klik her for
-  at prøve igen med en mindre lydfil.
-ba-imagecapture-chooser.image-capture: Capture Image
-ba-videorecorder.trim-prompt: Vil du trimme din video?
-ba-videorecorder.software-waiting: Venter på de krav, der skal installeres / aktiveres.
-  Du skal måske opdatere siden efter færdiggørelsen.
-ba-audioplayer-controlbar.play-audio: Spille
-ba-videorecorder.browser-permission-denied: Tilladelse nægtet af browseren, giv venligst
-  adgang og genindlæs siden
-ba-videoplayer-controlbar.pause-video: Pause video
-ba-videoplayer-adslot.volume-unmute: Sluk lyden
-ba-videorecorder-controlbar.resume-recorder: Genoptag optager
-ba-videoplayer-controlbar.submit-video: Bekræft video
-ba-videorecorder-controlbar.rerecord: redo
-ba-videoplayer-share.share: Del video
-ba-audioplayer-loader.tooltip: Indlæser...
-ba-imagecapture.unsupported_image_type: 'Upload venligst: %s - klik her for at prøve
-  igen.'
-ba-videorecorder.uploading: Upload
-ba-audiorecorder.verifying: Bekræftelse
-ba-videoplayer-playbutton.tooltip: Klik for at afspille video.
-ba-audiorecorder-controlbar.microphonehealthy: Lyden er god
-ba-videorecorder.trim-video: Flyt start- og slutmarkørerne for at trimme din video
-ba-videoplayer-controlbar.player-speed: Spillerhastighed
-ba-videorecorder-controlbar.microphonehealthy: Lyden er god
-ba-videorecorder-chooser.multi-stream: Multi Stream
-ba-imagecapture.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik
-  for at prøve igen.
-ba-videorecorder-controlbar.stop-tooltip: Klik her for at stoppe.
-ba-audiorecorder-controlbar.rerecord-tooltip: Klik her for at gentage.
-ba-imagecapture-controlbar.rerecord-tooltip: Klik her for at gentage.
-ba-videorecorder-chooser.record-screen: Optagelsesskærm
-ba-videoplayer.all-settings: Alle indstillinger
-ba-videoplayer-controlbar.select-frame: Vælg
-ba-imagecapture.resolution-constraint-error: Filen du har valgt stemmer ikke overens
-  med den krævede opløsning - klik her for at prøve igen.
-ba-videoplayer-controlbar.video-progress: fremskridt Video
-ba-videorecorder-controlbar.cameraunhealthy: Belysning er ikke optimal
-ba-audioplayer-controlbar.pause-audio: Pause
-ba-videorecorder-controlbar.stop: Stop
-ba-audiorecorder-controlbar.stop-tooltip: Klik her for at stoppe.
-ba-videorecorder-controlbar.microphoneunhealthy: Kan ikke afhente nogen lyd
-ba-imagecapture-chooser.upload-image: Upload billede
-ba-videorecorder-imagegallery.upload-covershot: Upload dækning
-ba-audiorecorder-controlbar.resume-recorder: Genoptag optager
-ba-audiorecorder-controlbar.stop: Hold op
-ba-videoplayer.video-error: Der opstod en fejl. Prøv venligst igen senere. Klik for
-  at prøve igen.
-ba-videorecorder.attach-error: Vi kunne ikke få adgang til kameraet interface. Afhængigt
-  af enheden og browseren, skal du muligvis installere Flash eller adgang til siden
-  via SSL.
-ba-audiorecorder-controlbar.pause-recorder: Pause optager
-ba-videorecorder.rerecord-confirm: Ønsker du virkelig at optage en ny video?
-ba-audiorecorder-controlbar.stop-available-after: Mindste optagetid er %d sekunder
-ba-videoplayer-controlbar.change-resolution: Skift opløsning
-ba-audiorecorder.software-required: Klik nedenfor for at installere / aktivere følgende
-  krav for at fortsætte.
-ba-videoplayer-controlbar.exit-fullscreen-video: Afslut fuldskærm
-ba-imageviewer-controlbar.rerecord-image: Redo?
-ba-videoplayer-adslot.ad-will-end-after: Annoncen slutter efter %s
-ba-imagecapture.rerecord-confirm: Vil du virkelig genoptage dit billede?
-ba-audioplayer-controlbar.elapsed-time: Forløbet tid
-ba-videoplayer-controlbar.close-tracks: Luk CC
-ba-videorecorder-controlbar.upload-covershot: Upload
-ba-audioplayer-controlbar.rerecord-audio: Redo?
-ba-videorecorder.orientation-landscape-required: Venligst drej din enhed for at optage
-  i liggende tilstand.
-ba-imagecapture.verifying: Bekræftelse
-ba-imageviewer-controlbar.submit-image: Bekræfte
-ba-imagecapture-controlbar.cancel-tooltip: Klik her for at annullere.
-ba-imagecapture.software-waiting: Venter på de krav, der skal installeres / aktiveres.
-  Du skal måske opdatere siden efter færdiggørelsen.
-ba-imageviewer-controlbar.exit-fullscreen-image: Afslut fuldskærm
-ba-videorecorder.verifying-failed: mislykkedes verificering - klik her for at prøve
-  igen.
-ba-videorecorder-controlbar.upload-covershot-tooltip: Klik her for at uploade brugerdefinerede
-  dækning shot
-ba-common-settingsmenu.set-menu-option: Indstil mulighed
-ba-common-settingsmenu.exit-fullscreen-video: Afslut fuldskærm
-ba-videorecorder.framerate-warning: Videorammerhastigheden er meget lav. Vi anbefaler
-  at lukke alle andre programmer og browser faner eller at bruge en hurtigere computer.
-ba-videorecorder.switch-camera: Skift kamera
-ba-audioplayer-controlbar.volume-button: Indstil lydstyrke
-ba-videorecorder.uploading-failed: Upload mislykkedes - klik her for at prøve igen.
-ba-videoplayer-playbutton.trim: Trimme
-ba-videorecorder-chooser.upload-video: Upload video
-ba-audioplayer-controlbar.volume-unmute: Sluk lyden
-ba-audiorecorder-controlbar.record: Optage
-ba-videorecorder.software-required: Klik nedenfor for at installere / aktivere følgende
-  krav for at fortsætte.
-ba-audiorecorder.verifying-failed: Bekræftelse mislykkedes - klik her for at prøve
-  igen.
-ba-videorecorder-controlbar.stream-already-selected: Yderligere strøm er allerede
-  valgt
-ba-videorecorder.upload-error-duration: Længden på den uploadede video opfylder ikke
-  kravene - klik her for at prøve igen.
-ba-common-settingsmenu.player-speed: Spillerens hastighed
-ba-audiorecorder-controlbar.settings: Indstillinger
-ba-videoplayer-controlbar.play-video: Afspil video
-ba-videoplayer-tracks.upload-text-tracks: Upload spor tekstfiler
-ba-videorecorder-controlbar.skip-tooltip: Klik her for at springe.
-ba-videoplayer-adslot.elapsed-time: Forløbet tid
-ba-videoplayer-controlbar.rerecord-video: Redo video?
-ba-videoplayer-controlbar.remaining-time: Resterende tid
-ba-imagecapture-controlbar.record-tooltip: Klik her for at fange.
-ba-videorecorder.device-already-in-use: Mindst en af dine inputenheder er allerede
-  i brug
-ba-videorecorder.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik
-  for at prøve igen.
-ba-audioplayer-controlbar.volume-mute: Dæmp lyd
-ba-audiorecorder-chooser.upload-audio: Upload lyd
-ba-imagecapture.upload-error-duration: Længde på det uploadede billede opfylder ikke
-  kravene - klik her for at prøve igen.
-ba-audiorecorder.attach-error: Vi kunne ikke få adgang til medieinterfacet. Afhængigt
-  af enhed og browser skal du muligvis installere Flash eller få adgang til siden
-  via SSL.
-ba-audiorecorder-controlbar.cancel: Afbestille
-ba-videoplayer-controlbar.airplay-icon: Airplay ikon.
-ba-videorecorder.prepare-covershot: Forbereder coverhots
-ba-videoplayer.player-speed: Spillerhastighed
-ba-videorecorder.verifying: Bekræftelse
-ba-videoplayer-controlbar.fullscreen-video: Indtast fullscreen
-ba-audiorecorder.uploading-failed: Uploading mislykkedes - klik her for at prøve igen.
-ba-videorecorder.unsupported_video_type: 'upload venligst: %s - klik her for at prøve
-  igen.'
-ba-videorecorder-chooser.record-video: Optag din video
-ba-videoplayer-playbutton.submit-video: Bekræft video
-ba-audioplayer-controlbar.total-time: Total længde på
-ba-videorecorder.prepare-thumbnails: Forbereder søger miniaturer
-ba-videorecorder.screen-recorder-is-not-supported: Screen recorder understøttes ikke
-  på denne enhed
-ba-videoplayer-controlbar.airplay: airplay
-ba-videoplayer-tracks.back: tilbage
-ba-videorecorder.access-forbidden: Adgang til kameraet var forbudt. Klik for at prøve
-  igen.
-ba-videoplayer-adslot.volume-mute: Dæmp lyd
-ba-videorecorder.pick-covershot-frame: Vælg en ramme, der skal bruges som forsidebillede.
-ba-audioplayer-controlbar.audio-progress: Fremskridt
-ba-imageviewer.image-error: Der opstod en fejl. Prøv venligst igen senere. Klik for
-  at prøve igen.
-ba-audioplayer-controlbar.pause-audio-disabled: Pause ikke understøttet
-ba-videorecorder.resolution-constraint-error: Filen du har valgt stemmer ikke overens
-  med den krævede opløsning - klik her for at prøve igen.
-ba-videorecorder-controlbar.pause-recorder: Pause optager
-ba-imagecapture-controlbar.cameraunhealthy: Belysning er ikke optimal
-ba-common-settingsmenu.source-quality: Kildekvalitet
-ba-imagecapture.orientation-portrait-required: Venligst drej din enhed for at optage
-  i stående tilstand.
-ba-videoplayer-controlbar.total-time: Samlet længde af video
-ba-videorecorder-controlbar.rerecord-tooltip: Klik her for at gentage.
-ba-videorecorder.orientation-portrait-required: Venligst drej din enhed for at optage
-  i stående tilstand.
-ba-audiorecorder-chooser.record-audio: Optag lyd
-ba-videoplayer-controlbar.volume-mute: Slå lyden
-ba-videorecorder.pick-covershot: Vælg en covershot.
-ba-audiorecorder-controlbar.microphoneunhealthy: Kan ikke hente nogen lyd
-ba-videorecorder-controlbar.no-video-source: Mangler yderligere videoindgangskilde
-ba-common-settingsmenu.fullscreen-video: Gå ind i fuld skærm
-ba-audiorecorder.access-forbidden: Adgang til medierne var forbudt. Klik for at prøve
-  igen.
-ba-imagecapture-controlbar.rerecord: redo
-ba-audiorecorder.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik
-  for at prøve igen.
-ba-videoplayer-tracks.select-text-track-file: Klik for at vælge fil
-ba-videorecorder-controlbar.skip: Spring over
-ba-imagecapture.software-required: Klik nedenfor for at installere / aktivere følgende
-  krav for at fortsætte.
-ba-videorecorder.uploading-src-error: Kan ikke afspille video nu, og upload er stadig
-  i gang
-ba-videoplayer-controlbar.volume-unmute: Slå lyden til
-ba-videoplayer-controlbar.volume-button: Indstil lydstyrke
-ba-imagecapture.attach-error: Vi kunne ikke få adgang til medieinterfacet. Afhængigt
-  af enhed og browser skal du muligvis installere Flash eller få adgang til siden
-  via SSL.
-ba-audiorecorder.uploading: Upload
-ba-audiorecorder.unsupported_audio_type: 'Upload venligst: %s - klik her for at prøve
-  igen.'
-ba-imagecapture-controlbar.settings: Indstillinger
-ba-videorecorder-controlbar.record: Optag
-ba-videorecorder.adding-new-stream: Tilføjelse af ny strøm
+language:da:
+  ba-videoplayer-playbutton.tooltip: Klik for at afspille video.
+  ba-videoplayer-playbutton.rerecord: redo
+  ba-videoplayer-playbutton.submit-video: Bekræft video
+  ba-videoplayer-loader.tooltip: Indlæser video ...
+  ba-videoplayer-controlbar.change-resolution: Skift opløsning
+  ba-videoplayer-controlbar.video-progress: fremskridt Video
+  ba-videoplayer-controlbar.rerecord-video: Redo video?
+  ba-videoplayer-controlbar.submit-video: Bekræft video
+  ba-videoplayer-controlbar.play-video: Afspil video
+  ba-videoplayer-controlbar.pause-video: Pause video
+  ba-videoplayer-controlbar.elapsed-time: Forløbet tid
+  ba-videoplayer-controlbar.total-time: Samlet længde af video
+  ba-videoplayer-controlbar.fullscreen-video: Indtast fullscreen
+  ba-videoplayer-controlbar.volume-button: Indstil lydstyrke
+  ba-videoplayer-controlbar.volume-mute: Slå lyden
+  ba-videoplayer-controlbar.volume-unmute: Slå lyden til
+  ba-videoplayer.video-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-videorecorder-chooser.record-video: Optag din video
+  ba-videorecorder-chooser.upload-video: Upload video
+  ba-videorecorder-controlbar.settings: Indstillinger
+  ba-videorecorder-controlbar.camerahealthy: Belysning er god
+  ba-videorecorder-controlbar.cameraunhealthy: Belysning er ikke optimal
+  ba-videorecorder-controlbar.microphonehealthy: Lyden er god
+  ba-videorecorder-controlbar.microphoneunhealthy: Kan ikke afhente nogen lyd
+  ba-videorecorder-controlbar.record: Optag
+  ba-videorecorder-controlbar.record-tooltip: Klik her for at optage.
+  ba-videorecorder-controlbar.rerecord: redo
+  ba-videorecorder-controlbar.rerecord-tooltip: Klik her for at gentage.
+  ba-videorecorder-controlbar.upload-covershot: Upload
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Klik her for at uploade brugerdefinerede dækning shot
+  ba-videorecorder-controlbar.stop: Stop
+  ba-videorecorder-controlbar.stop-tooltip: Klik her for at stoppe.
+  ba-videorecorder-controlbar.skip: Spring over
+  ba-videorecorder-controlbar.skip-tooltip: Klik her for at springe.
+  ba-videorecorder.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-videorecorder.attach-error: >-
+    Vi kunne ikke få adgang til kameraet interface. Afhængigt af enheden og
+    browseren, skal du muligvis installere Flash eller adgang til siden via SSL.
+  ba-videorecorder.access-forbidden: Adgang til kameraet var forbudt. Klik for at prøve igen.
+  ba-videorecorder.pick-covershot: Vælg en covershot.
+  ba-videorecorder.uploading: Upload
+  ba-videorecorder.uploading-failed: Upload mislykkedes - klik her for at prøve igen.
+  ba-videorecorder.verifying: Bekræftelse
+  ba-videorecorder.verifying-failed: mislykkedes verificering - klik her for at prøve igen.
+  ba-videorecorder.rerecord-confirm: Ønsker du virkelig at optage en ny video?
+  ba-videorecorder.video_file_too_large: >-
+    Din video filen er for stor (%s) - klik her for at prøve igen med et mindre
+    videofil.
+  ba-videorecorder.unsupported_video_type: 'upload venligst: %s - klik her for at prøve igen.'
+  ba-videoplayer-controlbar.exit-fullscreen-video: Afslut fuldskærm
+  ba-videoplayer-share.share: Del video
+  ba-videorecorder-chooser.record-screen: Optagelsesskærm
+  ba-videoplayer-controlbar.pause-video-disabled: Pause ikke understøttet
+  ba-videorecorder-chooser.record-audio: Optag lyd
+  ba-videorecorder-controlbar.stop-available-after: Mindste optagetid er %d sekunder
+  ba-videorecorder-controlbar.cancel: Afbestille
+  ba-videorecorder-controlbar.cancel-tooltip: Klik her for at annullere.
+  ba-videorecorder.cancel-confirm: Vil du virkelig annullere din video upload?
+  ba-videoplayer-adslot.elapsed-time: Forløbet tid
+  ba-videoplayer-adslot.volume-button: Indstil lydstyrke
+  ba-videoplayer-adslot.volume-mute: Dæmp lyd
+  ba-videoplayer-adslot.volume-unmute: Sluk lyden
+  ba-videoplayer-adslot.ad-will-end-after: Annoncen slutter efter %s
+  ba-videoplayer-adslot.can-skip-after: Spring over efter %d
+  ba-videoplayer-adslot.skip-ad: Spring annoncen over
+  ba-videorecorder.software-required: Klik nedenfor for at installere / aktivere følgende krav for at fortsætte.
+  ba-videorecorder.software-waiting: >-
+    Venter på de krav, der skal installeres / aktiveres. Du skal måske opdatere
+    siden efter færdiggørelsen.
+  ba-videoplayer-controlbar.close-tracks: Luk CC
+  ba-videoplayer-controlbar.show-tracks: Vis CC
+  ba-videoplayer-tracks.upload-text-tracks: Upload spor tekstfiler
+  ba-videoplayer-tracks.select-text-track-language: Undertekstsprog
+  ba-videoplayer-tracks.info-select-locale-first: Vælg først lokalitet
+  ba-videoplayer-tracks.select-text-track-file: Klik for at vælge fil
+  ba-videoplayer-tracks.back: tilbage
+  ba-videorecorder.framerate-warning: >-
+    Videorammerhastigheden er meget lav. Vi anbefaler at lukke alle andre
+    programmer og browser faner eller at bruge en hurtigere computer.
+  ba-videorecorder.upload-error-duration: >-
+    Længden på den uploadede video opfylder ikke kravene - klik her for at prøve
+    igen.
+  ba-videorecorder.resolution-constraint-error: >-
+    Filen du har valgt stemmer ikke overens med den krævede opløsning - klik her
+    for at prøve igen.
+  ba-videorecorder.orientation-portrait-required: Venligst drej din enhed for at optage i stående tilstand.
+  ba-videorecorder.orientation-landscape-required: Venligst drej din enhed for at optage i liggende tilstand.
+  ba-imageviewer-controlbar.rerecord-image: Redo?
+  ba-imageviewer-controlbar.submit-image: Bekræfte
+  ba-imageviewer-controlbar.fullscreen-image: Indtast fuldskærm
+  ba-imageviewer-controlbar.exit-fullscreen-image: Afslut fuldskærm
+  ba-imageviewer.image-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-imagecapture-chooser.image-capture: Capture Image
+  ba-imagecapture-chooser.upload-image: Upload billede
+  ba-imagecapture-controlbar.settings: Indstillinger
+  ba-imagecapture-controlbar.camerahealthy: Belysning er god
+  ba-imagecapture-controlbar.cameraunhealthy: Belysning er ikke optimal
+  ba-imagecapture-controlbar.record: Fange
+  ba-imagecapture-controlbar.record-tooltip: Klik her for at fange.
+  ba-imagecapture-controlbar.rerecord: redo
+  ba-imagecapture-controlbar.rerecord-tooltip: Klik her for at gentage.
+  ba-imagecapture-controlbar.cancel: Afbestille
+  ba-imagecapture-controlbar.cancel-tooltip: Klik her for at annullere.
+  ba-audioplayer-controlbar.audio-progress: Fremskridt
+  ba-audioplayer-controlbar.rerecord-audio: Redo?
+  ba-audioplayer-controlbar.submit-audio: Bekræfte
+  ba-audioplayer-controlbar.play-audio: Spille
+  ba-audioplayer-controlbar.pause-audio: Pause
+  ba-audioplayer-controlbar.pause-audio-disabled: Pause ikke understøttet
+  ba-audioplayer-controlbar.elapsed-time: Forløbet tid
+  ba-audioplayer-controlbar.total-time: Total længde på
+  ba-audioplayer-controlbar.volume-button: Indstil lydstyrke
+  ba-audioplayer-controlbar.volume-mute: Dæmp lyd
+  ba-audioplayer-controlbar.volume-unmute: Sluk lyden
+  ba-audioplayer-loader.tooltip: Indlæser...
+  ba-audioplayer.audio-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-audiorecorder-chooser.record-audio: Optag lyd
+  ba-audiorecorder-chooser.upload-audio: Upload lyd
+  ba-audiorecorder-controlbar.settings: Indstillinger
+  ba-audiorecorder-controlbar.microphonehealthy: Lyden er god
+  ba-audiorecorder-controlbar.microphoneunhealthy: Kan ikke hente nogen lyd
+  ba-audiorecorder-controlbar.record: Optage
+  ba-audiorecorder-controlbar.record-tooltip: Klik her for at optage.
+  ba-audiorecorder-controlbar.rerecord: redo
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klik her for at gentage.
+  ba-audiorecorder-controlbar.stop: Hold op
+  ba-audiorecorder-controlbar.stop-tooltip: Klik her for at stoppe.
+  ba-audiorecorder-controlbar.stop-available-after: Mindste optagetid er %d sekunder
+  ba-audiorecorder-controlbar.cancel: Afbestille
+  ba-audiorecorder-controlbar.cancel-tooltip: Klik her for at annullere.
+  ba-videoplayer-controlbar.player-speed: Spillerhastighed
+  ba-videoplayer-controlbar.settings: Indstillinger
+  ba-videoplayer-controlbar.airplay: airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay ikon.
+  ba-videoplayer.all-settings: Alle indstillinger
+  ba-videoplayer.player-speed: Spillerhastighed
+  ba-videoplayer.full-screen: Fuld skærm
+  ba-videorecorder-controlbar.add-stream: Tilføj Stream
+  ba-videorecorder.switch-camera: Skift kamera
+  ba-videorecorder.prepare-covershot: Forbereder coverhots
+  ba-videorecorder.prepare-thumbnails: Forbereder søger miniaturer
+  ba-videorecorder.adding-new-stream: Tilføjelse af ny strøm
+  ba-imagecapture.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-imagecapture.attach-error: >-
+    Vi kunne ikke få adgang til medieinterfacet. Afhængigt af enhed og browser
+    skal du muligvis installere Flash eller få adgang til siden via SSL.
+  ba-imagecapture.software-required: Klik nedenfor for at installere / aktivere følgende krav for at fortsætte.
+  ba-imagecapture.software-waiting: >-
+    Venter på de krav, der skal installeres / aktiveres. Du skal måske opdatere
+    siden efter færdiggørelsen.
+  ba-imagecapture.access-forbidden: Adgang til medierne var forbudt. Klik for at prøve igen.
+  ba-imagecapture.uploading: Upload
+  ba-imagecapture.uploading-failed: Uploading mislykkedes - klik her for at prøve igen.
+  ba-imagecapture.upload-error-duration: >-
+    Længde på det uploadede billede opfylder ikke kravene - klik her for at
+    prøve igen.
+  ba-imagecapture.resolution-constraint-error: >-
+    Filen du har valgt stemmer ikke overens med den krævede opløsning - klik her
+    for at prøve igen.
+  ba-imagecapture.verifying: Bekræftelse
+  ba-imagecapture.verifying-failed: Bekræftelse mislykkedes - klik her for at prøve igen.
+  ba-imagecapture.rerecord-confirm: Vil du virkelig genoptage dit billede?
+  ba-imagecapture.image_file_too_large: >-
+    Din billedfil er for stor (%s) - klik her for at prøve igen med en mindre
+    billedfil.
+  ba-imagecapture.unsupported_image_type: 'Upload venligst: %s - klik her for at prøve igen.'
+  ba-imagecapture.orientation-portrait-required: Venligst drej din enhed for at optage i stående tilstand.
+  ba-imagecapture.orientation-landscape-required: Venligst drej din enhed for at optage i liggende tilstand.
+  ba-audiorecorder.recorder-error: Der opstod en fejl. Prøv venligst igen senere. Klik for at prøve igen.
+  ba-audiorecorder.attach-error: >-
+    Vi kunne ikke få adgang til medieinterfacet. Afhængigt af enhed og browser
+    skal du muligvis installere Flash eller få adgang til siden via SSL.
+  ba-audiorecorder.software-required: Klik nedenfor for at installere / aktivere følgende krav for at fortsætte.
+  ba-audiorecorder.software-waiting: >-
+    Venter på de krav, der skal installeres / aktiveres. Du skal måske opdatere
+    siden efter færdiggørelsen.
+  ba-audiorecorder.access-forbidden: Adgang til medierne var forbudt. Klik for at prøve igen.
+  ba-audiorecorder.uploading: Upload
+  ba-audiorecorder.uploading-failed: Uploading mislykkedes - klik her for at prøve igen.
+  ba-audiorecorder.upload-error-duration: >-
+    Længden på den uploadede lyd opfylder ikke kravene - klik her for at prøve
+    igen.
+  ba-audiorecorder.verifying: Bekræftelse
+  ba-audiorecorder.verifying-failed: Bekræftelse mislykkedes - klik her for at prøve igen.
+  ba-audiorecorder.rerecord-confirm: Vil du virkelig lave din lyd igen?
+  ba-audiorecorder.cancel-confirm: Vil du virkelig annullere din lydopload?
+  ba-audiorecorder.audio_file_too_large: >-
+    Din lydfil er for stor (%s) - klik her for at prøve igen med en mindre
+    lydfil.
+  ba-audiorecorder.unsupported_audio_type: 'Upload venligst: %s - klik her for at prøve igen.'
+  ba-common-settingsmenu.tooltip: Klik for at spille.
+  ba-common-settingsmenu.setting-menu: Alle indstillinger
+  ba-common-settingsmenu.source-quality: Kildekvalitet
+  ba-common-settingsmenu.player-speed: Spillerens hastighed
+  ba-common-settingsmenu.set-menu-option: Indstil mulighed
+  ba-common-settingsmenu.submit-video: Bekræft video
+  ba-common-settingsmenu.picture-in-picture: Billede i billede
+  ba-common-settingsmenu.exit-fullscreen-video: Afslut fuldskærm
+  ba-common-settingsmenu.fullscreen-video: Gå ind i fuld skærm
+  ba-videorecorder-chooser.multi-stream: Multi Stream
+  ba-videorecorder-controlbar.pause-recorder: Pause optager
+  ba-videorecorder-controlbar.resume-recorder: Genoptag optager
+  ba-videorecorder.missing-track: Påkrævet lyd- eller videospor mangler
+  ba-videorecorder.device-already-in-use: Mindst en af dine inputenheder er allerede i brug
+  ba-videorecorder.browser-permission-denied: Tilladelse nægtet af browseren, giv venligst adgang og genindlæs siden
+  ba-audioplayer.all-settings: Alle indstillinger
+  ba-videoplayer-controlbar.remaining-time: Resterende tid
+  ba-videoplayer-controlbar.select-frame: Vælg
+  ba-videoplayer-controlbar.trim-video: Trimme
+  ba-videoplayer-playbutton.trim: Trimme
+  ba-videoplayer-playbutton.skip: Springe
+  ba-videorecorder-imagegallery.upload-covershot: Upload dækning
+  ba-videorecorder.pick-covershot-frame: Vælg en ramme, der skal bruges som forsidebillede.
+  ba-videorecorder.screen-recorder-is-not-supported: Screen recorder understøttes ikke på denne enhed
+  ba-videorecorder.trim-prompt: Vil du trimme din video?
+  ba-videorecorder.trim-video: Flyt start- og slutmarkørerne for at trimme din video
+  ba-videorecorder.wait-for-trim: Venter på trimkommando ...
+  ba-videorecorder-controlbar.no-video-source: Mangler yderligere videoindgangskilde
+  ba-videorecorder-controlbar.stream-already-selected: Yderligere strøm er allerede valgt
+  ba-videorecorder.uploading-src-error: Kan ikke afspille video nu, og upload er stadig i gang
+  ba-audiorecorder-controlbar.pause-recorder: Pause optager
+  ba-audiorecorder-controlbar.resume-recorder: Genoptag optager
+  ba-circle-progress.fullscreen-video: Indtast fuldskærm
+  ba-ads-choices-link.ad-choices: Annoncevalg
+  ba-ads-controlbar.skip-ad: Spring annoncen over
+  ba-ads-controlbar.play-ad: Spil
+  ba-ads-controlbar.pause-video: Pause
+  ba-ads-controlbar.volume-mute: Slå lyden fra
+  ba-ads-controlbar.volume-button: Indstil lydstyrken
+  ba-ads-controlbar.elapsed-time: Forløbet tid
+  ba-ads-controlbar.volume-unmute: Slå lyden til
+  ba-ads-controlbar.can-skip-after: Spring over efter %d
+  ba-ads-controlbar.fullscreen-video: Indtast fuldskærm
+  ba-ads-controlbar.exit-fullscreen-video: Afslut fuldskærm
+  ba-ads-controlbar.ad-will-end-after: Annoncen slutter efter %s
+  ba-ads-controlbar.pause-video-disabled: Pause understøttes ikke
+  ba-adsplayer.replay-ad: Afspil video igen
+  ba-adsplayer.close-ad: Tæt
+  ba-adsplayer.ad-choices: Annoncevalg
+  ba-adsplayer.learn-more: Lær mere
+  ba-ads-learn-more-button.learn-more: Lær mere
+  ba-videoplayer-sidebar.up-next: Næste
+  ba-videoplayer-sidebar.continue-on-ads-end: Indholdet genoptages efter denne annonce.
+  ba-videoplayer-tooltip.tooltip: Værktøjstip
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Hold musen på for at sætte værktøjstip på pause
+  ba-videorecorder.supported-mode: Medieopløsningen skal være i '%s'-tilstand.
+  ba-videorecorder.re-choose-action: Klik venligst for at vælge en anden inputenhed, eller prøv handlingen igen.
+  ba-audiorecorder.uploading-src-error: Kan ikke afspille lyd nu, upload er stadig i gang
+  ba-audiorecorder.missing-track: Påkrævet lydspor mangler
+  ba-audiorecorder.device-already-in-use: Mindst én af dine inputenheder er allerede i brug
+  ba-audiorecorder.browser-permission-denied: Tilladelse nægtet af browseren. Giv venligst adgang og genindlæs siden
+  ba-local-view.local-camera-connection-error: >-
+    Der opstod en fejl under tilslutning til lokalt kamera. Klik for at prøve
+    igen.
+  ba-call-controlbar.camera-button: Vis/skjul kamera
+  ba-call-controlbar.leave-button: Forlad opkald
+  ba-call-controlbar.mute-button: Slå lyden fra/til
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Når du er klar, klik på knappen nedenfor for at oprette et opkald.
+  ba-call-lobby.description-join: Når du er klar, klik på knappen nedenfor for at deltage i opkaldet.
+  ba-call-lobby.join-button: Tilslutte
+  ba-call-lobby.create-button: skab
+  ba-call-lobby.mute-button: Stum
+  ba-call-lobby.title-create: Opret opkald
+  ba-call-lobby.title-join: Deltag i Call
+  ba-video-call.call-ended: Opkaldet afsluttet
+  ba-video-call.connecting: Tilslutning...
+  ba-video-call.connection-error: Der opstod en fejl under forbindelsen. Klik venligst for at prøve igen.
+  ba-videoplayer-next.stay: Bliv
+  ba-videoplayer-next.next: Næste
+  ba-videorecorder-trimmer.trim: Trimme
+  ba-videorecorder-trimmer.skip: Springe

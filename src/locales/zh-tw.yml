@@ -1,192 +1,241 @@
-ba-imagecapture.uploading: 上傳
-ba-audiorecorder.upload-error-duration: 上傳的音頻長度不符合要求 - 點擊此處重試。
-ba-common-settingsmenu.tooltip: 點擊播放。
-ba-videorecorder.wait-for-trim: 等待修剪命令...
-ba-common-settingsmenu.setting-menu: 所有設定
-ba-videorecorder-controlbar.settings: 設定值
-ba-imagecapture.access-forbidden: 禁止訪問媒體。點擊重試。
-ba-imagecapture-controlbar.cancel: 取消
-ba-videorecorder.video_file_too_large: 您的影片過大 (%s) 請點我重新選擇小一點影片再試一次。
-ba-videoplayer-controlbar.settings: 設置
-ba-videorecorder-controlbar.add-stream: 添加流
-ba-videorecorder-controlbar.cancel-tooltip: 點擊這裡取消。
-ba-imageviewer-controlbar.fullscreen-image: 輸入全屏
-ba-audioplayer.audio-error: 發生了一個錯誤。請稍後重試。點擊重試。
-ba-imagecapture.image_file_too_large: 您的圖片文件太大（%s） - 點擊此處再次嘗試使用較小的圖片文件。
-ba-videoplayer-controlbar.show-tracks: 顯示CC
-ba-imagecapture.orientation-landscape-required: 請旋轉您的設備以橫向模式錄製。
-ba-videoplayer.full-screen: 全屏
-ba-videoplayer-controlbar.pause-video-disabled: 無法暫停
-ba-videorecorder.cancel-confirm: 你真的想取消你的視頻上傳？
-ba-videorecorder-controlbar.camerahealthy: 光線良好
-ba-common-settingsmenu.submit-video: 確認影片
-ba-videorecorder-controlbar.record-tooltip: 點我錄影
-ba-videorecorder-controlbar.cancel: 取消
-ba-common-settingsmenu.picture-in-picture: 畫中畫
-ba-audiorecorder-controlbar.rerecord: 重做
-ba-audiorecorder.rerecord-confirm: 你真的想要重做你的音頻嗎？
-ba-videoplayer-playbutton.rerecord: 重試
-ba-videoplayer-tracks.select-text-track-language: 字幕語言
-ba-videoplayer-adslot.can-skip-after: 在%d之後跳過
-ba-audiorecorder.cancel-confirm: 你真的想取消音頻上傳嗎？
-ba-videoplayer-controlbar.elapsed-time: 經過時間
-ba-videorecorder-controlbar.stop-available-after: 最短記錄時間是%d秒
-ba-audioplayer.all-settings: 所有設定
-ba-imagecapture-controlbar.camerahealthy: 照明很好
-ba-imagecapture-controlbar.record: 捕獲
-ba-audiorecorder.software-waiting: 等待安裝/激活要求。您可能需要在完成後刷新頁面。
-ba-videoplayer-tracks.info-select-locale-first: 首先選擇區域設置
-ba-videoplayer-loader.tooltip: 讀取中...
-ba-audiorecorder-controlbar.cancel-tooltip: 點擊這裡取消。
-ba-audiorecorder-controlbar.record-tooltip: 點擊這裡記錄。
-ba-audioplayer-controlbar.submit-audio: 確認
-ba-imagecapture.verifying-failed: 驗證失敗 - 單擊此處重試。
-ba-videoplayer-playbutton.skip: 跳過
-ba-videoplayer-controlbar.trim-video: 修剪
-ba-videorecorder.missing-track: 缺少必需的音頻或視頻軌道
-ba-imagecapture.uploading-failed: 上傳失敗 - 點擊此處重試。
-ba-videoplayer-adslot.skip-ad: 跳過廣告
-ba-videoplayer-adslot.volume-button: 設置音量
-ba-videorecorder-chooser.record-audio: 錄音
-ba-audiorecorder.audio_file_too_large: 您的音頻文件太大（%s） - 點擊此處再次嘗試使用較小的音頻文件。
-ba-imagecapture-chooser.image-capture: 捕獲圖像
-ba-videorecorder.trim-prompt: 你想修剪你的視頻嗎？
-ba-videorecorder.software-waiting: 等待要求安裝/激活。完成後可能需要刷新頁面。
-ba-audioplayer-controlbar.play-audio: 玩
-ba-videorecorder.browser-permission-denied: 瀏覽器拒絕此權限，請授予訪問權限並重新加載頁面
-ba-videoplayer-controlbar.pause-video: 暫停
-ba-videoplayer-adslot.volume-unmute: 取消靜音
-ba-videorecorder-controlbar.resume-recorder: 簡歷記錄器
-ba-videoplayer-controlbar.submit-video: 確認
-ba-videorecorder-controlbar.rerecord: 重試
-ba-videoplayer-share.share: 分享
-ba-audioplayer-loader.tooltip: 載入中...
-ba-imagecapture.unsupported_image_type: 請上傳：%s  - 點擊此處重試。
-ba-videorecorder.uploading: 上傳中
-ba-audiorecorder.verifying: 驗證
-ba-videoplayer-playbutton.tooltip: 點選播放
-ba-audiorecorder-controlbar.microphonehealthy: 聲音很好
-ba-videorecorder.trim-video: 移動開始和結束標記以修剪視頻
-ba-videoplayer-controlbar.player-speed: 球員速度
-ba-videorecorder-controlbar.microphonehealthy: 收音良好
-ba-videorecorder-chooser.multi-stream: 多流
-ba-imagecapture.recorder-error: 發生了一個錯誤。請稍後重試。點擊重試。
-ba-videorecorder-controlbar.stop-tooltip: 點我停止
-ba-audiorecorder-controlbar.rerecord-tooltip: 點擊這裡重做。
-ba-imagecapture-controlbar.rerecord-tooltip: 點擊這裡重做。
-ba-videorecorder-chooser.record-screen: 記錄屏幕
-ba-videoplayer.all-settings: 所有設置
-ba-videoplayer-controlbar.select-frame: 選擇
-ba-imagecapture.resolution-constraint-error: 您選擇的文件與所需的分辨率不匹配 - 點擊此處重試。
-ba-videoplayer-controlbar.video-progress: 進度
-ba-videorecorder-controlbar.cameraunhealthy: 光源不佳
-ba-audioplayer-controlbar.pause-audio: 暫停
-ba-videorecorder-controlbar.stop: 停止
-ba-audiorecorder-controlbar.stop-tooltip: 點擊此處停止。
-ba-videorecorder-controlbar.microphoneunhealthy: 收音不良
-ba-imagecapture-chooser.upload-image: 上傳圖片
-ba-videorecorder-imagegallery.upload-covershot: 上傳封面
-ba-audiorecorder-controlbar.resume-recorder: 簡歷記錄器
-ba-audiorecorder-controlbar.stop: 停止
-ba-videoplayer.video-error: 錯誤發生，請稍後再試(點我)
-ba-videorecorder.attach-error: 無法存取攝影機，可能是瀏覽器或是裝置的限制，請嘗試安裝 Flash 外掛程式或透過安全連線來使用。
-ba-audiorecorder-controlbar.pause-recorder: 暫停錄音機
-ba-videorecorder.rerecord-confirm: 確定要重新錄製您的影片?
-ba-audiorecorder-controlbar.stop-available-after: 最短錄製時間為%d秒
-ba-videoplayer-controlbar.change-resolution: 變更解析度
-ba-audiorecorder.software-required: 請單擊下方以安裝/激活以下要求以繼續。
-ba-videoplayer-controlbar.exit-fullscreen-video: 結束全螢幕
-ba-imageviewer-controlbar.rerecord-image: 重做？
-ba-videoplayer-adslot.ad-will-end-after: 廣告將在%s之後結束
-ba-imagecapture.rerecord-confirm: 你真的想重拍你的形象嗎？
-ba-audioplayer-controlbar.elapsed-time: 節省時間
-ba-videoplayer-controlbar.close-tracks: 關閉CC
-ba-videorecorder-controlbar.upload-covershot: 上傳
-ba-audioplayer-controlbar.rerecord-audio: 重做？
-ba-videorecorder.orientation-landscape-required: 請旋轉設備以橫向模式錄製。
-ba-imagecapture.verifying: 驗證
-ba-imageviewer-controlbar.submit-image: 確認
-ba-imagecapture-controlbar.cancel-tooltip: 點擊這裡取消。
-ba-imagecapture.software-waiting: 等待安裝/激活要求。您可能需要在完成後刷新頁面。
-ba-imageviewer-controlbar.exit-fullscreen-image: 退出全屏
-ba-videorecorder.verifying-failed: 驗證失敗，請點我重試
-ba-videorecorder-controlbar.upload-covershot-tooltip: 點我上傳自訂的封面
-ba-common-settingsmenu.set-menu-option: 設定選項
-ba-common-settingsmenu.exit-fullscreen-video: 退出全屏
-ba-videorecorder.framerate-warning: 視頻幀率非常低。我們建議關閉所有其他程序和瀏覽器選項卡或使用更快的計算機。
-ba-videorecorder.switch-camera: 切換相機
-ba-audioplayer-controlbar.volume-button: 設定音量
-ba-videorecorder.uploading-failed: 上傳失敗，請點我重試
-ba-videoplayer-playbutton.trim: 修剪
-ba-videorecorder-chooser.upload-video: 上傳影片
-ba-audioplayer-controlbar.volume-unmute: 取消靜音
-ba-audiorecorder-controlbar.record: 記錄
-ba-videorecorder.software-required: 請點擊下面的安裝/激活以下要求才能繼續。
-ba-audiorecorder.verifying-failed: 驗證失敗 - 單擊此處重試。
-ba-videorecorder-controlbar.stream-already-selected: 已選擇附加流
-ba-videorecorder.upload-error-duration: 上傳視頻的長度不符合要求 - 點擊此處重試。
-ba-common-settingsmenu.player-speed: 播放速度
-ba-audiorecorder-controlbar.settings: 設置
-ba-videoplayer-controlbar.play-video: 播放
-ba-videoplayer-tracks.upload-text-tracks: 上傳曲目文本文件
-ba-videorecorder-controlbar.skip-tooltip: 點我略過
-ba-videoplayer-adslot.elapsed-time: 呃時間
-ba-videoplayer-controlbar.rerecord-video: 重試?
-ba-videoplayer-controlbar.remaining-time: 剩餘時間
-ba-imagecapture-controlbar.record-tooltip: 點擊此處捕捉。
-ba-videorecorder.device-already-in-use: 您的至少一個輸入設備已在使用中
-ba-videorecorder.recorder-error: 錯誤發生，請稍後再試(點我)
-ba-audioplayer-controlbar.volume-mute: 靜音
-ba-audiorecorder-chooser.upload-audio: 上傳音頻
-ba-imagecapture.upload-error-duration: 上傳圖片的長度不符合要求 - 點擊此處重試。
-ba-audiorecorder.attach-error: 我們無法訪問媒體界面。您可能需要安裝Flash或通過SSL訪問該頁面，具體取決於設備和瀏覽器。
-ba-audiorecorder-controlbar.cancel: 取消
-ba-videoplayer-controlbar.airplay-icon: Airplay圖標。
-ba-videorecorder.prepare-covershot: 準備砲彈
-ba-videoplayer.player-speed: 球員速度
-ba-videorecorder.verifying: 驗證中
-ba-videoplayer-controlbar.fullscreen-video: 進入全螢幕
-ba-audiorecorder.uploading-failed: 上傳失敗 - 點擊此處重試。
-ba-videorecorder.unsupported_video_type: '請使用影片格式: %s - 點我重試'
-ba-videorecorder-chooser.record-video: 錄製影片
-ba-videoplayer-playbutton.submit-video: 確認
-ba-audioplayer-controlbar.total-time: 總長度
-ba-videorecorder.prepare-thumbnails: 準備尋找縮略圖
-ba-videorecorder.screen-recorder-is-not-supported: 此設備不支持屏幕錄像機
-ba-videoplayer-controlbar.airplay: 的Airplay
-ba-videoplayer-tracks.back: 背部
-ba-videorecorder.access-forbidden: 無法存取攝影機，請點我重試。
-ba-videoplayer-adslot.volume-mute: 靜音
-ba-videorecorder.pick-covershot-frame: 選擇要用作掩護的幀。
-ba-audioplayer-controlbar.audio-progress: 進展
-ba-imageviewer.image-error: 發生了一個錯誤。請稍後重試。點擊重試。
-ba-audioplayer-controlbar.pause-audio-disabled: 暫停不受支持
-ba-videorecorder.resolution-constraint-error: 您選擇的文件與所需的分辨率不匹配 - 單擊此處重試。
-ba-videorecorder-controlbar.pause-recorder: 暫停記錄器
-ba-imagecapture-controlbar.cameraunhealthy: 照明不是最佳的
-ba-common-settingsmenu.source-quality: 源質量
-ba-imagecapture.orientation-portrait-required: 請旋轉設備以縱向模式錄製。
-ba-videoplayer-controlbar.total-time: 總長度
-ba-videorecorder-controlbar.rerecord-tooltip: 點我重試
-ba-videorecorder.orientation-portrait-required: 請旋轉設備以縱向模式錄製。
-ba-audiorecorder-chooser.record-audio: 錄製音頻
-ba-videoplayer-controlbar.volume-mute: 靜音
-ba-videorecorder.pick-covershot: 請挑選一張封面
-ba-audiorecorder-controlbar.microphoneunhealthy: 無法接聽任何聲音
-ba-videorecorder-controlbar.no-video-source: 缺少額外的視頻輸入源
-ba-common-settingsmenu.fullscreen-video: 進入全屏
-ba-audiorecorder.access-forbidden: 禁止訪問媒體。點擊重試。
-ba-imagecapture-controlbar.rerecord: 重做
-ba-audiorecorder.recorder-error: 發生了一個錯誤。請稍後重試。點擊重試。
-ba-videoplayer-tracks.select-text-track-file: 單擊以選中文件
-ba-videorecorder-controlbar.skip: 略過
-ba-imagecapture.software-required: 請單擊下方以安裝/激活以下要求以繼續。
-ba-videorecorder.uploading-src-error: 現在無法播放視頻，上傳仍在進行中
-ba-videoplayer-controlbar.volume-unmute: 解除靜音
-ba-videoplayer-controlbar.volume-button: 調整音量
-ba-imagecapture.attach-error: 我們無法訪問媒體界面。您可能需要安裝Flash或通過SSL訪問該頁面，具體取決於設備和瀏覽器。
-ba-audiorecorder.uploading: 上傳
-ba-audiorecorder.unsupported_audio_type: 請上傳：%s  - 點擊此處重試。
-ba-imagecapture-controlbar.settings: 設置
-ba-videorecorder-controlbar.record: 錄影
-ba-videorecorder.adding-new-stream: 添加新流
+language:zh-tw:
+  ba-videoplayer-playbutton.tooltip: 點選播放
+  ba-videoplayer-playbutton.rerecord: 重試
+  ba-videoplayer-playbutton.submit-video: 確認
+  ba-videoplayer-loader.tooltip: 讀取中...
+  ba-videoplayer-controlbar.change-resolution: 變更解析度
+  ba-videoplayer-controlbar.video-progress: 進度
+  ba-videoplayer-controlbar.rerecord-video: 重試?
+  ba-videoplayer-controlbar.submit-video: 確認
+  ba-videoplayer-controlbar.play-video: 播放
+  ba-videoplayer-controlbar.pause-video: 暫停
+  ba-videoplayer-controlbar.elapsed-time: 經過時間
+  ba-videoplayer-controlbar.total-time: 總長度
+  ba-videoplayer-controlbar.fullscreen-video: 進入全螢幕
+  ba-videoplayer-controlbar.volume-button: 調整音量
+  ba-videoplayer-controlbar.volume-mute: 靜音
+  ba-videoplayer-controlbar.volume-unmute: 解除靜音
+  ba-videoplayer.video-error: 錯誤發生，請稍後再試(點我)
+  ba-videorecorder-chooser.record-video: 錄製影片
+  ba-videorecorder-chooser.upload-video: 上傳影片
+  ba-videorecorder-controlbar.settings: 設定值
+  ba-videorecorder-controlbar.camerahealthy: 光線良好
+  ba-videorecorder-controlbar.cameraunhealthy: 光源不佳
+  ba-videorecorder-controlbar.microphonehealthy: 收音良好
+  ba-videorecorder-controlbar.microphoneunhealthy: 收音不良
+  ba-videorecorder-controlbar.record: 錄影
+  ba-videorecorder-controlbar.record-tooltip: 點我錄影
+  ba-videorecorder-controlbar.rerecord: 重試
+  ba-videorecorder-controlbar.rerecord-tooltip: 點我重試
+  ba-videorecorder-controlbar.upload-covershot: 上傳
+  ba-videorecorder-controlbar.upload-covershot-tooltip: 點我上傳自訂的封面
+  ba-videorecorder-controlbar.stop: 停止
+  ba-videorecorder-controlbar.stop-tooltip: 點我停止
+  ba-videorecorder-controlbar.skip: 略過
+  ba-videorecorder-controlbar.skip-tooltip: 點我略過
+  ba-videorecorder.recorder-error: 錯誤發生，請稍後再試(點我)
+  ba-videorecorder.attach-error: 無法存取攝影機，可能是瀏覽器或是裝置的限制，請嘗試安裝 Flash 外掛程式或透過安全連線來使用。
+  ba-videorecorder.access-forbidden: 無法存取攝影機，請點我重試。
+  ba-videorecorder.pick-covershot: 請挑選一張封面
+  ba-videorecorder.uploading: 上傳中
+  ba-videorecorder.uploading-failed: 上傳失敗，請點我重試
+  ba-videorecorder.verifying: 驗證中
+  ba-videorecorder.verifying-failed: 驗證失敗，請點我重試
+  ba-videorecorder.rerecord-confirm: 確定要重新錄製您的影片?
+  ba-videorecorder.video_file_too_large: 您的影片過大 (%s) 請點我重新選擇小一點影片再試一次。
+  ba-videorecorder.unsupported_video_type: '請使用影片格式: %s - 點我重試'
+  ba-videoplayer-controlbar.exit-fullscreen-video: 結束全螢幕
+  ba-videoplayer-share.share: 分享
+  ba-videoplayer-controlbar.pause-video-disabled: 無法暫停
+  ba-videorecorder-chooser.record-audio: 錄音
+  ba-videorecorder-chooser.record-screen: 記錄屏幕
+  ba-videorecorder-controlbar.stop-available-after: 最短記錄時間是%d秒
+  ba-videorecorder-controlbar.cancel: 取消
+  ba-videorecorder-controlbar.cancel-tooltip: 點擊這裡取消。
+  ba-videorecorder.cancel-confirm: 你真的想取消你的視頻上傳？
+  ba-videoplayer-adslot.elapsed-time: 呃時間
+  ba-videoplayer-adslot.volume-button: 設置音量
+  ba-videoplayer-adslot.volume-mute: 靜音
+  ba-videoplayer-adslot.volume-unmute: 取消靜音
+  ba-videoplayer-adslot.ad-will-end-after: 廣告將在%s之後結束
+  ba-videoplayer-adslot.can-skip-after: 在%d之後跳過
+  ba-videoplayer-adslot.skip-ad: 跳過廣告
+  ba-videorecorder.software-required: 請點擊下面的安裝/激活以下要求才能繼續。
+  ba-videorecorder.software-waiting: 等待要求安裝/激活。完成後可能需要刷新頁面。
+  ba-videoplayer-controlbar.close-tracks: 關閉CC
+  ba-videoplayer-controlbar.show-tracks: 顯示CC
+  ba-videoplayer-tracks.upload-text-tracks: 上傳曲目文本文件
+  ba-videoplayer-tracks.select-text-track-language: 字幕語言
+  ba-videoplayer-tracks.info-select-locale-first: 首先選擇區域設置
+  ba-videoplayer-tracks.select-text-track-file: 單擊以選中文件
+  ba-videoplayer-tracks.back: 背部
+  ba-videorecorder.framerate-warning: 視頻幀率非常低。我們建議關閉所有其他程序和瀏覽器選項卡或使用更快的計算機。
+  ba-videorecorder.upload-error-duration: 上傳視頻的長度不符合要求 - 點擊此處重試。
+  ba-videorecorder.resolution-constraint-error: 您選擇的文件與所需的分辨率不匹配 - 單擊此處重試。
+  ba-videorecorder.orientation-portrait-required: 請旋轉設備以縱向模式錄製。
+  ba-videorecorder.orientation-landscape-required: 請旋轉設備以橫向模式錄製。
+  ba-imageviewer-controlbar.rerecord-image: 重做？
+  ba-imageviewer-controlbar.submit-image: 確認
+  ba-imageviewer-controlbar.fullscreen-image: 輸入全屏
+  ba-imageviewer-controlbar.exit-fullscreen-image: 退出全屏
+  ba-imageviewer.image-error: 發生了一個錯誤。請稍後重試。點擊重試。
+  ba-imagecapture-chooser.image-capture: 捕獲圖像
+  ba-imagecapture-chooser.upload-image: 上傳圖片
+  ba-imagecapture-controlbar.settings: 設置
+  ba-imagecapture-controlbar.camerahealthy: 照明很好
+  ba-imagecapture-controlbar.cameraunhealthy: 照明不是最佳的
+  ba-imagecapture-controlbar.record: 捕獲
+  ba-imagecapture-controlbar.record-tooltip: 點擊此處捕捉。
+  ba-imagecapture-controlbar.rerecord: 重做
+  ba-imagecapture-controlbar.rerecord-tooltip: 點擊這裡重做。
+  ba-imagecapture-controlbar.cancel: 取消
+  ba-imagecapture-controlbar.cancel-tooltip: 點擊這裡取消。
+  ba-audioplayer-controlbar.audio-progress: 進展
+  ba-audioplayer-controlbar.rerecord-audio: 重做？
+  ba-audioplayer-controlbar.submit-audio: 確認
+  ba-audioplayer-controlbar.play-audio: 玩
+  ba-audioplayer-controlbar.pause-audio: 暫停
+  ba-audioplayer-controlbar.pause-audio-disabled: 暫停不受支持
+  ba-audioplayer-controlbar.elapsed-time: 節省時間
+  ba-audioplayer-controlbar.total-time: 總長度
+  ba-audioplayer-controlbar.volume-button: 設定音量
+  ba-audioplayer-controlbar.volume-mute: 靜音
+  ba-audioplayer-controlbar.volume-unmute: 取消靜音
+  ba-audioplayer-loader.tooltip: 載入中...
+  ba-audioplayer.audio-error: 發生了一個錯誤。請稍後重試。點擊重試。
+  ba-audiorecorder-chooser.record-audio: 錄製音頻
+  ba-audiorecorder-chooser.upload-audio: 上傳音頻
+  ba-audiorecorder-controlbar.settings: 設置
+  ba-audiorecorder-controlbar.microphonehealthy: 聲音很好
+  ba-audiorecorder-controlbar.microphoneunhealthy: 無法接聽任何聲音
+  ba-audiorecorder-controlbar.record: 記錄
+  ba-audiorecorder-controlbar.record-tooltip: 點擊這裡記錄。
+  ba-audiorecorder-controlbar.rerecord: 重做
+  ba-audiorecorder-controlbar.rerecord-tooltip: 點擊這裡重做。
+  ba-audiorecorder-controlbar.stop: 停止
+  ba-audiorecorder-controlbar.stop-tooltip: 點擊此處停止。
+  ba-audiorecorder-controlbar.stop-available-after: 最短錄製時間為%d秒
+  ba-audiorecorder-controlbar.cancel: 取消
+  ba-audiorecorder-controlbar.cancel-tooltip: 點擊這裡取消。
+  ba-videoplayer-controlbar.player-speed: 球員速度
+  ba-videoplayer-controlbar.settings: 設置
+  ba-videoplayer-controlbar.airplay: 的Airplay
+  ba-videoplayer-controlbar.airplay-icon: Airplay圖標。
+  ba-videoplayer.all-settings: 所有設置
+  ba-videoplayer.player-speed: 球員速度
+  ba-videoplayer.full-screen: 全屏
+  ba-videorecorder-controlbar.add-stream: 添加流
+  ba-videorecorder.switch-camera: 切換相機
+  ba-videorecorder.prepare-covershot: 準備砲彈
+  ba-videorecorder.prepare-thumbnails: 準備尋找縮略圖
+  ba-videorecorder.adding-new-stream: 添加新流
+  ba-imagecapture.recorder-error: 發生了一個錯誤。請稍後重試。點擊重試。
+  ba-imagecapture.attach-error: 我們無法訪問媒體界面。您可能需要安裝Flash或通過SSL訪問該頁面，具體取決於設備和瀏覽器。
+  ba-imagecapture.software-required: 請單擊下方以安裝/激活以下要求以繼續。
+  ba-imagecapture.software-waiting: 等待安裝/激活要求。您可能需要在完成後刷新頁面。
+  ba-imagecapture.access-forbidden: 禁止訪問媒體。點擊重試。
+  ba-imagecapture.uploading: 上傳
+  ba-imagecapture.uploading-failed: 上傳失敗 - 點擊此處重試。
+  ba-imagecapture.upload-error-duration: 上傳圖片的長度不符合要求 - 點擊此處重試。
+  ba-imagecapture.resolution-constraint-error: 您選擇的文件與所需的分辨率不匹配 - 點擊此處重試。
+  ba-imagecapture.verifying: 驗證
+  ba-imagecapture.verifying-failed: 驗證失敗 - 單擊此處重試。
+  ba-imagecapture.rerecord-confirm: 你真的想重拍你的形象嗎？
+  ba-imagecapture.image_file_too_large: 您的圖片文件太大（%s） - 點擊此處再次嘗試使用較小的圖片文件。
+  ba-imagecapture.unsupported_image_type: 請上傳：%s  - 點擊此處重試。
+  ba-imagecapture.orientation-portrait-required: 請旋轉設備以縱向模式錄製。
+  ba-imagecapture.orientation-landscape-required: 請旋轉您的設備以橫向模式錄製。
+  ba-audiorecorder.recorder-error: 發生了一個錯誤。請稍後重試。點擊重試。
+  ba-audiorecorder.attach-error: 我們無法訪問媒體界面。您可能需要安裝Flash或通過SSL訪問該頁面，具體取決於設備和瀏覽器。
+  ba-audiorecorder.software-required: 請單擊下方以安裝/激活以下要求以繼續。
+  ba-audiorecorder.software-waiting: 等待安裝/激活要求。您可能需要在完成後刷新頁面。
+  ba-audiorecorder.access-forbidden: 禁止訪問媒體。點擊重試。
+  ba-audiorecorder.uploading: 上傳
+  ba-audiorecorder.uploading-failed: 上傳失敗 - 點擊此處重試。
+  ba-audiorecorder.upload-error-duration: 上傳的音頻長度不符合要求 - 點擊此處重試。
+  ba-audiorecorder.verifying: 驗證
+  ba-audiorecorder.verifying-failed: 驗證失敗 - 單擊此處重試。
+  ba-audiorecorder.rerecord-confirm: 你真的想要重做你的音頻嗎？
+  ba-audiorecorder.cancel-confirm: 你真的想取消音頻上傳嗎？
+  ba-audiorecorder.audio_file_too_large: 您的音頻文件太大（%s） - 點擊此處再次嘗試使用較小的音頻文件。
+  ba-audiorecorder.unsupported_audio_type: 請上傳：%s  - 點擊此處重試。
+  ba-common-settingsmenu.tooltip: 點擊播放。
+  ba-common-settingsmenu.setting-menu: 所有設定
+  ba-common-settingsmenu.source-quality: 源質量
+  ba-common-settingsmenu.player-speed: 播放速度
+  ba-common-settingsmenu.set-menu-option: 設定選項
+  ba-common-settingsmenu.submit-video: 確認影片
+  ba-common-settingsmenu.picture-in-picture: 畫中畫
+  ba-common-settingsmenu.exit-fullscreen-video: 退出全屏
+  ba-common-settingsmenu.fullscreen-video: 進入全屏
+  ba-videorecorder-chooser.multi-stream: 多流
+  ba-videorecorder-controlbar.pause-recorder: 暫停記錄器
+  ba-videorecorder-controlbar.resume-recorder: 簡歷記錄器
+  ba-videorecorder.missing-track: 缺少必需的音頻或視頻軌道
+  ba-videorecorder.device-already-in-use: 您的至少一個輸入設備已在使用中
+  ba-videorecorder.browser-permission-denied: 瀏覽器拒絕此權限，請授予訪問權限並重新加載頁面
+  ba-audioplayer.all-settings: 所有設定
+  ba-videoplayer-controlbar.remaining-time: 剩餘時間
+  ba-videoplayer-controlbar.select-frame: 選擇
+  ba-videoplayer-controlbar.trim-video: 修剪
+  ba-videoplayer-playbutton.trim: 修剪
+  ba-videoplayer-playbutton.skip: 跳過
+  ba-videorecorder-imagegallery.upload-covershot: 上傳封面
+  ba-videorecorder.pick-covershot-frame: 選擇要用作掩護的幀。
+  ba-videorecorder.screen-recorder-is-not-supported: 此設備不支持屏幕錄像機
+  ba-videorecorder.trim-prompt: 你想修剪你的視頻嗎？
+  ba-videorecorder.trim-video: 移動開始和結束標記以修剪視頻
+  ba-videorecorder.wait-for-trim: 等待修剪命令...
+  ba-videorecorder-controlbar.no-video-source: 缺少額外的視頻輸入源
+  ba-videorecorder-controlbar.stream-already-selected: 已選擇附加流
+  ba-videorecorder.uploading-src-error: 現在無法播放視頻，上傳仍在進行中
+  ba-audiorecorder-controlbar.pause-recorder: 暫停錄音機
+  ba-audiorecorder-controlbar.resume-recorder: 簡歷記錄器
+  ba-circle-progress.fullscreen-video: 進入全螢幕
+  ba-ads-choices-link.ad-choices: 廣告選擇
+  ba-ads-controlbar.skip-ad: 跳過廣告
+  ba-ads-controlbar.play-ad: 玩
+  ba-ads-controlbar.pause-video: 暫停
+  ba-ads-controlbar.volume-mute: 靜音
+  ba-ads-controlbar.volume-button: 設定音量
+  ba-ads-controlbar.elapsed-time: 經過時間
+  ba-ads-controlbar.volume-unmute: 取消靜音
+  ba-ads-controlbar.can-skip-after: '%d 之後跳過'
+  ba-ads-controlbar.fullscreen-video: 進入全螢幕
+  ba-ads-controlbar.exit-fullscreen-video: 退出全螢幕
+  ba-ads-controlbar.ad-will-end-after: 廣告將在 %s 後結束
+  ba-ads-controlbar.pause-video-disabled: 不支援暫停
+  ba-adsplayer.replay-ad: 重播影片
+  ba-adsplayer.close-ad: 關閉
+  ba-adsplayer.ad-choices: 廣告選擇
+  ba-adsplayer.learn-more: 了解更多
+  ba-ads-learn-more-button.learn-more: 了解更多
+  ba-videoplayer-sidebar.up-next: 下一個
+  ba-videoplayer-sidebar.continue-on-ads-end: 內容將在此廣告後恢復。
+  ba-videoplayer-tooltip.tooltip: 工具提示
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: 按住滑鼠可暫停工具提示關閉
+  ba-videorecorder.supported-mode: 媒體解析度應處於“%s”模式。
+  ba-videorecorder.re-choose-action: 請點選選擇其他輸入設備或重試操作。
+  ba-audiorecorder.uploading-src-error: 現在無法播放音訊，上傳仍在進行中
+  ba-audiorecorder.missing-track: 缺少所需的音軌
+  ba-audiorecorder.device-already-in-use: 您的至少一個輸入設備已在使用中
+  ba-audiorecorder.browser-permission-denied: 瀏覽器拒絕權限，請授予存取權限並重新載入頁面
+  ba-local-view.local-camera-connection-error: 連接本地攝影機時發生錯誤。單擊重試。
+  ba-call-controlbar.camera-button: 顯示/隱藏相機
+  ba-call-controlbar.leave-button: 留下電話
+  ba-call-controlbar.mute-button: 靜音/取消靜音
+  ba-call-lobby.camera-button: 相機
+  ba-call-lobby.description-create: 準備好後，請點擊下面的按鈕來建立通話。
+  ba-call-lobby.description-join: 準備好後，請點擊下面的按鈕加入通話。
+  ba-call-lobby.join-button: 加入
+  ba-call-lobby.create-button: 創造
+  ba-call-lobby.mute-button: 沉默的
+  ba-call-lobby.title-create: 建立通話
+  ba-call-lobby.title-join: 加入通話
+  ba-video-call.call-ended: 通話結束
+  ba-video-call.connecting: 正在連接...
+  ba-video-call.connection-error: 連線時發生錯誤，請點選重試。
+  ba-videoplayer-next.stay: 停留
+  ba-videoplayer-next.next: 下一個
+  ba-videorecorder-trimmer.trim: 修剪
+  ba-videorecorder-trimmer.skip: 跳過

@@ -1,254 +1,263 @@
-ba-audiorecorder.upload-error-duration: طول الصوت الذي تم تحميله لا يلبي المتطلبات
-  - انقر هنا لإعادة المحاولة.
-ba-common-settingsmenu.tooltip: انقر للعب.
-ba-common-settingsmenu.setting-menu: جميع الإعدادات
-ba-videorecorder-controlbar.settings: إعدادات
-ba-imagecapture.access-forbidden: تم منع الوصول إلى وسائل الإعلام. انقر لإعادة المحاولة.
-ba-videorecorder.video_file_too_large: ملف الفيديو كبير جدا (%s) - انقر هنا لإعادة
-  المحاولة باستخدام ملف فيديو أصغر.
-ba-videoplayer-controlbar.settings: الإعدادات
-ba-videorecorder-controlbar.add-stream: إضافة تيار
-ba-imageviewer-controlbar.fullscreen-image: أدخل ملء الشاشة
-ba-imagecapture.image_file_too_large: ملف الصورة الخاص بك كبير جدًا (%s) - انقر هنا
-  لإعادة المحاولة باستخدام ملف صورة أصغر.
-ba-imagecapture.orientation-landscape-required: يرجى تدوير جهازك للتسجيل في وضع أفقي.
-ba-videoplayer-controlbar.pause-video-disabled: إيقاف مؤقت غير متوافق
-ba-videorecorder-controlbar.camerahealthy: الإضاءة جيدة
-ba-common-settingsmenu.submit-video: تأكيد الفيديو
-ba-videorecorder-controlbar.record-tooltip: انقر هنا للتسجيل.
-ba-common-settingsmenu.picture-in-picture: صور في صور
-ba-videoplayer-playbutton.rerecord: اعد المحاولة
-ba-videoplayer-tracks.select-text-track-language: لغة الترجمة
-ba-video-call.connection-error: حدث خطأ أثناء الاتصال، يرجى النقر للمحاولة مرة أخرى.
-ba-videoplayer-adslot.can-skip-after: تخطي بعد%d
-ba-audiorecorder.cancel-confirm: هل تريد حقًا إلغاء تحميل الصوت الخاص بك؟
-ba-audiorecorder.software-waiting: في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد
-  تحتاج إلى تحديث الصفحة بعد الانتهاء.
-ba-videoplayer-tracks.info-select-locale-first: حدد أولاً اللغة
-ba-videoplayer-loader.tooltip: جار تحميل الفيديو ...
-ba-audiorecorder-controlbar.cancel-tooltip: انقر هنا للإلغاء.
-ba-imagecapture.verifying-failed: فشل التحقق - انقر هنا لإعادة المحاولة.
-ba-videoplayer-playbutton.skip: يتخطى
-ba-videoplayer-controlbar.trim-video: تقليم
-ba-videorecorder.missing-track: مسار الصوت أو الفيديو المطلوب مفقود
-ba-imagecapture.uploading-failed: فشل التحميل - انقر هنا لإعادة المحاولة.
-ba-call-controlbar.leave-button: غادر المكالمة
-ba-videoplayer-adslot.volume-button: تعيين مستوى الصوت
-ba-imagecapture-chooser.image-capture: التقاط الصورة
-ba-videorecorder.trim-prompt: هل تريد تقليم الفيديو الخاص بك؟
-ba-videorecorder.software-waiting: في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد
-  تحتاج إلى تحديث الصفحة بعد الانتهاء.
-ba-audioplayer-controlbar.play-audio: لعب
-ba-videorecorder-controlbar.resume-recorder: مسجل السيرة الذاتية
-ba-videorecorder-controlbar.rerecord: اعد المحاولة
-ba-audiorecorder.verifying: التحقق
-ba-videoplayer-playbutton.tooltip: انقر لتشغيل الفيديو.
-ba-videorecorder.trim-video: حرك علامتي البداية والنهاية لقص الفيديو الخاص بك
-ba-videoplayer-controlbar.player-speed: سرعة اللاعب
-ba-videorecorder-controlbar.microphonehealthy: الصوت جيد
-ba-videorecorder-chooser.multi-stream: متعدد تيار
-ba-imagecapture.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة
-  المحاولة.
-ba-videorecorder-controlbar.stop-tooltip: انقر هنا للتوقف.
-ba-imagecapture-controlbar.rerecord-tooltip: انقر هنا للإعادة.
-ba-videoplayer-controlbar.video-progress: تقدم الفيديو
-ba-videorecorder-controlbar.cameraunhealthy: الإضاءة ليست الأمثل
-ba-audioplayer-controlbar.pause-audio: وقفة
-ba-videorecorder-controlbar.stop: توقف
-ba-imagecapture-chooser.upload-image: تحميل الصور
-ba-videorecorder-imagegallery.upload-covershot: تحميل الغلاف
-ba-audiorecorder-controlbar.resume-recorder: مسجل السيرة الذاتية
-ba-videoplayer.video-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
-ba-videorecorder.attach-error: لم نتمكن من الوصول إلى واجهة الكاميرا. اعتمادا على
-  الجهاز والمتصفح، قد تحتاج إلى تثبيت فلاش أو الوصول إلى الصفحة عبر متصفح اخر.
-ba-audiorecorder-controlbar.pause-recorder: مسجل وقفة
-ba-audiorecorder-controlbar.stop-available-after: الحد الأدنى لمدة التسجيل هو%d ثانية
-ba-videoplayer-controlbar.change-resolution: تغيير الدقة
-ba-audiorecorder.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية
-  من أجل المتابعة.
-ba-videoplayer-controlbar.exit-fullscreen-video: الخروج من الشاشة الكاملة
-ba-imageviewer-controlbar.rerecord-image: إعادة؟
-ba-videoplayer-adslot.ad-will-end-after: سينتهي الإعلان بعد%s
-ba-imagecapture.rerecord-confirm: هل تريد حقًا استعادة صورتك؟
-ba-audioplayer-controlbar.elapsed-time: الوقت المنقضي
-ba-call-lobby.title-create: القيام بمكالمة
-ba-audioplayer-controlbar.rerecord-audio: إعادة؟
-ba-imageviewer-controlbar.exit-fullscreen-image: الخروج من الشاشة الكاملة
-ba-ads-controlbar.elapsed-time: الوقت المنقضي
-ba-videorecorder.verifying-failed: فشل عملية التحقق - انقر هنا لإعادة المحاولة.
-ba-audiorecorder.missing-track: المسار الصوتي المطلوب مفقود
-ba-videorecorder-controlbar.upload-covershot-tooltip: انقر هنا لتحميل لقطة مخصصة المحاولة.
-ba-common-settingsmenu.set-menu-option: تعيين الخيار
-ba-videorecorder.framerate-warning: معدل عرض الفيديو منخفض جدًا. نوصي بإغلاق جميع
-  البرامج الأخرى وعلامات تبويب المتصفح أو استخدام جهاز كمبيوتر أسرع.
-ba-videorecorder.switch-camera: تبديل الكاميرا
-ba-audioplayer-controlbar.volume-button: ضبط الحجم
-ba-videorecorder-chooser.upload-video: رفع فيديو
-ba-ads-controlbar.volume-mute: كتم الصوت
-ba-audiorecorder.verifying-failed: فشل التحقق - انقر هنا لإعادة المحاولة.
-ba-videorecorder-controlbar.stream-already-selected: تم تحديد تيار إضافي بالفعل
-ba-videorecorder.upload-error-duration: لا يتوافق طول الفيديو الذي تم تحميله مع المتطلبات
-  - انقر هنا لإعادة المحاولة.
-ba-ads-controlbar.volume-unmute: الغاء كتم الصوت
-ba-common-settingsmenu.player-speed: سرعة اللاعب
-ba-call-lobby.create-button: بدأ
-ba-audiorecorder-controlbar.settings: إعدادات
-ba-videoplayer-controlbar.play-video: شغل الفيديو
-ba-videoplayer-controlbar.rerecord-video: إعادة الفيديو؟
-ba-videorecorder.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة
-  المحاولة.
-ba-videorecorder.prepare-covershot: إعداد covershots
-ba-videorecorder.verifying: جاري التحقق
-ba-videorecorder.unsupported_video_type: صيغة الفيديو غير مدعومة :%s - انقر هنا لإعادة
-  المحاولة.
-ba-videoplayer-playbutton.submit-video: تأكيد الفيديو
-ba-audioplayer-controlbar.total-time: الطول الكلي
-ba-videorecorder.prepare-thumbnails: إعداد تسعى الصور المصغرة
-ba-videoplayer-controlbar.airplay: البث
-ba-videorecorder.access-forbidden: تم حظر الدخول إلى الكاميرا. انقر لإعادة المحاولة
-ba-videoplayer-adslot.volume-mute: صوت منخفض
-ba-video-call.connecting: جاري الاتصال...
-ba-imageviewer.image-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
-ba-videorecorder.resolution-constraint-error: الملف الذي حددته لا يتطابق مع الدقة
-  المطلوبة - انقر هنا لإعادة المحاولة.
-ba-videorecorder-controlbar.pause-recorder: مسجل وقفة
-ba-imagecapture-controlbar.cameraunhealthy: الإضاءة ليست الأمثل
-ba-common-settingsmenu.source-quality: جودة المصدر
-ba-imagecapture.orientation-portrait-required: يرجى تدوير جهازك لتسجيل في وضع عمودي.
-ba-call-lobby.title-join: انضمام لمكالمة
-ba-audiorecorder-chooser.record-audio: تسجيل صوتي
-ba-videoplayer-controlbar.volume-mute: كتم الصوت
-ba-videorecorder.pick-covershot: اختيار صورة الواجهة.
-ba-audiorecorder-controlbar.microphoneunhealthy: لا يمكن التقاط أي صوت
-ba-videorecorder-controlbar.no-video-source: مصدر إدخال الفيديو الإضافي مفقود
-ba-audiorecorder.access-forbidden: تم منع الوصول إلى وسائل الإعلام. انقر لإعادة المحاولة.
-ba-imagecapture-controlbar.rerecord: فعل ثانية
-ba-audiorecorder.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة
-  المحاولة.
-ba-videoplayer-tracks.select-text-track-file: انقر لتحديد الملف
-ba-videorecorder-controlbar.skip: تخطى
-ba-imagecapture.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية
-  من أجل المتابعة.
-ba-audiorecorder.browser-permission-denied: تم رفض الإذن بواسطة المتصفح ، يرجى منح
-  الوصول وإعادة تحميل الصفحة
-ba-videorecorder.uploading-src-error: تعذر تشغيل الفيديو الآن، لا يزال التحميل قيد
-  التقدم
-ba-videoplayer-controlbar.volume-button: تعيين مستوى الصوت
-ba-imagecapture.attach-error: لم نتمكن من الوصول إلى واجهة الوسائط. اعتمادًا على الجهاز
-  والمستعرض ، قد تحتاج إلى تثبيت Flash أو الوصول إلى الصفحة عبر طبقة المقابس الآمنة.
-ba-audiorecorder.uploading: تحميل
-ba-audiorecorder.unsupported_audio_type: الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.
-ba-imagecapture-controlbar.settings: إعدادات
-ba-videorecorder.adding-new-stream: مضيفا تيار جديد
-ba-call-lobby.mute-button: كتم
-ba-imagecapture.uploading: تحميل
-ba-videorecorder.wait-for-trim: في انتظار أمر القطع ...
-ba-imagecapture-controlbar.cancel: إلغاء
-ba-videorecorder-controlbar.cancel-tooltip: انقر هنا للإلغاء.
-ba-audioplayer.audio-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
-ba-audiorecorder.device-already-in-use: هناك جهاز واحد على الأقل من أجهزة الإدخال
-  قيد الاستخدام بالفعل
-ba-call-lobby.camera-button: الكاميرا
-ba-videoplayer-controlbar.show-tracks: عرض CC
-ba-videoplayer.full-screen: شاشة كاملة
-ba-videorecorder.re-choose-action: الرجاء النقر لاختيار جهاز إدخال آخر أو إعادة محاولة
-  الإجراء.
-ba-call-lobby.join-button: انضمام
-ba-videorecorder.cancel-confirm: هل تريد حقا إلغاء تحميل الفيديو؟
-ba-videorecorder-controlbar.cancel: إلغاء
-ba-ads-controlbar.can-skip-after: تخطي بعد %d
-ba-ads-controlbar.ad-will-end-after: سينتهي الاعلان بعد %s
-ba-audiorecorder-controlbar.rerecord: فعل ثانية
-ba-audiorecorder.rerecord-confirm: هل تريد حقًا إعادة صوتك؟
-ba-videoplayer-controlbar.elapsed-time: الوقت المنقضي
-ba-videorecorder-controlbar.stop-available-after: الحد الأدنى لوقت التسجيل هو%d ثانية
-ba-audioplayer.all-settings: جميع الإعدادات
-ba-imagecapture-controlbar.camerahealthy: الإضاءة جيدة
-ba-imagecapture-controlbar.record: أسر
-ba-audiorecorder-controlbar.record-tooltip: انقر هنا للتسجيل.
-ba-audioplayer-controlbar.submit-audio: تؤكد
-ba-call-controlbar.camera-button: إظهار/إخفاء الكاميرا
-ba-videoplayer-adslot.skip-ad: تجاهل الاعلانات
-ba-call-controlbar.mute-button: كتم/الغاء كتم الصوت
-ba-videorecorder-chooser.record-audio: تسجيل صوتي
-ba-audiorecorder.audio_file_too_large: ملف الصوت الخاص بك كبير جدًا (%s) - انقر هنا
-  لإعادة المحاولة باستخدام ملف صوتي أصغر.
-ba-videorecorder.browser-permission-denied: تم رفض الإذن عن طريق المتصفح ، يرجى منح
-  الوصول وإعادة تحميل الصفحة
-ba-videoplayer-controlbar.pause-video: إيقاف الفيديو مؤقتا
-ba-videoplayer-adslot.volume-unmute: إلغاء صوت الصوت
-ba-videoplayer-controlbar.submit-video: تأكيد الفيديو
-ba-videoplayer-share.share: شارك الفيديو
-ba-audioplayer-loader.tooltip: جار التحميل...
-ba-imagecapture.unsupported_image_type: الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.
-ba-videorecorder.uploading: جاري الرفع
-ba-audiorecorder-controlbar.microphonehealthy: الصوت جيد
-ba-call-lobby.description-join: عندما تكون جاهزًا، انقر فوق الزر أدناه للانضمام إلى
-  المكالمة.
-ba-audiorecorder-controlbar.rerecord-tooltip: انقر هنا للإعادة.
-ba-videorecorder-chooser.record-screen: سجل الشاشة
-ba-videoplayer.all-settings: جميع الإعدادات
-ba-videoplayer-controlbar.select-frame: يختار
-ba-imagecapture.resolution-constraint-error: الملف الذي حددته لا يتطابق مع الدقة المطلوبة
-  - انقر هنا لإعادة المحاولة.
-ba-audiorecorder-controlbar.stop-tooltip: انقر هنا للتوقف.
-ba-videorecorder-controlbar.microphoneunhealthy: لا يمكن التقاط أي صوت
-ba-audiorecorder-controlbar.stop: توقف
-ba-videorecorder.rerecord-confirm: تآكيد اعادة الفيديو؟
-ba-local-view.local-camera-connection-error: حدث خطأ عند الاتصال بالكاميرا الخاصة
-  بجهازك. انقر للمحاول مجددا.
-ba-videorecorder.supported-mode: دقة العرض يجب ان تكون في وضع '%s'
-ba-videoplayer-controlbar.close-tracks: إغلاق CC
-ba-videorecorder-controlbar.upload-covershot: رفع صورة الواجهة.
-ba-videorecorder.orientation-landscape-required: يرجى تدوير جهازك للتسجيل في الوضع
-  الأفقي.
-ba-imagecapture.verifying: التحقق
-ba-imageviewer-controlbar.submit-image: تؤكد
-ba-imagecapture-controlbar.cancel-tooltip: انقر هنا للإلغاء.
-ba-imagecapture.software-waiting: في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد تحتاج
-  إلى تحديث الصفحة بعد الانتهاء.
-ba-common-settingsmenu.exit-fullscreen-video: الخروج من الشاشة الكاملة
-ba-videorecorder.uploading-failed: فشل في الرفع - انقر هنا لإعادة المحاولة.
-ba-videoplayer-playbutton.trim: تقليم
-ba-audioplayer-controlbar.volume-unmute: صوت غير صوتي
-ba-audiorecorder-controlbar.record: سجل
-ba-videorecorder.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية
-  من أجل المضي قدما.
-ba-videoplayer-tracks.upload-text-tracks: تحميل ملفات النص المسار
-ba-call-lobby.description-create: عندما تكون جاهزًا، انقر فوق الزر أدناه لإجراء مكالمة.
-ba-videorecorder-controlbar.skip-tooltip: انقر هنا للتخطي.
-ba-ads-controlbar.volume-button: ضبط الصوت
-ba-videoplayer-adslot.elapsed-time: وقت إلاسبد
-ba-videoplayer-controlbar.remaining-time: الوقت المتبقي
-ba-imagecapture-controlbar.record-tooltip: انقر هنا لالتقاط.
-ba-videorecorder.device-already-in-use: واحد على الأقل من أجهزة الإدخال الخاصة بك
-  قيد الاستخدام بالفعل
-ba-audioplayer-controlbar.volume-mute: صوت منخفض
-ba-audiorecorder-chooser.upload-audio: تحميل الصوت
-ba-imagecapture.upload-error-duration: طول الصورة التي تم تحميلها لا يلبي المتطلبات
-  - انقر هنا لإعادة المحاولة.
-ba-audiorecorder.attach-error: لم نتمكن من الوصول إلى واجهة الوسائط. اعتمادًا على
-  الجهاز والمستعرض ، قد تحتاج إلى تثبيت Flash أو الوصول إلى الصفحة عبر طبقة المقابس
-  الآمنة.
-ba-ads-controlbar.skip-ad: تخطى الاعلان
-ba-audiorecorder-controlbar.cancel: إلغاء
-ba-videoplayer-controlbar.airplay-icon: أيقونة البث.
-ba-videoplayer.player-speed: سرعة اللاعب
-ba-videoplayer-controlbar.fullscreen-video: عرض ملء الشاشة
-ba-audiorecorder.uploading-failed: فشل التحميل - انقر هنا لإعادة المحاولة.
-ba-audiorecorder.uploading-src-error: لا يمكن تشغيل الصوت الآن، لا زالت عملية الرفع
-  جارية
-ba-videorecorder-chooser.record-video: تسجيل الفيديو
-ba-videorecorder.screen-recorder-is-not-supported: مسجل الشاشة غير مدعوم على هذا الجهاز
-ba-videoplayer-tracks.back: الى الخلف
-ba-videorecorder.pick-covershot-frame: حدد إطارًا لاستخدامه كصورة غلاف.
-ba-audioplayer-controlbar.audio-progress: تقدم
-ba-audioplayer-controlbar.pause-audio-disabled: وقفة غير معتمد
-ba-video-call.call-ended: انتهت المكالمة
-ba-videoplayer-controlbar.total-time: طول الفيديو الكلي
-ba-videorecorder-controlbar.rerecord-tooltip: انقر هنا للإعادة.
-ba-videorecorder.orientation-portrait-required: يرجى تدوير جهازك للتسجيل في الوضع
-  الرأسي.
-ba-common-settingsmenu.fullscreen-video: أدخل ملء الشاشة
-ba-videoplayer-controlbar.volume-unmute: إلغاء كتم الصوت
-ba-videorecorder-controlbar.record: سجل
+language:ar:
+  ba-videoplayer-controlbar.rerecord-video: إعادة الفيديو؟
+  ba-videoplayer-controlbar.submit-video: تأكيد الفيديو
+  ba-videoplayer-controlbar.play-video: شغل الفيديو
+  ba-videoplayer-controlbar.pause-video: إيقاف الفيديو مؤقتا
+  ba-videoplayer-controlbar.elapsed-time: الوقت المنقضي
+  ba-videoplayer-controlbar.total-time: طول الفيديو الكلي
+  ba-videoplayer-controlbar.fullscreen-video: عرض ملء الشاشة
+  ba-videoplayer-controlbar.volume-button: تعيين مستوى الصوت
+  ba-videoplayer-controlbar.volume-mute: كتم الصوت
+  ba-videoplayer-controlbar.volume-unmute: إلغاء كتم الصوت
+  ba-videoplayer.video-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-videorecorder-chooser.record-video: تسجيل الفيديو
+  ba-videorecorder-chooser.upload-video: رفع فيديو
+  ba-videorecorder-controlbar.settings: إعدادات
+  ba-videorecorder-controlbar.camerahealthy: الإضاءة جيدة
+  ba-videorecorder-controlbar.cameraunhealthy: الإضاءة ليست الأمثل
+  ba-videorecorder-controlbar.microphonehealthy: الصوت جيد
+  ba-videorecorder-controlbar.microphoneunhealthy: لا يمكن التقاط أي صوت
+  ba-videorecorder-controlbar.record: سجل
+  ba-videorecorder-controlbar.record-tooltip: انقر هنا للتسجيل.
+  ba-videorecorder-controlbar.rerecord: اعد المحاولة
+  ba-videorecorder-controlbar.rerecord-tooltip: انقر هنا للإعادة.
+  ba-videorecorder-controlbar.upload-covershot: رفع صورة الواجهة.
+  ba-videorecorder-controlbar.upload-covershot-tooltip: انقر هنا لتحميل لقطة مخصصة المحاولة.
+  ba-videorecorder-controlbar.stop: توقف
+  ba-videorecorder-controlbar.stop-tooltip: انقر هنا للتوقف.
+  ba-videorecorder-controlbar.skip: تخطى
+  ba-videorecorder-controlbar.skip-tooltip: انقر هنا للتخطي.
+  ba-videorecorder.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-videorecorder.attach-error: >-
+    لم نتمكن من الوصول إلى واجهة الكاميرا. اعتمادا على الجهاز والمتصفح، قد تحتاج
+    إلى تثبيت فلاش أو الوصول إلى الصفحة عبر متصفح اخر.
+  ba-videorecorder.access-forbidden: تم حظر الدخول إلى الكاميرا. انقر لإعادة المحاولة
+  ba-videorecorder.pick-covershot: اختيار صورة الواجهة.
+  ba-videorecorder.uploading: جاري الرفع
+  ba-videorecorder.uploading-failed: فشل في الرفع - انقر هنا لإعادة المحاولة.
+  ba-videorecorder.verifying: جاري التحقق
+  ba-videorecorder.verifying-failed: فشل عملية التحقق - انقر هنا لإعادة المحاولة.
+  ba-videorecorder.rerecord-confirm: تآكيد اعادة الفيديو؟
+  ba-videorecorder.video_file_too_large: >-
+    ملف الفيديو كبير جدا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف فيديو
+    أصغر.
+  ba-videorecorder.unsupported_video_type: صيغة الفيديو غير مدعومة :%s - انقر هنا لإعادة المحاولة.
+  ba-videoplayer-controlbar.exit-fullscreen-video: الخروج من الشاشة الكاملة
+  ba-videoplayer-share.share: شارك الفيديو
+  ba-videorecorder-chooser.record-screen: سجل الشاشة
+  ba-videoplayer-controlbar.pause-video-disabled: إيقاف مؤقت غير متوافق
+  ba-videorecorder-chooser.record-audio: تسجيل صوتي
+  ba-videorecorder-controlbar.stop-available-after: الحد الأدنى لوقت التسجيل هو%d ثانية
+  ba-videorecorder-controlbar.cancel: إلغاء
+  ba-videorecorder-controlbar.cancel-tooltip: انقر هنا للإلغاء.
+  ba-videorecorder.cancel-confirm: هل تريد حقا إلغاء تحميل الفيديو؟
+  ba-videoplayer-adslot.elapsed-time: وقت إلاسبد
+  ba-videoplayer-adslot.volume-button: تعيين مستوى الصوت
+  ba-videoplayer-adslot.volume-mute: صوت منخفض
+  ba-videoplayer-adslot.volume-unmute: إلغاء صوت الصوت
+  ba-videoplayer-adslot.ad-will-end-after: سينتهي الإعلان بعد%s
+  ba-videoplayer-adslot.can-skip-after: تخطي بعد%d
+  ba-videoplayer-adslot.skip-ad: تجاهل الاعلانات
+  ba-videorecorder.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية من أجل المضي قدما.
+  ba-videorecorder.software-waiting: >-
+    في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد تحتاج إلى تحديث الصفحة بعد
+    الانتهاء.
+  ba-videoplayer-controlbar.close-tracks: إغلاق CC
+  ba-videoplayer-controlbar.show-tracks: عرض CC
+  ba-videoplayer-tracks.upload-text-tracks: تحميل ملفات النص المسار
+  ba-videoplayer-tracks.select-text-track-language: لغة الترجمة
+  ba-videoplayer-tracks.info-select-locale-first: حدد أولاً اللغة
+  ba-videoplayer-tracks.select-text-track-file: انقر لتحديد الملف
+  ba-videoplayer-tracks.back: الى الخلف
+  ba-videorecorder.framerate-warning: >-
+    معدل عرض الفيديو منخفض جدًا. نوصي بإغلاق جميع البرامج الأخرى وعلامات تبويب
+    المتصفح أو استخدام جهاز كمبيوتر أسرع.
+  ba-videorecorder.upload-error-duration: >-
+    لا يتوافق طول الفيديو الذي تم تحميله مع المتطلبات - انقر هنا لإعادة
+    المحاولة.
+  ba-videorecorder.resolution-constraint-error: الملف الذي حددته لا يتطابق مع الدقة المطلوبة - انقر هنا لإعادة المحاولة.
+  ba-videorecorder.orientation-portrait-required: يرجى تدوير جهازك للتسجيل في الوضع الرأسي.
+  ba-videorecorder.orientation-landscape-required: يرجى تدوير جهازك للتسجيل في الوضع الأفقي.
+  ba-imageviewer-controlbar.rerecord-image: إعادة؟
+  ba-imageviewer-controlbar.submit-image: تؤكد
+  ba-imageviewer-controlbar.fullscreen-image: أدخل ملء الشاشة
+  ba-imageviewer-controlbar.exit-fullscreen-image: الخروج من الشاشة الكاملة
+  ba-imageviewer.image-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-imagecapture-chooser.image-capture: التقاط الصورة
+  ba-imagecapture-chooser.upload-image: تحميل الصور
+  ba-imagecapture-controlbar.settings: إعدادات
+  ba-imagecapture-controlbar.camerahealthy: الإضاءة جيدة
+  ba-imagecapture-controlbar.cameraunhealthy: الإضاءة ليست الأمثل
+  ba-imagecapture-controlbar.record: أسر
+  ba-imagecapture-controlbar.record-tooltip: انقر هنا لالتقاط.
+  ba-imagecapture-controlbar.rerecord: فعل ثانية
+  ba-imagecapture-controlbar.rerecord-tooltip: انقر هنا للإعادة.
+  ba-imagecapture-controlbar.cancel: إلغاء
+  ba-imagecapture-controlbar.cancel-tooltip: انقر هنا للإلغاء.
+  ba-audioplayer-controlbar.audio-progress: تقدم
+  ba-audioplayer-controlbar.rerecord-audio: إعادة؟
+  ba-audioplayer-controlbar.submit-audio: تؤكد
+  ba-audioplayer-controlbar.play-audio: لعب
+  ba-audioplayer-controlbar.pause-audio: وقفة
+  ba-audioplayer-controlbar.pause-audio-disabled: وقفة غير معتمد
+  ba-audioplayer-controlbar.elapsed-time: الوقت المنقضي
+  ba-audioplayer-controlbar.total-time: الطول الكلي
+  ba-audioplayer-controlbar.volume-button: ضبط الحجم
+  ba-audioplayer-controlbar.volume-mute: صوت منخفض
+  ba-audioplayer-controlbar.volume-unmute: صوت غير صوتي
+  ba-audioplayer-loader.tooltip: جار التحميل...
+  ba-audioplayer.audio-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-audiorecorder-chooser.record-audio: تسجيل صوتي
+  ba-audiorecorder-chooser.upload-audio: تحميل الصوت
+  ba-audiorecorder-controlbar.settings: إعدادات
+  ba-audiorecorder-controlbar.microphonehealthy: الصوت جيد
+  ba-audiorecorder-controlbar.microphoneunhealthy: لا يمكن التقاط أي صوت
+  ba-audiorecorder-controlbar.record: سجل
+  ba-audiorecorder-controlbar.record-tooltip: انقر هنا للتسجيل.
+  ba-audiorecorder-controlbar.rerecord: فعل ثانية
+  ba-audiorecorder-controlbar.rerecord-tooltip: انقر هنا للإعادة.
+  ba-audiorecorder-controlbar.stop: توقف
+  ba-audiorecorder-controlbar.stop-tooltip: انقر هنا للتوقف.
+  ba-audiorecorder-controlbar.stop-available-after: الحد الأدنى لمدة التسجيل هو%d ثانية
+  ba-audiorecorder-controlbar.cancel: إلغاء
+  ba-audiorecorder-controlbar.cancel-tooltip: انقر هنا للإلغاء.
+  ba-videoplayer-controlbar.player-speed: سرعة اللاعب
+  ba-videoplayer-controlbar.settings: الإعدادات
+  ba-videoplayer-controlbar.airplay: البث
+  ba-videoplayer-controlbar.airplay-icon: أيقونة البث.
+  ba-videoplayer.all-settings: جميع الإعدادات
+  ba-videoplayer.player-speed: سرعة اللاعب
+  ba-videoplayer.full-screen: شاشة كاملة
+  ba-videorecorder-controlbar.add-stream: إضافة تيار
+  ba-videorecorder.switch-camera: تبديل الكاميرا
+  ba-videorecorder.prepare-covershot: إعداد covershots
+  ba-videorecorder.prepare-thumbnails: إعداد تسعى الصور المصغرة
+  ba-videorecorder.adding-new-stream: مضيفا تيار جديد
+  ba-imagecapture.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-imagecapture.attach-error: >-
+    لم نتمكن من الوصول إلى واجهة الوسائط. اعتمادًا على الجهاز والمستعرض ، قد
+    تحتاج إلى تثبيت Flash أو الوصول إلى الصفحة عبر طبقة المقابس الآمنة.
+  ba-imagecapture.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية من أجل المتابعة.
+  ba-imagecapture.software-waiting: >-
+    في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد تحتاج إلى تحديث الصفحة بعد
+    الانتهاء.
+  ba-imagecapture.access-forbidden: تم منع الوصول إلى وسائل الإعلام. انقر لإعادة المحاولة.
+  ba-imagecapture.uploading: تحميل
+  ba-imagecapture.uploading-failed: فشل التحميل - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.upload-error-duration: طول الصورة التي تم تحميلها لا يلبي المتطلبات - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.resolution-constraint-error: الملف الذي حددته لا يتطابق مع الدقة المطلوبة - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.verifying: التحقق
+  ba-imagecapture.verifying-failed: فشل التحقق - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.rerecord-confirm: هل تريد حقًا استعادة صورتك؟
+  ba-imagecapture.image_file_too_large: >-
+    ملف الصورة الخاص بك كبير جدًا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف
+    صورة أصغر.
+  ba-imagecapture.unsupported_image_type: الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.
+  ba-imagecapture.orientation-portrait-required: يرجى تدوير جهازك لتسجيل في وضع عمودي.
+  ba-imagecapture.orientation-landscape-required: يرجى تدوير جهازك للتسجيل في وضع أفقي.
+  ba-audiorecorder.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
+  ba-audiorecorder.attach-error: >-
+    لم نتمكن من الوصول إلى واجهة الوسائط. اعتمادًا على الجهاز والمستعرض ، قد
+    تحتاج إلى تثبيت Flash أو الوصول إلى الصفحة عبر طبقة المقابس الآمنة.
+  ba-audiorecorder.software-required: يرجى النقر أدناه لتثبيت / تفعيل المتطلبات التالية من أجل المتابعة.
+  ba-audiorecorder.software-waiting: >-
+    في انتظار المتطلبات ليتم تثبيتها / تفعيلها. قد تحتاج إلى تحديث الصفحة بعد
+    الانتهاء.
+  ba-audiorecorder.access-forbidden: تم منع الوصول إلى وسائل الإعلام. انقر لإعادة المحاولة.
+  ba-audiorecorder.uploading: تحميل
+  ba-audiorecorder.uploading-failed: فشل التحميل - انقر هنا لإعادة المحاولة.
+  ba-audiorecorder.upload-error-duration: طول الصوت الذي تم تحميله لا يلبي المتطلبات - انقر هنا لإعادة المحاولة.
+  ba-audiorecorder.verifying: التحقق
+  ba-audiorecorder.verifying-failed: فشل التحقق - انقر هنا لإعادة المحاولة.
+  ba-audiorecorder.rerecord-confirm: هل تريد حقًا إعادة صوتك؟
+  ba-audiorecorder.cancel-confirm: هل تريد حقًا إلغاء تحميل الصوت الخاص بك؟
+  ba-audiorecorder.audio_file_too_large: >-
+    ملف الصوت الخاص بك كبير جدًا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف
+    صوتي أصغر.
+  ba-audiorecorder.unsupported_audio_type: الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.
+  ba-common-settingsmenu.setting-menu: جميع الإعدادات
+  ba-common-settingsmenu.source-quality: جودة المصدر
+  ba-common-settingsmenu.player-speed: سرعة اللاعب
+  ba-common-settingsmenu.set-menu-option: تعيين الخيار
+  ba-common-settingsmenu.submit-video: تأكيد الفيديو
+  ba-common-settingsmenu.picture-in-picture: صور في صور
+  ba-common-settingsmenu.exit-fullscreen-video: الخروج من الشاشة الكاملة
+  ba-common-settingsmenu.fullscreen-video: أدخل ملء الشاشة
+  ba-videorecorder-chooser.multi-stream: متعدد تيار
+  ba-videorecorder-controlbar.pause-recorder: مسجل وقفة
+  ba-videorecorder-controlbar.resume-recorder: مسجل السيرة الذاتية
+  ba-videorecorder.missing-track: مسار الصوت أو الفيديو المطلوب مفقود
+  ba-videorecorder.device-already-in-use: واحد على الأقل من أجهزة الإدخال الخاصة بك قيد الاستخدام بالفعل
+  ba-videorecorder.browser-permission-denied: تم رفض الإذن عن طريق المتصفح ، يرجى منح الوصول وإعادة تحميل الصفحة
+  ba-audioplayer.all-settings: جميع الإعدادات
+  ba-videoplayer-controlbar.remaining-time: الوقت المتبقي
+  ba-videoplayer-controlbar.select-frame: يختار
+  ba-videoplayer-controlbar.trim-video: تقليم
+  ba-videoplayer-playbutton.trim: تقليم
+  ba-videoplayer-playbutton.skip: يتخطى
+  ba-videorecorder-imagegallery.upload-covershot: تحميل الغلاف
+  ba-videorecorder.pick-covershot-frame: حدد إطارًا لاستخدامه كصورة غلاف.
+  ba-videorecorder.screen-recorder-is-not-supported: مسجل الشاشة غير مدعوم على هذا الجهاز
+  ba-videorecorder.trim-prompt: هل تريد تقليم الفيديو الخاص بك؟
+  ba-videorecorder.trim-video: حرك علامتي البداية والنهاية لقص الفيديو الخاص بك
+  ba-videorecorder.wait-for-trim: في انتظار أمر القطع ...
+  ba-videorecorder-controlbar.no-video-source: مصدر إدخال الفيديو الإضافي مفقود
+  ba-videorecorder-controlbar.stream-already-selected: تم تحديد تيار إضافي بالفعل
+  ba-videorecorder.uploading-src-error: تعذر تشغيل الفيديو الآن، لا يزال التحميل قيد التقدم
+  ba-audiorecorder-controlbar.pause-recorder: مسجل وقفة
+  ba-audiorecorder-controlbar.resume-recorder: مسجل السيرة الذاتية
+  ba-ads-controlbar.elapsed-time: الوقت المنقضي
+  ba-ads-controlbar.volume-button: ضبط الصوت
+  ba-ads-controlbar.volume-mute: كتم الصوت
+  ba-ads-controlbar.volume-unmute: الغاء كتم الصوت
+  ba-ads-controlbar.ad-will-end-after: سينتهي الاعلان بعد %s
+  ba-ads-controlbar.can-skip-after: تخطي بعد %d
+  ba-ads-controlbar.skip-ad: تخطى الاعلان
+  ba-videorecorder.supported-mode: دقة العرض يجب ان تكون في وضع '%s'
+  ba-videorecorder.re-choose-action: الرجاء النقر لاختيار جهاز إدخال آخر أو إعادة محاولة الإجراء.
+  ba-audiorecorder.uploading-src-error: لا يمكن تشغيل الصوت الآن، لا زالت عملية الرفع جارية
+  ba-audiorecorder.missing-track: المسار الصوتي المطلوب مفقود
+  ba-audiorecorder.device-already-in-use: هناك جهاز واحد على الأقل من أجهزة الإدخال قيد الاستخدام بالفعل
+  ba-audiorecorder.browser-permission-denied: تم رفض الإذن بواسطة المتصفح ، يرجى منح الوصول وإعادة تحميل الصفحة
+  ba-local-view.local-camera-connection-error: حدث خطأ عند الاتصال بالكاميرا الخاصة بجهازك. انقر للمحاول مجددا.
+  ba-call-controlbar.camera-button: إظهار/إخفاء الكاميرا
+  ba-call-controlbar.leave-button: غادر المكالمة
+  ba-call-controlbar.mute-button: كتم/الغاء كتم الصوت
+  ba-call-lobby.camera-button: الكاميرا
+  ba-call-lobby.description-create: عندما تكون جاهزًا، انقر فوق الزر أدناه لإجراء مكالمة.
+  ba-call-lobby.description-join: عندما تكون جاهزًا، انقر فوق الزر أدناه للانضمام إلى المكالمة.
+  ba-call-lobby.join-button: انضمام
+  ba-call-lobby.create-button: بدأ
+  ba-call-lobby.mute-button: كتم
+  ba-call-lobby.title-create: القيام بمكالمة
+  ba-call-lobby.title-join: انضمام لمكالمة
+  ba-video-call.call-ended: انتهت المكالمة
+  ba-video-call.connecting: جاري الاتصال...
+  ba-video-call.connection-error: حدث خطأ أثناء الاتصال، يرجى النقر للمحاولة مرة أخرى.
+  ba-circle-progress.fullscreen-video: أدخل ملء الشاشة
+  ba-ads-choices-link.ad-choices: خيارات الإعلان
+  ba-ads-controlbar.play-ad: يلعب
+  ba-ads-controlbar.pause-video: يوقف
+  ba-ads-controlbar.fullscreen-video: أدخل ملء الشاشة
+  ba-ads-controlbar.exit-fullscreen-video: الخروج من الشاشة الكاملة
+  ba-ads-controlbar.pause-video-disabled: الإيقاف المؤقت غير مدعوم
+  ba-adsplayer.replay-ad: إعادة تشغيل الفيديو
+  ba-adsplayer.close-ad: يغلق
+  ba-adsplayer.ad-choices: خيارات الإعلان
+  ba-adsplayer.learn-more: يتعلم أكثر
+  ba-ads-learn-more-button.learn-more: يتعلم أكثر
+  ba-videoplayer-sidebar.up-next: التالي
+  ba-videoplayer-sidebar.continue-on-ads-end: سيتم استئناف المحتوى بعد هذا الإعلان.
+  ba-videoplayer-tooltip.tooltip: تلميح
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: استمر في الضغط على الماوس لإيقاف إغلاق تلميح الأداة مؤقتًا
+  ba-videoplayer-controlbar.video-progress: تقدم
+  ba-videoplayer-controlbar.change-resolution: تغيير القرار
+  ba-videoplayer-loader.tooltip: تحميل...
+  ba-videoplayer-playbutton.tooltip: انقر للعب.
+  ba-videoplayer-playbutton.rerecord: إعادة
+  ba-videoplayer-playbutton.submit-video: تأكيد الفيديو
+  ba-common-settingsmenu.tooltip: انقر للعب.
+  ba-videoplayer-next.stay: يقضي
+  ba-videoplayer-next.next: التالي
+  ba-videorecorder-trimmer.trim: تقليم
+  ba-videorecorder-trimmer.skip: يتخطى

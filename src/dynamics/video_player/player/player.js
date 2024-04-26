@@ -647,7 +647,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.__repeatOutstream && this.get("outstreamoptions.persistentcompanionad"))
                             return;
                         if (companionAds && companionAds.length > 0 && this.get("companionad")) {
-                            let testString = "some string";
                             if (this.get("companionad.locations")) {
                                 this._renderMultiCompanionAds();
                             } else if (this.scopes.adsplayer && Types.is_string(this.get("companionad")) || Types.is_boolean(this.get("companionad"))) {
@@ -1648,8 +1647,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.player.on("playing", function() {
                             if (Info.isSafari()) {
-                               this.removeAdsBackgroundInSafari();
-                            }   
+                                this.removeAdsBackgroundInSafari();
+                            }
                             const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (floating && this.floatHandler) this.floatHandler.start();

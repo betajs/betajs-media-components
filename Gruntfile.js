@@ -557,7 +557,6 @@ module.exports = function(grunt) {
         }
 
         if (keys.length > 0) {
-            // var translate = require('@google-cloud/translate')(JSON.parse(grunt.file.read("./google-translate-creds.json")))
             const {Translate} = require('@google-cloud/translate').v2;
             const translate = new Translate(JSON.parse(grunt.file.read("./google-translate-creds.json")));
             var batchSize = 128; // Cloud Translation API limits how many text segments can be translated at once

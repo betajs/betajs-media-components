@@ -51,13 +51,15 @@ language:en:
   ba-videoplayer-controlbar.select-frame: Select
   ba-videoplayer-controlbar.trim-video: Trim
   ba-videoplayer-loader.tooltip: Loading...
+  ba-videoplayer-next.stay: Stay
+  ba-videoplayer-next.next: Next
   ba-videoplayer-playbutton.tooltip: Click to play.
   ba-videoplayer-playbutton.rerecord: Redo
   ba-videoplayer-playbutton.submit-video: Confirm video
   ba-videoplayer-playbutton.trim: Trim
   ba-videoplayer-playbutton.skip: Skip
   ba-videoplayer-share.share: Share media
-  ba-videoplayer-sidebar.up-next: Up Next khm
+  ba-videoplayer-sidebar.up-next: Up Next
   ba-videoplayer-sidebar.continue-on-ads-end: Content will resume after this advertisement.
   ba-videoplayer-tooltip.tooltip: Tooltip
   ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Hold mouse on, to pause tooltip closing
@@ -147,6 +149,8 @@ language:en:
   ba-videorecorder.wait-for-trim: Waiting for trim command...
   ba-videorecorder.supported-mode: Media resolution should be in '%s' mode.
   ba-videorecorder.re-choose-action: Please click to choose another input device or retry action.
+  ba-videorecorder-trimmer.trim: Trim
+  ba-videorecorder-trimmer.skip: Skip
   ba-imageviewer-controlbar.rerecord-image: Redo?
   ba-imageviewer-controlbar.submit-image: Confirm
   ba-imageviewer-controlbar.fullscreen-image: Enter fullscreen

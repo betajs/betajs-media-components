@@ -829,6 +829,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         hidebeforeadstarts
                     ) {
+                        if (this.get("floatingoptions.floatingonly")) {
+                            this.set("autoplaywhenvisible", false);
+                        }
                         if (hidden) return hidden;
                         if (!autoplay && !autoplaywhenvisible) return false;
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;

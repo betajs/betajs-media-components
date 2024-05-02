@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.475 - 2024-04-25
+betajs-media-components - v0.0.476 - 2024-05-02
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.475",
-    "datetime": 1714084194098
+    "version": "0.0.476",
+    "datetime": 1714687239287
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4154,7 +4154,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
         }, function(inherited) {
             return {
 
-                template: "<div class=\"{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}}\">\n    <div class=\"{{cssplayer}}-next-button-container\">\n        <a class=\"{{cssplayer}}-next-button-stay {{cssplayer}}-next-button\"\n        ontouchstart=\"{{stay(domEvent)}}\"\n        ba-click=\"{{stay(domEvent)}}\"\n        >Stay</a>\n        <a ontouchstart=\"{{next(domEvent)}}\"\n        ba-click=\"{{next(domEvent)}}\"\n           class=\"{{cssplayer}}-next-button-next {{cssplayer}}-next-button\"\n        >\n            <span class=\"{{cssplayer}}-next-progress\"\n                  ba-styles=\"{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}\"\n            ></span>\n            <span>Next</span>\n        </a>\n    </div>\n</div>\n",
+                template: "<div class=\"{{cssplayer}}-toggle-next-container {{cssplayer}}-next-style-{{style}}\">\n    <div class=\"{{cssplayer}}-next-button-container\">\n        <a class=\"{{cssplayer}}-next-button-stay {{cssplayer}}-next-button\"\n        ontouchstart=\"{{stay(domEvent)}}\"\n        ba-click=\"{{stay(domEvent)}}\"\n        >{{string('stay')}}</a>\n        <a ontouchstart=\"{{next(domEvent)}}\"\n        ba-click=\"{{next(domEvent)}}\"\n           class=\"{{cssplayer}}-next-button-next {{cssplayer}}-next-button\"\n        >\n            <span class=\"{{cssplayer}}-next-progress\"\n                  ba-styles=\"{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}\"\n            ></span>\n            <span>{{string('next')}}</span>\n        </a>\n    </div>\n</div>\n",
 
                 attrs: {
                     css: "ba-videoplayer",
@@ -4204,9 +4204,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
             };
         }).register("ba-videoplayer-next")
         .registerFunctions({
-            /**/"cssplayer": function (obj) { return obj.cssplayer; }, "style": function (obj) { return obj.style; }, "stay(domEvent)": function (obj) { return obj.stay(obj.domEvent); }, "next(domEvent)": function (obj) { return obj.next(obj.domEvent); }, "{width: ((position - shownext) / noengagenext * 100) + '%'}": function (obj) { return {width: ((obj.position - obj.shownext) / obj.noengagenext * 100) + '%'}; }/**/
+            /**/"cssplayer": function (obj) { return obj.cssplayer; }, "style": function (obj) { return obj.style; }, "stay(domEvent)": function (obj) { return obj.stay(obj.domEvent); }, "string('stay')": function (obj) { return obj.string('stay'); }, "next(domEvent)": function (obj) { return obj.next(obj.domEvent); }, "{width: ((position - shownext) / noengagenext * 100) + '%'}": function (obj) { return {width: ((obj.position - obj.shownext) / obj.noengagenext * 100) + '%'}; }, "string('next')": function (obj) { return obj.string('next'); }/**/
         })
-        .attachStringTable(Assets.strings);
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "stay": "Stay",
+            "next": "Next"
+        });
 });
 Scoped.define("module:VideoPlayer.Dynamics.Playbutton", [
     "dynamics:Dynamic",
@@ -8518,6 +8522,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || !this.dyn.get("lastplaylistitem"));
 
                 var nextVideo = this.dyn.get("playlist")[nextIndex];
+
                 this.dyn.set("current_video_from_playlist", nextIndex);
                 this.dyn.setAll(nextVideo);
 
@@ -13359,13 +13364,14 @@ Scoped.define("module:VideoRecorder.Dynamics.Topmessage", [
 Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
     "dynamics:Dynamic",
     "browser:Events",
-    "base:Promise"
-], function(Class, DomEvents, Promise, scoped) {
+    "base:Promise",
+    "module:Assets"
+], function(Class, DomEvents, Promise, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div class=\"{{csstrimmer}}-container {{csscommon}}-accent-color-bg\">\n    \n    <button ba-click=\"{{togglePlay()}}\" class=\"{{csstrimmer}}-button-play\" aria-label=\"{{playing || wasPlaying ? 'Pause' : 'Play'}}\">\n        <i class=\"{{csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')}} {{csscommon}}-accent-color\"></i>\n    </button>\n    \n    <div\n        class=\"{{csstrimmer}}-progress-bar\"\n        ontouchstart=\"{{handleProgressBarClick(domEvent)}}\"\n        onmousedown=\"{{handleProgressBarClick(domEvent)}}\"\n        data-selector=\"progressbar\"\n    >\n        \n        <div\n            class=\"{{csstrimmer}}-snapshots\"\n            data-selector=\"snapshots\"\n        ></div>\n        \n        <div\n            class=\"{{csstrimmer}}-playhead\"\n            style=\"left: calc({{duration ? position / duration * 100 : 0}}% - 1px)\"\n        ></div>\n        \n        <div\n            class=\"{{csstrimmer}}-selection {{csscommon}}-accent-color-border\"\n            ontouchstart=\"{{handleSelectionClick(domEvent)}}\"\n            onmousedown=\"{{handleSelectionClick(domEvent)}}\"\n            data-selector=\"selection\"\n            style=\"\n                left: calc({{duration && startposition ? startposition / duration * 100 : 0}}% - 4px);\n                right: calc({{100 - (duration && endposition ? endposition / duration * 100 : 100)}}% - 4px);\n            \"\n        ></div>\n    </div>\n    \n    <div class=\"{{csstrimmer}}-right-button-container\">\n        \n        <button\n            class=\"{{csscommon}}-{{trimButtonEnabled ? 'accent-color-bg' : 'disabled'}} {{csstrimmer}}-button-trim\"\n            ba-click=\"{{trim()}}\"\n        >Trim</button>\n        \n        <button\n            class=\"{{csstrimmer}}-button-skip\"\n            ba-click=\"{{skip()}}\"\n        >Skip</button>\n    </div>\n</div>",
+                template: "<div class=\"{{csstrimmer}}-container {{csscommon}}-accent-color-bg\">\n    \n    <button ba-click=\"{{togglePlay()}}\" class=\"{{csstrimmer}}-button-play\" aria-label=\"{{playing || wasPlaying ? 'Pause' : 'Play'}}\">\n        <i class=\"{{csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')}} {{csscommon}}-accent-color\"></i>\n    </button>\n    \n    <div\n        class=\"{{csstrimmer}}-progress-bar\"\n        ontouchstart=\"{{handleProgressBarClick(domEvent)}}\"\n        onmousedown=\"{{handleProgressBarClick(domEvent)}}\"\n        data-selector=\"progressbar\"\n    >\n        \n        <div\n            class=\"{{csstrimmer}}-snapshots\"\n            data-selector=\"snapshots\"\n        ></div>\n        \n        <div\n            class=\"{{csstrimmer}}-playhead\"\n            style=\"left: calc({{duration ? position / duration * 100 : 0}}% - 1px)\"\n        ></div>\n        \n        <div\n            class=\"{{csstrimmer}}-selection {{csscommon}}-accent-color-border\"\n            ontouchstart=\"{{handleSelectionClick(domEvent)}}\"\n            onmousedown=\"{{handleSelectionClick(domEvent)}}\"\n            data-selector=\"selection\"\n            style=\"\n                left: calc({{duration && startposition ? startposition / duration * 100 : 0}}% - 4px);\n                right: calc({{100 - (duration && endposition ? endposition / duration * 100 : 100)}}% - 4px);\n            \"\n        ></div>\n    </div>\n    \n    <div class=\"{{csstrimmer}}-right-button-container\">\n        \n        <button\n            class=\"{{csscommon}}-{{trimButtonEnabled ? 'accent-color-bg' : 'disabled'}} {{csstrimmer}}-button-trim\"\n            ba-click=\"{{trim()}}\"\n        >{{string('trim')}}</button>\n        \n        <button\n            class=\"{{csstrimmer}}-button-skip\"\n            ba-click=\"{{skip()}}\"\n        >{{string('skip')}}</button>\n    </div>\n</div>",
 
                 attrs: {
                     "csscommon": "ba-commoncss",
@@ -13580,7 +13586,12 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
         })
         .register("ba-videorecorder-trimmer")
         .registerFunctions({
-            /**/"csstrimmer": function (obj) { return obj.csstrimmer; }, "csscommon": function (obj) { return obj.csscommon; }, "togglePlay()": function (obj) { return obj.togglePlay(); }, "playing || wasPlaying ? 'Pause' : 'Play'": function (obj) { return obj.playing || obj.wasPlaying ? 'Pause' : 'Play'; }, "csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')": function (obj) { return obj.csscommon + '-icon-' + (obj.playing || obj.wasPlaying ? 'pause' : 'play'); }, "handleProgressBarClick(domEvent)": function (obj) { return obj.handleProgressBarClick(obj.domEvent); }, "duration ? position / duration * 100 : 0": function (obj) { return obj.duration ? obj.position / obj.duration * 100 : 0; }, "handleSelectionClick(domEvent)": function (obj) { return obj.handleSelectionClick(obj.domEvent); }, "duration && startposition ? startposition / duration * 100 : 0": function (obj) { return obj.duration && obj.startposition ? obj.startposition / obj.duration * 100 : 0; }, "100 - (duration && endposition ? endposition / duration * 100 : 100)": function (obj) { return 100 - (obj.duration && obj.endposition ? obj.endposition / obj.duration * 100 : 100); }, "trimButtonEnabled ? 'accent-color-bg' : 'disabled'": function (obj) { return obj.trimButtonEnabled ? 'accent-color-bg' : 'disabled'; }, "trim()": function (obj) { return obj.trim(); }, "skip()": function (obj) { return obj.skip(); }/**/
+            /**/"csstrimmer": function (obj) { return obj.csstrimmer; }, "csscommon": function (obj) { return obj.csscommon; }, "togglePlay()": function (obj) { return obj.togglePlay(); }, "playing || wasPlaying ? 'Pause' : 'Play'": function (obj) { return obj.playing || obj.wasPlaying ? 'Pause' : 'Play'; }, "csscommon + '-icon-' + (playing || wasPlaying ? 'pause' : 'play')": function (obj) { return obj.csscommon + '-icon-' + (obj.playing || obj.wasPlaying ? 'pause' : 'play'); }, "handleProgressBarClick(domEvent)": function (obj) { return obj.handleProgressBarClick(obj.domEvent); }, "duration ? position / duration * 100 : 0": function (obj) { return obj.duration ? obj.position / obj.duration * 100 : 0; }, "handleSelectionClick(domEvent)": function (obj) { return obj.handleSelectionClick(obj.domEvent); }, "duration && startposition ? startposition / duration * 100 : 0": function (obj) { return obj.duration && obj.startposition ? obj.startposition / obj.duration * 100 : 0; }, "100 - (duration && endposition ? endposition / duration * 100 : 100)": function (obj) { return 100 - (obj.duration && obj.endposition ? obj.endposition / obj.duration * 100 : 100); }, "trimButtonEnabled ? 'accent-color-bg' : 'disabled'": function (obj) { return obj.trimButtonEnabled ? 'accent-color-bg' : 'disabled'; }, "trim()": function (obj) { return obj.trim(); }, "string('trim')": function (obj) { return obj.string('trim'); }, "skip()": function (obj) { return obj.skip(); }, "string('skip')": function (obj) { return obj.string('skip'); }/**/
+        })
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "trim": "Trim",
+            "skip": "Skip"
         });
 });
 Scoped.define("module:ImageViewer.Dynamics.Controlbar", [
@@ -18923,7 +18934,7 @@ Scoped.define("module:VideoCall.Dynamics.Controlbar", [
             scoped: scoped
         }, function(inherited) {
             return {
-                template: "<div class=\"ba-call-controlbar\">\n\t<button class=\"ba-call-mute-btn\" ba-click=\"{{toggle_mute()}}\">{{string('mute-button')}}</button>\n\t<button class=\"ba-call-camera-btn\" ba-click=\"{{toggle_camera()}}\">{{string('camera-button')}}</button>\n\t<button class=\"ba-call-leave-btn\" ba-click=\"{{leave_call()}}\">Leave Call</button>\n</div>",
+                template: "<div class=\"ba-call-controlbar\">\n\t<button class=\"ba-call-mute-btn\" ba-click=\"{{toggle_mute()}}\">{{string('mute-button')}}</button>\n\t<button class=\"ba-call-camera-btn\" ba-click=\"{{toggle_camera()}}\">{{string('camera-button')}}</button>\n\t<button class=\"ba-call-leave-btn\" ba-click=\"{{leave_call()}}\">{{string('leave-button')}}</button>\n</div>",
 
                 functions: {
                     toggle_mute: function() {
@@ -18940,7 +18951,7 @@ Scoped.define("module:VideoCall.Dynamics.Controlbar", [
         })
         .register("ba-call-controlbar")
         .registerFunctions({
-            /**/"toggle_mute()": function (obj) { return obj.toggle_mute(); }, "string('mute-button')": function (obj) { return obj.string('mute-button'); }, "toggle_camera()": function (obj) { return obj.toggle_camera(); }, "string('camera-button')": function (obj) { return obj.string('camera-button'); }, "leave_call()": function (obj) { return obj.leave_call(); }/**/
+            /**/"toggle_mute()": function (obj) { return obj.toggle_mute(); }, "string('mute-button')": function (obj) { return obj.string('mute-button'); }, "toggle_camera()": function (obj) { return obj.toggle_camera(); }, "string('camera-button')": function (obj) { return obj.string('camera-button'); }, "leave_call()": function (obj) { return obj.leave_call(); }, "string('leave-button')": function (obj) { return obj.string('leave-button'); }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({

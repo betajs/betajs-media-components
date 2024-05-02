@@ -1,4 +1,4 @@
-'language:uk':
+language:uk:
   ba-videoplayer-playbutton.tooltip: Натисніть для відтворення.
   ba-videoplayer-playbutton.rerecord: Повторити запис
   ba-videoplayer-playbutton.submit-video: Підтвердити відео
@@ -26,15 +26,15 @@
   ba-videorecorder-controlbar.microphonehealthy: Звук хороший
   ba-videorecorder-controlbar.microphoneunhealthy: Не вдається розпізнати жодного звуку
   ba-videorecorder-controlbar.record: Запис
-  ba-videorecorder-controlbar.record-tooltip: 'Клацніть тут, щоб записати.'
+  ba-videorecorder-controlbar.record-tooltip: Клацніть тут, щоб записати.
   ba-videorecorder-controlbar.rerecord: Повторити
-  ba-videorecorder-controlbar.rerecord-tooltip: 'Клацніть тут, щоб повторити.'
+  ba-videorecorder-controlbar.rerecord-tooltip: Клацніть тут, щоб повторити.
   ba-videorecorder-controlbar.upload-covershot: Вивантажити обкладинку
-  ba-videorecorder-controlbar.upload-covershot-tooltip: 'Клацніть тут, щоб вивантажити власну обкладинку'
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Клацніть тут, щоб вивантажити власну обкладинку
   ba-videorecorder-controlbar.stop: Зупинитися
-  ba-videorecorder-controlbar.stop-tooltip: 'Клацніть тут, щоб зупинитися.'
+  ba-videorecorder-controlbar.stop-tooltip: Клацніть тут, щоб зупинитися.
   ba-videorecorder-controlbar.skip: Пропустити
-  ba-videorecorder-controlbar.skip-tooltip: 'Клацніть тут, щоб пропустити.'
+  ba-videorecorder-controlbar.skip-tooltip: Клацніть тут, щоб пропустити.
   ba-videorecorder.recorder-error: >-
     Виникла помилка, будь ласка, повторіть спробу пізніше. Натисніть щоб
     повторити.
@@ -91,8 +91,8 @@
   ba-videorecorder.resolution-constraint-error: >-
     Файл, який ви обрали, не відповідає необхідній роздільній здатності -
     натисніть тут, спробувати ще раз.
-  ba-videorecorder.orientation-portrait-required: 'Будь ласка, оберніть пристрій, щоб робити запис у портретному режимі.'
-  ba-videorecorder.orientation-landscape-required: 'Будь ласка, оберніть пристрій, щоб робити запис у альбомному режимі.'
+  ba-videorecorder.orientation-portrait-required: Будь ласка, оберніть пристрій, щоб робити запис у портретному режимі.
+  ba-videorecorder.orientation-landscape-required: Будь ласка, оберніть пристрій, щоб робити запис у альбомному режимі.
   ba-imageviewer-controlbar.rerecord-image: Повторити?
   ba-imageviewer-controlbar.submit-image: Підтвердити
   ba-imageviewer-controlbar.fullscreen-image: Увійти до повноекранного режиму
@@ -106,11 +106,11 @@
   ba-imagecapture-controlbar.camerahealthy: Освітлення хороше
   ba-imagecapture-controlbar.cameraunhealthy: Освітлення не є оптимальним
   ba-imagecapture-controlbar.record: Захопити
-  ba-imagecapture-controlbar.record-tooltip: 'Натисніть тут, щоб захопити.'
+  ba-imagecapture-controlbar.record-tooltip: Натисніть тут, щоб захопити.
   ba-imagecapture-controlbar.rerecord: Повторити
-  ba-imagecapture-controlbar.rerecord-tooltip: 'Натисніть тут, щоб повторити.'
+  ba-imagecapture-controlbar.rerecord-tooltip: Натисніть тут, щоб повторити.
   ba-imagecapture-controlbar.cancel: Скасувати
-  ba-imagecapture-controlbar.cancel-tooltip: 'Натисніть тут, щоб скасувати.'
+  ba-imagecapture-controlbar.cancel-tooltip: Натисніть тут, щоб скасувати.
   ba-audioplayer-controlbar.audio-progress: Прогрес
   ba-audioplayer-controlbar.rerecord-audio: Повторити?
   ba-audioplayer-controlbar.submit-audio: Підтвердити
@@ -132,14 +132,14 @@
   ba-audiorecorder-controlbar.microphonehealthy: Звук хороший
   ba-audiorecorder-controlbar.microphoneunhealthy: Не вдається розпізнати жоден звук
   ba-audiorecorder-controlbar.record: Запис
-  ba-audiorecorder-controlbar.record-tooltip: 'Натисніть тут, щоб записувати.'
+  ba-audiorecorder-controlbar.record-tooltip: Натисніть тут, щоб записувати.
   ba-audiorecorder-controlbar.rerecord: Повторити
-  ba-audiorecorder-controlbar.rerecord-tooltip: 'Натисніть тут, щоб повторити.'
+  ba-audiorecorder-controlbar.rerecord-tooltip: Натисніть тут, щоб повторити.
   ba-audiorecorder-controlbar.stop: Зупинити
-  ba-audiorecorder-controlbar.stop-tooltip: 'Натисніть тут, щоб зупинити.'
+  ba-audiorecorder-controlbar.stop-tooltip: Натисніть тут, щоб зупинити.
   ba-audiorecorder-controlbar.stop-available-after: Мінімальний час запису складає %d секунд
   ba-audiorecorder-controlbar.cancel: Скасувати
-  ba-audiorecorder-controlbar.cancel-tooltip: 'Натисніть тут, щоб скасувати.'
+  ba-audiorecorder-controlbar.cancel-tooltip: Натисніть тут, щоб скасувати.
   ba-videoplayer-controlbar.player-speed: Швидкість програвача
   ba-videoplayer-controlbar.settings: Налаштування
   ba-videoplayer-controlbar.airplay: Airplay
@@ -175,14 +175,14 @@
     Файл, який ви обрали, не відповідає необхідному розширенню - натисніть тут,
     щоб спробувати ще раз.
   ba-imagecapture.verifying: Верифікація
-  ba-imagecapture.verifying-failed: 'Верифікація зазнала невдачі - натисніть тут, щоб спробувати ще раз.'
+  ba-imagecapture.verifying-failed: Верифікація зазнала невдачі - натисніть тут, щоб спробувати ще раз.
   ba-imagecapture.rerecord-confirm: Ви дійсно хочете перезняти ваше зображення?
   ba-imagecapture.image_file_too_large: >-
     Ваше зображення занадто велике (%s) - натисніть тут, щоб спробувати ще раз з
     меншим файлом зображення.
   ba-imagecapture.unsupported_image_type: 'Будь ласка, вивантажте: %s - натисніть тут, щоб спробувати ще раз.'
-  ba-imagecapture.orientation-portrait-required: 'Будь ласка, оберніть пристрій, щоб записувати у портретному режимі.'
-  ba-imagecapture.orientation-landscape-required: 'Будь ласка, оберніть пристрій, щоб записувати у альбомному режимі.'
+  ba-imagecapture.orientation-portrait-required: Будь ласка, оберніть пристрій, щоб записувати у портретному режимі.
+  ba-imagecapture.orientation-landscape-required: Будь ласка, оберніть пристрій, щоб записувати у альбомному режимі.
   ba-audiorecorder.recorder-error: >-
     Виникла помилка, будь ласка, повторіть спробу пізніше. Натисніть щоб
     повторити.
@@ -198,12 +198,12 @@
     доведеться перезавантажити сторінку після завершення.
   ba-audiorecorder.access-forbidden: У доступі до диктофону було відмовлено. Натисніть щоб повторити.
   ba-audiorecorder.uploading: Вивантаження
-  ba-audiorecorder.uploading-failed: 'Вивантаження зазнало невдачі - натисніть тут, щоб спробувати ще раз.'
+  ba-audiorecorder.uploading-failed: Вивантаження зазнало невдачі - натисніть тут, щоб спробувати ще раз.
   ba-audiorecorder.upload-error-duration: >-
     Тривалість вивантажуваного аудіо не відповідає вимогам - натисніть тут, щоб
     спробувати ще раз.
   ba-audiorecorder.verifying: Верифікація
-  ba-audiorecorder.verifying-failed: 'Верифікація зазнала невдачі - натисніть тут, щоб спробувати ще раз.'
+  ba-audiorecorder.verifying-failed: Верифікація зазнала невдачі - натисніть тут, щоб спробувати ще раз.
   ba-audiorecorder.rerecord-confirm: Ви справді бажаєте перезаписати аудіо?
   ba-audiorecorder.cancel-confirm: Ви справді бажаєте скасувати вивантаження аудіо?
   ba-audiorecorder.audio_file_too_large: >-
@@ -228,19 +228,69 @@
     У дозволі відмовлено браузером, будь ласка, надайте дозвіл та перезавантажте
     сторінку
   ba-audioplayer.all-settings: Всі налаштування
-  ba-videoplayer-controlbar.remaining-time: 'Час, що залишився'
+  ba-videoplayer-controlbar.remaining-time: Час, що залишився
   ba-videoplayer-controlbar.select-frame: Виберіть
   ba-videoplayer-controlbar.trim-video: Обрізати
   ba-videoplayer-playbutton.trim: Обрізати
   ba-videoplayer-playbutton.skip: Пропустити
   ba-videorecorder-imagegallery.upload-covershot: Завантажити обкладинку
-  ba-videorecorder.pick-covershot-frame: 'Виберіть кадр, який потрібно використовувати як обкладинку.'
+  ba-videorecorder.pick-covershot-frame: Виберіть кадр, який потрібно використовувати як обкладинку.
   ba-videorecorder.screen-recorder-is-not-supported: Цей пристрій не підтримує реєстратор екрану
   ba-videorecorder.trim-prompt: Ви хочете обрізати своє відео?
-  ba-videorecorder.trim-video: 'Перемістіть маркери початку та кінця, щоб обрізати відео'
+  ba-videorecorder.trim-video: Перемістіть маркери початку та кінця, щоб обрізати відео
   ba-videorecorder.wait-for-trim: Очікування команди обрізання ...
   ba-videorecorder-controlbar.no-video-source: Відсутнє додаткове джерело вхідного відеосигналу
   ba-videorecorder-controlbar.stream-already-selected: Додатковий потік уже вибрано
-  ba-videorecorder.uploading-src-error: 'Неможливо відтворити відео зараз, завантаження триває'
+  ba-videorecorder.uploading-src-error: Неможливо відтворити відео зараз, завантаження триває
   ba-audiorecorder-controlbar.pause-recorder: Пауза реєстратора
   ba-audiorecorder-controlbar.resume-recorder: Реєстратор резюме
+  ba-circle-progress.fullscreen-video: Перейти в повноекранний режим
+  ba-ads-choices-link.ad-choices: Вибір оголошень
+  ba-ads-controlbar.skip-ad: Пропустити оголошення
+  ba-ads-controlbar.play-ad: грати
+  ba-ads-controlbar.pause-video: Пауза
+  ba-ads-controlbar.volume-mute: Вимкнути звук
+  ba-ads-controlbar.volume-button: Встановити гучність
+  ba-ads-controlbar.elapsed-time: Витрачений час
+  ba-ads-controlbar.volume-unmute: Увімкнути звук
+  ba-ads-controlbar.can-skip-after: Пропустити після %d
+  ba-ads-controlbar.fullscreen-video: Перейти в повноекранний режим
+  ba-ads-controlbar.exit-fullscreen-video: Вийти з повноекранного режиму
+  ba-ads-controlbar.ad-will-end-after: Оголошення закінчиться через %s
+  ba-ads-controlbar.pause-video-disabled: Пауза не підтримується
+  ba-adsplayer.replay-ad: Повторити відео
+  ba-adsplayer.close-ad: Закрити
+  ba-adsplayer.ad-choices: Вибір оголошень
+  ba-adsplayer.learn-more: Вивчайте більше
+  ba-ads-learn-more-button.learn-more: Вивчайте більше
+  ba-videoplayer-sidebar.up-next: Далі
+  ba-videoplayer-sidebar.continue-on-ads-end: Вміст буде відновлено після цієї реклами.
+  ba-videoplayer-tooltip.tooltip: Підказка
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Утримуйте мишу, щоб призупинити закриття підказки
+  ba-videorecorder.supported-mode: Роздільна здатність медіа має бути в режимі «%s».
+  ba-videorecorder.re-choose-action: Клацніть, щоб вибрати інший пристрій введення або повторіть дію.
+  ba-audiorecorder.uploading-src-error: Зараз неможливо відтворити аудіо, завантаження ще триває
+  ba-audiorecorder.missing-track: Відсутня необхідна звукова доріжка
+  ba-audiorecorder.device-already-in-use: Принаймні один із ваших пристроїв введення вже використовується
+  ba-audiorecorder.browser-permission-denied: Браузер відхилив дозвіл, надайте доступ і перезавантажте сторінку
+  ba-local-view.local-camera-connection-error: >-
+    Під час підключення до локальної камери сталася помилка. Натисніть, щоб
+    повторити спробу.
+  ba-call-controlbar.camera-button: Показати/Сховати камеру
+  ba-call-controlbar.leave-button: Залишити виклик
+  ba-call-controlbar.mute-button: Вимкнути/увімкнути звук
+  ba-call-lobby.camera-button: Камера
+  ba-call-lobby.description-create: Коли ви будете готові, натисніть кнопку нижче, щоб створити виклик.
+  ba-call-lobby.description-join: Коли ви будете готові, натисніть кнопку нижче, щоб приєднатися до виклику.
+  ba-call-lobby.join-button: Приєднуйтесь
+  ba-call-lobby.create-button: Створити
+  ba-call-lobby.mute-button: Вимкнути звук
+  ba-call-lobby.title-create: Створити виклик
+  ba-call-lobby.title-join: Приєднатися до виклику
+  ba-video-call.call-ended: Дзвінок завершено
+  ba-video-call.connecting: Підключення...
+  ba-video-call.connection-error: Під час підключення виникла помилка. Натисніть, щоб повторити спробу.
+  ba-videoplayer-next.stay: Залишся
+  ba-videoplayer-next.next: Далі
+  ba-videorecorder-trimmer.trim: Обрізка
+  ba-videorecorder-trimmer.skip: Пропустити

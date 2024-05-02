@@ -1,4 +1,4 @@
-'language:sk':
+language:sk:
   ba-videoplayer-playbutton.tooltip: Pre prehratie videa kliknite.
   ba-videoplayer-playbutton.rerecord: Znovu nahrať
   ba-videoplayer-playbutton.submit-video: Potvrďte video
@@ -86,7 +86,7 @@
     Zvolený súbor nezodpovedá požadovanému rozlíšeniu - kliknite sem a skúste to
     znova.
   ba-videorecorder.orientation-portrait-required: Zariadenie môžete natáčať natáčaním v režime na výšku.
-  ba-videorecorder.orientation-landscape-required: 'Natáčajte zariadenie tak, aby sa nahral v režime na šírku.'
+  ba-videorecorder.orientation-landscape-required: Natáčajte zariadenie tak, aby sa nahral v režime na šírku.
   ba-imageviewer-controlbar.rerecord-image: Prerobiť?
   ba-imageviewer-controlbar.submit-image: potvrdiť
   ba-imageviewer-controlbar.fullscreen-image: Zadajte celú obrazovku
@@ -155,7 +155,7 @@
   ba-imagecapture.software-waiting: >-
     Čakanie na inštaláciu / aktiváciu požiadaviek. Po dokončení môžete
     potrebovať obnoviť stránku.
-  ba-imagecapture.access-forbidden: 'Prístup k médiám bol zakázaný. Kliknite, ak chcete opakovať pokus.'
+  ba-imagecapture.access-forbidden: Prístup k médiám bol zakázaný. Kliknite, ak chcete opakovať pokus.
   ba-imagecapture.uploading: nahrávanie
   ba-imagecapture.uploading-failed: Nahrávanie zlyhalo - kliknutím sem zopakujte pokus.
   ba-imagecapture.upload-error-duration: Dĺžka nahraného obrázka nespĺňa požiadavky - kliknite sem a skúste to znova.
@@ -169,8 +169,8 @@
     Váš obrazový súbor je príliš veľký (%s) - kliknutím sem skúste znova s
     menším obrázkovým súborom.
   ba-imagecapture.unsupported_image_type: 'Nahrajte: %s - kliknite sem a skúste to znova.'
-  ba-imagecapture.orientation-portrait-required: 'Ak chcete nahrávať v režime na výšku, otočte zariadenie.'
-  ba-imagecapture.orientation-landscape-required: 'Ak chcete nahrávať v režime na šírku, otočte zariadenie.'
+  ba-imagecapture.orientation-portrait-required: Ak chcete nahrávať v režime na výšku, otočte zariadenie.
+  ba-imagecapture.orientation-landscape-required: Ak chcete nahrávať v režime na šírku, otočte zariadenie.
   ba-audiorecorder.recorder-error: >-
     Vyskytla sa chyba. Skúste to znovu neskôr prosím. Kliknite, ak chcete
     opakovať pokus.
@@ -184,12 +184,12 @@
   ba-audiorecorder.software-waiting: >-
     Čakanie na inštaláciu / aktiváciu požiadaviek. Po dokončení môžete
     potrebovať obnoviť stránku.
-  ba-audiorecorder.access-forbidden: 'Prístup k médiám bol zakázaný. Kliknite, ak chcete opakovať pokus.'
+  ba-audiorecorder.access-forbidden: Prístup k médiám bol zakázaný. Kliknite, ak chcete opakovať pokus.
   ba-audiorecorder.uploading: nahrávanie
   ba-audiorecorder.uploading-failed: Nahrávanie zlyhalo - kliknutím sem zopakujte pokus.
   ba-audiorecorder.upload-error-duration: Dĺžka nahraného zvuku nespĺňa požiadavky - kliknite sem a skúste to znova.
   ba-audiorecorder.verifying: overenie
-  ba-audiorecorder.verifying-failed: 'Overenie zlyhalo - ak chcete pokus zopakovať, kliknite sem.'
+  ba-audiorecorder.verifying-failed: Overenie zlyhalo - ak chcete pokus zopakovať, kliknite sem.
   ba-audiorecorder.rerecord-confirm: Naozaj chcete prepracovať zvuk?
   ba-audiorecorder.cancel-confirm: Naozaj chcete zrušiť nahrávanie zvuku?
   ba-audiorecorder.audio_file_too_large: >-
@@ -210,7 +210,7 @@
   ba-videorecorder-controlbar.resume-recorder: Obnovte záznam
   ba-videorecorder.missing-track: Chýba požadovaná zvuková alebo obrazová stopa
   ba-videorecorder.device-already-in-use: Aspoň jedno z vašich vstupných zariadení sa už používa
-  ba-videorecorder.browser-permission-denied: 'Prehliadač zamietol povolenie, udeľte prístup a znova načítajte stránku'
+  ba-videorecorder.browser-permission-denied: Prehliadač zamietol povolenie, udeľte prístup a znova načítajte stránku
   ba-audioplayer.all-settings: Všetky nastavenia
   ba-videoplayer-controlbar.remaining-time: Zostávajúci čas
   ba-videoplayer-controlbar.select-frame: Vyberte
@@ -218,13 +218,63 @@
   ba-videoplayer-playbutton.trim: Orezať
   ba-videoplayer-playbutton.skip: Preskočiť
   ba-videorecorder-imagegallery.upload-covershot: Odovzdajte obálku
-  ba-videorecorder.pick-covershot-frame: 'Vyberte rám, ktorý sa má použiť ako krycí záber.'
+  ba-videorecorder.pick-covershot-frame: Vyberte rám, ktorý sa má použiť ako krycí záber.
   ba-videorecorder.screen-recorder-is-not-supported: Rekordér obrazovky nie je týmto zariadením podporovaný
   ba-videorecorder.trim-prompt: Chcete video orezať?
   ba-videorecorder.trim-video: Posunutím začiatočných a koncových značiek video upravte
   ba-videorecorder.wait-for-trim: Čaká sa na príkaz na orezanie ...
   ba-videorecorder-controlbar.no-video-source: Chýba ďalší zdroj vstupu videa
   ba-videorecorder-controlbar.stream-already-selected: Ďalší stream už bol vybratý
-  ba-videorecorder.uploading-src-error: 'Teraz nie je možné prehrávať video, nahrávanie stále prebieha'
+  ba-videorecorder.uploading-src-error: Teraz nie je možné prehrávať video, nahrávanie stále prebieha
   ba-audiorecorder-controlbar.pause-recorder: Pozastaviť záznamník
   ba-audiorecorder-controlbar.resume-recorder: Obnoviť záznamník
+  ba-circle-progress.fullscreen-video: Vstúpte na celú obrazovku
+  ba-ads-choices-link.ad-choices: Ad Choices
+  ba-ads-controlbar.skip-ad: Preskočiť reklamu
+  ba-ads-controlbar.play-ad: hrať
+  ba-ads-controlbar.pause-video: Pauza
+  ba-ads-controlbar.volume-mute: Stlmiť zvuk
+  ba-ads-controlbar.volume-button: Nastavte hlasitosť
+  ba-ads-controlbar.elapsed-time: Uplynutý čas
+  ba-ads-controlbar.volume-unmute: Zapnúť zvuk
+  ba-ads-controlbar.can-skip-after: Preskočiť po %d
+  ba-ads-controlbar.fullscreen-video: Vstúpte na celú obrazovku
+  ba-ads-controlbar.exit-fullscreen-video: Ukončiť celú obrazovku
+  ba-ads-controlbar.ad-will-end-after: Reklama sa skončí po %s
+  ba-ads-controlbar.pause-video-disabled: Pozastavenie nie je podporované
+  ba-adsplayer.replay-ad: Prehrať video
+  ba-adsplayer.close-ad: Zavrieť
+  ba-adsplayer.ad-choices: Ad Choices
+  ba-adsplayer.learn-more: Uč sa viac
+  ba-ads-learn-more-button.learn-more: Uč sa viac
+  ba-videoplayer-sidebar.up-next: Nasledujúci
+  ba-videoplayer-sidebar.continue-on-ads-end: Obsah sa obnoví po tejto reklame.
+  ba-videoplayer-tooltip.tooltip: Popis
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Podržaním myši pozastavíte zatváranie popisku
+  ba-videorecorder.supported-mode: Rozlíšenie médií by malo byť v režime '%s'.
+  ba-videorecorder.re-choose-action: Kliknutím vyberte iné vstupné zariadenie alebo akciu zopakujte.
+  ba-audiorecorder.uploading-src-error: Zvuk sa teraz nedá prehrať, nahrávanie stále prebieha
+  ba-audiorecorder.missing-track: Chýba požadovaná zvuková stopa
+  ba-audiorecorder.device-already-in-use: Aspoň jedno z vašich vstupných zariadení sa už používa
+  ba-audiorecorder.browser-permission-denied: Prehliadač zamietol povolenie, udeľte prístup a znova načítajte stránku
+  ba-local-view.local-camera-connection-error: >-
+    Pri pripájaní k miestnej kamere sa vyskytla chyba. Kliknutím to skúste
+    znova.
+  ba-call-controlbar.camera-button: Zobraziť/skryť fotoaparát
+  ba-call-controlbar.leave-button: Opustiť hovor
+  ba-call-controlbar.mute-button: Stlmiť/Zrušiť stlmenie
+  ba-call-lobby.camera-button: fotoaparát
+  ba-call-lobby.description-create: Keď budete pripravení, kliknutím na tlačidlo nižšie vytvorte hovor.
+  ba-call-lobby.description-join: Keď budete pripravení, kliknite na tlačidlo nižšie a pripojte sa k hovoru.
+  ba-call-lobby.join-button: Pripojte sa
+  ba-call-lobby.create-button: Vytvorte
+  ba-call-lobby.mute-button: Stlmiť
+  ba-call-lobby.title-create: Vytvoriť hovor
+  ba-call-lobby.title-join: Pripojte sa k hovoru
+  ba-video-call.call-ended: Hovor bol ukončený
+  ba-video-call.connecting: Pripája sa...
+  ba-video-call.connection-error: Pri pripájaní sa vyskytla chyba, kliknutím to skúste znova.
+  ba-videoplayer-next.stay: Pobyt
+  ba-videoplayer-next.next: Ďalšie
+  ba-videorecorder-trimmer.trim: Orezať
+  ba-videorecorder-trimmer.skip: Preskočiť

@@ -1,4 +1,4 @@
-'language:mk':
+language:mk:
   ba-videoplayer-playbutton.tooltip: Кликнете за да играте.
   ba-videoplayer-playbutton.rerecord: Повторно
   ba-videoplayer-playbutton.submit-video: Потврдете го видеото
@@ -241,6 +241,60 @@
   ba-videorecorder.wait-for-trim: Се чека командата за трим ...
   ba-videorecorder-controlbar.no-video-source: Недостасува дополнителен извор за внесување видео
   ba-videorecorder-controlbar.stream-already-selected: Дополнителен тек веќе е избран
-  ba-videorecorder.uploading-src-error: 'Не може да се репродуцира видео сега, прикачувањето е сеуште во тек'
+  ba-videorecorder.uploading-src-error: Не може да се репродуцира видео сега, прикачувањето е сеуште во тек
   ba-audiorecorder-controlbar.pause-recorder: Паузирајте го рекордерот
   ba-audiorecorder-controlbar.resume-recorder: Резиме на резиме
+  ba-circle-progress.fullscreen-video: Влезете на цел екран
+  ba-ads-choices-link.ad-choices: Избори за реклами
+  ba-ads-controlbar.skip-ad: Прескокнете ја рекламата
+  ba-ads-controlbar.play-ad: Играј
+  ba-ads-controlbar.pause-video: Пауза
+  ba-ads-controlbar.volume-mute: Исклучи звук
+  ba-ads-controlbar.volume-button: Поставете ја јачината на звукот
+  ba-ads-controlbar.elapsed-time: Поминато време
+  ba-ads-controlbar.volume-unmute: Вклучи звук
+  ba-ads-controlbar.can-skip-after: Прескокни по %d
+  ba-ads-controlbar.fullscreen-video: Влезете на цел екран
+  ba-ads-controlbar.exit-fullscreen-video: Излезете од цел екран
+  ba-ads-controlbar.ad-will-end-after: Рекламата ќе заврши по %s
+  ba-ads-controlbar.pause-video-disabled: Паузирањето не е поддржано
+  ba-adsplayer.replay-ad: Повторете го видеото
+  ba-adsplayer.close-ad: Затвори
+  ba-adsplayer.ad-choices: Избори за реклами
+  ba-adsplayer.learn-more: Научи повеќе
+  ba-ads-learn-more-button.learn-more: Научи повеќе
+  ba-videoplayer-sidebar.up-next: Следно
+  ba-videoplayer-sidebar.continue-on-ads-end: Содржината ќе продолжи по оваа реклама.
+  ba-videoplayer-tooltip.tooltip: Совет за алатка
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Држете го глувчето за да го паузирате затворањето на советот за алатка
+  ba-videorecorder.supported-mode: Резолуцијата на медиумите треба да биде во режимот „%s“.
+  ba-videorecorder.re-choose-action: Кликнете за да изберете друг влезен уред или обидете се повторно со дејство.
+  ba-audiorecorder.uploading-src-error: Не може да се репродуцира аудио сега, поставувањето сè уште е во тек
+  ba-audiorecorder.missing-track: Недостасува потребната аудио песна
+  ba-audiorecorder.device-already-in-use: Најмалку еден од вашите влезни уреди веќе се користи
+  ba-audiorecorder.browser-permission-denied: >-
+    Дозволата е одбиена од прелистувачот, дозволете пристап и повторно вчитајте
+    ја страницата
+  ba-local-view.local-camera-connection-error: >-
+    Настана грешка при поврзувањето со локалната камера. Кликнете за да се
+    обидете повторно.
+  ba-call-controlbar.camera-button: Прикажи/Скриј камера
+  ba-call-controlbar.leave-button: Остави повик
+  ba-call-controlbar.mute-button: Исклучи/Вклучи звук
+  ba-call-lobby.camera-button: Камера
+  ba-call-lobby.description-create: Кога ќе бидете подготвени, кликнете на копчето подолу за да креирате повик.
+  ba-call-lobby.description-join: >-
+    Кога ќе бидете подготвени, кликнете на копчето подолу за да се придружите на
+    повикот.
+  ba-call-lobby.join-button: Приклучи се
+  ba-call-lobby.create-button: Креирај
+  ba-call-lobby.mute-button: Исклучи звук
+  ba-call-lobby.title-create: Креирај повик
+  ba-call-lobby.title-join: Придружете се на повикот
+  ba-video-call.call-ended: Повикот заврши
+  ba-video-call.connecting: Се поврзува...
+  ba-video-call.connection-error: Настана грешка при поврзувањето, кликнете за да се обидете повторно.
+  ba-videoplayer-next.stay: Остани
+  ba-videoplayer-next.next: Следно
+  ba-videorecorder-trimmer.trim: Намали
+  ba-videorecorder-trimmer.skip: Прескокни

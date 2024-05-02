@@ -63,7 +63,9 @@ language:bh:
   ba-videoplayer-tracks.info-select-locale-first: पहले स्थानीयता का चयन करें
   ba-videoplayer-tracks.select-text-track-file: फ़ाइल का चयन करने के लिए क्लिक करें
   ba-videoplayer-tracks.back: पीछे
-  ba-videoplayer.video-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के लिए।
+  ba-videoplayer.video-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
   ba-videoplayer.all-settings: सभी सेटिंग्स
   ba-videoplayer.player-speed: प्लेयर की गति
   ba-videoplayer.full-screen: पूर्ण स्क्रीन
@@ -96,36 +98,40 @@ language:bh:
   ba-videorecorder-controlbar.no-video-source: अतिरिक्त वीडियो इनपुट स्रोत गायब है
   ba-videorecorder-controlbar.stream-already-selected: अतिरिक्त स्ट्रीम पहले ही चयन की गई है
   ba-videorecorder-imagegallery.upload-covershot: कवर अपलोड करें
-  ba-videorecorder.recorder-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। बारही करने के लिए क्लिक करें।
+  ba-videorecorder.recorder-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। बारही करने के लिए क्लिक
+    करें।
   ba-videorecorder.attach-error: >-
-    हम मीडिया इंटरफ़ेस तक पहुंच नहीं सकते। यह उपकरण और
-    ब्राउज़र की आवश्यकता है, आपको अपडेट करने की आवश्यकता हो सकती है।
+    हम मीडिया इंटरफ़ेस तक पहुंच नहीं सकते। यह उपकरण और ब्राउज़र की आवश्यकता है,
+    आपको अपडेट करने की आवश्यकता हो सकती है।
   ba-videorecorder.software-required: >-
     कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए नीचे क्लिक करें
     जारी रखने के लिए।
   ba-videorecorder.software-waiting: >-
-    आवश्यकताओं को स्थापित / सक्रिय करने के लिए प्रतीक्षा कर रहे हैं। पूरा होने के बाद आपको
-    पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
+    आवश्यकताओं को स्थापित / सक्रिय करने के लिए प्रतीक्षा कर रहे हैं। पूरा होने
+    के बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
   ba-videorecorder.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास के लिए क्लिक करें।
   ba-videorecorder.pick-covershot: एक कवर फोटो चुनें।
   ba-videorecorder.pick-covershot-frame: कवर फोटो के रूप में उपयोग करने के लिए एक फ्रेम चुनें।
   ba-videorecorder.framerate-warning: >-
-    वीडियो फ्रेम दर बहुत कम है। हम सभी अन्य कार्यक्रमों और ब्राउज़र टैबों को बंद करने
-    और एक तेज़ कंप्यूटर का उपयोग करने की सिफारिश करते हैं।
+    वीडियो फ्रेम दर बहुत कम है। हम सभी अन्य कार्यक्रमों और ब्राउज़र टैबों को बंद
+    करने और एक तेज़ कंप्यूटर का उपयोग करने की सिफारिश करते हैं।
   ba-videorecorder.uploading: अपलोड हो रहा है
   ba-videorecorder.uploading-src-error: वीडियो अभी चलाया नहीं जा सकता, अपलोड अभी भी जारी है
   ba-videorecorder.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक करें।
   ba-videorecorder.upload-error-duration: >-
-    अपलोड की गई वीडियो की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास के लिए यहाँ क्लिक करें।
+    अपलोड की गई वीडियो की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास के
+    लिए यहाँ क्लिक करें।
   ba-videorecorder.resolution-constraint-error: >-
-    आपके द्वारा चयनित फ़ाइल का आवश्यक निर्धारित रिज़ॉल्यूशन के साथ मेल नहीं खाता है - यहाँ क्लिक करें
-    पुनः प्रयास के लिए।
+    आपके द्वारा चयनित फ़ाइल का आवश्यक निर्धारित रिज़ॉल्यूशन के साथ मेल नहीं खाता
+    है - यहाँ क्लिक करें पुनः प्रयास के लिए।
   ba-videorecorder.verifying: सत्यापित किया जा रहा है
   ba-videorecorder.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ क्लिक करें।
   ba-videorecorder.rerecord-confirm: क्या आप वाकई अपने वीडियो को पुनः करना चाहते हैं?
   ba-videorecorder.cancel-confirm: क्या आप वाकई अपनी वीडियो अपलोड रद्द करना चाहते हैं?
   ba-videorecorder.video_file_too_large: >-
-    आपकी वीडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी वीडियो फ़ाइल के साथ पुनः प्रयास के लिए यहाँ क्लिक करें।
+    आपकी वीडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी वीडियो फ़ाइल के साथ पुनः
+    प्रयास के लिए यहाँ क्लिक करें।
   ba-videorecorder.unsupported_video_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए यहाँ क्लिक करें।'
   ba-videorecorder.orientation-portrait-required: कृपया अपनी उपकरण को पोर्ट्रेट मोड में रिकॉर्ड करने के लिए घुमाएं।
   ba-videorecorder.orientation-landscape-required: कृपया अपनी उपकरण को लैंडस्केप मोड में रिकॉर्ड करने के लिए घुमाएं।
@@ -135,7 +141,9 @@ language:bh:
   ba-videorecorder.adding-new-stream: नया स्ट्रीम जोड़ रहा है
   ba-videorecorder.missing-track: आवश्यक ऑडियो या वीडियो ट्रैक अनुपस्थित है
   ba-videorecorder.device-already-in-use: आपके इनपुट उपकरणों में से कम से कम एक पहले से ही प्रयुक्त हो रहा है
-  ba-videorecorder.browser-permission-denied: ब्राउज़र ने अनुमति देने से मना कर दिया है, कृपया पहुंच दें और पृष्ठ को पुनः लोड करें
+  ba-videorecorder.browser-permission-denied: >-
+    ब्राउज़र ने अनुमति देने से मना कर दिया है, कृपया पहुंच दें और पृष्ठ को पुनः
+    लोड करें
   ba-videorecorder.screen-recorder-is-not-supported: इस उपकरण पर स्क्रीन रिकॉर्डर समर्थित नहीं है
   ba-videorecorder.trim-prompt: क्या आप अपने वीडियो को छँटना चाहते हैं?
   ba-videorecorder.trim-video: अपने वीडियो को छँटने के लिए शुरुआत और समापन मार्कर्स को मूव करें
@@ -146,7 +154,9 @@ language:bh:
   ba-imageviewer-controlbar.submit-image: पुष्टि करें
   ba-imageviewer-controlbar.fullscreen-image: पूर्ण स्क्रीन में जाएं
   ba-imageviewer-controlbar.exit-fullscreen-image: पूर्ण स्क्रीन से बाहर निकलें
-  ba-imageviewer.image-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के लिए।
+  ba-imageviewer.image-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
   ba-imagecapture-chooser.image-capture: छवि कैप्चर करें
   ba-imagecapture-chooser.upload-image: छवि अपलोड करें
   ba-imagecapture-controlbar.settings: सेटिंग्स
@@ -158,29 +168,33 @@ language:bh:
   ba-imagecapture-controlbar.rerecord-tooltip: पुनः आवाज करने के लिए यहाँ क्लिक करें।
   ba-imagecapture-controlbar.cancel: रद्द करें
   ba-imagecapture-controlbar.cancel-tooltip: रद्द करने के लिए यहाँ क्लिक करें।
-  ba-imagecapture.recorder-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के लिए।
+  ba-imagecapture.recorder-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
   ba-imagecapture.attach-error: >-
-    हम मीडिया इंटरफेस तक पहुंच नहीं सकते थे। उपकरण और
-    ब्राउज़र के आधार पर, आपको SSL के माध्यम से पृष्ठ तक पहुंचने की आवश्यकता हो सकती है।
+    हम मीडिया इंटरफेस तक पहुंच नहीं सकते थे। उपकरण और ब्राउज़र के आधार पर, आपको
+    SSL के माध्यम से पृष्ठ तक पहुंचने की आवश्यकता हो सकती है।
   ba-imagecapture.software-required: >-
-    कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए नीचे क्लिक करें ताकि
-    आगे बढ़ा जा सके।
+    कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए नीचे क्लिक करें
+    ताकि आगे बढ़ा जा सके।
   ba-imagecapture.software-waiting: >-
-    आवश्यकताओं को स्थापित / सक्रिय करने के लिए प्रतीक्षा कर रहे हैं। पूरा होने के बाद आपको
-    पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
+    आवश्यकताओं को स्थापित / सक्रिय करने के लिए प्रतीक्षा कर रहे हैं। पूरा होने
+    के बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
   ba-imagecapture.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास के लिए क्लिक करें।
   ba-imagecapture.uploading: अपलोड हो रहा है
   ba-imagecapture.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक करें।
   ba-imagecapture.upload-error-duration: >-
-    अपलोड की गई छवि की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास के लिए यहाँ क्लिक करें।
+    अपलोड की गई छवि की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास के लिए
+    यहाँ क्लिक करें।
   ba-imagecapture.resolution-constraint-error: >-
-    आपके द्वारा चयनित फ़ाइल का आवश्यक निर्धारित रिज़ॉल्यूशन के साथ मेल नहीं खाता है - यहाँ क्लिक करें
-    पुनः प्रयास के लिए।
+    आपके द्वारा चयनित फ़ाइल का आवश्यक निर्धारित रिज़ॉल्यूशन के साथ मेल नहीं खाता
+    है - यहाँ क्लिक करें पुनः प्रयास के लिए।
   ba-imagecapture.verifying: सत्यापित किया जा रहा है
   ba-imagecapture.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ क्लिक करें।
   ba-imagecapture.rerecord-confirm: क्या आप वाकई अपनी छवि को पुनः लेना चाहते हैं?
   ba-imagecapture.image_file_too_large: >-
-    आपकी छवि फ़ाइल बहुत बड़ी है (%s) - एक छोटी छवि फ़ाइल के साथ पुनः प्रयास करने के लिए यहाँ क्लिक करें।
+    आपकी छवि फ़ाइल बहुत बड़ी है (%s) - एक छोटी छवि फ़ाइल के साथ पुनः प्रयास करने
+    के लिए यहाँ क्लिक करें।
   ba-imagecapture.unsupported_image_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए यहाँ क्लिक करें।'
   ba-imagecapture.orientation-portrait-required: कृपया अपनी उपकरण को पोर्ट्रेट मोड में रिकॉर्ड करने के लिए घुमाएं।
   ba-imagecapture.orientation-landscape-required: कृपया अपनी उपकरण को लैंडस्केप मोड में रिकॉर्ड करने के लिए घुमाएं।
@@ -196,7 +210,9 @@ language:bh:
   ba-audioplayer-controlbar.volume-mute: ध्वनि मूक करें
   ba-audioplayer-controlbar.volume-unmute: ध्वनि अनम्यूट करें
   ba-audioplayer-loader.tooltip: लोड हो रहा है...
-  ba-audioplayer.audio-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के लिए।
+  ba-audioplayer.audio-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
   ba-audioplayer.all-settings: सभी सेटिंग्स
   ba-audiorecorder-chooser.record-audio: ऑडियो रिकॉर्ड करें
   ba-audiorecorder-chooser.upload-audio: ऑडियो अपलोड करें
@@ -214,32 +230,41 @@ language:bh:
   ba-audiorecorder-controlbar.cancel-tooltip: यहाँ क्लिक करें रद्द करने के लिए।
   ba-audiorecorder-controlbar.pause-recorder: रिकॉर्डर को रोकें
   ba-audiorecorder-controlbar.resume-recorder: रिकॉर्डर को फिर से शुरू करें
-  ba-audiorecorder.recorder-error: एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के लिए।
+  ba-audiorecorder.recorder-error: >-
+    एक त्रुटि आई है, कृपया बाद में पुनः प्रयास करें। क्लिक करें बारही करने के
+    लिए।
   ba-audiorecorder.attach-error: >-
-    हम मीडिया इंटरफ़ेस तक पहुंच नहीं सकते थे। उपकरण और
-    ब्राउज़र के आधार पर, आपको SSL के माध्यम से पृष्ठ तक पहुंचने की आवश्यकता हो सकती है।
+    हम मीडिया इंटरफ़ेस तक पहुंच नहीं सकते थे। उपकरण और ब्राउज़र के आधार पर, आपको
+    SSL के माध्यम से पृष्ठ तक पहुंचने की आवश्यकता हो सकती है।
   ba-audiorecorder.software-required: >-
-    आगे बढ़ने के लिए कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए नीचे क्लिक करें।
+    आगे बढ़ने के लिए कृपया निम्नलिखित आवश्यकताओं को स्थापित / सक्रिय करने के लिए
+    नीचे क्लिक करें।
   ba-audiorecorder.software-waiting: >-
-    आवश्यकताओं को स्थापित / सक्रिय करने की प्रतीक्षा कर रहे हैं। पूरा होने के बाद आपको
-    पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
+    आवश्यकताओं को स्थापित / सक्रिय करने की प्रतीक्षा कर रहे हैं। पूरा होने के
+    बाद आपको पृष्ठ को ताजगी देने की आवश्यकता हो सकती है।
   ba-audiorecorder.access-forbidden: मीडिया तक पहुंचने की अनुमति नहीं थी। पुनः प्रयास के लिए क्लिक करें।
   ba-audiorecorder.uploading: अपलोड हो रहा है
   ba-audiorecorder.uploading-failed: अपलोड विफल हुआ - पुनः प्रयास के लिए यहाँ क्लिक करें।
   ba-audiorecorder.upload-error-duration: >-
-    अपलोड की गई ऑडियो फ़ाइल की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास के लिए यहाँ क्लिक करें।
+    अपलोड की गई ऑडियो फ़ाइल की लंबाई आवश्यकताओं को पूरा नहीं करती - पुनः प्रयास
+    के लिए यहाँ क्लिक करें।
   ba-audiorecorder.verifying: सत्यापित किया जा रहा है
   ba-audiorecorder.verifying-failed: सत्यापित करने में विफलता - पुनः प्रयास के लिए यहाँ क्लिक करें।
   ba-audiorecorder.rerecord-confirm: क्या आप वाकई अपनी ऑडियो को पुनः करना चाहते हैं?
   ba-audiorecorder.cancel-confirm: क्या आप वाकई अपनी ऑडियो अपलोड करने को रद्द करना चाहते हैं?
   ba-audiorecorder.audio_file_too_large: >-
-    आपकी ऑडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी ऑडियो फ़ाइल के साथ पुनः प्रयास करने के लिए यहाँ क्लिक करें।
+    आपकी ऑडियो फ़ाइल बहुत बड़ी है (%s) - एक छोटी ऑडियो फ़ाइल के साथ पुनः प्रयास
+    करने के लिए यहाँ क्लिक करें।
   ba-audiorecorder.unsupported_audio_type: 'कृपया अपलोड करें: %s - पुनः प्रयास के लिए यहाँ क्लिक करें।'
   ba-audiorecorder.uploading-src-error: वर्तमान में ऑडियो प्लेबैक नहीं किया जा सकता है, अपलोड अभी भी प्रगति में है
   ba-audiorecorder.missing-track: आवश्यक ऑडियो ट्रैक गायब है
   ba-audiorecorder.device-already-in-use: आपके इनपुट उपकरणों में से कम से कम एक पहले से ही उपयोग किया जा रहा है
-  ba-audiorecorder.browser-permission-denied: ब्राउज़र द्वारा अनुमति नहीं दी गई है, कृपया पहुंच अनुमति दें और पृष्ठ को पुनः लोड करें
-  ba-local-view.local-camera-connection-error: स्थानीय कैमरा से कनेक्ट करते समय एक त्रुटि हुई थी। पुनः प्रयास के लिए क्लिक करें।
+  ba-audiorecorder.browser-permission-denied: >-
+    ब्राउज़र द्वारा अनुमति नहीं दी गई है, कृपया पहुंच अनुमति दें और पृष्ठ को
+    पुनः लोड करें
+  ba-local-view.local-camera-connection-error: >-
+    स्थानीय कैमरा से कनेक्ट करते समय एक त्रुटि हुई थी। पुनः प्रयास के लिए क्लिक
+    करें।
   ba-call-controlbar.camera-button: कैमरा दिखाएं/छुपाएं
   ba-call-controlbar.leave-button: कॉल छोड़ें
   ba-call-controlbar.mute-button: म्यूट/अनम्यूट
@@ -254,7 +279,12 @@ language:bh:
   ba-video-call.call-ended: कॉल समाप्त हो गई
   ba-video-call.connecting: कनेक्ट हो रहा है...
   ba-video-call.connection-error: कनेक्ट करते समय एक त्रुटि हुई थी, कृपया पुनः प्रयास के लिए क्लिक करें।
-
-
-
-
+  ba-circle-progress.fullscreen-video: फुलस्क्रीन में प्रवेश करीं
+  ba-ads-choices-link.ad-choices: विज्ञापन के विकल्प बा
+  ba-ads-learn-more-button.learn-more: अउरी जाने खातिर देखीं
+  ba-videoplayer-sidebar.up-next: ऊपर आगे के बा
+  ba-videoplayer-sidebar.continue-on-ads-end: एह विज्ञापन का बाद सामग्री फेर से शुरू हो जाई.
+  ba-videoplayer-next.stay: ठहरीं
+  ba-videoplayer-next.next: अगिला
+  ba-videorecorder-trimmer.trim: कांट-छांट कईल
+  ba-videorecorder-trimmer.skip: छोड़ दऽ

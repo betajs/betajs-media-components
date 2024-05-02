@@ -1,8 +1,9 @@
 Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
     "dynamics:Dynamic",
     "browser:Events",
-    "base:Promise"
-], function(Class, DomEvents, Promise, scoped) {
+    "base:Promise",
+    "module:Assets"
+], function(Class, DomEvents, Promise, Assets, scoped) {
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
@@ -223,5 +224,10 @@ Scoped.define("module:VideoRecorder.Dynamics.Trimmer", [
         .register("ba-videorecorder-trimmer")
         .registerFunctions({
             /*<%= template_function_cache(dirname + '/trimmer.html') %>*/
+        })
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "trim": "Trim",
+            "skip": "Skip"
         });
 });

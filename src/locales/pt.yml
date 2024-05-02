@@ -1,4 +1,4 @@
-'language:pt':
+language:pt:
   ba-videoplayer-playbutton.tooltip: Clique para reproduzir
   ba-videoplayer-playbutton.rerecord: Repetir
   ba-videoplayer-playbutton.submit-video: Enviar vídeo
@@ -85,13 +85,13 @@
     A taxa de quadros do vídeo é muito baixa. Recomendamos fechar todos os
     outros programas e guias do navegador ou usar um computador mais rápido.
   ba-videorecorder.upload-error-duration: >-
-    A duração do vídeo enviado não cumpre os requisitos. Clique aqui para
-    tentar novamente.
+    A duração do vídeo enviado não cumpre os requisitos. Clique aqui para tentar
+    novamente.
   ba-videorecorder.resolution-constraint-error: >-
     O arquivo que você selecionou não corresponde à resolução necessária -
     clique aqui para tentar novamente.
-  ba-videorecorder.orientation-portrait-required: 'Por favor, gire o seu dispositivo para gravar no modo retrato.'
-  ba-videorecorder.orientation-landscape-required: 'Por favor, gire o seu dispositivo para gravar no modo paisagem.'
+  ba-videorecorder.orientation-portrait-required: Por favor, gire o seu dispositivo para gravar no modo retrato.
+  ba-videorecorder.orientation-landscape-required: Por favor, gire o seu dispositivo para gravar no modo paisagem.
   ba-imageviewer-controlbar.rerecord-image: Refazer
   ba-imageviewer-controlbar.submit-image: confirmar
   ba-imageviewer-controlbar.fullscreen-image: Entrar em ecrã inteiro
@@ -180,8 +180,8 @@
     Seu arquivo de imagem é muito grande (%s) - clique aqui para tentar
     novamente com um arquivo de imagem menor.
   ba-imagecapture.unsupported_image_type: 'Carregue por favor: %s - clique aqui para tentar novamente.'
-  ba-imagecapture.orientation-portrait-required: 'Por favor, gire o seu dispositivo para gravar no modo retrato.'
-  ba-imagecapture.orientation-landscape-required: 'Por favor, gire o seu dispositivo para gravar no modo paisagem.'
+  ba-imagecapture.orientation-portrait-required: Por favor, gire o seu dispositivo para gravar no modo retrato.
+  ba-imagecapture.orientation-landscape-required: Por favor, gire o seu dispositivo para gravar no modo paisagem.
   ba-audiorecorder.recorder-error: >-
     Ocorreu um erro. Por favor tente novamente mais tarde. Clique para tentar
     novamente.
@@ -240,6 +240,54 @@
   ba-videorecorder.wait-for-trim: Esperando pelo comando de corte ...
   ba-videorecorder-controlbar.no-video-source: Fonte de entrada de vídeo adicional ausente
   ba-videorecorder-controlbar.stream-already-selected: Stream adicional já foi selecionado
-  ba-videorecorder.uploading-src-error: 'Não é possível reproduzir o vídeo agora, o upload ainda está em progresso'
+  ba-videorecorder.uploading-src-error: Não é possível reproduzir o vídeo agora, o upload ainda está em progresso
   ba-audiorecorder-controlbar.pause-recorder: Pausar gravador
   ba-audiorecorder-controlbar.resume-recorder: Retomar gravador
+  ba-circle-progress.fullscreen-video: Entrar em tela cheia
+  ba-ads-choices-link.ad-choices: Opções de anúncios
+  ba-ads-controlbar.skip-ad: Pular Anúncio
+  ba-ads-controlbar.play-ad: Jogar
+  ba-ads-controlbar.pause-video: Pausa
+  ba-ads-controlbar.volume-mute: Som mudo
+  ba-ads-controlbar.volume-button: Definir volume
+  ba-ads-controlbar.elapsed-time: Tempo decorrido
+  ba-ads-controlbar.volume-unmute: Ativar som
+  ba-ads-controlbar.can-skip-after: Pular depois de %d
+  ba-ads-controlbar.fullscreen-video: Entrar em tela cheia
+  ba-ads-controlbar.exit-fullscreen-video: Sair da tela cheia
+  ba-ads-controlbar.ad-will-end-after: O anúncio terminará depois de %s
+  ba-ads-controlbar.pause-video-disabled: Pausa não suportada
+  ba-adsplayer.replay-ad: Reproduzir vídeo
+  ba-adsplayer.close-ad: Fechar
+  ba-adsplayer.ad-choices: Opções de anúncios
+  ba-adsplayer.learn-more: Saber mais
+  ba-ads-learn-more-button.learn-more: Saber mais
+  ba-videoplayer-sidebar.up-next: A seguir
+  ba-videoplayer-sidebar.continue-on-ads-end: O conteúdo será retomado após este anúncio.
+  ba-videoplayer-tooltip.tooltip: Dica
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Mantenha o mouse pressionado para pausar o fechamento da dica de ferramenta
+  ba-videorecorder.supported-mode: A resolução da mídia deve estar no modo '%s'.
+  ba-videorecorder.re-choose-action: Clique para escolher outro dispositivo de entrada ou tente novamente.
+  ba-audiorecorder.uploading-src-error: Não é possível reproduzir o áudio agora, o upload ainda está em andamento
+  ba-audiorecorder.missing-track: A faixa de áudio necessária está faltando
+  ba-audiorecorder.device-already-in-use: Pelo menos um dos seus dispositivos de entrada já está em uso
+  ba-audiorecorder.browser-permission-denied: Permissão negada pelo navegador, conceda acesso e recarregue a página
+  ba-local-view.local-camera-connection-error: Ocorreu um erro ao conectar à câmera local. Clique para tentar novamente.
+  ba-call-controlbar.camera-button: Mostrar/ocultar câmera
+  ba-call-controlbar.leave-button: Sair da chamada
+  ba-call-controlbar.mute-button: Ativar/desativar som
+  ba-call-lobby.camera-button: Câmera
+  ba-call-lobby.description-create: Quando estiver pronto, clique no botão abaixo para criar uma chamada.
+  ba-call-lobby.description-join: Quando estiver pronto, clique no botão abaixo para entrar na chamada.
+  ba-call-lobby.join-button: Juntar
+  ba-call-lobby.create-button: Criar
+  ba-call-lobby.mute-button: Mudo
+  ba-call-lobby.title-create: Criar chamada
+  ba-call-lobby.title-join: Junte-se à chamada
+  ba-video-call.call-ended: Chamada finalizada
+  ba-video-call.connecting: Conectando...
+  ba-video-call.connection-error: Ocorreu um erro durante a conexão. Clique para tentar novamente.
+  ba-videoplayer-next.stay: Ficar
+  ba-videoplayer-next.next: Próximo
+  ba-videorecorder-trimmer.trim: Aparar
+  ba-videorecorder-trimmer.skip: Pular

@@ -1,4 +1,4 @@
-'language:nl':
+language:nl:
   ba-videoplayer-playbutton.tooltip: Klik om video af te spelen.
   ba-videoplayer-playbutton.rerecord: Opnieuw
   ba-videoplayer-playbutton.submit-video: Bevestigen
@@ -224,7 +224,7 @@
   ba-videorecorder-controlbar.resume-recorder: Hervat de recorder
   ba-videorecorder.missing-track: Vereiste audio- of videotrack ontbreekt
   ba-videorecorder.device-already-in-use: Minstens een van uw invoerapparaten is al in gebruik
-  ba-videorecorder.browser-permission-denied: 'Toestemming geweigerd door browser, geef toegang en laad de pagina opnieuw'
+  ba-videorecorder.browser-permission-denied: Toestemming geweigerd door browser, geef toegang en laad de pagina opnieuw
   ba-audioplayer.all-settings: Alle instellingen
   ba-videoplayer-controlbar.remaining-time: Overgebleven tijd
   ba-videoplayer-controlbar.select-frame: Selecteer
@@ -239,6 +239,64 @@
   ba-videorecorder.wait-for-trim: Wachten op trimcommando...
   ba-videorecorder-controlbar.no-video-source: Ontbrekende extra video-invoerbron
   ba-videorecorder-controlbar.stream-already-selected: Extra stream is al geselecteerd
-  ba-videorecorder.uploading-src-error: 'Kan de video nu niet afspelen, het uploaden is nog bezig'
+  ba-videorecorder.uploading-src-error: Kan de video nu niet afspelen, het uploaden is nog bezig
   ba-audiorecorder-controlbar.pause-recorder: Recorder pauzeren
   ba-audiorecorder-controlbar.resume-recorder: Recorder hervatten
+  ba-circle-progress.fullscreen-video: Voer volledig scherm in
+  ba-ads-choices-link.ad-choices: Advertentiekeuzes
+  ba-ads-controlbar.skip-ad: Advertentie overslaan
+  ba-ads-controlbar.play-ad: Toneelstuk
+  ba-ads-controlbar.pause-video: Pauze
+  ba-ads-controlbar.volume-mute: Geluid dempen
+  ba-ads-controlbar.volume-button: Volume instellen
+  ba-ads-controlbar.elapsed-time: Verstreken tijd
+  ba-ads-controlbar.volume-unmute: Schakel het geluid uit
+  ba-ads-controlbar.can-skip-after: Overslaan na %d
+  ba-ads-controlbar.fullscreen-video: Voer volledig scherm in
+  ba-ads-controlbar.exit-fullscreen-video: Verlaat volledig scherm
+  ba-ads-controlbar.ad-will-end-after: Advertentie eindigt na %s
+  ba-ads-controlbar.pause-video-disabled: Pauze wordt niet ondersteund
+  ba-adsplayer.replay-ad: Video opnieuw afspelen
+  ba-adsplayer.close-ad: Dichtbij
+  ba-adsplayer.ad-choices: Advertentiekeuzes
+  ba-adsplayer.learn-more: Kom meer te weten
+  ba-ads-learn-more-button.learn-more: Kom meer te weten
+  ba-videoplayer-sidebar.up-next: Volgende
+  ba-videoplayer-sidebar.continue-on-ads-end: De inhoud wordt na deze advertentie hervat.
+  ba-videoplayer-tooltip.tooltip: Tooltip
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Houd de muis ingedrukt om het sluiten van de tooltip te onderbreken
+  ba-videorecorder.supported-mode: De mediaresolutie moet in de modus '%s' staan.
+  ba-videorecorder.re-choose-action: Klik om een ander invoerapparaat te kiezen of probeer het opnieuw.
+  ba-audiorecorder.uploading-src-error: Kan nu geen audio afspelen. Het uploaden is nog bezig
+  ba-audiorecorder.missing-track: Vereiste audiotrack ontbreekt
+  ba-audiorecorder.device-already-in-use: Ten minste één van uw invoerapparaten is al in gebruik
+  ba-audiorecorder.browser-permission-denied: >-
+    Toestemming geweigerd door browser. Verleen toegang en laad de pagina
+    opnieuw
+  ba-local-view.local-camera-connection-error: >-
+    Er is een fout opgetreden bij het verbinden met de lokale camera. Klik om
+    het opnieuw te proberen.
+  ba-call-controlbar.camera-button: Camera tonen/verbergen
+  ba-call-controlbar.leave-button: Verlaat oproep
+  ba-call-controlbar.mute-button: Dempen/dempen opheffen
+  ba-call-lobby.camera-button: Camera
+  ba-call-lobby.description-create: >-
+    Als u klaar bent, klikt u op de onderstaande knop om een gesprek aan te
+    maken.
+  ba-call-lobby.description-join: >-
+    Als u klaar bent, klikt u op de onderstaande knop om deel te nemen aan het
+    gesprek.
+  ba-call-lobby.join-button: Meedoen
+  ba-call-lobby.create-button: Creëren
+  ba-call-lobby.mute-button: Stom
+  ba-call-lobby.title-create: Oproep maken
+  ba-call-lobby.title-join: Doe mee met bellen
+  ba-video-call.call-ended: Oproep beëindigd
+  ba-video-call.connecting: Verbinden...
+  ba-video-call.connection-error: >-
+    Er is een fout opgetreden tijdens het verbinden. Klik om het opnieuw te
+    proberen.
+  ba-videoplayer-next.stay: Verblijf
+  ba-videoplayer-next.next: Volgende
+  ba-videorecorder-trimmer.trim: Trimmen
+  ba-videorecorder-trimmer.skip: Overslaan

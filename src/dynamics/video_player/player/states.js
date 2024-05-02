@@ -917,6 +917,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
                 this.dyn.set("hasnext", this.dyn.get("loop") || this.dyn.get("loopall") || !this.dyn.get("lastplaylistitem"));
 
                 var nextVideo = this.dyn.get("playlist")[nextIndex];
+
                 this.dyn.set("current_video_from_playlist", nextIndex);
                 this.dyn.setAll(nextVideo);
 

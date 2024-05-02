@@ -1,4 +1,4 @@
-'language:it':
+language:it:
   ba-videoplayer-playbutton.tooltip: Clicca per riprodurre il video.
   ba-videoplayer-playbutton.rerecord: Riprova
   ba-videoplayer-playbutton.submit-video: Conferma il video
@@ -15,7 +15,7 @@
   ba-videoplayer-controlbar.volume-button: Imposta il volume
   ba-videoplayer-controlbar.volume-mute: Muta l'audio
   ba-videoplayer-controlbar.volume-unmute: Riattiva l'audio
-  ba-videoplayer.video-error: 'Si è verificato un errore, riprova più tardi. Fai clic per riprovare.'
+  ba-videoplayer.video-error: Si è verificato un errore, riprova più tardi. Fai clic per riprovare.
   ba-videorecorder-chooser.record-video: Registra video
   ba-videorecorder-chooser.upload-video: Carica video
   ba-videorecorder-controlbar.settings: Impostazioni
@@ -33,7 +33,7 @@
   ba-videorecorder-controlbar.stop-tooltip: Clicca qui per fermare.
   ba-videorecorder-controlbar.skip: Salta
   ba-videorecorder-controlbar.skip-tooltip: Clicca qui per saltare.
-  ba-videorecorder.recorder-error: 'Si è verificato un errore, riprova più tardi. Fare clic per riprovare.'
+  ba-videorecorder.recorder-error: Si è verificato un errore, riprova più tardi. Fare clic per riprovare.
   ba-videorecorder.attach-error: >-
     Non siamo riusciti ad accedere all'interfaccia multimediale. A seconda del
     dispositivo e del browser, potrebbe essere necessario installare Flash o
@@ -94,7 +94,7 @@
   ba-imageviewer-controlbar.submit-image: Conferma
   ba-imageviewer-controlbar.fullscreen-image: Entra a schermo intero
   ba-imageviewer-controlbar.exit-fullscreen-image: Esci dalla modalità a schermo intero
-  ba-imageviewer.image-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
+  ba-imageviewer.image-error: Si è verificato un errore, riprova più tardi. Clicca per riprovare.
   ba-imagecapture-chooser.image-capture: Cattura immagine
   ba-imagecapture-chooser.upload-image: Carica immagine
   ba-imagecapture-controlbar.settings: Impostazioni
@@ -118,7 +118,7 @@
   ba-audioplayer-controlbar.volume-mute: Muta l'audio
   ba-audioplayer-controlbar.volume-unmute: Riattiva l'audio
   ba-audioplayer-loader.tooltip: Caricamento in corso...
-  ba-audioplayer.audio-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
+  ba-audioplayer.audio-error: Si è verificato un errore, riprova più tardi. Clicca per riprovare.
   ba-audiorecorder-chooser.record-audio: Registra audio
   ba-audiorecorder-chooser.upload-audio: Carica audio
   ba-audiorecorder-controlbar.settings: Impostazioni
@@ -145,7 +145,7 @@
   ba-videorecorder.prepare-covershot: Preparazione delle foto di copertina
   ba-videorecorder.prepare-thumbnails: Preparazione delle miniature di ricerca
   ba-videorecorder.adding-new-stream: Aggiunta di un nuovo flusso
-  ba-imagecapture.recorder-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
+  ba-imagecapture.recorder-error: Si è verificato un errore, riprova più tardi. Clicca per riprovare.
   ba-imagecapture.attach-error: >-
     Non siamo riusciti ad accedere all'interfaccia multimediale. A seconda del
     dispositivo e del browser, potrebbe essere necessario installare Flash o
@@ -174,7 +174,7 @@
   ba-imagecapture.unsupported_image_type: 'Per favore carica: %s - fai clic qui per riprovare.'
   ba-imagecapture.orientation-portrait-required: Si prega di ruotare il dispositivo per registrare in modalità verticale.
   ba-imagecapture.orientation-landscape-required: Si prega di ruotare il dispositivo per registrare in modalità orizzontale.
-  ba-audiorecorder.recorder-error: 'Si è verificato un errore, riprova più tardi. Clicca per riprovare.'
+  ba-audiorecorder.recorder-error: Si è verificato un errore, riprova più tardi. Clicca per riprovare.
   ba-audiorecorder.attach-error: >-
     Non siamo riusciti ad accedere all'interfaccia multimediale. A seconda del
     dispositivo e del browser, potrebbe essere necessario installare Flash o
@@ -213,7 +213,7 @@
   ba-videorecorder-controlbar.resume-recorder: Riprendi la registrazione
   ba-videorecorder.missing-track: Audio o video non disponibile
   ba-videorecorder.device-already-in-use: Almeno uno dei tuoi dispositivi di input è già in uso
-  ba-videorecorder.browser-permission-denied: 'Autorizzazione negata dal browser, concedi l''accesso e ricarica la pagina'
+  ba-videorecorder.browser-permission-denied: Autorizzazione negata dal browser, concedi l'accesso e ricarica la pagina
   ba-audioplayer.all-settings: Tutte le impostazioni
   ba-videoplayer-controlbar.remaining-time: Tempo rimanente
   ba-videoplayer-controlbar.select-frame: Seleziona
@@ -228,6 +228,58 @@
   ba-videorecorder.wait-for-trim: In attesa del comando di ritaglio...
   ba-videorecorder-controlbar.no-video-source: Fonte di ingresso video aggiuntiva mancante
   ba-videorecorder-controlbar.stream-already-selected: È già stato selezionato un flusso aggiuntivo
-  ba-videorecorder.uploading-src-error: 'Impossibile riprodurre il video ora, il caricamento è ancora in corso'
+  ba-videorecorder.uploading-src-error: Impossibile riprodurre il video ora, il caricamento è ancora in corso
   ba-audiorecorder-controlbar.pause-recorder: Pausa registratore
   ba-audiorecorder-controlbar.resume-recorder: Riprendi registratore
+  ba-circle-progress.fullscreen-video: Entra a schermo intero
+  ba-ads-choices-link.ad-choices: Scelte degli annunci
+  ba-ads-controlbar.skip-ad: Salta annuncio
+  ba-ads-controlbar.play-ad: Giocare
+  ba-ads-controlbar.pause-video: Pausa
+  ba-ads-controlbar.volume-mute: Suono muto
+  ba-ads-controlbar.volume-button: Imposta il volume
+  ba-ads-controlbar.elapsed-time: Tempo trascorso
+  ba-ads-controlbar.volume-unmute: Riattiva il suono
+  ba-ads-controlbar.can-skip-after: Salta dopo %d
+  ba-ads-controlbar.fullscreen-video: Entra a schermo intero
+  ba-ads-controlbar.exit-fullscreen-video: Esci dalla modalità schermo intero
+  ba-ads-controlbar.ad-will-end-after: L'annuncio terminerà dopo %s
+  ba-ads-controlbar.pause-video-disabled: Pausa non supportata
+  ba-adsplayer.replay-ad: Riproduci il video
+  ba-adsplayer.close-ad: Vicino
+  ba-adsplayer.ad-choices: Scelte degli annunci
+  ba-adsplayer.learn-more: Saperne di più
+  ba-ads-learn-more-button.learn-more: Saperne di più
+  ba-videoplayer-sidebar.up-next: Avanti il prossimo
+  ba-videoplayer-sidebar.continue-on-ads-end: Il contenuto riprenderà dopo questo annuncio.
+  ba-videoplayer-tooltip.tooltip: Descrizione comando
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Tieni premuto il mouse per mettere in pausa la chiusura del tooltip
+  ba-videorecorder.supported-mode: La risoluzione multimediale dovrebbe essere in modalità '%s'.
+  ba-videorecorder.re-choose-action: Fare clic per scegliere un altro dispositivo di input o riprovare l'azione.
+  ba-audiorecorder.uploading-src-error: Impossibile riprodurre l'audio adesso, il caricamento è ancora in corso
+  ba-audiorecorder.missing-track: Manca la traccia audio richiesta
+  ba-audiorecorder.device-already-in-use: Almeno uno dei tuoi dispositivi di input è già in uso
+  ba-audiorecorder.browser-permission-denied: Autorizzazione negata dal browser, concedi l'accesso e ricarica la pagina
+  ba-local-view.local-camera-connection-error: >-
+    Si è verificato un errore durante la connessione alla telecamera locale.
+    Fare clic per riprovare.
+  ba-call-controlbar.camera-button: Mostra/nascondi telecamera
+  ba-call-controlbar.leave-button: Lascia la chiamata
+  ba-call-controlbar.mute-button: Disattiva/Riattiva
+  ba-call-lobby.camera-button: Telecamera
+  ba-call-lobby.description-create: Quando sei pronto, fai clic sul pulsante in basso per creare una chiamata.
+  ba-call-lobby.description-join: >-
+    Quando sei pronto, fai clic sul pulsante in basso per partecipare alla
+    chiamata.
+  ba-call-lobby.join-button: Giuntura
+  ba-call-lobby.create-button: Creare
+  ba-call-lobby.mute-button: Muto
+  ba-call-lobby.title-create: Crea chiamata
+  ba-call-lobby.title-join: Partecipa alla chiamata
+  ba-video-call.call-ended: Chiamata terminata
+  ba-video-call.connecting: Collegamento...
+  ba-video-call.connection-error: Si è verificato un errore durante la connessione. Fai clic per riprovare.
+  ba-videoplayer-next.stay: Rimanere
+  ba-videoplayer-next.next: Prossimo
+  ba-videorecorder-trimmer.trim: Ordinare
+  ba-videorecorder-trimmer.skip: Saltare

@@ -1,4 +1,4 @@
-'language:de':
+language:de:
   ba-videoplayer-playbutton.tooltip: Hier klicken um Wiedergabe zu starten.
   ba-videoplayer-playbutton.rerecord: Video neu aufnehmen
   ba-videoplayer-playbutton.submit-video: Video akzeptieren
@@ -47,9 +47,9 @@
     einmal zu probieren.
   ba-videorecorder.pick-covershot: Bitte wählen Sie einen Covershot aus.
   ba-videorecorder.uploading: Hochladen
-  ba-videorecorder.uploading-failed: 'Hochladen fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.'
+  ba-videorecorder.uploading-failed: Hochladen fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.
   ba-videorecorder.verifying: Verifizieren
-  ba-videorecorder.verifying-failed: 'Verifizierung fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.'
+  ba-videorecorder.verifying-failed: Verifizierung fehlgeschlagen. Hier klicken, um es noch einmal zu probieren.
   ba-videorecorder.rerecord-confirm: Möchten Sie Ihr Video wirklich noch einmal aufnehmen?
   ba-videorecorder.video_file_too_large: >-
     Die angegebene Videodatei ist zu groß (%s). Hier klicken, um eine kleinere
@@ -64,7 +64,7 @@
   ba-videorecorder-chooser.record-audio: Ton aufnehmen
   ba-videorecorder-controlbar.stop-available-after: Die minimale Aufnahmezeit ist %d Sekunden
   ba-videorecorder-controlbar.cancel: Stornieren
-  ba-videorecorder-controlbar.cancel-tooltip: 'Klicken Sie hier, um abzubrechen.'
+  ba-videorecorder-controlbar.cancel-tooltip: Klicken Sie hier, um abzubrechen.
   ba-videorecorder.cancel-confirm: Möchten Sie Ihren Video-Upload wirklich abbrechen?
   ba-videoplayer-adslot.elapsed-time: Elased Zeit
   ba-videoplayer-adslot.volume-button: Lautstärke einstellen
@@ -84,7 +84,7 @@
   ba-videoplayer-tracks.upload-text-tracks: Hochladen von Textdateien
   ba-videoplayer-tracks.select-text-track-language: Untertitelsprache
   ba-videoplayer-tracks.info-select-locale-first: Wählen Sie zuerst das Gebietsschema aus
-  ba-videoplayer-tracks.select-text-track-file: 'Klicken Sie, um eine Datei auszuwählen'
+  ba-videoplayer-tracks.select-text-track-file: Klicken Sie, um eine Datei auszuwählen
   ba-videoplayer-tracks.back: zurück
   ba-videorecorder.framerate-warning: >-
     Die Videobildrate ist sehr niedrig. Wir empfehlen, alle anderen Programme
@@ -95,8 +95,8 @@
   ba-videorecorder.resolution-constraint-error: >-
     Die von Ihnen ausgewählte Datei stimmt nicht mit der erforderlichen
     Auflösung überein - klicken Sie hier, um es erneut zu versuchen.
-  ba-videorecorder.orientation-portrait-required: 'Bitte drehen Sie Ihr Gerät, um im Hochformat aufzunehmen.'
-  ba-videorecorder.orientation-landscape-required: 'Bitte drehen Sie Ihr Gerät, um im Querformat aufzunehmen.'
+  ba-videorecorder.orientation-portrait-required: Bitte drehen Sie Ihr Gerät, um im Hochformat aufzunehmen.
+  ba-videorecorder.orientation-landscape-required: Bitte drehen Sie Ihr Gerät, um im Querformat aufzunehmen.
   ba-imageviewer-controlbar.rerecord-image: Wiederholen?
   ba-imageviewer-controlbar.submit-image: Bestätigen
   ba-imageviewer-controlbar.fullscreen-image: Vollbildmodus aktivieren
@@ -110,11 +110,11 @@
   ba-imagecapture-controlbar.camerahealthy: Die Beleuchtung ist gut
   ba-imagecapture-controlbar.cameraunhealthy: Die Beleuchtung ist nicht optimal
   ba-imagecapture-controlbar.record: Erfassung
-  ba-imagecapture-controlbar.record-tooltip: 'Klicken Sie hier, um zu erfassen.'
+  ba-imagecapture-controlbar.record-tooltip: Klicken Sie hier, um zu erfassen.
   ba-imagecapture-controlbar.rerecord: Wiederholen
-  ba-imagecapture-controlbar.rerecord-tooltip: 'Klicken Sie hier, um den Vorgang zu wiederholen.'
+  ba-imagecapture-controlbar.rerecord-tooltip: Klicken Sie hier, um den Vorgang zu wiederholen.
   ba-imagecapture-controlbar.cancel: Stornieren
-  ba-imagecapture-controlbar.cancel-tooltip: 'Klicken Sie hier, um abzubrechen.'
+  ba-imagecapture-controlbar.cancel-tooltip: Klicken Sie hier, um abzubrechen.
   ba-audioplayer-controlbar.audio-progress: Fortschritt
   ba-audioplayer-controlbar.rerecord-audio: Wiederholen?
   ba-audioplayer-controlbar.submit-audio: Bestätigen
@@ -136,14 +136,14 @@
   ba-audiorecorder-controlbar.microphonehealthy: Sound ist gut
   ba-audiorecorder-controlbar.microphoneunhealthy: Kann keinen Ton aufnehmen
   ba-audiorecorder-controlbar.record: Aufzeichnung
-  ba-audiorecorder-controlbar.record-tooltip: 'Klicken Sie hier, um aufzunehmen.'
+  ba-audiorecorder-controlbar.record-tooltip: Klicken Sie hier, um aufzunehmen.
   ba-audiorecorder-controlbar.rerecord: Wiederholen
-  ba-audiorecorder-controlbar.rerecord-tooltip: 'Klicken Sie hier, um den Vorgang zu wiederholen.'
+  ba-audiorecorder-controlbar.rerecord-tooltip: Klicken Sie hier, um den Vorgang zu wiederholen.
   ba-audiorecorder-controlbar.stop: Halt
-  ba-audiorecorder-controlbar.stop-tooltip: 'Klicken Sie hier, um zu stoppen.'
+  ba-audiorecorder-controlbar.stop-tooltip: Klicken Sie hier, um zu stoppen.
   ba-audiorecorder-controlbar.stop-available-after: Die minimale Aufnahmezeit ist %d Sekunden
   ba-audiorecorder-controlbar.cancel: Stornieren
-  ba-audiorecorder-controlbar.cancel-tooltip: 'Klicken Sie hier, um abzubrechen.'
+  ba-audiorecorder-controlbar.cancel-tooltip: Klicken Sie hier, um abzubrechen.
   ba-videoplayer-controlbar.player-speed: Wiedergabegeschwindigkeit
   ba-videoplayer-controlbar.settings: Einstellungen
   ba-videoplayer-controlbar.airplay: Airplay
@@ -173,7 +173,7 @@
     Der Zugang zu den Medien war verboten. Klicken Sie hier, um es erneut zu
     versuchen.
   ba-imagecapture.uploading: Hochladen
-  ba-imagecapture.uploading-failed: 'Hochladen fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-imagecapture.uploading-failed: Hochladen fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.
   ba-imagecapture.upload-error-duration: >-
     Die Länge des hochgeladenen Bildes entspricht nicht den Anforderungen.
     Klicken Sie hier, um es erneut zu versuchen.
@@ -181,14 +181,14 @@
     Die ausgewählte Datei entspricht nicht der erforderlichen Auflösung. Klicken
     Sie hier, um es erneut zu versuchen.
   ba-imagecapture.verifying: Überprüfung
-  ba-imagecapture.verifying-failed: 'Überprüfung fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-imagecapture.verifying-failed: Überprüfung fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.
   ba-imagecapture.rerecord-confirm: Möchten Sie Ihr Bild wirklich neu aufnehmen?
   ba-imagecapture.image_file_too_large: >-
     Ihre Bilddatei ist zu groß (%s). Klicken Sie hier, um es mit einer kleineren
     Bilddatei erneut zu versuchen.
   ba-imagecapture.unsupported_image_type: 'Bitte hochladen: %s - Klicken Sie hier, um es erneut zu versuchen.'
-  ba-imagecapture.orientation-portrait-required: 'Bitte drehen Sie Ihr Gerät, um im Hochformat aufzunehmen.'
-  ba-imagecapture.orientation-landscape-required: 'Bitte drehen Sie Ihr Gerät, um im Querformat aufzunehmen.'
+  ba-imagecapture.orientation-portrait-required: Bitte drehen Sie Ihr Gerät, um im Hochformat aufzunehmen.
+  ba-imagecapture.orientation-landscape-required: Bitte drehen Sie Ihr Gerät, um im Querformat aufzunehmen.
   ba-audiorecorder.recorder-error: >-
     Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut. Klicken
     Sie hier, um es erneut zu versuchen.
@@ -206,12 +206,12 @@
     Der Zugang zu den Medien war verboten. Klicken Sie hier, um es erneut zu
     versuchen.
   ba-audiorecorder.uploading: Hochladen
-  ba-audiorecorder.uploading-failed: 'Hochladen fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-audiorecorder.uploading-failed: Hochladen fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.
   ba-audiorecorder.upload-error-duration: >-
     Die Länge des hochgeladenen Audios entspricht nicht den Anforderungen.
     Klicken Sie hier, um es erneut zu versuchen.
   ba-audiorecorder.verifying: Überprüfung
-  ba-audiorecorder.verifying-failed: 'Überprüfung fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.'
+  ba-audiorecorder.verifying-failed: Überprüfung fehlgeschlagen - Klicken Sie hier, um es erneut zu versuchen.
   ba-audiorecorder.rerecord-confirm: Möchten Sie Ihr Audio wirklich wiederholen?
   ba-audiorecorder.cancel-confirm: Möchten Sie Ihren Audio-Upload wirklich abbrechen?
   ba-audiorecorder.audio_file_too_large: >-
@@ -242,13 +242,73 @@
   ba-videoplayer-playbutton.trim: Trimmen
   ba-videoplayer-playbutton.skip: Überspringen
   ba-videorecorder-imagegallery.upload-covershot: Cover hochladen
-  ba-videorecorder.pick-covershot-frame: 'Wählen Sie ein Bild aus, das als Covershot verwendet werden soll.'
+  ba-videorecorder.pick-covershot-frame: Wählen Sie ein Bild aus, das als Covershot verwendet werden soll.
   ba-videorecorder.screen-recorder-is-not-supported: Bildschirmaufnahme wird auf diesem Gerät nicht unterstützt
   ba-videorecorder.trim-prompt: Möchten Sie Ihr Video trimmen?
-  ba-videorecorder.trim-video: 'Verschieben Sie die Start- und Endmarkierungen, um Ihr Video zu trimmen'
+  ba-videorecorder.trim-video: Verschieben Sie die Start- und Endmarkierungen, um Ihr Video zu trimmen
   ba-videorecorder.wait-for-trim: Warten auf Trimmbefehl...
   ba-videorecorder-controlbar.no-video-source: Fehlende zusätzliche Videoeingangsquelle
   ba-videorecorder-controlbar.stream-already-selected: Zusätzlicher Stream wurde bereits ausgewählt
-  ba-videorecorder.uploading-src-error: 'Video kann jetzt nicht wiedergegeben werden, Upload läuft noch'
+  ba-videorecorder.uploading-src-error: Video kann jetzt nicht wiedergegeben werden, Upload läuft noch
   ba-audiorecorder-controlbar.pause-recorder: Recorder pausieren
   ba-audiorecorder-controlbar.resume-recorder: Lebenslauf-Recorder
+  ba-circle-progress.fullscreen-video: Vollbildmodus aktivieren
+  ba-ads-choices-link.ad-choices: AdChoices
+  ba-ads-controlbar.skip-ad: Überspringen
+  ba-ads-controlbar.play-ad: Spielen
+  ba-ads-controlbar.pause-video: Pause
+  ba-ads-controlbar.volume-mute: Den Ton auf lautlos stellen
+  ba-ads-controlbar.volume-button: Lautstärke einstellen
+  ba-ads-controlbar.elapsed-time: Verstrichene Zeit
+  ba-ads-controlbar.volume-unmute: Ton einschalten
+  ba-ads-controlbar.can-skip-after: Überspringen nach %d
+  ba-ads-controlbar.fullscreen-video: Vollbildmodus aktivieren
+  ba-ads-controlbar.exit-fullscreen-video: Vollbild beenden
+  ba-ads-controlbar.ad-will-end-after: Die Anzeige endet nach %s
+  ba-ads-controlbar.pause-video-disabled: Pause wird nicht unterstützt
+  ba-adsplayer.replay-ad: Video wiederholen
+  ba-adsplayer.close-ad: Schließen
+  ba-adsplayer.ad-choices: AdChoices
+  ba-adsplayer.learn-more: Erfahren Sie mehr
+  ba-ads-learn-more-button.learn-more: Erfahren Sie mehr
+  ba-videoplayer-sidebar.up-next: Als nächstes
+  ba-videoplayer-sidebar.continue-on-ads-end: Der Inhalt wird nach dieser Anzeige fortgesetzt.
+  ba-videoplayer-tooltip.tooltip: Tooltip
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Halten Sie die Maustaste gedrückt, um das Schließen des Tooltips anzuhalten
+  ba-videorecorder.supported-mode: Die Medienauflösung sollte im Modus „%s“ sein.
+  ba-videorecorder.re-choose-action: >-
+    Klicken Sie bitte, um ein anderes Eingabegerät auszuwählen oder die Aktion
+    zu wiederholen.
+  ba-audiorecorder.uploading-src-error: Audio kann derzeit nicht wiedergegeben werden, der Upload ist noch im Gange
+  ba-audiorecorder.missing-track: Erforderliche Audiospur fehlt
+  ba-audiorecorder.device-already-in-use: Mindestens eines Ihrer Eingabegeräte wird bereits verwendet
+  ba-audiorecorder.browser-permission-denied: >-
+    Der Browser hat die Berechtigung verweigert. Bitte gewähren Sie den Zugriff
+    und laden Sie die Seite neu.
+  ba-local-view.local-camera-connection-error: >-
+    Beim Verbinden mit der lokalen Kamera ist ein Fehler aufgetreten. Klicken
+    Sie hier, um es erneut zu versuchen.
+  ba-call-controlbar.camera-button: Kamera ein-/ausblenden
+  ba-call-controlbar.leave-button: Anruf hinterlassen
+  ba-call-controlbar.mute-button: Stummschalten/Stummschaltung aufheben
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: >-
+    Wenn Sie bereit sind, klicken Sie auf die Schaltfläche unten, um einen Anruf
+    zu tätigen.
+  ba-call-lobby.description-join: >-
+    Wenn Sie bereit sind, klicken Sie auf die Schaltfläche unten, um dem Anruf
+    beizutreten.
+  ba-call-lobby.join-button: Verbinden
+  ba-call-lobby.create-button: Erstellen
+  ba-call-lobby.mute-button: Stumm
+  ba-call-lobby.title-create: Anruf erstellen
+  ba-call-lobby.title-join: Beitritt zum Anruf
+  ba-video-call.call-ended: Anruf beendet
+  ba-video-call.connecting: Verbinden...
+  ba-video-call.connection-error: >-
+    Beim Verbinden ist ein Fehler aufgetreten. Klicken Sie hier, um es erneut zu
+    versuchen.
+  ba-videoplayer-next.stay: Bleiben
+  ba-videoplayer-next.next: Nächste
+  ba-videorecorder-trimmer.trim: Trimmen
+  ba-videorecorder-trimmer.skip: Überspringen

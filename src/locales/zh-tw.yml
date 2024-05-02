@@ -1,4 +1,4 @@
-'language:zh-tw':
+language:zh-tw:
   ba-videoplayer-playbutton.tooltip: 點選播放
   ba-videoplayer-playbutton.rerecord: 重試
   ba-videoplayer-playbutton.submit-video: 確認
@@ -191,3 +191,51 @@
   ba-videorecorder.uploading-src-error: 現在無法播放視頻，上傳仍在進行中
   ba-audiorecorder-controlbar.pause-recorder: 暫停錄音機
   ba-audiorecorder-controlbar.resume-recorder: 簡歷記錄器
+  ba-circle-progress.fullscreen-video: 進入全螢幕
+  ba-ads-choices-link.ad-choices: 廣告選擇
+  ba-ads-controlbar.skip-ad: 跳過廣告
+  ba-ads-controlbar.play-ad: 玩
+  ba-ads-controlbar.pause-video: 暫停
+  ba-ads-controlbar.volume-mute: 靜音
+  ba-ads-controlbar.volume-button: 設定音量
+  ba-ads-controlbar.elapsed-time: 經過時間
+  ba-ads-controlbar.volume-unmute: 取消靜音
+  ba-ads-controlbar.can-skip-after: '%d 之後跳過'
+  ba-ads-controlbar.fullscreen-video: 進入全螢幕
+  ba-ads-controlbar.exit-fullscreen-video: 退出全螢幕
+  ba-ads-controlbar.ad-will-end-after: 廣告將在 %s 後結束
+  ba-ads-controlbar.pause-video-disabled: 不支援暫停
+  ba-adsplayer.replay-ad: 重播影片
+  ba-adsplayer.close-ad: 關閉
+  ba-adsplayer.ad-choices: 廣告選擇
+  ba-adsplayer.learn-more: 了解更多
+  ba-ads-learn-more-button.learn-more: 了解更多
+  ba-videoplayer-sidebar.up-next: 下一個
+  ba-videoplayer-sidebar.continue-on-ads-end: 內容將在此廣告後恢復。
+  ba-videoplayer-tooltip.tooltip: 工具提示
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: 按住滑鼠可暫停工具提示關閉
+  ba-videorecorder.supported-mode: 媒體解析度應處於“%s”模式。
+  ba-videorecorder.re-choose-action: 請點選選擇其他輸入設備或重試操作。
+  ba-audiorecorder.uploading-src-error: 現在無法播放音訊，上傳仍在進行中
+  ba-audiorecorder.missing-track: 缺少所需的音軌
+  ba-audiorecorder.device-already-in-use: 您的至少一個輸入設備已在使用中
+  ba-audiorecorder.browser-permission-denied: 瀏覽器拒絕權限，請授予存取權限並重新載入頁面
+  ba-local-view.local-camera-connection-error: 連接本地攝影機時發生錯誤。單擊重試。
+  ba-call-controlbar.camera-button: 顯示/隱藏相機
+  ba-call-controlbar.leave-button: 留下電話
+  ba-call-controlbar.mute-button: 靜音/取消靜音
+  ba-call-lobby.camera-button: 相機
+  ba-call-lobby.description-create: 準備好後，請點擊下面的按鈕來建立通話。
+  ba-call-lobby.description-join: 準備好後，請點擊下面的按鈕加入通話。
+  ba-call-lobby.join-button: 加入
+  ba-call-lobby.create-button: 創造
+  ba-call-lobby.mute-button: 沉默的
+  ba-call-lobby.title-create: 建立通話
+  ba-call-lobby.title-join: 加入通話
+  ba-video-call.call-ended: 通話結束
+  ba-video-call.connecting: 正在連接...
+  ba-video-call.connection-error: 連線時發生錯誤，請點選重試。
+  ba-videoplayer-next.stay: 停留
+  ba-videoplayer-next.next: 下一個
+  ba-videorecorder-trimmer.trim: 修剪
+  ba-videorecorder-trimmer.skip: 跳過

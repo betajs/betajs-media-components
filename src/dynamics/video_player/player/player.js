@@ -1647,8 +1647,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         this.player.on("playing", function() {
                             if (Info.isSafari()) {
-                               this.removeAdsBackgroundInSafari();
-                            }   
+                                this.removeAdsBackgroundInSafari();
+                            }
                             const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
                             if (floating && this.floatHandler) this.floatHandler.start();

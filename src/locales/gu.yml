@@ -1,4 +1,4 @@
-'language:gu':
+language:gu:
   ba-common-settingsmenu.tooltip: ચલવા માટે ક્લિક કરો.
   ba-common-settingsmenu.setting-menu: બધા સેટિંગ્સ
   ba-common-settingsmenu.source-quality: સ્ત્રોત ગુણવત્તા
@@ -96,11 +96,18 @@
   ba-videorecorder-imagegallery.upload-covershot: કવર અપલોડ કરો
   ba-videorecorder.recorder-error: એક ભૂલ આવી છે, મહેનત કરીને ફરી થવાનો પ્રયાસ કરો. ક્લિક કરો અને પ્રયાસ કરો.
   ba-videorecorder.attach-error: >-
-    આમે મીડિયા ઇન સત્તાને બ્રાઉઝ કરી શકતાં નથી. ખરેખર ખરાબી થઇ છે અથવા બ્રાઉઝર દ્વારા સમર્થિત નથી. વીડિયો રેકૉર્ડ કરવા માટે અનેક બ્રાઉઝર્સ માં, Chrome, Firefox, Edge, Safari (MacOS only) સમર્થિત છે. વીડિયો રેકૉર્ડ માટે અનેક બ્રાઉઝર્સ માં, Chrome, Firefox, Edge, Safari (MacOS only) સમર્થિત છે.
+    આમે મીડિયા ઇન સત્તાને બ્રાઉઝ કરી શકતાં નથી. ખરેખર ખરાબી થઇ છે અથવા બ્રાઉઝર
+    દ્વારા સમર્થિત નથી. વીડિયો રેકૉર્ડ કરવા માટે અનેક બ્રાઉઝર્સ માં, Chrome,
+    Firefox, Edge, Safari (MacOS only) સમર્થિત છે. વીડિયો રેકૉર્ડ માટે અનેક
+    બ્રાઉઝર્સ માં, Chrome, Firefox, Edge, Safari (MacOS only) સમર્થિત છે.
   ba-videorecorder.attach-error-edge: >-
-    આમે મીડિયા ઇન સત્તાને બ્રાઉઝ કરી શકતાં નથી. આ પ્રકારની પ્રતિબદ્ધતા Edge બ્રાઉઝર દ્વારા પ્રદાન કરે છે. વીડિયો રેકૉર્ડ માટે, Chrome, Firefox, Edge, Safari (MacOS only) બ્રાઉઝર્સ માં યોગ્ય છે.
+    આમે મીડિયા ઇન સત્તાને બ્રાઉઝ કરી શકતાં નથી. આ પ્રકારની પ્રતિબદ્ધતા Edge
+    બ્રાઉઝર દ્વારા પ્રદાન કરે છે. વીડિયો રેકૉર્ડ માટે, Chrome, Firefox, Edge,
+    Safari (MacOS only) બ્રાઉઝર્સ માં યોગ્ય છે.
   ba-videorecorder.attach-error-safari: >-
-    આમે મીડિયા ઇન સત્તાને બ્રાઉઝ કરી શકતાં નથી. આ પ્રકારની પ્રતિબદ્ધતા ફક્ત Safari (MacOS only) બ્રાઉઝર દ્વારા પ્રદાન કરે છે. વીડિયો રેકૉર્ડ માટે, Chrome, Firefox, Edge, Safari (MacOS only) બ્રાઉઝર્સ માં યોગ્ય છે.
+    આમે મીડિયા ઇન સત્તાને બ્રાઉઝ કરી શકતાં નથી. આ પ્રકારની પ્રતિબદ્ધતા ફક્ત
+    Safari (MacOS only) બ્રાઉઝર દ્વારા પ્રદાન કરે છે. વીડિયો રેકૉર્ડ માટે,
+    Chrome, Firefox, Edge, Safari (MacOS only) બ્રાઉઝર્સ માં યોગ્ય છે.
   ba-videorecorder-imagegallery.error: તમારી તસ્વીર અપલોડ કરવામાં ભૂલ થઈ છે. મહેનત કરીને ફરી થવાનો પ્રયાસ કરો.
   ba-videorecorder-audiorecording.error: તમારી ઓડિયો રેકૉર્ડ કરવામાં ભૂલ થઈ છે. મહેનત કરીને ફરી થવાનો પ્રયાસ કરો.
   ba-videorecorder-videorecording.error: તમારી વીડિયો રેકૉર્ડ કરવામાં ભૂલ થઈ છે. મહેનત કરીને ફરી થવાનો પ્રયાસ કરો.
@@ -111,15 +118,6 @@
   ba-videorecorder-controlbar.stop-upload-tooltip: અહીં ક્લિક કરવાથી અપલોડ થરી રાખો
   ba-videorecorder-controlbar.resume-upload: અપલોડ પ્રારંભ કરો
   ba-videorecorder-controlbar.resume-upload-tooltip: અહીં ક્લિક કરવાથી અપલોડ પ્રારંભ કરો
-  ba-videorecorder-controlbar.add-stream: સ્ટ્રીમ ઉમેરો
-  ba-videorecorder-controlbar.pause-recorder: રેકૉર્ડર થરી રાખો
-  ba-videorecorder-controlbar.resume-recorder: રેકૉર્ડર પ્રારંભ કરો
-  ba-videorecorder-controlbar.no-video-source: વીડિઓ વચ્ચો અથવા વીડિઓ વચ્ચો લાગતો નથી
-  ba-videorecorder-controlbar.stream-already-selected: વાધુંમાં વધુ સ્ટ્રીમ પસંદ કરવી ગયું છે
-  ba-videorecorder-controlbar.camerahealthy: પ્રકાશનું સ્થિતિ સારી છે
-  ba-videorecorder-controlbar.cameraunhealthy: પ્રકાશનું સ્થિતિ સારી નથી
-  ba-videorecorder-controlbar.microphonehealthy: ધ્વનિ સારી છે
-  ba-videorecorder-controlbar.microphoneunhealthy: કોઈ ધ્વનિ પકડી શકતું નથી
   ba-videorecorder-uploadthumbnail.error: તમારી કવર થમ્બનેલ અપલોડ કરવામાં ભૂલ થઈ છે. મહેનત કરીને ફરી થવાનો પ્રયાસ કરો.
   ba-videorecorder-uploadcovershot.error: તમારી કવર શોટ અપલોડ કરવામાં ભૂલ થઈ છે. મહેનત કરીને ફરી થવાનો પ્રયાસ કરો.
   ba-videorecorder-uploadvideo.error: તમારી વીડિયો અપલોડ કરવામાં ભૂલ થઈ છે. મહેનત કરીને ફરી થવાનો પ્રયાસ કરો.
@@ -155,23 +153,27 @@
   ba-imagecapture-controlbar.cancel-tooltip: રદ કરવા માટે અહિં ક્લિક કરો.
   ba-imagecapture.recorder-error: એક ભૂલ આવી છે, મહેનત કરીને ફરી થવાનો પ્રયાસ કરો. ક્લિક કરો અને પ્રયાસ કરો.
   ba-imagecapture.attach-error: >-
-    અમે મીડિયા ઇન સત્તાને પ્રવેશ કરી શકતાં નથી. ડિવાઇસ અને બ્રાઉઝરને આધાર રાખીને, તમે SSL વાળી પૃષ્ઠનો પ્રવેશ કરવો પડશે.
+    અમે મીડિયા ઇન સત્તાને પ્રવેશ કરી શકતાં નથી. ડિવાઇસ અને બ્રાઉઝરને આધાર
+    રાખીને, તમે SSL વાળી પૃષ્ઠનો પ્રવેશ કરવો પડશે.
   ba-imagecapture.software-required: >-
-    મુકાબલા કરવા માટે, આગળ વધવાના અને સક્રિય કરવાના માટે કૃપા કરીને નીચે ક્લિક કરો.
+    મુકાબલા કરવા માટે, આગળ વધવાના અને સક્રિય કરવાના માટે કૃપા કરીને નીચે ક્લિક
+    કરો.
   ba-imagecapture.software-waiting: >-
-    મુકાબલા કરવાના આગળવાના અને સક્રિય કરવાના માટે, આગળ વધવાના અને સક્રિય કરવાના બીજા પરિપરિક્ષાઓના બાદ તમારે પૃષ્ઠનો પુનરારંભ કરવો પડે છે.
+    મુકાબલા કરવાના આગળવાના અને સક્રિય કરવાના માટે, આગળ વધવાના અને સક્રિય કરવાના
+    બીજા પરિપરિક્ષાઓના બાદ તમારે પૃષ્ઠનો પુનરારંભ કરવો પડે છે.
   ba-imagecapture.access-forbidden: મીડિયાને પ્રવેશ કરવું નિષ્ક્રિય છે. ક્લિક કરવા માટે અહિં ક્લિક કરો.
   ba-imagecapture.uploading: અપલોડ થાય છે
   ba-imagecapture.uploading-failed: અપલોડ કરવામાં નિષ્ફળ થયો - ફરી થવા માટે અહિં ક્લિક કરો.
-  ba-imagecapture.upload-error-duration: >-
-    અપલોડ કરેલા ચિત્રની લંબાઈ આવશ્યક આવશે નથી - ફરી થવા માટે અહિં ક્લિક કરો.
+  ba-imagecapture.upload-error-duration: અપલોડ કરેલા ચિત્રની લંબાઈ આવશ્યક આવશે નથી - ફરી થવા માટે અહિં ક્લિક કરો.
   ba-imagecapture.resolution-constraint-error: >-
-    તમે પસંદ કરેલો ફાઈલ આવશ્યક રીતે સૂચિત રીઝોલ્યૂશન સાથે મેળ ખાય છે નથી - ફરી થવા માટે અહિં ક્લિક કરો.
+    તમે પસંદ કરેલો ફાઈલ આવશ્યક રીતે સૂચિત રીઝોલ્યૂશન સાથે મેળ ખાય છે નથી - ફરી
+    થવા માટે અહિં ક્લિક કરો.
   ba-imagecapture.verifying: પરિશીલણ થાય છે
   ba-imagecapture.verifying-failed: પરિશીલણ નિષ્ફળ થયું - ફરી થવા માટે અહિં ક્લિક કરો.
   ba-imagecapture.rerecord-confirm: શું તમે ખોટું ચિત્ર રેકૉર્ડ કરવાનું વાંચો છો?
   ba-imagecapture.image_file_too_large: >-
-    તમારી ચિત્ર ફાઈલ ઘણી મોટી છે (%s) - ફરી થવા માટે અહિં ક્લિક કરો અને તમારી છોટી ચિત્ર ફાઈલ સાથે ફરી થવો.
+    તમારી ચિત્ર ફાઈલ ઘણી મોટી છે (%s) - ફરી થવા માટે અહિં ક્લિક કરો અને તમારી
+    છોટી ચિત્ર ફાઈલ સાથે ફરી થવો.
   ba-imagecapture.unsupported_image_type: 'મહેનત કરીને અપલોડ કરો: %s - ફરી થવા માટે અહિં ક્લિક કરો.'
   ba-imagecapture.orientation-portrait-required: કૃપા કરીને પોર્ટ્રેટ મોડમાં રેકૉર્ડ કરવા માટે તમારી ડિવાઇસને ઘૂમાવો.
   ba-imagecapture.orientation-landscape-required: કૃપા કરીને લેન્ડસ્કેપ મોડમાં રેકૉર્ડ કરવા માટે તમારી ડિવાઇસને ઘૂમાવો.
@@ -207,27 +209,32 @@
   ba-audiorecorder-controlbar.resume-recorder: રેકૉર્ડર પ્રારંભ કરો
   ba-audiorecorder.recorder-error: એક ભૂલ આવી છે, મહેનત કરીને ફરી થવાનો પ્રયાસ કરો. ક્લિક કરો અને પ્રયાસ કરો.
   ba-audiorecorder.attach-error: >-
-    અમે મીડિયા ઇન સત્તાને પ્રવેશ કરી શકતાં નથી. ડિવાઇસ અને બ્રાઉઝરને આધાર રાખીને, તમે SSL વાળી પૃષ્ઠનો પ્રવેશ કરવો પડશે.
+    અમે મીડિયા ઇન સત્તાને પ્રવેશ કરી શકતાં નથી. ડિવાઇસ અને બ્રાઉઝરને આધાર
+    રાખીને, તમે SSL વાળી પૃષ્ઠનો પ્રવેશ કરવો પડશે.
   ba-audiorecorder.software-required: >-
-    મુકાબલા કરવા માટે, આગળ વધવાના અને સક્રિય કરવાના માટે કૃપા કરીને નીચે ક્લિક કરો.
+    મુકાબલા કરવા માટે, આગળ વધવાના અને સક્રિય કરવાના માટે કૃપા કરીને નીચે ક્લિક
+    કરો.
   ba-audiorecorder.software-waiting: >-
-    મુકાબલા કરવાના આગળવાના અને સક્રિય કરવાના માટે, આગળ વધવાના અને સક્રિય કરવાના બીજા પરિપરિક્ષાઓના બાદ તમારે પૃષ્ઠનો પુનરારંભ કરવો પડે છે.
+    મુકાબલા કરવાના આગળવાના અને સક્રિય કરવાના માટે, આગળ વધવાના અને સક્રિય કરવાના
+    બીજા પરિપરિક્ષાઓના બાદ તમારે પૃષ્ઠનો પુનરારંભ કરવો પડે છે.
   ba-audiorecorder.access-forbidden: મીડિયાને પ્રવેશ કરવું નિષ્ક્રિય છે. ક્લિક કરવા માટે અહિં ક્લિક કરો.
   ba-audiorecorder.uploading: અપલોડ થાય છે
   ba-audiorecorder.uploading-failed: અપલોડ કરવામાં નિષ્ફળ થયો - ફરી થવા માટે અહિં ક્લિક કરો.
-  ba-audiorecorder.upload-error-duration: >-
-    અપલોડ કરેલા ધ્વનિની લંબાઈ આવશ્યક આવશે નથી - ફરી થવા માટે અહિં ક્લિક કરો.
+  ba-audiorecorder.upload-error-duration: અપલોડ કરેલા ધ્વનિની લંબાઈ આવશ્યક આવશે નથી - ફરી થવા માટે અહિં ક્લિક કરો.
   ba-audiorecorder.verifying: પરિશીલણ થાય છે
   ba-audiorecorder.verifying-failed: પરિશીલણ નિષ્ફળ થયું - ફરી થવા માટે અહિં ક્લિક કરો.
   ba-audiorecorder.rerecord-confirm: શું તમે તમારી ધ્વનિ પુનઃરચન કરવાનું વાંચો છો?
   ba-audiorecorder.cancel-confirm: શું તમે તમારી ધ્વનિ અપલોડ રદ કરવાનું વાંચો છો?
   ba-audiorecorder.audio_file_too_large: >-
-    તમારી આડિયો ફાઈલ ઘણી મોટી છે (%s) - ફરી થવા માટે અહિં ક્લિક કરો અને તમારી છોટી આડિયો ફાઈલ સાથે ફરી થવો.
+    તમારી આડિયો ફાઈલ ઘણી મોટી છે (%s) - ફરી થવા માટે અહિં ક્લિક કરો અને તમારી
+    છોટી આડિયો ફાઈલ સાથે ફરી થવો.
   ba-audiorecorder.unsupported_audio_type: 'મહેનત કરીને અપલોડ કરો: %s - ફરી થવા માટે અહિં ક્લિક કરો.'
   ba-audiorecorder.uploading-src-error: હવે ઓડિયો પ્લે બેક નથી, અપલોડ અસ્તિત્વમાં છે
   ba-audiorecorder.missing-track: આવશ્યક ધ્વનિ ટ્રેક ગુમ થયો છે
   ba-audiorecorder.device-already-in-use: તમારા ઇનપુટ ડિવાઇસનો ઓળખાણ આવડે છે
-  ba-audiorecorder.browser-permission-denied: બ્રાઉઝર દ્વારા પરવાનગી મનાયું છે, કૃપા કરીને પરવાનગી આપો અને પૃષ્ઠનું પુનરારંભ કરો
+  ba-audiorecorder.browser-permission-denied: >-
+    બ્રાઉઝર દ્વારા પરવાનગી મનાયું છે, કૃપા કરીને પરવાનગી આપો અને પૃષ્ઠનું
+    પુનરારંભ કરો
   ba-local-view.local-camera-connection-error: સ્થાનિક કેમેરા જોડાણની કલમણી થઈ હતી. પુનઃપ્રયાસ કરવા માટે ક્લિક કરો.
   ba-call-controlbar.camera-button: કેમેરા દર્શાવો / છુપાવો
   ba-call-controlbar.leave-button: કૉલ છોડો
@@ -243,3 +250,60 @@
   ba-video-call.call-ended: કૉલ સમાપ્ત થઈ ગઈ છે
   ba-video-call.connecting: કનેક્ટ થાય છે.....
   ba-video-call.connection-error: કનેક્ટ કરવામાં ભૂલ આવી છે, ફરી થવા માટે ક્લિક કરો.
+  ba-circle-progress.fullscreen-video: પૂર્ણસ્ક્રીન દાખલ કરો
+  ba-ads-choices-link.ad-choices: જાહેરાત પસંદગીઓ
+  ba-ads-learn-more-button.learn-more: વધુ શીખો
+  ba-videoplayer-sidebar.up-next: હવે પછીનું
+  ba-videoplayer-sidebar.continue-on-ads-end: આ જાહેરાત પછી સામગ્રી ફરી શરૂ થશે.
+  ba-videoplayer-tooltip.tooltip: ટૂલટીપ
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: ટૂલટિપ બંધ થવાને થોભાવવા માટે માઉસને પકડી રાખો
+  ba-videorecorder.software-required: >-
+    આગળ વધવા માટે નીચેની આવશ્યકતાઓને ઇન્સ્ટોલ/સક્રિય કરવા માટે કૃપા કરીને નીચે
+    ક્લિક કરો.
+  ba-videorecorder.software-waiting: >-
+    જરૂરીયાતો ઇન્સ્ટોલ/સક્રિય થવાની રાહ જોઈ રહ્યા છીએ. તમારે પૂર્ણ થયા પછી
+    પૃષ્ઠને તાજું કરવાની જરૂર પડી શકે છે.
+  ba-videorecorder.access-forbidden: મીડિયામાં પ્રવેશ પર પ્રતિબંધ હતો. ફરી પ્રયાસ કરવા માટે ક્લિક કરો.
+  ba-videorecorder.pick-covershot: કવરશોટ ચૂંટો.
+  ba-videorecorder.pick-covershot-frame: કવરશોટ તરીકે ઉપયોગ કરવા માટે ફ્રેમ પસંદ કરો.
+  ba-videorecorder.framerate-warning: >-
+    વિડિયો ફ્રેમ રેટ ઘણો ઓછો છે. અમે અન્ય તમામ પ્રોગ્રામ્સ અને બ્રાઉઝર ટેબ્સને
+    બંધ કરવાની અથવા ઝડપી કમ્પ્યુટરનો ઉપયોગ કરવાની ભલામણ કરીએ છીએ.
+  ba-videorecorder.uploading: અપલોડ કરી રહ્યું છે
+  ba-videorecorder.uploading-src-error: હમણાં વિડિયો પ્લે બેક કરવામાં અસમર્થ, અપલોડ કરવાનું હજી ચાલુ છે
+  ba-videorecorder.uploading-failed: અપલોડ નિષ્ફળ થયું - ફરી પ્રયાસ કરવા માટે અહીં ક્લિક કરો.
+  ba-videorecorder.upload-error-duration: >-
+    અપલોડ કરેલ વિડિઓની લંબાઈ આવશ્યકતાઓને પૂર્ણ કરતી નથી - ફરીથી પ્રયાસ કરવા માટે
+    અહીં ક્લિક કરો.
+  ba-videorecorder.resolution-constraint-error: >-
+    તમે પસંદ કરેલી ફાઇલ જરૂરી રીઝોલ્યુશન સાથે મેળ ખાતી નથી - ફરી પ્રયાસ કરવા
+    માટે અહીં ક્લિક કરો.
+  ba-videorecorder.verifying: ચકાસણી કરી રહ્યું છે
+  ba-videorecorder.verifying-failed: ચકાસવામાં નિષ્ફળ - ફરી પ્રયાસ કરવા માટે અહીં ક્લિક કરો.
+  ba-videorecorder.rerecord-confirm: શું તમે ખરેખર તમારો વીડિયો ફરીથી કરવા માંગો છો?
+  ba-videorecorder.cancel-confirm: શું તમે ખરેખર તમારો વિડિઓ અપલોડ રદ કરવા માંગો છો?
+  ba-videorecorder.video_file_too_large: >-
+    તમારી વિડિયો ફાઇલ ખૂબ મોટી છે (%s) - નાની વિડિયો ફાઇલ સાથે ફરી પ્રયાસ કરવા
+    માટે અહીં ક્લિક કરો.
+  ba-videorecorder.unsupported_video_type: 'કૃપા કરીને અપલોડ કરો: %s - ફરી પ્રયાસ કરવા માટે અહીં ક્લિક કરો.'
+  ba-videorecorder.orientation-portrait-required: કૃપા કરીને પોટ્રેટ મોડમાં રેકોર્ડ કરવા માટે તમારા ઉપકરણને ફેરવો.
+  ba-videorecorder.orientation-landscape-required: કૃપા કરીને લેન્ડસ્કેપ મોડમાં રેકોર્ડ કરવા માટે તમારા ઉપકરણને ફેરવો.
+  ba-videorecorder.switch-camera: કેમેરા સ્વિચ કરો
+  ba-videorecorder.prepare-covershot: કવરશોટ તૈયાર કરી રહ્યાં છીએ
+  ba-videorecorder.prepare-thumbnails: થંબનેલ્સ મેળવવાની તૈયારી કરી રહ્યાં છીએ
+  ba-videorecorder.adding-new-stream: નવી સ્ટ્રીમ ઉમેરી રહ્યા છીએ
+  ba-videorecorder.missing-track: આવશ્યક ઑડિઓ અથવા વિડિયો ટ્રૅક ખૂટે છે
+  ba-videorecorder.device-already-in-use: તમારા ઇનપુટ ઉપકરણોમાંથી ઓછામાં ઓછું એક પહેલેથી ઉપયોગમાં છે
+  ba-videorecorder.browser-permission-denied: બ્રાઉઝર દ્વારા પરવાનગી નકારી, કૃપા કરીને ઍક્સેસ આપો અને પૃષ્ઠ ફરીથી લોડ કરો
+  ba-videorecorder.screen-recorder-is-not-supported: આ ઉપકરણ પર સ્ક્રીન રેકોર્ડર સમર્થિત નથી
+  ba-videorecorder.trim-prompt: શું તમે તમારી વિડિઓને ટ્રિમ કરવા માંગો છો?
+  ba-videorecorder.trim-video: તમારા વિડિયોને ટ્રિમ કરવા માટે સ્ટાર્ટ અને એન્ડ માર્કર્સને ખસેડો
+  ba-videorecorder.wait-for-trim: ટ્રિમ આદેશની રાહ જોઈ રહ્યાં છીએ...
+  ba-videorecorder.supported-mode: મીડિયા રિઝોલ્યુશન '%s' મોડમાં હોવું જોઈએ.
+  ba-videorecorder.re-choose-action: >-
+    કૃપા કરીને અન્ય ઇનપુટ ઉપકરણ પસંદ કરવા માટે ક્લિક કરો અથવા ક્રિયાનો ફરીથી
+    પ્રયાસ કરો.
+  ba-videoplayer-next.stay: રહો
+  ba-videoplayer-next.next: આગળ
+  ba-videorecorder-trimmer.trim: ટ્રીમ
+  ba-videorecorder-trimmer.skip: છોડો

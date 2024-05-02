@@ -48,7 +48,6 @@ jobs:
           version: '${{ matrix.node-version }}'
           key: '${{ inputs.commitKey }}'
           pkg-manager: 'npm'
-          path: ./
 
       - name: build component
         uses: ./.github/actions/build-component

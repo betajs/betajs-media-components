@@ -27,14 +27,13 @@ runs:
     - name: Install ${{ inputs.pkg-manager }} Package manager
       if: inputs.pkg-manager == 'pnpm'
       uses: pnpm/action-setup@v3
-      working-directory: .
       with:
         version: 8
 
     - name: Install ${{ inputs.pkg-manager }} Package manager
       if: inputs.pkg-manager == 'npm'
-      uses: npm/action-setup@v3
-      working-directory: .
+      shell: bash
+      run: npm ci
 
     - name: Install JavaScript dependencies via ${{ inputs.pkg-manager  }}
       shell: bash

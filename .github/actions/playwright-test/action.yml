@@ -1,0 +1,48 @@
+name: 'Run Playwright test'
+description: 'Run e2e tests via chrome browser using playwright'
+
+inputs:
+  project:
+    description: Project which will run on testing
+    default: chromium
+    required: true
+  os:
+    description: 'Operating system, allowed: ubuntu, windows or macos'
+    default: 'ubuntu'
+    required: false
+  chrome-version:
+    description: 'Chrome version on which all will be tested'
+    default: 'canary'
+    required: false
+  port:
+    description: 'Port where local server will be run, should be the same as .env.actions'
+    default: '5050'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install browser dependencies
+      script: npx playwright install --with-deps
+      displayName: 'Install Playwright browsers'
+
+    - name: setup browser
+      id: setup-chrome
+      uses: browser-actions/setup-chrome@v1
+      with:
+        os: ${{ inputs.os }}
+        chrome-version: ${{ inputs.chrome-version }}
+      displayName: 'Running tests on chrome version ${{ inputs.chrome-version }}'
+
+    - name: Run local server
+      script: 'node node_modules/nano-media-server/server.js --staticserve . --port=\'${{ inputs.port }}\''
+
+    - name: Run Playwright
+      # run: test
+      script: npx playwright test --project=$(project) --config ./tests/playwright/config.js
+      env:
+        CI: 'false'
+        os: 'linux'
+      displayName: 'Run Playwright e2e tests'
+
+

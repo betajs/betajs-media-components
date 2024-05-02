@@ -1,0 +1,7 @@
+name: 'Setup Node'
+description: 'Install Node and yarn dependencies'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: pnpm/action-setup@v3

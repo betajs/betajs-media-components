@@ -1,0 +1,60 @@
+name: 'Setup Node'
+description: 'Install Node and yarn dependencies'
+
+inputs:
+  version:
+    description: 'The node version'
+    default: '18.x'
+    required: true
+  pkg-manager:
+    description: 'The package manager cli'
+    default: 'pnpm'
+    required: false
+  key:
+    description: 'Key for the cache'
+    default: '${{ github.event.pull_request.head.sha }}'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Node JS version ${{ inputs.version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.version }}
+        cache: ${{ inputs.pkg-manager }}
+
+    - name: Install ${{ inputs.pkg-manager }} Package manager
+      if: inputs.pkg-manager == 'pnpm'
+      uses: pnpm/action-setup@v3
+      working-directory: .
+      with:
+        version: 8
+
+    - name: Install ${{ inputs.pkg-manager }} Package manager
+      if: inputs.pkg-manager == 'npm'
+      uses: npm/action-setup@v3
+      working-directory: .
+
+    - name: Install JavaScript dependencies via ${{ inputs.pkg-manager  }}
+      shell: bash
+      if: inputs.pkg-manager == 'pnpm'
+      run: pnpm ci
+
+    - name: Install JavaScript dependencies via ${{ inputs.pkg-manager  }}
+      shell: bash
+      if: inputs.pkg-manager == 'npm'
+      run: npm set cache .npm && npm ci
+
+    - name: Install JavaScript dependencies via ${{ inputs.pkg-manager  }}
+      shell: bash
+      if: inputs.pkg-manager == 'yarn'
+      run: yarn install --frozen-lockfile
+
+    - name: Create node_modules cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.npm
+          node_modules
+        key: ${{ inputs.key }}

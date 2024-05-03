@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.476 - 2024-05-02
+betajs-media-components - v0.0.477 - 2024-05-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.476",
-    "datetime": 1714687239287
+    "version": "0.0.477",
+    "datetime": 1714763625188
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5115,6 +5115,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         hidebeforeadstarts
                     ) {
+                        if (this.get("floatingoptions.floatingonly")) {
+                            this.set("autoplaywhenvisible", false);
+                        }
                         if (hidden) return hidden;
                         if (!autoplay && !autoplaywhenvisible) return false;
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;

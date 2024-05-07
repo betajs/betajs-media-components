@@ -1,10 +1,4 @@
-'language:ar':
-  ba-videoplayer-playbutton.tooltip: انقر لتشغيل الفيديو.
-  ba-videoplayer-playbutton.rerecord: اعد المحاولة
-  ba-videoplayer-playbutton.submit-video: تأكيد الفيديو
-  ba-videoplayer-loader.tooltip: جار تحميل الفيديو ...
-  ba-videoplayer-controlbar.change-resolution: تغيير الدقة
-  ba-videoplayer-controlbar.video-progress: تقدم الفيديو
+language:ar:
   ba-videoplayer-controlbar.rerecord-video: إعادة الفيديو؟
   ba-videoplayer-controlbar.submit-video: تأكيد الفيديو
   ba-videoplayer-controlbar.play-video: شغل الفيديو
@@ -47,7 +41,7 @@
   ba-videorecorder.video_file_too_large: >-
     ملف الفيديو كبير جدا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف فيديو
     أصغر.
-  ba-videorecorder.unsupported_video_type: 'صيغة الفيديو غير مدعومة :%s - انقر هنا لإعادة المحاولة.'
+  ba-videorecorder.unsupported_video_type: صيغة الفيديو غير مدعومة :%s - انقر هنا لإعادة المحاولة.
   ba-videoplayer-controlbar.exit-fullscreen-video: الخروج من الشاشة الكاملة
   ba-videoplayer-share.share: شارك الفيديو
   ba-videorecorder-chooser.record-screen: سجل الشاشة
@@ -158,7 +152,7 @@
   ba-imagecapture.image_file_too_large: >-
     ملف الصورة الخاص بك كبير جدًا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف
     صورة أصغر.
-  ba-imagecapture.unsupported_image_type: 'الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.'
+  ba-imagecapture.unsupported_image_type: الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.
   ba-imagecapture.orientation-portrait-required: يرجى تدوير جهازك لتسجيل في وضع عمودي.
   ba-imagecapture.orientation-landscape-required: يرجى تدوير جهازك للتسجيل في وضع أفقي.
   ba-audiorecorder.recorder-error: لقد حدث خطأ، رجاء أعد المحاولة لاحقا. انقر لإعادة المحاولة.
@@ -180,8 +174,7 @@
   ba-audiorecorder.audio_file_too_large: >-
     ملف الصوت الخاص بك كبير جدًا (%s) - انقر هنا لإعادة المحاولة باستخدام ملف
     صوتي أصغر.
-  ba-audiorecorder.unsupported_audio_type: 'الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.'
-  ba-common-settingsmenu.tooltip: انقر للعب.
+  ba-audiorecorder.unsupported_audio_type: الرجاء التحميل:%s - انقر هنا لإعادة المحاولة.
   ba-common-settingsmenu.setting-menu: جميع الإعدادات
   ba-common-settingsmenu.source-quality: جودة المصدر
   ba-common-settingsmenu.player-speed: سرعة اللاعب
@@ -220,12 +213,12 @@
   ba-ads-controlbar.ad-will-end-after: سينتهي الاعلان بعد %s
   ba-ads-controlbar.can-skip-after: تخطي بعد %d
   ba-ads-controlbar.skip-ad: تخطى الاعلان
-  ba-videorecorder.supported-mode: دقة العرض يجب ان تكون في وضع '%s' 
+  ba-videorecorder.supported-mode: دقة العرض يجب ان تكون في وضع '%s'
   ba-videorecorder.re-choose-action: الرجاء النقر لاختيار جهاز إدخال آخر أو إعادة محاولة الإجراء.
-  ba-audiorecorder.uploading-src-error: 'لا يمكن تشغيل الصوت الآن، لا زالت عملية الرفع جارية'
+  ba-audiorecorder.uploading-src-error: لا يمكن تشغيل الصوت الآن، لا زالت عملية الرفع جارية
   ba-audiorecorder.missing-track: المسار الصوتي المطلوب مفقود
   ba-audiorecorder.device-already-in-use: هناك جهاز واحد على الأقل من أجهزة الإدخال قيد الاستخدام بالفعل
-  ba-audiorecorder.browser-permission-denied: 'تم رفض الإذن بواسطة المتصفح ، يرجى منح الوصول وإعادة تحميل الصفحة'
+  ba-audiorecorder.browser-permission-denied: تم رفض الإذن بواسطة المتصفح ، يرجى منح الوصول وإعادة تحميل الصفحة
   ba-local-view.local-camera-connection-error: حدث خطأ عند الاتصال بالكاميرا الخاصة بجهازك. انقر للمحاول مجددا.
   ba-call-controlbar.camera-button: إظهار/إخفاء الكاميرا
   ba-call-controlbar.leave-button: غادر المكالمة
@@ -240,4 +233,31 @@
   ba-call-lobby.title-join: انضمام لمكالمة
   ba-video-call.call-ended: انتهت المكالمة
   ba-video-call.connecting: جاري الاتصال...
-  ba-video-call.connection-error: 'حدث خطأ أثناء الاتصال، يرجى النقر للمحاولة مرة أخرى.'
+  ba-video-call.connection-error: حدث خطأ أثناء الاتصال، يرجى النقر للمحاولة مرة أخرى.
+  ba-circle-progress.fullscreen-video: أدخل ملء الشاشة
+  ba-ads-choices-link.ad-choices: خيارات الإعلان
+  ba-ads-controlbar.play-ad: يلعب
+  ba-ads-controlbar.pause-video: يوقف
+  ba-ads-controlbar.fullscreen-video: أدخل ملء الشاشة
+  ba-ads-controlbar.exit-fullscreen-video: الخروج من الشاشة الكاملة
+  ba-ads-controlbar.pause-video-disabled: الإيقاف المؤقت غير مدعوم
+  ba-adsplayer.replay-ad: إعادة تشغيل الفيديو
+  ba-adsplayer.close-ad: يغلق
+  ba-adsplayer.ad-choices: خيارات الإعلان
+  ba-adsplayer.learn-more: يتعلم أكثر
+  ba-ads-learn-more-button.learn-more: يتعلم أكثر
+  ba-videoplayer-sidebar.up-next: التالي
+  ba-videoplayer-sidebar.continue-on-ads-end: سيتم استئناف المحتوى بعد هذا الإعلان.
+  ba-videoplayer-tooltip.tooltip: تلميح
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: استمر في الضغط على الماوس لإيقاف إغلاق تلميح الأداة مؤقتًا
+  ba-videoplayer-controlbar.video-progress: تقدم
+  ba-videoplayer-controlbar.change-resolution: تغيير القرار
+  ba-videoplayer-loader.tooltip: تحميل...
+  ba-videoplayer-playbutton.tooltip: انقر للعب.
+  ba-videoplayer-playbutton.rerecord: إعادة
+  ba-videoplayer-playbutton.submit-video: تأكيد الفيديو
+  ba-common-settingsmenu.tooltip: انقر للعب.
+  ba-videoplayer-next.stay: يقضي
+  ba-videoplayer-next.next: التالي
+  ba-videorecorder-trimmer.trim: تقليم
+  ba-videorecorder-trimmer.skip: يتخطى

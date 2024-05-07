@@ -1,4 +1,4 @@
-'language:da':
+language:da:
   ba-videoplayer-playbutton.tooltip: Klik for at afspille video.
   ba-videoplayer-playbutton.rerecord: redo
   ba-videoplayer-playbutton.submit-video: Bekræft video
@@ -203,7 +203,7 @@
   ba-videorecorder-controlbar.resume-recorder: Genoptag optager
   ba-videorecorder.missing-track: Påkrævet lyd- eller videospor mangler
   ba-videorecorder.device-already-in-use: Mindst en af dine inputenheder er allerede i brug
-  ba-videorecorder.browser-permission-denied: 'Tilladelse nægtet af browseren, giv venligst adgang og genindlæs siden'
+  ba-videorecorder.browser-permission-denied: Tilladelse nægtet af browseren, giv venligst adgang og genindlæs siden
   ba-audioplayer.all-settings: Alle indstillinger
   ba-videoplayer-controlbar.remaining-time: Resterende tid
   ba-videoplayer-controlbar.select-frame: Vælg
@@ -211,13 +211,63 @@
   ba-videoplayer-playbutton.trim: Trimme
   ba-videoplayer-playbutton.skip: Springe
   ba-videorecorder-imagegallery.upload-covershot: Upload dækning
-  ba-videorecorder.pick-covershot-frame: 'Vælg en ramme, der skal bruges som forsidebillede.'
+  ba-videorecorder.pick-covershot-frame: Vælg en ramme, der skal bruges som forsidebillede.
   ba-videorecorder.screen-recorder-is-not-supported: Screen recorder understøttes ikke på denne enhed
   ba-videorecorder.trim-prompt: Vil du trimme din video?
   ba-videorecorder.trim-video: Flyt start- og slutmarkørerne for at trimme din video
   ba-videorecorder.wait-for-trim: Venter på trimkommando ...
   ba-videorecorder-controlbar.no-video-source: Mangler yderligere videoindgangskilde
   ba-videorecorder-controlbar.stream-already-selected: Yderligere strøm er allerede valgt
-  ba-videorecorder.uploading-src-error: 'Kan ikke afspille video nu, og upload er stadig i gang'
+  ba-videorecorder.uploading-src-error: Kan ikke afspille video nu, og upload er stadig i gang
   ba-audiorecorder-controlbar.pause-recorder: Pause optager
   ba-audiorecorder-controlbar.resume-recorder: Genoptag optager
+  ba-circle-progress.fullscreen-video: Indtast fuldskærm
+  ba-ads-choices-link.ad-choices: Annoncevalg
+  ba-ads-controlbar.skip-ad: Spring annoncen over
+  ba-ads-controlbar.play-ad: Spil
+  ba-ads-controlbar.pause-video: Pause
+  ba-ads-controlbar.volume-mute: Slå lyden fra
+  ba-ads-controlbar.volume-button: Indstil lydstyrken
+  ba-ads-controlbar.elapsed-time: Forløbet tid
+  ba-ads-controlbar.volume-unmute: Slå lyden til
+  ba-ads-controlbar.can-skip-after: Spring over efter %d
+  ba-ads-controlbar.fullscreen-video: Indtast fuldskærm
+  ba-ads-controlbar.exit-fullscreen-video: Afslut fuldskærm
+  ba-ads-controlbar.ad-will-end-after: Annoncen slutter efter %s
+  ba-ads-controlbar.pause-video-disabled: Pause understøttes ikke
+  ba-adsplayer.replay-ad: Afspil video igen
+  ba-adsplayer.close-ad: Tæt
+  ba-adsplayer.ad-choices: Annoncevalg
+  ba-adsplayer.learn-more: Lær mere
+  ba-ads-learn-more-button.learn-more: Lær mere
+  ba-videoplayer-sidebar.up-next: Næste
+  ba-videoplayer-sidebar.continue-on-ads-end: Indholdet genoptages efter denne annonce.
+  ba-videoplayer-tooltip.tooltip: Værktøjstip
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Hold musen på for at sætte værktøjstip på pause
+  ba-videorecorder.supported-mode: Medieopløsningen skal være i '%s'-tilstand.
+  ba-videorecorder.re-choose-action: Klik venligst for at vælge en anden inputenhed, eller prøv handlingen igen.
+  ba-audiorecorder.uploading-src-error: Kan ikke afspille lyd nu, upload er stadig i gang
+  ba-audiorecorder.missing-track: Påkrævet lydspor mangler
+  ba-audiorecorder.device-already-in-use: Mindst én af dine inputenheder er allerede i brug
+  ba-audiorecorder.browser-permission-denied: Tilladelse nægtet af browseren. Giv venligst adgang og genindlæs siden
+  ba-local-view.local-camera-connection-error: >-
+    Der opstod en fejl under tilslutning til lokalt kamera. Klik for at prøve
+    igen.
+  ba-call-controlbar.camera-button: Vis/skjul kamera
+  ba-call-controlbar.leave-button: Forlad opkald
+  ba-call-controlbar.mute-button: Slå lyden fra/til
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Når du er klar, klik på knappen nedenfor for at oprette et opkald.
+  ba-call-lobby.description-join: Når du er klar, klik på knappen nedenfor for at deltage i opkaldet.
+  ba-call-lobby.join-button: Tilslutte
+  ba-call-lobby.create-button: skab
+  ba-call-lobby.mute-button: Stum
+  ba-call-lobby.title-create: Opret opkald
+  ba-call-lobby.title-join: Deltag i Call
+  ba-video-call.call-ended: Opkaldet afsluttet
+  ba-video-call.connecting: Tilslutning...
+  ba-video-call.connection-error: Der opstod en fejl under forbindelsen. Klik venligst for at prøve igen.
+  ba-videoplayer-next.stay: Bliv
+  ba-videoplayer-next.next: Næste
+  ba-videorecorder-trimmer.trim: Trimme
+  ba-videorecorder-trimmer.skip: Springe

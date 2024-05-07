@@ -533,7 +533,7 @@ module.exports = function(grunt) {
         var yaml = require("js-yaml");
 
         var loadLocale = function (filename) {
-            var raw = yaml.safeLoad(grunt.file.read(filename));
+            var raw = yaml.load(grunt.file.read(filename));
             for (var key in raw) {
                 return {
                     language: key.split(":").pop(),
@@ -557,7 +557,8 @@ module.exports = function(grunt) {
         }
 
         if (keys.length > 0) {
-            var translate = require('@google-cloud/translate')(JSON.parse(grunt.file.read("./google-translate-creds.json")));
+            const {Translate} = require('@google-cloud/translate').v2;
+            const translate = new Translate(JSON.parse(grunt.file.read("./google-translate-creds.json")));
             var batchSize = 128; // Cloud Translation API limits how many text segments can be translated at once
             var batches = [];
             var promisesArray = [];
@@ -604,7 +605,10 @@ module.exports = function(grunt) {
     grunt.registerTask("translations", function () {
         var languages = [];
         grunt.file.recurse("./src/locales", function (abspath, rootdir, subdir, filename) {
-            languages.push(filename.substring(0, filename.indexOf(".")));
+            var language = filename.substring(0, filename.indexOf("."));
+            if(language && language !== ""){
+                languages.push(language);
+            }
         });
         var sourceFile = "./dist/english.yml";
         var targetFolder = "./src/locales/";

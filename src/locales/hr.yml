@@ -1,4 +1,4 @@
-'language:hr':
+language:hr:
   ba-videoplayer-playbutton.tooltip: Kliknite za reprodukciju video zapisa.
   ba-videoplayer-playbutton.rerecord: presnimiti
   ba-videoplayer-playbutton.submit-video: Potvrda videa
@@ -39,8 +39,8 @@
     Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
     pokušaj.
   ba-videorecorder.attach-error: >-
-    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od pretraživača,
-    možda ćete morati pristupiti stranici putem SSL-a.
+    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od
+    pretraživača, možda ćete morati pristupiti stranici putem SSL-a.
   ba-videorecorder.access-forbidden: Pristup kameri je zabranjen. Kliknite za ponovni pokušaj.
   ba-videorecorder.pick-covershot: Izaberite sliku.
   ba-videorecorder.uploading: Prijenos do servera
@@ -49,8 +49,8 @@
   ba-videorecorder.verifying-failed: Potvrđivanje nije uspjelo - kliknite ovdje za ponovni pokušaj.
   ba-videorecorder.rerecord-confirm: Da li zaista želite snimit video opet?
   ba-videorecorder.video_file_too_large: >-
-    Vaš video fal je prevelik (%s) - kliknite ovdje kako bi pokušali
-    ponovno s manjim video fajlom.
+    Vaš video fal je prevelik (%s) - kliknite ovdje kako bi pokušali ponovno s
+    manjim video fajlom.
   ba-videorecorder.unsupported_video_type: 'Video fail nije podržan. Izaberite: %s - kliknite ovdje za ponovni pokušaj.'
   ba-videoplayer-controlbar.exit-fullscreen-video: Izađite iz cijelog zaslona
   ba-videoplayer-share.share: Dijeljenje videozapisa
@@ -155,8 +155,8 @@
     Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
     pokušaj.
   ba-imagecapture.attach-error: >-
-    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od pretraživača,
-    možda ćete morati pristupiti stranici putem SSL-a.
+    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od
+    pretraživača, možda ćete morati pristupiti stranici putem SSL-a.
   ba-imagecapture.software-required: >-
     Da biste nastavili, kliknite ispod kako biste instalirali / aktivirali
     sljedeće zahtjeve.
@@ -185,8 +185,8 @@
     Došlo je do pogreške. Molimo pokušajte ponovno kasnije. Kliknite za ponovni
     pokušaj.
   ba-audiorecorder.attach-error: >-
-    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od pretraživača,
-    možda ćete morati pristupiti stranici putem SSL-a.
+    Nismo mogli pristupiti kameri ili mikrofonu. Ovisno o uređaju i od
+    pretraživača, možda ćete morati pristupiti stranici putem SSL-a.
   ba-audiorecorder.software-required: >-
     Da biste nastavili, kliknite ispod kako biste instalirali / aktivirali
     sljedeće zahtjeve.
@@ -238,6 +238,56 @@
   ba-videorecorder.wait-for-trim: Čeka se naredba isecanja ...
   ba-videorecorder-controlbar.no-video-source: Nedostaje dodatni video ulaz
   ba-videorecorder-controlbar.stream-already-selected: Dodatni ulaz je već odabran
-  ba-videorecorder.uploading-src-error: 'Video zapis se sada ne može reproducirati, prijenos je još u tijeku'
+  ba-videorecorder.uploading-src-error: Video zapis se sada ne može reproducirati, prijenos je još u tijeku
   ba-audiorecorder-controlbar.pause-recorder: Zaustavi snimač
   ba-audiorecorder-controlbar.resume-recorder: Nastavi snimanje
+  ba-circle-progress.fullscreen-video: Otvori cijeli zaslon
+  ba-ads-choices-link.ad-choices: Izbor oglasa
+  ba-ads-controlbar.skip-ad: Preskočite oglas
+  ba-ads-controlbar.play-ad: igra
+  ba-ads-controlbar.pause-video: Pauza
+  ba-ads-controlbar.volume-mute: Isključi zvuk
+  ba-ads-controlbar.volume-button: Postavite glasnoću
+  ba-ads-controlbar.elapsed-time: Proteklo vrijeme
+  ba-ads-controlbar.volume-unmute: Uključi zvuk
+  ba-ads-controlbar.can-skip-after: Preskoči nakon %d
+  ba-ads-controlbar.fullscreen-video: Otvori cijeli zaslon
+  ba-ads-controlbar.exit-fullscreen-video: Izađi iz cijelog zaslona
+  ba-ads-controlbar.ad-will-end-after: Oglas će završiti nakon %s
+  ba-ads-controlbar.pause-video-disabled: Pauza nije podržana
+  ba-adsplayer.replay-ad: Ponovno reproduciraj videozapis
+  ba-adsplayer.close-ad: Zatvoriti
+  ba-adsplayer.ad-choices: Izbor oglasa
+  ba-adsplayer.learn-more: Saznajte više
+  ba-ads-learn-more-button.learn-more: Saznajte više
+  ba-videoplayer-sidebar.up-next: Sljedeći
+  ba-videoplayer-sidebar.continue-on-ads-end: Sadržaj će se nastaviti nakon ovog oglasa.
+  ba-videoplayer-tooltip.tooltip: Opis alata
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Držite miš da pauzirate zatvaranje opisa alata
+  ba-videorecorder.supported-mode: Razlučivost medija trebala bi biti u načinu '%s'.
+  ba-videorecorder.re-choose-action: Kliknite za odabir drugog uređaja za unos ili pokušajte ponovno.
+  ba-audiorecorder.uploading-src-error: Sada nije moguće reproducirati zvuk, prijenos je još u tijeku
+  ba-audiorecorder.missing-track: Nedostaje potreban audio zapis
+  ba-audiorecorder.device-already-in-use: Najmanje jedan od vaših ulaznih uređaja već se koristi
+  ba-audiorecorder.browser-permission-denied: Preglednik je odbio dopuštenje, odobrite pristup i ponovno učitajte stranicu
+  ba-local-view.local-camera-connection-error: >-
+    Došlo je do pogreške prilikom povezivanja s lokalnom kamerom. Kliknite za
+    ponovni pokušaj.
+  ba-call-controlbar.camera-button: Prikaži/sakrij kameru
+  ba-call-controlbar.leave-button: Napusti poziv
+  ba-call-controlbar.mute-button: Isključi/Uključi zvuk
+  ba-call-lobby.camera-button: Fotoaparat
+  ba-call-lobby.description-create: Kada budete spremni, kliknite na gumb ispod da biste uspostavili poziv.
+  ba-call-lobby.description-join: Kada ste spremni, kliknite na gumb ispod da biste se pridružili pozivu.
+  ba-call-lobby.join-button: Pridružiti
+  ba-call-lobby.create-button: Stvoriti
+  ba-call-lobby.mute-button: Isključi zvuk
+  ba-call-lobby.title-create: Kreiraj poziv
+  ba-call-lobby.title-join: Pridružite se pozivu
+  ba-video-call.call-ended: Poziv završio
+  ba-video-call.connecting: Povezivanje...
+  ba-video-call.connection-error: Došlo je do pogreške prilikom povezivanja, kliknite za ponovni pokušaj.
+  ba-videoplayer-next.stay: Boravak
+  ba-videoplayer-next.next: Sljedeći
+  ba-videorecorder-trimmer.trim: Trim
+  ba-videorecorder-trimmer.skip: Preskočiti

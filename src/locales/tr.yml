@@ -1,4 +1,4 @@
-'language:tr':
+language:tr:
   ba-videoplayer-playbutton.tooltip: video oynatmak için tıklayınız.
   ba-videoplayer-playbutton.rerecord: yeniden yapmak
   ba-videoplayer-playbutton.submit-video: videoyu onayla
@@ -15,7 +15,7 @@
   ba-videoplayer-controlbar.volume-button: Set hacmi
   ba-videoplayer-controlbar.volume-mute: sesi
   ba-videoplayer-controlbar.volume-unmute: sesi aç
-  ba-videoplayer.video-error: 'Bir hata, lütfen tekrar deneyiniz oluştu. Tekrar denemek için tıklayın.'
+  ba-videoplayer.video-error: Bir hata, lütfen tekrar deneyiniz oluştu. Tekrar denemek için tıklayın.
   ba-videorecorder-chooser.record-video: Kişisel Video kayıt
   ba-videorecorder-chooser.upload-video: video
   ba-videorecorder-controlbar.settings: Ayarlar
@@ -33,7 +33,7 @@
   ba-videorecorder-controlbar.stop-tooltip: durdurmak için burayı tıklayın.
   ba-videorecorder-controlbar.skip: atlamak
   ba-videorecorder-controlbar.skip-tooltip: atlamak için buraya tıklayın.
-  ba-videorecorder.recorder-error: 'Bir hata, lütfen tekrar deneyiniz oluştu. Tekrar denemek için tıklayın.'
+  ba-videorecorder.recorder-error: Bir hata, lütfen tekrar deneyiniz oluştu. Tekrar denemek için tıklayın.
   ba-videorecorder.attach-error: >-
     Biz kamera arayüzü erişemedi. cihaz ve tarayıcıya bağlı olarak, Flash
     yüklemek veya SSL ile sayfaya erişmek için gerekebilir.
@@ -61,7 +61,7 @@
   ba-videoplayer-adslot.volume-button: Sesi ayarla
   ba-videoplayer-adslot.volume-mute: Sesi kapat
   ba-videoplayer-adslot.volume-unmute: Sesi açma
-  ba-videoplayer-adslot.ad-will-end-after: 'Reklam, %s sonra sona erecek'
+  ba-videoplayer-adslot.ad-will-end-after: Reklam, %s sonra sona erecek
   ba-videoplayer-adslot.can-skip-after: '%d sonra atla'
   ba-videoplayer-adslot.skip-ad: Reklamı geç
   ba-videorecorder.software-required: >-
@@ -92,7 +92,7 @@
   ba-imageviewer-controlbar.submit-image: Onaylamak
   ba-imageviewer-controlbar.fullscreen-image: Tam ekran yap
   ba-imageviewer-controlbar.exit-fullscreen-image: Tam ekrandan çık
-  ba-imageviewer.image-error: 'Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.'
+  ba-imageviewer.image-error: Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.
   ba-imagecapture-chooser.image-capture: Görüntüyü yakala
   ba-imagecapture-chooser.upload-image: Fotoğraf yükleniyor
   ba-imagecapture-controlbar.settings: Ayarlar
@@ -116,7 +116,7 @@
   ba-audioplayer-controlbar.volume-mute: Sesi kapat
   ba-audioplayer-controlbar.volume-unmute: Sesi aç ses
   ba-audioplayer-loader.tooltip: Yükleniyor...
-  ba-audioplayer.audio-error: 'Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.'
+  ba-audioplayer.audio-error: Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.
   ba-audiorecorder-chooser.record-audio: Ses kaydı
   ba-audiorecorder-chooser.upload-audio: Ses yükle
   ba-audiorecorder-controlbar.settings: Ayarlar
@@ -143,7 +143,7 @@
   ba-videorecorder.prepare-covershot: Kapak hazırlığı
   ba-videorecorder.prepare-thumbnails: Küçük resim aramaya hazırlanıyor
   ba-videorecorder.adding-new-stream: Yeni Akış Ekleme
-  ba-imagecapture.recorder-error: 'Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.'
+  ba-imagecapture.recorder-error: Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.
   ba-imagecapture.attach-error: >-
     Medya arayüzüne erişemedik. Aygıta ve tarayıcıya bağlı olarak, Flash
     yüklemeniz veya sayfaya SSL ile erişmeniz gerekebilir.
@@ -171,7 +171,7 @@
   ba-imagecapture.unsupported_image_type: 'Lütfen yükleyin: %s - yeniden denemek için burayı tıklayın.'
   ba-imagecapture.orientation-portrait-required: Portre modunda kayıt yapmak için lütfen cihazınızı döndürün.
   ba-imagecapture.orientation-landscape-required: Manzara modunda kayıt yapmak için lütfen cihazınızı döndürün.
-  ba-audiorecorder.recorder-error: 'Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.'
+  ba-audiorecorder.recorder-error: Bir hata oluştu, daha sonra tekrar deneyin. Yeniden denemek için tıklayın.
   ba-audiorecorder.attach-error: >-
     Medya arayüzüne erişemedik. Aygıta ve tarayıcıya bağlı olarak, Flash
     yüklemeniz veya sayfaya SSL ile erişmeniz gerekebilir.
@@ -226,6 +226,58 @@
   ba-videorecorder.wait-for-trim: Trim komutu bekleniyor...
   ba-videorecorder-controlbar.no-video-source: Ek video giriş kaynağı eksik
   ba-videorecorder-controlbar.stream-already-selected: Ek akış zaten seçildi
-  ba-videorecorder.uploading-src-error: 'Video şu anda oynatılamıyor, yükleme işlemi devam ediyor'
+  ba-videorecorder.uploading-src-error: Video şu anda oynatılamıyor, yükleme işlemi devam ediyor
   ba-audiorecorder-controlbar.pause-recorder: Kaydediciyi Duraklat
   ba-audiorecorder-controlbar.resume-recorder: Kaydediciyi Sürdür
+  ba-circle-progress.fullscreen-video: Tam ekran yap
+  ba-ads-choices-link.ad-choices: Reklam Seçenekleri
+  ba-ads-controlbar.skip-ad: Reklamı geç
+  ba-ads-controlbar.play-ad: Oynamak
+  ba-ads-controlbar.pause-video: Duraklat
+  ba-ads-controlbar.volume-mute: Sesi kapat
+  ba-ads-controlbar.volume-button: Ses seviyesini ayarla
+  ba-ads-controlbar.elapsed-time: Geçen zaman
+  ba-ads-controlbar.volume-unmute: Sesi aç
+  ba-ads-controlbar.can-skip-after: '%d''den sonra atla'
+  ba-ads-controlbar.fullscreen-video: Tam ekran yap
+  ba-ads-controlbar.exit-fullscreen-video: Tam ekrandan çık
+  ba-ads-controlbar.ad-will-end-after: Reklam %s sonra sona erecek
+  ba-ads-controlbar.pause-video-disabled: Duraklatma desteklenmiyor
+  ba-adsplayer.replay-ad: Videoyu Tekrar Oynat
+  ba-adsplayer.close-ad: Kapalı
+  ba-adsplayer.ad-choices: Reklam Seçenekleri
+  ba-adsplayer.learn-more: Daha fazla bilgi edin
+  ba-ads-learn-more-button.learn-more: Daha fazla bilgi edin
+  ba-videoplayer-sidebar.up-next: Bir sonraki
+  ba-videoplayer-sidebar.continue-on-ads-end: İçerik bu reklamdan sonra devam edecektir.
+  ba-videoplayer-tooltip.tooltip: İpucu
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Araç ipucunun kapanmasını duraklatmak için fareyi basılı tutun
+  ba-videorecorder.supported-mode: Medya çözünürlüğü '%s' modunda olmalıdır.
+  ba-videorecorder.re-choose-action: >-
+    Başka bir giriş cihazı seçmek veya işlemi yeniden denemek için lütfen
+    tıklayın.
+  ba-audiorecorder.uploading-src-error: Ses şu anda oynatılamıyor, yükleme işlemi hâlâ devam ediyor
+  ba-audiorecorder.missing-track: Gerekli ses parçası eksik
+  ba-audiorecorder.device-already-in-use: Giriş cihazlarınızdan en az biri zaten kullanılıyor
+  ba-audiorecorder.browser-permission-denied: >-
+    İzin tarayıcı tarafından reddedildi, lütfen erişim izni verin ve sayfayı
+    yeniden yükleyin
+  ba-local-view.local-camera-connection-error: Yerel kameraya bağlanırken bir hata oluştu. Tekrar denemek için tıklayın.
+  ba-call-controlbar.camera-button: Kamerayı Göster/Gizle
+  ba-call-controlbar.leave-button: Aramadan Ayrıl
+  ba-call-controlbar.mute-button: Sesi Kapat/Sesi Aç
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Hazır olduğunuzda arama oluşturmak için aşağıdaki düğmeye tıklayın.
+  ba-call-lobby.description-join: Hazır olduğunuzda aramaya katılmak için aşağıdaki düğmeye tıklayın.
+  ba-call-lobby.join-button: Katılmak
+  ba-call-lobby.create-button: Yaratmak
+  ba-call-lobby.mute-button: Sesini kapatmak
+  ba-call-lobby.title-create: Çağrı Oluştur
+  ba-call-lobby.title-join: Çağrıya Katılın
+  ba-video-call.call-ended: Arama sona erdi
+  ba-video-call.connecting: Bağlanıyor...
+  ba-video-call.connection-error: Bağlanırken bir hata oluştu. Tekrar denemek için lütfen tıklayın.
+  ba-videoplayer-next.stay: Kalmak
+  ba-videoplayer-next.next: Sonraki
+  ba-videorecorder-trimmer.trim: Kırpma
+  ba-videorecorder-trimmer.skip: Atlamak

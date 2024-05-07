@@ -1,4 +1,4 @@
-'language:sl':
+language:sl:
   ba-videoplayer-playbutton.tooltip: Klikni za predvajanje.
   ba-videoplayer-playbutton.rerecord: Ponovno snemanje
   ba-videoplayer-playbutton.submit-video: Pošlji video
@@ -15,7 +15,7 @@
   ba-videoplayer-controlbar.volume-button: Nastavitve glasnosti
   ba-videoplayer-controlbar.volume-mute: Utišaj zvok
   ba-videoplayer-controlbar.volume-unmute: Vklopi zvok
-  ba-videoplayer.video-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus'
+  ba-videoplayer.video-error: Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus
   ba-videorecorder-chooser.record-video: Snemanje videa
   ba-videorecorder-chooser.upload-video: Nalaganje videa
   ba-videorecorder-controlbar.settings: Nastavitve
@@ -28,12 +28,12 @@
   ba-videorecorder-controlbar.rerecord: Ponovno snemanje
   ba-videorecorder-controlbar.rerecord-tooltip: Klikni tukaj za ponovno snemanje.
   ba-videorecorder-controlbar.upload-covershot: Naloži naslovno sliko
-  ba-videorecorder-controlbar.upload-covershot-tooltip: 'Klikni tukaj, če želiš naložiti naslovno sliko'
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Klikni tukaj, če želiš naložiti naslovno sliko
   ba-videorecorder-controlbar.stop: Stop
   ba-videorecorder-controlbar.stop-tooltip: Klikni tukaj za zaustavitev snemanja.
   ba-videorecorder-controlbar.skip: Preskoči
-  ba-videorecorder-controlbar.skip-tooltip: 'Klikni tukaj, če želiš preskočiti.'
-  ba-videorecorder.recorder-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus'
+  ba-videorecorder-controlbar.skip-tooltip: Klikni tukaj, če želiš preskočiti.
+  ba-videorecorder.recorder-error: Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus
   ba-videorecorder.attach-error: >-
     Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte
     do strani preko SSL-ja.
@@ -75,7 +75,7 @@
   ba-videoplayer-tracks.upload-text-tracks: Naloži besedilne datoteke
   ba-videoplayer-tracks.select-text-track-language: Jezik podnapisov
   ba-videoplayer-tracks.info-select-locale-first: Najprej izberite jezik
-  ba-videoplayer-tracks.select-text-track-file: 'Klikni, da izberete datoteko'
+  ba-videoplayer-tracks.select-text-track-file: Klikni, da izberete datoteko
   ba-videoplayer-tracks.back: nazaj
   ba-videorecorder.framerate-warning: >-
     Hitrost videa je zelo nizka. Priporočamo, da zaprete vse druge programe in
@@ -92,7 +92,7 @@
   ba-imageviewer-controlbar.submit-image: Potrdi
   ba-imageviewer-controlbar.fullscreen-image: Celozaslonski način
   ba-imageviewer-controlbar.exit-fullscreen-image: Izhod iz celozaslonskega načina
-  ba-imageviewer.image-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus'
+  ba-imageviewer.image-error: Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus
   ba-imagecapture-chooser.image-capture: Zajem slike
   ba-imagecapture-chooser.upload-image: Naloži sliko
   ba-imagecapture-controlbar.settings: Nastavitve
@@ -116,7 +116,7 @@
   ba-audioplayer-controlbar.volume-mute: Utišaj zvoj
   ba-audioplayer-controlbar.volume-unmute: Vklopi zvok
   ba-audioplayer-loader.tooltip: Nalaganje ...
-  ba-audioplayer.audio-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus.'
+  ba-audioplayer.audio-error: Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus.
   ba-audiorecorder-chooser.record-audio: Snemanje zvoka
   ba-audiorecorder-chooser.upload-audio: Naloži zvok
   ba-audiorecorder-controlbar.settings: Nastavitve
@@ -143,7 +143,7 @@
   ba-videorecorder.prepare-covershot: Pripravljanje naslovne fotografije
   ba-videorecorder.prepare-thumbnails: Pripravljanje predogledne slike
   ba-videorecorder.adding-new-stream: Adding New Stream
-  ba-imagecapture.recorder-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus.'
+  ba-imagecapture.recorder-error: Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus.
   ba-imagecapture.attach-error: >-
     Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte
     do strani preko SSL-ja.
@@ -169,7 +169,7 @@
   ba-imagecapture.unsupported_image_type: 'Prosimo naložite: %s - klikni tukaj za ponovni poskus.'
   ba-imagecapture.orientation-portrait-required: Za snemanje v pokončnem načinu obrnite napravo.
   ba-imagecapture.orientation-landscape-required: Za snemanje v ležečem načinu obrnite napravo.
-  ba-audiorecorder.recorder-error: 'Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus.'
+  ba-audiorecorder.recorder-error: Prišlo je do napake. Prosimo, poskusite kasneje. Klikni za ponovni poskus.
   ba-audiorecorder.attach-error: >-
     Ne moremo dostopati do medijskega vmesnika. Namestite Flash ali dostopajte
     do strani preko SSL-ja.
@@ -217,13 +217,63 @@
   ba-videoplayer-playbutton.trim: Obrežite
   ba-videoplayer-playbutton.skip: Preskoči
   ba-videorecorder-imagegallery.upload-covershot: Naloži ovitek
-  ba-videorecorder.pick-covershot-frame: 'Izberite okvir, ki ga želite uporabiti kot posnetek.'
+  ba-videorecorder.pick-covershot-frame: Izberite okvir, ki ga želite uporabiti kot posnetek.
   ba-videorecorder.screen-recorder-is-not-supported: Ta naprava ne podpira snemalnika zaslona
   ba-videorecorder.trim-prompt: Ali želite obrezati video?
-  ba-videorecorder.trim-video: 'Premaknite začetni in končni označevalnik, da obrežete video'
+  ba-videorecorder.trim-video: Premaknite začetni in končni označevalnik, da obrežete video
   ba-videorecorder.wait-for-trim: Čakanje na ukaz za obrezovanje ...
   ba-videorecorder-controlbar.no-video-source: Manjka dodaten video vhodni vir
   ba-videorecorder-controlbar.stream-already-selected: Dodatni tok je že izbran
-  ba-videorecorder.uploading-src-error: 'Videoposnetka trenutno ni mogoče predvajati, nalaganje še poteka'
+  ba-videorecorder.uploading-src-error: Videoposnetka trenutno ni mogoče predvajati, nalaganje še poteka
   ba-audiorecorder-controlbar.pause-recorder: Zaustavi snemalnik
   ba-audiorecorder-controlbar.resume-recorder: Snemalnik življenjepisov
+  ba-circle-progress.fullscreen-video: Vnesite celozaslonski način
+  ba-ads-choices-link.ad-choices: Izbira oglasov
+  ba-ads-controlbar.skip-ad: Preskočite oglas
+  ba-ads-controlbar.play-ad: Igraj
+  ba-ads-controlbar.pause-video: Pavza
+  ba-ads-controlbar.volume-mute: Izklop zvoka
+  ba-ads-controlbar.volume-button: Nastavite glasnost
+  ba-ads-controlbar.elapsed-time: Pretečen čas
+  ba-ads-controlbar.volume-unmute: Vklopi zvok
+  ba-ads-controlbar.can-skip-after: Preskoči po %d
+  ba-ads-controlbar.fullscreen-video: Vnesite celozaslonski način
+  ba-ads-controlbar.exit-fullscreen-video: Izhod iz celozaslonskega načina
+  ba-ads-controlbar.ad-will-end-after: Oglas se bo končal po %s
+  ba-ads-controlbar.pause-video-disabled: Premor ni podprt
+  ba-adsplayer.replay-ad: Ponovno predvajanje videa
+  ba-adsplayer.close-ad: Zapri
+  ba-adsplayer.ad-choices: Izbira oglasov
+  ba-adsplayer.learn-more: Nauči se več
+  ba-ads-learn-more-button.learn-more: Nauči se več
+  ba-videoplayer-sidebar.up-next: Naslednje
+  ba-videoplayer-sidebar.continue-on-ads-end: Vsebina se bo nadaljevala po tem oglasu.
+  ba-videoplayer-tooltip.tooltip: Opis orodja
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Pridržite miško, da zaprete zapiranje orodnih namigov
+  ba-videorecorder.supported-mode: Ločljivost predstavnosti mora biti v načinu »%s«.
+  ba-videorecorder.re-choose-action: Kliknite, da izberete drugo vhodno napravo ali poskusite znova.
+  ba-audiorecorder.uploading-src-error: Zvoka zdaj ni mogoče predvajati, nalaganje še vedno poteka
+  ba-audiorecorder.missing-track: Zahtevan zvočni posnetek manjka
+  ba-audiorecorder.device-already-in-use: Vsaj ena od vaših vnosnih naprav je že v uporabi
+  ba-audiorecorder.browser-permission-denied: Brskalnik je zavrnil dovoljenje, odobrite dostop in ponovno naložite stran
+  ba-local-view.local-camera-connection-error: >-
+    Pri povezovanju z lokalno kamero je prišlo do napake. Kliknite za ponovni
+    poskus.
+  ba-call-controlbar.camera-button: Pokaži/skrij kamero
+  ba-call-controlbar.leave-button: Zapusti klic
+  ba-call-controlbar.mute-button: Izklopi/Vklopi zvok
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Ko ste pripravljeni, kliknite spodnji gumb, da ustvarite klic.
+  ba-call-lobby.description-join: Ko ste pripravljeni, kliknite spodnji gumb, da se pridružite klicu.
+  ba-call-lobby.join-button: Pridruži se
+  ba-call-lobby.create-button: Ustvari
+  ba-call-lobby.mute-button: Mute
+  ba-call-lobby.title-create: Ustvari klic
+  ba-call-lobby.title-join: Pridružite se klicu
+  ba-video-call.call-ended: Klic končan
+  ba-video-call.connecting: Povezovanje ...
+  ba-video-call.connection-error: Med povezovanjem je prišlo do napake. Kliknite, da poskusite znova.
+  ba-videoplayer-next.stay: Ostani
+  ba-videoplayer-next.next: Naslednji
+  ba-videorecorder-trimmer.trim: Trim
+  ba-videorecorder-trimmer.skip: Preskoči

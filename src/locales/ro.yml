@@ -1,4 +1,4 @@
-'language:ro':
+language:ro:
   ba-videoplayer-playbutton.tooltip: Click aici pentru a reda video.
   ba-videoplayer-playbutton.rerecord: Înregistrează din nou
   ba-videoplayer-playbutton.submit-video: confirmă film
@@ -242,6 +242,62 @@
   ba-videorecorder.wait-for-trim: Se așteaptă comanda de tăiere ...
   ba-videorecorder-controlbar.no-video-source: Lipsește o sursă de intrare video suplimentară
   ba-videorecorder-controlbar.stream-already-selected: Fluxul suplimentar a fost deja selectat
-  ba-videorecorder.uploading-src-error: 'Imposibil de redat videoclipul acum, încărcarea este încă în desfășurare'
+  ba-videorecorder.uploading-src-error: Imposibil de redat videoclipul acum, încărcarea este încă în desfășurare
   ba-audiorecorder-controlbar.pause-recorder: Pauză Recorder
   ba-audiorecorder-controlbar.resume-recorder: Reluați înregistratorul
+  ba-circle-progress.fullscreen-video: Intrați pe ecran complet
+  ba-ads-choices-link.ad-choices: Opțiuni de anunțuri
+  ba-ads-controlbar.skip-ad: Omiteți anunțul
+  ba-ads-controlbar.play-ad: Joaca
+  ba-ads-controlbar.pause-video: Pauză
+  ba-ads-controlbar.volume-mute: Sunet dezactivat
+  ba-ads-controlbar.volume-button: Setați volumul
+  ba-ads-controlbar.elapsed-time: Timpul scurs
+  ba-ads-controlbar.volume-unmute: Activați sunetul
+  ba-ads-controlbar.can-skip-after: Sari peste %d
+  ba-ads-controlbar.fullscreen-video: Intrați pe ecran complet
+  ba-ads-controlbar.exit-fullscreen-video: Ieșiți din ecranul complet
+  ba-ads-controlbar.ad-will-end-after: Anunțul se va încheia după %s
+  ba-ads-controlbar.pause-video-disabled: Pauză nu este acceptată
+  ba-adsplayer.replay-ad: Reluați videoclipul
+  ba-adsplayer.close-ad: Închide
+  ba-adsplayer.ad-choices: Opțiuni de anunțuri
+  ba-adsplayer.learn-more: Află mai multe
+  ba-ads-learn-more-button.learn-more: Află mai multe
+  ba-videoplayer-sidebar.up-next: Urmeaza
+  ba-videoplayer-sidebar.continue-on-ads-end: Conținutul se va relua după această reclamă.
+  ba-videoplayer-tooltip.tooltip: Indicator
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Țineți mouse-ul apăsat pentru a întrerupe închiderea balonului
+  ba-videorecorder.supported-mode: Rezoluția media ar trebui să fie în modul „%s”.
+  ba-videorecorder.re-choose-action: >-
+    Dați clic pentru a alege alt dispozitiv de introducere sau reîncercați
+    acțiunea.
+  ba-audiorecorder.uploading-src-error: Nu se poate reda audio acum, încărcarea este încă în curs
+  ba-audiorecorder.missing-track: Lipsește pista audio necesară
+  ba-audiorecorder.device-already-in-use: Cel puțin unul dintre dispozitivele dvs. de intrare este deja în uz
+  ba-audiorecorder.browser-permission-denied: >-
+    Permisiune refuzată de browser, vă rugăm să acordați acces și să reîncărcați
+    pagina
+  ba-local-view.local-camera-connection-error: >-
+    A apărut o eroare la conectarea la camera locală. Faceți clic pentru a
+    încerca din nou.
+  ba-call-controlbar.camera-button: Afișați/Ascundeți camera
+  ba-call-controlbar.leave-button: Lasă apelul
+  ba-call-controlbar.mute-button: Dezactivați sunetul
+  ba-call-lobby.camera-button: aparat foto
+  ba-call-lobby.description-create: Când sunteți gata, faceți clic pe butonul de mai jos pentru a crea un apel.
+  ba-call-lobby.description-join: >-
+    Când sunteți gata, faceți clic pe butonul de mai jos pentru a vă alătura
+    apelului.
+  ba-call-lobby.join-button: A te alatura
+  ba-call-lobby.create-button: Crea
+  ba-call-lobby.mute-button: Mut
+  ba-call-lobby.title-create: Creați apel
+  ba-call-lobby.title-join: Alăturați-vă apelului
+  ba-video-call.call-ended: Apel terminat
+  ba-video-call.connecting: Se conectează...
+  ba-video-call.connection-error: A apărut o eroare la conectare, dați clic pentru a încerca din nou.
+  ba-videoplayer-next.stay: Stau
+  ba-videoplayer-next.next: Următorul
+  ba-videorecorder-trimmer.trim: Tunde
+  ba-videorecorder-trimmer.skip: Ocolire

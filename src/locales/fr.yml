@@ -1,4 +1,4 @@
-'language:fr':
+language:fr:
   ba-videoplayer-playbutton.tooltip: Cliquez ici pour voir la vidéo.
   ba-videoplayer-playbutton.rerecord: Recommencer
   ba-videoplayer-playbutton.submit-video: Confirmer vidéo
@@ -52,7 +52,7 @@
   ba-videorecorder.video_file_too_large: >-
     La taille de votre fichier est trop grande (%s) - Cliquez ici pour réessayer
     avec un fichier plus petit.
-  ba-videorecorder.unsupported_video_type: 'S’il vous plaît, téléchargez %s - cliquez ici pour réessayer.'
+  ba-videorecorder.unsupported_video_type: S’il vous plaît, téléchargez %s - cliquez ici pour réessayer.
   ba-videoplayer-controlbar.exit-fullscreen-video: Quitter le mode plein écran
   ba-videoplayer-share.share: Partager la vidéo
   ba-videorecorder-chooser.record-screen: Enregistrer l'écran
@@ -247,3 +247,65 @@
     cours
   ba-audiorecorder-controlbar.pause-recorder: Suspendre l'enregistreur
   ba-audiorecorder-controlbar.resume-recorder: Enregistreur de CV
+  ba-circle-progress.fullscreen-video: Passer en mode plein écran
+  ba-ads-choices-link.ad-choices: Choix d'annonces
+  ba-ads-controlbar.skip-ad: Passer la pub
+  ba-ads-controlbar.play-ad: Jouer
+  ba-ads-controlbar.pause-video: Pause
+  ba-ads-controlbar.volume-mute: Son muet
+  ba-ads-controlbar.volume-button: Régler le volume
+  ba-ads-controlbar.elapsed-time: Temps écoulé
+  ba-ads-controlbar.volume-unmute: Réactiver le son
+  ba-ads-controlbar.can-skip-after: Passer après %d
+  ba-ads-controlbar.fullscreen-video: Passer en mode plein écran
+  ba-ads-controlbar.exit-fullscreen-video: Quitter le mode plein écran
+  ba-ads-controlbar.ad-will-end-after: L'annonce se terminera après %s
+  ba-ads-controlbar.pause-video-disabled: Pause non prise en charge
+  ba-adsplayer.replay-ad: Rejouer la vidéo
+  ba-adsplayer.close-ad: Fermer
+  ba-adsplayer.ad-choices: Choix d'annonces
+  ba-adsplayer.learn-more: Apprendre encore plus
+  ba-ads-learn-more-button.learn-more: Apprendre encore plus
+  ba-videoplayer-sidebar.up-next: Suivant
+  ba-videoplayer-sidebar.continue-on-ads-end: Le contenu reprendra après cette publicité.
+  ba-videoplayer-tooltip.tooltip: Info-bulle
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Maintenez la souris enfoncée pour suspendre la fermeture de l'info-bulle
+  ba-videorecorder.supported-mode: La résolution multimédia doit être en mode '%s'.
+  ba-videorecorder.re-choose-action: >-
+    Veuillez cliquer pour choisir un autre périphérique d'entrée ou réessayer
+    l'action.
+  ba-audiorecorder.uploading-src-error: >-
+    Impossible de lire l'audio pour le moment, le téléchargement est toujours en
+    cours
+  ba-audiorecorder.missing-track: La piste audio requise est manquante
+  ba-audiorecorder.device-already-in-use: Au moins un de vos périphériques d'entrée est déjà utilisé
+  ba-audiorecorder.browser-permission-denied: >-
+    Autorisation refusée par le navigateur, veuillez accorder l'accès et
+    recharger la page
+  ba-local-view.local-camera-connection-error: >-
+    Une erreur s'est produite lors de la connexion à la caméra locale. Cliquez
+    pour réessayer.
+  ba-call-controlbar.camera-button: Afficher/Masquer la caméra
+  ba-call-controlbar.leave-button: Quitter l'appel
+  ba-call-controlbar.mute-button: Désactiver/Réactiver le son
+  ba-call-lobby.camera-button: Caméra
+  ba-call-lobby.description-create: >-
+    Lorsque vous êtes prêt, cliquez sur le bouton ci-dessous pour créer un
+    appel.
+  ba-call-lobby.description-join: >-
+    Lorsque vous êtes prêt, cliquez sur le bouton ci-dessous pour rejoindre
+    l'appel.
+  ba-call-lobby.join-button: Rejoindre
+  ba-call-lobby.create-button: Créer
+  ba-call-lobby.mute-button: Muet
+  ba-call-lobby.title-create: Créer un appel
+  ba-call-lobby.title-join: Rejoindre l'appel
+  ba-video-call.call-ended: Appel terminé
+  ba-video-call.connecting: De liaison...
+  ba-video-call.connection-error: >-
+    Une erreur s'est produite lors de la connexion, veuillez cliquer pour
+    réessayer.
+  ba-videoplayer-next.stay: Rester
+  ba-videoplayer-next.next: Suivant
+  ba-videorecorder-trimmer.trim: Garniture
+  ba-videorecorder-trimmer.skip: Sauter

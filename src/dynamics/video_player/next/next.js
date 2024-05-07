@@ -62,5 +62,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Next", [
         .registerFunctions({
             /*<%= template_function_cache(dirname + '/next.html') %>*/
         })
-        .attachStringTable(Assets.strings);
+        .attachStringTable(Assets.strings)
+        .addStrings({
+            "stay": "Stay",
+            "next": "Next"
+        });
 });

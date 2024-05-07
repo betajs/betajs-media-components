@@ -1,4 +1,4 @@
-'language:cat':
+language:ca:
   ba-videoplayer-playbutton.tooltip: Feu clic per veure el vídeo.
   ba-videoplayer-playbutton.rerecord: refer
   ba-videoplayer-playbutton.submit-video: confirmar vídeo
@@ -112,7 +112,7 @@
   ba-imagecapture-controlbar.rerecord-tooltip: Feu clic aquí per tornar a fer-ho.
   ba-imagecapture-controlbar.cancel: Cancel · lar
   ba-imagecapture-controlbar.cancel-tooltip: Feu clic aquí per cancel·lar.
-  ba-audioplayer-controlbar.audio-progress: 'Progrés, progressar'
+  ba-audioplayer-controlbar.audio-progress: Progrés, progressar
   ba-audioplayer-controlbar.rerecord-audio: Redo?
   ba-audioplayer-controlbar.submit-audio: Confirma
   ba-audioplayer-controlbar.play-audio: Jugar
@@ -249,3 +249,57 @@
   ba-videorecorder.uploading-src-error: Ara no es pot reproduir el vídeo; la càrrega encara està en curs
   ba-audiorecorder-controlbar.pause-recorder: Grava en pausa
   ba-audiorecorder-controlbar.resume-recorder: Reprèn la gravadora
+  ba-circle-progress.fullscreen-video: Entra a pantalla completa
+  ba-ads-choices-link.ad-choices: Opcions d'anuncis
+  ba-ads-controlbar.skip-ad: Saltar anunci
+  ba-ads-controlbar.play-ad: Jugar
+  ba-ads-controlbar.pause-video: Pausa
+  ba-ads-controlbar.volume-mute: Silencia el so
+  ba-ads-controlbar.volume-button: Estableix el volum
+  ba-ads-controlbar.elapsed-time: Temps transcorregut
+  ba-ads-controlbar.volume-unmute: Activa el so
+  ba-ads-controlbar.can-skip-after: Omet després de %d
+  ba-ads-controlbar.fullscreen-video: Entra a pantalla completa
+  ba-ads-controlbar.exit-fullscreen-video: Sortir de pantalla completa
+  ba-ads-controlbar.ad-will-end-after: L'anunci finalitzarà després de %s
+  ba-ads-controlbar.pause-video-disabled: No s'admet la pausa
+  ba-adsplayer.replay-ad: Reprodueix el vídeo
+  ba-adsplayer.close-ad: Tanca
+  ba-adsplayer.ad-choices: Opcions d'anuncis
+  ba-adsplayer.learn-more: Aprèn més
+  ba-ads-learn-more-button.learn-more: Aprèn més
+  ba-videoplayer-sidebar.up-next: Fins a la propera
+  ba-videoplayer-sidebar.continue-on-ads-end: El contingut es reprendrà després d'aquest anunci.
+  ba-videoplayer-tooltip.tooltip: Informació sobre eines
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: >-
+    Mantingueu premut el ratolí per aturar el tancament de la informació sobre
+    eines
+  ba-videorecorder.supported-mode: La resolució del suport ha d'estar en mode "%s".
+  ba-videorecorder.re-choose-action: Feu clic per triar un altre dispositiu d'entrada o torneu a provar l'acció.
+  ba-audiorecorder.uploading-src-error: No es pot reproduir l'àudio ara, la càrrega encara està en curs
+  ba-audiorecorder.missing-track: Falta la pista d'àudio necessària
+  ba-audiorecorder.device-already-in-use: Almenys un dels vostres dispositius d'entrada ja està en ús
+  ba-audiorecorder.browser-permission-denied: >-
+    Permís denegat pel navegador, si us plau concediu accés i torneu a carregar
+    la pàgina
+  ba-local-view.local-camera-connection-error: >-
+    S'ha produït un error en connectar-se a la càmera local. Feu clic per
+    tornar-ho a provar.
+  ba-call-controlbar.camera-button: Mostra/amaga la càmera
+  ba-call-controlbar.leave-button: Deixeu la trucada
+  ba-call-controlbar.mute-button: Silencia/Activa el silenci
+  ba-call-lobby.camera-button: Càmera
+  ba-call-lobby.description-create: Quan estigueu preparat, feu clic al botó següent per crear una trucada.
+  ba-call-lobby.description-join: Quan estigueu preparat, feu clic al botó següent per unir-vos a la trucada.
+  ba-call-lobby.join-button: Uneix-te
+  ba-call-lobby.create-button: Crear
+  ba-call-lobby.mute-button: Silenciar
+  ba-call-lobby.title-create: Crea una trucada
+  ba-call-lobby.title-join: Uneix-te a la trucada
+  ba-video-call.call-ended: La trucada ha finalitzat
+  ba-video-call.connecting: Connectant...
+  ba-video-call.connection-error: S'ha produït un error en connectar-vos, feu clic per tornar-ho a provar.
+  ba-videoplayer-next.stay: Queda't
+  ba-videoplayer-next.next: Pròxim
+  ba-videorecorder-trimmer.trim: Retallar
+  ba-videorecorder-trimmer.skip: Omet

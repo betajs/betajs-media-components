@@ -1,4 +1,4 @@
-'language:sv':
+language:sv:
   ba-videoplayer-playbutton.tooltip: Klicka för att spela upp video.
   ba-videoplayer-playbutton.rerecord: Göra om
   ba-videoplayer-playbutton.submit-video: bekräfta video
@@ -221,7 +221,7 @@
   ba-videorecorder-controlbar.resume-recorder: Återuppta inspelare
   ba-videorecorder.missing-track: Nödvändigt ljud- eller videospår saknas
   ba-videorecorder.device-already-in-use: Minst en av dina inmatningsenheter är redan i bruk
-  ba-videorecorder.browser-permission-denied: 'Tillåtelse nekad av webbläsaren, vänligen ge åtkomst och ladda om sidan'
+  ba-videorecorder.browser-permission-denied: Tillåtelse nekad av webbläsaren, vänligen ge åtkomst och ladda om sidan
   ba-audioplayer.all-settings: Alla inställningar
   ba-videoplayer-controlbar.remaining-time: Återstående tid
   ba-videoplayer-controlbar.select-frame: Välj
@@ -236,6 +236,56 @@
   ba-videorecorder.wait-for-trim: Väntar på trimkommando ...
   ba-videorecorder-controlbar.no-video-source: Saknar ytterligare videoingångskälla
   ba-videorecorder-controlbar.stream-already-selected: Ytterligare ström har redan valts
-  ba-videorecorder.uploading-src-error: 'Det går inte att spela upp video nu, uppladdning pågår fortfarande'
+  ba-videorecorder.uploading-src-error: Det går inte att spela upp video nu, uppladdning pågår fortfarande
   ba-audiorecorder-controlbar.pause-recorder: Pausa inspelare
   ba-audiorecorder-controlbar.resume-recorder: Återuppta inspelaren
+  ba-circle-progress.fullscreen-video: Ange helskärm
+  ba-ads-choices-link.ad-choices: Annonsval
+  ba-ads-controlbar.skip-ad: Hoppa över annonsen
+  ba-ads-controlbar.play-ad: Spela
+  ba-ads-controlbar.pause-video: Paus
+  ba-ads-controlbar.volume-mute: Stäng av ljudet
+  ba-ads-controlbar.volume-button: Ställ in volymen
+  ba-ads-controlbar.elapsed-time: Förfluten tid
+  ba-ads-controlbar.volume-unmute: Slå på ljudet
+  ba-ads-controlbar.can-skip-after: Hoppa över efter %d
+  ba-ads-controlbar.fullscreen-video: Ange helskärm
+  ba-ads-controlbar.exit-fullscreen-video: Avsluta helskärm
+  ba-ads-controlbar.ad-will-end-after: Annonsen slutar efter %s
+  ba-ads-controlbar.pause-video-disabled: Paus stöds inte
+  ba-adsplayer.replay-ad: Spela upp video igen
+  ba-adsplayer.close-ad: Stänga
+  ba-adsplayer.ad-choices: Annonsval
+  ba-adsplayer.learn-more: Läs mer
+  ba-ads-learn-more-button.learn-more: Läs mer
+  ba-videoplayer-sidebar.up-next: Strax
+  ba-videoplayer-sidebar.continue-on-ads-end: Innehållet kommer att återupptas efter denna annons.
+  ba-videoplayer-tooltip.tooltip: Verktygstips
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Håll musen på för att pausa stängning av verktygstips
+  ba-videorecorder.supported-mode: Medieupplösningen ska vara i '%s'-läge.
+  ba-videorecorder.re-choose-action: Klicka för att välja en annan inmatningsenhet eller försök igen.
+  ba-audiorecorder.uploading-src-error: Det går inte att spela upp ljud nu, uppladdningen pågår fortfarande
+  ba-audiorecorder.missing-track: Obligatoriskt ljudspår saknas
+  ba-audiorecorder.device-already-in-use: Minst en av dina inmatningsenheter används redan
+  ba-audiorecorder.browser-permission-denied: Tillstånd nekad av webbläsaren, vänligen ge åtkomst och ladda om sidan
+  ba-local-view.local-camera-connection-error: >-
+    Det uppstod ett fel vid anslutning till lokal kamera. Klicka för att försöka
+    igen.
+  ba-call-controlbar.camera-button: Visa/dölj kamera
+  ba-call-controlbar.leave-button: Lämna samtal
+  ba-call-controlbar.mute-button: Ljud av/slå på
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: När du är klar klickar du på knappen nedan för att ringa ett samtal.
+  ba-call-lobby.description-join: När du är redo klickar du på knappen nedan för att gå med i samtalet.
+  ba-call-lobby.join-button: Ansluta sig
+  ba-call-lobby.create-button: Skapa
+  ba-call-lobby.mute-button: Stum
+  ba-call-lobby.title-create: Skapa samtal
+  ba-call-lobby.title-join: Gå med i Call
+  ba-video-call.call-ended: Samtalet avslutades
+  ba-video-call.connecting: Ansluter...
+  ba-video-call.connection-error: Det uppstod ett fel vid anslutningen, klicka för att försöka igen.
+  ba-videoplayer-next.stay: Stanna kvar
+  ba-videoplayer-next.next: Nästa
+  ba-videorecorder-trimmer.trim: Trim
+  ba-videorecorder-trimmer.skip: Hoppa

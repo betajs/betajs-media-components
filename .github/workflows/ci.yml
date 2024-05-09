@@ -58,7 +58,7 @@ jobs:
 
   test:
     timeout-minutes: 60
-    #    needs: [ build ]
+    needs: [ build ]
     # as chromium can't play video on linux, we need to run tests on macOS
     # on macos-latest with Mac silicon chip: act --job 'test' -P macos-latest=-self-hosted
     # on ubuntu-latest with Mac silicon chip: act --job 'test' --container-architecture linux/amd64

@@ -655,7 +655,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 console.warn(`Please set correct companion ad attribute. It can be object with locations, string with "|" character seperated or boolean`);
                             }
                         }
-                    },
+                    }
                 },
                 channels: {
                     "next:setStay": function() {

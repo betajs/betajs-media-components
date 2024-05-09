@@ -21,3 +21,4 @@ google-translate-creds.json
 *.log
 /demos/kargo/
 tests/playwright/.cache/
+.env

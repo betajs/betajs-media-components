@@ -1,0 +1,49 @@
+name: Run Local Server
+description: 'Run local server for testing'
+
+outputs:
+  pid:
+    description: 'Process ID of the local server'
+    value: ${{ steps.get-pid.outputs.pid }}
+  port:
+    description: 'Port where local server is running'
+    value: ${{ inputs.port }}
+
+inputs:
+  port:
+    description: 'Port where local server will be run, should be the same as .env.actions'
+    default: 5000
+    required: false
+  os:
+    description: 'Operating system, allowed: ubuntu, windows or macos'
+    default: linux
+    required: false
+
+
+runs:
+  using: composite
+  steps:
+    - name: Install local web server via http-server package and run in the background
+      shell: bash
+      run: |
+        npm install --global http-server
+        http-server ./ -p ${{ inputs.port }} > http-server.log 2>&1 &
+        echo "Local server is running on http://localhost:${{ inputs.port }}"
+
+    - name: Get Running server PID on macos
+      id: get-pid
+      shell: bash
+      if: ${{ inputs.os == 'macos' }}
+      run: |
+        echo "pid=$(ps aux | grep http-server | grep -v grep | awk '{print $2}')" >> $GITHUB_OUTPUT
+
+    - name: Get Running server PID
+      id: get-pid
+      shell: bash
+      if: ${{ inputs.os == 'linux' }}
+      run: echo "pid=($ps axl | grep http-server | awk '{print $8}')" >> $GITHUB_OUTPUT
+
+
+
+# PID=$(ps axl | grep node) kill -9 [PID]
+# ps axl

@@ -1,0 +1,16 @@
+name: "Get Today Value"
+description: "Return today value in format YY-mm-dd"
+
+outputs:
+  today:
+    value: ${{ steps.generated.outputs.today }}
+    description: "Today value as a string"
+
+runs:
+  using: composite
+  steps:
+    - name: Today Generator
+      id: generated
+      shell: bash
+      run: echo "today=$(echo $(date +'%Y-%m-%d'))" >> $GITHUB_OUTPUT
+

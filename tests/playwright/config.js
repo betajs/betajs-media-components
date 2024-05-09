@@ -1,15 +1,19 @@
 const { defineConfig, devices } = require('@playwright/test');
+require('dotenv').config();
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
+// const dotenv = require('dotenv');
+// dotenv.config()
+const URL = process.env.PLAYWRIGHT_URL || 'http://localhost';
+const PORT = process.env.PLAYWRIGHT_PORT || 5050;
+const os = process.env.PLAYWRIGHT_OS || 'linux';
+
+const baseURL = `${URL}:${PORT}`
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
+    os,
     testDir: './',
     outputDir: './output',
     updateSnapshots: 'all', // "all"|"none"|"missing"
@@ -39,7 +43,7 @@ module.exports = defineConfig({
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
-        baseURL: 'http://localhost:5050',
+        baseURL,
         ignoreHTTPSErrors: true,
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -83,11 +87,10 @@ module.exports = defineConfig({
         //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
         // },
     ],
-
     /* Run your local dev server before starting the tests */
-    // webServer: {
-    //   command: 'npm run start',
-    //   url: 'http://127.0.0.1:3000',
-    //   reuseExistingServer: !process.env.CI,
-    // },
+    webServer: {
+        command: `http-server ../../ -p ${PORT}`,
+        reuseExistingServer: !process.env.CI,
+        timeout: 3000
+    }
 });

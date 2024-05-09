@@ -1,6 +1,11 @@
 name: 'Setup Node'
 description: 'Install Node and yarn dependencies'
 
+outputs:
+  cache-dir:
+    description: 'The npm cache directory'
+    value: ${{ steps.npm-cache-dir.outputs.dir }}
+
 inputs:
   version:
     description: 'The node version'
@@ -13,6 +18,10 @@ inputs:
   key:
     description: 'Key for the cache'
     default: '${{ github.event.pull_request.head.sha }}'
+    required: false
+  install-grunt:
+    description: 'Install grunt globally'
+    default: false
     required: false
 
 runs:
@@ -50,10 +59,30 @@ runs:
       if: inputs.pkg-manager == 'yarn'
       run: yarn install --frozen-lockfile
 
-    - name: Create node_modules cache
+    - name: Install grunt globally
+      if: inputs.install-grunt == true && inputs.pkg-manager == 'npm'
+      shell: bash
+      run: npm install -g grunt
+
+    - name: Get npm cache directory
+      id: cache-dir
+      if: matrix.pkg-manager == 'npm'
+      shell: bash
+      run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+    - name: Cache Node Modules
+      id: node-modules-cache
       uses: actions/cache@v4
+      save-always: true
+      if: matrix.pkg-manager == 'npm'
       with:
-        path: |
-          ~/.npm
-          node_modules
-        key: ${{ inputs.key }}
+        path: ~/.npm
+        key: node-modules-${{ hashFiles('package-lock.json') }}
+
+#    - name: Create node_modules cache
+#      uses: actions/cache@v4
+#      with:
+#        path: |
+#          ~/.npm
+#          node_modules
+#        key: ${{ inputs.key }}

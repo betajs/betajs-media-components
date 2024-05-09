@@ -1,0 +1,275 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore: [ 'demos/**']
+  pull_request:
+    branches: [ '*' ]
+    types: [ opened, review_requested, edited, reopened ]
+    paths: [ 'src/**', 'tests/**' ]
+  workflow_dispatch:
+    inputs:
+      appName:
+        description: 'Name of the app being deployed'
+        required: false
+        default: ${{ github.event.repository.name }}
+        type: string
+      commitName:
+        description: 'Commit message'
+        required: false
+        default: ${{ github.event.head_commit.message }}
+        type: string
+      commitKey:
+        description: 'Unique key for cache'
+        required: false
+        default: ${{ github.event.pull_request.head.sha || github.head_ref || github.ref_name }} #"${{ github.head_ref }}.${{ github.sha }}"
+        type: string
+      runsOn:
+        description: 'Run on server'
+        required: true
+        type: string
+        default: ubuntu-latest
+        # options: [ ubuntu-latest, macos-latest, windows-latest, self-hosted, linux, x64, gpu ]
+
+jobs:
+  build:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ '18.x' ]
+        pkg-manager: [ 'npm' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        # with: # path: ${{ github.repository }} # fetch-depth: 0
+
+      - name: Install dependencies and global packages via npm package manager
+        id: node
+        uses: ./.github/actions/install-dependencies
+        with:
+          version: ${{ matrix.node-version }}
+          pkg-manager: ${{ matrix.pkg-manager }}
+          install-grunt: true
+
+      - name: build component
+        uses: ./.github/actions/build-component
+
+  test:
+    timeout-minutes: 60
+    #    needs: [ build ]
+    # as chromium can't play video on linux, we need to run tests on macOS
+    # on macos-latest with Mac silicon chip: act --job 'test' -P macos-latest=-self-hosted
+    # on ubuntu-latest with Mac silicon chip: act --job 'test' --container-architecture linux/amd64
+    runs-on: ubuntu-latest # ubuntu-latest, macos-latest, windows-latest, self-hosted
+    strategy:
+      matrix:
+        project: [ chromium ]
+        chrome-version: [ latest ] # latest, stable, beta, dev, canary or number like: 119 or 120.0.6099 (https://googlechromelabs.github.io/chrome-for-testing/)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+#
+      - name: Set today value
+        id: date
+        uses: ./.github/actions/today
+
+      - name: Get OS name
+        id: os
+        uses: ./.github/actions/get-os-name
+
+      - name: Install dependencies and global packages via npm package manager
+        id: node
+        uses: ./.github/actions/install-dependencies
+        with:
+          version: ${{ matrix.node-version }}
+          pkg-manager: ${{ matrix.pkg-manager }}
+
+      - name: Create cache
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          # save-always: true
+          key: "${{ runner.os }}-${{ steps.date.outputs.today }}-${{ github.actor }}-${{ hashFiles('**/lockfiles') }}"
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.date.outputs.today }}-${{ github.actor }}-
+          path: |
+            ${{ steps.node.outputs.cache-dir }}
+            /root/.cache
+            /root/.npm
+            /jammy
+            /jammy-updates
+
+      - name: Run Local Server
+        id: local-server
+        uses: ./.github/actions/local-server
+
+      - name: Run Playwright
+        uses: ./.github/actions/playwright-test
+        with:
+          project: ${{ matrix.project }}
+          os: ${{ steps.os.outputs.name }}
+          port: ${{ steps.local-server.outputs.port }}
+          chrome-version: ${{ matrix.chrome-version }}
+
+  #      - name: Run Playwright
+  #        run: npx playwright test --project=${{ matrix.project }} --config ./tests/playwright/config.js
+  #        env:
+  #          CI: 'true'
+  #          PLAYWRIGHT_URL: 'http://localhost'
+  #          PLAYWRIGHT_PORT: 5000
+  #          PLAYWRIGHT_OS: 'linux'
+  #          # os: ${{ matrix.os }} # 'macOS'
+
+  #  publish:
+  #    needs: [ build ]
+  #  deploy:
+  #    needs: [build, test]
+  #    runs-on: ubuntu-latest
+  #    name: 'Deploy to npm'
+  #    steps:
+  #      - uses: actions/checkout@v3
+
+  localserver:
+    runs-on: ubuntu-latest
+    #    concurrency:
+    #      group: run-http-server
+    #      cancel-in-progress: true
+    steps:
+      # npm install --global http-server # npx http-server ./ [options]
+      # http-server ./ -p 5050
+      # http-server ./ -p 5050 > http.log 2>&1 &
+      - name: Install local web server via http-server package
+        run: |
+          npm install --global http-server
+
+  # act --job 'playground' --container-architecture linux/amd64
+  playground:
+    # needs: [ localserver ]
+    runs-on: ubuntu-latest # ubuntu-latest, macos-latest or windows-latest
+    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Get OS name
+#        id: os
+#        uses: ./.github/actions/get-os-name
+
+      - name: Where it is running
+        run: ${{ inputs.runsOn }}
+
+#      - name: Run Local Server
+#        id: local-server
+#        uses: ./.github/actions/local-server
+#        with:
+#          os: ${{ steps.os.outputs.name }}
+#
+#      - name: Show PID
+#        run: "echo PID is : ${{ steps.local-server.outputs.pid }}"
+
+#      - name: Get OS name
+#        id: os
+#        uses: ./.github/actions/get-os-name
+#
+#      - run: echo "OS name is ${{ steps.os.outputs.name }}"
+
+#        - name: Setup Local Browser
+#          id: setup-chrome
+#          uses: browser-actions/setup-chrome@v1
+#          with:
+#            os: macos-latest
+#            chrome-version: latest
+#            install-dependencies: true
+#
+#        - name: Check Chrome version
+#          run: |
+#            echo "${{ steps.setup-chrome.outputs.chrome-path }}"
+#            open "${{ steps.setup-chrome.outputs.chrome-path }}"
+#
+#        - name: Show Running
+#          run: |
+#            ps axl
+#            OUTPUT_PID=$(netstat -nlp)
+#            echo "${OUTPUT}"
+
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Install Node JS version ${{ matrix.node-version }}
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#          cache: ${{ matrix.pkg-manager }} # Package manager should be pre-installed
+#          cache-dependency-path: ./package-lock.json
+#
+#      - name: Install via npm package manager
+#        if: matrix.pkg-manager == 'npm'
+#        working-directory: .
+#        shell: bash
+#        run: npm ci && npm install -g grunt
+
+#      - name: Run local server
+#        # script: 'node node_modules/nano-media-server/server.js --staticserve . --port=\'${{ inputs.port }}\''
+#        run: |
+#          npm install --global http-server
+
+#      - name: Run Playwright in the server
+#        uses: ./.github/actions/playwright-test
+
+#      - name: Run Playwright Docker Image
+#        uses: ./.github/actions/playwright-image
+
+#      - name: Ping for the server
+#        run: |
+#          sudo apt-get update
+#          apt-get install iputils-ping
+#          ping localhost -p 5050
+#        run: |
+#          sudo apt-get update
+#          apt-get install nmap
+#          nmap -p 5050 localhost
+#      - name: Kill process
+#        #
+#        run: |
+#
+#          echo "And latest"
+#          ps axl | grep node
+#          OUTPUT_PID=$(netstat -nlp)
+#          echo "${OUTPUT}"
+#          PID=$(ps axl | grep node) kill -9 [PID]
+#
+#
+#      - name: Install local web server via http-server package
+#        # npm install --global http-server
+#        # npx http-server ./ [options]
+#        run: |
+#          npm install --global http-server
+#          http-server ./ -p 5050
+#      - name: Install & run Artillery
+#        run: |
+#          npm install -g artillery@latest
+#          artillery quick -n 10 -c 10 http://localhost:5050
+#          ping localhost -S -V -p 5050
+
+#      - name: Create cache
+#        uses: actions/cache@v4
+#        with:
+#          save-always: true
+#          key: cache-key-playground
+
+#      - name: Run local server
+#        run: | #node node_modules/nano-media-server/server.js --staticserve . --port='5050'
+#          mkdir ./server && cd server
+#          git clone https://github.com/jsonize/nano-media-server.git .
+#          npm i && npm install -g grunt
+#          grunt
+#          node server.js --staticserve . --port='5050'
+#          cd ../
+#      - name: download node server
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: nano-media-server
+#          path: node_modules/destination/dir
+#          retention-days: 1

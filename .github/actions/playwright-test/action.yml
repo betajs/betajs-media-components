@@ -8,41 +8,80 @@ inputs:
     required: true
   os:
     description: 'Operating system, allowed: ubuntu, windows or macos'
-    default: 'ubuntu'
+    default: 'macos'
     required: false
   chrome-version:
-    description: 'Chrome version on which all will be tested'
-    default: 'canary'
+    description: 'Chrome version on which all will be tested. Note: canary not supported by linux'
+    default: latest
+    required: false
+  config-file:
+    description: 'Configuration file for playwright'
+    default: './tests/playwright/config.js'
     required: false
   port:
     description: 'Port where local server will be run, should be the same as .env.actions'
-    default: '5050'
+    default: 5000
     required: false
 
 runs:
-  using: "composite"
+  using: composite
   steps:
-    - name: Install browser dependencies
-      script: npx playwright install --with-deps
-      displayName: 'Install Playwright browsers'
+#    - name: Get installed Playwright version
+#      id: playwright-version
+#      run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').dependencies['@playwright/test'].version)")" >> $GITHUB_ENV
+#    - name: Cache playwright binaries
+#      uses: actions/cache@v4
+#      id: playwright-cache
+#      save-always: true
+#      with:
+#        path: |
+#          ~/.cache/ms-playwright
+#          /opt/hostedtoolcache/chromium/latest/x64/chrome
+#        key: "${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}"
+#    - name: Eco some information
+#      run: |
+#        echo "RUNNINGON On:  ${{ runner.os }}"
+#        echo "PLAYWRIGHT_VERSION: ${{ env.PLAYWRIGHT_VERSION }}"
+#        echo "PLAYWRIGHT_CACHE_HIT: ${{ steps.playwright-cache.outputs.cache-hit }}"
+#    - run: npx playwright install --with-deps chromium
+#      if: steps.playwright-cache.outputs.cache-hit != 'true'
+#    - run: npx playwright install-deps
+#      if: steps.playwright-cache.outputs.cache-hit == 'true'
 
-    - name: setup browser
+    - name: Install browser dependencies and skip browser download
+      # npx playwright install-deps chromium or # --with-deps chromium
+      # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install # << Seems PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD not working as expected
+      # install-deps chromium
+      run: |
+        npm install @playwright/test
+        npx playwright install --with-deps chromium
+
+    - name: Setup Local Browser
+      displayName: 'Running tests on chrome version ${{ inputs.chrome-version }}'
       id: setup-chrome
       uses: browser-actions/setup-chrome@v1
       with:
         os: ${{ inputs.os }}
         chrome-version: ${{ inputs.chrome-version }}
-      displayName: 'Running tests on chrome version ${{ inputs.chrome-version }}'
+        install-dependencies: true
 
-    - name: Run local server
-      script: 'node node_modules/nano-media-server/server.js --staticserve . --port=\'${{ inputs.port }}\''
+    - name: Check Chrome version
+      # chrome --version on ubuntu only
+      run: |
+        echo "Chrome Launch Path: ${{ steps.setup-chrome.outputs.chrome-path }}"
 
     - name: Run Playwright
-      # run: test
-      script: npx playwright test --project=$(project) --config ./tests/playwright/config.js
+      if: ${{ inputs.os == 'linux' }}
+      run: xvfb-run npx playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
+
+    - name: Run Playwright
+      if: ${{ inputs.os != 'linux' }}
+      run: npx playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
       env:
         CI: 'false'
-        os: 'linux'
-      displayName: 'Run Playwright e2e tests'
+        PLAYWRIGHT_OS: ${{ inputs.os }}
+        PLAYWRIGHT_PORT: ${{ inputs.port }}
+        PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
 
-
+#      npm install @playwright/test
+#      npm install --global http-server

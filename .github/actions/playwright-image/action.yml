@@ -1,0 +1,35 @@
+name: 'Run Playwright in docker image'
+description: 'Will run playwright in docker image'
+
+inputs:
+  parallel:
+    description: How many parallel jobs will be run
+    default: 1
+    required: false
+  project:
+    description: Project name where need to test
+    default: chromium
+    required: false
+
+runs:
+  using: "composite"
+  container:
+    image: mcr.microsoft.com/playwright:v1.44.0-jammy
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 18
+    - name: Run Playwright tests
+#      using: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
+      # image: mcr.microsoft.com/playwright:v1.43.0-jammy
+      # parallel: ${{ inputs.parallel }}
+      script:
+        - npm ci
+        - npx playwright test --project=chromium
+      env:
+        CI: false
+        HOME: /root
+
+#      shell: bash
+#      script: echo "Run Playwright tests parallel- ${{ inputs.parallel }}"

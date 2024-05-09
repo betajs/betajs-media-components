@@ -1,0 +1,9 @@
+﻿{
+  "agentId": 23,
+  "agentName": "sambua",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus26.actions.githubusercontent.com/KwcQzBWaAtEkLlLASrgvoZBio37FMC96peJtPWLVl3yRKHIbu1/",
+  "gitHubUrl": "https://github.com/betajs/betajs-media-components",
+  "workFolder": "_work"
+}

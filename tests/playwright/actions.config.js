@@ -1,14 +1,13 @@
-const { defineConfig, devices } = require('@playwright/test');
+const { defineConfig } = require('@playwright/test');
 const config = require('./config');
 
 require('dotenv').config({
-    file: `${__dirname}/.env-service`,
+    file: `${__dirname}/.env.actions`,
 });
 
-const URL = process.env.PLAYWRIGHT_URL || 'http://localhost';
-const PORT = process.env.PLAYWRIGHT_PORT || 5050;
-const baseURL = `${URL}:${PORT}`
 const os = process.env.PLAYWRIGHT_OS || 'linux';
+
+// const baseURL = `${URL}:${PORT}`
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -16,7 +15,7 @@ const os = process.env.PLAYWRIGHT_OS || 'linux';
 module.exports = defineConfig({
     ...config,
     ...{
-        workers: 5,
+        workers: 2,
         ignoreSnapshots: true,
         use : {
             connectOptions: {
@@ -24,12 +23,7 @@ module.exports = defineConfig({
                 // in case your localhost will be run on remote server like, MS Azure
                 // exposeNetwork: '<loopback>'
             }
-        }
-    },
-    /* Run your local dev server before starting the tests */
-    webServer: {
-      command: `node node_modules/nano-media-server/server.js --staticserve . --port=${PORT}`,
-      url: baseURL + '/static',
-      reuseExistingServer: !process.env.CI,
+        },
+        webServer: {}
     },
 });

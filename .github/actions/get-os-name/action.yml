@@ -1,0 +1,27 @@
+name: Get OS Name
+description: 'Get OS name based on running environment'
+
+outputs:
+  name:
+    value: ${{ steps.os.outputs.name }}
+    description: "Today value as a string"
+
+runs:
+  using: composite
+  steps:
+    - name: Getting OS name
+      id: os
+      run: |
+        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+          echo "name=$(echo "linux")" >> $GITHUB_OUTPUT
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+          echo "name=$(echo "macos")" >> $GITHUB_OUTPUT
+        elif [[ "$OSTYPE" == "cygwin" ]]; then
+          echo "name=$(echo "windows")" >> $GITHUB_OUTPUT
+        elif [[ "$OSTYPE" == "msys" ]]; then
+          echo "name=$(echo "windows")" >> $GITHUB_OUTPUT
+        elif [[ "$OSTYPE" == "win32" ]]; then
+          echo "name=$(echo "windows")" >> $GITHUB_OUTPUT
+        else
+          echo "name=$(echo "unknown")" >> $GITHUB_OUTPUT
+        fi

@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import PlayerPage from "../../classes/PlayerPageClass";
 import {
-    CHROME_CANARY_LOCATION, defaultPlayerAttributes,
-    AD_TAG_URL
+    defaultPlayerAttributes,
+    AD_TAG_URL, CHROME_LOCATION
 } from "../../consts.js";
 import runTestMethod from '../../utils/run-test';
 
@@ -24,7 +24,7 @@ test.describe('Unmute on click behave', () => {
         // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
         headless: false, // If headless is true, player will start with user interaction
         devtools: true,
-        executablePath: CHROME_CANARY_LOCATION,
+        executablePath: '/opt/hostedtoolcache/chromium/latest/x64/chrome',
     }
 
     test.describe.configure({
@@ -36,9 +36,11 @@ test.describe('Unmute on click behave', () => {
         video: 'on-first-retry',
     });
 
-    test(`ADS: Unmute only on unmute button clicked`, async ({
-                                                                 page, browserName, browser, context
-                                                             }) => {
+    test(`ADS: Unmute only on unmute button clicked`, async (
+        {
+            page, browserName, browser, context
+        }
+    ) => {
         const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];
             const player = new PlayerPage(page, {
@@ -125,9 +127,11 @@ test.describe('Unmute on click behave', () => {
         );
     });
 
-    test(`Content Player Unmute only on engagement`, async ({
-                                                                page, browserName, browser, context
-                                                            }) => {
+    test(`Content Player Unmute only on engagement`, async (
+        {
+            page, browserName, browser, context
+        }
+    ) => {
 
         const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];

@@ -1723,7 +1723,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }.bind(this));
                         }
                         this.trigger("attached", instance);
-                        // JTU: Is this the event i should trigger ready_to_play?
+
                         this.player.once("loaded", function() {
                             this.channel("next").trigger("resetNextWidget");
                             var volume = Math.min(1.0, this.get("volume"));

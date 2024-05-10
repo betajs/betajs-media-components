@@ -957,6 +957,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("adsunmuted", true);
                         }
                     }
+
+                    if (this.get("unmuteonclick")) {
+                        this.on("change:adsplaying", function(adsplaying) {
+                            if (adsplaying) this.set("unmuteonclick", false);
+                            if (this.get("muted") || this.get("volume") === 0) this.set("unmuteonclick", true);
+                        }, this);
+                    }
+
                     this.__attachPlayerInteractionEvents();
                     this.set('clearDebounce', 0);
                     this.__mergeDeepAttributes();
@@ -1715,6 +1723,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }.bind(this));
                         }
                         this.trigger("attached", instance);
+
                         this.player.once("loaded", function() {
                             this.channel("next").trigger("resetNextWidget");
                             var volume = Math.min(1.0, this.get("volume"));

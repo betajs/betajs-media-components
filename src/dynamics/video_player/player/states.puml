@@ -1,6 +1,6 @@
 @startuml
 [*] --> LoadPlayer
-LoadPlayer --> Outstream : get("outstream)
+LoadPlayer --> Outstream : get("outstream")
 LoadPlayer --> LoadPlayerDirectly : on("error:poster")
 LoadPlayer -->  PosterReady : on("image-attached")
 

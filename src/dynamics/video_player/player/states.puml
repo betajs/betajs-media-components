@@ -53,39 +53,3 @@ NextVideo --> PosterReady
 
 ErrorVideo --> LoadVideo
 @enduml
-
-// no ads - successfull flow
-State transition 454 LoadPlayer
-State transition 314 PosterReady
-State transition 3870 LoadAds
-State transition 1 LoadVideo
-State transition 437 PlayVideo
-State transition 4639 NextVideo
-State transition 3 LoadPlayerDirectly
-State transition 51 PosterReady
-State transition 1 LoadAds
-State transition 0 LoadVideo
-State transition 339 PlayVideo
-State transition 5455 NextVideo
-State transition 4 LoadPlayerDirectly
-State transition 53 PosterReady
-State transition 1 LoadAds
-State transition 0 LoadVideo
-State transition 538 PlayVideo
-
-// preroll ads before each video - failure
-State transition 146 LoadPlayer
-State transition 266 PosterReady
-State transition 372 LoadAds
-State transition 684 LoadVideo
-State transition 23 PrerollAd
-State transition 10511 PlayVideo
-State transition 13101 NextVideo
-State transition 20 LoadAds
-State transition 538 LoadVideo
-State transition 7 PrerollAd
-State transition 10473 PlayVideo
-State transition 13062 NextVideo
-State transition 36 LoadAds
-State transition 623 LoadVideo
-State transition 68 PrerollAd

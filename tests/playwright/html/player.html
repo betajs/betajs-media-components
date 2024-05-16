@@ -62,15 +62,11 @@
 
 <div id="after-player-content" class="row" style="display: none; margin-top: 20px">
     <div class="col-xs-12" style="min-height: calc(100vh + 50vh);">
-        <h2>AFTER PLAYER PARAGRAPH BEFORE PLAYER WITH HEIGHT 1300px</h2>
+        <h2 data-testid="h2-header">AFTER PLAYER PARAGRAPH BEFORE PLAYER WITH HEIGHT 1300px</h2>
     </div>
 </div>
 
 <script type="module">
-    // attrs via query string: 'ad' ads number from 0 to 5, 'si' skipinitial,
-    // 'blk' show-blocks for scroll from 0 to 2 (1=bottom, 2=top as well), 'ap' autoplay,
-    // 'os' outstream, 'stk' sticky, 'flt' floating, 'ac' adchoiceslink 1 or URL,
-    // 'adp' ads positions string like 'pre,post'
     import { attrs, showBlocks, generateParagraphs } from "./assets/options.js";
 
     // Show content for floating and sticky testing
@@ -103,113 +99,6 @@
 
         player.activate();
     }
-
-    // let adsLoadedDispatched;
-    // const adsLoadedEvent = new CustomEvent("ads-loaded", {
-    //     detail: {
-    //         loaded: false,
-    //         playerVolume: player.scopes.adsplayer.get("volume"),
-    //         engaged: player.get("userengagedwithplayer")
-    //     }
-    // });
-    //
-    // player.scopes.adsplayer.on("ads:loaded", () => {
-    //     adsLoadedDispatched = document.dispatchEvent(adsLoadedEvent);
-    //     console.log("ads:loaded", adsLoadedDispatched);
-    // }, player);
-    //
-    // setTimeout(() => {
-    //     console.log("adsLoadedDispatched after 2 seconds..", adsLoadedDispatched);
-    //     if (typeof adsLoadedDispatched !== "undefined") {
-    //         document.dispatchEvent(adsLoadedEvent);
-    //     }
-    // }, 5000);
-
-    const adTagURL = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;
-    const adErrorTagURL = '//localhost:5050/static/demos/vast-samples/---error-url---';
-    // Test for outstream ads, and it's recruitment process
-    // let _index = 0;
-    // const adTagURLS = [adErrorTagURL, "", adErrorTagURL, adTagURL, adErrorTagURL, adTagURL, adTagURL];
-    // player.requestForTheNextAdTagURL = () => {
-    //     var promise = BetaJS.Promise.create();
-    //     // inherit this function from the parent player and set a new next ad tag
-    //     setTimeout(() => {
-    //         console.log("Will return success ad tag via BetaJS.Promise", adTagURLS[_index]);
-    //         promise.asyncSuccess(adTagURLS[_index]);
-    //         _index++;
-    //     }, 1000);
-    //     return promise;
-    //     // return new Promise((resolve, reject) => {
-    //     //     setTimeout(() => {
-    //     //     console.log("Will return success ad tag via window global Promise", adTagURLS[_index]);
-    //     //         adTagURLS[_index] ? resolve(adTagURLS.shift()) : reject(adTagURLS.shift());
-    //     //         _index++;
-    //     //     }, 1000);
-    //     // });
-    // }
-    // setTimeout(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 13000);
-    // setInterval(() => {console.log("Now our ad tag URL IS: ", player.get("adtagurl").slice(0, 20));}, 1000);
-
-    // player.on("change:adsinitialized", (adsinitialized) => {
-    //     document.dispatchEvent(new CustomEvent("ads-initialized", {
-    //         detail: {
-    //             adsinitialized,
-    //             volume: player.scopes.adsplayer.get("volume")
-    //         }
-    //     }));
-    // }, player);
-
-    // player.on("floatingplayerclosed", () => console.log("Floating Player Closed"), player);
-
-    // player.on("change:userengagedwithplayer", (userengagedwithplayer) => {
-    //     console.log("userengagedwithplayer: ", userengagedwithplayer);
-    // }, player);
-
-    // player.once("playerengaged", () => {
-    //     console.log("ON playerengaged >>> ", player.get("userengagedwithplayer"));
-    // }, player);
-    // player.on("change:userhadplayerinteraction", (userhadplayerinteraction) => {
-    //     console.log("userhadplayerinteraction: ", userhadplayerinteraction);
-    // }, player);
-    // player.once("playerinteracted", () => {
-    //     console.log("ON playerinteracted >>> ", player.get("userhadplayerinteraction"));
-    // }, player);
-
-    // player.on("ended", () => console.log("ENDED"), player);
-    //
-    // player.on("playing", function() {
-    //     console.log('Player, started: ', this, this.get('autoplay'), this.get("position"));
-    // }, player);
-    //
-    // player.on("ad:loaded", function (ad) {
-    //     ['outstreamoptions'].forEach(key => {
-    //         console.log(`${key} = ${JSON.stringify(player.get(key))}\n`);
-    //     });
-    // }, player);
-    //
-    // player.on("attached", function (playerInstance) {
-    //     // ['autoplay', 'skipinitial','autoplaywhenvisible', 'outstream'].forEach(key => {
-    //     //     console.log(`${key} = ${player.get(key)}\n`);
-    //     // });
-    //     playerInstance.on("fullscreen-change", function (isFullscreen) {
-    //         console.log('is Full', isFullscreen);
-    //     }, this);
-    // }, player);
-    //
-    // player.on("ready_to_play", (ev) => {
-    //     // console.log('Portrait after ?? ', player.isPortrait(), player.isLandscape());
-    // }, player);
-    //
-    // player.on("ended", function () {
-    //     // console.log('ENDED');
-    // }, player);
-
-    // window.addEventListener("load", (event) => {
-    //     document.dispatchEvent(new CustomEvent("player-activated", {
-    //         detail: { player }
-    //     }));
-    // });
-
 </script>
 </body>
 </html>

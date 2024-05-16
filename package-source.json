@@ -45,7 +45,10 @@
         "betajs-dynamics": "~0.0.83",
         "grunt-betajs-templates": "~0.1.11",
         "js-beautify": "",
-        "sass": "^1.57.1"
+        "sass": "^1.57.1",
+        "jsdom-recent": "npm:jsdom@24.0.0",
+        "resize-observer-polyfill": "^1.5.1",
+        "nyc": "^15.1.0"
     },
     "main": "dist/betajs-media-components.js",
     "repository": {
@@ -53,10 +56,11 @@
         "url": "git://github.com/betajs/betajs-media-components.git"
     },
     "scripts": {
-        "demos": "node node_modules/nano-media-server/server.js --staticserve . --port='5050'",
+        "server": "node node_modules/nano-media-server/server.js --staticserve .",
         "relink": "npm link betajs betajs-compile betajs-scoped betajs-shims betajs-browser betajs-dynamics betajs-media grunt-betajs-docs-compile grunt-betajs-templates",
         "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink",
         "test": "npm run test:traced && npm run test:show-report",
+        "test:unit": "nyc qunit ./tests/unit",
         "test:ui": "npx playwright test --ui --config ./tests/playwright/config.js",
         "test:traced": "npx playwright test --trace on --reporter=list --config ./tests/playwright/config.js",
         "test:show-report": "npx playwright show-report --config ./tests/playwright/config.js",

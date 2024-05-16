@@ -7,8 +7,8 @@ on:
     paths: [ 'src/**', 'tests/**' ]
   pull_request:
     branches: [ '*' ]
-    types: [ opened, synchronize, reopened ]
-    paths: [ 'src/**', 'tests/**' ]
+    types: [ opened, edited, synchronize, reopened ]
+    paths-ignore: [ 'demos/**' ]
   workflow_dispatch:
     inputs:
       use-cache:

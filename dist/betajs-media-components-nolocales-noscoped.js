@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.476 - 2024-05-02
+betajs-media-components - v0.0.479 - 2024-05-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.476",
-    "datetime": 1714687239287
+    "version": "0.0.479",
+    "datetime": 1715364551307
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5115,6 +5115,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         hidden,
                         hidebeforeadstarts
                     ) {
+                        if (this.get("floatingoptions.floatingonly")) {
+                            this.set("autoplaywhenvisible", false);
+                        }
                         if (hidden) return hidden;
                         if (!autoplay && !autoplaywhenvisible) return false;
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
@@ -5240,6 +5243,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("adsunmuted", true);
                         }
                     }
+
+                    if (this.get("unmuteonclick")) {
+                        this.on("change:adsplaying", function(adsplaying) {
+                            if (adsplaying) this.set("unmuteonclick", false);
+                            if (this.get("muted") || this.get("volume") === 0) this.set("unmuteonclick", true);
+                        }, this);
+                    }
+
                     this.__attachPlayerInteractionEvents();
                     this.set('clearDebounce', 0);
                     this.__mergeDeepAttributes();
@@ -6026,6 +6037,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }.bind(this));
                         }
                         this.trigger("attached", instance);
+
                         this.player.once("loaded", function() {
                             this.channel("next").trigger("resetNextWidget");
                             var volume = Math.min(1.0, this.get("volume"));
@@ -7566,13 +7578,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 // If user has any player interaction
                 __setPlayerHadInteraction: function() {
+                    // if unmuteonclick is active, remove the tooltip and tracking events
+                    // unmuteonclick gets set to true everytime the player is muted before a ready_to_play event
                     if (this.get("unmuteonclick")) {
-                        if (!this.get("userengagedwithplayer")) {
-                            this.once("playerengaged", function() {
-                                this.__unmuteOnClick();
-                                this.__removePlayerInteractionEvents();
-                            }, this);
-                        }
+                        this.__unmuteOnClick();
+                        this.__removePlayerInteractionEvents();
+
                         // this return required, not to allow to delete events and set unmute
                         return;
                     }
@@ -7582,6 +7593,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.trigger("playerinteracted");
                 },
 
+                // fires an event to let listeners know that the user has engaged with the player by setting
+                // unmuteonclick is set to false and volume will be set > 0
                 __unmuteOnClick: function() {
                     clearTimeout(this.get('clearDebounce'));
                     const clearDebounce = setTimeout(function() {

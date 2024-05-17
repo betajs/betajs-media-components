@@ -1,0 +1,55 @@
+@startuml
+[*] --> LoadPlayer
+LoadPlayer --> Outstream : get("outstream")
+LoadPlayer --> LoadPlayerDirectly : on("error:poster")
+LoadPlayer -->  PosterReady : on("image-attached")
+
+Outstream --> LoadPlayer : !this.get("adshassource") || getNextOutstreamAdTagURLs().success()
+Outstream --> LoadAds : on("ad-error")
+Outstream --> LoadPlayer : Error getting outstream tag
+
+LoadPlayerDirectly --> LoadError
+LoadPlayerDirectly --> PosterError
+LoadPlayerDirectly --> PosterReady
+
+PosterReady : this.dyn.trigger("ready_to_play");
+PosterReady : this.dyn.trigger("loaded");
+PosterReady --> PosterError
+PosterReady --> LoadAds : !this.dyn.get("popup")
+
+LoadAds --> LoadVideo
+LoadAds --> PlayOutstream
+LoadAds --> PlayVideo
+
+LoadError --> Initial : on("message:click")
+
+PosterError --> LoadVideo
+PosterError --> LoadPlayer
+
+LoadVideo --> PrerollAd
+LoadVideo --> LoadError
+LoadVideo --> PosterError
+LoadVideo --> PlayVideo
+
+PlayOutstream --> Outstream
+
+PlayVideo --> MidrollAd
+PlayVideo --> PostrollAd
+PlayVideo --> LoadPlayer
+PlayVideo --> NextVideo
+PlayVideo --> ErrorVideo
+
+PrerollAd --> LoadAds
+PrerollAd --> PlayVideo
+
+MidrollAd --> LoadAds
+MidrollAd --> PlayVideo
+
+PostrollAd --> LoadAds
+PostrollAd --> NextVideo
+
+NextVideo --> LoadPlayerDirectly
+NextVideo --> PosterReady
+
+ErrorVideo --> LoadVideo
+@enduml

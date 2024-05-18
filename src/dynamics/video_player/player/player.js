@@ -1180,31 +1180,27 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.floatHandler.init();
 
                         if (this.get("floating") && this.get("floatingoptions").mobile) {
-                            let maxPadding = window.top.innerHeight - document.documentElement.clientHeight;
+                            const floatingElement = this.floatHandler.element;
+                            const viewport = window.visualViewport;
                             let lastScrollTop = 0;
-                            let mobilePadding = maxPadding;
-                            let onScrollPadding = () => {
-                                if (this.floatHandler.elementIsVisible) {
-                                    if (maxPadding === 0) {
-                                        maxPadding = window.top.innerHeight - document.documentElement.clientHeight;
-                                    }
-                                    if (maxPadding > 0) {
-                                        let st = window.scrollY || document.documentElement.scrollTop;
-                                        let closeContainer = document.getElementById("close-container")
-                                        if (st > lastScrollTop && mobilePadding === 0) {
-                                            mobilePadding = maxPadding;
-                                            this.floatHandler.element.style.padding = mobilePadding + "px 0px 0px 0px";
-                                            closeContainer.style.padding = mobilePadding + "px 0px 0px 0px";
-                                        } else if (st < lastScrollTop && mobilePadding === maxPadding) {
-                                            mobilePadding = 0;
-                                            this.floatHandler.element.style.padding = mobilePadding + "px 0px 0px 0px";
-                                            closeContainer.style.padding = mobilePadding + "px 0px 0px 0px";
-                                        }
-                                        lastScrollTop = st <= 0 ? 0 : st;
-                                    }
+
+                            function viewportHandler() {
+                                let st = window.scrollY || document.documentElement.scrollTop;
+                                const offsetLeft = viewport.offsetLeft;
+                                let offsetTop = 0;
+                                if (st > lastScrollTop) {
+                                    offsetTop =
+                                        window.top.innerHeight -
+                                        viewport.height;
+                                } else {
+                                    offsetTop = viewport.offsetTop;
                                 }
-                            };
-                            window.visualViewport.addEventListener("scroll", onScrollPadding, false);
+                                lastScrollTop = st <= 0 ? 0 : st;
+                                floatingElement.style.transform = `translate(${offsetLeft}px, ${offsetTop}px) scale(${
+                                    1 / viewport.scale
+                                })`;
+                            }
+                            window.visualViewport.addEventListener("scroll", viewportHandler);
                         }
                     }
                     if (Info.isSafari()) {

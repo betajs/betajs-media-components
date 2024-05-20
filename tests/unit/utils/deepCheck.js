@@ -1,5 +1,4 @@
-const { BetaJS } = require('../init');
-const { Objs, Types } = BetaJS;
+const { Objs, Types } = global.BetaJS;
 
 module.exports = (assert, player, key, value, _attrs) => {
     const currentValue = player.get(key);

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.479 - 2024-05-16
+betajs-media-components - v0.0.479 - 2024-05-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -15,7 +15,7 @@ Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
     "version": "0.0.479",
-    "datetime": 1715857875755
+    "datetime": 1715364551307
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');

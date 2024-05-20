@@ -27,6 +27,7 @@ jobs:
       cache-hit: ${{ steps.node.outputs.cache-hit }}
       cache-key: ${{ steps.node.outputs.cache-key }}
       package-cache-dir: ${{ steps.node.outputs.package-cache-dir }}
+      build-artifact: ${{ steps.build-artifact.outputs.artifact-id }}
     defaults:
       run:
         working-directory: .
@@ -49,6 +50,14 @@ jobs:
 
       - name: build component
         uses: ./.github/actions/build-component
+
+      - name: Store build folder to be able to use in other jobs
+        uses: actions/upload-artifact@v4
+        id: build-artifact
+        if: ${{ !cancelled() }}
+        with:
+          name: build
+          path: dist
 
   # It's running separately, as it's saving time when installation is in parallel
   install-chrome:
@@ -90,6 +99,11 @@ jobs:
           use-cache: ${{ inputs.use-cache }}
           cache-key: ${{ needs.build.outputs.cache-key }}
 
+      - name: Restore build folder
+        uses: ./.github/actions/restore-build-folder
+        with:
+          name: build
+
       # in the future, we can use different browsers for testing
       - name: Run Playwright via Chrome launcher
         uses: ./.github/actions/playwright-test
@@ -120,6 +134,11 @@ jobs:
           pkg-manager: ${{ matrix.pkg-manager }}
           use-cache: ${{ inputs.use-cache }}
           cache-key: ${{ needs.build.outputs.cache-key }}
+
+      - name: Restore build folder
+        uses: ./.github/actions/restore-build-folder
+        with:
+          name: build
 
       - name: Run unit tests
         uses: ./.github/actions/unit-tests

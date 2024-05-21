@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import PlayerPage from "../../classes/PlayerPageClass";
 import {
-    CHROME_CANARY_LOCATION, defaultPlayerAttributes,
+    defaultPlayerAttributes,
     AD_TAG_URL
 } from "../../consts.js";
 import runTestMethod from '../../utils/run-test';
@@ -23,8 +23,7 @@ test.describe('Unmute on click behave', () => {
     const browserSettings = {
         // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
         headless: false, // If headless is true, player will start with user interaction
-        devtools: true,
-        executablePath: CHROME_CANARY_LOCATION,
+        devtools: !process.env?.CI,
     }
 
     test.describe.configure({
@@ -36,9 +35,9 @@ test.describe('Unmute on click behave', () => {
         video: 'on-first-retry',
     });
 
-    test(`ADS: Unmute only on unmute button clicked`, async ({
-                                                                 page, browserName, browser, context
-                                                             }) => {
+    test(`ADS: Unmute only on unmute button clicked`, async (
+        { page, browserName, browser, context }
+    ) => {
         const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];
             const player = new PlayerPage(page, {
@@ -58,9 +57,10 @@ test.describe('Unmute on click behave', () => {
             expect(hasAdsSource).not.toBeUndefined();
 
             let unmuteOnClick = await player.getPlayerAttribute(`unmuteonclick`);
-            await expect(unmuteOnClick).toBeTruthy();
+            expect(unmuteOnClick).toBeTruthy();
 
             if (!hasAdsSource) throw new Error(`We need ad tag URL to proceed`);
+
             const playerContainer = await page.getByTestId(`${dataTestId}-player-container`);
             const contentPlayerContainer = await page.getByTestId(`${dataTestId}-content-player-container`);
 
@@ -161,35 +161,37 @@ test.describe('Unmute on click behave', () => {
             const dataTestId = await player.getPlayerAttribute('testid');
 
             const unmuteOnClick = await player.getPlayerAttribute(`unmuteonclick`)
-            await expect(unmuteOnClick).toBeTruthy();
+            expect(unmuteOnClick).toBeTruthy();
 
-            const muteButton = page.getByTestId(`${dataTestId}-volume-mute-button`);
             const unMuteButton = page.getByTestId(`${dataTestId}-volume-unmute-button`);
             const pauseButton = page.getByTestId(`${dataTestId}-content-pause-button`);
             const playButton = page.getByTestId(`${dataTestId}-content-play-button`);
             const volumeMuteButton = page.getByTestId(`${dataTestId}-volume-mute-button`);
 
+            const h2Header = await page.getByTestId(`h2-header`);
+            expect(h2Header).toBeVisible();
+
             await expect(unMuteButton).toBeVisible();
 
             let isMuted = await player.getPlayerAttribute("muted");
-            await expect(isMuted).toBeTruthy();
+            expect(isMuted).toBeTruthy();
 
             // await player.listenPlayerEvent("ads:adCanPlay", 10);
             await expect(pauseButton).toBeVisible();
             await pauseButton.click();
 
             isMuted = await player.getPlayerAttribute("muted");
-            await expect(isMuted).toBeTruthy();
+            expect(isMuted).toBeTruthy();
 
             await expect(playButton).toBeVisible();
             await playButton.click();
 
             // Unmute will take some time to reflect
-            await expect(muteButton).toBeVisible();
+            await expect(volumeMuteButton).toBeVisible();
             isMuted = await player.getPlayerAttribute("muted");
+            expect(isMuted).toBeFalsy();
             let volume = await player.getPlayerAttribute("volume");
-            await expect(volume).toBeGreaterThan(0);
-            await expect(isMuted).toBeFalsy();
+            expect(volume).toBeGreaterThan(0);
 
             await expect(volumeMuteButton).toBeVisible();
 
@@ -200,11 +202,11 @@ test.describe('Unmute on click behave', () => {
             await expect(unMuteButton).toBeVisible();
             await unMuteButton.click();
 
-            await expect(muteButton).toBeVisible();
+            await expect(volumeMuteButton).toBeVisible();
             volume = await player.getPlayerAttribute("volume");
+            expect(volume).toBeGreaterThan(0);
             isMuted = await player.getPlayerAttribute("muted");
-            await expect(isMuted).toBeFalsy();
-            await expect(volume).toBeGreaterThan(0);
+            expect(isMuted).toBeFalsy();
         }
 
         await runTestMethod(

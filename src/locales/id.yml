@@ -1,4 +1,4 @@
-'language:id':
+language:id:
   ba-videoplayer-playbutton.tooltip: Klik untuk memutar video.
   ba-videoplayer-playbutton.rerecord: Mengulangi
   ba-videoplayer-playbutton.submit-video: Konfirmasi video
@@ -15,7 +15,7 @@
   ba-videoplayer-controlbar.volume-button: Setel volume
   ba-videoplayer-controlbar.volume-mute: Bisu terdengar
   ba-videoplayer-controlbar.volume-unmute: Suarakan suara
-  ba-videoplayer.video-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-videoplayer.video-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
   ba-videorecorder-chooser.record-video: Merekam video
   ba-videorecorder-chooser.upload-video: Mengunggah Video
   ba-videorecorder-controlbar.settings: Pengaturan
@@ -33,7 +33,7 @@
   ba-videorecorder-controlbar.stop-tooltip: Klik di sini untuk berhenti.
   ba-videorecorder-controlbar.skip: Melewatkan
   ba-videorecorder-controlbar.skip-tooltip: Klik di sini untuk melompat.
-  ba-videorecorder.recorder-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-videorecorder.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
   ba-videorecorder.attach-error: >-
     Kami tidak dapat mengakses antarmuka kamera. Bergantung pada perangkat dan
     peramban, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
@@ -93,7 +93,7 @@
   ba-imageviewer-controlbar.submit-image: Memastikan
   ba-imageviewer-controlbar.fullscreen-image: Memasuki layar penuh
   ba-imageviewer-controlbar.exit-fullscreen-image: Keluar dari layar penuh
-  ba-imageviewer.image-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-imageviewer.image-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
   ba-imagecapture-chooser.image-capture: Tangkap Gambar
   ba-imagecapture-chooser.upload-image: Unggah Gambar
   ba-imagecapture-controlbar.settings: Pengaturan
@@ -117,7 +117,7 @@
   ba-audioplayer-controlbar.volume-mute: Bungkam suara
   ba-audioplayer-controlbar.volume-unmute: Bunyikan suara
   ba-audioplayer-loader.tooltip: Pemuatan...
-  ba-audioplayer.audio-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-audioplayer.audio-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
   ba-audiorecorder-chooser.record-audio: Suara rekaman
   ba-audiorecorder-chooser.upload-audio: Unggah Audio
   ba-audiorecorder-controlbar.settings: Pengaturan
@@ -144,7 +144,7 @@
   ba-videorecorder.prepare-covershot: Mempersiapkan tangkapan layar
   ba-videorecorder.prepare-thumbnails: Mempersiapkan gambar judul pencarian
   ba-videorecorder.adding-new-stream: Menambahkan Stream Baru
-  ba-imagecapture.recorder-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-imagecapture.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
   ba-imagecapture.attach-error: >-
     Kami tidak dapat mengakses antarmuka media. Bergantung pada perangkat dan
     peramban, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
@@ -173,7 +173,7 @@
   ba-imagecapture.unsupported_image_type: 'Harap unggah: %s - klik di sini untuk mencoba lagi.'
   ba-imagecapture.orientation-portrait-required: Harap putar perangkat Anda untuk merekam dalam mode potret.
   ba-imagecapture.orientation-landscape-required: Harap putar perangkat Anda untuk merekam dalam mode lansekap.
-  ba-audiorecorder.recorder-error: 'Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.'
+  ba-audiorecorder.recorder-error: Terjadi kesalahan, coba lagi nanti. Klik untuk mencoba lagi.
   ba-audiorecorder.attach-error: >-
     Kami tidak dapat mengakses antarmuka media. Bergantung pada perangkat dan
     browser, Anda mungkin perlu menginstal Flash atau mengakses halaman melalui
@@ -212,7 +212,7 @@
   ba-videorecorder-controlbar.resume-recorder: Lanjutkan Perekam
   ba-videorecorder.missing-track: Trek audio atau video yang diperlukan tidak ada
   ba-videorecorder.device-already-in-use: Setidaknya satu dari perangkat input Anda sudah digunakan
-  ba-videorecorder.browser-permission-denied: 'Izin ditolak oleh browser, berikan akses dan muat ulang halaman'
+  ba-videorecorder.browser-permission-denied: Izin ditolak oleh browser, berikan akses dan muat ulang halaman
   ba-audioplayer.all-settings: Semua pengaturan
   ba-videoplayer-controlbar.remaining-time: Waktu yang tersisa
   ba-videoplayer-controlbar.select-frame: Pilih
@@ -227,6 +227,56 @@
   ba-videorecorder.wait-for-trim: Menunggu perintah pangkas...
   ba-videorecorder-controlbar.no-video-source: Tidak ada sumber input video tambahan
   ba-videorecorder-controlbar.stream-already-selected: Aliran tambahan telah dipilih
-  ba-videorecorder.uploading-src-error: 'Tidak dapat memutar video sekarang, pengunggahan masih berlangsung'
+  ba-videorecorder.uploading-src-error: Tidak dapat memutar video sekarang, pengunggahan masih berlangsung
   ba-audiorecorder-controlbar.pause-recorder: Jeda Perekam
   ba-audiorecorder-controlbar.resume-recorder: Perekam Lanjutkan
+  ba-circle-progress.fullscreen-video: Memasuki layar penuh
+  ba-ads-choices-link.ad-choices: Pilihan Iklan
+  ba-ads-controlbar.skip-ad: Melewatkan iklan
+  ba-ads-controlbar.play-ad: Bermain
+  ba-ads-controlbar.pause-video: Berhenti sebentar
+  ba-ads-controlbar.volume-mute: Bisukan suara
+  ba-ads-controlbar.volume-button: Atur volumenya
+  ba-ads-controlbar.elapsed-time: Waktu berlalu
+  ba-ads-controlbar.volume-unmute: Suarakan suara
+  ba-ads-controlbar.can-skip-after: Lewati setelah %d
+  ba-ads-controlbar.fullscreen-video: Memasuki layar penuh
+  ba-ads-controlbar.exit-fullscreen-video: Keluar dari layar penuh
+  ba-ads-controlbar.ad-will-end-after: Iklan akan berakhir setelah %s
+  ba-ads-controlbar.pause-video-disabled: Jeda tidak didukung
+  ba-adsplayer.replay-ad: Putar Ulang Video
+  ba-adsplayer.close-ad: Menutup
+  ba-adsplayer.ad-choices: Pilihan Iklan
+  ba-adsplayer.learn-more: Belajarlah lagi
+  ba-ads-learn-more-button.learn-more: Belajarlah lagi
+  ba-videoplayer-sidebar.up-next: Berikutnya
+  ba-videoplayer-sidebar.continue-on-ads-end: Konten akan dilanjutkan setelah iklan ini.
+  ba-videoplayer-tooltip.tooltip: Keterangan alat
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Tahan mouse untuk menjeda penutupan tooltip
+  ba-videorecorder.supported-mode: Resolusi media harus dalam mode '%s'.
+  ba-videorecorder.re-choose-action: Silakan klik untuk memilih perangkat input lain atau coba lagi tindakan.
+  ba-audiorecorder.uploading-src-error: Tidak dapat memutar ulang audio sekarang, pengunggahan masih berlangsung
+  ba-audiorecorder.missing-track: Trek audio yang diperlukan tidak ada
+  ba-audiorecorder.device-already-in-use: Setidaknya satu perangkat masukan Anda sudah digunakan
+  ba-audiorecorder.browser-permission-denied: Izin ditolak oleh browser, harap berikan akses dan muat ulang halaman
+  ba-local-view.local-camera-connection-error: >-
+    Terjadi kesalahan saat menghubungkan ke kamera lokal. Klik untuk mencoba
+    lagi.
+  ba-call-controlbar.camera-button: Tampilkan/Sembunyikan Kamera
+  ba-call-controlbar.leave-button: Tinggalkan Panggilan
+  ba-call-controlbar.mute-button: Bisukan/Suarakan
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Jika Anda sudah siap, klik tombol di bawah untuk membuat panggilan.
+  ba-call-lobby.description-join: Jika Anda sudah siap, klik tombol di bawah untuk bergabung dalam panggilan.
+  ba-call-lobby.join-button: Bergabung
+  ba-call-lobby.create-button: Membuat
+  ba-call-lobby.mute-button: Bisu
+  ba-call-lobby.title-create: Buat Panggilan
+  ba-call-lobby.title-join: Gabung Panggilan
+  ba-video-call.call-ended: Panggilan berakhir
+  ba-video-call.connecting: Menghubungkan...
+  ba-video-call.connection-error: Terjadi kesalahan saat menghubungkan, silakan klik untuk mencoba lagi.
+  ba-videoplayer-next.stay: Tinggal
+  ba-videoplayer-next.next: Berikutnya
+  ba-videorecorder-trimmer.trim: Memangkas
+  ba-videorecorder-trimmer.skip: Melewati

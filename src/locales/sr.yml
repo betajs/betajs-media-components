@@ -1,4 +1,4 @@
-'language:sr':
+language:sr:
   ba-videoplayer-playbutton.tooltip: Кликни да покренеш видео
   ba-videoplayer-playbutton.rerecord: Сними поново
   ba-videoplayer-playbutton.submit-video: Потврди видео
@@ -15,7 +15,7 @@
   ba-videoplayer-controlbar.volume-button: Подешавање јачине звука
   ba-videoplayer-controlbar.volume-mute: Угаси звук
   ba-videoplayer-controlbar.volume-unmute: Поврати звук
-  ba-videoplayer.video-error: 'Дошло је до грешке. Молимо покушајте касније. Кликните да покушате поново.'
+  ba-videoplayer.video-error: Дошло је до грешке. Молимо покушајте касније. Кликните да покушате поново.
   ba-videorecorder-chooser.record-video: Снимите видео
   ba-videorecorder-chooser.upload-video: Закачи видео
   ba-videorecorder-controlbar.settings: Подешавања
@@ -33,24 +33,30 @@
   ba-videorecorder-controlbar.stop-tooltip: Кликните овде да зауставите
   ba-videorecorder-controlbar.skip: Прескочи овај корак
   ba-videorecorder-controlbar.skip-tooltip: Кликните овде да прескочите овај корак
-  ba-videorecorder.recorder-error: 'Дошло је до грешке. Молимо покушајте касније. Кликните да покушате поново.'
-  ba-videorecorder.attach-error: 'Приступ камери није могућ. Проверите да је страница отворена преко `https://`.'
-  ba-videorecorder.access-forbidden: 'Приступ камери је забрањен. Молимо прво дозволите пристип па пробајте поново'
+  ba-videorecorder.recorder-error: Дошло је до грешке. Молимо покушајте касније. Кликните да покушате поново.
+  ba-videorecorder.attach-error: >-
+    Приступ камери није могућ. Проверите да је страница отворена преко
+    `https://`.
+  ba-videorecorder.access-forbidden: Приступ камери је забрањен. Молимо прво дозволите пристип па пробајте поново
   ba-videorecorder.pick-covershot: Изаберите слику
   ba-videorecorder.uploading: Шаље се на сервер
   ba-videorecorder.uploading-failed: Слање на сервер неуспешно. Кликните да покушате поново
   ba-videorecorder.verifying: Верификација видеа
   ba-videorecorder.verifying-failed: Провера није успела - Кликните овда да покушате поново
   ba-videorecorder.rerecord-confirm: Да ли заиста желите да пре-снимите свој видео?
-  ba-videorecorder.video_file_too_large: 'Ваш видео фајл је превелик (%s) - кликните овде да поново са мањим видео фајлом.'
-  ba-videorecorder.unsupported_video_type: 'Не подржавамо тај тип фајла. Молимо Вас да додате: %с - кликните овде да покушате поново.'
+  ba-videorecorder.video_file_too_large: >-
+    Ваш видео фајл је превелик (%s) - кликните овде да поново са мањим видео
+    фајлом.
+  ba-videorecorder.unsupported_video_type: >-
+    Не подржавамо тај тип фајла. Молимо Вас да додате: %с - кликните овде да
+    покушате поново.
   ba-videoplayer-controlbar.exit-fullscreen-video: Излаз из целог екрана
   ba-videoplayer-share.share: Подели видео
   ba-videorecorder-chooser.record-screen: Сними екран
   ba-videoplayer-controlbar.pause-video-disabled: Пауза није подржана
   ba-videorecorder-chooser.record-audio: Сними звук
   ba-videorecorder-controlbar.stop-available-after: Минимално време снимања је %d секунди
-  ba-videorecorder-controlbar.cancel: 'Поништи, откажи'
+  ba-videorecorder-controlbar.cancel: Поништи, откажи
   ba-videorecorder-controlbar.cancel-tooltip: Кликните овде да бисте отказали.
   ba-videorecorder.cancel-confirm: Да ли заиста желите да откажете видео отпремање?
   ba-videoplayer-adslot.elapsed-time: Прошло време
@@ -76,8 +82,7 @@
   ba-videorecorder.framerate-warning: >-
     Стопа видео кадра је врло ниска. Препоручујемо да затварате све друге
     програме и картице прегледача или да користите бржи рачунар.
-  ba-videorecorder.upload-error-duration: >-
-    Дужина видео снимка не испуњава услове - кликните овде да покушате поново.
+  ba-videorecorder.upload-error-duration: Дужина видео снимка не испуњава услове - кликните овде да покушате поново.
   ba-videorecorder.resolution-constraint-error: >-
     Датотека коју сте одабрали не одговара траженој резолуцији - кликните овде
     да покушате поново.
@@ -99,7 +104,7 @@
   ba-imagecapture-controlbar.record-tooltip: Кликните овде да бисте снимили.
   ba-imagecapture-controlbar.rerecord: Поново
   ba-imagecapture-controlbar.rerecord-tooltip: Кликните овде да бисте поновили.
-  ba-imagecapture-controlbar.cancel: 'Поништи, откажи'
+  ba-imagecapture-controlbar.cancel: Поништи, откажи
   ba-imagecapture-controlbar.cancel-tooltip: Кликните овде да бисте отказали.
   ba-audioplayer-controlbar.audio-progress: Прогрес
   ba-audioplayer-controlbar.rerecord-audio: Поново?
@@ -128,7 +133,7 @@
   ba-audiorecorder-controlbar.stop: Заустави
   ba-audiorecorder-controlbar.stop-tooltip: Кликните овде да бисте зауставили.
   ba-audiorecorder-controlbar.stop-available-after: Минимално време снимања је %d секунди
-  ba-audiorecorder-controlbar.cancel: 'Поништи, откажи'
+  ba-audiorecorder-controlbar.cancel: Поништи, откажи
   ba-audiorecorder-controlbar.cancel-tooltip: Кликните овде да бисте отказали.
   ba-videoplayer-controlbar.player-speed: Брзина прегледа видео
   ba-videoplayer-controlbar.settings: Подешавања
@@ -195,8 +200,8 @@
   ba-audiorecorder.rerecord-confirm: Да ли заиста желите да снимите поново?
   ba-audiorecorder.cancel-confirm: Да ли заиста желите да откажете слање звука?
   ba-audiorecorder.audio_file_too_large: >-
-    Ваш аудио фал је превелика (%с) - кликните овде да бисте покушали
-    поново са мањим аудио фајлом.
+    Ваш аудио фал је превелика (%с) - кликните овде да бисте покушали поново са
+    мањим аудио фајлом.
   ba-audiorecorder.unsupported_audio_type: 'Учитајте: %с - кликните овде да бисте покушали поново.'
   ba-common-settingsmenu.tooltip: Кликните да се прикаже.
   ba-common-settingsmenu.setting-menu: Сва подешавања
@@ -212,7 +217,7 @@
   ba-videorecorder-controlbar.resume-recorder: Нстави снимати
   ba-videorecorder.missing-track: Недостаје обавезна аудио или видео трака
   ba-videorecorder.device-already-in-use: Барем један од ваших улазних уређаја се већ користи
-  ba-videorecorder.browser-permission-denied: 'Прегледач је одбио дозволу, дозволите приступ и поновно учитајте страницу'
+  ba-videorecorder.browser-permission-denied: Прегледач је одбио дозволу, дозволите приступ и поновно учитајте страницу
   ba-audioplayer.all-settings: Сва подешавања
   ba-videoplayer-controlbar.remaining-time: Преостало време
   ba-videoplayer-controlbar.select-frame: Изаберите
@@ -227,6 +232,56 @@
   ba-videorecorder.wait-for-trim: Чека се наредба за исецање ...
   ba-videorecorder-controlbar.no-video-source: Недостаје додатни извор видео улаза
   ba-videorecorder-controlbar.stream-already-selected: Додатни ток је већ изабран
-  ba-videorecorder.uploading-src-error: 'Видео није могуће тренутно репродуковати, слање на сервере је још у току'
+  ba-videorecorder.uploading-src-error: Видео није могуће тренутно репродуковати, слање на сервере је још у току
   ba-audiorecorder-controlbar.pause-recorder: Паузирај снимање
   ba-audiorecorder-controlbar.resume-recorder: Настави снимање
+  ba-circle-progress.fullscreen-video: Унесите цео екран
+  ba-ads-choices-link.ad-choices: Ад Цхоицес
+  ba-ads-controlbar.skip-ad: Прескочи оглас
+  ba-ads-controlbar.play-ad: Игра
+  ba-ads-controlbar.pause-video: Пауза
+  ba-ads-controlbar.volume-mute: Искључи звук
+  ba-ads-controlbar.volume-button: Подесите јачину звука
+  ba-ads-controlbar.elapsed-time: Протекло време
+  ba-ads-controlbar.volume-unmute: Укључи звук
+  ba-ads-controlbar.can-skip-after: Прескочи после %д
+  ba-ads-controlbar.fullscreen-video: Унесите цео екран
+  ba-ads-controlbar.exit-fullscreen-video: Изађите преко целог екрана
+  ba-ads-controlbar.ad-will-end-after: Оглас ће се завршити након %с
+  ba-ads-controlbar.pause-video-disabled: Пауза није подржана
+  ba-adsplayer.replay-ad: Реплаи Видео
+  ba-adsplayer.close-ad: Близу
+  ba-adsplayer.ad-choices: Ад Цхоицес
+  ba-adsplayer.learn-more: Сазнајте више
+  ba-ads-learn-more-button.learn-more: Сазнајте више
+  ba-videoplayer-sidebar.up-next: Уп Нект
+  ba-videoplayer-sidebar.continue-on-ads-end: Садржај ће се наставити након овог огласа.
+  ba-videoplayer-tooltip.tooltip: Тоолтип
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Држите миша да паузирате затварање описа
+  ba-videorecorder.supported-mode: Резолуција медија треба да буде у режиму „%с“.
+  ba-videorecorder.re-choose-action: Кликните да изаберете други улазни уређај или покушајте поново.
+  ba-audiorecorder.uploading-src-error: Тренутно није могуће репродуковати звук, отпремање је још увек у току
+  ba-audiorecorder.missing-track: Недостаје обавезна аудио трака
+  ba-audiorecorder.device-already-in-use: Најмање један од ваших улазних уређаја је већ у употреби
+  ba-audiorecorder.browser-permission-denied: Прегледач је одбио дозволу, дозволите приступ и поново учитајте страницу
+  ba-local-view.local-camera-connection-error: >-
+    Дошло је до грешке при повезивању са локалном камером. Кликните да бисте
+    покушали поново.
+  ba-call-controlbar.camera-button: Прикажи/сакриј камеру
+  ba-call-controlbar.leave-button: Напусти позив
+  ba-call-controlbar.mute-button: Муте/Унмуте
+  ba-call-lobby.camera-button: Камера
+  ba-call-lobby.description-create: Када будете спремни, кликните на дугме испод да бисте направили позив.
+  ba-call-lobby.description-join: Када будете спремни, кликните на дугме испод да бисте се придружили позиву.
+  ba-call-lobby.join-button: Придружити
+  ba-call-lobby.create-button: Креирај
+  ba-call-lobby.mute-button: Муте
+  ba-call-lobby.title-create: Креирај позив
+  ba-call-lobby.title-join: Придружите се позиву
+  ba-video-call.call-ended: Позив је завршен
+  ba-video-call.connecting: Повезивање...
+  ba-video-call.connection-error: Дошло је до грешке при повезивању, кликните да бисте покушали поново.
+  ba-videoplayer-next.stay: Остани
+  ba-videoplayer-next.next: Следећи
+  ba-videorecorder-trimmer.trim: Трим
+  ba-videorecorder-trimmer.skip: Скип

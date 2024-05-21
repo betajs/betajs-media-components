@@ -1,4 +1,4 @@
-'language:no':
+language:no:
   ba-videoplayer-playbutton.tooltip: Klikk for å spille video.
   ba-videoplayer-playbutton.rerecord: Gjøre om
   ba-videoplayer-playbutton.submit-video: bekreft video
@@ -232,3 +232,55 @@
   ba-videorecorder.uploading-src-error: Kan ikke spille av video nå. Opplasting pågår fortsatt
   ba-audiorecorder-controlbar.pause-recorder: Pause opptaker
   ba-audiorecorder-controlbar.resume-recorder: Fortsett opptaker
+  ba-circle-progress.fullscreen-video: Gå inn i fullskjerm
+  ba-ads-choices-link.ad-choices: Annonsevalg
+  ba-ads-controlbar.skip-ad: Hopp over annonsen
+  ba-ads-controlbar.play-ad: Spille
+  ba-ads-controlbar.pause-video: Pause
+  ba-ads-controlbar.volume-mute: Demp lyden
+  ba-ads-controlbar.volume-button: Still inn volumet
+  ba-ads-controlbar.elapsed-time: Forløpt tid
+  ba-ads-controlbar.volume-unmute: Slå på lyden
+  ba-ads-controlbar.can-skip-after: Hopp over etter %d
+  ba-ads-controlbar.fullscreen-video: Gå inn i fullskjerm
+  ba-ads-controlbar.exit-fullscreen-video: Avslutt fullskjerm
+  ba-ads-controlbar.ad-will-end-after: Annonsen slutter etter %s
+  ba-ads-controlbar.pause-video-disabled: Pause støttes ikke
+  ba-adsplayer.replay-ad: Spill av video på nytt
+  ba-adsplayer.close-ad: Lukk
+  ba-adsplayer.ad-choices: Annonsevalg
+  ba-adsplayer.learn-more: Lære mer
+  ba-ads-learn-more-button.learn-more: Lære mer
+  ba-videoplayer-sidebar.up-next: Neste
+  ba-videoplayer-sidebar.continue-on-ads-end: Innholdet gjenopptas etter denne annonsen.
+  ba-videoplayer-tooltip.tooltip: Verktøytips
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Hold musen på for å pause lukking av verktøytips
+  ba-videorecorder.supported-mode: Medieoppløsningen skal være i «%s»-modus.
+  ba-videorecorder.re-choose-action: Klikk for å velge en annen inndataenhet eller prøv handlingen på nytt.
+  ba-audiorecorder.uploading-src-error: Kan ikke spille av lyd nå, opplasting pågår fortsatt
+  ba-audiorecorder.missing-track: Nødvendig lydspor mangler
+  ba-audiorecorder.device-already-in-use: Minst én av inndataenhetene dine er allerede i bruk
+  ba-audiorecorder.browser-permission-denied: >-
+    Tillatelse nektet av nettleseren, vennligst gi tilgang og last inn siden på
+    nytt
+  ba-local-view.local-camera-connection-error: >-
+    Det oppsto en feil under tilkobling til lokalt kamera. Klikk for å prøve
+    igjen.
+  ba-call-controlbar.camera-button: Vis/skjul kamera
+  ba-call-controlbar.leave-button: Forlat samtalen
+  ba-call-controlbar.mute-button: Slå av/på
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Når du er klar, klikk på knappen nedenfor for å opprette en samtale.
+  ba-call-lobby.description-join: Når du er klar, klikk på knappen nedenfor for å bli med i samtalen.
+  ba-call-lobby.join-button: Bli med
+  ba-call-lobby.create-button: Skape
+  ba-call-lobby.mute-button: Stum
+  ba-call-lobby.title-create: Opprett samtale
+  ba-call-lobby.title-join: Bli med i Call
+  ba-video-call.call-ended: Anrop avsluttet
+  ba-video-call.connecting: Kobler til...
+  ba-video-call.connection-error: Det oppsto en feil under tilkoblingen. Klikk for å prøve på nytt.
+  ba-videoplayer-next.stay: Oppholde seg
+  ba-videoplayer-next.next: Neste
+  ba-videorecorder-trimmer.trim: Listverk
+  ba-videorecorder-trimmer.skip: Hopp over

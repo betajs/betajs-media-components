@@ -1,4 +1,4 @@
-'language:az':
+language:az:
   ba-videoplayer-playbutton.tooltip: Videoya baxmaq üçün basın.
   ba-videoplayer-playbutton.rerecord: Yenidən yazmaq
   ba-videoplayer-playbutton.submit-video: Videonu təsdiq et
@@ -45,10 +45,10 @@
   ba-videorecorder.access-forbidden: Kamera görüntüsünə icazə verilmədi. Yenidən yoxlamaq üçün basın.
   ba-videorecorder.pick-covershot: Üzlük şəklini seçin.
   ba-videorecorder.uploading: Yüklənir
-  ba-videorecorder.uploading-failed: 'Yüklənmə zamanı xəta baş verdi, təkrar etmək üçün buraya basın.'
+  ba-videorecorder.uploading-failed: Yüklənmə zamanı xəta baş verdi, təkrar etmək üçün buraya basın.
   ba-videorecorder.verifying: Yoxlama
   ba-videorecorder.verifying-failed: Yoxlama uğursuzluqla bitdi - təkrar üçün buraya basın.
-  ba-videorecorder.rerecord-confirm: 'Siz, həqiqətən, videonu yenidən yazmaq istəyirsiniz?'
+  ba-videorecorder.rerecord-confirm: Siz, həqiqətən, videonu yenidən yazmaq istəyirsiniz?
   ba-videorecorder.video_file_too_large: >-
     Sizin video faylın həcmi (%s) çox böyükdür - kiçik həcmli video fayl ilə
     yenidən cəhd üçün buraya basın.
@@ -204,7 +204,7 @@
   ba-audiorecorder.verifying: Təsdiqləmə
   ba-audiorecorder.verifying-failed: Doğru yoxlanıldı - yenidən cəhd etmək üçün buraya vurun.
   ba-audiorecorder.rerecord-confirm: Həqiqətən səsinizi təkrarlamaq istəyirsiniz?
-  ba-audiorecorder.cancel-confirm: 'Həqiqətən, audio yükləməni ləğv etmək istəyirsiniz?'
+  ba-audiorecorder.cancel-confirm: Həqiqətən, audio yükləməni ləğv etmək istəyirsiniz?
   ba-audiorecorder.audio_file_too_large: >-
     Sizin audio faylınız çox böyükdür (%s) - daha kiçik bir audio faylı ilə
     yenidən cəhd etmək üçün buraya vurun.
@@ -240,6 +240,58 @@
   ba-videorecorder.wait-for-trim: Kəsmə əmri gözlənilir ...
   ba-videorecorder-controlbar.no-video-source: Əlavə video giriş mənbəyi yoxdur
   ba-videorecorder-controlbar.stream-already-selected: Əlavə axın artıq seçilib
-  ba-videorecorder.uploading-src-error: 'Videonu indi oxutmaq mümkün deyil, yükləmə hələ də davam edir'
+  ba-videorecorder.uploading-src-error: Videonu indi oxutmaq mümkün deyil, yükləmə hələ də davam edir
   ba-audiorecorder-controlbar.pause-recorder: Yazıcıyı durdurun
   ba-audiorecorder-controlbar.resume-recorder: Recume Recume
+  ba-circle-progress.fullscreen-video: Tam ekrana daxil olun
+  ba-ads-choices-link.ad-choices: Reklam Seçimləri
+  ba-ads-controlbar.skip-ad: Reklamı keçin
+  ba-ads-controlbar.play-ad: Oynamaq
+  ba-ads-controlbar.pause-video: Fasilə
+  ba-ads-controlbar.volume-mute: Səsi söndürün
+  ba-ads-controlbar.volume-button: Səs səviyyəsini təyin edin
+  ba-ads-controlbar.elapsed-time: Keçən vaxt
+  ba-ads-controlbar.volume-unmute: Səsi söndürün
+  ba-ads-controlbar.can-skip-after: '%d-dən sonra keçin'
+  ba-ads-controlbar.fullscreen-video: Tam ekrana daxil olun
+  ba-ads-controlbar.exit-fullscreen-video: Tam ekrandan çıxın
+  ba-ads-controlbar.ad-will-end-after: Reklam %s sonra bitəcək
+  ba-ads-controlbar.pause-video-disabled: Fasilə dəstəklənmir
+  ba-adsplayer.replay-ad: Videonun təkrarı
+  ba-adsplayer.close-ad: Yaxın
+  ba-adsplayer.ad-choices: Reklam Seçimləri
+  ba-adsplayer.learn-more: Daha ətraflı
+  ba-ads-learn-more-button.learn-more: Daha ətraflı
+  ba-videoplayer-sidebar.up-next: Növbəti
+  ba-videoplayer-sidebar.continue-on-ads-end: Məzmun bu reklamdan sonra davam edəcək.
+  ba-videoplayer-tooltip.tooltip: İpucu
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Alət ipucunun bağlanmasını dayandırmaq üçün siçanı basıb saxlayın
+  ba-videorecorder.supported-mode: Media həlli '%s' rejimində olmalıdır.
+  ba-videorecorder.re-choose-action: >-
+    Lütfən, başqa daxiletmə cihazı seçmək və ya yenidən cəhd etmək üçün
+    klikləyin.
+  ba-audiorecorder.uploading-src-error: Audionu indi oxutmaq mümkün deyil, yükləmə hələ də davam edir
+  ba-audiorecorder.missing-track: Tələb olunan audio trek yoxdur
+  ba-audiorecorder.device-already-in-use: Daxiletmə cihazlarınızdan ən azı biri artıq istifadədədir
+  ba-audiorecorder.browser-permission-denied: >-
+    İcazə brauzer tərəfindən rədd edildi, giriş icazəsi verin və səhifəni
+    yenidən yükləyin
+  ba-local-view.local-camera-connection-error: Yerli kameraya qoşularkən xəta baş verdi. Yenidən cəhd etmək üçün klikləyin.
+  ba-call-controlbar.camera-button: Kameranı göstər/gizlə
+  ba-call-controlbar.leave-button: Zəngi tərk edin
+  ba-call-controlbar.mute-button: Səssiz/Səssiz
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Hazır olduğunuzda zəng yaratmaq üçün aşağıdakı düyməyə klikləyin.
+  ba-call-lobby.description-join: Hazır olduğunuzda zəngə qoşulmaq üçün aşağıdakı düyməyə klikləyin.
+  ba-call-lobby.join-button: Qoşulun
+  ba-call-lobby.create-button: Yaradın
+  ba-call-lobby.mute-button: Səssiz
+  ba-call-lobby.title-create: Zəng yaradın
+  ba-call-lobby.title-join: Zəngə qoşulun
+  ba-video-call.call-ended: Zəng bitdi
+  ba-video-call.connecting: Qoşulur...
+  ba-video-call.connection-error: Qoşularkən xəta baş verdi, yenidən cəhd etmək üçün klikləyin.
+  ba-videoplayer-next.stay: Qal
+  ba-videoplayer-next.next: Sonrakı
+  ba-videorecorder-trimmer.trim: Kəsmək
+  ba-videorecorder-trimmer.skip: Keç

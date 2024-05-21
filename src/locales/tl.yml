@@ -1,4 +1,4 @@
-'language:tl':
+language:tl:
   ba-videoplayer-playbutton.tooltip: I-click upang i-play ang video.
   ba-videoplayer-playbutton.rerecord: Gawing muli
   ba-videoplayer-playbutton.submit-video: Kumpirmahin ang video
@@ -244,6 +244,60 @@
   ba-videorecorder.wait-for-trim: Naghihintay para sa trim na utos ...
   ba-videorecorder-controlbar.no-video-source: Nawawalang karagdagang mapagkukunan ng pag-input ng video
   ba-videorecorder-controlbar.stream-already-selected: Napili na ang karagdagang stream
-  ba-videorecorder.uploading-src-error: 'Hindi ma-play pabalik ang video ngayon, isinasagawa pa rin ang pag-upload'
+  ba-videorecorder.uploading-src-error: Hindi ma-play pabalik ang video ngayon, isinasagawa pa rin ang pag-upload
   ba-audiorecorder-controlbar.pause-recorder: I-pause ang Recorder
   ba-audiorecorder-controlbar.resume-recorder: Ipagpatuloy ang Recorder
+  ba-circle-progress.fullscreen-video: Ipasok ang fullscreen
+  ba-ads-choices-link.ad-choices: Mga Pagpipilian sa Ad
+  ba-ads-controlbar.skip-ad: Laktawan ang ad
+  ba-ads-controlbar.play-ad: Maglaro
+  ba-ads-controlbar.pause-video: I-pause
+  ba-ads-controlbar.volume-mute: I-mute ang tunog
+  ba-ads-controlbar.volume-button: Itakda ang volume
+  ba-ads-controlbar.elapsed-time: Lumipas na oras
+  ba-ads-controlbar.volume-unmute: I-unmute ang tunog
+  ba-ads-controlbar.can-skip-after: Laktawan pagkatapos ng %d
+  ba-ads-controlbar.fullscreen-video: Ipasok ang fullscreen
+  ba-ads-controlbar.exit-fullscreen-video: Lumabas sa fullscreen
+  ba-ads-controlbar.ad-will-end-after: Magtatapos ang ad pagkatapos ng %s
+  ba-ads-controlbar.pause-video-disabled: Hindi suportado ang pag-pause
+  ba-adsplayer.replay-ad: I-replay ang Video
+  ba-adsplayer.close-ad: Isara
+  ba-adsplayer.ad-choices: Mga Pagpipilian sa Ad
+  ba-adsplayer.learn-more: Matuto pa
+  ba-ads-learn-more-button.learn-more: Matuto pa
+  ba-videoplayer-sidebar.up-next: Susunod
+  ba-videoplayer-sidebar.continue-on-ads-end: Magpapatuloy ang nilalaman pagkatapos ng advertisement na ito.
+  ba-videoplayer-tooltip.tooltip: Tooltip
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: I-hold ang mouse, upang i-pause ang pagsasara ng tooltip
+  ba-videorecorder.supported-mode: Ang resolution ng media ay dapat nasa '%s' mode.
+  ba-videorecorder.re-choose-action: >-
+    Paki-click upang pumili ng isa pang input device o subukang muli ang
+    pagkilos.
+  ba-audiorecorder.uploading-src-error: Hindi ma-play muli ang audio ngayon, isinasagawa pa rin ang pag-upload
+  ba-audiorecorder.missing-track: Nawawala ang kinakailangang audio track
+  ba-audiorecorder.device-already-in-use: Kahit isa sa iyong mga input device ay ginagamit na
+  ba-audiorecorder.browser-permission-denied: >-
+    Ang pahintulot ay tinanggihan ng browser, mangyaring bigyan ng access at
+    i-reload ang pahina
+  ba-local-view.local-camera-connection-error: >-
+    Nagkaroon ng error noong kumokonekta sa lokal na camera. I-click upang
+    subukang muli.
+  ba-call-controlbar.camera-button: Ipakita/Itago ang Camera
+  ba-call-controlbar.leave-button: Umalis sa Tawag
+  ba-call-controlbar.mute-button: I-mute/I-unmute
+  ba-call-lobby.camera-button: Camera
+  ba-call-lobby.description-create: Kapag handa ka na mag-click sa button sa ibaba para gumawa ng tawag.
+  ba-call-lobby.description-join: Kapag handa ka na mag-click sa button sa ibaba para sumali sa tawag.
+  ba-call-lobby.join-button: Sumali
+  ba-call-lobby.create-button: Lumikha
+  ba-call-lobby.mute-button: I-mute
+  ba-call-lobby.title-create: Lumikha ng Tawag
+  ba-call-lobby.title-join: Sumali sa Tawag
+  ba-video-call.call-ended: Natapos ang tawag
+  ba-video-call.connecting: Kumokonekta...
+  ba-video-call.connection-error: Nagkaroon ng error habang kumokonekta, paki-click upang subukang muli.
+  ba-videoplayer-next.stay: Manatili
+  ba-videoplayer-next.next: Susunod
+  ba-videorecorder-trimmer.trim: Putulin
+  ba-videorecorder-trimmer.skip: Laktawan

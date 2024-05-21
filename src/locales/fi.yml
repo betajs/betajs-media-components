@@ -1,4 +1,4 @@
-'language:fi':
+language:fi:
   ba-videoplayer-playbutton.tooltip: Toista video.
   ba-videoplayer-playbutton.rerecord: Uudelleen
   ba-videoplayer-playbutton.submit-video: Vahvista video
@@ -15,14 +15,14 @@
   ba-videoplayer-controlbar.volume-button: Äänenvoimakkuus
   ba-videoplayer-controlbar.volume-mute: Äänenmykistys
   ba-videoplayer-controlbar.volume-unmute: Poista mykistys
-  ba-videoplayer.video-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.'
+  ba-videoplayer.video-error: Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.
   ba-videorecorder-chooser.record-video: Nauhoita video
   ba-videorecorder-chooser.upload-video: Lataa video
   ba-videorecorder-controlbar.settings: Asetukset
   ba-videorecorder-controlbar.camerahealthy: Valaistus on riittävä
   ba-videorecorder-controlbar.cameraunhealthy: Valaistus ei ole optimaalinen
   ba-videorecorder-controlbar.microphonehealthy: Äänitys toimii
-  ba-videorecorder-controlbar.microphoneunhealthy: 'Ääni ei tallennu, tarkista mikrofoniasetus'
+  ba-videorecorder-controlbar.microphoneunhealthy: Ääni ei tallennu, tarkista mikrofoniasetus
   ba-videorecorder-controlbar.record: Nauhoita
   ba-videorecorder-controlbar.record-tooltip: Aloita videon nauhoitus.
   ba-videorecorder-controlbar.rerecord: Uudelleen
@@ -33,7 +33,7 @@
   ba-videorecorder-controlbar.stop-tooltip: Lopeta nauhoitus painamalla tästä.
   ba-videorecorder-controlbar.skip: Ohita
   ba-videorecorder-controlbar.skip-tooltip: Paina tästä ohittaaksesi.
-  ba-videorecorder.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.'
+  ba-videorecorder.recorder-error: Tapahtui virhe, yritä myöhemmin uudelleen. Yritä uudelleen klikkaamalla.
   ba-videorecorder.attach-error: >-
     Emme voineet käyttää kamera-rajapintaa. Laitteesta ja selaimesta riippuen,
     sinun on ehkä asennettava Flash tai käytettävä sivun kautta SSL.
@@ -143,7 +143,7 @@
   ba-videorecorder.prepare-covershot: Aloituskuvan valmistelu
   ba-videorecorder.prepare-thumbnails: Pienoiskuvien etsiminen
   ba-videorecorder.adding-new-stream: Streamin lisääminen
-  ba-imagecapture.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Paina yrittääksesi uudelleen.'
+  ba-imagecapture.recorder-error: Tapahtui virhe, yritä myöhemmin uudelleen. Paina yrittääksesi uudelleen.
   ba-imagecapture.attach-error: >-
     Emme voineet käyttää mediarajapintaa. Laitteesta ja selaimesta riippuen
     sinun on ehkä asennettava Flash tai avattava sivu SSL:n kautta.
@@ -169,7 +169,7 @@
   ba-imagecapture.unsupported_image_type: 'Lähetä: %s - napsauta tätä, jos haluat yrittää uudelleen.'
   ba-imagecapture.orientation-portrait-required: Käännä laitetta tallentaaksesi muotokuvaustilassa.
   ba-imagecapture.orientation-landscape-required: Kierrä laitetta kuvaamaan vaakasuunnassa.
-  ba-audiorecorder.recorder-error: 'Tapahtui virhe, yritä myöhemmin uudelleen. Napsauta uudelleen yrittääksesi.'
+  ba-audiorecorder.recorder-error: Tapahtui virhe, yritä myöhemmin uudelleen. Napsauta uudelleen yrittääksesi.
   ba-audiorecorder.attach-error: >-
     Emme voineet käyttää mediarajapintaa. Laitteesta ja selaimesta riippuen
     sinun on ehkä asennettava Flash tai avattava sivu SSL: n kautta.
@@ -215,13 +215,63 @@
   ba-videoplayer-playbutton.trim: Trimmata
   ba-videoplayer-playbutton.skip: Ohita
   ba-videorecorder-imagegallery.upload-covershot: Lähetä kansi
-  ba-videorecorder.pick-covershot-frame: 'Valitse kehys, jota käytetään kansikuvana.'
+  ba-videorecorder.pick-covershot-frame: Valitse kehys, jota käytetään kansikuvana.
   ba-videorecorder.screen-recorder-is-not-supported: Näytön tallenninta ei tueta tässä laitteessa
   ba-videorecorder.trim-prompt: Haluatko leikata videosi?
   ba-videorecorder.trim-video: Leikkaa videota siirtämällä aloitus- ja lopetusmerkkejä
   ba-videorecorder.wait-for-trim: Odotetaan leikkauskomentoa ...
   ba-videorecorder-controlbar.no-video-source: Lisävideon tulolähde puuttuu
   ba-videorecorder-controlbar.stream-already-selected: Lisävirta on jo valittu
-  ba-videorecorder.uploading-src-error: 'Videon toistaminen ei onnistu, lataaminen on edelleen kesken'
+  ba-videorecorder.uploading-src-error: Videon toistaminen ei onnistu, lataaminen on edelleen kesken
   ba-audiorecorder-controlbar.pause-recorder: Keskeytä tallennin
   ba-audiorecorder-controlbar.resume-recorder: Jatka tallenninta
+  ba-circle-progress.fullscreen-video: Siirry koko näytön tilaan
+  ba-ads-choices-link.ad-choices: Mainosvalinnat
+  ba-ads-controlbar.skip-ad: Ohita mainos
+  ba-ads-controlbar.play-ad: pelata
+  ba-ads-controlbar.pause-video: Tauko
+  ba-ads-controlbar.volume-mute: Mykistä ääni
+  ba-ads-controlbar.volume-button: Aseta äänenvoimakkuus
+  ba-ads-controlbar.elapsed-time: Kulunut aika
+  ba-ads-controlbar.volume-unmute: Poista mykistys
+  ba-ads-controlbar.can-skip-after: Ohita %d jälkeen
+  ba-ads-controlbar.fullscreen-video: Siirry koko näytön tilaan
+  ba-ads-controlbar.exit-fullscreen-video: Poistu koko näytöstä
+  ba-ads-controlbar.ad-will-end-after: Mainos päättyy %s jälkeen
+  ba-ads-controlbar.pause-video-disabled: Taukoa ei tueta
+  ba-adsplayer.replay-ad: Toista video
+  ba-adsplayer.close-ad: kiinni
+  ba-adsplayer.ad-choices: Mainosvalinnat
+  ba-adsplayer.learn-more: Lisätietoja
+  ba-ads-learn-more-button.learn-more: Lisätietoja
+  ba-videoplayer-sidebar.up-next: Seuraavaksi
+  ba-videoplayer-sidebar.continue-on-ads-end: Sisältö jatkuu tämän ilmoituksen jälkeen.
+  ba-videoplayer-tooltip.tooltip: Työkaluvinkki
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Pidä hiirtä painettuna keskeyttääksesi työkaluvihjeen sulkemisen
+  ba-videorecorder.supported-mode: Median resoluution tulee olla %s-tilassa.
+  ba-videorecorder.re-choose-action: Napsauta valitaksesi toinen syöttölaite tai yritä toimintoa uudelleen.
+  ba-audiorecorder.uploading-src-error: Ääntä ei voi toistaa nyt, lataus on edelleen käynnissä
+  ba-audiorecorder.missing-track: Vaadittu ääniraita puuttuu
+  ba-audiorecorder.device-already-in-use: Ainakin yksi syöttölaitteistasi on jo käytössä
+  ba-audiorecorder.browser-permission-denied: Selain eväsi luvan, anna käyttöoikeus ja lataa sivu uudelleen
+  ba-local-view.local-camera-connection-error: >-
+    Virhe muodostettaessa yhteyttä paikalliseen kameraan. Yritä uudelleen
+    napsauttamalla.
+  ba-call-controlbar.camera-button: Näytä/piilota kamera
+  ba-call-controlbar.leave-button: Poistu puhelusta
+  ba-call-controlbar.mute-button: Mykistä/Poista mykistys
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Kun olet valmis, napsauta alla olevaa painiketta luodaksesi puhelun.
+  ba-call-lobby.description-join: Kun olet valmis, napsauta alla olevaa painiketta liittyäksesi puheluun.
+  ba-call-lobby.join-button: Liittyä seuraan
+  ba-call-lobby.create-button: Luoda
+  ba-call-lobby.mute-button: Mykistä
+  ba-call-lobby.title-create: Luo puhelu
+  ba-call-lobby.title-join: Liity puheluun
+  ba-video-call.call-ended: Puhelu päättyi
+  ba-video-call.connecting: Yhdistetään...
+  ba-video-call.connection-error: Yhteyden muodostamisessa tapahtui virhe. Yritä uudelleen napsauttamalla.
+  ba-videoplayer-next.stay: Pysyä
+  ba-videoplayer-next.next: Seuraava
+  ba-videorecorder-trimmer.trim: Trimmata
+  ba-videorecorder-trimmer.skip: Ohita

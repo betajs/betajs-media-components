@@ -1,4 +1,4 @@
-'language:el':
+language:el:
   ba-videoplayer-playbutton.tooltip: Κλικ για αναπαραγωγή.
   ba-videoplayer-playbutton.rerecord: Επανάληψη
   ba-videoplayer-playbutton.submit-video: Επιβεβαιώστε το βίντεο
@@ -256,11 +256,15 @@
   ba-ads-controlbar.skip-ad: Παράλειψη διαφήμισης
   ba-videorecorder.supported-mode: Η ανάλυση πρέπει να είναι σε '%s' λειτουργία.
   ba-videorecorder.re-choose-action: Παρακαλώ κάντε κλικ για να διαλέξετε άλλη συσκευή ή ξαναπροσπαθήστε.
-  ba-audiorecorder.uploading-src-error: 'Μη δυνατή η αναπαραγωγή ήχου τώρα, η μεταφόρτωση είναι σε εξέλιξη'
+  ba-audiorecorder.uploading-src-error: Μη δυνατή η αναπαραγωγή ήχου τώρα, η μεταφόρτωση είναι σε εξέλιξη
   ba-audiorecorder.missing-track: Το απαιτούμενο κομμάτι ήχου λείπει
   ba-audiorecorder.device-already-in-use: Τουλάχιστον μία από τις συσκευές εισόδου χρησιμοποιείται ήδη
-  ba-audiorecorder.browser-permission-denied: 'Δεν επιτρέπεται πρόσβαση από το πρόγραμμα περιήγησης, δώστε άδεια και φορτώστε ξανά τη σελίδα'
-  ba-local-view.local-camera-connection-error: Παρουσιάστηκε σφάλμα κατά τη σύνδεση με την κάμερα. Κάντε κλικ για να προσπαθήσετε ξανά.
+  ba-audiorecorder.browser-permission-denied: >-
+    Δεν επιτρέπεται πρόσβαση από το πρόγραμμα περιήγησης, δώστε άδεια και
+    φορτώστε ξανά τη σελίδα
+  ba-local-view.local-camera-connection-error: >-
+    Παρουσιάστηκε σφάλμα κατά τη σύνδεση με την κάμερα. Κάντε κλικ για να
+    προσπαθήσετε ξανά.
   ba-call-controlbar.camera-button: Εμφάνιση/Απόκρυψη κάμερας
   ba-call-controlbar.leave-button: Αποχώρηση από την κλήση
   ba-call-controlbar.mute-button: Σίγαση/Κατάργηση σίγασης
@@ -274,4 +278,26 @@
   ba-call-lobby.title-join: Συμμετοχή σε κλήση
   ba-video-call.call-ended: Η κλήση τελείωσε
   ba-video-call.connecting: Σύνδεση...
-  ba-video-call.connection-error: 'Παρουσιάστηκε σφάλμα κατά τη σύνδεση, κάντε κλικ για να προσπαθήσετε ξανά.'
+  ba-video-call.connection-error: Παρουσιάστηκε σφάλμα κατά τη σύνδεση, κάντε κλικ για να προσπαθήσετε ξανά.
+  ba-circle-progress.fullscreen-video: Μπείτε σε πλήρη οθόνη
+  ba-ads-choices-link.ad-choices: Επιλογές διαφημίσεων
+  ba-ads-controlbar.play-ad: Παίζω
+  ba-ads-controlbar.pause-video: Παύση
+  ba-ads-controlbar.fullscreen-video: Μπείτε σε πλήρη οθόνη
+  ba-ads-controlbar.exit-fullscreen-video: Έξοδος από πλήρη οθόνη
+  ba-ads-controlbar.pause-video-disabled: Η παύση δεν υποστηρίζεται
+  ba-adsplayer.replay-ad: Επανάληψη βίντεο
+  ba-adsplayer.close-ad: Κλείσε
+  ba-adsplayer.ad-choices: Επιλογές διαφημίσεων
+  ba-adsplayer.learn-more: Μάθε περισσότερα
+  ba-ads-learn-more-button.learn-more: Μάθε περισσότερα
+  ba-videoplayer-sidebar.up-next: Επόμενο
+  ba-videoplayer-sidebar.continue-on-ads-end: Το περιεχόμενο θα συνεχιστεί μετά από αυτήν τη διαφήμιση.
+  ba-videoplayer-tooltip.tooltip: Επεξήγηση εργαλείου
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: >-
+    Κρατήστε πατημένο το ποντίκι για να σταματήσετε το κλείσιμο της επεξήγησης
+    εργαλείου
+  ba-videoplayer-next.stay: Διαμονή
+  ba-videoplayer-next.next: Επόμενο
+  ba-videorecorder-trimmer.trim: Τακτοποίηση
+  ba-videorecorder-trimmer.skip: Παραλείπω

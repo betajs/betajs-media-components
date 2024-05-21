@@ -1,4 +1,4 @@
-'language:ja':
+language:ja:
   ba-videoplayer-playbutton.tooltip: クリックして再生します。
   ba-videoplayer-playbutton.rerecord: 再録画
   ba-videoplayer-playbutton.submit-video: ビデオを確認する
@@ -194,3 +194,51 @@
   ba-videorecorder.uploading-src-error: 現在動画を再生できません。アップロードはまだ進行中です
   ba-audiorecorder-controlbar.pause-recorder: レコーダーの一時停止
   ba-audiorecorder-controlbar.resume-recorder: レジュメレコーダー
+  ba-circle-progress.fullscreen-video: 全画面表示
+  ba-ads-choices-link.ad-choices: 広告の選択
+  ba-ads-controlbar.skip-ad: 広告をスキップ
+  ba-ads-controlbar.play-ad: 遊ぶ
+  ba-ads-controlbar.pause-video: 一時停止
+  ba-ads-controlbar.volume-mute: 音をミュートする
+  ba-ads-controlbar.volume-button: 音量を設定する
+  ba-ads-controlbar.elapsed-time: 経過時間
+  ba-ads-controlbar.volume-unmute: サウンドのミュートを解除
+  ba-ads-controlbar.can-skip-after: '%d 以降をスキップ'
+  ba-ads-controlbar.fullscreen-video: 全画面表示
+  ba-ads-controlbar.exit-fullscreen-video: 全画面表示を終了
+  ba-ads-controlbar.ad-will-end-after: 広告は %s 後に終了します
+  ba-ads-controlbar.pause-video-disabled: 一時停止はサポートされていません
+  ba-adsplayer.replay-ad: ビデオを再生
+  ba-adsplayer.close-ad: 近い
+  ba-adsplayer.ad-choices: 広告の選択
+  ba-adsplayer.learn-more: もっと詳しく知る
+  ba-ads-learn-more-button.learn-more: もっと詳しく知る
+  ba-videoplayer-sidebar.up-next: 次に
+  ba-videoplayer-sidebar.continue-on-ads-end: この広告の後、コンテンツが再開されます。
+  ba-videoplayer-tooltip.tooltip: ツールチップ
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: マウスを長押しすると、ツールチップを閉じるのを一時停止します
+  ba-videorecorder.supported-mode: メディア解像度は '%s' モードである必要があります。
+  ba-videorecorder.re-choose-action: 別の入力デバイスを選択するか、アクションを再試行するにはクリックしてください。
+  ba-audiorecorder.uploading-src-error: 現在、オーディオを再生できません。アップロードが進行中です
+  ba-audiorecorder.missing-track: 必要なオーディオトラックがありません
+  ba-audiorecorder.device-already-in-use: 入力デバイスの少なくとも 1 つがすでに使用されています
+  ba-audiorecorder.browser-permission-denied: ブラウザによりアクセスが拒否されました。アクセスを許可してページを再読み込みしてください。
+  ba-local-view.local-camera-connection-error: ローカルカメラへの接続中にエラーが発生しました。クリックして再試行してください。
+  ba-call-controlbar.camera-button: カメラの表示/非表示
+  ba-call-controlbar.leave-button: 通話を終了
+  ba-call-controlbar.mute-button: ミュート/ミュート解除
+  ba-call-lobby.camera-button: カメラ
+  ba-call-lobby.description-create: 準備ができたら、下のボタンをクリックして通話を作成してください。
+  ba-call-lobby.description-join: 準備ができたら、下のボタンをクリックして通話に参加してください。
+  ba-call-lobby.join-button: 参加する
+  ba-call-lobby.create-button: 作成する
+  ba-call-lobby.mute-button: ミュート
+  ba-call-lobby.title-create: 通話の作成
+  ba-call-lobby.title-join: 通話に参加する
+  ba-video-call.call-ended: 通話終了
+  ba-video-call.connecting: 接続中...
+  ba-video-call.connection-error: 接続中にエラーが発生しました。クリックしてもう一度お試しください。
+  ba-videoplayer-next.stay: 滞在する
+  ba-videoplayer-next.next: 次
+  ba-videorecorder-trimmer.trim: トリム
+  ba-videorecorder-trimmer.skip: スキップ

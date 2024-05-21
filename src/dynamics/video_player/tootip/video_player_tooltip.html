@@ -1,4 +1,4 @@
-<div ba-if="{{tooltiptext}}" role="tooltip"
+<div ba-if="{{tooltiptext}}" role="tooltip" data-selector="{{id}}"
      title="{{(pauseonhover && disappearafter > 0) ? string('hover-to-pause-tooltip-close') : tooltiptext}}"
      class="{{csscommon}}-tooltip-container {{csscommon}}-tooltip-{{position}}
      {{csscommon}}-tooltip-container-on-{{playing ? 'playing' : 'pause'}}

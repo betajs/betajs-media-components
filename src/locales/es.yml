@@ -1,4 +1,4 @@
-'language:es':
+language:es:
   ba-videoplayer-playbutton.tooltip: Haga clic para ver el video.
   ba-videoplayer-playbutton.rerecord: Regrabar
   ba-videoplayer-playbutton.submit-video: Confirmar video
@@ -92,8 +92,8 @@
   ba-videorecorder.resolution-constraint-error: >-
     El archivo que ha seleccionado no coincide con la resolución requerida; haga
     clic aquí para volver a intentarlo.
-  ba-videorecorder.orientation-portrait-required: 'Por favor, gire su dispositivo para grabar en modo vertical.'
-  ba-videorecorder.orientation-landscape-required: 'Por favor, gire su dispositivo para grabar en modo horizontal.'
+  ba-videorecorder.orientation-portrait-required: Por favor, gire su dispositivo para grabar en modo vertical.
+  ba-videorecorder.orientation-landscape-required: Por favor, gire su dispositivo para grabar en modo horizontal.
   ba-imageviewer-controlbar.rerecord-image: ¿Rehacer?
   ba-imageviewer-controlbar.submit-image: Confirmar
   ba-imageviewer-controlbar.fullscreen-image: Ingrese a pantalla completa
@@ -184,8 +184,8 @@
     Su archivo de imagen es demasiado grande (%s): haga clic aquí para volver a
     intentarlo con un archivo de imagen más pequeño.
   ba-imagecapture.unsupported_image_type: 'Por favor suba: %s - haga clic aquí para volver a intentarlo.'
-  ba-imagecapture.orientation-portrait-required: 'Por favor, gire su dispositivo para grabar en modo retrato.'
-  ba-imagecapture.orientation-landscape-required: 'Por favor, gire su dispositivo para grabar en modo horizontal.'
+  ba-imagecapture.orientation-portrait-required: Por favor, gire su dispositivo para grabar en modo retrato.
+  ba-imagecapture.orientation-landscape-required: Por favor, gire su dispositivo para grabar en modo horizontal.
   ba-audiorecorder.recorder-error: >-
     Ha ocurrido un error, por favor intente de nuevo más tarde. Haga clic para
     volver a intentarlo.
@@ -246,6 +246,66 @@
   ba-videorecorder.wait-for-trim: Esperando el comando de recorte ...
   ba-videorecorder-controlbar.no-video-source: Falta una fuente de entrada de video adicional
   ba-videorecorder-controlbar.stream-already-selected: Ya se ha seleccionado una transmisión adicional
-  ba-videorecorder.uploading-src-error: 'No se puede reproducir el video ahora, la carga aún está en progreso'
+  ba-videorecorder.uploading-src-error: No se puede reproducir el video ahora, la carga aún está en progreso
   ba-audiorecorder-controlbar.pause-recorder: Pausar grabadora
   ba-audiorecorder-controlbar.resume-recorder: Reanudar grabadora
+  ba-circle-progress.fullscreen-video: Ingrese a pantalla completa
+  ba-ads-choices-link.ad-choices: Opciones de anuncios
+  ba-ads-controlbar.skip-ad: Omitir aviso publicitario
+  ba-ads-controlbar.play-ad: Jugar
+  ba-ads-controlbar.pause-video: Pausa
+  ba-ads-controlbar.volume-mute: Sin sonido
+  ba-ads-controlbar.volume-button: Establecer volumen
+  ba-ads-controlbar.elapsed-time: Tiempo transcurrido
+  ba-ads-controlbar.volume-unmute: Activar sonido
+  ba-ads-controlbar.can-skip-after: Saltar después de %d
+  ba-ads-controlbar.fullscreen-video: Ingrese a pantalla completa
+  ba-ads-controlbar.exit-fullscreen-video: Salir de pantalla completa
+  ba-ads-controlbar.ad-will-end-after: El anuncio finalizará después de %s
+  ba-ads-controlbar.pause-video-disabled: Pausa no compatible
+  ba-adsplayer.replay-ad: Reproducir vídeo
+  ba-adsplayer.close-ad: Cerca
+  ba-adsplayer.ad-choices: Opciones de anuncios
+  ba-adsplayer.learn-more: Aprende más
+  ba-ads-learn-more-button.learn-more: Aprende más
+  ba-videoplayer-sidebar.up-next: Hasta la próxima
+  ba-videoplayer-sidebar.continue-on-ads-end: El contenido se reanudará después de este anuncio.
+  ba-videoplayer-tooltip.tooltip: Información sobre herramientas
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: >-
+    Mantenga presionado el mouse para pausar el cierre de la información sobre
+    herramientas
+  ba-videorecorder.supported-mode: La resolución de medios debe estar en modo '%s'.
+  ba-videorecorder.re-choose-action: >-
+    Haga clic para elegir otro dispositivo de entrada o vuelva a intentar la
+    acción.
+  ba-audiorecorder.uploading-src-error: No se puede reproducir el audio ahora; la carga aún está en progreso
+  ba-audiorecorder.missing-track: Falta la pista de audio requerida
+  ba-audiorecorder.device-already-in-use: Al menos uno de tus dispositivos de entrada ya está en uso
+  ba-audiorecorder.browser-permission-denied: >-
+    Permiso denegado por el navegador, conceda acceso y vuelva a cargar la
+    página
+  ba-local-view.local-camera-connection-error: >-
+    Hubo un error al conectarse a la cámara local. Haga clic para intentarlo de
+    nuevo.
+  ba-call-controlbar.camera-button: Mostrar/ocultar cámara
+  ba-call-controlbar.leave-button: Dejar llamada
+  ba-call-controlbar.mute-button: Silenciar/Activar silencio
+  ba-call-lobby.camera-button: Cámara
+  ba-call-lobby.description-create: >-
+    Cuando esté listo, haga clic en el botón a continuación para crear una
+    llamada.
+  ba-call-lobby.description-join: >-
+    Cuando esté listo, haga clic en el botón a continuación para unirse a la
+    llamada.
+  ba-call-lobby.join-button: Unirse
+  ba-call-lobby.create-button: Crear
+  ba-call-lobby.mute-button: Silenciar
+  ba-call-lobby.title-create: Crear llamada
+  ba-call-lobby.title-join: Unirse a la llamada
+  ba-video-call.call-ended: Llamada terminada
+  ba-video-call.connecting: Conectando...
+  ba-video-call.connection-error: Se produjo un error al conectarse, haga clic para intentarlo nuevamente.
+  ba-videoplayer-next.stay: Permanecer
+  ba-videoplayer-next.next: Próximo
+  ba-videorecorder-trimmer.trim: Recortar
+  ba-videorecorder-trimmer.skip: Saltar

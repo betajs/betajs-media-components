@@ -3,7 +3,7 @@
         <a class="{{cssplayer}}-next-button-stay {{cssplayer}}-next-button"
         ontouchstart="{{stay(domEvent)}}"
         ba-click="{{stay(domEvent)}}"
-        >Stay</a>
+        >{{string('stay')}}</a>
         <a ontouchstart="{{next(domEvent)}}"
         ba-click="{{next(domEvent)}}"
            class="{{cssplayer}}-next-button-next {{cssplayer}}-next-button"
@@ -11,7 +11,7 @@
             <span class="{{cssplayer}}-next-progress"
                   ba-styles="{{{width: ((position - shownext) / noengagenext * 100) + '%'}}}"
             ></span>
-            <span>Next</span>
+            <span>{{string('next')}}</span>
         </a>
     </div>
 </div>

@@ -1,4 +1,4 @@
-'language:hi':
+language:hi:
   ba-videoplayer-playbutton.tooltip: वीडियो चलाने के लिए क्लिक करें
   ba-videoplayer-playbutton.rerecord: फिर से करें
   ba-videoplayer-playbutton.submit-video: वीडियो की पुष्टि करें
@@ -15,7 +15,9 @@
   ba-videoplayer-controlbar.volume-button: वॉल्यूम तय करें
   ba-videoplayer-controlbar.volume-mute: ध्वनि म्यूट करें
   ba-videoplayer-controlbar.volume-unmute: ध्वनि को अनम्यूट करें
-  ba-videoplayer.video-error: त्रुटि घटित हुई है, कृपया बाद में पुनः प्रयास करें। पुनः प्रयास करने के लिए क्लिक करें
+  ba-videoplayer.video-error: >-
+    त्रुटि घटित हुई है, कृपया बाद में पुनः प्रयास करें। पुनः प्रयास करने के लिए
+    क्लिक करें
   ba-videorecorder-chooser.record-video: वीडियो रिकॉर्ड करो
   ba-videorecorder-chooser.upload-video: वीडियो अपलोड करें
   ba-videorecorder-controlbar.settings: सेटिंग्स
@@ -240,7 +242,7 @@
   ba-videorecorder.wait-for-trim: ट्रिम कमांड की प्रतीक्षा की जा रही है...
   ba-videorecorder-controlbar.no-video-source: अतिरिक्त वीडियो इनपुट स्रोत गुम है
   ba-videorecorder-controlbar.stream-already-selected: अतिरिक्त स्ट्रीम पहले ही चुनी जा चुकी है
-  ba-videorecorder.uploading-src-error: 'अभी वीडियो वापस चलाने में असमर्थ, अपलोड करना अभी भी प्रगति पर है'
+  ba-videorecorder.uploading-src-error: अभी वीडियो वापस चलाने में असमर्थ, अपलोड करना अभी भी प्रगति पर है
   ba-audiorecorder-controlbar.pause-recorder: रोकें रिकॉर्डर
   ba-audiorecorder-controlbar.resume-recorder: रिज्यूमे रिकॉर्डर
   ba-ads-controlbar.elapsed-time: बीता हुआ वक़्त
@@ -252,12 +254,15 @@
   ba-ads-controlbar.skip-ad: विज्ञापन से आगे बढ़ें
   ba-videorecorder.supported-mode: मीडिया रेज़ोल्यूशन '%s' मोड में होना चाहिए
   ba-videorecorder.re-choose-action: कृपया कोई अन्य इनपुट डिवाइस चुनने के लिए क्लिक करें या पुनः प्रयास करें
-  ba-audiorecorder.uploading-src-error: 'अब ऑडियो चलाने में असमर्थ, अपलोडिंग अभी भी जारी है'
+  ba-audiorecorder.uploading-src-error: अब ऑडियो चलाने में असमर्थ, अपलोडिंग अभी भी जारी है
   ba-audiorecorder.missing-track: आवश्यक ऑडियो या वीडियो ट्रैक गायब है
   ba-audiorecorder.device-already-in-use: आपका कम से कम एक इनपुट डिवाइस पहले से ही उपयोग में है
-  ba-audiorecorder.browser-permission-denied: 'ब्राउज़र द्वारा अनुमति से इनकार किया गया है, कृपया पहुँच और पुनः लोड पृष्ठ
-    प्रदान करें'
-  ba-local-view.local-camera-connection-error: स्थानीय कैमरा से कनेक्ट करते समय एक त्रुटि हुई। पुनः प्रयास करने के लिए क्लिक करें।
+  ba-audiorecorder.browser-permission-denied: >-
+    ब्राउज़र द्वारा अनुमति से इनकार किया गया है, कृपया पहुँच और पुनः लोड पृष्ठ
+    प्रदान करें
+  ba-local-view.local-camera-connection-error: >-
+    स्थानीय कैमरा से कनेक्ट करते समय एक त्रुटि हुई। पुनः प्रयास करने के लिए
+    क्लिक करें।
   ba-call-controlbar.camera-button: कैमरा दिखाएँ / छुपाएँ
   ba-call-controlbar.leave-button: कॉल छोड़ो
   ba-call-controlbar.mute-button: म्यूट / अनम्यूट
@@ -271,7 +276,7 @@
   ba-call-lobby.title-join: कॉल में शामिल हों
   ba-video-call.call-ended: कॉल समाप्त
   ba-video-call.connecting: कनेक्ट हो रहा है...
-  ba-video-call.connection-error: 'कनेक्ट करते समय एक त्रुटि हुई, कृपया पुनः प्रयास करने के लिए क्लिक करें।'
+  ba-video-call.connection-error: कनेक्ट करते समय एक त्रुटि हुई, कृपया पुनः प्रयास करने के लिए क्लिक करें।
   ba-ads-controlbar.play-ad: प्ले
   ba-ads-controlbar.pause-video: ठहराव
   ba-ads-controlbar.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
@@ -279,3 +284,16 @@
   ba-ads-controlbar.pause-video-disabled: रोकना समर्थित नहीं है
   ba-adsplayer.replay-ad: फिर से चलाना
   ba-adsplayer.close-ad: बंद करें
+  ba-circle-progress.fullscreen-video: पूर्ण स्क्रीन दर्ज करें
+  ba-ads-choices-link.ad-choices: विज्ञापन विकल्प
+  ba-adsplayer.ad-choices: विज्ञापन विकल्प
+  ba-adsplayer.learn-more: और अधिक जानें
+  ba-ads-learn-more-button.learn-more: और अधिक जानें
+  ba-videoplayer-sidebar.up-next: अगला
+  ba-videoplayer-sidebar.continue-on-ads-end: इस विज्ञापन के बाद सामग्री पुनः शुरू हो जाएगी।
+  ba-videoplayer-tooltip.tooltip: टूलटिप
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: टूलटिप बंद करने को रोकने के लिए माउस को दबाए रखें
+  ba-videoplayer-next.stay: रहना
+  ba-videoplayer-next.next: अगला
+  ba-videorecorder-trimmer.trim: काट-छांट करना
+  ba-videorecorder-trimmer.skip: छोडना

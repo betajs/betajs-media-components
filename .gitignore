@@ -23,3 +23,4 @@ package-lock.json
 /demos/kargo/
 /pnpm-lock.yaml
 tests/playwright/.cache/
+.npm

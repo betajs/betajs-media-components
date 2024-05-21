@@ -48,7 +48,6 @@ test.describe(`Check timeout on ads rendering settings`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            const dataTestId = await player.getPlayerAttribute('testid');
             const recorderPrefix = await player.getPlayerAttribute(`performanceprefix`);
 
             let performanceRecorder = await player.getPlayerAttribute(`performancerecords`);

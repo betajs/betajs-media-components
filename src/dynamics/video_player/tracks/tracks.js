@@ -28,8 +28,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                 },
 
                 create: function() {
-                    Objs.iter(this.get("tracktags"), function(subtitle) {
-                        if (subtitle.kind === "subtitles") {
+                    Objs.iter(this.get("tracktags"), function(trackTag) {
+                        if (trackTag.kind === "subtitles" || trackTag.kind === "captions") {
                             this.set("texttrackslength", this.get("texttrackslength") + 1);
                         }
                     }, this);
@@ -69,9 +69,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Tracks", [
                     },
 
                     selected_label_value: function(select) {
-                        var _options, _chosen;
-                        _options = select[0].target.options;
-                        _chosen = _options[_options.selectedIndex];
+                        const _options = select[0].target.options;
+                        const _chosen = _options[_options.selectedIndex];
 
                         if (_chosen.value) {
                             this.set("chosenoption", {

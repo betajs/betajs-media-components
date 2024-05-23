@@ -960,8 +960,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get("unmuteonclick")) {
                         this.on("change:adsplaying", function(adsplaying) {
-                            if (adsplaying) this.set("unmuteonclick", false);
-                            if (this.get("muted") || this.get("volume") === 0) this.set("unmuteonclick", true);
+                            if (adsplaying) {
+                                this.set("unmuteonclick", false);
+                            } else if (this.get("muted") || this.get("volume") === 0) {
+                                this.set("unmuteonclick", true);
+                            }
                         }, this);
                     }
 

@@ -976,11 +976,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     );
                     this._performanceObserver.observe({
                         // https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
-<<<<<<< HEAD
-                        entryTypes: this.get(`performanceobservedtypes`)
-=======
                         entryTypes: ["measure", "mark", "navigation", "element"]
->>>>>>> feb7c2bb (added new performance feature recording player passed states)
                     });
 
                     if (this.get("autoplaywhenvisible")) {
@@ -3356,11 +3352,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set('clearDebounce', clearDebounce);
                 },
 
-<<<<<<< HEAD
-=======
-                },
-
->>>>>>> feb7c2bb (added new performance feature recording player passed states)
                 _recordPerformance: function(name) {
                     const recordName = `${this.get(`performanceprefix`)}-${name}`;
                     // Entry Types starting Chrome 59: "element", "event", "first-input",
@@ -3392,9 +3383,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         const perf = index > -1 ? this.get(`performancerecords`)[index] : {
                             name
                         };
-<<<<<<< HEAD
-                        const records = this.get(`performancerecordeditems`);
-=======
                         const records = [{
                                 type: `mark`,
                                 keys: [`duration`, `startTime`],
@@ -3412,7 +3400,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 keys: [`loadTime`, `naturalHeight`, `naturalWidth`, `renderTime`]
                             }
                         ];
->>>>>>> feb7c2bb (added new performance feature recording player passed states)
                         records.forEach((k) => {
                             if (!k.keys || !k.type || entry.entryType !== k.type) return;
                             k.keys.forEach((key) => {

@@ -3196,8 +3196,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             console.warn(`Please provide selector and adslotid for companion ad`);
                             return;
                         }
-                        let element = document.querySelector(selector);
-                        if (!element && incontainer) {
+                        let element;
+                        if (!incontainer) {
+                            element = document.querySelector(selector);
+                        } else {
                             element = this.activeElement().querySelector(selector);
                         }
                         if (element) {

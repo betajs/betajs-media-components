@@ -108,6 +108,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (this.parent().get("outstream")) {
                             this.parent().hidePlayerContainer();
                         }
+                        this.trackAdsPerformance(`ad-error`);
                     },
                     "ads:render-timeout": function() {
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
@@ -118,11 +119,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             dyn.stopAdsRenderFailTimeout(true);
                             dyn.trigger("ad-error", "Ad took too long to render");
                         }
+                        this.trackAdsPerformance(`ads-render-timeout`);
                     },
                     "ads:load": function() {
                         this.set("skipvisible", false);
                         this.call("load");
                         this.set("quartile", "first");
+                        this.trackAdsPerformance(`ads-load-start`);
                     },
                     "ads:firstQuartile": function() {
                         this.set("quartile", "second");
@@ -135,6 +138,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:start": function(ev) {
                         this._onStart(ev);
+                        this.trackAdsPerformance(`ads-start`);
                     },
                     "ads:skippableStateChanged": function(event) {
                         this.set("skipvisible", true);
@@ -143,6 +147,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
+                        this.trackAdsPerformance(`ads-all-completed`);
                         if (this.parent() && (
                                 this.parent().get("outstreamoptions").noEndCard ||
                                 this.parent().get("outstreamoptions.allowRepeat")
@@ -170,6 +175,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
+                        this.trackAdsPerformance(`ads-loaded`);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -194,6 +200,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:contentPauseRequested": function() {
                         this.set("adsplaying", true);
+                        this.trackAdsPerformance(`ads-content-pause-requested`);
                     }
                 },
 
@@ -476,6 +483,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 getAdWillPlayMuted: function() {
                     return this.get("muted") || this.get("volume") === 0;
+                },
+
+                trackAdsPerformance: function(name) {
+                    this.parent()._recordPerformance(name);
                 },
 
                 _onStart: function(ev) {

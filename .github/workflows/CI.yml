@@ -94,7 +94,7 @@ jobs:
         id: node
         uses: ./.github/actions/install-dependencies
         with:
-          version: '21.x'
+          version: '22.x'
           pkg-manager: 'npm'
           use-cache: ${{ inputs.use-cache }}
           cache-key: ${{ needs.build.outputs.cache-key }}
@@ -120,7 +120,7 @@ jobs:
     strategy:
       matrix:
         # Lower node version will not support as per: "ReferenceError: navigator is not defined"
-        node-version: [ '21.x' ]
+        node-version: [ '22.x' ]
         pkg-manager: [ 'npm' ]
     steps:
       - name: Checkout

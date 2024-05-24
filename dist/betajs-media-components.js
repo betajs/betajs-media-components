@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.479 - 2024-05-10
+betajs-media-components - v0.0.480 - 2024-05-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.479 - 2024-05-10
+betajs-media-components - v0.0.480 - 2024-05-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.479",
-    "datetime": 1715364551306
+    "version": "0.0.480",
+    "datetime": 1716228168614
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6448,8 +6448,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get("unmuteonclick")) {
                         this.on("change:adsplaying", function(adsplaying) {
-                            if (adsplaying) this.set("unmuteonclick", false);
-                            if (this.get("muted") || this.get("volume") === 0) this.set("unmuteonclick", true);
+                            if (adsplaying) {
+                                this.set("unmuteonclick", false);
+                            } else if (this.get("muted") || this.get("volume") === 0) {
+                                this.set("unmuteonclick", true);
+                            }
                         }, this);
                     }
 

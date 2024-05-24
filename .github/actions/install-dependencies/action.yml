@@ -1,0 +1,80 @@
+name: 'Setup Node'
+description: 'Install Node and package dependencies'
+
+outputs:
+  package-cache-dir:
+    description: 'The npm cache directory'
+    value: ${{ steps.cache-dir.outputs.package-cache-dir }}
+  cache-hit:
+    description: 'Whether the cache was hit'
+    value: ${{ steps.node-modules-cache.outputs.cache-hit }}
+  cache-key: # cache-primary-key or cache-matched-key
+    description: 'The cache key'
+    value: ${{ steps.node-modules-cache.outputs.cache-matched-key }}
+
+inputs:
+  version:
+    description: 'The node version'
+    default: '21.x'
+    required: true
+  pkg-manager:
+    description: 'The package manager cli'
+    default: 'npm'
+    required: false
+  use-cache:
+    description: 'Use cache for node_modules'
+    default: 'true'
+    required: false
+  cache-key:
+    description: 'The cache key'
+    default: ${{ hashFiles('package-lock.json') }}
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Node JS version ${{ inputs.version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.version }}
+        cache: ${{ inputs.pkg-manager }}
+
+    - name: Get npm cache directory
+      id: cache-dir
+      if: ${{ inputs.pkg-manager == 'npm' }}
+      shell: bash
+      run: echo "package-cache-dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+    - uses: actions/cache@v4
+      id: node-modules-cache
+      if: ${{ inputs.use-cache == 'true' }}
+      with:
+        path: ${{ steps.cache-dir.outputs.package-cache-dir }}
+        key: ${{ inputs.cache-key }}
+        restore-keys: ${{ inputs.cache-key }}
+
+    - name: Install ${{ inputs.pkg-manager }} Package manager
+      if: ${{ inputs.pkg-manager == 'pnpm' }}
+      uses: pnpm/action-setup@v3
+      with:
+        version: 8
+
+    - name: Install JavaScript dependencies via ${{ inputs.pkg-manager  }}
+      shell: bash
+      if: ${{ inputs.pkg-manager == 'pnpm' && steps.node-modules-cache.outputs.cache-hit != 'true' }}
+      run: pnpm ci
+
+    - name: Install JavaScript dependencies via ${{ inputs.pkg-manager  }}
+      shell: bash
+      if: ${{ inputs.pkg-manager == 'npm' }}
+      run: npm set cache .npm && npm ci
+
+    - name: Install global packages
+      if: ${{ inputs.pkg-manager == 'npm' && steps.node-modules-cache.outputs.cache-hit != 'true' }}
+      shell: bash
+      run: |
+        npm install -g grunt
+        npm install -g dotenv
+        npm install -g http-server
+        npm install -g qunit
+        npm install -g jsdom

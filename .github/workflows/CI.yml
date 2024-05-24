@@ -1,0 +1,125 @@
+name: CI
+run-name: Auto Continues Integration for betajs-media-components
+
+on:
+  push:
+    branches: [ master ]
+    paths: [ 'src/**', 'tests/**' ]
+  pull_request:
+    branches: [ '*' ]
+    types: [ opened, synchronize, reopened ]
+    paths: [ 'src/**', 'tests/**' ]
+  workflow_dispatch:
+    inputs:
+      use-cache:
+        description: 'Use cache for the workflow'
+        type: choice
+        default: true
+        options: [ 'true', 'false' ]
+  workflow_call:
+
+jobs:
+  build:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    outputs:
+      node-version: ${{ matrix.node-version }}
+      cache-hit: ${{ steps.node.outputs.cache-hit }}
+      cache-key: ${{ steps.node.outputs.cache-key }}
+      package-cache-dir: ${{ steps.node.outputs.package-cache-dir }}
+    defaults:
+      run:
+        working-directory: .
+        shell: bash
+    strategy:
+      matrix:
+        node-version: [ '21.x' ]
+        pkg-manager: [ 'npm' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies and global packages via npm package manager
+        id: node
+        uses: ./.github/actions/install-dependencies
+        with:
+          version: ${{ matrix.node-version }}
+          pkg-manager: ${{ matrix.pkg-manager }}
+          use-cache: ${{ inputs.use-cache }}
+
+      - name: build component
+        uses: ./.github/actions/build-component
+
+  # It's running separately, as it's saving time when installation is in parallel
+  install-chrome:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    outputs:
+      chrome-launcher: ${{ env.CHROME_INSTALL_PATH }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Chrome on Linux
+        if: ${{ contains(runner.os, 'Linux') }}
+        id: chrome-install
+        shell: bash
+        run: |
+          chmod +x .github/scripts/install-linux-chrome.sh
+          .github/scripts/install-linux-chrome.sh
+          echo "CHROME_INSTALL_PATH=$(which google-chrome-stable)" >> $GITHUB_ENV
+
+
+  e2e-tests:
+    timeout-minutes: 60
+    needs: [ build, install-chrome ]
+    continue-on-error: false
+    runs-on: ubuntu-latest
+    # container:
+    #   image: mcr.microsoft.com/playwright:v1.44.0-jammy
+    strategy:
+      matrix:
+        project: [ chromium ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies and global packages via npm package manager
+        id: node
+        uses: ./.github/actions/install-dependencies
+        with:
+          version: '21.x'
+          pkg-manager: 'npm'
+          use-cache: ${{ inputs.use-cache }}
+          cache-key: ${{ needs.build.outputs.cache-key }}
+
+      # in the future, we can use different browsers for testing
+      - name: Run Playwright via Chrome launcher
+        uses: ./.github/actions/playwright-test
+        if: ${{ matrix.project == 'chromium' }}
+        with:
+          project: ${{ matrix.project }}
+          browser-launcher: ${{ needs.install-chrome.outputs.chrome-launcher }}
+
+
+  unit-tests:
+    timeout-minutes: 10
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Lower node version will not support as per: "ReferenceError: navigator is not defined"
+        node-version: [ '21.x' ]
+        pkg-manager: [ 'npm' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies and global packages via npm package manager
+        id: node
+        uses: ./.github/actions/install-dependencies
+        with:
+          version: ${{ matrix.node-version }}
+          pkg-manager: ${{ matrix.pkg-manager }}
+          use-cache: ${{ inputs.use-cache }}
+          cache-key: ${{ needs.build.outputs.cache-key }}
+
+      - name: Run unit tests
+        uses: ./.github/actions/unit-tests

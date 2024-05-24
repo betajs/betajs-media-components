@@ -1,0 +1,11 @@
+name: 'Run Unit tests'
+description: 'Will run unit tests via QUnit'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Unit tests
+      shell: bash
+      run: |
+        echo 'Running unit tests'
+        npm run test:unit

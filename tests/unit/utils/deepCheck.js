@@ -1,7 +1,7 @@
-const Objs = BetaJS.Objs;
-const Types = BetaJS.Types;
+const { BetaJS } = require('../init');
+const { Objs, Types } = BetaJS;
 
-const deepCheck = (assert, player, key, value, _attrs) => {
+module.exports = (assert, player, key, value, _attrs) => {
     const currentValue = player.get(key);
     if (!!key &&
         (
@@ -22,5 +22,3 @@ const deepCheck = (assert, player, key, value, _attrs) => {
         }
     }
 };
-
-export default deepCheck;

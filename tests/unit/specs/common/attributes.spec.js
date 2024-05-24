@@ -41,7 +41,6 @@ const player = initPlayer({
 
 // Will test the initial state of the player // asyncTest
 test("test user set attributes correctness", (assert) => {
-    console.log(`Running times...`);
     // create a clone
     const initialValues = Object.assign({}, player.get("initialoptions"));
     player.__mergeWithInitialOptions();

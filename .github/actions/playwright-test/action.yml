@@ -66,7 +66,8 @@ runs:
         PLAYWRIGHT_BROWSER_LAUNCHER: "${{ inputs.browser-launcher }}"
         PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS: 'false'
 
-    - uses: actions/upload-artifact@v4
+    - name: Store Playwright reports
+      uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-reports

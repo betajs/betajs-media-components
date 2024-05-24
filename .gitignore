@@ -19,7 +19,8 @@ google-translate-creds.json
 /demos/tmp/
 .history
 *.log
-package-lock.json
 /demos/kargo/
 /pnpm-lock.yaml
 tests/playwright/.cache/
+.nyc_output
+.npm

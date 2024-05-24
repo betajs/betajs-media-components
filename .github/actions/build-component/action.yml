@@ -1,0 +1,12 @@
+name: 'Build component'
+description: 'Builds betajs-media-components'
+
+runs:
+  using: composite
+  steps:
+    - name: Build
+      shell: bash
+      run: |
+        grunt
+        echo VERSION=$(node -e "console.log(require('./package.json').version);") >> $GITHUB_ENV
+

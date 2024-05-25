@@ -15,7 +15,7 @@
         "url": "https://github.com/betajs/betajs-media-components/issues"
     },
     "name": "betajs-media-components",
-    "version": "0.0.480",
+    "version": "0.0.481",
     "description": "BetaJS-Media-Components is a JavaScript media UI components framework",
     "contributors": [
         "Ziggeo",
@@ -76,8 +76,8 @@
         "relink": "npm link betajs betajs-compile betajs-scoped betajs-shims betajs-browser betajs-dynamics betajs-media grunt-betajs-docs-compile grunt-betajs-templates",
         "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm i && npm run relink",
         "test": "npm run test:traced && npm run test:show-report",
-        "test:ui": "npx playwright test --ui --config ./tests/playwright/config.js",
         "test:unit": "nyc qunit --require ./tests/unit/index.js ./tests/unit/**/**.spec.js",
+        "test:ui": "npx playwright test --ui --config ./tests/playwright/config.js",
         "test:traced": "npx playwright test --trace on --reporter=list --config ./tests/playwright/config.js",
         "test:show-report": "npx playwright show-report --config ./tests/playwright/config.js",
         "clear:build": "git checkout -- dist/ package.json package-source.json README.md Gruntfile.js tests/playwright/output/"

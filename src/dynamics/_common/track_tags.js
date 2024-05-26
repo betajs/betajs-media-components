@@ -55,12 +55,12 @@ Scoped.define("module:TrackTags", [
              */
             showDurationThumb: function(index, fromLeft, currentDuration) {
                 if (this._dyn.get("thumbcuelist")[index]) {
-                    var _cue = this._dyn.get("thumbcuelist")[index];
-                    var _time = currentDuration || (_cue.startTime + Math.round((_cue.startTime - _cue.endTime) / 2));
-                    var _thumbContainer = this.thumbContainer;
-                    var _thumbImage = _thumbContainer.querySelector('div');
-                    var _timeContainer = _thumbContainer.querySelector('span');
-                    var _left = fromLeft - Math.round(_cue.thumbWidth / 1.5) <= 0 ? 5 : fromLeft - Math.round(_cue.thumbWidth / 1.5);
+                    const _cue = this._dyn.get("thumbcuelist")[index];
+                    const _time = currentDuration || (_cue.startTime + Math.round((_cue.startTime - _cue.endTime) / 2));
+                    const _thumbContainer = this.thumbContainer;
+                    const _thumbImage = _thumbContainer.querySelector('div');
+                    const _timeContainer = _thumbContainer.querySelector('span');
+                    const _left = fromLeft - Math.round(_cue.thumbWidth / 1.5) <= 0 ? 5 : fromLeft - Math.round(_cue.thumbWidth / 1.5);
                     _thumbContainer.style.opacity = '0.85';
                     _thumbContainer.style.left = _left + "px";
                     _thumbImage.style.backgroundPositionX = "-" + _cue.positionX + "px";
@@ -88,21 +88,21 @@ Scoped.define("module:TrackTags", [
                     prevTrackElements.forEach(tr => this._video.removeChild(tr));
                 }
 
-                Objs.iter(this._trackTags, function(subtitle, index) {
-                    const _trackTag = document.createElement("track");
-                    const _domEvent = this.auto_destroy(new DomEvents());
+                Objs.iter(this._trackTags, function(trackTag, index) {
+                    const domEvent = this.auto_destroy(new DomEvents());
+                    const trackElement = document.createElement("track");
 
                     /** kind could be on of the: subtitles, captions, descriptions, chapters, metadata */
                     try {
-                        if (subtitle.content && !subtitle.src) {
-                            if (Types.is_object(subtitle.content)) {
-                                _trackTag.src = URL.createObjectURL(new Blob([
-                                    this.generateVTTFromObject(subtitle.content)
+                        if (trackTag.content && !trackTag.src) {
+                            if (Types.is_object(trackTag.content)) {
+                                trackElement.src = URL.createObjectURL(new Blob([
+                                    this.generateVTTFromObject(trackTag.content)
                                 ], {
                                     type: 'text/vtt'
                                 }));
                             } else {
-                                _trackTag.src = URL.createObjectURL(new Blob([subtitle.content], {
+                                trackElement.src = URL.createObjectURL(new Blob([trackTag.content], {
                                     type: 'text/plain'
                                 }));
                             }
@@ -111,31 +111,31 @@ Scoped.define("module:TrackTags", [
                         console.warn(e);
                     }
 
-                    subtitle.enabled = this._autoEnabledTrackTags.includes(subtitle.kind);
-                    switch (subtitle.kind) {
+                    trackTag.enabled = this._autoEnabledTrackTags.includes(trackTag.kind);
+                    switch (trackTag.kind) {
                         case 'thumbnails':
-                            _trackTag.id = this._dyn.get("css") + '-track-thumbnails';
-                            _trackTag.kind = 'metadata';
-                            if (!_trackTag.src) _trackTag.src = subtitle.src || null;
-                            _trackTag.mode = 'hidden';
-                            this.__appendThumbnailTrackTags(subtitle, index, _trackTag, _domEvent);
+                            trackElement.id = this._dyn.get("css") + '-track-thumbnails';
+                            trackElement.kind = 'metadata';
+                            if (!trackElement.src) trackElement.src = trackTag.src || null;
+                            trackElement.mode = 'hidden';
+                            this.__appendThumbnailTrackTags(trackTag, index, trackElement, domEvent);
                             break;
                         case 'chapters':
-                            _trackTag.id = this._dyn.get("css") + '-track-chapters';
-                            _trackTag.kind = 'chapters';
-                            _trackTag.src = subtitle.src;
-                            _trackTag.mode = 'hidden';
-                            this.__appendChaptersTrackTags(subtitle, index, _trackTag, _domEvent);
+                            trackElement.id = this._dyn.get("css") + '-track-chapters';
+                            trackElement.kind = 'chapters';
+                            trackElement.src = trackTag.src;
+                            trackElement.mode = 'hidden';
+                            this.__appendChaptersTrackTags(trackTag, index, trackElement, domEvent);
                             break;
-                        default: // Will be subtitles, as mostly it's using for this purpose
-                            _trackTag.id = this._dyn.get("css") + '-tack-' + index;
-                            _trackTag.kind = subtitle.kind || 'subtitles';
-                            _trackTag.label = subtitle.label || 'English';
-                            _trackTag.srclang = subtitle.lang || 'en';
-                            if (!_trackTag.src) _trackTag.src = subtitle.src || null;
-                            if (this._dyn.get(`tracktextvisible`)) subtitle.enabled = true;
+                        default: // Will be trackTags, as mostly it's using for this purpose
+                            trackElement.id = this._dyn.get("css") + '-tack-' + index;
+                            trackElement.kind = trackTag.kind || 'subtitles';
+                            trackElement.label = trackTag.label || 'English';
+                            trackElement.srclang = trackTag.lang || 'en';
+                            if (!trackElement.src) trackElement.src = trackTag.src || null;
+                            if (this._dyn.get(`tracktextvisible`)) trackTag.enabled = true;
                             this._dyn.set("hassubtitles", true);
-                            this.__appendTextTrackTags(subtitle, index, _trackTag, _domEvent);
+                            this.__appendTextTrackTags(trackTag, index, trackElement, domEvent);
                             if (this._trackTags.length > 1) {
                                 this._dyn.on("switch-track", function(selectedTrack) {
                                     this._dyn.set("tracktextvisible", true);
@@ -145,7 +145,7 @@ Scoped.define("module:TrackTags", [
                             }
                             break;
                     }
-                    this._video.appendChild(_trackTag);
+                    this._video.appendChild(trackElement);
                 }, this);
             },
 
@@ -249,18 +249,18 @@ Scoped.define("module:TrackTags", [
              *
              * @param {Object} subtitle
              * @param {Integer} index
-             * @param {HTMLElement} trackTag
+             * @param {HTMLElement} trackElement
              * @param {EventListenerOrEventListenerObject} domEvent
              * @private
              */
-            __appendTextTrackTags: function(subtitle, index, trackTag, domEvent) {
+            __appendTextTrackTags: function(subtitle, index, trackElement, domEvent) {
                 if (subtitle.enabled) {
-                    trackTag.default = true;
+                    trackElement.default = true;
                     this._dyn.set("tracktaglang", subtitle.lang);
                     this._dyn.set("tracktextvisible", true);
                 }
-                trackTag.setAttribute('data-selector', 'track-tag');
-                domEvent.on(trackTag, "load", function(ev) {
+                trackElement.setAttribute('data-selector', 'track-tag');
+                domEvent.on(trackElement, "load", function(ev) {
                     const {
                         target
                     } = ev;
@@ -281,61 +281,66 @@ Scoped.define("module:TrackTags", [
 
             /**
              *
-             * @param {Object} subtitle
+             * @param {Object} chapter
              * @param {Integer} index
-             * @param {HTMLElement} trackTag
+             * @param {HTMLElement} trackElement
              * @param {EventListenerOrEventListenerObject} domEvent
              * @private
              */
-            __appendChaptersTrackTags: function(subtitle, index, trackTag, domEvent) {
+            __appendChaptersTrackTags: function(chapter, index, trackElement, domEvent) {
                 const _self = this;
                 let _track, _cues;
-                trackTag.setAttribute('data-selector', 'chapters-track-tag');
-                domEvent.on(trackTag, "load", function(ev) {
+                trackElement.setAttribute('data-selector', 'chapters-track-tag');
+                domEvent.on(trackElement, "load", function(ev) {
                     this.hasChapters = true;
                     _track = this.track;
                     _cues = _track.cues;
                     if (!_cues)
                         console.warn('Provided source for the chapters is not correct');
                     else
-                        _self.__generateChapters(_cues);
+                    if (chapter.enabled) _self.__generateChapters(_cues);
                 });
             },
 
             /**
              *
-             * @param {Object} subtitle
+             * @param {Object} thumbnail
              * @param {Integer} index
-             * @param {HTMLElement} trackTag
+             * @param {HTMLElement} trackElement
              * @param {EventListenerOrEventListenerObject} domEvent
              * @private
              */
-            __appendThumbnailTrackTags: function(subtitle, index, trackTag, domEvent) {
+            __appendThumbnailTrackTags: function(thumbnail, index, trackElement, domEvent) {
                 const _self = this;
-                let _track, _image, _splitText, _dimensions, thumbLink;
-                trackTag.setAttribute('data-selector', 'thumb-track-tag');
-                domEvent.on(trackTag, "load", function(ev) {
-                    _track = this.track;
-                    if (_track.cues[0].text) {
-                        _splitText = _track.cues[0].text.split('#xywh=');
-                        thumbLink = _splitText[0];
-                        _dimensions = _track.cues[0].text.split('#xywh=')[1].split(',');
+                trackElement.setAttribute('data-selector', 'thumb-track-tag');
+                domEvent.on(trackElement, "load", function(ev) {
+                    const {
+                        target: {
+                            track
+                        }
+                    } = ev;
+                    if (!track) return;
+                    const imageSource = track?.cues[0]?.text;
+                    if (imageSource) {
+                        const splitText = imageSource.split('#xywh=');
+                        const thumbLink = splitText[0];
+                        const dimensions = imageSource.split('#xywh=')[1].split(',');
 
-                        _image = new Image();
-                        _image.src = thumbLink;
+                        const image = new Image();
+                        image.src = thumbLink;
 
-                        domEvent.on(_image, "load", function() {
+                        domEvent.on(image, "load", function() {
                             this.hasThumbs = true;
 
-                            var _thumbContainer = document.createElement('div');
-                            var _thumbImageContainer = document.createElement('div');
-                            var _timeContainer = document.createElement('span');
+                            const _thumbContainer = document.createElement('div');
+                            const _thumbImageContainer = document.createElement('div');
+                            const _timeContainer = document.createElement('span');
 
                             Dom.elementAddClass(_thumbContainer, this._dyn.get('css') + '-seeking-thumb-container');
 
                             _thumbContainer.style.opacity = '0.00';
-                            _thumbImageContainer.style.height = +(_dimensions[3]) + 'px';
-                            _thumbImageContainer.style.width = +(_dimensions[2]) + 'px';
+                            _thumbImageContainer.style.height = +(dimensions[3]) + 'px';
+                            _thumbImageContainer.style.width = +(dimensions[2]) + 'px';
                             _thumbImageContainer.style.backgroundImage = "url('" + thumbLink + "')";
                             _thumbImageContainer.style.backgroundRepeat = 'no-repeat';
                             _thumbImageContainer.style.backgroundAttachment = 'background-attachment';
@@ -344,15 +349,17 @@ Scoped.define("module:TrackTags", [
                             _thumbContainer.appendChild(_timeContainer);
 
                             this._dyn.set("thumbimage", {
-                                image: _image,
-                                url: _image.src,
-                                height: _image.naturalHeight || _image.height,
-                                width: _image.naturalWidth || _image.width,
-                                thumbWidth: Number(_dimensions[2]),
-                                thumbHeight: Number(_dimensions[3])
+                                image: image,
+                                url: image.src,
+                                height: image.naturalHeight || image.height,
+                                width: image.naturalWidth || image.width,
+                                thumbWidth: Number(dimensions[2]),
+                                thumbHeight: Number(dimensions[3])
                             });
                             this.thumbContainer = _thumbContainer;
-                            this.__generateThumbnails(_track);
+                            if (thumbnail.enabled) {
+                                this.__generateThumbnails(track);
+                            }
                         }, _self);
                     }
                 });
@@ -366,16 +373,17 @@ Scoped.define("module:TrackTags", [
             __generateThumbnails: function(track) {
                 Objs.iter(track.cues, function(cue, index) {
                     if (typeof cue === 'object') {
-                        var _lineSplit = cue.text.trim().split('#xywh=')[1];
-                        var _coordinates = _lineSplit.split(',');
+                        const splitter = cue.text.trim().split('#xywh=');
+                        const lineSplit = splitter[1];
+                        const coordinates = lineSplit.split(',');
                         // this here is main DYN instance
                         this.get("thumbcuelist").push({
                             startTime: cue.startTime,
                             endTime: cue.endTime,
-                            positionX: _coordinates[0],
-                            positionY: _coordinates[1],
-                            thumbWidth: _coordinates[2],
-                            thumbHeight: _coordinates[3]
+                            positionX: coordinates[0],
+                            positionY: coordinates[1],
+                            thumbWidth: coordinates[2],
+                            thumbHeight: coordinates[3]
                         });
                     }
                 }, this._dyn);

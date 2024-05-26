@@ -208,7 +208,8 @@ if (params.cc && Number(params.cc) === 1) {
         },
         {
             "kind": "thumbnails",
-            "src": "/static/demos/assets/video-bgbb-thumbnails.jpg"
+            "src": "/static/demos/assets/video-bgbb.vtt"
+            // "src": "/static/demos/assets/video-bgbb-thumbnails.jpg"
         }
     ]
 }

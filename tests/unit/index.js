@@ -2,6 +2,7 @@ const path = require("path");
 const QUnit = require("qunit");
 const { JSDOM, ResourceLoader } = require("jsdom-recent");
 
+let jsDomOptions = {};
 const ResizeObserver = require('resize-observer-polyfill');
 
 // typeof process === 'object' && process.title === 'node';
@@ -59,6 +60,7 @@ if (!isRealBrowser) {
   window.HTMLMediaElement.prototype.play = () => { /* do nothing */ };
   window.HTMLMediaElement.prototype.pause = () => { /* do nothing */ };
   window.HTMLMediaElement.prototype.addTextTrack = () => { /* do nothing */ };
+  global.HTMLMediaElement = window.HTMLMediaElement;
 }
 
 

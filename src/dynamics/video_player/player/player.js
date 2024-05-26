@@ -297,7 +297,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "playwhenvisible": false,
                         "disablepause": false,
                         "disableseeking": false,
-                        "tracktextvisible": false,
                         "airplay": false,
                         "chromecast": false,
                         "broadcasting": false,
@@ -350,7 +349,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "tracktags": [],
                         "tracktagsstyled": true,
                         "tracktaglang": 'en',
+                        "tracktextvisible": false,
                         "tracksshowselection": false,
+                        autoenabledtracktags: ['subtitles', 'captions'], // subtitles, captions, descriptions, chapters, or metadata
                         "showchaptertext": true,
                         "thumbimage": {},
                         "thumbcuelist": [],
@@ -389,6 +390,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "volumelevel": null,
                             "autoplay": null,
                             "adsrendertimeout": null,
+                            autoenabledtracktags: null,
                             // below are default settings
                             "outstreamoptions": {
                                 hideOnCompletion: true,
@@ -572,7 +574,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     performanceprefix: "string",
                     performancerendertiming: "array",
                     performanceobservedtypes: "jsonarray",
-                    performancerecordeditems: "array"
+                    performancerecordeditems: "array",
+                    autoenabledtracktags: "array"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -679,6 +682,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.scopes.adsplayer.execute('renderCompanionAd', this.get("ad"), this.get("companionad"));
                             } else {
                                 console.warn(`Please set correct companion ad attribute. It can be object with locations, string with "|" character seperated or boolean`);
+                            }
+                        }
+                    },
+                    "change:tracktags": function() {
+                        if (this.__trackTags) {
+                            this.__trackTags.reload();
+                        } else {
+                            if (this.__video) {
+                                this.__trackTags = new TrackTags({}, this);
+                            } else {
+                                if (this.player) {
+                                    this.player.once("loaded", function() {
+                                        if (this.__video && !this.__trackTags) {
+                                            this.__trackTags = new TrackTags({}, this);
+                                        }
+                                    }, this);
+                                }
                             }
                         }
                     }
@@ -1147,11 +1167,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (document.onkeydown)
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
-
-                    this.on("change:tracktags", function() {
-                        if (typeof this.__video !== 'undefined')
-                            this.__trackTags = new TrackTags({}, this);
-                    }, this);
 
                     this.host = this.auto_destroy(new Host({
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
@@ -1919,6 +1934,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 toggleTrackTags: function() {
                     if (!this.__trackTags) return;
                     this.set("tracktextvisible", !this.get("tracktextvisible"));
+                    if (this.get("tracktextvisible")) {
+                        this.set("autoenabledtracktags", this.get("initialoptions.autoenabledtracktags"));
+                    } else {
+                        this.set("trackcuetext", null);
+                        this.set("autoenabledtracktags", []);
+                    }
                     this.resetTrackTags();
                 },
 
@@ -1932,7 +1953,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.__trackTags && !this.__trackTags.destroyed()) {
                         Objs.iter(this.__video.textTracks, function(track, index) {
                             if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
-                                var _track = this.__video.textTracks[index];
+                                const _track = this.__video.textTracks[index];
                                 // If set custom style to true show cue text in our element
                                 if (_track.kind !== 'metadata') {
                                     if (_track.language === _lang) {

@@ -1600,6 +1600,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.delegateEvents(null, this.player, "player");
                         this.__video = video;
+                        if (!this.__trackTags && this.get("tracktags").length) {
+                            this.__trackTags = new TrackTags({}, this);
+                        }
 
                         // On autoplay video, silent attach should be false
                         this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);
@@ -1781,8 +1784,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var volume = Math.min(1.0, this.get("volume"));
                             this.player.setVolume(volume);
                             this.player.setMuted(this.get("muted") || volume <= 0.0);
-                            if (!this.__trackTags && this.get("tracktags").length)
-                                this.__trackTags = new TrackTags({}, this);
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
                             this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));

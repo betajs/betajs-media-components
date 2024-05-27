@@ -1,26 +1,24 @@
 import { test, expect } from '@playwright/test';
 import PlayerPage from "../../classes/PlayerPageClass";
 import {
-    defaultPlayerAttributes, AD_TAG_URL,
-    ERROR_TAG_URL,
+    defaultPlayerAttributes, transcript, WebVTTTextExample
 } from "../../consts.js";
 import runTestMethod from '../../utils/run-test';
 
 // Will test the player with autoplay and unmute on click
-test.describe(`Check timeout on ads rendering settings`, () => {
+test.describe(`Player track tags`, () => {
     let descriptionPlayerAttributes = {
         autoplay: true,
-        muted: true,
-        unmuteonclick: true,
-        skipinitial: false,
+        skipinitial: true,
         width: 640, height: 360,
-        adtagurl: AD_TAG_URL,
-    }
-
-    const browserSettings = {
-        // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
-        headless: true, // If headless is true, player will start with user interaction
-        devtools: false,
+        tracktags: [
+            {
+                "kind": "captions",
+                "label": "English",
+                "srclang": "en",
+                "content": WebVTTTextExample,
+            }
+        ]
     }
 
     test.describe.configure({
@@ -28,47 +26,81 @@ test.describe(`Check timeout on ads rendering settings`, () => {
         mode: 'default',
         retries: 0,
         // timeout: 120_000,
-        viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
     });
 
-    test(`Check performance timing`, async ({ page, browserName, browser, context }) => {
+    test(`track tags first should be hidden, and become visible after setting auto enable`, async ({ page, browserName, browser, context }) => {
         const runAdsTester = async (page, browser, context) => {
-            let adsPlaying;
-            const adsRenderTimeout = 600;
             const player = new PlayerPage(page,
                 {
                     ...defaultPlayerAttributes, ...descriptionPlayerAttributes,
-                    adsrendertimeout: adsRenderTimeout
-                }, context, [{
-                    blk: 1
-                }]);
+                    ...{
+                        autoenabledtracktags: [],
+                    }
+                }, context, []);
 
             // Go to the starting url before each test.
             await player.goto();
             await player.setPlayerInstance();
 
-            const recorderPrefix = await player.getPlayerAttribute(`performanceprefix`);
+            let hasSubtitle = await player.getPlayerAttribute(`hassubtitles`);
+            await expect(hasSubtitle, `hassubtitles attribute has to be true`).toBeTruthy();
 
-            let performanceRecorder = await player.getPlayerAttribute(`performancerecords`);
-            await expect(performanceRecorder.length).toBe(1);
-            const activationStartTime = performanceRecorder[0].startTime;
-            await expect(performanceRecorder[0].name).toBe(`${recorderPrefix}-activated`);
-            await expect(activationStartTime).toBeGreaterThan(0);
+            let textTrackVisible = await player.getPlayerAttribute(`tracktextvisible`);
+            await expect(textTrackVisible, `tracktextvisible has to be false, as subtitles it is not auto enabled`).toBe(false);
 
-            await player.runMethod('_recordPerformance', [`new-performance-indicator`]);
-            performanceRecorder = await player.getPlayerAttribute(`performancerecords`);
-            await expect(performanceRecorder.length).toBe(2);
-            await expect(performanceRecorder[1].name).toBe(`${recorderPrefix}-new-performance-indicator`);
-            await expect(performanceRecorder[1].duration).toBeGreaterThan(0);
-            await expect(performanceRecorder[1].startTime).toBeGreaterThan(activationStartTime);
+            await player.setPlayerAttribute(`autoenabledtracktags`, ['subtitles', 'captions']);
+            await player.setPlayerAttribute(`tracktags`, [
+                {
+                    "kind": "subtitles",
+                    "label": "English",
+                    "srclang": "en",
+                    "content": WebVTTTextExample,
+                }
+            ]);
 
-            performanceRecorder = await player.getPlayerAttribute(`performancerecords`);
-            console.log(performanceRecorder);
+            await player.listenPlayerEvent(`change:tracktextvisible`);
+
+            textTrackVisible = await player.getPlayerAttribute(`tracktextvisible`);
+            await expect(textTrackVisible, `track text should be visible`).toBeTruthy();
         }
 
         await runTestMethod({
             page, browserName, browser, context
-        }, runAdsTester, browserSettings);
+        }, runAdsTester, { headless: true });
+    });
+
+    test(`track tags should be visible by default, as they are auto enabled`, async ({ page, browserName, browser, context }) => {
+        descriptionPlayerAttributes.autoenabledtracktags = ['subtitles', 'captions'];
+        const runAdsTester = async (page, browser, context) => {
+            const player = new PlayerPage(page,
+                {
+                    ...defaultPlayerAttributes,
+                    ...descriptionPlayerAttributes,
+                    ...{
+                        tracktags: [{
+                            "kind": "subtitles",
+                            "label": "English",
+                            "srclang": "en",
+                            "content": transcript,
+                        }]
+                    }
+                }, context, []);
+
+            // Go to the starting url before each test.
+            await player.goto();
+            await player.setPlayerInstance();
+
+            await player.listenPlayerEvent(`change:hassubtitles`);
+            const hasSubtitle = await player.getPlayerAttribute(`hassubtitles`);
+            await expect(hasSubtitle, `hassubtitles attribute has to be true`).toBeTruthy();
+
+            let textTrackVisible = await player.getPlayerAttribute(`tracktextvisible`);
+            await expect(textTrackVisible, `'tracktextvisible' has to be true as it was auto enabled`).toBeTruthy();
+        }
+
+        await runTestMethod({
+            page, browserName, browser, context
+        }, runAdsTester, { headless: true });
     });
 });

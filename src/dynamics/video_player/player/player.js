@@ -1182,25 +1182,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("floating") && this.get("floatingoptions").mobile) {
                             const floatingElement = this.floatHandler.element;
                             const viewport = window.visualViewport;
-                            let lastScrollTop = 0;
 
                             function viewportHandler() {
-                                let st = window.scrollY || document.documentElement.scrollTop;
-                                const offsetLeft = viewport.offsetLeft;
-                                let offsetTop = 0;
-                                if (st > lastScrollTop) {
-                                    offsetTop =
-                                        window.top.innerHeight -
-                                        viewport.height;
-                                } else {
-                                    offsetTop = viewport.offsetTop;
-                                }
-                                lastScrollTop = st <= 0 ? 0 : st;
-                                floatingElement.style.transform = `translate(${offsetLeft}px, ${offsetTop}px) scale(${
-                                    1 / viewport.scale
-                                })`;
+                                floatingElement.style.transform = `translate(${viewport.offsetLeft}px, ${viewport.offsetTop}px)`;
                             }
-                            window.visualViewport.addEventListener("scroll", viewportHandler);
+
+                            viewport.addEventListener("scroll", viewportHandler);
+
                         }
                     }
                     if (Info.isSafari()) {

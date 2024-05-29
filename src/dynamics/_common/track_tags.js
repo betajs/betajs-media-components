@@ -21,6 +21,7 @@ Scoped.define("module:TrackTags", [
             constructor: function(options, dynamics) {
                 this._dyn = dynamics;
                 this._video = dynamics.__video;
+                this._domEvent = this.auto_destroy(new DomEvents());
                 this.init(options);
             },
 
@@ -89,7 +90,6 @@ Scoped.define("module:TrackTags", [
                 }
 
                 Objs.iter(this._trackTags, function(trackTag, index) {
-                    const domEvent = this.auto_destroy(new DomEvents());
                     const trackElement = document.createElement("track");
 
                     /** kind could be on of the: subtitles, captions, descriptions, chapters, metadata */
@@ -97,7 +97,7 @@ Scoped.define("module:TrackTags", [
                         if (trackTag.content && !trackTag.src) {
                             if (Types.is_object(trackTag.content)) {
                                 trackElement.src = URL.createObjectURL(new Blob([
-                                    this.generateVTTFromObject(trackTag.content)
+                                    this._generateVTTFromObject(trackTag.content)
                                 ], {
                                     type: 'text/vtt'
                                 }));
@@ -118,14 +118,14 @@ Scoped.define("module:TrackTags", [
                             trackElement.kind = 'metadata';
                             if (!trackElement.src) trackElement.src = trackTag.src || null;
                             trackElement.mode = 'hidden';
-                            this.__appendThumbnailTrackTags(trackTag, index, trackElement, domEvent);
+                            this.__appendThumbnailTrackTags(trackTag, index, trackElement);
                             break;
                         case 'chapters':
                             trackElement.id = this._dyn.get("css") + '-track-chapters';
                             trackElement.kind = 'chapters';
                             trackElement.src = trackTag.src;
                             trackElement.mode = 'hidden';
-                            this.__appendChaptersTrackTags(trackTag, index, trackElement, domEvent);
+                            this.__appendChaptersTrackTags(trackTag, index, trackElement);
                             break;
                         default: // Will be trackTags, as mostly it's using for this purpose
                             trackElement.id = this._dyn.get("css") + '-tack-' + index;
@@ -135,7 +135,7 @@ Scoped.define("module:TrackTags", [
                             if (!trackElement.src) trackElement.src = trackTag.src || null;
                             if (this._dyn.get(`tracktextvisible`)) trackTag.enabled = true;
                             this._dyn.set("hassubtitles", true);
-                            this.__appendTextTrackTags(trackTag, index, trackElement, domEvent);
+                            this.__appendTextTrackTags(trackTag, index, trackElement);
                             if (this._trackTags.length > 1) {
                                 this._dyn.on("switch-track", function(selectedTrack) {
                                     this._dyn.set("tracktextvisible", true);
@@ -185,17 +185,16 @@ Scoped.define("module:TrackTags", [
              * @param {Object} subtitle
              * @param {Integer} index
              * @param {HTMLElement} trackElement
-             * @param {EventListenerOrEventListenerObject} domEvent
              * @private
              */
-            __appendTextTrackTags: function(subtitle, index, trackElement, domEvent) {
+            __appendTextTrackTags: function(subtitle, index, trackElement) {
                 if (subtitle.enabled) {
                     trackElement.default = true;
                     this._dyn.set("tracktaglang", subtitle.lang);
                     this._dyn.set("tracktextvisible", true);
                 }
                 trackElement.setAttribute('data-selector', 'track-tag');
-                domEvent.on(trackElement, "load", function(ev) {
+                this._domEvent.on(trackElement, "load", function(ev) {
                     const {
                         target
                     } = ev;
@@ -219,14 +218,13 @@ Scoped.define("module:TrackTags", [
              * @param {Object} chapter
              * @param {Integer} index
              * @param {HTMLElement} trackElement
-             * @param {EventListenerOrEventListenerObject} domEvent
              * @private
              */
-            __appendChaptersTrackTags: function(chapter, index, trackElement, domEvent) {
+            __appendChaptersTrackTags: function(chapter, index, trackElement) {
                 const _self = this;
                 let _track, _cues;
                 trackElement.setAttribute('data-selector', 'chapters-track-tag');
-                domEvent.on(trackElement, "load", function(ev) {
+                this._domEvent.on(trackElement, "load", function(ev) {
                     this.hasChapters = true;
                     _track = this.track;
                     _cues = _track.cues;
@@ -242,13 +240,12 @@ Scoped.define("module:TrackTags", [
              * @param {Object} thumbnail
              * @param {Integer} index
              * @param {HTMLElement} trackElement
-             * @param {EventListenerOrEventListenerObject} domEvent
              * @private
              */
-            __appendThumbnailTrackTags: function(thumbnail, index, trackElement, domEvent) {
+            __appendThumbnailTrackTags: function(thumbnail, index, trackElement) {
                 const _self = this;
                 trackElement.setAttribute('data-selector', 'thumb-track-tag');
-                domEvent.on(trackElement, "load", function(ev) {
+                this._domEvent.on(trackElement, "load", (ev) => {
                     const {
                         target: {
                             track
@@ -264,7 +261,7 @@ Scoped.define("module:TrackTags", [
                         const image = new Image();
                         image.src = thumbLink;
 
-                        domEvent.on(image, "load", function() {
+                        this._domEvent.on(image, "load", function() {
                             this.hasThumbs = true;
 
                             const _thumbContainer = document.createElement('div');
@@ -297,7 +294,7 @@ Scoped.define("module:TrackTags", [
                             }
                         }, _self);
                     }
-                });
+                }, this);
             },
 
             /**
@@ -436,9 +433,8 @@ Scoped.define("module:TrackTags", [
             // Fixed issue when unable switch directly to showing from disabled
             _triggerTrackChange: function(video, track, status, lang) {
                 const _trackElement = video.querySelector("#" + track.id);
-                const onTrackEvent = this.auto_destroy(new DomEvents());
                 if (track.oncuechange !== undefined) {
-                    onTrackEvent.on(track, "cuechange", function() {
+                    this._domEvent.on(track, "cuechange", function() {
                         if (status.length) track.mode = status;
                         if (this._dyn.get("tracktagsstyled"))
                             this._showTracksInCustomElement(track, lang);
@@ -448,72 +444,73 @@ Scoped.define("module:TrackTags", [
                         }
                     }, this);
                 }
+            },
+
+            /**
+             * @param {object} content
+             * @param {number | undefined } presetTimePeriod
+             * @return {string}
+             * @private
+             */
+            _generateVTTFromObject: function(content, presetTimePeriod) {
+                presetTimePeriod = presetTimePeriod || 2;
+
+                const timeKey = 'times';
+                const wordsKey = 'words';
+
+                if (!content || !Types.is_object(content))
+                    throw new Error(`No content provided for tracktags subtitles content. Expected format: "{content: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}}"`);
+
+                if (!content[wordsKey] || !content[timeKey] || (content[timeKey] && (!Types.isNumber(content[timeKey][0]?.end) || !Types.isNumber(content[timeKey][0]?.start)))) {
+                    throw new Error(`Please provide correct format for tracktags subtitles content object. Expected format: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}`);
+                }
+
+                const [words, times] = [content[wordsKey], content[timeKey]];
+
+                let wordsForCurrentPeriod = '';
+                let vttContent = "WEBVTT";
+                let startTime = times[0].start;
+                let lineNumber = 1;
+                // const wordRegex = /\w|\b[.,!?;:]/g;
+                const singleCharacterRegex = /^[,.?;:!]$/gim;
+                const wordEndedWithCharacterRegex = /\b[.,!?;:]/g;
+
+                Objs.iter(words, (text, i) => {
+                    const singleCharacter = singleCharacterRegex.test(text);
+                    const endTime = times[i].end;
+                    if (!startTime) startTime = times[i].start;
+                    if (startTime >= 0 && endTime >= 0 && Types.is_string(text) && text.length > 0) {
+                        // add space only if it's not special character (\b[.,!?;:] => \b assert position at a word boundary)
+                        if (wordsForCurrentPeriod.length > 0) {
+                            text = singleCharacter ? text : (' ' + text);
+                        } else if (singleCharacter) {
+                            // if the text only contains as special characters like dot.
+                            vttContent += text;
+                            wordsForCurrentPeriod = '';
+                            return;
+                        }
+                        wordsForCurrentPeriod += text;
+                        if (endTime > startTime + presetTimePeriod * 1000 || (wordsForCurrentPeriod.length > 15 && wordEndedWithCharacterRegex.test(wordsForCurrentPeriod))) {
+                            // add space only if it's not special character, alt: new Date(endTime).toISOString().slice(11, 23);
+                            const endTimeAsText = TimeFormat.format("HH:MM:ss.l", endTime);
+                            const startTimeAsText = TimeFormat.format("HH:MM:ss.l", startTime);
+                            vttContent += `\n\n${lineNumber}\n${startTimeAsText} --> ${endTimeAsText}\n${wordsForCurrentPeriod.trim()}`;
+
+                            lineNumber++;
+                            startTime = null;
+                            wordsForCurrentPeriod = '';
+                        }
+                    }
+                });
+
+                // Add the last time period if it has any words
+                if (wordsForCurrentPeriod.length > 0) {
+                    vttContent += `\n\n${lineNumber++}\n${TimeFormat.format("HH:MM:ss.l", startTime)} --> ${TimeFormat.format("HH:MM:ss.l", times[times.length - 1].end)}\n${wordsForCurrentPeriod.trim()}`;
+                }
+
+                return vttContent;
             }
         };
     }], {
-        /**
-         * @param {object} content
-         * @param {number | undefined } presetTimePeriod
-         * @return {string}
-         * @private
-         */
-        generateVTTFromObject: function(content, presetTimePeriod) {
-            presetTimePeriod = presetTimePeriod || 2;
-
-            const timeKey = 'times';
-            const wordsKey = 'words';
-
-            if (!content || !Types.is_object(content))
-                throw new Error(`No content provided for tracktags subtitles content. Expected format: "{content: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}}"`);
-
-            if (!content[wordsKey] || !content[timeKey] || (content[timeKey] && (!Types.isNumber(content[timeKey][0]?.end) || !Types.isNumber(content[timeKey][0]?.start)))) {
-                throw new Error(`Please provide correct format for tracktags subtitles content object. Expected format: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}`);
-            }
-
-            const [words, times] = [content[wordsKey], content[timeKey]];
-
-            let wordsForCurrentPeriod = '';
-            let vttContent = "WEBVTT";
-            let startTime = times[0].start;
-            let lineNumber = 1;
-            // const wordRegex = /\w|\b[.,!?;:]/g;
-            const singleCharacterRegex = /^[,.?;:!]$/gim;
-            const wordEndedWithCharacterRegex = /\b[.,!?;:]/g;
-
-            Objs.iter(words, (text, i) => {
-                const singleCharacter = singleCharacterRegex.test(text);
-                const endTime = times[i].end;
-                if (!startTime) startTime = times[i].start;
-                if (startTime >= 0 && endTime >= 0 && Types.is_string(text) && text.length > 0) {
-                    // add space only if it's not special character (\b[.,!?;:] => \b assert position at a word boundary)
-                    if (wordsForCurrentPeriod.length > 0) {
-                        text = singleCharacter ? text : (' ' + text);
-                    } else if (singleCharacter) {
-                        // if the text only contains as special characters like dot.
-                        vttContent += text;
-                        wordsForCurrentPeriod = '';
-                        return;
-                    }
-                    wordsForCurrentPeriod += text;
-                    if (endTime > startTime + presetTimePeriod * 1000 || (wordsForCurrentPeriod.length > 15 && wordEndedWithCharacterRegex.test(wordsForCurrentPeriod))) {
-                        // add space only if it's not special character, alt: new Date(endTime).toISOString().slice(11, 23);
-                        const endTimeAsText = TimeFormat.format("HH:MM:ss.l", endTime);
-                        const startTimeAsText = TimeFormat.format("HH:MM:ss.l", startTime);
-                        vttContent += `\n\n${lineNumber}\n${startTimeAsText} --> ${endTimeAsText}\n${wordsForCurrentPeriod.trim()}`;
-
-                        lineNumber++;
-                        startTime = null;
-                        wordsForCurrentPeriod = '';
-                    }
-                }
-            }, this);
-
-            // Add the last time period if it has any words
-            if (wordsForCurrentPeriod.length > 0) {
-                vttContent += `\n\n${lineNumber++}\n${TimeFormat.format("HH:MM:ss.l", startTime)} --> ${TimeFormat.format("HH:MM:ss.l", times[times.length - 1].end)}\n${wordsForCurrentPeriod.trim()}`;
-            }
-
-            return vttContent;
-        }
     });
 });

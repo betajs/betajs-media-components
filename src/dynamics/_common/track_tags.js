@@ -150,71 +150,6 @@ Scoped.define("module:TrackTags", [
             },
 
             /**
-             * @param {object} content
-             * @param {number | undefined } presetTimePeriod
-             * @return {string}
-             * @private
-             */
-            generateVTTFromObject: function(content, presetTimePeriod) {
-                presetTimePeriod = presetTimePeriod || 2;
-
-                const timeKey = 'times';
-                const wordsKey = 'words';
-
-                if (!content || !Types.is_object(content))
-                    throw new Error(`No content provided for tracktags subtitles content. Expected format: "{content: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}}"`);
-
-                if (!content[wordsKey] || !content[timeKey] || (content[timeKey] && (!Types.isNumber(content[timeKey][0]?.end) || !Types.isNumber(content[timeKey][0]?.start)))) {
-                    throw new Error(`Please provide correct format for tracktags subtitles content object. Expected format: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}`);
-                }
-
-                const [words, times] = [content[wordsKey], content[timeKey]];
-
-                let wordsForCurrentPeriod = '';
-                let vttContent = "WEBVTT";
-                let startTime = times[0].start;
-                let lineNumber = 1;
-                // const wordRegex = /\w|\b[.,!?;:]/g;
-                const singleCharacterRegex = /^[,.?;:!]$/gim;
-                const wordEndedWithCharacterRegex = /\b[.,!?;:]/g;
-
-                Objs.iter(words, (text, i) => {
-                    const singleCharacter = singleCharacterRegex.test(text);
-                    const endTime = times[i].end;
-                    if (!startTime) startTime = times[i].start;
-                    if (startTime >= 0 && endTime >= 0 && Types.is_string(text) && text.length > 0) {
-                        // add space only if it's not special character (\b[.,!?;:] => \b assert position at a word boundary)
-                        if (wordsForCurrentPeriod.length > 0) {
-                            text = singleCharacter ? text : (' ' + text);
-                        } else if (singleCharacter) {
-                            // if the text only contains as special characters like dot.
-                            vttContent += text;
-                            wordsForCurrentPeriod = '';
-                            return;
-                        }
-                        wordsForCurrentPeriod += text;
-                        if (endTime > startTime + presetTimePeriod * 1000 || (wordsForCurrentPeriod.length > 15 && wordEndedWithCharacterRegex.test(wordsForCurrentPeriod))) {
-                            // add space only if it's not special character, alt: new Date(endTime).toISOString().slice(11, 23);
-                            const endTimeAsText = TimeFormat.format("HH:MM:ss.l", endTime);
-                            const startTimeAsText = TimeFormat.format("HH:MM:ss.l", startTime);
-                            vttContent += `\n\n${lineNumber}\n${startTimeAsText} --> ${endTimeAsText}\n${wordsForCurrentPeriod.trim()}`;
-
-                            lineNumber++;
-                            startTime = null;
-                            wordsForCurrentPeriod = '';
-                        }
-                    }
-                }, this);
-
-                // Add the last time period if it has any words
-                if (wordsForCurrentPeriod.length > 0) {
-                    vttContent += `\n\n${lineNumber++}\n${TimeFormat.format("HH:MM:ss.l", startTime)} --> ${TimeFormat.format("HH:MM:ss.l", times[times.length - 1].end)}\n${wordsForCurrentPeriod.trim()}`;
-                }
-
-                return vttContent;
-            },
-
-            /**
              * Reload track tags
              * @return {null}
              */
@@ -515,5 +450,70 @@ Scoped.define("module:TrackTags", [
                 }
             }
         };
-    }]);
+    }], {
+        /**
+         * @param {object} content
+         * @param {number | undefined } presetTimePeriod
+         * @return {string}
+         * @private
+         */
+        generateVTTFromObject: function(content, presetTimePeriod) {
+            presetTimePeriod = presetTimePeriod || 2;
+
+            const timeKey = 'times';
+            const wordsKey = 'words';
+
+            if (!content || !Types.is_object(content))
+                throw new Error(`No content provided for tracktags subtitles content. Expected format: "{content: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}}"`);
+
+            if (!content[wordsKey] || !content[timeKey] || (content[timeKey] && (!Types.isNumber(content[timeKey][0]?.end) || !Types.isNumber(content[timeKey][0]?.start)))) {
+                throw new Error(`Please provide correct format for tracktags subtitles content object. Expected format: {${wordsKey}: [], ${timeKey}: [{start: number, end: number}]}`);
+            }
+
+            const [words, times] = [content[wordsKey], content[timeKey]];
+
+            let wordsForCurrentPeriod = '';
+            let vttContent = "WEBVTT";
+            let startTime = times[0].start;
+            let lineNumber = 1;
+            // const wordRegex = /\w|\b[.,!?;:]/g;
+            const singleCharacterRegex = /^[,.?;:!]$/gim;
+            const wordEndedWithCharacterRegex = /\b[.,!?;:]/g;
+
+            Objs.iter(words, (text, i) => {
+                const singleCharacter = singleCharacterRegex.test(text);
+                const endTime = times[i].end;
+                if (!startTime) startTime = times[i].start;
+                if (startTime >= 0 && endTime >= 0 && Types.is_string(text) && text.length > 0) {
+                    // add space only if it's not special character (\b[.,!?;:] => \b assert position at a word boundary)
+                    if (wordsForCurrentPeriod.length > 0) {
+                        text = singleCharacter ? text : (' ' + text);
+                    } else if (singleCharacter) {
+                        // if the text only contains as special characters like dot.
+                        vttContent += text;
+                        wordsForCurrentPeriod = '';
+                        return;
+                    }
+                    wordsForCurrentPeriod += text;
+                    if (endTime > startTime + presetTimePeriod * 1000 || (wordsForCurrentPeriod.length > 15 && wordEndedWithCharacterRegex.test(wordsForCurrentPeriod))) {
+                        // add space only if it's not special character, alt: new Date(endTime).toISOString().slice(11, 23);
+                        const endTimeAsText = TimeFormat.format("HH:MM:ss.l", endTime);
+                        const startTimeAsText = TimeFormat.format("HH:MM:ss.l", startTime);
+                        vttContent += `\n\n${lineNumber}\n${startTimeAsText} --> ${endTimeAsText}\n${wordsForCurrentPeriod.trim()}`;
+
+                        lineNumber++;
+                        startTime = null;
+                        wordsForCurrentPeriod = '';
+                    }
+                }
+            }, this);
+
+            // Add the last time period if it has any words
+            if (wordsForCurrentPeriod.length > 0) {
+                vttContent += `\n\n${lineNumber++}\n${TimeFormat.format("HH:MM:ss.l", startTime)} --> ${TimeFormat.format("HH:MM:ss.l", times[times.length - 1].end)}\n${wordsForCurrentPeriod.trim()}`;
+            }
+
+            return vttContent;
+        }
+    });
 });

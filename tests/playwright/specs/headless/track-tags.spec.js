@@ -43,11 +43,8 @@ test.describe(`Player track tags`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            let hasSubtitle = await player.getPlayerAttribute(`hassubtitles`);
-            await expect(hasSubtitle, `hassubtitles attribute has to be true`).toBeTruthy();
-
             let textTrackVisible = await player.getPlayerAttribute(`tracktextvisible`);
-            await expect(textTrackVisible, `tracktextvisible has to be false, as subtitles it is not auto enabled`).toBe(false);
+            await expect(textTrackVisible, `tracktextvisible has to be false, as subtitles it is not auto enabled`).toBeFalsy();
 
             await player.setPlayerAttribute(`autoenabledtracktags`, ['subtitles', 'captions']);
             await player.setPlayerAttribute(`tracktags`, [

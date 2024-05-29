@@ -34,22 +34,18 @@ const transcript = {
 
 // Will test the initial state of the player // asyncTest
 test(`generate vtt file from transcript object`, (assert) => {
-    const player = initPlayer({
-        ...attrs
-    });
-    const trackTags = new TrackTags({}, player);
     const validationRegex = new RegExp(/^(WEBVTT|$)|(\.\d{3}\s-->\s\d\d:\d\d:\d\d\.)/g);
-    const vttContent = trackTags.generateVTTFromObject(transcript);
+    const vttContent = TrackTags.generateVTTFromObject(transcript);
 
     assert.equal(vttContent.match(validationRegex)[0], 'WEBVTT', "First line of the VTT file is WEBVTT");
     assert.equal(vttContent.match(validationRegex)[1], '.000 --> 00:00:00.', "First start time should be from .000");
     assert.true(vttContent.match(validationRegex).length >= 3, "New generated VTT file is valid, and has more 3 subtitles, as expected");
 
     assert.throws(() => {
-        trackTags.generateVTTFromObject({})
+        TrackTags.generateVTTFromObject({})
     }, 'As expected has to show error');
 
-    const wrongVttContent = trackTags.generateVTTFromObject({words: [], times: [{ start: 0, end:0 }]});
+    const wrongVttContent = TrackTags.generateVTTFromObject({words: [], times: [{ start: 0, end:0 }]});
     assert.equal(wrongVttContent.match(validationRegex)[0], 'WEBVTT', "First line of the VTT file is WEBVTT");
     assert.notEqual(wrongVttContent.match(validationRegex)[1], '.000 --> 00:00:00.', "First start time should be from .000");
 });

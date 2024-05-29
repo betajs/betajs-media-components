@@ -4,12 +4,10 @@ const { defineConfig, devices } = require('@playwright/test');
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+const PORT = process.env?.PLAYWRIGHT_PORT || 5000;
+const CI = process.env?.CI === true || process.env?.CI === "true";
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
-module.exports = defineConfig({
+const config = {
     testDir: './',
     outputDir: './output',
     updateSnapshots: 'all', // "all"|"none"|"missing"
@@ -21,15 +19,15 @@ module.exports = defineConfig({
     /* Run tests in files in parallel */
     fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
-    forbidOnly: !!process.env.CI,
+    forbidOnly: !!CI,
     /* Retry on CI only */
-    retries: process.env.CI ? 2 : 0,
+    retries: CI ? 2 : 0,
     /* Opt out of parallel tests on CI. */
-    workers: process.env.CI ? 1 : undefined,
+    workers: CI ? 1 : undefined,
 
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: [
-        [process.env.CI ? 'dot' : 'list', {
+        [CI ? 'dot' : 'list', {
             stdout: true, outputFile: './reports/list-results.txt'
         }],
         ['json', { outputFile: './reports/json-results.json' }],
@@ -39,7 +37,7 @@ module.exports = defineConfig({
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
-        baseURL: 'http://localhost:5050',
+        baseURL: `http://localhost:${PORT}`,
         ignoreHTTPSErrors: true,
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -83,11 +81,16 @@ module.exports = defineConfig({
         //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
         // },
     ],
+    webServer: {
+        // npm install -g http-server && `http-server ./ -p ${PORT} > http-server.log 2>&1 &`
+        // command: `node ../../node_modules/nano-media-server/server.js --staticserve ../../ --port='${PORT}'`,
+        // url: `http://127.0.0.1:${PORT}`,
+        command: `npm run server -- --port='${PORT}'`,
+        reuseExistingServer: !CI,
+    }
+}
 
-    /* Run your local dev server before starting the tests */
-    // webServer: {
-    //   command: 'npm run start',
-    //   url: 'http://127.0.0.1:3000',
-    //   reuseExistingServer: !process.env.CI,
-    // },
-});
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ */
+module.exports = defineConfig(config);

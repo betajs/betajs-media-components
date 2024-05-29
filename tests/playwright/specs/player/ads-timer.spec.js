@@ -75,7 +75,7 @@ test.describe(`Check timeout on ads rendering settings`, () => {
                     // guarantee that ads will be rendered before timeout
                     await expect(adsVisible).toBeTruthy();
                 } else {
-                    // else it's the same if ads will played
+                    // else it's the same if ads will be played
                     adsPlaying = await player.getPlayerAttribute(`adsplaying`);
                     expect(adsPlaying).toEqual(adsVisible);
                 }
@@ -90,6 +90,9 @@ test.describe(`Check timeout on ads rendering settings`, () => {
                 } else {
                     adsPlaying = await player.getPlayerAttribute(`adsplaying`);
                     await expect(adsPlaying).toBeFalsy();
+
+                    const playerContainer = await page.getByTestId(`${player.testid}-player-container`);
+                    await expect(playerContainer).toBeVisible();
 
                     let contentPlaying = await player.getPlayerAttribute(`playing`);
                     await expect(contentPlaying).toBeTruthy();
@@ -146,84 +149,4 @@ test.describe(`Check timeout on ads rendering settings`, () => {
 
         await runTestMethod({page, browserName, browser, context}, runAdsTester, browserSettings);
     });
-
-    // test(`Random: Failsafe on ads load delay value`, async ({ page, browserName, browser, context }) => {
-    //     const runAdsTester = async (page, browser, context) => {
-    //         let adsPlaying, restTimeout;
-    //         const adsRenderTimeout = Math.random() > 0.5 ? 15000 : 500;
-    //         // delete defaultPlayerAttributes['poster'];
-    //         const player = new PlayerPage(page,
-    //             {
-    //                 ...defaultPlayerAttributes, ...descriptionPlayerAttributes,
-    //                 adsrendertimeout: adsRenderTimeout
-    //             }, context, [{
-    //                 blk: 1
-    //             }]);
-    //
-    //         // Go to the starting url before each test.
-    //         await player.goto();
-    //         await player.setPlayerInstance();
-    //
-    //         // Try to pause requests to avoid ads playing
-    //         // await page.route(`${AD_TAG_URL}`, async route => {
-    //         //     await new Promise(f => setTimeout(f, 1000));
-    //         //     await route.continue();
-    //         // });
-    //
-    //         const hasAdsSource = await player.getPlayerAttribute(`adshassource`);
-    //         expect(hasAdsSource).not.toBeUndefined();
-    //         if (!hasAdsSource) throw new Error(`We need ad tag URL to proceed`);
-    //         const adsContainer = page.locator(`.ba-adsplayer-linear-ad-container`);
-    //
-    //         // const IMA_SDK_URL = new RegExp('https://imasdk.googleapis.com/js/*', 'i');
-    //         // iframe .videoAdUi || .ima-sdk-frame
-    //         // const adsContainer = page.frameLocator('iframe');
-    //         // const adsContainer = page.frameLocator(`iframe[src=^https://imasdk.googleapis.com/js/*]`).locator('div.videoAdUi');
-    //
-    //         const adsStarted = Promise.race([
-    //             player.listenPlayerEvent(`ads:start`).then(() => true),
-    //             // ads:render-timeout also run ad-error at the end
-    //             player.listenPlayerEvent(`ads:ad-error`).then(() => false),
-    //         ]).catch(() => {
-    //             throw "Missing content playing or ads container";
-    //         });
-    //
-    //         await adsStarted.then(async (adsVisible) => {
-    //             if (adsVisible) {
-    //                 // Wait ads container to be visible
-    //                 await expect(adsContainer).toBeInViewport(); //.toBeVisible() || .toBeInViewport();
-    //                 await adsContainer.hover();
-    //
-    //                 // as soon as ads plays, reset timer should be as initial value
-    //                 restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
-    //                 await expect(restTimeout).toEqual(adsRenderTimeout);
-    //             } else {
-    //                 adsPlaying = await player.getPlayerAttribute(`adsplaying`);
-    //                 await expect(adsPlaying).toBeFalsy();
-    //
-    //                 let contentPlaying = await player.getPlayerAttribute(`playing`);
-    //                 await expect(contentPlaying).toBeTruthy();
-    //             }
-    //
-    //             await browser.close();
-    //         });
-    //
-    //         // try {
-    //         //     restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
-    //         //     // Wait ads container to be visible
-    //         //     await expect(adsContainer).toBeInViewport({
-    //         //         timeout: restTimeout + 20
-    //         //     }); //.toBeVisible() || .toBeInViewport();
-    //         //     await adsContainer.hover();
-    //         // } catch (err) {
-    //         //     if (err instanceof errors.TimeoutError) {
-    //         //         restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
-    //         //     } else {
-    //         //         throw new Error(`Error not related to timeout occurred: ${JSON.stringify(err)}`);
-    //         //     }
-    //         // }
-    //     }
-    //
-    //     await runTestMethod({page, browserName, browser, context}, runAdsTester, browserSettings);
-    // });
 });

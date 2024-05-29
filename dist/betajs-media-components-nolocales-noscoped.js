@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.479 - 2024-05-10
+betajs-media-components - v0.0.481 - 2024-05-25
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.479",
-    "datetime": 1715364551307
+    "version": "0.0.481",
+    "datetime": 1716676611894
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -264,14 +264,14 @@ Scoped.define("module:Ads.IMA.AdsManager", [
             },
 
             onAdError: function(event) {
-                var message = event.message || event.errorMessage || event;
+                let message = event.message || event.errorMessage || event;
                 if (event.getError) {
-                    var error = event.getError();
+                    const error = event.getError();
                     if (error) {
                         message = error.getMessage() + ' Code: ' + error.getErrorCode();
                     }
                 }
-                this.trigger('ad-error', message);
+                this.trigger('ad-error', message, event);
             },
 
             addEventListeners: function() {
@@ -2623,6 +2623,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (this.parent().get("outstream")) {
                             this.parent().hidePlayerContainer();
                         }
+                        this.trackAdsPerformance(`ad-error`);
                     },
                     "ads:render-timeout": function() {
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
@@ -2631,13 +2632,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const dyn = this.parent();
                         if (dyn) {
                             dyn.stopAdsRenderFailTimeout(true);
-                            dyn.channel("ads").trigger("ad-error");
+                            dyn.trigger("ad-error", "Ad took too long to render");
                         }
+                        this.trackAdsPerformance(`ads-render-timeout`);
                     },
                     "ads:load": function() {
                         this.set("skipvisible", false);
                         this.call("load");
                         this.set("quartile", "first");
+                        this.trackAdsPerformance(`ads-load-start`);
                     },
                     "ads:firstQuartile": function() {
                         this.set("quartile", "second");
@@ -2650,6 +2653,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:start": function(ev) {
                         this._onStart(ev);
+                        this.trackAdsPerformance(`ads-start`);
                     },
                     "ads:skippableStateChanged": function(event) {
                         this.set("skipvisible", true);
@@ -2658,6 +2662,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
+                        this.trackAdsPerformance(`ads-all-completed`);
                         if (this.parent() && (
                                 this.parent().get("outstreamoptions").noEndCard ||
                                 this.parent().get("outstreamoptions.allowRepeat")
@@ -2685,6 +2690,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
+                        this.trackAdsPerformance(`ads-loaded`);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -2709,6 +2715,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:contentPauseRequested": function() {
                         this.set("adsplaying", true);
+                        this.trackAdsPerformance(`ads-content-pause-requested`);
                     }
                 },
 
@@ -2736,7 +2743,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
-                    this.adsManager.on("all", function(event, data) {
+                    this.adsManager.on("all", function(event, ad, ...rest) {
                         if (event === "adsManagerLoaded") {
                             this.set("adsmanagerloaded", true);
                             if (this.__iasConfig() && typeof googleImaVansAdapter !== "undefined") {
@@ -2746,18 +2753,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }
                             // If we're getting ad-error no need to set loadVideoTimeout
                             this._setLoadVideoTimeout();
-                            // Makes active element not redirect to click through URL on first click
-                            // if (!dynamics.get("userhadplayerinteraction") && dynamics.activeElement() && this.get("unmuteonclick")) {
-                            //     dynamics.once("change:userhadplayerinteraction", function(hasInteraction) {
-                            //         if (hasInteraction) {
-                            //             if (dynamics.get("presetedtooltips.onclicktroughexistence")) {
-                            //                 dynamics.showTooltip(dynamics.get("presetedtooltips.onclicktroughexistence"));
-                            //             }
-                            //         }
-                            //     }, dynamics);
-                            // }
                         }
-                        this.channel("ads").trigger(event, data);
+                        this.channel("ads").trigger(event, ad, rest);
                     }, this);
 
                     if (this.shouldShowFirstFrameAsEndcard()) {
@@ -3001,6 +2998,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 getAdWillPlayMuted: function() {
                     return this.get("muted") || this.get("volume") === 0;
+                },
+
+                trackAdsPerformance: function(name) {
+                    this.parent()._recordPerformance(name);
                 },
 
                 _onStart: function(ev) {
@@ -4357,7 +4358,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
         }, [StylesMixin, function(inherited) {
             return {
 
-                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}\n     {{is_floating ? cssfloatingclasses : ''}}\n     {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}\n     {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}\n     {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}\n     {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{containerSizingStyles}}\"\n     data-testid=\"{{testid}}-player-container\"\n>\n    <meta itemprop=\"name\" content=\"{{title || 'Video Player'}}\" />\n    <meta itemprop=\"description\" content=\"{{description || 'Video Player'}}\" />\n    <meta itemprop=\"uploadDate\" content=\"{{uploaddate}}\" />\n    <meta itemprop=\"caption\" content=\"{{title}}\" />\n    <meta itemprop=\"thumbnailUrl\" content=\"{{thumbnailurl}}\" />\n    <meta itemprop=\"contentUrl\" content=\"{{contenturl}}\" />\n    <div class=\"{{cssplayer}}-content\" data-selector=\"ba-player-container\"\n         ba-styles=\"{{playercontainerstyles}}\"\n    >\n        <ba-{{dynnext}}\n            ba-if=\"{{next_active && !playing_ad}}\"\n            ba-is_floating=\"{{is_floating}}\"\n            ba-style=\"{{layout}}\"\n            ba-with_sidebar=\"{{with_sidebar}}\"\n            ba-playlist=\"{{playlist}}\"\n            ba-current_video_from_playlist=\"{{current_video_from_playlist}}\"\n            ba-position=\"{{position}}\"\n            ba-shownext=\"{{shownext}}\"\n            ba-noengagenext=\"{{noengagenext}}\"\n            ba-gallerysidebar=\"{{gallerysidebar}}\"\n        ></ba-{{dynnext}}>\n        <div class=\"{{css}}-tooltips-list-container\"\n            ba-repeat=\"{{tooltip :: tooltips}}\"\n        >\n            <ba-{{dyntooltip}}\n                ba-if=\"{{tooltip.tooltiptext}}\"\n                ba-id=\"{{tooltip.id}}\"\n                ba-tooltip=\"{{tooltip}}\"\n                ba-playing=\"{{playing}}\"\n                ba-adsplaying=\"{{adsplaying}}\"\n            ></ba-{{dyntooltip}}>\n        </div>\n        <div ba-show=\"{{(videoelement_active || !imageelement_active) && !silent_attach}}\" class=\"{{css}}-video-container\">\n            <video tabindex=\"-1\" class=\"{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit\" data-video=\"video\"\n                   preload=\"{{preload ? 'auto' : 'metadata'}}\"\n                   ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n            ></video>\n        </div>\n        <div ba-show=\"{{(imageelement_active && !videoelement_active) || silent_attach}}\" class=\"{{css}}-poster-container\">\n            <img tabindex=\"-1\" data-image=\"image\" alt=\"{{posteralt}}\" class=\"{{csscommon}}-{{posterfitstrategy}}-fit\"/>\n        </div>\n        <ba-{{dynadsplayer}}\n            ba-if=\"{{adsplayer_active}}\"\n            ba-ad=\"{{=ad}}\"\n            ba-addata=\"{{=addata}}\"\n            ba-adsmanagerloaded=\"{{=adsmanagerloaded}}\"\n            ba-css=\"{{css}}\"\n            ba-cssplayer=\"{{cssplayer}}\"\n            ba-csscommon=\"{{csscommon}}\"\n            ba-testid=\"{{testid}}\"\n            ba-duration=\"{{=adduration}}\"\n            ba-volume=\"{{adsunmuted ? volume : 0}}\"\n            ba-muted=\"{{muted}}\"\n            ba-containerstyle=\"{{containerSizingStyles}}\"\n            ba-unmuteonclick=\"{{unmuteonclick}}\"\n            ba-adtagurl=\"{{adtagurl}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-adsunmuted=\"{{=adsunmuted}}\"\n            ba-inlinevastxml=\"{{inlinevastxml}}\"\n            ba-outstreamoptions=\"{{outstreamoptions}}\"\n            ba-quartile=\"{{=adsquartile}}\"\n            ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n            ba-controlbarstyles=\"{{controlbarstyles}}\"\n            ba-sidebar_active=\"{{sidebar_active}}\"\n            ba-imasettings=\"{{imasettings}}\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-hidecontrolbar=\"{{!adscontrolbar_active}}\"\n            ba-hideadscontrolbar=\"{{hideadscontrolbar}}\"\n            ba-tmplcontrolbar=\"{{tmpladscontrolbar}}\"\n            ba-dyncontrolbar=\"{{dynadscontrolbar}}\"\n            ba-companionad=\"{{companionad}}\"\n            ba-tooltips=\"{{tooltips}}\"\n            ba-companionads=\"{{=companionads}}\"\n            ba-hideoninactivity=\"{{(activity_delta > hidebarafter) && hideoninactivity}}\"\n            ba-view_type=\"{{view_type}}\"\n            ba-adsplaying=\"{{=adsplaying}}\"\n            ba-playing=\"{{=adnotpaused}}\"\n            ba-showlearnmorebutton=\"{{showlearnmorebutton}}\"\n            ba-moredetailslink=\"{{=moredetailslink}}\"\n            ba-moredetailstext=\"{{=moredetailstext}}\"\n            ba-mobileview=\"{{mobileview}}\"\n            ba-floating=\"{{is_floating}}\"\n            ba-withsidebar=\"{{with_sidebar}}\"\n            ba-floatingoptions=\"{{floatingoptions}}\"\n            ba-mobileviewport=\"{{mobileviewport}}\"\n            ba-adchoicesontop=\"{{adchoicesontop && !gallerysidebar}}\"\n            ba-presetedtooltips=\"{{presetedtooltips}}\"\n            ba-showadchoices=\"{{showadchoices}}\"\n            ba-imaadsrenderingsetting=\"{{imaadsrenderingsetting}}\"\n            ba-adsrendertimeout=\"{{adsrendertimeout}}\"\n        ></ba-{{dynadsplayer}}>\n        <div class=\"{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}\"\n             ba-show=\"{{!showbuiltincontroller && !outstream && !adsplaying}}\" style=\"{{placeholderstyle}}\"\n             data-testid=\"{{testid}}-content-player-container\"\n        >\n            <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n                 ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n                 ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n                 ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n                 ba-hotkey:space^enter=\"{{toggle_player(true)}}\"\n                 ba-click=\"{{toggle_player(true)}}\"\n            ></div>\n            <ba-{{dyntrimmer}}\n                ba-if=\"{{trimmingmode && videoelement_active}}\"\n                ba-playing=\"{{playing}}\"\n                ba-startposition=\"{{=starttime}}\"\n                ba-position=\"{{position}}\"\n                ba-endposition=\"{{=endtime}}\"\n                ba-minduration=\"{{timeminlimit}}\"\n                ba-duration=\"{{duration}}\"\n                ba-source=\"{{source}}\"\n                ba-event:play=\"play\"\n                ba-event:pause=\"pause\"\n                ba-event:seek=\"seek\"\n            ></ba-{{dyntrimmer}}>\n            <ba-{{dyncontrolbar}}\n                ba-css=\"{{csscontrolbar || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-testid=\"{{testid}}\"\n                ba-logo=\"{{controlbar_logo}}\"\n                ba-themecolor=\"{{themecolor}}\"\n                ba-template=\"{{tmplcontrolbar}}\"\n                ba-show=\"{{controlbar_active && !hidecontrolbar}}\"\n                ba-playing=\"{{playing}}\"\n                ba-showcontroll=\"{{showcontroll}}\"\n                ba-playwhenvisible=\"{{playwhenvisible}}\"\n                ba-playerspeeds=\"{{playerspeeds}}\"\n                ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n                ba-playlist=\"{{playlist}}\"\n                ba-airplay=\"{{airplay}}\"\n                ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n                ba-chromecast=\"{{chromecast}}\"\n                ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n                ba-sidebar_active=\"{{sidebar_active}}\"\n                ba-tabindex=\"{{tabindex}}\"\n                ba-showchaptertext=\"{{showchaptertext}}\"\n                ba-chapterslist=\"{{chapterslist}}\"\n                ba-tracktextvisible=\"{{tracktextvisible}}\"\n                ba-tracktags=\"{{tracktags}}\"\n                ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n                ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n                ba-tracksshowselection=\"{{tracksshowselection}}\"\n                ba-volume=\"{{volume}}\"\n                ba-muted=\"{{muted}}\"\n                ba-unmuteonclick=\"{{unmuteonclick}}\"\n                ba-duration=\"{{duration}}\"\n                ba-cached=\"{{buffered}}\"\n                ba-title=\"{{title}}\"\n                ba-prominent_title=\"{{prominent_title}}\"\n                ba-closeable_title=\"{{closeable_title}}\"\n                ba-position=\"{{position}}\"\n                ba-activitydelta=\"{{activity_delta}}\"\n                ba-hasnext=\"{{hasnext}}\"\n                ba-hideoninactivity=\"{{hideoninactivity}}\"\n                ba-hidebarafter=\"{{hidebarafter}}\"\n                ba-rerecordable=\"{{rerecordable}}\"\n                ba-submittable=\"{{submittable}}\"\n                ba-frameselectionmode=\"{{frameselectionmode}}\"\n                ba-timeminlimit=\"{{timeminlimit}}\"\n                ba-streams=\"{{streams}}\"\n                ba-currentstream=\"{{=currentstream}}\"\n                ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n                ba-fullscreened=\"{{fullscreened}}\"\n                ba-source=\"{{source}}\"\n                ba-disablepause=\"{{disablepause}}\"\n                ba-disableseeking=\"{{disableseeking}}\"\n                ba-skipseconds=\"{{skipseconds}}\"\n                ba-skipinitial=\"{{skipinitial}}\"\n                ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n                ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n                ba-hidevolumebar=\"{{hidevolumebar}}\"\n                ba-manuallypaused=\"{{manuallypaused}}\"\n                ba-view_type=\"{{view_type}}\"\n                ba-is_floating=\"{{is_floating}}\"\n                ba-isseeking=\"{{=isseeking}}\"\n                ba-with_sidebar=\"{{with_sidebar}}\"\n                ba-event:rerecord=\"rerecord\"\n                ba-event:submit=\"submit\"\n                ba-event:play=\"play\"\n                ba-event:pause=\"pause\"\n                ba-event:position=\"seek\"\n                ba-event:volume=\"set_volume\"\n                ba-event:set_speed=\"set_speed\"\n                ba-event:settings_menu=\"toggle_settings_menu\"\n                ba-event:fullscreen=\"toggle_fullscreen\"\n                ba-event:toggle_player=\"toggle_player\"\n                ba-event:tab_index_move=\"tab_index_move\"\n                ba-event:seek=\"seek\"\n                ba-event:toggle_tracks=\"toggle_tracks\"\n                ba-event:toggle_volume=\"toggle_volume\"\n            ></ba-{{dyncontrolbar}}>\n\n            <ba-{{dyntracks}}\n                ba-css=\"{{csstracks || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n                ba-tracksshowselection=\"{{tracksshowselection}}\"\n                ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n                ba-tracktags=\"{{tracktags}}\"\n                ba-hidebarafter=\"{{hidebarafter}}\"\n                ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n                ba-trackcuetext=\"{{trackcuetext}}\"\n                ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n                ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n                ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n                ba-uploadlocales=\"{{uploadlocales}}\"\n                ba-activitydelta=\"{{activity_delta}}\"\n                ba-hideoninactivity=\"{{hideoninactivity}}\"\n                ba-event:selected_label_value=\"selected_label_value\"\n                ba-event:upload-text-tracks=\"upload_text_tracks\"\n                ba-event:move_to_option=\"move_to_option\"\n            ></ba-{{dyntracks}}>\n\n            <ba-{{dynsettingsmenu}}\n                ba-css=\"{{css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-show=\"{{settingsmenu_active}}\"\n                ba-template=\"{{tmplsettingsmenu}}\"\n                ba-toggle_settings_menu=\"{{toggle_settings_menu}}\"\n                ba-toggle_share=\"{{toggle_share}}\"\n            ></ba-{{dynsettingsmenu}}>\n\n            <ba-{{dynplaybutton}}\n                ba-css=\"{{cssplaybutton || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplplaybutton}}\"\n                ba-show=\"{{playbutton_active}}\"\n                ba-rerecordable=\"{{rerecordable}}\"\n                ba-submittable=\"{{submittable}}\"\n                ba-trimmingmode=\"{{trimmingmode}}\"\n                ba-showduration=\"{{showduration}}\"\n                ba-duration=\"{{duration}}\"\n                ba-event:play=\"playbutton_click\"\n                ba-event:rerecord=\"rerecord\"\n                ba-event:submit=\"submit\"\n                ba-event:tab_index_move=\"tab_index_move\"\n            ></ba-{{dynplaybutton}}>\n\n            <ba-{{dynloader}}\n                ba-css=\"{{cssloader || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplloader}}\"\n                ba-playwhenvisible=\"{{playwhenvisible}}\"\n                ba-show=\"{{loader_active}}\"\n            ></ba-{{dynloader}}>\n\n            <ba-{{dynshare}}\n                ba-css=\"{{cssshare || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplshare}}\"\n                ba-show=\"{{sharevideourl && sharevideo.length > 0 && share_active}}\"\n                ba-visible=\"{{=share_active}}\"\n                ba-url=\"{{sharevideourl}}\"\n                ba-shares=\"{{sharevideo}}\"\n            ></ba-{{dynshare}}>\n\n            <ba-{{dynmessage}}\n                ba-css=\"{{cssmessage || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplmessage}}\"\n                ba-show=\"{{message_active}}\"\n                ba-message=\"{{message}}\"\n                ba-event:click=\"message_click\"\n            ></ba-{{dynmessage}}>\n\n            <ba-{{dyntopmessage}}\n                ba-css=\"{{csstopmessage || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmpltopmessage}}\"\n                ba-show=\"{{topmessage}}\"\n                ba-topmessage=\"{{topmessage}}\"\n            ></ba-{{dyntopmessage}}>\n        </div>\n        <div ba-show=\"{{useAspectRatioFallback}}\" ba-styles=\"{{aspectRatioFallback}}\"></div>\n    </div>\n    <div ba-show=\"{{show_sidebar}}\" class=\"{{cssplayer}}-sidebar\" ba-styles=\"{{sidebarstyles}}\">\n        <ba-{{dynsidebar}}\n            ba-if=\"{{sidebar_active}}\"\n            ba-css=\"{{css}}\"\n            ba-cssplayer=\"{{cssplayer}}\"\n            ba-csscommon=\"{{csscommon}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-ad=\"{{ad}}\"\n            ba-title=\"{{next_active ? '' : title || 'Video Player'}}\"\n            ba-addata=\"{{addata}}\"\n            ba-companionads=\"{{companionads}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-is_floating=\"{{is_floating}}\"\n            ba-showlearnmorebutton=\"{{showlearnmorebutton}}\"\n            ba-sidebaroptions=\"{{sidebaroptions}}\"\n            ba-floatingoptions=\"{{floatingoptions}}\"\n            ba-floatingsidebar=\"{{floatingsidebar}}\"\n            ba-showsidebargallery=\"{{showsidebargallery}}\"\n            ba-gallerysidebar=\"{{gallerysidebar}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-moredetailslink=\"{{moredetailslink}}\"\n            ba-moredetailstext=\"{{moredetailstext}}\"\n            ba-adsplaying=\"{{adsplaying}}\"\n            ba-linear=\"{{=linear}}\"\n            ba-playlist=\"{{playlist}}\"\n            ba-playing=\"{{playing}}\"\n            ba-position=\"{{position}}\"\n            ba-shownext=\"{{shownext}}\"\n            ba-nextactive=\"{{next_active}}\"\n            ba-noengagenext=\"{{noengagenext}}\"\n            ba-mobileviewport=\"{{mobileviewport}}\"\n            ba-showadchoices=\"{{showadchoices}}\"\n            ba-unknownadsrc=\"{{unknownadsrc}}\"\n            ba-event:pause_ads=\"pause_ads\"\n        ></ba-{{dynsidebar}}>\n    </div>\n    <div ba-if=\"{{!fullscreened && is_floating && floatingoptions.closeable}}\"\n         class=\"{{cssplayer}}-close-container\"\n         ba-click=\"close_floating()\"\n         ba-on:touchend=\"{{close_floating()}}\"\n         id=\"close-container\"\n    >\n        <svg viewBox=\"0 0 32 32\" xml:space=\"preserve\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path\n                d=\"m17.459 16.014 8.239-8.194a.992.992 0 0 0 0-1.414 1.016 1.016 0 0 0-1.428 0l-8.232 8.187L7.73 6.284a1.009 1.009 0 0 0-1.428 0 1.015 1.015 0 0 0 0 1.432l8.302 8.303-8.332 8.286a.994.994 0 0 0 0 1.414 1.016 1.016 0 0 0 1.428 0l8.325-8.279 8.275 8.276a1.009 1.009 0 0 0 1.428 0 1.015 1.015 0 0 0 0-1.432l-8.269-8.27z\"\n                class=\"{{cssplayer}}-close-svg-button\"\n            ></path>\n        </svg>\n    </div>\n</div>\n",
+                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}\n     {{is_floating ? cssfloatingclasses : ''}}\n     {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}\n     {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}\n     {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}\n     {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{containerSizingStyles}}\"\n     data-testid=\"{{testid}}-player-container\"\n>\n    <meta itemprop=\"name\" content=\"{{title || 'Video Player'}}\" />\n    <meta itemprop=\"description\" content=\"{{description || 'Video Player'}}\" />\n    <meta itemprop=\"uploadDate\" content=\"{{uploaddate}}\" />\n    <meta itemprop=\"caption\" content=\"{{title}}\" />\n    <meta itemprop=\"thumbnailUrl\" content=\"{{thumbnailurl}}\" />\n    <meta itemprop=\"contentUrl\" content=\"{{contenturl}}\" />\n    <div class=\"{{cssplayer}}-content\" data-selector=\"ba-player-container\"\n         ba-styles=\"{{playercontainerstyles}}\"\n    >\n        <ba-{{dynnext}}\n            ba-if=\"{{next_active && !playing_ad}}\"\n            ba-is_floating=\"{{is_floating}}\"\n            ba-style=\"{{layout}}\"\n            ba-with_sidebar=\"{{with_sidebar}}\"\n            ba-playlist=\"{{playlist}}\"\n            ba-current_video_from_playlist=\"{{current_video_from_playlist}}\"\n            ba-position=\"{{position}}\"\n            ba-shownext=\"{{shownext}}\"\n            ba-noengagenext=\"{{noengagenext}}\"\n            ba-gallerysidebar=\"{{gallerysidebar}}\"\n        ></ba-{{dynnext}}>\n        <div class=\"{{css}}-tooltips-list-container\"\n            ba-repeat=\"{{tooltip :: tooltips}}\"\n        >\n            <ba-{{dyntooltip}}\n                ba-if=\"{{tooltip.tooltiptext}}\"\n                ba-id=\"{{tooltip.id}}\"\n                ba-tooltip=\"{{tooltip}}\"\n                ba-playing=\"{{playing}}\"\n                ba-adsplaying=\"{{adsplaying}}\"\n            ></ba-{{dyntooltip}}>\n        </div>\n        <div ba-show=\"{{(videoelement_active || !imageelement_active) && !silent_attach}}\" class=\"{{css}}-video-container\">\n            <video tabindex=\"-1\" class=\"{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit\" data-video=\"video\"\n                   preload=\"{{preload ? 'auto' : 'metadata'}}\"\n                   elementtiming=\"ba-player-video\"\n                   ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n            ></video>\n        </div>\n        <div ba-show=\"{{(imageelement_active && !videoelement_active) || silent_attach}}\" class=\"{{css}}-poster-container\">\n            <img tabindex=\"-1\" data-image=\"image\" alt=\"{{posteralt}}\"\n                 class=\"{{csscommon}}-{{posterfitstrategy}}-fit\"\n                 elementtiming=\"ba-player-poster\"\n            />\n        </div>\n        <ba-{{dynadsplayer}}\n            ba-if=\"{{adsplayer_active}}\"\n            ba-ad=\"{{=ad}}\"\n            ba-addata=\"{{=addata}}\"\n            ba-adsmanagerloaded=\"{{=adsmanagerloaded}}\"\n            ba-css=\"{{css}}\"\n            ba-cssplayer=\"{{cssplayer}}\"\n            ba-csscommon=\"{{csscommon}}\"\n            ba-testid=\"{{testid}}\"\n            ba-duration=\"{{=adduration}}\"\n            ba-volume=\"{{adsunmuted ? volume : 0}}\"\n            ba-muted=\"{{muted}}\"\n            ba-containerstyle=\"{{containerSizingStyles}}\"\n            ba-unmuteonclick=\"{{unmuteonclick}}\"\n            ba-adtagurl=\"{{adtagurl}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-adsunmuted=\"{{=adsunmuted}}\"\n            ba-inlinevastxml=\"{{inlinevastxml}}\"\n            ba-outstreamoptions=\"{{outstreamoptions}}\"\n            ba-quartile=\"{{=adsquartile}}\"\n            ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n            ba-controlbarstyles=\"{{controlbarstyles}}\"\n            ba-sidebar_active=\"{{sidebar_active}}\"\n            ba-imasettings=\"{{imasettings}}\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-hidecontrolbar=\"{{!adscontrolbar_active}}\"\n            ba-hideadscontrolbar=\"{{hideadscontrolbar}}\"\n            ba-tmplcontrolbar=\"{{tmpladscontrolbar}}\"\n            ba-dyncontrolbar=\"{{dynadscontrolbar}}\"\n            ba-companionad=\"{{companionad}}\"\n            ba-tooltips=\"{{tooltips}}\"\n            ba-companionads=\"{{=companionads}}\"\n            ba-hideoninactivity=\"{{(activity_delta > hidebarafter) && hideoninactivity}}\"\n            ba-view_type=\"{{view_type}}\"\n            ba-adsplaying=\"{{=adsplaying}}\"\n            ba-playing=\"{{=adnotpaused}}\"\n            ba-showlearnmorebutton=\"{{showlearnmorebutton}}\"\n            ba-moredetailslink=\"{{=moredetailslink}}\"\n            ba-moredetailstext=\"{{=moredetailstext}}\"\n            ba-mobileview=\"{{mobileview}}\"\n            ba-floating=\"{{is_floating}}\"\n            ba-withsidebar=\"{{with_sidebar}}\"\n            ba-floatingoptions=\"{{floatingoptions}}\"\n            ba-mobileviewport=\"{{mobileviewport}}\"\n            ba-adchoicesontop=\"{{adchoicesontop && !gallerysidebar}}\"\n            ba-presetedtooltips=\"{{presetedtooltips}}\"\n            ba-showadchoices=\"{{showadchoices}}\"\n            ba-imaadsrenderingsetting=\"{{imaadsrenderingsetting}}\"\n            ba-adsrendertimeout=\"{{adsrendertimeout}}\"\n        ></ba-{{dynadsplayer}}>\n        <div class=\"{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}\"\n             ba-show=\"{{!showbuiltincontroller && !outstream && !adsplaying}}\" style=\"{{placeholderstyle}}\"\n             data-testid=\"{{testid}}-content-player-container\"\n        >\n            <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n                 ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n                 ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n                 ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n                 ba-hotkey:space^enter=\"{{toggle_player(true)}}\"\n                 ba-click=\"{{toggle_player(true)}}\"\n            ></div>\n            <ba-{{dyntrimmer}}\n                ba-if=\"{{trimmingmode && videoelement_active}}\"\n                ba-playing=\"{{playing}}\"\n                ba-startposition=\"{{=starttime}}\"\n                ba-position=\"{{position}}\"\n                ba-endposition=\"{{=endtime}}\"\n                ba-minduration=\"{{timeminlimit}}\"\n                ba-duration=\"{{duration}}\"\n                ba-source=\"{{source}}\"\n                ba-event:play=\"play\"\n                ba-event:pause=\"pause\"\n                ba-event:seek=\"seek\"\n            ></ba-{{dyntrimmer}}>\n            <ba-{{dyncontrolbar}}\n                ba-css=\"{{csscontrolbar || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-testid=\"{{testid}}\"\n                ba-logo=\"{{controlbar_logo}}\"\n                ba-themecolor=\"{{themecolor}}\"\n                ba-template=\"{{tmplcontrolbar}}\"\n                ba-show=\"{{controlbar_active && !hidecontrolbar}}\"\n                ba-playing=\"{{playing}}\"\n                ba-showcontroll=\"{{showcontroll}}\"\n                ba-playwhenvisible=\"{{playwhenvisible}}\"\n                ba-playerspeeds=\"{{playerspeeds}}\"\n                ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n                ba-playlist=\"{{playlist}}\"\n                ba-airplay=\"{{airplay}}\"\n                ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n                ba-chromecast=\"{{chromecast}}\"\n                ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n                ba-sidebar_active=\"{{sidebar_active}}\"\n                ba-tabindex=\"{{tabindex}}\"\n                ba-showchaptertext=\"{{showchaptertext}}\"\n                ba-chapterslist=\"{{chapterslist}}\"\n                ba-tracktextvisible=\"{{tracktextvisible}}\"\n                ba-tracktags=\"{{tracktags}}\"\n                ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n                ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n                ba-tracksshowselection=\"{{tracksshowselection}}\"\n                ba-volume=\"{{volume}}\"\n                ba-muted=\"{{muted}}\"\n                ba-unmuteonclick=\"{{unmuteonclick}}\"\n                ba-duration=\"{{duration}}\"\n                ba-cached=\"{{buffered}}\"\n                ba-title=\"{{title}}\"\n                ba-prominent_title=\"{{prominent_title}}\"\n                ba-closeable_title=\"{{closeable_title}}\"\n                ba-position=\"{{position}}\"\n                ba-activitydelta=\"{{activity_delta}}\"\n                ba-hasnext=\"{{hasnext}}\"\n                ba-hideoninactivity=\"{{hideoninactivity}}\"\n                ba-hidebarafter=\"{{hidebarafter}}\"\n                ba-rerecordable=\"{{rerecordable}}\"\n                ba-submittable=\"{{submittable}}\"\n                ba-frameselectionmode=\"{{frameselectionmode}}\"\n                ba-timeminlimit=\"{{timeminlimit}}\"\n                ba-streams=\"{{streams}}\"\n                ba-currentstream=\"{{=currentstream}}\"\n                ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n                ba-fullscreened=\"{{fullscreened}}\"\n                ba-source=\"{{source}}\"\n                ba-disablepause=\"{{disablepause}}\"\n                ba-disableseeking=\"{{disableseeking}}\"\n                ba-skipseconds=\"{{skipseconds}}\"\n                ba-skipinitial=\"{{skipinitial}}\"\n                ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n                ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n                ba-hidevolumebar=\"{{hidevolumebar}}\"\n                ba-manuallypaused=\"{{manuallypaused}}\"\n                ba-view_type=\"{{view_type}}\"\n                ba-is_floating=\"{{is_floating}}\"\n                ba-isseeking=\"{{=isseeking}}\"\n                ba-with_sidebar=\"{{with_sidebar}}\"\n                ba-event:rerecord=\"rerecord\"\n                ba-event:submit=\"submit\"\n                ba-event:play=\"play\"\n                ba-event:pause=\"pause\"\n                ba-event:position=\"seek\"\n                ba-event:volume=\"set_volume\"\n                ba-event:set_speed=\"set_speed\"\n                ba-event:settings_menu=\"toggle_settings_menu\"\n                ba-event:fullscreen=\"toggle_fullscreen\"\n                ba-event:toggle_player=\"toggle_player\"\n                ba-event:tab_index_move=\"tab_index_move\"\n                ba-event:seek=\"seek\"\n                ba-event:toggle_tracks=\"toggle_tracks\"\n                ba-event:toggle_volume=\"toggle_volume\"\n            ></ba-{{dyncontrolbar}}>\n\n            <ba-{{dyntracks}}\n                ba-css=\"{{csstracks || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n                ba-tracksshowselection=\"{{tracksshowselection}}\"\n                ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n                ba-tracktags=\"{{tracktags}}\"\n                ba-hidebarafter=\"{{hidebarafter}}\"\n                ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n                ba-trackcuetext=\"{{trackcuetext}}\"\n                ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n                ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n                ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n                ba-uploadlocales=\"{{uploadlocales}}\"\n                ba-activitydelta=\"{{activity_delta}}\"\n                ba-hideoninactivity=\"{{hideoninactivity}}\"\n                ba-event:selected_label_value=\"selected_label_value\"\n                ba-event:upload-text-tracks=\"upload_text_tracks\"\n                ba-event:move_to_option=\"move_to_option\"\n            ></ba-{{dyntracks}}>\n\n            <ba-{{dynsettingsmenu}}\n                ba-css=\"{{css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-show=\"{{settingsmenu_active}}\"\n                ba-template=\"{{tmplsettingsmenu}}\"\n                ba-toggle_settings_menu=\"{{toggle_settings_menu}}\"\n                ba-toggle_share=\"{{toggle_share}}\"\n            ></ba-{{dynsettingsmenu}}>\n\n            <ba-{{dynplaybutton}}\n                ba-css=\"{{cssplaybutton || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplplaybutton}}\"\n                ba-show=\"{{playbutton_active}}\"\n                ba-rerecordable=\"{{rerecordable}}\"\n                ba-submittable=\"{{submittable}}\"\n                ba-trimmingmode=\"{{trimmingmode}}\"\n                ba-showduration=\"{{showduration}}\"\n                ba-duration=\"{{duration}}\"\n                ba-event:play=\"playbutton_click\"\n                ba-event:rerecord=\"rerecord\"\n                ba-event:submit=\"submit\"\n                ba-event:tab_index_move=\"tab_index_move\"\n            ></ba-{{dynplaybutton}}>\n\n            <ba-{{dynloader}}\n                ba-css=\"{{cssloader || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplloader}}\"\n                ba-playwhenvisible=\"{{playwhenvisible}}\"\n                ba-show=\"{{loader_active}}\"\n            ></ba-{{dynloader}}>\n\n            <ba-{{dynshare}}\n                ba-css=\"{{cssshare || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplshare}}\"\n                ba-show=\"{{sharevideourl && sharevideo.length > 0 && share_active}}\"\n                ba-visible=\"{{=share_active}}\"\n                ba-url=\"{{sharevideourl}}\"\n                ba-shares=\"{{sharevideo}}\"\n            ></ba-{{dynshare}}>\n\n            <ba-{{dynmessage}}\n                ba-css=\"{{cssmessage || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplmessage}}\"\n                ba-show=\"{{message_active}}\"\n                ba-message=\"{{message}}\"\n                ba-event:click=\"message_click\"\n            ></ba-{{dynmessage}}>\n\n            <ba-{{dyntopmessage}}\n                ba-css=\"{{csstopmessage || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmpltopmessage}}\"\n                ba-show=\"{{topmessage}}\"\n                ba-topmessage=\"{{topmessage}}\"\n            ></ba-{{dyntopmessage}}>\n        </div>\n        <div ba-show=\"{{useAspectRatioFallback}}\" ba-styles=\"{{aspectRatioFallback}}\"></div>\n    </div>\n    <div ba-show=\"{{show_sidebar}}\" class=\"{{cssplayer}}-sidebar\" ba-styles=\"{{sidebarstyles}}\">\n        <ba-{{dynsidebar}}\n            ba-if=\"{{sidebar_active}}\"\n            ba-css=\"{{css}}\"\n            ba-cssplayer=\"{{cssplayer}}\"\n            ba-csscommon=\"{{csscommon}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-ad=\"{{ad}}\"\n            ba-title=\"{{next_active ? '' : title || 'Video Player'}}\"\n            ba-addata=\"{{addata}}\"\n            ba-companionads=\"{{companionads}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-is_floating=\"{{is_floating}}\"\n            ba-showlearnmorebutton=\"{{showlearnmorebutton}}\"\n            ba-sidebaroptions=\"{{sidebaroptions}}\"\n            ba-floatingoptions=\"{{floatingoptions}}\"\n            ba-floatingsidebar=\"{{floatingsidebar}}\"\n            ba-showsidebargallery=\"{{showsidebargallery}}\"\n            ba-gallerysidebar=\"{{gallerysidebar}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-moredetailslink=\"{{moredetailslink}}\"\n            ba-moredetailstext=\"{{moredetailstext}}\"\n            ba-adsplaying=\"{{adsplaying}}\"\n            ba-linear=\"{{=linear}}\"\n            ba-playlist=\"{{playlist}}\"\n            ba-playing=\"{{playing}}\"\n            ba-position=\"{{position}}\"\n            ba-shownext=\"{{shownext}}\"\n            ba-nextactive=\"{{next_active}}\"\n            ba-noengagenext=\"{{noengagenext}}\"\n            ba-mobileviewport=\"{{mobileviewport}}\"\n            ba-showadchoices=\"{{showadchoices}}\"\n            ba-unknownadsrc=\"{{unknownadsrc}}\"\n            ba-event:pause_ads=\"pause_ads\"\n        ></ba-{{dynsidebar}}>\n    </div>\n    <div ba-if=\"{{!fullscreened && is_floating && floatingoptions.closeable}}\"\n         class=\"{{cssplayer}}-close-container\"\n         ba-click=\"close_floating()\"\n         ba-on:touchend=\"{{close_floating()}}\"\n    >\n        <svg viewBox=\"0 0 32 32\" xml:space=\"preserve\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path\n                d=\"m17.459 16.014 8.239-8.194a.992.992 0 0 0 0-1.414 1.016 1.016 0 0 0-1.428 0l-8.232 8.187L7.73 6.284a1.009 1.009 0 0 0-1.428 0 1.015 1.015 0 0 0 0 1.432l8.302 8.303-8.332 8.286a.994.994 0 0 0 0 1.414 1.016 1.016 0 0 0 1.428 0l8.325-8.279 8.275 8.276a1.009 1.009 0 0 0 1.428 0 1.015 1.015 0 0 0 0-1.432l-8.269-8.27z\"\n                class=\"{{cssplayer}}-close-svg-button\"\n            ></path>\n        </svg>\n    </div>\n</div>\n",
 
                 attrs: function() {
                     return {
@@ -4407,6 +4408,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "fallback-aspect-ratio": "1280/720",
                         "floating-fallback-mobile-height": 75,
                         "floating-fallback-desktop-height": 240,
+                        performanceprefix: `ba-player-perf`,
+                        performancerecords: [],
+                        // can be applied only some nodes, https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/elementtiming
+                        performancerendertiming: [`ba-player-video`, `ba-player-poster`],
+                        performanceobservedtypes: ["measure", "mark", "navigation", "element"],
+                        performancerecordeditems: [{
+                                type: `mark`,
+                                keys: [`duration`, `startTime`],
+                            },
+                            {
+                                type: `measure`,
+                                keys: [`duration`],
+                            },
+                            {
+                                type: `navigation`,
+                                keys: [`domInteractive`, `loadEventEnd`, `domComplete`]
+                            },
+                            {
+                                type: `element`,
+                                keys: [`loadTime`, `naturalHeight`, `naturalWidth`, `renderTime`]
+                            }
+                        ],
                         /* Themes */
                         "theme": "",
                         "csstheme": "",
@@ -4832,7 +4855,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showadchoices": "boolean",
                     "unknownadsrc": "boolean",
                     "adsrendertimeout": "int",
-                    "imaadsrenderingsetting": "object"
+                    "imaadsrenderingsetting": "object",
+                    performanceprefix: "string",
+                    performancerendertiming: "array",
+                    performanceobservedtypes: "jsonarray",
+                    performancerecordeditems: "array"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -5231,6 +5258,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    this._performanceObserver = new PerformanceObserver(
+                        (...args) => this.__performanceObserverFunc.apply(this, args)
+                    );
+                    this._performanceObserver.observe({
+                        // https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
+                        entryTypes: ["measure", "mark", "navigation", "element"]
+                    });
+
                     if (this.get("autoplaywhenvisible")) {
                         this.set("autoplay", true);
                         Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
@@ -5246,8 +5281,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get("unmuteonclick")) {
                         this.on("change:adsplaying", function(adsplaying) {
-                            if (adsplaying) this.set("unmuteonclick", false);
-                            if (this.get("muted") || this.get("volume") === 0) this.set("unmuteonclick", true);
+                            if (adsplaying) {
+                                this.set("unmuteonclick", false);
+                            } else if (this.get("muted") || this.get("volume") === 0) {
+                                this.set("unmuteonclick", true);
+                            }
                         }, this);
                     }
 
@@ -5464,34 +5502,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.delegateEvents(null, this.floatHandler);
                         this.floatHandler.init();
-
-                        if (this.get("floating") && this.get("floatingoptions").mobile) {
-                            let maxPadding = window.top.innerHeight - document.documentElement.clientHeight;
-                            let lastScrollTop = 0;
-                            let mobilePadding = maxPadding;
-                            let onScrollPadding = () => {
-                                if (this.floatHandler.elementIsVisible) {
-                                    if (maxPadding === 0) {
-                                        maxPadding = window.top.innerHeight - document.documentElement.clientHeight;
-                                    }
-                                    if (maxPadding > 0) {
-                                        let st = window.scrollY || document.documentElement.scrollTop;
-                                        let closeContainer = document.getElementById("close-container")
-                                        if (st > lastScrollTop && mobilePadding === 0) {
-                                            mobilePadding = maxPadding;
-                                            this.floatHandler.element.style.padding = mobilePadding + "px 0px 0px 0px";
-                                            closeContainer.style.padding = mobilePadding + "px 0px 0px 0px";
-                                        } else if (st < lastScrollTop && mobilePadding === maxPadding) {
-                                            mobilePadding = 0;
-                                            this.floatHandler.element.style.padding = mobilePadding + "px 0px 0px 0px";
-                                            closeContainer.style.padding = mobilePadding + "px 0px 0px 0px";
-                                        }
-                                        lastScrollTop = st <= 0 ? 0 : st;
-                                    }
-                                }
-                            };
-                            window.visualViewport.addEventListener("scroll", onScrollPadding, false);
-                        }
                     }
                     if (Info.isSafari()) {
                         this.vidEle = document.createElement('video');
@@ -6119,6 +6129,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("fallback-aspect-ratio", img.naturalWidth + "/" + img.naturalHeight);
                         imgEventHandler.destroy();
                     }, this);
+                    this._recordPerformance(`activated`);
                 },
 
                 _playWhenVisible: function(video) {
@@ -6724,6 +6735,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 destroy: function() {
                     if (this._observer) this._observer.disconnect();
+                    if (this._performanceObserver) {
+                        this._performanceObserver.disconnect();
+                    }
                     this._detachVideo();
                     inherited.destroy.call(this);
                 },
@@ -7623,7 +7637,69 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("forciblymuted")) this.set("forciblymuted", false);
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
+                },
 
+                _recordPerformance: function(name) {
+                    const recordName = `${this.get(`performanceprefix`)}-${name}`;
+                    // Entry Types starting Chrome 59: "element", "event", "first-input",
+                    // "largest-contentful-paint", "layout-shift", "longtask", "mark",
+                    // "measure", "navigation", "paint", "resource"
+                    if (this.__previousMark) {
+                        performance.measure(recordName, this.__previousMark);
+                    }
+                    this.__previousMark = recordName;
+                    performance.mark(recordName);
+                },
+
+                __performanceObserverFunc: function(list) {
+                    list.getEntries().forEach((entry) => {
+                        let name;
+                        switch (entry.entryType) {
+                            case `navigation`:
+                                name = `${this.get(`performanceprefix`)}-navigation`;
+                                break;
+                            case `element`:
+                                name = entry.identifier || entry.name;
+                                break;
+                            default:
+                                name = entry.name
+                        }
+                        const index = this.get(`performancerecords`).findIndex(
+                            pr => (pr && pr.name === name)
+                        );
+                        const perf = index > -1 ? this.get(`performancerecords`)[index] : {
+                            name
+                        };
+                        const records = [{
+                                type: `mark`,
+                                keys: [`duration`, `startTime`],
+                            },
+                            {
+                                type: `measure`,
+                                keys: [`duration`],
+                            },
+                            {
+                                type: `navigation`,
+                                keys: [`domInteractive`, `loadEventEnd`, `domComplete`]
+                            },
+                            {
+                                type: `element`,
+                                keys: [`loadTime`, `naturalHeight`, `naturalWidth`, `renderTime`]
+                            }
+                        ];
+                        records.forEach((k) => {
+                            if (!k.keys || !k.type || entry.entryType !== k.type) return;
+                            k.keys.forEach((key) => {
+                                if (entry[key]) perf[key] = entry[key];
+                            });
+                        });
+                        // to be able to trigger change event
+                        if (index > -1) this.get(`performancerecords`)[index] = perf;
+                        this.set(`performancerecords`, index > -1 ? this.get(`performancerecords`) : [
+                            ...this.get(`performancerecords`),
+                            perf
+                        ]);
+                    }, this);
                 }
             };
         }], {

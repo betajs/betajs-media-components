@@ -1,0 +1,77 @@
+name: 'Run Playwright test'
+description: 'Run e2e tests via chrome browser using playwright'
+
+inputs:
+  project:
+    description: Project which will run on testing
+    required: true
+  browser-launcher:
+    description: 'Chrome version on which all will be tested. Note: canary not supported by linux'
+    required: true
+  config-file:
+    description: 'Configuration file for playwright'
+    default: './tests/playwright/config.js'
+    required: false
+  port:
+    description: 'Port where local server will be run'
+    default: '5000'
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Get installed Playwright version
+      id: playwright-version
+      shell: bash
+      run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
+
+    - name: Cache playwright binaries
+      uses: actions/cache@v4
+      id: playwright-cache
+      with:
+        path: |
+          ~/.cache/ms-playwright
+        key: "${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}"
+        restore-keys: "${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}"
+        save-always: true
+
+    - name: Install Playwright Test Package
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      shell: bash
+      # NOTE: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD not works as expected --with-deps chromium also included, not to install all browsers
+      run: |
+        npm install @playwright/test
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install --with-deps chromium
+
+    - name: Run Playwright on Linux
+      if: ${{ contains(runner.os, 'Linux') }}
+      shell: bash
+      run: xvfb-run npx playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
+      env:
+        CI: 'true'
+        PLAYWRIGHT_PORT: ${{ inputs.port }}
+        PLAYWRIGHT_BROWSERS_PATH: ''
+        PLAYWRIGHT_BROWSER_LAUNCHER: ${{ inputs.browser-launcher }}
+        PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS: 'false'
+
+    - name: Run Playwright on Mac OS
+      if: ${{ contains(runner.os, 'macOS') }}
+      shell: bash
+      # DEBUG=pw:browser
+      run: npx playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
+      env:
+        CI: 'true'
+        PLAYWRIGHT_PORT: ${{ inputs.port }}
+        PLAYWRIGHT_BROWSERS_PATH: ''
+        PLAYWRIGHT_BROWSER_LAUNCHER: "${{ inputs.browser-launcher }}"
+        PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS: 'false'
+
+    - name: Store Playwright reports
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-reports
+        path: |
+          tests/playwright/output/
+          tests/playwright/reports/
+        retention-days: 30

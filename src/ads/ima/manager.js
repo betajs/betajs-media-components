@@ -162,14 +162,14 @@ Scoped.define("module:Ads.IMA.AdsManager", [
             },
 
             onAdError: function(event) {
-                var message = event.message || event.errorMessage || event;
+                let message = event.message || event.errorMessage || event;
                 if (event.getError) {
-                    var error = event.getError();
+                    const error = event.getError();
                     if (error) {
                         message = error.getMessage() + ' Code: ' + error.getErrorCode();
                     }
                 }
-                this.trigger('ad-error', message);
+                this.trigger('ad-error', message, event);
             },
 
             addEventListeners: function() {

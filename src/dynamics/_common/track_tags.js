@@ -40,7 +40,7 @@ Scoped.define("module:TrackTags", [
                 }
                 this._loadTrackTags();
                 // To be able to play default subtitle in with custom style
-                if (this._dyn.get("tracktagsstyled")) this._setDefaultTrackOnPlay();
+                if (this._dyn.get("tracktagsstyled")) this._displayCustomTracks();
 
                 this._dyn.set("chapterslist", null);
                 this._dyn.on("chaptercuesloaded", (chapters, length) => {
@@ -404,7 +404,7 @@ Scoped.define("module:TrackTags", [
              * Will set default language text track
              * @private
              */
-            _setDefaultTrackOnPlay: function() {
+            _displayCustomTracks: function() {
                 Objs.iter(this._trackTags, function(track, index) {
                     const trackElement = this._video.textTracks[index];
                     if (typeof trackElement === 'object' && trackElement) {

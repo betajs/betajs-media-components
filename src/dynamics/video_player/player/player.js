@@ -1788,9 +1788,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.set("duration", this.get("totalduration") || this.player.duration());
                             this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
                             // As duration is credential, we're waiting to get duration info
-                            this.on("chaptercuesloaded", function(chapters, length) {
-                                this.set("chapterslist", chapters);
-                            }, this);
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));
                             if (this.get("allowpip")) {

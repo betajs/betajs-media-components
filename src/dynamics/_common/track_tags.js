@@ -42,6 +42,11 @@ Scoped.define("module:TrackTags", [
                 // To be able to play default subtitle in with custom style
                 if (this._dyn.get("tracktagsstyled")) this._setDefaultTrackOnPlay();
 
+                this._dyn.set("chapterslist", null);
+                this._dyn.on("chaptercuesloaded", (chapters, length) => {
+                    this._dyn.set("chapterslist", chapters);
+                });
+
                 // Will trigger meta tag on-load event
                 Async.eventually(function() {
                     this._loadMetaTrackTags();
@@ -511,6 +516,5 @@ Scoped.define("module:TrackTags", [
                 return vttContent;
             }
         };
-    }], {
-    });
+    }], {});
 });

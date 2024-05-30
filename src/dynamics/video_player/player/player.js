@@ -434,6 +434,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "userengagedwithplayer": false,
                         "userhadplayerinteraction": false,
                         // If settings are open and visible
+                        
                         "states": {
                             "poster_error": {
                                 "ignore": false,

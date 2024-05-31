@@ -63,7 +63,8 @@
         "sass": "^1.57.1",
         "jsdom-recent": "npm:jsdom@24.0.0",
         "resize-observer-polyfill": "^1.5.1",
-        "nyc": "^15.1.0"
+        "nyc": "^15.1.0",
+        "dotenv": "^16.4.5"
     },
     "main": "dist/betajs-media-components.js",
     "repository": {

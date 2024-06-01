@@ -114,11 +114,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
                             this.adsManager.destroy();
                         }
-                        const dyn = this.parent();
-                        if (dyn) {
-                            dyn.stopAdsRenderFailTimeout(true);
-                            dyn.trigger("ad-error", "Ad took too long to render");
-                        }
                         this.trackAdsPerformance(`ads-render-timeout`);
                     },
                     "ads:load": function() {

@@ -510,6 +510,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                                 this.next(this._nextState());
                             }
                         }, this);
+                        if (this.dyn.get(`adsrendertimeout`)) {
+                            this.listenOn(this.dyn.channel(`ads`), `render-timeout`, function() {
+                                this.dyn.stopAdsRenderFailTimeout(true);
+                                if (this.dyn && this.dyn.player) this.dyn.player.play();
+                                this.next(`PlayVideo`);
+                            });
+                        }
                     }
                 } else {
                     this.next("LoadVideo");

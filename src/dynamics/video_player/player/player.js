@@ -1215,6 +1215,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.delegateEvents(null, this.floatHandler);
                         this.floatHandler.init();
+
+                        if (this.get("floating") && this.get("floatingoptions").mobile) {
+                            const floatingElement = this.floatHandler.element;
+                            const viewport = window.visualViewport;
+
+                            function viewportHandler() {
+                                floatingElement.style.transform = `translate(${viewport.offsetLeft}px, ${viewport.offsetTop}px)`;
+                            }
+
+                            viewport.addEventListener("scroll", viewportHandler);
+
+                        }
                     }
                     if (Info.isSafari()) {
                         this.vidEle = document.createElement('video');

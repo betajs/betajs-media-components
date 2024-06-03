@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.481 - 2024-05-25
+betajs-media-components - v0.0.482 - 2024-06-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.481",
-    "datetime": 1716676611892
+    "version": "0.0.482",
+    "datetime": 1717416544978
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2819,11 +2819,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:render-timeout": function() {
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
                             this.adsManager.destroy();
-                        }
-                        const dyn = this.parent();
-                        if (dyn) {
-                            dyn.stopAdsRenderFailTimeout(true);
-                            dyn.trigger("ad-error", "Ad took too long to render");
                         }
                         this.trackAdsPerformance(`ads-render-timeout`);
                     },
@@ -5693,6 +5688,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.delegateEvents(null, this.floatHandler);
                         this.floatHandler.init();
+
+                        if (this.get("floating") && this.get("floatingoptions").mobile) {
+                            const floatingElement = this.floatHandler.element;
+                            const viewport = window.visualViewport;
+
+                            function viewportHandler() {
+                                floatingElement.style.transform = `translate(${viewport.offsetLeft}px, ${viewport.offsetTop}px)`;
+                            }
+
+                            viewport.addEventListener("scroll", viewportHandler);
+
+                        }
                     }
                     if (Info.isSafari()) {
                         this.vidEle = document.createElement('video');
@@ -8423,6 +8430,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                                 this.next(this._nextState());
                             }
                         }, this);
+                        if (this.dyn.get(`adsrendertimeout`)) {
+                            this.listenOn(this.dyn.channel(`ads`), `render-timeout`, function() {
+                                this.dyn.stopAdsRenderFailTimeout(true);
+                                if (this.dyn && this.dyn.player) this.dyn.player.play();
+                                this.next(`PlayVideo`);
+                            });
+                        }
                     }
                 } else {
                     this.next("LoadVideo");

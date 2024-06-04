@@ -5,6 +5,8 @@ module.exports = (attrs) => {
         element: container,
         attrs: attrs || {}
     });
+
+    player.__video = player.__video || document.createElement("video");
     player.activate();
     return player;
 }

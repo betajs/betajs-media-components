@@ -713,6 +713,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
+            if (this.dyn.get("start_content_on_pause")) this.dyn.pause();
             if (this.dyn.get("adshassource")) {
                 // As during a loop, we will play player after ended event fire, need initial cover will be hidden
                 this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {

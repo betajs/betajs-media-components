@@ -407,6 +407,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "tracktagssupport": false,
                         "playbackcount": 0,
                         "playbackended": 0,
+                        "start_content_on_pause": false,
                         "currentchapterindex": 0,
                         "chapterslist": [],
                         "userengagedwithplayer": false,
@@ -2119,11 +2120,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("playing_ad") || this.get("adsplaying"))
                             this.scopes.adsplayer.execute("pause");
 
-                        if (this.get("playing")) {
+                        if (this.get("playing") || this.get("start_content_on_pause")) {
                             if (this.player && this.get("broadcasting")) {
                                 this._broadcasting.player.trigger("pause-google-cast");
                                 return;
                             }
+                            this.set("start_content_on_pause", false)
                             this.player.pause();
                         }
 
@@ -2389,7 +2391,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.trigger("floatingplayerclosed");
                         const floating = this.get("sticky") || this.get("floating");
                         if (floating || this.get("floatingoptions.floatingonly")) {
-                            this.pause();
+                            if (this.get("adsplaying")) {
+                                this.set_volume(0)
+                                this.set("start_content_on_pause", true);
+                            } else this.pause();
+
                             if (this.floatHandler) {
                                 if (destroy) this.floatHandler.destroy();
                                 else this.floatHandler.stop();

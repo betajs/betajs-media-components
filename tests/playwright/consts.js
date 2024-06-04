@@ -47,3 +47,29 @@ export const AD_TAGS = {
     4: VMAP_AD_TAG,
     vmap: VMAP_AD_TAG,
 }
+
+export const WebVTTTextExample = "WEBVTT\n\n1\n00:00:00.000 --> 00:00:01.000\nWhy are you still up?\n\n2\n00:00:05.500 --> 00:00:08.000\npink white wire My Day 2016\n";
+export const WebVTTWrongTextExample = "1\n00:00:00,000 --> 00:00:01,000\nWhy are you still up?\n\n2\n00:00:05,500 --> 00:00:08,000\npink white wire My Day 2016\n";
+export const transcript = {
+    "words": [
+        "The Peach Open Movie Project presents One,",
+        "big rabbit Three rodents",
+        "And one giant payback Get ready Big",
+        "Buck\n Bunny Coming soon."
+    ],
+    "times": [
+        {
+            "start": 0, "end": 450
+        },
+        {
+            "start": 1050, "end": 2100
+        },
+        {
+            "start": 4400, "end": 5800
+        },
+        {
+            "start": 8400, "end": 8600
+        }
+    ]
+}
+

@@ -201,7 +201,9 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adDisplayContainer.initialize();
                     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
                     this._adsManager.setVolume(options.volume);
-                    if (options.adWillAutoPlay) this._adsManager.start();
+                    if (options.adWillAutoPlay) {
+                        this._adsManager.start();
+                    }
                 } catch (e) {
                     this.onAdError(e);
                     throw e;
@@ -210,7 +212,12 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
             playLoadedAd: function(options) {
                 if (!this._adsManager) {
+                    options = options || {};
                     console.warn(`Before calling startLoaded, you must wait for the adsManagerLoaded event.`);
+                    this.start({
+                        ...options,
+                        adWillAutoPlay: true
+                    });
                     return;
                 }
                 this._adsManager.start();

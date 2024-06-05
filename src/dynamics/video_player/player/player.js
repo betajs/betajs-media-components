@@ -2154,7 +2154,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         if (this.get(`ads_loaded`) && this.scopes?.adsplayer) {
-                            this.pause();
+                            this.call("pause");
                             this.scopes.adsplayer.execute(`play`);
                             return;
                         }

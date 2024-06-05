@@ -280,22 +280,20 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         if (!this.adsManager) return this.once("dynamic-activated", function() {
                             this.call("load", autoPlay);
                         }, this);
-                        this.adsManager.start({
-                            width: this.getAdWidth(),
-                            height: this.getAdHeight(),
-                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
-                            adWillAutoPlay: autoPlay,
-                        });
+                        this.adsManager.start(this._adsManagerRunOptions(autoPlay));
 
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
                     },
                     play: function() {
+                        if (!this.adsManager) this.call("load", true);
                         if (this.get("adsplaying") || !this.get(`ads_loaded`)) {
                             console.warn(`Ads already playing or ads not loaded yet.`);
                             return;
                         }
-                        if (this.adsManager) this.adsManager.playLoadedAd();
+                        if (this.adsManager) {
+                            this.adsManager.playLoadedAd(this._adsManagerRunOptions(true));
+                        }
                     },
                     reset: function() {
                         this.set("linear", true);
@@ -833,6 +831,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     this.set("volume", volume);
                     this.set("adsunmuted", volume > 0);
+                },
+
+                _adsManagerRunOptions: function(autoPlay) {
+                    return {
+                        width: this.getAdWidth(),
+                        height: this.getAdHeight(),
+                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
+                        adWillAutoPlay: autoPlay || false
+                    }
                 }
             };
         }).register("ba-adsplayer")

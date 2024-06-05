@@ -1001,7 +1001,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                     }
-
+                    this.set("triggeredPlayOnceOnScroll", true);
                     this.__attachPlayerInteractionEvents();
                     this.set('clearDebounce', 0);
                     this.__mergeDeepAttributes();
@@ -1209,13 +1209,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.floatHandler.on("transitionToView", function() {
                             this.set("view_type", "default");
+                            this.handleBatteryApi();
                         }, this);
                         this.floatHandler.on("transitionOutOfView", function() {
                             this.set("view_type", "out_of_view");
                         }, this);
                         this.delegateEvents(null, this.floatHandler);
                         this.floatHandler.init();
-
                         if (this.get("floating") && this.get("floatingoptions").mobile) {
                             const floatingElement = this.floatHandler.element;
                             const viewport = window.visualViewport;
@@ -1390,6 +1390,36 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 videoError: function() {
                     return this.__error;
+                },
+                playVideoOnLowBattery: function(battery) {
+                    if (battery.level < 0.2 && !battery.charging && Info.isSafari()) {
+                        if (!this.get("playing") && this.get("triggeredPlayOnceOnScroll") && this.get("autoplay")) {
+                            this.player.play();
+                            this.set("triggeredPlayOnceOnScroll", false);
+                        }
+                    }
+                },
+
+                isBatteryApiSupported: function() {
+                    return !!navigator?.getBattery;
+                },
+
+                handleBatteryApi: function() {
+                    if (this.isBatteryApiSupported()) {
+                        let self = this;
+                        navigator?.getBattery()?.then(function(battery) {
+                            self.playVideoOnLowBattery(battery);
+                            // Update battery status on changes
+                            battery?.addEventListener('levelchange', function() {
+                                self.playVideoOnLowBattery(battery);
+                            });
+                            battery?.addEventListener('chargingchange', function() {
+                                self.playVideoOnLowBattery(battery);
+                            });
+                        });
+                    } else {
+                        console.warn("battery api is not supported");
+                    }
                 },
 
                 /**

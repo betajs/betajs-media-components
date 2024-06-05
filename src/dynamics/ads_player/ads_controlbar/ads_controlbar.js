@@ -91,6 +91,7 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
 
                     toggle_player: function() {
                         if (this.get("playing")) {
+                            console.log(`will pause from ads 3494`);
                             this.trigger("pause");
                         } else {
                             this.trigger("play");
@@ -98,6 +99,7 @@ Scoped.define("module:Ads.Dynamics.Controlbar", [
                     },
 
                     pause: function() {
+                        console.log(`will pause from ads 3494`);
                         this.trigger("pause");
                     },
 

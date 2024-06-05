@@ -230,9 +230,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
                     this.adsManager.on("all", function(event, ad, ...rest) {
-                        if (event !== 'adProgress') {
-                            console.log(`Which manager events? `, event, ad, rest);
-                        }
                         if (event === "adsManagerLoaded") {
                             this.set("adsmanagerloaded", true);
                             if (this.__iasConfig() && typeof googleImaVansAdapter !== "undefined") {
@@ -278,7 +275,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 functions: {
                     load: function(autoPlay) {
-                        console.log(`Now calling functions load...`, autoPlay, this.adsManager);
                         if (!this.adsManager) return this.once("dynamic-activated", function() {
                             this.call("load", autoPlay);
                         }, this);
@@ -293,7 +289,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         // this.call("requestAds");
                     },
                     play: function() {
-                        console.log(`Only now ads should be played...`);
                         if (this.get("adsplaying") || !this.get(`ads_loaded`)) {
                             console.warn(`Ads already playing or ads not loaded yet.`);
                             return;

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.483 - 2024-06-04
+betajs-media-components - v0.0.484 - 2024-06-05
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.483 - 2024-06-04
+betajs-media-components - v0.0.484 - 2024-06-05
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.483",
-    "datetime": 1717509997976
+    "version": "0.0.484",
+    "datetime": 1717592685824
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4150,6 +4150,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;
+                    video.setAttribute("playsinline", true)
                     video.play();
                     video.addEventListener("loadeddata", (event) => {
                         this.parent()._drawFrame(video, this.get('currenttime'), width, height, (canvas, ctx) => {
@@ -4191,7 +4192,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 this._video.src = URL.createObjectURL(blob);
                                 this._video.crossOrigin = "anonymous";
                                 this._video.muted = true;
-                                return this._video.play()
+                                this._video.setAttribute("playsinline", true);
+                                return this._video.play();
                             })
                             .then(() => {
                                 // add a small delay to handle cases where the beginning of video is a black screen

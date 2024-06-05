@@ -396,6 +396,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;
+                    video.setAttribute("playsinline", true)
                     video.play();
                     video.addEventListener("loadeddata", (event) => {
                         this.parent()._drawFrame(video, this.get('currenttime'), width, height, (canvas, ctx) => {
@@ -437,7 +438,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 this._video.src = URL.createObjectURL(blob);
                                 this._video.crossOrigin = "anonymous";
                                 this._video.muted = true;
-                                return this._video.play()
+                                this._video.setAttribute("playsinline", true);
+                                return this._video.play();
                             })
                             .then(() => {
                                 // add a small delay to handle cases where the beginning of video is a black screen

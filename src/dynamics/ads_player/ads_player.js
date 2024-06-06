@@ -835,7 +835,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
                         volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
-                        adWillAutoPlay: autoPlay || false
+                        adWillAutoPlay: Types.is_defined(autoPlay) ? autoPlay : true
                     }
                 }
             };

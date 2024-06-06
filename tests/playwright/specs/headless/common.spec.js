@@ -5,7 +5,7 @@ import runTestMethod from '../../utils/run-test';
 
 
 // Will test the player with autoplay and unmute on click
-test.describe(`Player Common States`, () => {
+test.describe(`Fundamental attributes`, () => {
 
     const browserSettings = {
         // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
@@ -58,4 +58,5 @@ test.describe(`Player Common States`, () => {
             page, browserName, browser, context
         }, runAdsTester, browserSettings);
     });
+
 });

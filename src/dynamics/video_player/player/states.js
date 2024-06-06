@@ -325,7 +325,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         _started: function() {
             this.dyn.set("placeholderstyle", "");
             // Will attach video silently without starting playing the video
-            if (!this.dyn.get("skipinitial") && this.dyn.get("preload")) {
+            if (this.dyn && !this.dyn.get("skipinitial") && this.dyn.get("preload")) {
                 this.dyn._attachVideo(true);
             }
             this.dyn.trigger("ready_to_play");
@@ -334,11 +334,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                 if (!this.dyn.get("states").poster_error.ignore && !this.dyn.get("popup"))
                     this.next("PosterError");
             }, this);
-            if (this.dyn.get(`skipinitial`)) {
+            if (this.dyn && this.dyn.get(`skipinitial`)) {
                 this.dyn.set(`controlbar_active`, true);
                 this.dyn.set(`playbutton_active`, false);
             }
-            if (this.dyn.get("autoplay")) {
+            if (this.dyn && this.dyn.get("autoplay")) {
                 if (this.dyn.get("autoplaywhenvisible")) {
                     Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                         if (!this.destroyed()) this.runAutoplay();
@@ -348,7 +348,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                 }
             }
 
-            if (this.dyn.get(`preload_ads`) && !this.dyn.get(`ads_loaded`)) {
+            if (this.dyn && this.dyn.get(`preload_ads`) && !this.dyn.get(`ads_loaded`)) {
                 this.next("LoadAds", {
                     position: State.ADS_POSITIONS.PREROLL,
                     autoplay: false
@@ -521,7 +521,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
             if (!this._autoplay && !this.dyn.get(`skipinitial`))
                 return `PosterReady`;
             if (this.dyn.get(`ads_loaded`))
-                return `PlayAd`;
+                return `PlayVideo`;
             return "LoadVideo";
         },
 

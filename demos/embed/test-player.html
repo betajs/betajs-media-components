@@ -110,11 +110,11 @@
         attrs, availablepresetoptions
     } from "../assets/options.js";
 
-    // attrs.preload = false;
-    // attrs.autoplay = false;
-    // attrs.skipinitial = false;
-    // attrs.preload_ads = false;
-    // attrs.autoplaywhenvisible = false;
+    attrs.preload = false;
+    attrs.autoplay = false;
+    attrs.skipinitial = false;
+    attrs.preload_ads = false;
+    attrs.autoplaywhenvisible = false;
 
     const localAttrs = {
         ...attrs,
@@ -123,7 +123,7 @@
             // preload: true,
             // autoplay: true,
             // skipinitial: true,
-            // preload_ads: true,
+            preload_ads: true,
             // autoplaywhenvisible: true,
             // playwhenvisible: true,
             // hidebeforeadstarts: false, // Will help hide player poster before ads start

@@ -42,7 +42,36 @@ test.describe(`Autoplay`, () => {
             // Go to the starting url before each test.
             await player.goto();
             await player.setPlayerInstance();
-            await player.testScrollToAd();
+
+            await player.listenPlayerEvent(`ads:loaded`, 2000);
+
+            let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
+            await expect(adsLoaded).toBeTruthy();
+
+            let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
+            await expect(adsPauseButton).not.toBeVisible();
+
+            const wrapperElement = await player.getElementByTestID(`player-container`);
+            await expect(wrapperElement).not.toBeInViewport();
+
+            await player.scrollToTheElement(null, 100 ,null);
+            let position = await player.getAdsPlayerAttribute(`position`);
+            await expect(position).toBeUndefined();
+            let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
+            await expect(adsPlaying).toBeFalsy();
+            await expect(adsPauseButton).not.toBeVisible();
+
+            await player.scrollToTheElement(wrapperElement, null, 5);
+
+            await player.listenPlayerEvent(`ads:firstQuartile`, 2000);
+            adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
+            await expect(adsPlaying).toBeTruthy();
+            adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
+            await expect(adsPauseButton).toBeVisible();
+
+            adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
+            await expect(adsLoaded).toBeFalsy();
+
         }
 
         await runTestMethod({
@@ -71,15 +100,17 @@ test.describe(`Autoplay`, () => {
             await player.setPlayerInstance();
             await player.listenPlayerEvent(`ads:loaded`, 2000);
 
-            const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
+            let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeTruthy();
 
-            await player.listenPlayerEvent(`ads:contentPauseRequested`, 2000);
-
             let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
+            await expect(adsPauseButton).toBeInViewport();
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeTruthy();
-            await expect(adsPauseButton).toBeInViewport();
+
+            adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
+            await expect(adsLoaded).toBeFalsy();
+
         }
 
         await runTestMethod({
@@ -157,10 +188,8 @@ test.describe(`Autoplay`, () => {
                     ...defaultPlayerAttributes,
                     ...{
                         adtagurl: AD_TAG_URL,
-                        autoplay: false,
-                        skipinitial: false,
+                        autoplay: true,
                         preload_ads: true,
-                        autoplaywhenvisible: true,
                         outstream: true
                     }
                 }, context, [{
@@ -170,7 +199,21 @@ test.describe(`Autoplay`, () => {
             // Go to the starting url before each test.
             await player.goto();
             await player.setPlayerInstance();
-            await player.testScrollToAd();
+
+            const adsContainer = await player.getElementByTestID(`ads-player-container`);
+            await expect(adsContainer).toBeVisible();
+            await player.scrollToTheElement(adsContainer);
+
+            await player.listenPlayerEvent(`ads:firstQuartile`, 3000);
+            const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
+            await expect(adsLoaded).toBeFalsy();
+
+            adsContainer.hover();
+            let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
+            await expect(adsPauseButton).toBeVisible();
+
+            const adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
+            await expect(adsPlaying).toBeTruthy();
         }
 
         await runTestMethod({

@@ -289,31 +289,6 @@ class PlayerPage {
     async testScrollToAd(){
         const player = this;
 
-        await player.listenPlayerEvent(`ads:loaded`, 2000);
-
-        const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
-        await expect(adsLoaded).toBeTruthy();
-
-        let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
-        await expect(adsPauseButton).not.toBeVisible();
-
-        const wrapperElement = await player.getElementByTestID(`player-container`);
-        await expect(wrapperElement).not.toBeInViewport();
-
-        await player.scrollToTheElement(null, 100 ,null);
-        let position = await player.getAdsPlayerAttribute(`position`);
-        await expect(position).toBeUndefined();
-        let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
-        await expect(adsPlaying).toBeFalsy();
-        await expect(adsPauseButton).not.toBeVisible();
-
-        await player.scrollToTheElement(wrapperElement, null, 5);
-
-        await player.listenPlayerEvent(`ads:firstQuartile`, 2000);
-        adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
-        await expect(adsPlaying).toBeTruthy();
-        adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
-        await expect(adsPauseButton).toBeVisible();
     }
 }
 

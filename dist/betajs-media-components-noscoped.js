@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.485 - 2024-06-07
+betajs-media-components - v0.0.486 - 2024-06-07
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.485",
-    "datetime": 1717728064493
+    "version": "0.0.486",
+    "datetime": 1717730415981
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6310,7 +6310,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setMuted(this.get("muted") || volume <= 0.0);
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
-                            this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
+                            this.set("fullscreensupport", this.player.supportsFullscreen(this.getFullscreenElement()));
                             // As duration is credential, we're waiting to get duration info
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));
@@ -6825,7 +6825,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }.bind(this), {
                                     once: true
                                 });
-                            } else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
+
+                            } else Dom.elementEnterFullscreen(this.getFullscreenElement());
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },

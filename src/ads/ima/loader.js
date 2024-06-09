@@ -5,21 +5,22 @@ Scoped.define("module:Ads.IMALoader", [
     return {
 
         /**
-         * @param options
+         * @param {{ debug: boolean }} options
          * @returns {*}
          */
         loadSDK: function(options) {
             var promise = Promise.create();
+            var imaSrc = options.debug ? "https://imasdk.googleapis.com/js/sdkloader/ima3_debug.js" : "https://imasdk.googleapis.com/js/sdkloader/ima3.js";
             // https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/architecture
             try {
                 if (typeof google === "undefined") {
-                    Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                    Loader.loadScript(imaSrc, function() {
                         promise.asyncSuccess();
                     }, this);
                 } else {
                     // Just in case, check if Google is relating IMA SDK, not another Google service
                     if (typeof google.ima === "undefined") {
-                        Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3.js', function() {
+                        Loader.loadScript(imaSrc, function() {
                             promise.asyncSuccess();
                         }, this);
                     } else promise.asyncSuccess();

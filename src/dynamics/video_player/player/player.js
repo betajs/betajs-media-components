@@ -121,6 +121,28 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "fallback-aspect-ratio": "1280/720",
                         "floating-fallback-mobile-height": 75,
                         "floating-fallback-desktop-height": 240,
+                        performanceprefix: `ba-player-perf`,
+                        performancerecords: [],
+                        // can be applied only some nodes, https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/elementtiming
+                        performancerendertiming: [`ba-player-video`, `ba-player-poster`],
+                        performanceobservedtypes: ["measure", "mark", "navigation", "element"],
+                        performancerecordeditems: [{
+                                type: `mark`,
+                                keys: [`duration`, `startTime`],
+                            },
+                            {
+                                type: `measure`,
+                                keys: [`duration`],
+                            },
+                            {
+                                type: `navigation`,
+                                keys: [`domInteractive`, `loadEventEnd`, `domComplete`]
+                            },
+                            {
+                                type: `element`,
+                                keys: [`loadTime`, `naturalHeight`, `naturalWidth`, `renderTime`]
+                            }
+                        ],
                         /* Themes */
                         "theme": "",
                         "csstheme": "",
@@ -275,7 +297,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "playwhenvisible": false,
                         "disablepause": false,
                         "disableseeking": false,
-                        "tracktextvisible": false,
                         "airplay": false,
                         "chromecast": false,
                         "broadcasting": false,
@@ -328,7 +349,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "tracktags": [],
                         "tracktagsstyled": true,
                         "tracktaglang": 'en',
+                        "tracktextvisible": false,
                         "tracksshowselection": false,
+                        autoenabledtracktags: ['subtitles', 'captions'], // subtitles, captions, descriptions, chapters, or metadata
                         "showchaptertext": true,
                         "thumbimage": {},
                         "thumbcuelist": [],
@@ -367,6 +390,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "volumelevel": null,
                             "autoplay": null,
                             "adsrendertimeout": null,
+                            autoenabledtracktags: null,
                             // below are default settings
                             "outstreamoptions": {
                                 hideOnCompletion: true,
@@ -546,7 +570,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showadchoices": "boolean",
                     "unknownadsrc": "boolean",
                     "adsrendertimeout": "int",
-                    "imaadsrenderingsetting": "object"
+                    "imaadsrenderingsetting": "object",
+                    performanceprefix: "string",
+                    performancerendertiming: "array",
+                    performanceobservedtypes: "jsonarray",
+                    performancerecordeditems: "array",
+                    autoenabledtracktags: "array"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -653,6 +682,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 this.scopes.adsplayer.execute('renderCompanionAd', this.get("ad"), this.get("companionad"));
                             } else {
                                 console.warn(`Please set correct companion ad attribute. It can be object with locations, string with "|" character seperated or boolean`);
+                            }
+                        }
+                    },
+                    "change:tracktags": function() {
+                        if (this.__trackTags) {
+                            this.__trackTags.reload();
+                        } else {
+                            if (this.__video) {
+                                this.__trackTags = new TrackTags({}, this);
+                            } else {
+                                if (this.player) {
+                                    this.player.once("loaded", function() {
+                                        if (this.__video && !this.__trackTags) {
+                                            this.__trackTags = new TrackTags({}, this);
+                                        }
+                                    }, this);
+                                }
                             }
                         }
                     }
@@ -945,6 +991,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 remove_on_destroy: true,
 
                 create: function() {
+                    this._performanceObserver = new PerformanceObserver(
+                        (...args) => this.__performanceObserverFunc.apply(this, args)
+                    );
+                    this._performanceObserver.observe({
+                        // https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming
+                        entryTypes: ["measure", "mark", "navigation", "element"]
+                    });
+
                     if (this.get("autoplaywhenvisible")) {
                         this.set("autoplay", true);
                         Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
@@ -1114,11 +1168,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (document.onkeydown)
                         this.activeElement().onkeydown = this._keyDownActivity.bind(this, this.activeElement());
 
-                    this.on("change:tracktags", function() {
-                        if (typeof this.__video !== 'undefined')
-                            this.__trackTags = new TrackTags({}, this);
-                    }, this);
-
                     this.host = this.auto_destroy(new Host({
                         stateRegistry: new ClassRegistry(this.cls.playerStates())
                     }));
@@ -1181,6 +1230,18 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this);
                         this.delegateEvents(null, this.floatHandler);
                         this.floatHandler.init();
+
+                        if (this.get("floating") && this.get("floatingoptions").mobile) {
+                            const floatingElement = this.floatHandler.element;
+                            const viewport = window.visualViewport;
+
+                            function viewportHandler() {
+                                floatingElement.style.transform = `translate(${viewport.offsetLeft}px, ${viewport.offsetTop}px)`;
+                            }
+
+                            viewport.addEventListener("scroll", viewportHandler);
+
+                        }
                     }
                     if (Info.isSafari()) {
                         this.vidEle = document.createElement('video');
@@ -1551,6 +1612,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.player = instance;
                         this.delegateEvents(null, this.player, "player");
                         this.__video = video;
+                        if (!this.__trackTags && this.get("tracktags").length) {
+                            this.__trackTags = new TrackTags({}, this);
+                        }
 
                         // On autoplay video, silent attach should be false
                         this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);
@@ -1732,15 +1796,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             var volume = Math.min(1.0, this.get("volume"));
                             this.player.setVolume(volume);
                             this.player.setMuted(this.get("muted") || volume <= 0.0);
-                            if (!this.__trackTags && this.get("tracktags").length)
-                                this.__trackTags = new TrackTags({}, this);
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
-                            this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
+                            this.set("fullscreensupport", this.player.supportsFullscreen(this.getFullscreenElement()));
                             // As duration is credential, we're waiting to get duration info
-                            this.on("chaptercuesloaded", function(chapters, length) {
-                                this.set("chapterslist", chapters);
-                            }, this);
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));
                             if (this.get("allowpip")) {
@@ -1808,6 +1867,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("fallback-aspect-ratio", img.naturalWidth + "/" + img.naturalHeight);
                         imgEventHandler.destroy();
                     }, this);
+                    this._recordPerformance(`activated`);
                 },
 
                 _playWhenVisible: function(video) {
@@ -1884,6 +1944,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 toggleTrackTags: function() {
                     if (!this.__trackTags) return;
                     this.set("tracktextvisible", !this.get("tracktextvisible"));
+                    if (this.get("tracktextvisible")) {
+                        this.set("autoenabledtracktags", this.get("initialoptions.autoenabledtracktags"));
+                    } else {
+                        this.set("trackcuetext", null);
+                        this.set("autoenabledtracktags", []);
+                    }
                     this.resetTrackTags();
                 },
 
@@ -1897,7 +1963,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.__trackTags && !this.__trackTags.destroyed()) {
                         Objs.iter(this.__video.textTracks, function(track, index) {
                             if (typeof this.__video.textTracks[index] === 'object' && this.__video.textTracks[index]) {
-                                var _track = this.__video.textTracks[index];
+                                const _track = this.__video.textTracks[index];
                                 // If set custom style to true show cue text in our element
                                 if (_track.kind !== 'metadata') {
                                     if (_track.language === _lang) {
@@ -2247,7 +2313,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }.bind(this), {
                                     once: true
                                 });
-                            } else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
+
+                            } else Dom.elementEnterFullscreen(this.getFullscreenElement());
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },
@@ -2417,6 +2484,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 destroy: function() {
                     if (this._observer) this._observer.disconnect();
+                    if (this._performanceObserver) {
+                        this._performanceObserver.disconnect();
+                    }
                     this._detachVideo();
                     inherited.destroy.call(this);
                 },
@@ -3316,7 +3386,69 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("forciblymuted")) this.set("forciblymuted", false);
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
+                },
 
+                _recordPerformance: function(name) {
+                    const recordName = `${this.get(`performanceprefix`)}-${name}`;
+                    // Entry Types starting Chrome 59: "element", "event", "first-input",
+                    // "largest-contentful-paint", "layout-shift", "longtask", "mark",
+                    // "measure", "navigation", "paint", "resource"
+                    if (this.__previousMark) {
+                        performance.measure(recordName, this.__previousMark);
+                    }
+                    this.__previousMark = recordName;
+                    performance.mark(recordName);
+                },
+
+                __performanceObserverFunc: function(list) {
+                    list.getEntries().forEach((entry) => {
+                        let name;
+                        switch (entry.entryType) {
+                            case `navigation`:
+                                name = `${this.get(`performanceprefix`)}-navigation`;
+                                break;
+                            case `element`:
+                                name = entry.identifier || entry.name;
+                                break;
+                            default:
+                                name = entry.name
+                        }
+                        const index = this.get(`performancerecords`).findIndex(
+                            pr => (pr && pr.name === name)
+                        );
+                        const perf = index > -1 ? this.get(`performancerecords`)[index] : {
+                            name
+                        };
+                        const records = [{
+                                type: `mark`,
+                                keys: [`duration`, `startTime`],
+                            },
+                            {
+                                type: `measure`,
+                                keys: [`duration`],
+                            },
+                            {
+                                type: `navigation`,
+                                keys: [`domInteractive`, `loadEventEnd`, `domComplete`]
+                            },
+                            {
+                                type: `element`,
+                                keys: [`loadTime`, `naturalHeight`, `naturalWidth`, `renderTime`]
+                            }
+                        ];
+                        records.forEach((k) => {
+                            if (!k.keys || !k.type || entry.entryType !== k.type) return;
+                            k.keys.forEach((key) => {
+                                if (entry[key]) perf[key] = entry[key];
+                            });
+                        });
+                        // to be able to trigger change event
+                        if (index > -1) this.get(`performancerecords`)[index] = perf;
+                        this.set(`performancerecords`, index > -1 ? this.get(`performancerecords`) : [
+                            ...this.get(`performancerecords`),
+                            perf
+                        ]);
+                    }, this);
                 }
             };
         }], {

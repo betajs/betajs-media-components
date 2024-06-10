@@ -49,11 +49,15 @@
         <div ba-show="{{(videoelement_active || !imageelement_active) && !silent_attach}}" class="{{css}}-video-container">
             <video tabindex="-1" class="{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit" data-video="video"
                    preload="{{preload ? 'auto' : 'metadata'}}"
+                   elementtiming="ba-player-video"
                    ba-toggle:playsinline="{{!playfullscreenonmobile}}"
             ></video>
         </div>
         <div ba-show="{{(imageelement_active && !videoelement_active) || silent_attach}}" class="{{css}}-poster-container">
-            <img tabindex="-1" data-image="image" alt="{{posteralt}}" class="{{csscommon}}-{{posterfitstrategy}}-fit"/>
+            <img tabindex="-1" data-image="image" alt="{{posteralt}}"
+                 class="{{csscommon}}-{{posterfitstrategy}}-fit"
+                 elementtiming="ba-player-poster"
+            />
         </div>
         <ba-{{dynadsplayer}}
             ba-if="{{adsplayer_active}}"
@@ -219,6 +223,7 @@
                 ba-hidebarafter="{{hidebarafter}}"
                 ba-tracktagsstyled="{{tracktagsstyled}}"
                 ba-trackcuetext="{{trackcuetext}}"
+                ba-tracktextvisible="{{tracktextvisible}}"
                 ba-allowtexttrackupload="{{allowtexttrackupload}}"
                 ba-uploadtexttracksvisible="{{uploadtexttracksvisible}}"
                 ba-acceptedtracktexts="{{acceptedtracktexts}}"

@@ -1,8 +1,8 @@
-const Types = BetaJS.Types;
-const Objs = BetaJS.Objs;
-const Comparators = BetaJS.Comparators;
+const { BetaJS, QUnit: { test } } = require('../../index');
+const deepCheck = require("../../utils/deepCheck");
+const initPlayer = require("../../utils/initPlayer");
 
-import deepCheck from './utils/deepCheck.js';
+const { Objs, Types, Comparators } = BetaJS;
 
 const attrs = {
     width: 200,
@@ -35,22 +35,13 @@ const presetAttrs = {
     }
 };
 
-const player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
-    element: $("#visible-fixture").get(0),
-    attrs: {
-        ...attrs,
-        ...presetAttrs,
-        // source: testasset('movie.mp4'),
-        // poster: testasset('movie.png')
-    }
+const player = initPlayer({
+    ...attrs,
+    ...presetAttrs,
 });
 
-// setTimeout(() => {
-//     console.log("Real height of kkk", player.get("width"));
-// }, 1000);
-
 // Will test the initial state of the player // asyncTest
-QUnit.test("test user set attributes correctness", assert => {
+test("test user set attributes correctness", (assert) => {
     // create a clone
     const initialValues = Object.assign({}, player.get("initialoptions"));
     player.__mergeWithInitialOptions();
@@ -92,7 +83,7 @@ QUnit.test("test user set attributes correctness", assert => {
 });
 
 // Will test the initial state of the player // asyncTest
-QUnit.test("test preset attributes correctness", assert => {
+test("test preset attributes correctness", assert => {
     if (presetAttrs.availablepresetoptions && attrs.presetkey) {
         Objs.iter(presetAttrs.availablepresetoptions[attrs.presetkey], (v, k) => {
             assert.equal(true, Comparators.deepEqual(player.get(k), v), `${k} is ${v}`);

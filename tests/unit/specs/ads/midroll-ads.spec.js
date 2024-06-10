@@ -1,12 +1,12 @@
-/* This probably requires some Selenium-type interaction */
-// Will test the initial state of the player // asyncTest
+const { test } = require("qunit");
+const initPlayer = require("../../utils/initPlayer");
 
 const interVal = 7;
-const player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
-	element: $("#visible-fixture").get(0),
-	attrs: {
-		adsposition: `mid[${interVal}*]`,
-	}
+const playerDuration = 60;
+
+const player = initPlayer({
+	adsposition: `mid[${interVal}*]`,
+	duration: playerDuration
 });
 
 const reset = () => {
@@ -16,8 +16,7 @@ const reset = () => {
 	player.set("duration", player.get("duration") + 10);
 }
 
-QUnit.test("test midroll ads positions count", assert => {
-	const playerDuration = 60;
+test("test midroll ads positions count", assert => {
 	player.initMidRollAds();
 	player.set("duration", playerDuration);
 	assert.equal(player.get("midrollads").length, Math.floor(playerDuration / interVal), "midroll ads count should be equal to the midroll ads positions count");

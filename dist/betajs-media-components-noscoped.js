@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.487 - 2024-06-10
+betajs-media-components - v0.0.488 - 2024-06-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.487",
-    "datetime": 1718024955101
+    "version": "0.0.488",
+    "datetime": 1718029965634
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8676,29 +8676,25 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
-            if (this.dyn.get("adshassource")) {
-                // As during a loop, we will play player after ended event fire, need initial cover will be hidden
-                this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
-                    this.dyn.pause();
-                    var position = this.dyn.getCurrentPosition();
-                    if (position === 0) {
-                        this.next("PrerollAd");
-                    } else {
-                        if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
-                            this.next("PostrollAd");
-                        } else this.next("MidrollAd");
-                    }
-                }, this);
-
-                this.listenOn(this.dyn, "playnextmidroll", function() {
-                    if (!this.dyn.get("adsplayer_active")) {
-                        this.dyn.set("adsplayer_active", true);
-                    }
-                    this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                        this.dyn.channel("ads").trigger("load");
-                    });
-                }, this);
-            }
+            this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
+                this.dyn.pause();
+                var position = this.dyn.getCurrentPosition();
+                if (position === 0) {
+                    this.next("PrerollAd");
+                } else {
+                    if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
+                        this.next("PostrollAd");
+                    } else this.next("MidrollAd");
+                }
+            }, this);
+            this.listenOn(this.dyn, "playnextmidroll", function() {
+                if (!this.dyn.get("adsplayer_active")) {
+                    this.dyn.set("adsplayer_active", true);
+                }
+                this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                    this.dyn.channel("ads").trigger("load");
+                });
+            }, this);
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "change:currentstream", function() {

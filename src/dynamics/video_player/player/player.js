@@ -78,6 +78,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         /* CSS */
                         brightness: 0,
                         current_video_from_playlist: 0,
+                        debug_ima: false,
                         next_video_from_playlist: 0,
                         sample_brightness: false,
                         sample_brightness_rate: 10, // times per second
@@ -469,6 +470,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 types: {
                     "allowpip": "boolean",
+                    "debug_ima": "boolean",
                     "hidecontrolbar": "boolean",
                     "muted": "boolean",
                     "nextwidget": "boolean",

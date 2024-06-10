@@ -720,29 +720,25 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
-            if (this.dyn.get("adshassource")) {
-                // As during a loop, we will play player after ended event fire, need initial cover will be hidden
-                this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
-                    this.dyn.pause();
-                    var position = this.dyn.getCurrentPosition();
-                    if (position === 0) {
-                        this.next("PrerollAd");
-                    } else {
-                        if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
-                            this.next("PostrollAd");
-                        } else this.next("MidrollAd");
-                    }
-                }, this);
-
-                this.listenOn(this.dyn, "playnextmidroll", function() {
-                    if (!this.dyn.get("adsplayer_active")) {
-                        this.dyn.set("adsplayer_active", true);
-                    }
-                    this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                        this.dyn.channel("ads").trigger("load");
-                    });
-                }, this);
-            }
+            this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
+                this.dyn.pause();
+                var position = this.dyn.getCurrentPosition();
+                if (position === 0) {
+                    this.next("PrerollAd");
+                } else {
+                    if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
+                        this.next("PostrollAd");
+                    } else this.next("MidrollAd");
+                }
+            }, this);
+            this.listenOn(this.dyn, "playnextmidroll", function() {
+                if (!this.dyn.get("adsplayer_active")) {
+                    this.dyn.set("adsplayer_active", true);
+                }
+                this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                    this.dyn.channel("ads").trigger("load");
+                });
+            }, this);
             if (this.dyn.get("loop"))
                 this.dyn.set("skipinitial", true);
             this.listenOn(this.dyn, "change:currentstream", function() {

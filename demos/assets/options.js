@@ -83,120 +83,116 @@ if (params.cc && Number(params.cc) === 1) {
             "kind": "subtitles",
             "label": "Auto Generated EN",
             "content": {
-                wordsKey: `words`,
-                timesKey: `times`,
-                data: {
-                    "words": [
-                        "The", "Peach", "Open", "Movie", "Project", "presents", "One,",
-                        "big", "rabbit", "Three", "rodents",
-                        "And", "one", "giant", "payback", "Get",
-                        "ready", "Big",
-                        "Buck\n", "Bunny", "Coming", "soon", "."
-                    ],
-                    "times": [
-                        {
-                            "start": 0,
-                            "end": 450
-                        },
-                        {
-                            "start": 480,
-                            "end": 930
-                        },
-                        {
-                            "start": 960,
-                            "end": 1020
-                        },
-                        {
-                            "start": 1050,
-                            "end": 1320
-                        },
-                        {
-                            "start": 1350,
-                            "end": 1500
-                        },
-                        {
-                            "start": 1530,
-                            "end": 1620
-                        },
-                        {
-                            "start": 2910,
-                            "end": 4260
-                        },
+                "words": [
+                    "The", "Peach", "Open", "Movie", "Project", "presents", "One,",
+                    "big", "rabbit", "Three", "rodents",
+                    "And", "one", "giant", "payback", "Get",
+                    "ready", "Big",
+                    "Buck\n", "Bunny", "Coming", "soon", "."
+                ],
+                "times": [
+                    {
+                        "start": 0,
+                        "end": 450
+                    },
+                    {
+                        "start": 480,
+                        "end": 930
+                    },
+                    {
+                        "start": 960,
+                        "end": 1020
+                    },
+                    {
+                        "start": 1050,
+                        "end": 1320
+                    },
+                    {
+                        "start": 1350,
+                        "end": 1500
+                    },
+                    {
+                        "start": 1530,
+                        "end": 1620
+                    },
+                    {
+                        "start": 2910,
+                        "end": 4260
+                    },
 
-                        {
-                            "start": 4760,
-                            "end": 4710
-                        },
-                        {
-                            "start": 4710,
-                            "end": 4710
-                        },
-                        {
-                            "start": 4830,
-                            "end": 4890
-                        },
-                        {
-                            "start": 4920,
-                            "end": 4980
-                        },
+                    {
+                        "start": 4760,
+                        "end": 4710
+                    },
+                    {
+                        "start": 4710,
+                        "end": 4710
+                    },
+                    {
+                        "start": 4830,
+                        "end": 4890
+                    },
+                    {
+                        "start": 4920,
+                        "end": 4980
+                    },
 
-                        {
-                            "start": 13770,
-                            "end": 13830
-                        },
-                        {
-                            "start": 13860,
-                            "end": 14070
-                        },
-                        {
-                            "start": 14100,
-                            "end": 14130
-                        },
-                        {
-                            "start": 14160,
-                            "end": 14520
-                        },
-                        {
-                            "start": 14790,
-                            "end": 14840
-                        },
+                    {
+                        "start": 13770,
+                        "end": 13830
+                    },
+                    {
+                        "start": 13860,
+                        "end": 14070
+                    },
+                    {
+                        "start": 14100,
+                        "end": 14130
+                    },
+                    {
+                        "start": 14160,
+                        "end": 14520
+                    },
+                    {
+                        "start": 14790,
+                        "end": 14840
+                    },
 
-                        {
-                            "start": 15850,
-                            "end": 15950
-                        },
-                        {
-                            "start": 15960,
-                            "end": 16030
-                        },
+                    {
+                        "start": 15850,
+                        "end": 15950
+                    },
+                    {
+                        "start": 15960,
+                        "end": 16030
+                    },
 
-                        {
-                            "start": 28860,
-                            "end": 29250
-                        },
-                        {
-                            "start": 29280,
-                            "end": 29290
-                        },
-                        {
-                            "start": 29490,
-                            "end": 29500
-                        },
-                        {
-                            "start": 30500,
-                            "end": 30730
-                        },
-                        {
-                            "start": 31730,
-                            "end": 32730
-                        },
-                        {
-                            "start": 32730,
-                            "end": 32730
-                        }
-                    ],
-                    "text": "The Peach Open Movie Project presents"
-                }
+                    {
+                        "start": 28860,
+                        "end": 29250
+                    },
+                    {
+                        "start": 29280,
+                        "end": 29290
+                    },
+                    {
+                        "start": 29490,
+                        "end": 29500
+                    },
+                    {
+                        "start": 30500,
+                        "end": 30730
+                    },
+                    {
+                        "start": 31730,
+                        "end": 32730
+                    },
+                    {
+                        "start": 32730,
+                        "end": 32730
+                    }
+                ],
+                "text": "The Peach Open Movie Project presents"
             }
         },
         // {
@@ -212,7 +208,8 @@ if (params.cc && Number(params.cc) === 1) {
         },
         {
             "kind": "thumbnails",
-            "src": "/static/demos/assets/video-bgbb-thumbnails.jpg"
+            "src": "/static/demos/assets/video-bgbb.vtt"
+            // "src": "/static/demos/assets/video-bgbb-thumbnails.jpg"
         }
     ]
 }

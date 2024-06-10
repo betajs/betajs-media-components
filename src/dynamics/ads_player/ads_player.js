@@ -66,7 +66,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 _deferActivate: function() {
                     if (this._loadedSDK) return false;
-                    IMALoader.loadSDK().success(function() {
+                    IMALoader.loadSDK({
+                        debug: this.get("debug_ima")
+                    }).success(function() {
                         if (this.__iasConfig()) {
                             IMALoader.loadIAS().success(function() {
                                 this._loadedSDK = true;
@@ -113,11 +115,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:render-timeout": function() {
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
                             this.adsManager.destroy();
-                        }
-                        const dyn = this.parent();
-                        if (dyn) {
-                            dyn.stopAdsRenderFailTimeout(true);
-                            dyn.trigger("ad-error", "Ad took too long to render");
                         }
                         this.trackAdsPerformance(`ads-render-timeout`);
                     },
@@ -401,6 +398,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;
+                    video.setAttribute("playsinline", true)
                     video.play();
                     video.addEventListener("loadeddata", (event) => {
                         this.parent()._drawFrame(video, this.get('currenttime'), width, height, (canvas, ctx) => {
@@ -442,7 +440,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 this._video.src = URL.createObjectURL(blob);
                                 this._video.crossOrigin = "anonymous";
                                 this._video.muted = true;
-                                return this._video.play()
+                                this._video.setAttribute("playsinline", true);
+                                return this._video.play();
                             })
                             .then(() => {
                                 // add a small delay to handle cases where the beginning of video is a black screen

@@ -3,7 +3,9 @@
      {{activitydelta > hidebarafter && hideoninactivity ? (cssplayer + '-track-dashboard-hidden') : ''}}
 ">
 
-    <div data-selector="cue-content" ba-show="{{tracktagsstyled && trackcuetext}}" class="{{cssplayer}}-cue-content">
+    <div ba-if="{{tracktagsstyled && trackcuetext && tracktextvisible}}"
+         data-selector="cue-content" class="{{cssplayer}}-cue-content"
+    >
         <p> {{trackcuetext}} </p>
     </div>
     <div class="{{csscommon}}-options-popup {{csscommon}}-options-list-{{tracksshowselection || trackselectorhovered ? 'visible' : 'hidden'}}">

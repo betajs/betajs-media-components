@@ -111,14 +111,14 @@ class PlayerPage {
         return locator;
     }
 
-    async setPlayerAttribute(keyName) {
+    async setPlayerAttribute(keyName, value) {
         if (!this.playerInstance) throw new Error(`Player instance is not set to be able to get attribute: ${keyName}`);
-        return await this.playerInstance.evaluate(async (ins, key) => {
+        return await this.playerInstance.evaluate(async (ins, [key, val]) => {
             if (typeof ins.get !== 'function' || typeof ins.set !== 'function')
                 throw new Error(`Player instance does not have get/set method`);
-            ins.set(key);
+            ins.set(key, val);
             return Promise.resolve(ins.get(key));
-        }, keyName);
+        }, [keyName, value]);
     }
 
     /**

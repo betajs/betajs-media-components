@@ -66,7 +66,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 _deferActivate: function() {
                     if (this._loadedSDK) return false;
-                    IMALoader.loadSDK().success(function() {
+                    IMALoader.loadSDK({
+                        debug: this.get("debug_ima")
+                    }).success(function() {
                         if (this.__iasConfig()) {
                             IMALoader.loadIAS().success(function() {
                                 this._loadedSDK = true;

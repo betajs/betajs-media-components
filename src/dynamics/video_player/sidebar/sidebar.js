@@ -463,6 +463,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
                             display: true,
                             scroll: true
                         });
+                        if (!_.get("loading"))
+                            _.setNextVideoIndex();
                         _.get("loaded").push(index);
                     }
                     image.onerror = function() {

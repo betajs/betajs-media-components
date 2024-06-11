@@ -1944,7 +1944,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * Click CC buttons will trigger
                  */
                 toggleTrackTags: function() {
-                    debugger;
                     if (!this.__trackTags) return;
                     this.set("tracktextvisible", !this.get("tracktextvisible"));
                     if (this.get("tracktextvisible")) {

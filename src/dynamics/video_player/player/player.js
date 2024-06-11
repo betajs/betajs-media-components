@@ -1257,8 +1257,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  */
                 initAdsRenderFailTimeout: function() {
                     const renderTimeout = Number(this.get("adsrendertimeout"));
-                    const repeatMicroseconds = 200;
+                    let repeatMicroseconds = 200;
                     if (!this.__adsRenderFailTimer && renderTimeout && renderTimeout > 0) {
+                        if (renderTimeout < repeatMicroseconds) {
+                            repeatMicroseconds = renderTimeout;
+                        }
                         this.__adsRenderFailTimer = new Timers.Timer({
                             fire: function() {
                                 // we're setting adsplaying true when

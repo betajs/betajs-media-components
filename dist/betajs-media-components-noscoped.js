@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.488 - 2024-06-10
+betajs-media-components - v0.0.489 - 2024-06-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.488",
-    "datetime": 1718029965634
+    "version": "0.0.489",
+    "datetime": 1718121131362
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4839,7 +4839,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "tracktaglang": 'en',
                         "tracktextvisible": false,
                         "tracksshowselection": false,
-                        autoenabledtracktags: ['subtitles', 'captions'], // subtitles, captions, descriptions, chapters, or metadata
+                        "autoenabledtracktags": [], // options: subtitles, captions, descriptions, chapters, or metadata
                         "showchaptertext": true,
                         "thumbimage": {},
                         "thumbcuelist": [],

@@ -352,7 +352,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "tracktaglang": 'en',
                         "tracktextvisible": false,
                         "tracksshowselection": false,
-                        autoenabledtracktags: ['subtitles', 'captions'], // subtitles, captions, descriptions, chapters, or metadata
+                        "autoenabledtracktags": [], // options: subtitles, captions, descriptions, chapters, or metadata
                         "showchaptertext": true,
                         "thumbimage": {},
                         "thumbcuelist": [],

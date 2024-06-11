@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.490 - 2024-06-11
+betajs-media-components - v0.0.491 - 2024-06-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.490 - 2024-06-11
+betajs-media-components - v0.0.491 - 2024-06-11
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.490",
-    "datetime": 1718127095482
+    "version": "0.0.491",
+    "datetime": 1718144800641
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6755,8 +6755,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  */
                 initAdsRenderFailTimeout: function() {
                     const renderTimeout = Number(this.get("adsrendertimeout"));
-                    const repeatMicroseconds = 200;
+                    let repeatMicroseconds = 200;
                     if (!this.__adsRenderFailTimer && renderTimeout && renderTimeout > 0) {
+                        if (renderTimeout < repeatMicroseconds) {
+                            repeatMicroseconds = renderTimeout;
+                        }
                         this.__adsRenderFailTimer = new Timers.Timer({
                             fire: function() {
                                 // we're setting adsplaying true when
@@ -9485,7 +9488,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                             this.listenOn(this.dyn.channel(`ads`), `render-timeout`, function() {
                                 this.dyn.stopAdsRenderFailTimeout(true);
                                 if (this.dyn && this.dyn.player) this.dyn.player.play();
-                                this.next(`PlayVideo`);
+                                this.next(this._nextState());
                             });
                         }
                     }

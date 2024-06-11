@@ -78,6 +78,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         /* CSS */
                         brightness: 0,
                         current_video_from_playlist: 0,
+                        debug_ima: false,
                         next_video_from_playlist: 0,
                         sample_brightness: false,
                         sample_brightness_rate: 10, // times per second
@@ -469,6 +470,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 types: {
                     "allowpip": "boolean",
+                    "debug_ima": "boolean",
                     "hidecontrolbar": "boolean",
                     "muted": "boolean",
                     "nextwidget": "boolean",
@@ -1801,7 +1803,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.player.setMuted(this.get("muted") || volume <= 0.0);
                             if (this.get("totalduration") || this.player.duration() < Infinity)
                                 this.set("duration", this.get("totalduration") || this.player.duration());
-                            this.set("fullscreensupport", this.player.supportsFullscreen(this.activeElement().childNodes[0]));
+                            this.set("fullscreensupport", this.player.supportsFullscreen(this.getFullscreenElement()));
                             // As duration is credential, we're waiting to get duration info
                             if (this.get("initialseek"))
                                 this.player.setPosition(this.get("initialseek"));
@@ -2316,7 +2318,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }.bind(this), {
                                     once: true
                                 });
-                            } else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
+
+                            } else Dom.elementEnterFullscreen(this.getFullscreenElement());
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },

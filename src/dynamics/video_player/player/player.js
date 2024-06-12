@@ -239,6 +239,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adtagurl": null,
                         "adchoiceslink": null,
                         "adtagurlfallbacks": [],
+                        "pause_ads_on_float_close": false,
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "midrollminintervalbeforeend": 5,
@@ -2451,14 +2452,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.channel("ads").trigger("resume");
                     },
 
+                    _pauseAdsOnFloatCloseHandle: function() {
+                        if (this.get("pause_ads_on_float_close")) {
+                            this.pause();
+                        } else {
+                            this.set_volume(0);
+                            this.set("pause_content_after_start", true)
+                        };
+                    },
+
                     close_floating: function(destroy) {
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
                         const floating = this.get("sticky") || this.get("floating");
                         if (floating || this.get("floatingoptions.floatingonly")) {
                             if (this.get("adsplaying")) {
-                                this.set_volume(0)
-                                this.set("pause_content_after_start", true);
+                                this._pauseAdsOnFloatCloseHandle();
                             } else this.pause();
 
                             if (this.floatHandler) {

@@ -78,6 +78,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         /* CSS */
                         brightness: 0,
                         current_video_from_playlist: 0,
+                        debug_ima: false,
                         next_video_from_playlist: 0,
                         sample_brightness: false,
                         sample_brightness_rate: 10, // times per second
@@ -352,7 +353,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "tracktaglang": 'en',
                         "tracktextvisible": false,
                         "tracksshowselection": false,
-                        autoenabledtracktags: ['subtitles', 'captions'], // subtitles, captions, descriptions, chapters, or metadata
+                        "autoenabledtracktags": [], // options: subtitles, captions, descriptions, chapters, or metadata
                         "showchaptertext": true,
                         "thumbimage": {},
                         "thumbcuelist": [],
@@ -470,6 +471,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 types: {
                     "allowpip": "boolean",
+                    "debug_ima": "boolean",
                     "hidecontrolbar": "boolean",
                     "muted": "boolean",
                     "nextwidget": "boolean",
@@ -1256,8 +1258,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  */
                 initAdsRenderFailTimeout: function() {
                     const renderTimeout = Number(this.get("adsrendertimeout"));
-                    const repeatMicroseconds = 200;
+                    let repeatMicroseconds = 200;
                     if (!this.__adsRenderFailTimer && renderTimeout && renderTimeout > 0) {
+                        if (renderTimeout < repeatMicroseconds) {
+                            repeatMicroseconds = renderTimeout;
+                        }
                         this.__adsRenderFailTimer = new Timers.Timer({
                             fire: function() {
                                 // we're setting adsplaying true when

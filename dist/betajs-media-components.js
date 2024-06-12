@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.491 - 2024-06-11
+betajs-media-components - v0.0.492 - 2024-06-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.491 - 2024-06-11
+betajs-media-components - v0.0.492 - 2024-06-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.491",
-    "datetime": 1718144800641
+    "version": "0.0.492",
+    "datetime": 1718193256132
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5738,6 +5738,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adtagurl": null,
                         "adchoiceslink": null,
                         "adtagurlfallbacks": [],
+                        "pause_ads_on_float_close": false,
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "midrollminintervalbeforeend": 5,
@@ -7960,8 +7961,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         const floating = this.get("sticky") || this.get("floating");
                         if (floating || this.get("floatingoptions.floatingonly")) {
                             if (this.get("adsplaying")) {
-                                this.set_volume(0)
-                                this.set("pause_content_after_start", true);
+                                this._pauseAdsOnFloatCloseHandle();
                             } else this.pause();
 
                             if (this.floatHandler) {
@@ -7983,6 +7983,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (destroy) this.destroy();
                         }
                     }
+                },
+
+                _pauseAdsOnFloatCloseHandle: function() {
+                    if (this.get("pause_ads_on_float_close")) {
+                        this.pause();
+                    } else {
+                        this.set_volume(0);
+                        this.set("pause_content_after_start", true)
+                    };
                 },
 
                 destroy: function() {
@@ -9694,7 +9703,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
-            // On cases like cloasing floating player on Ad content, player will start video content in pause.
+            // On cases like closing floating player on Ad content, player will start video content in pause.
             if (this.dyn.get("pause_content_after_start")) {
                 this.dyn.pause();
                 this.dyn.set("pause_content_after_start", false);

@@ -2452,15 +2452,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.channel("ads").trigger("resume");
                     },
 
-                    _pauseAdsOnFloatCloseHandle: function() {
-                        if (this.get("pause_ads_on_float_close")) {
-                            this.pause();
-                        } else {
-                            this.set_volume(0);
-                            this.set("pause_content_after_start", true)
-                        };
-                    },
-
                     close_floating: function(destroy) {
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
@@ -2489,6 +2480,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (destroy) this.destroy();
                         }
                     }
+                },
+
+                _pauseAdsOnFloatCloseHandle: function() {
+                    if (this.get("pause_ads_on_float_close")) {
+                        this.pause();
+                    } else {
+                        this.set_volume(0);
+                        this.set("pause_content_after_start", true)
+                    };
                 },
 
                 destroy: function() {

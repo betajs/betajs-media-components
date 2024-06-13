@@ -174,13 +174,8 @@
     @include transition1(all, 0.3s, ease-in-out 0.2s);
 }
 
-.#{$cssadsplayer}-container {
-    .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
-    .raisedSkipButton.videoAdUiSkipWidgetV2 .videoAdUiSkipContainer,
-    .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiPreSkipContainer,
-    .gma-instream .videoAdUiSkipWidgetV2 .videoAdUiSkipContainer {
-        bottom: 70px;
-    }
+.ba-ad-container {
+    z-index: 1;
 }
 
 // non-linear-container

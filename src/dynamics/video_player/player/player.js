@@ -883,6 +883,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (hidden) return hidden;
                         if (!autoplay && !autoplaywhenvisible) return false;
+                        if (autoplay || adshassource) return false
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },

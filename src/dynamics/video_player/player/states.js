@@ -514,7 +514,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                             this.listenOn(this.dyn.channel(`ads`), `render-timeout`, function() {
                                 this.dyn.stopAdsRenderFailTimeout(true);
                                 if (this.dyn && this.dyn.player) this.dyn.player.play();
-                                this.next(`PlayVideo`);
+                                this.next(this._nextState());
                             });
                         }
                     }
@@ -720,6 +720,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
 
         _started: function() {
             this.dyn.set("autoplay", false);
+            // On cases like closing floating player on Ad content, player will start video content in pause.
+            if (this.dyn.get("pause_content_after_start")) {
+                this.dyn.pause();
+                this.dyn.set("pause_content_after_start", false);
+            }
             this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
                 this.dyn.pause();
                 var position = this.dyn.getCurrentPosition();

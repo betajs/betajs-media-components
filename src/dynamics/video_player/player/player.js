@@ -240,6 +240,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "adtagurl": null,
                         "adchoiceslink": null,
                         "adtagurlfallbacks": [],
+                        "pause_ads_on_float_close": false,
                         "nextadtagurls": [],
                         "inlinevastxml": null,
                         "midrollminintervalbeforeend": 5,
@@ -882,6 +883,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         if (hidden) return hidden;
                         if (!autoplay && !autoplaywhenvisible) return false;
+                        if (autoplay || !autoplaywhenvisible) return false
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
@@ -1257,8 +1259,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  */
                 initAdsRenderFailTimeout: function() {
                     const renderTimeout = Number(this.get("adsrendertimeout"));
-                    const repeatMicroseconds = 200;
+                    let repeatMicroseconds = 200;
                     if (!this.__adsRenderFailTimer && renderTimeout && renderTimeout > 0) {
+                        if (renderTimeout < repeatMicroseconds) {
+                            repeatMicroseconds = renderTimeout;
+                        }
                         this.__adsRenderFailTimer = new Timers.Timer({
                             fire: function() {
                                 // we're setting adsplaying true when
@@ -2187,7 +2192,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("playing_ad") || this.get("adsplaying"))
                             this.scopes.adsplayer.execute("pause");
 
-                        if (this.get("playing")) {
+                        if (this.get("playing") || this.get("pause_content_after_start")) {
                             if (this.player && this.get("broadcasting")) {
                                 this._broadcasting.player.trigger("pause-google-cast");
                                 return;
@@ -2458,7 +2463,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.trigger("floatingplayerclosed");
                         const floating = this.get("sticky") || this.get("floating");
                         if (floating || this.get("floatingoptions.floatingonly")) {
-                            this.pause();
+                            if (this.get("adsplaying")) {
+                                this._pauseAdsOnFloatCloseHandle();
+                            } else this.pause();
+
                             if (this.floatHandler) {
                                 if (destroy) this.floatHandler.destroy();
                                 else this.floatHandler.stop();
@@ -2478,6 +2486,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (destroy) this.destroy();
                         }
                     }
+                },
+
+                _pauseAdsOnFloatCloseHandle: function() {
+                    if (this.get("pause_ads_on_float_close")) {
+                        this.pause();
+                    } else {
+                        this.set_volume(0);
+                        this.set("pause_content_after_start", true)
+                    };
                 },
 
                 destroy: function() {

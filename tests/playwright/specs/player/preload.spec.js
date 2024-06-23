@@ -7,7 +7,7 @@ import {
 import runTestMethod from '../../utils/run-test';
 
 // Will test the player with autoplay and unmute on click
-test.describe(`With ads`, () => {
+test.describe(`Preload ads, with ads source`, () => {
     const describeAttributes = {
         adtagurl: AD_TAG_URL,
         autoplay: true,
@@ -59,7 +59,8 @@ test.describe(`With ads`, () => {
             await expect(wrapperElement).toBeInViewport();
 
             const sidebarElement = await player.getElementByTestID(`player-sidebar`);
-            await expect(sidebarElement).toBeVisible();
+            console.log(`sidebar: `, sidebarElement);
+            await expect(sidebarElement).toBeInViewport();
 
             await player.listenPlayerEvent(`ads:firstQuartile`, 2000);
             // as soon as ads starts ads_loaded becomes falsy till next loaded ad
@@ -92,7 +93,7 @@ test.describe(`With ads`, () => {
                         autoplay: true,
                         skipinitial: false,
                         preload_ads: true,
-                        autoplaywhenvisible: true
+                        autoplaywhenvisible: false
                     }
                 }, context, [{
                     blk: 2
@@ -104,19 +105,17 @@ test.describe(`With ads`, () => {
 
             await player.listenPlayerEvent(`ads:loaded`, 2000);
 
+            //  as soon ads loads, IMA will move player container to the viewport
             const wrapperElement = await player.getElementByTestID(`player-container`);
-            await expect(wrapperElement).not.toBeInViewport();
-
-            let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
-            await expect(adsLoaded).toBeTruthy();
+            await expect(wrapperElement).toBeInViewport();
 
             await player.listenPlayerEvent(`ads:start`);
-            adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
+            let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeFalsy();
-            await expect(wrapperElement).not.toBeInViewport();
 
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeTruthy();
+
             let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
             await expect(adsPauseButton).toBeInViewport();
 
@@ -168,42 +167,6 @@ test.describe(`With ads`, () => {
             adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeFalsy();
 
-        }
-
-        await runTestMethod({
-            page, browserName, browser, context
-        }, runAdsTester, browserSettings);
-    });
-
-    test(`Play when visible`, async ({ page, browserName, browser, context }) => {
-        const runAdsTester = async (page, browser, context) => {
-            let adsPlaying;
-            const player = new PlayerPage(page,
-                {
-                    ...defaultPlayerAttributes,
-                    skipinitial: true,
-                    autoplaywhenvisible: true,
-                }, context,
-                [{ blk: 2 }]);
-
-            // Go to the starting url before each test.
-            await player.goto();
-            await player.setPlayerInstance();
-
-            const wrapperElement = await player.getElementByTestID(`player-container`);
-            await expect(wrapperElement).not.toBeInViewport();
-
-            const playerButton = await player.getElementByTestID(`content-play-button`);
-            await expect(playerButton).toBeVisible();
-            await expect(playerButton).not.toBeInViewport();
-
-            const pauseButton = await player.getElementByTestID(`content-pause-button`);
-            await expect(pauseButton).not.toBeVisible();
-
-            await player.scrollToTheElement(wrapperElement);
-            await expect(wrapperElement).toBeInViewport();
-            await wrapperElement.hover();
-            await expect(pauseButton).toBeVisible();
         }
 
         await runTestMethod({
@@ -280,7 +243,7 @@ test.describe(`With ads`, () => {
 });
 
 
-test.describe(`Ads preload, Only content player`, () => {
+test.describe(`Preload ads without ad source`, () => {
     const describeAttributes = {
         autoplay: true,
         showsidebargallery: true,

@@ -1,10 +1,22 @@
-import { test, expect, chromium, errors } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import PlayerPage from "../../classes/PlayerPageClass";
 import {
-    CHROME_CANARY_LOCATION, defaultPlayerAttributes, AD_TAG_URL,
+    BROWSER_LAUNCH_PATH, defaultPlayerAttributes, AD_TAG_URL,
     ERROR_TAG_URL,
 } from "../../consts.js";
 import runTestMethod from '../../utils/run-test';
+
+test.describe(`Later ads source integration`, () => {
+    let descriptionPlayerAttributes = {
+        autoplay: true,
+        muted: true,
+        unmuteonclick: true,
+        skipinitial: false,
+        width: 640, height: 360,
+        adtagurl: null,
+        ads_source_init_timeout: 3000
+    }
+});
 
 // Will test the player with autoplay and unmute on click
 test.describe(`Check timeout on ads rendering settings`, () => {
@@ -21,7 +33,7 @@ test.describe(`Check timeout on ads rendering settings`, () => {
         // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
         headless: false, // If headless is true, player will start with user interaction
         devtools: true,
-        executablePath: CHROME_CANARY_LOCATION,
+        executablePath: BROWSER_LAUNCH_PATH,
     }
 
     test.describe.configure({
@@ -35,14 +47,13 @@ test.describe(`Check timeout on ads rendering settings`, () => {
 
     test(`AdsRenderTimeout timeout should be enough to show ads`, async ({ page, browserName, browser, context }) => {
         const runAdsTester = async (page, browser, context) => {
-            let adsPlaying;
-            const adsRenderTimeout = 600;
+            const adsRenderTimeout = 10000;
             const player = new PlayerPage(page,
                 {
                     ...defaultPlayerAttributes, ...descriptionPlayerAttributes,
                     adsrendertimeout: adsRenderTimeout
                 }, context, [{
-                    blk: 1
+                    blk: 0
                 }]);
 
             // Go to the starting url before each test.
@@ -68,35 +79,15 @@ test.describe(`Check timeout on ads rendering settings`, () => {
             });
 
             await adsStarted.then(async (adsVisible) => {
-                if (adsRenderTimeout <= 500) {
-                    // guarantee that ads will not be rendered before timeout
-                    await expect(adsVisible).toBeFalsy();
-                } else if (adsRenderTimeout > 12000) {
-                    // guarantee that ads will be rendered before timeout
-                    await expect(adsVisible).toBeTruthy();
-                } else {
-                    // else it's the same if ads will be played
-                    adsPlaying = await player.getPlayerAttribute(`adsplaying`);
-                    expect(adsPlaying).toEqual(adsVisible);
-                }
-                if (adsVisible) {
-                    // Wait ads container to be visible
-                    await expect(adsContainer).toBeInViewport(); //.toBeVisible() || .toBeInViewport();
-                    await adsContainer.hover();
+                // 10 seconds should be enough to show the ads
+                await expect(adsVisible).toBeTruthy();
+                // Wait ads container to be visible
+                await expect(adsContainer).toBeVisible();
+                await adsContainer.hover();
 
-                    // as soon as ads plays, reset timer should be as initial value
-                    restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
-                    await expect(restTimeout).toEqual(adsRenderTimeout);
-                } else {
-                    adsPlaying = await player.getPlayerAttribute(`adsplaying`);
-                    await expect(adsPlaying).toBeFalsy();
-
-                    const playerContainer = await page.getByTestId(`${player.testid}-player-container`);
-                    await expect(playerContainer).toBeVisible();
-
-                    let contentPlaying = await player.getPlayerAttribute(`playing`);
-                    await expect(contentPlaying).toBeTruthy();
-                }
+                // as soon as ads plays, reset timer should be as initial value
+                restTimeout = await player.getPlayerAttribute(`adsrendertimeout`);
+                await expect(restTimeout).toEqual(adsRenderTimeout);
 
                 await browser.close();
             });
@@ -110,7 +101,7 @@ test.describe(`Check timeout on ads rendering settings`, () => {
     test(`AdsRenderTimeout should run on error URL`, async ({ page, browserName, browser, context }) => {
         const runAdsTester = async (page, browser, context) => {
             let adsPlaying;
-            const adsRenderTimeout = 0;
+            const adsRenderTimeout = 10;
             descriptionPlayerAttributes.adtagurl = ERROR_TAG_URL;
             descriptionPlayerAttributes.adsrendertimeout = adsRenderTimeout;
             const player = new PlayerPage(page,
@@ -133,6 +124,7 @@ test.describe(`Check timeout on ads rendering settings`, () => {
             expect(hasAdsSource).not.toBeUndefined();
             if (!hasAdsSource) throw new Error(`We need ad tag URL to proceed`);
 
+            await player.listenPlayerEvent(`ads:render-timeout`);
             // Ads container has to be visible as adsplayer_active will run timeout
             await adsContainer.waitFor({ state: 'attached', timeout: 5000 });
             // Content Player has to be visible on less of render timeout

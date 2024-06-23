@@ -5,7 +5,7 @@ import runTestMethod from '../../utils/run-test';
 
 
 // Will test the player with autoplay and unmute on click
-test.describe(`Fundamental attributes`, () => {
+test.describe(`Default attributes`, () => {
 
     const browserSettings = {
         // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
@@ -14,7 +14,6 @@ test.describe(`Fundamental attributes`, () => {
     }
 
     test.describe.configure({
-        headless: true,
         mode: 'default',
         retries: 0,
         viewport: { width: 1280, height: 720 },
@@ -30,6 +29,9 @@ test.describe(`Fundamental attributes`, () => {
             // Go to the starting url before each test.
             await player.goto();
             await player.setPlayerInstance();
+
+            const videoProperty = await player.getPropertyValue(`__video`);
+            await expect(videoProperty).toBeUndefined();
 
             const playerButton = await player.getElementByTestID(`overlay-play-button`);
             await expect(playerButton).toBeVisible();
@@ -52,6 +54,8 @@ test.describe(`Fundamental attributes`, () => {
 
             const playerButton = await player.getElementByTestID(`content-play-button`);
             await expect(playerButton).toBeVisible();
+
+            await playerButton.click();
         }
 
         await runTestMethod({
@@ -59,4 +63,57 @@ test.describe(`Fundamental attributes`, () => {
         }, runAdsTester, browserSettings);
     });
 
+    test(`in-article: default state`, async ({ page, browserName, browser, context }) => {
+        const runAdsTester = async (page, browser, context) => {
+            let adsPlaying;
+            const player = new PlayerPage(page,
+                defaultPlayerAttributes, context, [{ blk: 2 }]);
+
+            // Go to the starting url before each test.
+            await player.goto();
+            await player.setPlayerInstance();
+
+            const wrapperElement = await player.getElementByTestID(`player-container`);
+            await expect(wrapperElement).toBeVisible();
+            await expect(wrapperElement).not.toBeInViewport();
+
+            await player.scrollToTheElement(wrapperElement);
+            await expect(wrapperElement).toBeInViewport();
+
+            const playerButton = await player.getElementByTestID(`overlay-play-button`);
+            await expect(playerButton).toBeVisible();
+        }
+
+        await runTestMethod({
+            page, browserName, browser, context
+        }, runAdsTester, browserSettings);
+    });
+
+    test(`in-article: skip initial state`, async ({ page, browserName, browser, context }) => {
+        const runAdsTester = async (page, browser, context) => {
+            let adsPlaying;
+            const player = new PlayerPage(page,
+                { ...defaultPlayerAttributes, skipinitial: true }, context, [{
+                blk: 2
+            }]);
+
+            // Go to the starting url before each test.
+            await player.goto();
+            await player.setPlayerInstance();
+
+            const wrapperElement = await player.getElementByTestID(`player-container`);
+            await expect(wrapperElement).toBeVisible();
+            await expect(wrapperElement).not.toBeInViewport();
+
+            await player.scrollToTheElement(wrapperElement);
+            await expect(wrapperElement).toBeInViewport();
+
+            const playerButton = await player.getElementByTestID(`content-play-button`);
+            await expect(playerButton).toBeVisible();
+        }
+
+        await runTestMethod({
+            page, browserName, browser, context
+        }, runAdsTester, browserSettings);
+    });
 });

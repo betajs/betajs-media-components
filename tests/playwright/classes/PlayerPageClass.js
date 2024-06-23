@@ -14,7 +14,7 @@ class PlayerPage {
     constructor(page, attrs, context, urlOptions, testid = 'ba-testid') {
         this.page = page;
         this.context = context;
-        this.debug = false;
+        this.debug = true;
         this.fullURI = `${PLAYER_URI}?${createOptions(urlOptions)}`;
         this.attrs = attrs;
         this.testid = testid;
@@ -76,6 +76,25 @@ class PlayerPage {
                 return await Promise.reject(e);
             }
         }, [functionName, args]);
+    }
+
+    /**
+     * @param propertyName
+     * @return {Promise<*>}
+     */
+    async getPropertyValue(propertyName) {
+        if (!this.playerInstance) {
+            throw new Error(`Player instance is not set to be able to get ${propertyName} value.`);
+        }
+        return this.playerInstance.evaluate(async (ins, [name]) => {
+            if (!name)
+                throw new Error(`Player instance does not have property with name: ${name}`);
+            try {
+                return Promise.resolve(ins[name]);
+            } catch (e) {
+                return await Promise.reject(e);
+            }
+        }, [propertyName]);
     }
 
     async getPlayerAttribute(keyName) {
@@ -279,11 +298,39 @@ class PlayerPage {
 
     // after found page: page.waitForTimeout()
     async delay(delay = 5) {
-        await this.page.evaluate(async() => {
+        await this.page.evaluate(async(delay) => {
+            delay = delay > 100 ? delay : delay * 1000;
             await new Promise(function(resolve) {
                 setTimeout(resolve, delay);
             });
         }, delay);
+    }
+
+    async clickAdsSkipButton() {
+        let iFrame = await this.page.frameLocator('iframe[src*="//imasdk.googleapis.com/js/core/bridge"]');
+        if (!iFrame) {
+            // waitForEvent("frameattached"), framenavigated, console
+            // Get frame using frame's URL
+            const responsePromise = this.page.waitForResponse(/.*imasdk.googleapis.com\/js\/core\/bridge*/);
+            await responsePromise;
+            iFrame = await this.page.frameLocator('iframe[src*="//imasdk.googleapis.com/js/core/bridge"]');
+        }
+        if (this.debug) console.log(`DEBUG: Iframe found: ${iFrame}`);
+        const skipButton = iFrame.locator(`button.videoAdUiSkipButton`);
+        await skipButton.waitFor({ state: 'visible', timeout: 6000 });
+        if (this.debug) console.log(`DEBUG: Skip button: ${skipButton}`);
+        await skipButton.click();
+        await skipButton.click();
+    }
+
+    async getPlayerCurrentStateName() {
+        if (!this.playerInstance)
+            throw new Error(`Player instance is not defined on getPlayerCurrentStateName method name`);
+        return this.playerInstance.evaluate(async (ins) => {
+            if (typeof ins.host === 'undefined')
+                throw new Error(`Player instance has no any state`);
+            return Promise.resolve(ins?.host?.state()?.state_name());
+        });
     }
 
     async testScrollToAd(){

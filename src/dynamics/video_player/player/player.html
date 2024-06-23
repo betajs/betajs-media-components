@@ -270,6 +270,7 @@
                 ba-css="{{cssloader || css}}"
                 ba-csstheme="{{csstheme || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
+                ba-testid="{{testid}}"
                 ba-theme-color="{{themecolor}}"
                 ba-template="{{tmplloader}}"
                 ba-playwhenvisible="{{playwhenvisible}}"
@@ -311,7 +312,9 @@
         </div>
         <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
     </div>
-    <div ba-show="{{show_sidebar}}" class="{{cssplayer}}-sidebar" ba-styles="{{sidebarstyles}}">
+    <div ba-show="{{show_sidebar}}" class="{{cssplayer}}-sidebar"
+         ba-styles="{{sidebarstyles}}" data-testid="{{testid}}-player-sidebar"
+    >
         <ba-{{dynsidebar}}
             ba-if="{{sidebar_active}}"
             ba-css="{{css}}"

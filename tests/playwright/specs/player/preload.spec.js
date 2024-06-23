@@ -7,7 +7,7 @@ import {
 import runTestMethod from '../../utils/run-test';
 
 // Will test the player with autoplay and unmute on click
-test.describe(`Preload ads, With ads`, () => {
+test.describe(`With ads`, () => {
     const describeAttributes = {
         adtagurl: AD_TAG_URL,
         autoplay: true,
@@ -183,7 +183,6 @@ test.describe(`Preload ads, With ads`, () => {
                     ...defaultPlayerAttributes,
                     skipinitial: true,
                     autoplaywhenvisible: true,
-                    preload_ads: true,
                 }, context,
                 [{ blk: 2 }]);
 

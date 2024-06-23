@@ -494,7 +494,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillAutoPlay: function() {
-                    return this.parent() && (this.parent().get("autoplay-allowed") || this.parent().get("autoplay"));
+                    return this.parent() && (!!this.parent().get("autoplay-allowed") || this.parent().get("autoplay"));
                 },
 
                 getAdWillPlayMuted: function() {

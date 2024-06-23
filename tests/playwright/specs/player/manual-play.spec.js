@@ -6,19 +6,24 @@ import {
 } from "../../consts.js";
 import runTestMethod from '../../utils/run-test';
 
+const browserSettings = {
+    // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
+    headless: false, // If headless is true, player will start with user interaction
+    devtools: !process.env?.CI,
+}
 
 // Will test the player with autoplay and unmute on click
-test.describe(`Manual Play`, () => {
-    const browserSettings = {
-        // args: [`--user-data-dir="/tmp/chrome_dev_test"`, '--disable-web-security'],
-        headless: false, // If headless is true, player will start with user interaction
-        devtools: !process.env?.CI,
+test.describe(`With Ads`, () => {
+    const describeAttrs = {
+        adtagurl: AD_TAG_URL,
+        autoplay: false,
+        autoplaywhenvisible: false,
     }
 
     test.describe.configure({
-        headless: false,
+        headless: browserSettings.headless,
         mode: 'default',
-        retries: 0,
+        retries: 2,
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
     });
@@ -28,12 +33,9 @@ test.describe(`Manual Play`, () => {
             const player = new PlayerPage(page,
                 {
                     ...defaultPlayerAttributes,
+                    ...describeAttrs,
                     ...{
-                        adtagurl: AD_TAG_URL,
-                        autoplay: false,
-                        skipinitial: false,
                         preload_ads: true,
-                        autoplaywhenvisible: false,
                     }
                 }, context, [{
                     blk: 2
@@ -84,6 +86,61 @@ test.describe(`Manual Play`, () => {
             await player.listenPlayerEvent(`playing`, 2000);
             const playing = await player.getPlayerAttribute(`playing`);
             await expect(playing).toBeTruthy();
+        }
+
+        await runTestMethod({
+            page, browserName, browser, context
+        }, runAdsTester, browserSettings);
+    });
+});
+
+test.describe(`No Ads`, () => {
+    const describeAttrs = {
+        adtagurl: null,
+        autoplay: false,
+        autoplaywhenvisible: false,
+    }
+
+    test.describe.configure({
+        retries: 0,
+        mode: 'default',
+        headless: browserSettings.headless,
+        viewport: { width: 1280, height: 720 },
+        video: 'on-first-retry',
+    });
+
+    test(`scroll and play on click`, async ({ page, browserName, browser, context }) => {
+        const runAdsTester = async (page, browser, context) => {
+            const player = new PlayerPage(page,
+                {
+                    ...defaultPlayerAttributes,
+                    ...describeAttrs
+                }, context, [{
+                    blk: 2
+                }]);
+
+            // Go to the starting url before each test.
+            await player.goto();
+            await player.setPlayerInstance();
+
+            const wrapperElement = await player.getElementByTestID(`player-container`);
+            await expect(wrapperElement).not.toBeInViewport();
+
+            await player.scrollToTheElement(wrapperElement);
+
+            const overlayPlayButton = await player.getElementByTestID(`overlay-play-button`);
+            await expect(overlayPlayButton).toBeVisible();
+            overlayPlayButton.click();
+
+            let pauseButton = await player.getElementByTestID(`content-pause-button`);
+            await expect(pauseButton).toBeVisible();
+
+            const playing = await player.getPlayerAttribute(`playing`);
+            await expect(playing).toBeTruthy();
+
+            const playButton = await player.getElementByTestID(`content-play-button`);
+            await pauseButton.click();
+            await expect(playButton).toBeVisible();
         }
 
         await runTestMethod({

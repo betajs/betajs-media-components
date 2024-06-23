@@ -1,13 +1,10 @@
 import { test, expect } from '@playwright/test';
 import PlayerPage from "../../classes/PlayerPageClass";
-import {
-    defaultPlayerAttributes, AD_TAG_URL,
-    ERROR_TAG_URL
-} from "../../consts.js";
+import { defaultPlayerAttributes, AD_TAG_URL } from "../../consts.js";
 import runTestMethod from '../../utils/run-test';
 
-// Will test the player with autoplay and unmute on click
-test.describe(`Preload ads, with ads source`, () => {
+// Will test with ads
+test.describe(`With ads source`, () => {
     const describeAttributes = {
         adtagurl: AD_TAG_URL,
         autoplay: true,
@@ -242,8 +239,8 @@ test.describe(`Preload ads, with ads source`, () => {
     });
 });
 
-
-test.describe(`Preload ads without ad source`, () => {
+// Will test without ads
+test.describe(`With no ads`, () => {
     const describeAttributes = {
         autoplay: true,
         showsidebargallery: true,

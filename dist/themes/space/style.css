@@ -1,6 +1,7 @@
 /*!
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 betajs-media-components - v0.0.494 - 2024-06-17
 =======
 betajs-media-components - v0.0.482 - 2024-06-05
@@ -8,6 +9,9 @@ betajs-media-components - v0.0.482 - 2024-06-05
 =======
 betajs-media-components - v0.0.483 - 2024-06-04
 >>>>>>> 3db20430 (restored some folders to master)
+=======
+betajs-media-components - v0.0.484 - 2024-06-05
+>>>>>>> 7bf86acc (merge with master)
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */

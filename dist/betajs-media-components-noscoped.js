@@ -1,6 +1,7 @@
 /*!
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 betajs-media-components - v0.0.494 - 2024-06-17
 =======
 betajs-media-components - v0.0.482 - 2024-06-05
@@ -8,6 +9,9 @@ betajs-media-components - v0.0.482 - 2024-06-05
 =======
 betajs-media-components - v0.0.483 - 2024-06-04
 >>>>>>> 3db20430 (restored some folders to master)
+=======
+betajs-media-components - v0.0.484 - 2024-06-05
+>>>>>>> 7bf86acc (merge with master)
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -24,6 +28,7 @@ Scoped.define("module:", function () {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "version": "0.0.494",
     "datetime": 1718647965615
 =======
@@ -34,6 +39,10 @@ Scoped.define("module:", function () {
     "version": "0.0.483",
     "datetime": 1717509997976
 >>>>>>> 3db20430 (restored some folders to master)
+=======
+    "version": "0.0.484",
+    "datetime": 1717592685824
+>>>>>>> 7bf86acc (merge with master)
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3132,6 +3141,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     video.crossOrigin = "anonymous";
                     video.src = mediaUrl;
                     video.muted = true;
+                    video.setAttribute("playsinline", true)
                     video.play();
                     video.addEventListener("loadeddata", (event) => {
                         this.parent()._drawFrame(video, this.get('currenttime'), width, height, (canvas, ctx) => {
@@ -3173,7 +3183,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                                 this._video.src = URL.createObjectURL(blob);
                                 this._video.crossOrigin = "anonymous";
                                 this._video.muted = true;
-                                return this._video.play()
+                                this._video.setAttribute("playsinline", true);
+                                return this._video.play();
                             })
                             .then(() => {
                                 // add a small delay to handle cases where the beginning of video is a black screen

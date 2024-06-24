@@ -87,6 +87,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
             },
 
             requestAds: function(options) {
+                this.volume = options?.volume;
                 this._adsRequest = new google.ima.AdsRequest();
                 if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
                 else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
@@ -136,7 +137,9 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adsManager = adsManagerLoadedEvent.getAdsManager(
                         this._options.videoElement, adsRenderingSettings
                     );
-                    if (adsManagerLoadedEvent.getUserRequestContext()) {
+                    if (this.volume <= 1) {
+                        this._adsManager.setVolume(this.volume);
+                    } else if (adsManagerLoadedEvent.getUserRequestContext()) {
                         this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
                     } else {
                         this._adsManager.setVolume(this._options?.videoElement?.volume || 0);

@@ -138,6 +138,7 @@
                 ba-event:seek="seek"
             ></ba-{{dyntrimmer}}>
             <ba-{{dyncontrolbar}}
+                ba-show="{{controlbar_active && !hidecontrolbar}}"
                 ba-css="{{csscontrolbar || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
                 ba-csstheme="{{csstheme || css}}"
@@ -145,7 +146,6 @@
                 ba-logo="{{controlbar_logo}}"
                 ba-themecolor="{{themecolor}}"
                 ba-template="{{tmplcontrolbar}}"
-                ba-show="{{controlbar_active && !hidecontrolbar}}"
                 ba-playing="{{playing}}"
                 ba-showcontroll="{{showcontroll}}"
                 ba-playwhenvisible="{{playwhenvisible}}"
@@ -248,12 +248,13 @@
             ></ba-{{dynsettingsmenu}}>
 
             <ba-{{dynplaybutton}}
+                ba-show="{{playbutton_active}}"
                 ba-css="{{cssplaybutton || css}}"
                 ba-csstheme="{{csstheme || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
                 ba-theme-color="{{themecolor}}"
+                ba-testid="{{testid}}"
                 ba-template="{{tmplplaybutton}}"
-                ba-show="{{playbutton_active}}"
                 ba-rerecordable="{{rerecordable}}"
                 ba-submittable="{{submittable}}"
                 ba-trimmingmode="{{trimmingmode}}"

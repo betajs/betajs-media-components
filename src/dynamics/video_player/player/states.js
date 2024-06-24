@@ -613,9 +613,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                 this.listenOn(this.dyn.channel(`ads`), `render-timeout`, function() {
                     this.dyn.stopAdsRenderFailTimeout(true);
                     if (this.dyn && this.dyn.player) this.dyn.player.play();
-                    this.next(`PlayVideo`, {
-                        autoplay: true
-                    });
+                    this.next(`PlayVideo`);
                 });
             }
         }
@@ -763,13 +761,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             if (this.dyn.videoAttached()) {
                 // if ads loaded and ready, will wait for ads to be played, after start playing the video
                 if (this.dyn?.player && !this.dyn.get(`ads_loaded`) && this._autoplay) {
-                    // if (typeof this.dyn.get(`autoplay-allowed`) === 'undefined' && this.dyn.get(`autoplay`)) {
-                    //     this.dyn.once(`change:autoplay-allowed`, function(allowed) {
-                    //         if (allowed) this.dyn?.player?.play();
-                    //         this.next(`PlayVideo`);
-                    //     }, this);
-                    //     return;
-                    // }
                     this.dyn?.player?.play();
                 }
                 this.next(`PlayVideo`);
@@ -813,7 +804,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
         dynamics: ["controlbar"],
 
         _started: function() {
-            // On cases like closing floating player on Ad content, player will start video content in pause.
             if (this.dyn.get("pause_content_after_start")) {
                 this.dyn.pause();
                 this.dyn.set("pause_content_after_start", false);

@@ -148,8 +148,9 @@ class PlayerPage {
                 if (eventName.includes(":")) {
                     const channel = eventName.split(":")[0];
                     const event = eventName.split(":")[1];
+                    if (debug) console.log(`DEBUG: Will listen event ${event} on channel: ${channel}`);
                     playerInstance.channel(channel).on(event, (data) => {
-                        if (debug) console.log(`Will handle event ${eventName} and return data: ${data}`);
+                        if (debug) console.log(`DEBUG: Will handle event ${eventName} and return data: ${data}`);
                         if (timeoutID) clearTimeout(timeoutID);
                         return resolve(data);
                     });

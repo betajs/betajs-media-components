@@ -393,6 +393,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "autoplay": null,
                             "adsrendertimeout": null,
                             autoenabledtracktags: null,
+                            autoplaywhenvisible: null,
                             // below are default settings
                             "outstreamoptions": {
                                 hideOnCompletion: true,
@@ -842,7 +843,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return true;
                         }
                         if (playing) {
-                            this.player.pause();
                             if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                             return true;
                         }
@@ -1007,10 +1007,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("autoplay", true);
                         Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
                             if (this.destroyed()) return;
-                            console.log(`Only now after ads loaded. will trigger start..`, this.get(`ads_loaded`));
-                            if (this.get(`ads_loaded`)) {
-                                this.channel(`ads`).trigger(`startPlay`);
-                            }
                             this.set("autoplaywhenvisible", false);
                         }, this);
                     } else {
@@ -2147,7 +2143,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     play: function() {
-                        console.log(`Before play ads loaded?? `, this.get(`ads_loaded`));
                         this.setPlayerEngagement();
                         this.trigger("playrequested");
                         if (this._delegatedPlayer) {
@@ -2159,6 +2154,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return;
                         }
                         if (this.get(`ads_loaded`) && this.scopes?.adsplayer) {
+                            this.pause();
                             this.scopes.adsplayer.execute(`play`);
                             return;
                         }

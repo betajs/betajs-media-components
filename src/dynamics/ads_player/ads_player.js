@@ -369,8 +369,12 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getVideoElement: function() {
-                    if (!this._videoElement)
+                    if (!this._videoElement) {
                         this._videoElement = this.parent() && this.parent().activeElement().querySelector("[data-video='video']"); // TODO video element for outstream
+                    }
+                    if (this._videoElement?.volume) {
+                        this._videoElement.volume = this.get("volume");
+                    }
                     return this._videoElement;
                 },
                 isImageBlack: function(ctx, width, height) {

@@ -175,7 +175,7 @@ Scoped.define("module:AudioPlayer.Dynamics.Player", [
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume")
                     }));
-
+                    window.localStorage.setItem("volume", this.get("volume"));
                     if (this.get("theme")) this.set("theme", this.get("theme").toLowerCase());
                     if (this.get("theme") in Assets.audioplayerthemes) {
                         Objs.iter(Assets.audioplayerthemes[this.get("theme")], function(value, key) {

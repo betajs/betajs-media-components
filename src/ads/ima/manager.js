@@ -139,7 +139,8 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     if (adsManagerLoadedEvent.getUserRequestContext()) {
                         this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
                     } else {
-                        this._adsManager.setVolume(this._options?.videoElement?.volume || 0);
+                        const volume = parseInt(window.localStorage.getItem("volume"));
+                        this._adsManager.setVolume(volume || 0);
                     }
                 } catch (adError) {
                     if (adError instanceof google.ima.AdError) {

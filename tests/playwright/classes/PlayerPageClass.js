@@ -240,6 +240,43 @@ class PlayerPage {
         );
     }
 
+    async scrollToTheElement(element, toPositionY, steps) {
+        steps = steps || 10;
+        if (!element && !toPositionY) {
+            throw new Error(`You have to provide element or position to scroll to it`);
+        }
+        const data = element ? await element.boundingBox() : {};
+        const topPosition = toPositionY || data.y;
+        return await this.page.evaluate(async ([topPosition, steps]) => {
+            topPosition = topPosition || document.body.scrollHeight;
+            const direction = window.scrollY < topPosition ? 1 : -1;
+            topPosition = (topPosition * direction) || document.body.scrollHeight;
+            const perStep = Math.floor(topPosition / steps) * direction;
+            let startPosition = direction > 0 ? 0 : window.scrollY;
+            const lastPositionValues = [];
+            const condition = () => {
+                const maxAllowedDuplicates = 3;
+                const duplicatesCounter = lastPositionValues.reduce((prev, val) => ({
+                    ...prev, [val]: (prev[val] || 0) + 1
+                }), {});
+                return (direction > 0 ? window.scrollY <= topPosition : window.scrollY >= topPosition) &&
+                    window.Object.keys(duplicatesCounter).filter(
+                        k => duplicatesCounter[k] && duplicatesCounter[k] >= maxAllowedDuplicates
+                    ).length === 0;
+            }
+            const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+            for (startPosition; condition(); startPosition += perStep) {
+                window.scrollTo({
+                    left: 0, top: window.scrollY + perStep, behavior: "smooth"
+                });
+                // for checking if we're counting in one place, it means we're at the end of the page
+                lastPositionValues.push(window.scrollY + topPosition);
+                await delay(500);
+            }
+        }, [topPosition, steps]);
+    }
+
     // after found page: page.waitForTimeout()
     async delay(delay = 5) {
         await this.page.evaluate(async() => {
@@ -247,6 +284,36 @@ class PlayerPage {
                 setTimeout(resolve, delay);
             });
         }, delay);
+    }
+
+    async testScrollToAd(){
+        const player = this;
+
+        await player.listenPlayerEvent(`ads:loaded`, 2000);
+
+        const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
+        await expect(adsLoaded).toBeTruthy();
+
+        let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
+        await expect(adsPauseButton).not.toBeVisible();
+
+        const wrapperElement = await player.getElementByTestID(`player-container`);
+        await expect(wrapperElement).not.toBeInViewport();
+
+        await player.scrollToTheElement(null, 100 ,null);
+        let position = await player.getAdsPlayerAttribute(`position`);
+        await expect(position).toBeUndefined();
+        let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
+        await expect(adsPlaying).toBeFalsy();
+        await expect(adsPauseButton).not.toBeVisible();
+
+        await player.scrollToTheElement(wrapperElement, null, 5);
+
+        await player.listenPlayerEvent(`ads:firstQuartile`, 2000);
+        adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
+        await expect(adsPlaying).toBeTruthy();
+        adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
+        await expect(adsPauseButton).toBeVisible();
     }
 }
 

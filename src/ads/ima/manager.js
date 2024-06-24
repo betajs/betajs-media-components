@@ -139,8 +139,12 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     if (adsManagerLoadedEvent.getUserRequestContext()) {
                         this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
                     } else {
-                        const volume = parseInt(window.localStorage.getItem("volume"));
-                        this._adsManager.setVolume(volume || 0);
+                        const volume = window.localStorage.getItem("volume");
+                        if (volume) {
+                            this._adsManager.setVolume(parseInt(volume) || 0);
+                        } else {
+                            this._adsManager.setVolume(this._options?.videoElement?.volume || 0);
+                        }
                     }
                 } catch (adError) {
                     if (adError instanceof google.ima.AdError) {

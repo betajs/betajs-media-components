@@ -198,7 +198,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "share_active": true,
                         "visibilityfraction": 0.8,
                         /* Configuration */
-                        "disableadpreload": true,
                         "reloadonplay": false,
                         "ias-config": undefined,
                         "playonclick": true,
@@ -266,6 +265,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "companionad": null, // if just set to true, it will set companionads attribute for further use cases and will not render companion ad
                         "companionads": [],
                         "adsrendertimeout": null,
+                        preload_ads: false,
                         "linearadplayer": true,
                         "customnonlinear": false, // Currently, not fully supported
                         "minadintervals": 5,
@@ -842,15 +842,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             return true;
                         }
                         if (playing) {
+                            this.player.pause();
                             if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                             return true;
                         }
-                        if (!!adsTagURL || !!inlineVastXML && !this.get("adshassource")) {
+                        if ((!!adsTagURL || !!inlineVastXML) && !this.get("adshassource")) {
                             this.set("adshassource", true);
                             // If we're already not set timer for ads failure, and we have some ads source
                             // start set it here. Possible other options are via Header bidding services like Prebid
                             this.initAdsRenderFailTimeout();
-                            if (!this.get("disableadpreload")) this.set("adsplayer_active", !this.get("delayadsmanagerload"));
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
                             if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
@@ -858,7 +858,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (!this.get("adsinitialized")) this.set("adsinitialized", true);
                                 }, this, this.get("showplayercontentafter"));
                             }
-                            this.once("ad:adCanPlay", function() {
+                            this.once("ad:adsManagerLoaded", function() {
                                 if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
                                 this.set("adsinitialized", true);
                             });
@@ -1007,6 +1007,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("autoplay", true);
                         Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
                             if (this.destroyed()) return;
+                            console.log(`Only now after ads loaded. will trigger start..`, this.get(`ads_loaded`));
+                            if (this.get(`ads_loaded`)) {
+                                this.channel(`ads`).trigger(`startPlay`);
+                            }
                             this.set("autoplaywhenvisible", false);
                         }, this);
                     } else {
@@ -1878,7 +1882,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 _playWhenVisible: function(video) {
-                    var _self = this;
+                    const _self = this;
 
                     if (Dom.isElementVisible(video, this.get("visibilityfraction"))) {
                         this.player.play();
@@ -2143,6 +2147,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     },
 
                     play: function() {
+                        console.log(`Before play ads loaded?? `, this.get(`ads_loaded`));
                         this.setPlayerEngagement();
                         this.trigger("playrequested");
                         if (this._delegatedPlayer) {
@@ -2153,7 +2158,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
-
+                        if (this.get(`ads_loaded`) && this.scopes?.adsplayer) {
+                            this.scopes.adsplayer.execute(`play`);
+                            return;
+                        }
                         this.host.state().play();
                         this.set("manuallypaused", false);
                     },
@@ -2793,8 +2801,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initAdSources: function() {
-                    this.set("preloadadsmanager", false);
-                    this.set("delayadsmanagerload", false);
                     if (
                         Array.isArray(this.get("adtagurlfallbacks")) &&
                         this.get("adtagurlfallbacks").length > 0 &&
@@ -2805,7 +2811,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     // The initial mute state will not be changes if outstream is not set
                     if (this.get("outstream")) {
-                        this.set("disableadpreload", false);
                         this.set("autoplay", true);
                         this.set("skipinitial", false);
                         // Actually we can remove it as a new function should merge it, anyway need first test
@@ -2823,10 +2828,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if there's no specification, play preroll or VMAP if not set adsposition at all
                             this.set("vmapads", true);
                         }
-
-                        this.set("preloadadsmanager", this.get("adsplaypreroll") || this.get("vmapads") || this.get("outstream"));
-                        var skipInitialWithoutAutoplay = this.get("skipinitial") && !this.get("autoplay");
-                        this.set("delayadsmanagerload", !this.get("preloadadsmanager") || skipInitialWithoutAutoplay);
                     }
                 },
 

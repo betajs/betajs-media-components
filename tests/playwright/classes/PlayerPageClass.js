@@ -1,6 +1,6 @@
 const { expect } = require('@playwright/test')
 import createOptions from '../utils/create-options';
-import { PLAYER_URI } from '../consts.js';
+import { PLAYER_URI, DATA_TEST_ID_PREFIX } from '../consts.js';
 
 
 class PlayerPage {
@@ -9,7 +9,7 @@ class PlayerPage {
     attrs = {};
     debug = false;
     playerInstance = null;
-    testid = 'ba-testid';
+    testid = DATA_TEST_ID_PREFIX;
 
     constructor(page, attrs, context, urlOptions, testid = 'ba-testid') {
         this.page = page;
@@ -203,6 +203,15 @@ class PlayerPage {
                 return window.player.scopes.adsplayer.get("remaining") < remaining
             }, [position, this.debug], { timeout }
         );
+    }
+
+    async getElementByTestID(selectorName) {
+        const reg = new RegExp(String.raw`^${this.testid}`, "i");
+        if (selectorName.match(reg)) {
+            const repl = new RegExp(String.raw`^(${this.testid}-|${this.testid})`, "i");
+            selectorName = selectorName.replace(repl, "");
+        }
+        return await this.page.getByTestId(`${this.testid}-${selectorName}`);
     }
 
     async locatorClickWithDelay(locator, delay = 1000) {

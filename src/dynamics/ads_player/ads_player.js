@@ -41,7 +41,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     companionads: [],
                     companionadcontent: null,
                     customclickthrough: false,
-                    persistentcompanionad: false
+                    persistentcompanionad: false,
+                    ads_loaded: false
                 },
 
                 events: {
@@ -92,9 +93,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         linearAdSlotHeight: this.getAdHeight(),
                         nonLinearAdSlotWidth: this.getAdWidth(),
                         nonLinearAdSlotHeight: this.getAdHeight() / 3,
-                        adWillAutoPlay: this.getAdWillAutoPlay(),
+                        adWillAutoPlay: this.get(`autoplay`),
                         adWillPlayMuted: this.getAdWillPlayMuted(),
-                        autoPlayAdBreaks: true,
+                        autoPlayAdBreaks: this.get(`vmapads`),
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
                         volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
@@ -106,21 +107,24 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 channels: {
                     "ads:ad-error": function() {
-                        this.set("adsplaying", false);
+                        this.set(`adsplaying`, false);
+                        this.set(`ads_loaded`, false);
                         if (this.parent().get("outstream")) {
                             this.parent().hidePlayerContainer();
                         }
                         this.trackAdsPerformance(`ad-error`);
                     },
                     "ads:render-timeout": function() {
+                        this.set(`adsplaying`, false);
+                        this.set(`ads_loaded`, false);
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
                             this.adsManager.destroy();
                         }
                         this.trackAdsPerformance(`ads-render-timeout`);
                     },
-                    "ads:load": function() {
+                    "ads:load": function(autoPlay = true) {
                         this.set("skipvisible", false);
-                        this.call("load");
+                        this.call("load", autoPlay);
                         this.set("quartile", "first");
                         this.trackAdsPerformance(`ads-load-start`);
                     },
@@ -136,6 +140,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:start": function(ev) {
                         this._onStart(ev);
                         this.trackAdsPerformance(`ads-start`);
+                        this.set(`ads_loaded`, false);
                     },
                     "ads:skippableStateChanged": function(event) {
                         this.set("skipvisible", true);
@@ -172,6 +177,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
+                        this.set(`ads_loaded`, true);
                         this.trackAdsPerformance(`ads-loaded`);
                     },
                     "ads:outstreamCompleted": function(dyn) {
@@ -226,6 +232,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
                     this.adsManager.on("all", function(event, ad, ...rest) {
+                        if (event !== 'adProgress') {
+                            console.log(`Which manager events? `, event, ad, rest);
+                        }
                         if (event === "adsManagerLoaded") {
                             this.set("adsmanagerloaded", true);
                             if (this.__iasConfig() && typeof googleImaVansAdapter !== "undefined") {
@@ -270,18 +279,28 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 functions: {
-                    load: function() {
+                    load: function(autoPlay) {
+                        console.log(`Now calling functions load...`, autoPlay, this.adsManager);
                         if (!this.adsManager) return this.once("dynamic-activated", function() {
-                            this.call("load");
+                            this.call("load", autoPlay);
                         }, this);
                         this.adsManager.start({
                             width: this.getAdWidth(),
                             height: this.getAdHeight(),
-                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
+                            adWillAutoPlay: autoPlay,
                         });
 
                         // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
                         // this.call("requestAds");
+                    },
+                    play: function() {
+                        console.log(`Only now ads should be played...`);
+                        if (this.get("adsplaying") || !this.get(`ads_loaded`)) {
+                            console.warn(`Ads already playing or ads not loaded yet.`);
+                            return;
+                        }
+                        if (this.adsManager) this.adsManager.playLoadedAd();
                     },
                     reset: function() {
                         this.set("linear", true);
@@ -477,7 +496,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillAutoPlay: function() {
-                    return this.parent() && (this.parent().get("autoplay-allowed") || this.parent().get("autoplay"));
+                    const dyn = this.parent();
+                    return dyn.get(`autoplay`);
                 },
 
                 getAdWillPlayMuted: function() {

@@ -233,9 +233,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
                     this.adsManager.on("all", function(event, ad, ...rest) {
-                        if (event !== "adProgress") {
-                            console.log(`Current event name: `, event, ad, rest);
-                        }
                         if (event === "adsManagerLoaded") {
                             dynamics.set(`adsinitialized`, true);
                             this.set("adsmanagerloaded", true);

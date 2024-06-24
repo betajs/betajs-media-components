@@ -179,6 +179,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("adsclicktroughurl", clickthroughUrl);
                         this.set(`ads_loaded`, true);
                         this.trackAdsPerformance(`ads-loaded`);
+                        this._onLoaded(event);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -212,9 +213,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 create: function() {
-                    var dynamics = this.parent();
-                    var adContainer = this.getAdContainer();
-                    var adManagerOptions = {
+                    const dynamics = this.parent();
+                    const adContainer = this.getAdContainer();
+                    const adManagerOptions = {
                         adContainer: adContainer,
                         adsRenderingSettings: this.get("imaadsrenderingsetting"),
                         IMASettings: this.get("imasettings")
@@ -232,7 +233,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
                     this.adsManager.on("all", function(event, ad, ...rest) {
+                        if (event !== "adProgress") {
+                            console.log(`Current event name: `, event, ad, rest);
+                        }
                         if (event === "adsManagerLoaded") {
+                            dynamics.set(`adsinitialized`, true);
                             this.set("adsmanagerloaded", true);
                             if (this.__iasConfig() && typeof googleImaVansAdapter !== "undefined") {
                                 googleImaVansAdapter.init(google, this.adsManager, this.getVideoElement(), Objs.extend({
@@ -506,12 +511,20 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.set("remaining", this.get("duration"));
                     this.set("showactionbuttons", false);
                     this.set("adscompleted", false);
+                    this.set("hidecontrolbar", !this.get(`linear`) || this.get("hideadscontrolbar"));
 
+                    // Additional resize will fit ads fully inside the player container
+                    if (this.get("sidebar_active") && this.adsManager && this.parent()) {
+                        // NOTE: can cause console error on main player, uncomment if required separately
+                        // this.parent().trigger("resize");
+                    }
+                },
+
+                _onLoaded: function(ev) {
                     if (ev && Types.is_function(ev.getAd)) {
                         var ad = ev.getAd();
                         var isLinear = ad.isLinear();
                         this.set("linear", isLinear);
-                        this.set("hidecontrolbar", !isLinear || this.get("hideadscontrolbar"));
                         if (!isLinear) {
                             this.set("non-linear-min-suggestion", ad.getMinSuggestedDuration());
                             // decrease a non-linear suggestion period, be able to show midroll
@@ -542,12 +555,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.parent().stopAdsRenderFailTimeout(true);
                     // and set a new videoLoaded timeout for midroll and post-roll
                     this._setLoadVideoTimeout();
-
-                    // Additional resize will fit ads fully inside the player container
-                    if (this.get("sidebar_active") && this.adsManager && this.parent()) {
-                        // NOTE: can cause console error on main player, uncomment if required separately
-                        // this.parent().trigger("resize");
-                    }
                 },
 
                 _onAdComplete: function(ev) {

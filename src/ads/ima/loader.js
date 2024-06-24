@@ -20,8 +20,13 @@ Scoped.define("module:Ads.IMALoader", [
                 } else {
                     // Just in case, check if Google is relating IMA SDK, not another Google service
                     if (typeof google.ima === "undefined") {
+<<<<<<< HEAD
                         Loader.loadScript(imaSrc, function() {
                             promise.asyncSuccess();
+=======
+                        Loader.loadScript('https://imasdk.googleapis.com/js/sdkloader/ima3_debug.js', function() {
+                            promise.asyncSuccess(options && this.adsLoader(options));
+>>>>>>> 6e869c14 (non-autoplay works)
                         }, this);
                     } else promise.asyncSuccess();
                 }

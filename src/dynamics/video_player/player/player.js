@@ -246,7 +246,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "mindurationnext": 0, // when set to 0, mindurationnext is equal to noengagenext. Can be disabled by setting it to -1
                         "hidebeforeadstarts": true, // Will help hide player poster before ads start
                         "hideadscontrolbar": false,
-                        "showplayercontentafter": null, // we can set any microseconds to show player content in any case if ads not initialized
+                        ads_source_init_timeout: null, // we can set any microseconds to show player content in any case if ads not initialized
                         "adsposition": null,
                         "vmapads": false, // VMAP ads will set pre, mid, post positions inside XML file
                         "non-linear": null,
@@ -265,6 +265,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "companionad": null, // if just set to true, it will set companionads attribute for further use cases and will not render companion ad
                         "companionads": [],
                         "adsrendertimeout": null,
+                        "ads_setup_timeout": null,
                         preload_ads: false,
                         "linearadplayer": true,
                         "customnonlinear": false, // Currently, not fully supported
@@ -392,6 +393,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             "volumelevel": null,
                             "autoplay": null,
                             "adsrendertimeout": null,
+                            "ads_setup_timeout": null,
+                            ads_source_init_timeout: null,
                             autoenabledtracktags: null,
                             autoplaywhenvisible: null,
                             // below are default settings
@@ -574,12 +577,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showadchoices": "boolean",
                     "unknownadsrc": "boolean",
                     "adsrendertimeout": "int",
+                    "ads_setup_timeout": "int",
                     "imaadsrenderingsetting": "object",
                     performanceprefix: "string",
                     performancerendertiming: "array",
                     performanceobservedtypes: "jsonarray",
                     performancerecordeditems: "array",
-                    autoenabledtracktags: "array"
+                    autoenabledtracktags: "array",
+                    ads_source_init_timeout: "number"
                 },
 
                 __INTERACTION_EVENTS: ["click", "mousedown", "touchstart", "keydown", "keypress"],
@@ -837,13 +842,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("controlbarstyles", {});
                         return {};
                     },
-                    "adsinitialized:playing,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
+                    "adsinitialized:adsplaying,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
                         if (this.get("adsinitialized")) {
-                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
-                            return true;
+                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.stop();
                         }
                         if (playing) {
-                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.stop();
                             return true;
                         }
                         if ((!!adsTagURL || !!inlineVastXML) && !this.get("adshassource")) {
@@ -853,21 +857,35 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.initAdsRenderFailTimeout();
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
-                            if (!this.__adInitilizeChecker && this.get("showplayercontentafter")) {
-                                this.__adInitilizeChecker = Async.eventually(function() {
-                                    if (!this.get("adsinitialized")) this.set("adsinitialized", true);
-                                }, this, this.get("showplayercontentafter"));
-                            }
                             this.once("ad:adsManagerLoaded", function() {
-                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.stop();
                                 this.set("adsinitialized", true);
                             });
                             this.once("ad:ad-error", function() {
-                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.clear();
+                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.stop();
                                 this.set("adsinitialized", true);
                             }, this);
                         } else {
-                            return false;
+                            if (this.get(`ads_source_init_timeout`) > 0) {
+                                const interval = this.get(`ads_source_init_timeout`) < 200 ? this.get(`ads_source_init_timeout`) : 200;
+                                this.__adInitilizeChecker = this.auto_destroy(new Timers.Timer({
+                                    context: this,
+                                    fire: () => {
+                                        this.set(`adsinitialized`, this.get("adshassource"));
+                                        if (this.get("adshassource") && this.__adInitilizeChecker) {
+                                            this.__adInitilizeChecker.stop();
+                                            this.__adInitilizeChecker = null;
+                                        }
+                                    },
+                                    delay: interval,
+                                    start: true,
+                                    destroy_on_stop: true,
+                                    fire_max: Math.floor(this.get(`ads_source_init_timeout`) / interval),
+                                    once: interval <= 200
+                                }));
+                            } else {
+                                return false;
+                            }
                         }
                     },
                     "hideplayer:autoplay,autoplaywhenvisible,adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
@@ -1624,7 +1642,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         // On autoplay video, silent attach should be false
-                        this.set("silent_attach", (silent && !this.get("autoplay")) || this.get(`preload_ads`) || false);
+                        this.set("silent_attach", (silent && !this.get("autoplay")) || false);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);
@@ -1721,7 +1739,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // If the browser not allows unmuted autoplay, and we have manually forcibly muted player
                         // If user already has an interaction with player, we don't need to check it again
                         if (!this.get("userhadplayerinteraction")) this._checkAutoPlay(this.__video);
-                        this.player.on("postererror", function() {
+                        this.player.on("error:poster", function() {
                             this._error("poster");
                         }, this);
                         if (!this.get("playedonce")) {
@@ -2139,7 +2157,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     playbutton_click: function() {
                         this.setPlayerEngagement();
                         this.trigger("playbuttonclick");
-                        this.host.state().play();
+                        this.host.state().play(true);
                     },
 
                     play: function() {
@@ -2153,11 +2171,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
-                        if (this.get(`ads_loaded`) && this.scopes?.adsplayer) {
-                            this.call("pause");
-                            this.scopes.adsplayer.execute(`play`);
-                            return;
-                        }
+                        console.log(`Host state: ${this.host.state().state_name()} will run play() from Player.play()`);
                         this.host.state().play();
                         this.set("manuallypaused", false);
                     },

@@ -137,7 +137,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adsManager = adsManagerLoadedEvent.getAdsManager(
                         this._options.videoElement, adsRenderingSettings
                     );
-                    if (this.volume <= 1) {
+                    if (parseInt(this.volume) <= 1) {
                         this._adsManager.setVolume(this.volume);
                     } else if (adsManagerLoadedEvent.getUserRequestContext()) {
                         this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);

@@ -1,5 +1,9 @@
 /*!
+<<<<<<< HEAD
 betajs-media-components - v0.0.494 - 2024-06-17
+=======
+betajs-media-components - v0.0.482 - 2024-06-05
+>>>>>>> d1f4a017 (rebase with master r2)
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */

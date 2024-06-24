@@ -5,10 +5,11 @@ import runTestMethod from '../../utils/run-test';
 
 // Will test with ads
 test.describe(`With ads source`, () => {
+    const playerWidth = 640;
     const describeAttributes = {
         adtagurl: AD_TAG_URL,
-        autoplay: true,
         showsidebargallery: true,
+        width: playerWidth
     }
 
     const browserSettings = {
@@ -20,9 +21,75 @@ test.describe(`With ads source`, () => {
     test.describe.configure({
         headless: false,
         mode: 'default',
-        retries: 0,
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
+    });
+
+    test(`manual play, preload ads`, async ({ page, browserName, browser, context }) => {
+        const runAdsTester = async (page, browser, context) => {
+            const player = new PlayerPage(page,
+                {
+                    ...defaultPlayerAttributes,
+                    ...describeAttributes,
+                    ...{
+                        preload_ads: true
+                    }
+                }, context, [{
+                    blk: 2
+                }]);
+
+            // Go to the starting url before each test.
+            await player.goto();
+            await player.setPlayerInstance();
+
+            const overlayPlayButton = player.getElementByTestID(`overlay-play-button`);
+            const adsPlayButton = player.getElementByTestID(`ads-controlbar-play-button`);
+            const adsPauseButton = player.getElementByTestID(`ads-controlbar-pause-button`);
+            const pauseButton = player.getElementByTestID(`content-pause-button`);
+
+            const adsLoadedEvent = player.listenPlayerEvent(`ads:loaded`, 2000);
+            const adsStartEvent = player.listenPlayerEvent(`ads:start`, 2000);
+            const adsCompletedEvent = player.listenPlayerEvent(`ads:allAdsCompleted`, 2000);
+
+            const adsLoadedAttr = async () =>  player.getPlayerAttribute(`ads_loaded`);
+            const isPlaying = async () => player.getPlayerAttribute(`playing`);
+
+            // await expect(await player.getPlayerCurrentStateName()).toEqual(`LoadAds`);
+            await adsLoadedEvent;
+            await expect(await adsLoadedAttr()).toBeTruthy();
+
+            const wrapperElement = await player.getElementByTestID(`player-container`);
+            await expect(wrapperElement).not.toBeInViewport();
+
+            await player.scrollToTheElement(wrapperElement);
+            await expect(wrapperElement).toBeInViewport();
+
+            await expect(await overlayPlayButton).toBeVisible();
+            await (await overlayPlayButton).click();
+
+            await adsStartEvent;
+
+            // as soon as ads starts ads_loaded becomes falsy till next loaded ad
+            await expect(await adsLoadedAttr()).toBeFalsy();
+
+            await expect(await adsPauseButton).toBeVisible();
+            await (await adsPauseButton).click();
+            await expect(await adsPlayButton).toBeVisible();
+            await (await adsPlayButton).click();
+
+            await player.clickAdsSkipButton();
+            await adsCompletedEvent;
+
+            await expect(await pauseButton).toBeVisible();
+            await player.waitNextSecondPosition(3);
+            await expect(await isPlaying).toBeTruthy();
+
+            await browser.close();
+        }
+
+        await runTestMethod({
+            page, browserName, browser, context
+        }, runAdsTester, browserSettings);
     });
 
     test(`preload ads, autoplay when visible on scroll with sidebar`, async ({ page, browserName, browser, context }) => {
@@ -65,7 +132,6 @@ test.describe(`With ads source`, () => {
             await expect(adsLoaded).toBeFalsy();
 
             await player.clickAdsSkipButton();
-            await player.listenPlayerEvent(`ads:complete`, 2000);
 
             await player.listenPlayerEvent(`change:position`);
             await player.waitNextSecondPosition(3);
@@ -242,7 +308,7 @@ test.describe(`With ads source`, () => {
 // Will test without ads
 test.describe(`With no ads`, () => {
     const describeAttributes = {
-        autoplay: true,
+        adtagurl: null,
         showsidebargallery: true,
     }
 
@@ -259,6 +325,107 @@ test.describe(`With no ads`, () => {
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
     });
+
+    test(`manual play, preload ads`, async ({ page, browserName, browser, context }) => {
+        const runAdsTester = async (page, browser, context) => {
+            const player = new PlayerPage(page,
+                {
+                    ...defaultPlayerAttributes,
+                    ...describeAttributes,
+                    ...{
+                        preload_ads: true
+                    }
+                }, context, [{
+                    blk: 2
+                }]);
+
+            // Go to the starting url before each test.
+            await player.goto();
+            await player.setPlayerInstance();
+
+            const overlayPlayButton = player.getElementByTestID(`overlay-play-button`);
+            const pauseButton = player.getElementByTestID(`content-pause-button`);
+
+            const adsLoadedAttr = async () =>  player.getPlayerAttribute(`ads_loaded`);
+            const isPlaying = async () => player.getPlayerAttribute(`playing`);
+
+            const wrapperElement = await player.getElementByTestID(`player-container`);
+            await expect(wrapperElement).not.toBeInViewport();
+
+            await player.scrollToTheElement(wrapperElement);
+            await expect(wrapperElement).toBeInViewport();
+            await expect(await adsLoadedAttr()).toBeUndefined();
+
+            await expect(await overlayPlayButton).toBeVisible();
+            await (await overlayPlayButton).click();
+
+            // as soon as ads starts ads_loaded becomes falsy till next loaded ad
+            await expect(await adsLoadedAttr()).toBeFalsy();
+
+            await expect(await pauseButton).toBeVisible();
+            await player.waitNextSecondPosition(3);
+            await expect(await isPlaying).toBeTruthy();
+
+            await browser.close();
+        }
+
+        await runTestMethod({
+            page, browserName, browser, context
+        }, runAdsTester, browserSettings);
+    });
+
+    test(`manual play, preload video and preload ads`, async ({ page, browserName, browser, context }) => {
+        const runAdsTester = async (page, browser, context) => {
+            const player = new PlayerPage(page,
+                {
+                    ...defaultPlayerAttributes,
+                    ...describeAttributes,
+                    ...{
+                        preload: true,
+                        preload_ads: true
+                    }
+                }, context, [{
+                    blk: 2
+                }]);
+
+            // Go to the starting url before each test.
+            await player.goto();
+            await player.setPlayerInstance();
+
+            const overlayPlayButton = player.getElementByTestID(`overlay-play-button`);
+            const pauseButton = player.getElementByTestID(`content-pause-button`);
+
+            const videoProperty = async () => player.getPropertyValue(`__video`);
+            const adsLoadedAttr = async () =>  player.getPlayerAttribute(`ads_loaded`);
+            const isPlaying = async () => player.getPlayerAttribute(`playing`);
+
+            const wrapperElement = await player.getElementByTestID(`player-container`);
+            await expect(wrapperElement).not.toBeInViewport();
+
+            await expect(await videoProperty()).toBeDefined();
+
+            await player.scrollToTheElement(wrapperElement);
+            await expect(wrapperElement).toBeInViewport();
+            await expect(await adsLoadedAttr()).toBeUndefined();
+
+            await expect(await overlayPlayButton).toBeVisible();
+            await (await overlayPlayButton).click();
+
+            // as soon as ads starts ads_loaded becomes falsy till next loaded ad
+            await expect(await adsLoadedAttr()).toBeFalsy();
+
+            await expect(await pauseButton).toBeVisible();
+            await player.waitNextSecondPosition(3);
+            await expect(await isPlaying).toBeTruthy();
+
+            await browser.close();
+        }
+
+        await runTestMethod({
+            page, browserName, browser, context
+        }, runAdsTester, browserSettings);
+    });
+
 
     test(`preload ads, scroll to start autoplay`, async ({ page, browserName, browser, context }) => {
         const runAdsTester = async (page, browser, context) => {

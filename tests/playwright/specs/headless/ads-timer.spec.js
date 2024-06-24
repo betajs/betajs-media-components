@@ -27,7 +27,6 @@ test.describe(`Autoplay: Later ads source integration`, () => {
 
     test.describe.configure({
         mode: 'default',
-        retries: 0,
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
     });
@@ -153,7 +152,7 @@ test.describe(`Autoplay: Later ads source integration`, () => {
     });
 });
 
-test.describe(`Manula Play: Later ads source integration`, () => {
+test.describe(`Manual Play: Later ads source integration`, () => {
     const adsSourceInitTimeout = 3000;
     let descriptionPlayerAttributes = {
         autoplay: false,
@@ -174,7 +173,6 @@ test.describe(`Manula Play: Later ads source integration`, () => {
 
     test.describe.configure({
         mode: 'default',
-        retries: 0,
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
     });

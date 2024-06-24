@@ -14,7 +14,7 @@ class PlayerPage {
     constructor(page, attrs, context, urlOptions, testid = 'ba-testid') {
         this.page = page;
         this.context = context;
-        this.debug = true;
+        this.debug = false;
         this.fullURI = `${PLAYER_URI}?${createOptions(urlOptions)}`;
         this.attrs = attrs;
         this.testid = testid;
@@ -103,6 +103,7 @@ class PlayerPage {
         return this.playerInstance.evaluate(async (ins, key) => {
             if (typeof ins.get !== 'function')
                 throw new Error(`Player instance does not have get method`);
+            if (this.debug) console.log(`DEBUG: Will get key: ${key} value: ${ins.get(key)}`);
             return Promise.resolve(ins.get(key));
         }, keyName);
     }
@@ -317,9 +318,8 @@ class PlayerPage {
         }
         if (this.debug) console.log(`DEBUG: Iframe found: ${iFrame}`);
         const skipButton = iFrame.locator(`button.videoAdUiSkipButton`);
-        await skipButton.waitFor({ state: 'visible', timeout: 6000 });
+        await skipButton.waitFor({ state: 'visible', timeout: 8000 });
         if (this.debug) console.log(`DEBUG: Skip button: ${skipButton}`);
-        await skipButton.click();
         await skipButton.click();
     }
 

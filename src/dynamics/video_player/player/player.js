@@ -453,7 +453,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             },
                             "hiddenelement": {
                                 "visible": true
-                            }
+                            },
+                            wait_for_ads_source: false
                         },
                         "placeholderstyle": "",
                         "hasplaceholderstyle": false,
@@ -461,7 +462,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         // Reference to Chrome renewed policy, we have to set up mute for autoplaying players.
                         // If we do it forcibly, then we will set as true
                         "forciblymuted": false,
-                        "autoplay-allowed": false,
                         "autoplay-requires-muted": true,
                         "autoplay-requires-playsinline": null,
                         // When volume was unmuted, by the user himself, not automatically
@@ -842,51 +842,23 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("controlbarstyles", {});
                         return {};
                     },
-                    "adsinitialized:adsplaying,adtagurl,inlinevastxml": function(playing, adsTagURL, inlineVastXML) {
-                        if (this.get("adsinitialized")) {
-                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.stop();
-                        }
-                        if (playing) {
-                            if (this.__adInitilizeChecker) this.__adInitilizeChecker.stop();
-                            return true;
-                        }
+                    "adsinitialized:adtagurl,inlinevastxml": function(adsTagURL, inlineVastXML) {
                         if ((!!adsTagURL || !!inlineVastXML) && !this.get("adshassource")) {
                             this.set("adshassource", true);
+                            // this.set(`adsplayer_active`, true);
+                            this.stopAdsSourceSetupChecker(true);
                             // If we're already not set timer for ads failure, and we have some ads source
                             // start set it here. Possible other options are via Header bidding services like Prebid
                             this.initAdsRenderFailTimeout();
                             // On error, we're set initialized to true to prevent further attempts
                             // in case if ads will not trigger any event, we're setting initialized to true after defined seconds and wil show player content
-                            this.once("ad:adsManagerLoaded", function() {
-                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.stop();
-                                this.set("adsinitialized", true);
-                            });
-                            this.once("ad:ad-error", function() {
-                                if (this.__adInitilizeChecker) this.__adInitilizeChecker.stop();
+                            this.once("ads:adsManagerLoaded", function() {
                                 this.set("adsinitialized", true);
                             }, this);
-                        } else {
-                            if (this.get(`ads_source_init_timeout`) > 0) {
-                                const interval = this.get(`ads_source_init_timeout`) < 200 ? this.get(`ads_source_init_timeout`) : 200;
-                                this.__adInitilizeChecker = this.auto_destroy(new Timers.Timer({
-                                    context: this,
-                                    fire: () => {
-                                        this.set(`adsinitialized`, this.get("adshassource"));
-                                        if (this.get("adshassource") && this.__adInitilizeChecker) {
-                                            this.__adInitilizeChecker.stop();
-                                            this.__adInitilizeChecker = null;
-                                        }
-                                    },
-                                    delay: interval,
-                                    start: true,
-                                    destroy_on_stop: true,
-                                    fire_max: Math.floor(this.get(`ads_source_init_timeout`) / interval),
-                                    once: interval <= 200
-                                }));
-                            } else {
-                                return false;
-                            }
-                        }
+                            this.once("ads:ad-error", function() {
+                                this.set("adsinitialized", true);
+                            }, this);
+                        } else return false;
                     },
                     "hideplayer:autoplay,autoplaywhenvisible,adshassource,adsinitialized,hidden,hidebeforeadstarts": function(
                         autoplay,
@@ -899,7 +871,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("floatingoptions.floatingonly")) {
                             this.set("autoplaywhenvisible", false);
                         }
-                        if (hidden) return hidden;
+                        if (Types.is_defined(hidden)) return hidden;
                         if (!autoplay && !autoplaywhenvisible) return false;
                         if (autoplay || !autoplaywhenvisible) return false
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
@@ -1604,6 +1576,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 _attachVideo: function(silent) {
+                    console.trace(`_attachVideo silent? : ${silent}`);
                     if (this.videoAttached())
                         return;
                     if (!this.__activated) {
@@ -2120,7 +2093,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         delay: 4000,
                         fire: function() {
                             if (this.get("showcontroll") && this.get('playing') && this.get('trackUnmute')) this.set("showcontroll", false);
-
                         }.bind(this),
                         once: true
                     }));
@@ -2171,7 +2143,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this._broadcasting.player.trigger("play-google-cast");
                             return;
                         }
-                        console.log(`Host state: ${this.host.state().state_name()} will run play() from Player.play()`);
                         this.host.state().play();
                         this.set("manuallypaused", false);
                     },
@@ -2838,6 +2809,64 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // if there's no specification, play preroll or VMAP if not set adsposition at all
                             this.set("vmapads", true);
                         }
+                    } else if (this.get(`ads_source_init_timeout`) > 0) {
+                        this.startAdsSourceSetupChecker(this.get(`ads_source_init_timeout`));
+                    }
+                },
+
+                /**
+                 * Will check if as source is ready, if not will start a timer to check it and trigger event
+                 * @param timeout
+                 */
+                startAdsSourceSetupChecker: function(timeout) {
+                    timeout = timeout || this.get(`ads_source_init_timeout`) || this.get(`initialoptions.ads_source_init_timeout`);
+                    this._recordPerformance(`startAdsSourceSetupChecker`);
+                    if (!isNaN(timeout) && timeout > 0) {
+                        if (!this.__adSourceSetupChecker) {
+                            const interval = timeout < 200 ? timeout : 200;
+                            this.__adSourceSetupChecker = this.auto_destroy(new Timers.Timer({
+                                context: this,
+                                fire: () => {
+                                    this.set(`states.wait_for_ads_source`, !this.get(`adshassource`));
+                                    if (this.get(`adshassource`)) {
+                                        this.stopAdsSourceSetupChecker(true);
+                                    }
+                                },
+                                delay: interval,
+                                start: true,
+                                destroy_on_stop: true,
+                                fire_max: Math.floor(timeout / interval),
+                                once: interval <= 200
+                            }));
+                            Async.eventually(function() {
+                                this.stopAdsSourceSetupChecker(false);
+                            }, this, timeout);
+                        } else {
+                            this.resetAdsSourceSetupChecker(timeout);
+                        }
+                    }
+                },
+
+                stopAdsSourceSetupChecker: function(success) {
+                    success = success || false;
+                    this.set(`states.wait_for_ads_source`, false);
+                    if (this.__adSourceSetupChecker) {
+                        this._recordPerformance(`stopAdsSourceSetupChecker-${success}`);
+                        this.__adSourceSetupChecker.destroy();
+                        this.__adSourceSetupChecker = null;
+                        // NOTE: Important to trigger event after __adSourceSetupChecker is set to null
+                        this.trigger(`ads_source_ready`, success);
+                    }
+                },
+
+                resetAdsSourceSetupChecker: function(timeout) {
+                    timeout = timeout || this.get(`ads_source_init_timeout`) || this.get(`initialoptions.ads_source_init_timeout`);
+                    if (this.__adSourceSetupChecker) {
+                        this.__adSourceSetupChecker.destroy();
+                        this.__adSourceSetupChecker = null;
+                        if (timeout > 0) {
+                            this.startAdsSourceSetupChecker(timeout);
+                        }
                     }
                 },
 
@@ -3268,7 +3297,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             .success(function(response, err) {
                                 if (suitableCondition) return;
                                 // If autoplay is allowed in any way
-                                if (!this.get("autoplay-allowed")) {
+                                if (Types.is_undefined(this.get("autoplay-allowed"))) {
                                     this.set("autoplay-allowed", !!response.result);
                                 }
                                 // If condition is true no need for turn off volume

@@ -1624,7 +1624,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         // On autoplay video, silent attach should be false
-                        this.set("silent_attach", (silent && !this.get("autoplay")) || this._prerollAd || false);
+                        this.set("silent_attach", (silent && !this.get("autoplay")) || this.get(`preload_ads`) || false);
 
                         if (this.get("chromecast")) {
                             if (!this.get("skipinitial")) this.set("skipinitial", true);

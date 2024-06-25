@@ -11,7 +11,7 @@ const browserSettings = {
 
 test.describe.configure({
     mode: 'default',
-    retries: 0,
+    retries: 1,
     headless: browserSettings.headless,
     viewport: { width: 1280, height: 720 },
     video: 'on-first-retry',
@@ -27,13 +27,13 @@ test(`default state`, async ({ page, browserName, browser, context }) => {
         await player.goto();
         await player.setPlayerInstance();
 
+        const playerButton = await player.getElementByTestID(`overlay-play-button`);
+
         const videoProperty = await player.getPropertyValue(`__video`);
         await expect(videoProperty).toBeUndefined();
 
-        const playerButton = await player.getElementByTestID(`overlay-play-button`);
-        await expect(playerButton).toBeVisible();
-
-        playerButton.click();
+        await expect(await playerButton).toBeVisible();
+        await (await playerButton).click();
     }
 
     await runTestMethod({

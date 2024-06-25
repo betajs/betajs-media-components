@@ -166,6 +166,7 @@ test.describe(`With ads source`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
+            const adsCompletedEvent =  player.listenPlayerEvent(`ads:complete`, 1000);
             await player.listenPlayerEvent(`ads:loaded`, 2000);
 
             //  as soon ads loads, IMA will move player container to the viewport
@@ -183,9 +184,8 @@ test.describe(`With ads source`, () => {
             await expect(adsPauseButton).toBeInViewport();
 
             await player.clickAdsSkipButton();
-            await player.listenPlayerEvent(`ads:complete`, 1000);
+            await adsCompletedEvent;
 
-            await player.listenPlayerEvent(`change:position`);
             await player.waitNextSecondPosition(3);
             const playing = await player.getPlayerAttribute(`playing`);
             await expect(playing).toBeTruthy();

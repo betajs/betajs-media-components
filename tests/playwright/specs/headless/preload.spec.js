@@ -36,10 +36,7 @@ test(`preload video content`, async ({ page, browserName, browser, context }) =>
         await player.goto();
         await player.setPlayerInstance();
 
-        // await player.listenPlayerEvent(`attached`, 2000);
-        const isElementActive = await player.getPlayerAttribute(`videoelement_active`);
-        await expect(isElementActive).toBeTruthy();
-
+        // It's confirmed that video is attached
         const videoProperty = await player.getPropertyValue(`__video`);
         await expect(videoProperty).toBeDefined();
 

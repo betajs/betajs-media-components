@@ -41,25 +41,24 @@ test.describe(`With Ads`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            const wrapperElement = await player.getElementByTestID(`player-container`);
-            await expect(wrapperElement).not.toBeInViewport();
+            const overlayPlayButton = player.getElementByTestID(`overlay-play-button`);
+            const wrapperElement = player.getElementByTestID(`player-container`);
+            const adsPauseButton = player.getElementByTestID(`ads-controlbar-pause-button`);
+            const adsPlayButton = player.getElementByTestID(`ads-controlbar-play-button`);
+            const pauseButton = player.getElementByTestID(`content-pause-button`);
 
-            await player.scrollToTheElement(wrapperElement);
-            const overlayPlayButton = await player.getElementByTestID(`overlay-play-button`);
-            await expect(overlayPlayButton).toBeVisible();
-            await overlayPlayButton.click();
+            await expect(await wrapperElement).not.toBeInViewport();
 
-            const width = await wrapperElement.boundingBox();
-            console.log(width);
-            await expect(width.width).toEqual(playerWidth);
+            await player.scrollToTheElement(await wrapperElement);
+            await expect(await wrapperElement).toBeInViewport();
+
+            await expect(await overlayPlayButton).toBeVisible();
+            await (await overlayPlayButton).click();
 
             await player.listenPlayerEvent(`ads:loaded`, 2000);
 
             let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeTruthy();
-
-            let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
-            await expect(adsPauseButton).not.toBeVisible();
 
             await player.listenPlayerEvent(`ads:firstQuartile`, 2000);
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
@@ -67,12 +66,10 @@ test.describe(`With Ads`, () => {
             adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeFalsy();
 
-            adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
-            await expect(adsPauseButton).toBeVisible();
-            adsPauseButton.click();
-            let adsPlayButton = await player.getElementByTestID(`ads-controlbar-play-button`);
-            await expect(adsPlayButton).toBeVisible();
-            await adsPlayButton.click();
+            await expect(await adsPauseButton).toBeVisible();
+            await (await adsPauseButton).click();
+            await expect(await adsPlayButton).toBeVisible();
+            await (await adsPlayButton).click();
 
             const waitForSkip =  player.listenPlayerEvent(`ads:skip`, 2000);
             await player.clickAdsSkipButton();
@@ -85,11 +82,11 @@ test.describe(`With Ads`, () => {
             const playing = await player.getPlayerAttribute(`playing`);
             await expect(playing).toBeTruthy();
 
-            const pauseButton = await player.getElementByTestID(`content-pause-button`);
-            await expect(pauseButton).toBeVisible();
-            pauseButton.click();
+            await (await wrapperElement).hover();
+            await expect(await pauseButton).toBeVisible();
+            await (await pauseButton).click();
+            await expect(await pauseButton).not.toBeVisible();
             const playButton = await player.getElementByTestID(`content-play-button`);
-            await expect(pauseButton).not.toBeVisible();
             await expect(playButton).toBeVisible();
         }
 

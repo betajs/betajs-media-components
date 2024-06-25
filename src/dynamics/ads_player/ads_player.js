@@ -392,10 +392,16 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         return adMediaUrl;
                     }
                     // backup plan if mediaurl is not in data object
-                    const mediaFiles = adObj?.data?.traffickingParameters && JSON.parse(adObj.data.traffickingParameters)?.mediaFiles;
-                    if (mediaFiles) {
-                        const mediaFile = Array.from(mediaFiles).find(file => !!file?.uri).uri;
-                        return mediaFile || "";
+                    if (adObj?.data?.traffickingParameters) {
+                        try {
+                            const mediaFiles = JSON.parse(adObj.data.traffickingParameters)?.mediaFiles;
+                            if (Array.isArray(mediaFiles)) {
+                                const mediaFile = mediaFiles.find(file => !!file?.uri).uri;
+                                return mediaFile || "";
+                            }
+                        } catch (err) {
+                            console.error(err)
+                        }
                     }
                     return "";
                 },

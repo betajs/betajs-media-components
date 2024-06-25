@@ -11,7 +11,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
         _start: function() {
             /** Uncomment below to track the states */
-            // this.cls.debugStates([`LoadVideo`], this.allAttr(), this._locals);
+            this.cls.debugStates([`LoadVideo`], this.allAttr(), this._locals);
 
             this.dyn = this.host.dynamic;
             Objs.iter(Objs.extend({
@@ -504,6 +504,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
     });
 });
 
+
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
     "browser:Info"
@@ -548,11 +549,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
         },
 
         _nextState: function() {
+            if (this._next) return this._next;
             if (this._position && this._position === State.ADS_POSITIONS.OUTSTREAM)
                 return "PlayOutstream";
-            if ((this._position && this._position === State.ADS_POSITIONS.MIDROLL) || (this.dyn.videoAttached() && this._autoplay))
+            if (this._position && this._position === State.ADS_POSITIONS.MIDROLL)
                 return "PlayVideo";
-            if (!this._autoplay && !this.dyn.get(`skipinitial`) && this.dyn.get(`preload_ads`))
+            if (!this.dyn.get(`autoplay`) && !this.dyn.get(`skipinitial`) && this.dyn.get(`preload_ads`))
                 return `PosterReady`;
             return "LoadVideo";
         },
@@ -612,7 +614,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadAds", [
                 this.listenOn(this.dyn.channel(`ads`), `render-timeout`, function() {
                     this.dyn.stopAdsRenderFailTimeout(true);
                     if (this.dyn && this.dyn.player) this.dyn.player.play();
-                    this.next(this._nextState());
+                    this.next(`PlayVideo`, {
+                        autoplay: true
+                    });
                 });
             }
         }
@@ -758,20 +762,20 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             if (this.dyn.videoAttached()) {
                 // if ads loaded and ready, will wait for ads to be played, after start playing the video
                 if (this.dyn?.player && !this.dyn.get(`ads_loaded`) && (this._autoplay || this.dyn.get(`autoplay`))) {
-                  // TODO: TEST
-                  // if (typeof this.dyn.get(`autoplay-allowed`) === 'undefined' && this.dyn.get(`autoplay`)) {
-                  //     this.dyn.once(`change:autoplay-allowed`, function(allowed) {
-                  //         if (allowed) this.dyn?.player?.play();
-                  //         this.next(`PlayVideo`);
-                  //     }, this);
-                  //     return;
-                  // }
+                    // TODO: TEST
+                    // if (typeof this.dyn.get(`autoplay-allowed`) === 'undefined' && this.dyn.get(`autoplay`)) {
+                    //     this.dyn.once(`change:autoplay-allowed`, function(allowed) {
+                    //         if (allowed) this.dyn?.player?.play();
+                    //         this.next(`PlayVideo`);
+                    //     }, this);
+                    //     return;
+                    // }
                     this.dyn?.player?.play();
                 }
                 this.next(`PlayVideo`);
             } else {
                 this.next(`LoadVideo`, {
-                  autoplay: true
+                    autoplay: true
                 });
             }
         }

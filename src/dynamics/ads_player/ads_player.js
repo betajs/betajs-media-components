@@ -395,8 +395,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     const mediaFiles = adObj?.data?.traffickingParameters && JSON.parse(adObj.data.traffickingParameters)?.mediaFiles;
                     if (mediaFiles) {
                         const mediaFile = Array.from(mediaFiles).find(file => !!file?.uri).uri;
-                        return mediaFile;
+                        return mediaFile || "";
                     }
+                    return "";
                 },
                 checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");

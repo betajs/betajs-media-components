@@ -158,7 +158,6 @@ test.describe(`No Ads`, () => {
     }
 
     test.describe.configure({
-        retries: 0,
         mode: 'default',
         headless: browserSettings.headless,
         viewport: { width: 1280, height: 720 },

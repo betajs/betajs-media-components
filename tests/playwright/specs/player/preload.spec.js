@@ -321,7 +321,6 @@ test.describe(`With no ads`, () => {
     test.describe.configure({
         headless: false,
         mode: 'default',
-        retries: 0,
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
     });

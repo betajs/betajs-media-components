@@ -11,7 +11,6 @@ const browserSettings = {
 
 test.describe.configure({
     mode: 'default',
-    retries: 1,
     headless: browserSettings.headless,
     viewport: { width: 1280, height: 720 },
     video: 'on-first-retry',

@@ -21,7 +21,6 @@ test.describe(`No ads`, () => {
     test.describe.configure({
         headless: browserSettings.headless,
         mode: 'default',
-        retries: 1,
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
     });

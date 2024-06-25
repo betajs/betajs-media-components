@@ -64,6 +64,7 @@
             ba-ad="{{=ad}}"
             ba-addata="{{=addata}}"
             ba-adsmanagerloaded="{{=adsmanagerloaded}}"
+            ba-ads_loaded="{{=ads_loaded}}"
             ba-css="{{css}}"
             ba-cssplayer="{{cssplayer}}"
             ba-csscommon="{{csscommon}}"
@@ -109,7 +110,8 @@
             ba-presetedtooltips="{{presetedtooltips}}"
             ba-showadchoices="{{showadchoices}}"
             ba-imaadsrenderingsetting="{{imaadsrenderingsetting}}"
-            ba-adsrendertimeout="{{adsrendertimeout}}"
+            ba-autoplay="{{autoplay}}"
+            ba-vmapads="{{vmapads}}"
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
              ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" style="{{placeholderstyle}}"
@@ -136,6 +138,7 @@
                 ba-event:seek="seek"
             ></ba-{{dyntrimmer}}>
             <ba-{{dyncontrolbar}}
+                ba-show="{{controlbar_active && !hidecontrolbar}}"
                 ba-css="{{csscontrolbar || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
                 ba-csstheme="{{csstheme || css}}"
@@ -143,7 +146,6 @@
                 ba-logo="{{controlbar_logo}}"
                 ba-themecolor="{{themecolor}}"
                 ba-template="{{tmplcontrolbar}}"
-                ba-show="{{controlbar_active && !hidecontrolbar}}"
                 ba-playing="{{playing}}"
                 ba-showcontroll="{{showcontroll}}"
                 ba-playwhenvisible="{{playwhenvisible}}"
@@ -246,12 +248,13 @@
             ></ba-{{dynsettingsmenu}}>
 
             <ba-{{dynplaybutton}}
+                ba-show="{{playbutton_active}}"
                 ba-css="{{cssplaybutton || css}}"
                 ba-csstheme="{{csstheme || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
                 ba-theme-color="{{themecolor}}"
+                ba-testid="{{testid}}"
                 ba-template="{{tmplplaybutton}}"
-                ba-show="{{playbutton_active}}"
                 ba-rerecordable="{{rerecordable}}"
                 ba-submittable="{{submittable}}"
                 ba-trimmingmode="{{trimmingmode}}"
@@ -267,6 +270,7 @@
                 ba-css="{{cssloader || css}}"
                 ba-csstheme="{{csstheme || css}}"
                 ba-cssplayer="{{cssplayer || css}}"
+                ba-testid="{{testid}}"
                 ba-theme-color="{{themecolor}}"
                 ba-template="{{tmplloader}}"
                 ba-playwhenvisible="{{playwhenvisible}}"
@@ -308,7 +312,9 @@
         </div>
         <div ba-show="{{useAspectRatioFallback}}" ba-styles="{{aspectRatioFallback}}"></div>
     </div>
-    <div ba-show="{{show_sidebar}}" class="{{cssplayer}}-sidebar" ba-styles="{{sidebarstyles}}">
+    <div ba-show="{{show_sidebar}}" class="{{cssplayer}}-sidebar"
+         ba-styles="{{sidebarstyles}}" data-testid="{{testid}}-player-sidebar"
+    >
         <ba-{{dynsidebar}}
             ba-if="{{sidebar_active}}"
             ba-css="{{css}}"

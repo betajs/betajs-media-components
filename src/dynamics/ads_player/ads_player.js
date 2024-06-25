@@ -41,7 +41,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     companionads: [],
                     companionadcontent: null,
                     customclickthrough: false,
-                    persistentcompanionad: false
+                    persistentcompanionad: false,
+                    ads_loaded: false
                 },
 
                 events: {
@@ -66,9 +67,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 _deferActivate: function() {
                     if (this._loadedSDK) return false;
-                    IMALoader.loadSDK({
-                        debug: this.get("debug_ima")
-                    }).success(function() {
+                    IMALoader.loadSDK().success(function() {
                         if (this.__iasConfig()) {
                             IMALoader.loadIAS().success(function() {
                                 this._loadedSDK = true;
@@ -106,21 +105,24 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 channels: {
                     "ads:ad-error": function() {
-                        this.set("adsplaying", false);
+                        this.set(`adsplaying`, false);
+                        this.set(`ads_loaded`, false);
                         if (this.parent().get("outstream")) {
                             this.parent().hidePlayerContainer();
                         }
                         this.trackAdsPerformance(`ad-error`);
                     },
                     "ads:render-timeout": function() {
+                        this.set(`adsplaying`, false);
+                        this.set(`ads_loaded`, false);
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
                             this.adsManager.destroy();
                         }
                         this.trackAdsPerformance(`ads-render-timeout`);
                     },
-                    "ads:load": function() {
+                    "ads:load": function(autoPlay = true) {
                         this.set("skipvisible", false);
-                        this.call("load");
+                        this.call("load", autoPlay);
                         this.set("quartile", "first");
                         this.trackAdsPerformance(`ads-load-start`);
                     },
@@ -136,6 +138,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:start": function(ev) {
                         this._onStart(ev);
                         this.trackAdsPerformance(`ads-start`);
+                        this.set(`ads_loaded`, false);
                     },
                     "ads:skippableStateChanged": function(event) {
                         this.set("skipvisible", true);
@@ -172,7 +175,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("duration", adData.duration);
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
+                        this.set(`ads_loaded`, true);
                         this.trackAdsPerformance(`ads-loaded`);
+                        this._onLoaded(event);
                     },
                     "ads:outstreamCompleted": function(dyn) {
                         this._outstreamCompleted(dyn);
@@ -206,9 +211,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 create: function() {
-                    var dynamics = this.parent();
-                    var adContainer = this.getAdContainer();
-                    var adManagerOptions = {
+                    const dynamics = this.parent();
+                    const adContainer = this.getAdContainer();
+                    const adManagerOptions = {
                         adContainer: adContainer,
                         adsRenderingSettings: this.get("imaadsrenderingsetting"),
                         IMASettings: this.get("imasettings")
@@ -227,6 +232,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // ignore events like adsProgress for additional statement checks
                     this.adsManager.on("all", function(event, ad, ...rest) {
                         if (event === "adsManagerLoaded") {
+                            dynamics.set(`adsinitialized`, true);
                             this.set("adsmanagerloaded", true);
                             if (this.__iasConfig() && typeof googleImaVansAdapter !== "undefined") {
                                 googleImaVansAdapter.init(google, this.adsManager, this.getVideoElement(), Objs.extend({
@@ -270,18 +276,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 functions: {
-                    load: function() {
+                    load: function(autoPlay) {
                         if (!this.adsManager) return this.once("dynamic-activated", function() {
-                            this.call("load");
+                            this.call("load", autoPlay);
                         }, this);
-                        this.adsManager.start({
-                            width: this.getAdWidth(),
-                            height: this.getAdHeight(),
-                            volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
-                        });
-
-                        // if (!this.adsManager.adDisplayContainerInitialized) this.adsManager.initializeAdDisplayContainer();
-                        // this.call("requestAds");
+                        this.adsManager.start(this._adsManagerRunOptions(autoPlay));
+                    },
+                    play: function() {
+                        if (!this.adsManager) this.call("load", true);
+                        if (this.get("adsplaying") || !this.get(`ads_loaded`)) {
+                            console.warn(`Ads already playing or ads not loaded yet.`);
+                            return;
+                        }
+                        if (this.adsManager) {
+                            this.adsManager.playLoadedAd(this._adsManagerRunOptions(true));
+                        }
                     },
                     reset: function() {
                         this.set("linear", true);
@@ -477,7 +486,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillAutoPlay: function() {
-                    return this.parent() && (this.parent().get("autoplay-allowed") || this.parent().get("autoplay"));
+                    return this.parent() && (!!this.parent().get("autoplay-allowed") || this.parent().get("autoplay"));
                 },
 
                 getAdWillPlayMuted: function() {
@@ -494,12 +503,14 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.set("remaining", this.get("duration"));
                     this.set("showactionbuttons", false);
                     this.set("adscompleted", false);
+                    this.set("hidecontrolbar", !this.get(`linear`) || this.get("hideadscontrolbar"));
+                },
 
+                _onLoaded: function(ev) {
                     if (ev && Types.is_function(ev.getAd)) {
                         var ad = ev.getAd();
                         var isLinear = ad.isLinear();
                         this.set("linear", isLinear);
-                        this.set("hidecontrolbar", !isLinear || this.get("hideadscontrolbar"));
                         if (!isLinear) {
                             this.set("non-linear-min-suggestion", ad.getMinSuggestedDuration());
                             // decrease a non-linear suggestion period, be able to show midroll
@@ -530,12 +541,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     this.parent().stopAdsRenderFailTimeout(true);
                     // and set a new videoLoaded timeout for midroll and post-roll
                     this._setLoadVideoTimeout();
-
-                    // Additional resize will fit ads fully inside the player container
-                    if (this.get("sidebar_active") && this.adsManager && this.parent()) {
-                        // NOTE: can cause console error on main player, uncomment if required separately
-                        // this.parent().trigger("resize");
-                    }
                 },
 
                 _onAdComplete: function(ev) {
@@ -818,6 +823,15 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     this.set("volume", volume);
                     this.set("adsunmuted", volume > 0);
+                },
+
+                _adsManagerRunOptions: function(autoPlay) {
+                    return {
+                        width: this.getAdWidth(),
+                        height: this.getAdHeight(),
+                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
+                        adWillAutoPlay: Types.is_defined(autoPlay) ? autoPlay : true
+                    }
                 }
             };
         }).register("ba-adsplayer")

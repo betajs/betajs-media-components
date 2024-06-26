@@ -94,6 +94,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsRequest.linearAdSlotHeight = options.linearAdSlotHeight;
                 this._adsRequest.nonLinearAdSlotWidth = options.nonLinearAdSlotWidth;
                 this._adsRequest.nonLinearAdSlotHeight = options.nonLinearAdSlotHeight;
+                // setAdWillAutoPlay: void. Notifies the SDK and changing this setting will have no impact on ad playback.
                 this._adsRequest.setAdWillAutoPlay(options.adWillAutoPlay);
                 this._adsRequest.setAdWillPlayMuted(options.adWillPlayMuted);
                 this._adsRequest.setContinuousPlayback(options.continuousPlayback);
@@ -200,11 +201,26 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adDisplayContainer.initialize();
                     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
                     this._adsManager.setVolume(options.volume);
-                    this._adsManager.start();
+                    if (options.adWillAutoPlay) {
+                        this._adsManager.start();
+                    }
                 } catch (e) {
                     this.onAdError(e);
                     throw e;
                 }
+            },
+
+            playLoadedAd: function(options) {
+                if (!this._adsManager) {
+                    options = options || {};
+                    console.warn(`Before calling startLoaded, you must wait for the adsManagerLoaded event.`);
+                    this.start({
+                        ...options,
+                        adWillAutoPlay: true
+                    });
+                    return;
+                }
+                this._adsManager.start();
             },
 
             adDisplayContainerInitialized: function() {

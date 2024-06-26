@@ -4,7 +4,7 @@
      onkeydown="{{tab_index_move(domEvent, null, 'player-toggle-overlay')}}"
      class="{{css}}-playbutton-container" ba-click="{{play()}}" title="{{string('tooltip')}}"
 >
-	<div class="{{css}}-playbutton-button"></div>
+	<div class="{{css}}-playbutton-button" data-testid="{{testid}}-overlay-play-button"></div>
 </div>
 <div ba-show="{{showduration && (duration != 0 && duration != undefined)}}" class="{{css}}-playbutton-duration">
 	{{formatTime(duration)}}

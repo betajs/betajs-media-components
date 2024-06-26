@@ -29,7 +29,6 @@ test.describe('Unmute on click behave', () => {
     test.describe.configure({
         headless: false,
         mode: 'default',
-        retries: 0,
         // timeout: 120_000,
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',

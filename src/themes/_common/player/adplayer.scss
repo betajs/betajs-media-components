@@ -174,7 +174,7 @@
     @include transition1(all, 0.3s, ease-in-out 0.2s);
 }
 
-.ba-ad-container {
+.ba-ad-container.ba-adsplayer-linear-ads-playing {
     z-index: 1;
 }
 

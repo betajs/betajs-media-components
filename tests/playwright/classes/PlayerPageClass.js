@@ -1,6 +1,6 @@
 const { expect } = require('@playwright/test')
 import createOptions from '../utils/create-options';
-import { PLAYER_URI } from '../consts.js';
+import { PLAYER_URI, DATA_TEST_ID_PREFIX } from '../consts.js';
 
 
 class PlayerPage {
@@ -9,7 +9,7 @@ class PlayerPage {
     attrs = {};
     debug = false;
     playerInstance = null;
-    testid = 'ba-testid';
+    testid = DATA_TEST_ID_PREFIX;
 
     constructor(page, attrs, context, urlOptions, testid = 'ba-testid') {
         this.page = page;
@@ -78,12 +78,32 @@ class PlayerPage {
         }, [functionName, args]);
     }
 
+    /**
+     * @param propertyName
+     * @return {Promise<*>}
+     */
+    async getPropertyValue(propertyName) {
+        if (!this.playerInstance) {
+            throw new Error(`Player instance is not set to be able to get ${propertyName} value.`);
+        }
+        return this.playerInstance.evaluate(async (ins, [name]) => {
+            if (!name)
+                throw new Error(`Player instance does not have property with name: ${name}`);
+            try {
+                return Promise.resolve(ins[name]);
+            } catch (e) {
+                return await Promise.reject(e);
+            }
+        }, [propertyName]);
+    }
+
     async getPlayerAttribute(keyName) {
         if (!this.playerInstance)
             throw new Error(`Player instance is not set to be able to get attribute: ${keyName}`);
         return this.playerInstance.evaluate(async (ins, key) => {
             if (typeof ins.get !== 'function')
                 throw new Error(`Player instance does not have get method`);
+            if (this.debug) console.log(`DEBUG: Will get key: ${key} value: ${ins.get(key)}`);
             return Promise.resolve(ins.get(key));
         }, keyName);
     }
@@ -148,8 +168,9 @@ class PlayerPage {
                 if (eventName.includes(":")) {
                     const channel = eventName.split(":")[0];
                     const event = eventName.split(":")[1];
+                    if (debug) console.log(`DEBUG: Will listen event ${event} on channel: ${channel}`);
                     playerInstance.channel(channel).on(event, (data) => {
-                        if (debug) console.log(`Will handle event ${eventName} and return data: ${data}`);
+                        if (debug) console.log(`DEBUG: Will handle event ${eventName} and return data: ${data}`);
                         if (timeoutID) clearTimeout(timeoutID);
                         return resolve(data);
                     });
@@ -205,6 +226,15 @@ class PlayerPage {
         );
     }
 
+    async getElementByTestID(selectorName) {
+        const reg = new RegExp(String.raw`^${this.testid}`, "i");
+        if (selectorName.match(reg)) {
+            const repl = new RegExp(String.raw`^(${this.testid}-|${this.testid})`, "i");
+            selectorName = selectorName.replace(repl, "");
+        }
+        return await this.page.getByTestId(`${this.testid}-${selectorName}`);
+    }
+
     async locatorClickWithDelay(locator, delay = 1000) {
         await new Promise((r) => setTimeout(() => {
             locator.click();
@@ -230,13 +260,82 @@ class PlayerPage {
         );
     }
 
+    async scrollToTheElement(element, toPositionY, steps) {
+        steps = steps || 10;
+        if (!element && !toPositionY) {
+            throw new Error(`You have to provide element or position to scroll to it`);
+        }
+        const data = element ? await element.boundingBox() : {};
+        const topPosition = toPositionY || data.y;
+        return await this.page.evaluate(async ([topPosition, steps]) => {
+            topPosition = topPosition || document.body.scrollHeight;
+            const direction = window.scrollY < topPosition ? 1 : -1;
+            topPosition = (topPosition * direction) || document.body.scrollHeight;
+            const perStep = Math.floor(topPosition / steps) * direction;
+            let startPosition = direction > 0 ? 0 : window.scrollY;
+            const lastPositionValues = [];
+            const condition = () => {
+                const maxAllowedDuplicates = 3;
+                const duplicatesCounter = lastPositionValues.reduce((prev, val) => ({
+                    ...prev, [val]: (prev[val] || 0) + 1
+                }), {});
+                return (direction > 0 ? window.scrollY <= topPosition : window.scrollY >= topPosition) &&
+                    window.Object.keys(duplicatesCounter).filter(
+                        k => duplicatesCounter[k] && duplicatesCounter[k] >= maxAllowedDuplicates
+                    ).length === 0;
+            }
+            const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+            for (startPosition; condition(); startPosition += perStep) {
+                window.scrollTo({
+                    left: 0, top: window.scrollY + perStep, behavior: "smooth"
+                });
+                // for checking if we're counting in one place, it means we're at the end of the page
+                lastPositionValues.push(window.scrollY + topPosition);
+                await delay(500);
+            }
+        }, [topPosition, steps]);
+    }
+
     // after found page: page.waitForTimeout()
     async delay(delay = 5) {
-        await this.page.evaluate(async() => {
+        await this.page.evaluate(async(delay) => {
+            delay = delay > 100 ? delay : delay * 1000;
             await new Promise(function(resolve) {
                 setTimeout(resolve, delay);
             });
         }, delay);
+    }
+
+    async clickAdsSkipButton() {
+        let iFrame = await this.page.frameLocator('iframe[src*="//imasdk.googleapis.com/js/core/bridge"]');
+        if (!iFrame) {
+            // waitForEvent("frameattached"), framenavigated, console
+            // Get frame using frame's URL
+            const responsePromise = this.page.waitForResponse(/.*imasdk.googleapis.com\/js\/core\/bridge*/);
+            await responsePromise;
+            iFrame = await this.page.frameLocator('iframe[src*="//imasdk.googleapis.com/js/core/bridge"]');
+        }
+        if (this.debug) console.log(`DEBUG: Iframe found: ${iFrame}`);
+        const skipButton = iFrame.locator(`button.videoAdUiSkipButton`);
+        await skipButton.waitFor({ state: 'visible', timeout: 8000 });
+        if (this.debug) console.log(`DEBUG: Skip button: ${skipButton}`);
+        await skipButton.click();
+    }
+
+    async getPlayerCurrentStateName() {
+        if (!this.playerInstance)
+            throw new Error(`Player instance is not defined on getPlayerCurrentStateName method name`);
+        return this.playerInstance.evaluate(async (ins) => {
+            if (typeof ins.host === 'undefined')
+                throw new Error(`Player instance has no any state`);
+            return Promise.resolve(ins?.host?.state()?.state_name());
+        });
+    }
+
+    async testScrollToAd(){
+        const player = this;
+
     }
 }
 

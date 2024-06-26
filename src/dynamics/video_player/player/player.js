@@ -2813,7 +2813,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (!isNaN(timeout) && timeout > 0) {
                         if (!this.__adSourceSetupChecker) {
                             const interval = timeout < 200 ? timeout : 200;
-                            this.__adSourceSetupChecker = this.auto_destroy(new Timers.Timer({
+                            this.__adSourceSetupChecker = new Timers.Timer({
                                 context: this,
                                 fire: () => {
                                     if (this.get(`adshassource`)) {
@@ -2825,7 +2825,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 destroy_on_stop: true,
                                 fire_max: Math.floor(timeout / interval),
                                 once: interval <= 200
-                            }));
+                            });
+                            this.auto_destroy(this.__adSourceSetupChecker);
                             Async.eventually(function() {
                                 this.stopAdsSourceSetupChecker(false);
                             }, this, timeout);

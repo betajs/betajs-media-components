@@ -42,7 +42,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     companionadcontent: null,
                     customclickthrough: false,
                     persistentcompanionad: false,
-                    ads_loaded: false
+                    ads_loaded: false,
+                    ads_load_started: false
                 },
 
                 events: {
@@ -109,6 +110,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:ad-error": function() {
                         this.set(`adsplaying`, false);
                         this.set(`ads_loaded`, false);
+                        this.set(`ads_load_started`, false);
                         if (this.parent().get("outstream")) {
                             this.parent().hidePlayerContainer();
                         }
@@ -117,6 +119,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     "ads:render-timeout": function() {
                         this.set(`adsplaying`, false);
                         this.set(`ads_loaded`, false);
+                        this.set(`ads_load_started`, false);
                         if (this.adsManager && typeof this.adsManager.destroy === "function" && !this.adsManager.destroyed()) {
                             this.adsManager.destroy();
                         }
@@ -127,6 +130,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("load", autoPlay);
                         this.set("quartile", "first");
                         this.trackAdsPerformance(`ads-load-start`);
+                        this.set(`ads-load-started`, true);
                     },
                     "ads:firstQuartile": function() {
                         this.set("quartile", "second");
@@ -178,6 +182,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("moredetailslink", clickthroughUrl);
                         this.set("adsclicktroughurl", clickthroughUrl);
                         this.set(`ads_loaded`, true);
+                        this.set(`ads_load_started`, false);
                         this.trackAdsPerformance(`ads-loaded`);
                         this._onLoaded(event);
                     },

@@ -91,8 +91,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
             showTracesOn = showTracesOn || [];
             const runningState = this.classname.replace(`BetaJS.MediaComponents.VideoPlayer.Dynamics.PlayerStates.`, '');
             showTracesOn.includes(runningState) ?
-                console.trace(`Running state: "${runningState}";`) :
-                console.log(`Running state: "${runningState}";`);
+                console.trace(`%cRunning state: "${runningState}";`, `background-color: yellow; black: white; padding: 2px 5px; border-radius: 2px; font-weight: bold;`) :
+                console.log(`%cRunning state: "${runningState}";`, `background-color: yellow; black: white; padding: 2px 5px; border-radius: 2px; font-weight: bold;`);
             if (locals.length > 0) {
                 console.log(`${runningState} locals: ${locals.map((k) => attrs[k] ? `${k}: ${attrs[k]}` : '')}`);
             }
@@ -698,10 +698,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterError", [
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
     "module:VideoPlayer.Dynamics.PlayerStates.State",
-    "browser:Info",
-    "browser:Dom",
-    "base:Timers.Timer"
-], function(State, Info, Dom, Timer, scoped) {
+    "browser:Dom"
+], function(State, Dom, scoped) {
     return State.extend({
         scoped: scoped
     }, {
@@ -759,17 +757,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
                 this.dyn?.scopes?.adsplayer?.execute(`play`);
                 return;
             }
+            if (this.dyn.get(`ads_load_started`) && !this.dyn.get(`ads_loaded`)) {
+                this.listenOnce(this.dyn, `change:ads_load_started`, function() {
+                    this.play();
+                }, this);
+                return;
+            }
             if (this.dyn.videoAttached()) {
                 // if ads loaded and ready, will wait for ads to be played, after start playing the video
                 if (this.dyn?.player && !this.dyn.get(`ads_loaded`) && (this._autoplay || this.dyn.get(`autoplay`))) {
-                    // TODO: TEST
-                    // if (typeof this.dyn.get(`autoplay-allowed`) === 'undefined' && this.dyn.get(`autoplay`)) {
-                    //     this.dyn.once(`change:autoplay-allowed`, function(allowed) {
-                    //         if (allowed) this.dyn?.player?.play();
-                    //         this.next(`PlayVideo`);
-                    //     }, this);
-                    //     return;
-                    // }
                     this.dyn?.player?.play();
                 }
                 this.next(`PlayVideo`);

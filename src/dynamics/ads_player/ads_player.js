@@ -99,7 +99,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  * @property {number} height
                  * @property {number} volume
                  * @property {number} vastLoadTimeout
-                 * @property {number} volume
                  */
 
                 /**

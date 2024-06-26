@@ -86,24 +86,23 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 inherited.destroy.call(this);
             },
 
-            requestAds: function(options) {
+            /**
+             *
+             * @param {RequestAdsOptions} requestAdsOptions
+             */
+            requestAds: function(requestAdsOptions) {
                 this._adsRequest = new google.ima.AdsRequest();
-                if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
-                else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
-                this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;
-                this._adsRequest.linearAdSlotHeight = options.linearAdSlotHeight;
-                this._adsRequest.nonLinearAdSlotWidth = options.nonLinearAdSlotWidth;
-                this._adsRequest.nonLinearAdSlotHeight = options.nonLinearAdSlotHeight;
-                this._adsRequest.setAdWillAutoPlay(options.adWillAutoPlay);
-                this._adsRequest.setAdWillPlayMuted(options.adWillPlayMuted);
-                this._adsRequest.setContinuousPlayback(options.continuousPlayback);
-                this._adsLoader.getSettings().setAutoPlayAdBreaks(options.autoPlayAdBreaks);
+                if (requestAdsOptions.adTagUrl) this._adsRequest.adTagUrl = requestAdsOptions.adTagUrl;
+                else if (requestAdsOptions.inlinevastxml) this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
+                this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
+                this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
+                this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
+                this._adsRequest.nonLinearAdSlotHeight = requestAdsOptions.nonLinearAdSlotHeight;
+                this._adsRequest.setAdWillAutoPlay(requestAdsOptions.adWillAutoPlay);
+                this._adsRequest.setAdWillPlayMuted(requestAdsOptions.adWillPlayMuted);
+                this._adsRequest.setContinuousPlayback(requestAdsOptions.continuousPlayback);
+                this._adsLoader.getSettings().setAutoPlayAdBreaks(requestAdsOptions.autoPlayAdBreaks);
                 this._adsLoader.requestAds(this._adsRequest);
-                // this.once("adsManagerLoaded", function() {
-                //     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
-                //     this._adsManager.setVolume(options.volume);
-                //     this._adsManager.start();
-                // }.bind(this));
             },
 
             onAdsManagerLoaded: function(adsManagerLoadedEvent) {
@@ -241,36 +240,36 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
             __events: function() {
                 return [
-                    google.ima.AdErrorEvent.Type.AD_ERROR,
-                    google.ima.AdEvent.Type.AD_CAN_PLAY,
-                    google.ima.AdEvent.Type.IMPRESSION,
+                    google.ima.AdErrorEvent.Type.AD_ERROR, // adError
+                    google.ima.AdEvent.Type.AD_CAN_PLAY, // adCanPlay
+                    google.ima.AdEvent.Type.IMPRESSION, // impression
                     google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, // contentPauseRequested
                     google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, // contentResumeRequested
                     google.ima.AdEvent.Type.LOADED, // loaded
-                    google.ima.AdEvent.Type.STARTED, // start
+                    google.ima.AdEvent.Type.STARTED, // started
                     google.ima.AdEvent.Type.FIRST_QUARTILE, // firstQuartile
                     google.ima.AdEvent.Type.MIDPOINT, // midpoint
                     google.ima.AdEvent.Type.THIRD_QUARTILE, // thirdQuartile
                     google.ima.AdEvent.Type.COMPLETE, // complete
                     google.ima.AdEvent.Type.ALL_ADS_COMPLETED, // allAdsCompleted
-                    google.ima.AdEvent.Type.PAUSED, // pause
-                    google.ima.AdEvent.Type.RESUMED,
-                    google.ima.AdEvent.Type.CLICK,
-                    google.ima.AdEvent.Type.VIDEO_CLICKED,
-                    google.ima.AdEvent.Type.AD_PROGRESS,
-                    google.ima.AdEvent.Type.DURATION_CHANGE,
-                    google.ima.AdEvent.Type.SKIPPED,
-                    google.ima.AdEvent.Type.LINEAR_CHANGED,
-                    google.ima.AdEvent.Type.VOLUME_CHANGED, // volumeChange
-                    google.ima.AdEvent.Type.VOLUME_MUTED,
-                    google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED,
-                    google.ima.AdEvent.Type.INTERACTION,
-                    google.ima.AdEvent.Type.USER_CLOSE,
-                    google.ima.AdEvent.Type.VIDEO_ICON_CLICKED,
-                    google.ima.AdEvent.Type.AD_BUFFERING,
-                    google.ima.AdEvent.Type.AD_METADATA,
-                    google.ima.AdEvent.Type.AD_BREAK_READY,
-                    google.ima.AdEvent.Type.LOG
+                    google.ima.AdEvent.Type.PAUSED, // paused
+                    google.ima.AdEvent.Type.RESUMED, // resumed
+                    google.ima.AdEvent.Type.CLICK, // click
+                    google.ima.AdEvent.Type.VIDEO_CLICKED, // videoClicked
+                    google.ima.AdEvent.Type.AD_PROGRESS, // adProgress
+                    google.ima.AdEvent.Type.DURATION_CHANGE, // durationChange
+                    google.ima.AdEvent.Type.SKIPPED, // skipped
+                    google.ima.AdEvent.Type.LINEAR_CHANGED, // linearChanged
+                    google.ima.AdEvent.Type.VOLUME_CHANGED, // volumeChanged
+                    google.ima.AdEvent.Type.VOLUME_MUTED, // volumeMuted
+                    google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED, // skippableStateChanged
+                    google.ima.AdEvent.Type.INTERACTION, // interaction
+                    google.ima.AdEvent.Type.USER_CLOSE, // userClose
+                    google.ima.AdEvent.Type.VIDEO_ICON_CLICKED, // videoIconClicked
+                    google.ima.AdEvent.Type.AD_BUFFERING, // adBuffering
+                    google.ima.AdEvent.Type.AD_METADATA, // adMetadata
+                    google.ima.AdEvent.Type.AD_BREAK_READY, // adBreakReady
+                    google.ima.AdEvent.Type.LOG, // log
                 ];
             }
         };

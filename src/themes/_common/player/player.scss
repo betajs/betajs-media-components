@@ -87,6 +87,10 @@
     overflow: hidden;
 }
 
+.#{$cssvideoplayer}-overlay, {
+    z-index: 1;
+}
+
 .#{$cssvideoplayer}-overlay[data-video='ad'] {
     top: -2px;
 }

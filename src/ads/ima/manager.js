@@ -91,9 +91,16 @@ Scoped.define("module:Ads.IMA.AdsManager", [
              * @param {RequestAdsOptions} requestAdsOptions
              */
             requestAds: function(requestAdsOptions) {
+                // save the current volume to determine if ad should play with sound
+                this.volume = requestAdsOptions.volume;
+
                 this._adsRequest = new google.ima.AdsRequest();
-                if (requestAdsOptions.adTagUrl) this._adsRequest.adTagUrl = requestAdsOptions.adTagUrl;
-                else if (requestAdsOptions.inlinevastxml) this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
+                if (requestAdsOptions.adTagUrl) {
+                    this._adsRequest.adTagUrl = requestAdsOptions.adTagUrl;
+                } else if (requestAdsOptions.inlinevastxml) {
+                    this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
+                }
+
                 this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
                 this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
                 this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
@@ -101,8 +108,8 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsRequest.setAdWillAutoPlay(requestAdsOptions.adWillAutoPlay);
                 this._adsRequest.setAdWillPlayMuted(requestAdsOptions.adWillPlayMuted);
                 this._adsRequest.setContinuousPlayback(requestAdsOptions.continuousPlayback);
+
                 this._adsLoader.getSettings().setAutoPlayAdBreaks(requestAdsOptions.autoPlayAdBreaks);
-                this.volume = requestAdsOptions.volume;
                 this._adsLoader.requestAds(this._adsRequest);
             },
 

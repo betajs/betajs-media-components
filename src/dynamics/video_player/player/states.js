@@ -756,8 +756,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.LoadVideo", [
             if (!!this.dyn.get(`ads_loaded`) && !this.dyn.get(`adsplaying`)) {
                 this.dyn?.scopes?.adsplayer?.execute(`play`);
                 return;
-            }
-            if (this.dyn.get(`ads_load_started`) && !this.dyn.get(`ads_loaded`)) {
+            } else if (this?.dyn?.get(`ads_load_started`)) {
                 this.listenOnce(this.dyn, `change:ads_load_started`, function() {
                     this.play();
                 }, this);

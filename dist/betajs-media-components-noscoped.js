@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.495 - 2024-06-26
+betajs-media-components - v0.0.496 - 2024-06-26
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.495",
-    "datetime": 1719434353528
+    "version": "0.0.496",
+    "datetime": 1719439732211
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -353,6 +353,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
             },
 
             requestAds: function(options) {
+                this.volume = options?.volume;
                 this._adsRequest = new google.ima.AdsRequest();
                 if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
                 else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
@@ -402,7 +403,9 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adsManager = adsManagerLoadedEvent.getAdsManager(
                         this._options.videoElement, adsRenderingSettings
                     );
-                    if (adsManagerLoadedEvent.getUserRequestContext()) {
+                    if (parseInt(this.volume) <= 1) {
+                        this._adsManager.setVolume(this.volume);
+                    } else if (adsManagerLoadedEvent.getUserRequestContext()) {
                         this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
                     } else {
                         this._adsManager.setVolume(this._options?.videoElement?.volume || 0);

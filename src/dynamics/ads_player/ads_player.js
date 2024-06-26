@@ -82,7 +82,32 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return true;
                 },
 
+                /**
+                 * @typedef {Object} RequestAdsOptions
+                 * @property {string} adTagUrl
+                 * @property {Object} IMASettings - IMA setings object configuration
+                 * @property {string} inlinevastxml
+                 * @property {boolean} continuousPlayback
+                 * @property {number} linearAdSlotWidth
+                 * @property {number} linearAdSlotHeight
+                 * @property {number} nonLinearAdSlotWidth
+                 * @property {number} nonLinearAdSlotHeight
+                 * @property {boolean} adWillAutoPlay
+                 * @property {boolean} adWillPlayMuted
+                 * @property {boolean} autoPlayAdBreaks
+                 * @property {number} width
+                 * @property {number} height
+                 * @property {number} volume
+                 * @property {number} vastLoadTimeout
+                 */
+
+                /**
+                 *
+                 * @returns {RequestAdsOptions}
+                 * @private
+                 */
                 _baseRequestAdsOptions: function() {
+                    /** @type {RequestAdsOptions} */
                     const requestAdsOptions = {
                         adTagUrl: this.get("adtagurl"),
                         IMASettings: this.get("imasettings"),

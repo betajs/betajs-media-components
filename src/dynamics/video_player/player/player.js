@@ -1688,6 +1688,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         if (this.get("playwhenvisible")) {
+                            console.log(`Will play when visible`);
                             this.set("skipinitial", true);
                             this._playWhenVisible(video);
                         }
@@ -3301,9 +3302,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                             video.removeAttribute('playsinline');
                                         }
                                     }
-                                    if (!this.get("playing") && this.player) {
-                                        this.player.play();
-                                    }
                                 }
                                 if (opt.muted && response.result) {
                                     this.set("forciblymuted", true);
@@ -3319,9 +3317,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                         } else {
                                             video.removeAttribute('playsinline');
                                         }
-                                    }
-                                    if (!this.get("playing") && this.player) {
-                                        this.player.play();
                                     }
                                 }
                                 if (opt.playsinline && response.result) {

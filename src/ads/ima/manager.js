@@ -102,6 +102,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this._adsRequest.setAdWillPlayMuted(requestAdsOptions.adWillPlayMuted);
                 this._adsRequest.setContinuousPlayback(requestAdsOptions.continuousPlayback);
                 this._adsLoader.getSettings().setAutoPlayAdBreaks(requestAdsOptions.autoPlayAdBreaks);
+                this.volume = requestAdsOptions.volume;
                 this._adsLoader.requestAds(this._adsRequest);
             },
 
@@ -135,7 +136,9 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adsManager = adsManagerLoadedEvent.getAdsManager(
                         this._options.videoElement, adsRenderingSettings
                     );
-                    if (adsManagerLoadedEvent.getUserRequestContext()) {
+                    if (parseInt(this.volume) <= 1) {
+                        this._adsManager.setVolume(this.volume);
+                    } else if (adsManagerLoadedEvent.getUserRequestContext()) {
                         this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
                     } else {
                         this._adsManager.setVolume(this._options?.videoElement?.volume || 0);

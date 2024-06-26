@@ -130,7 +130,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.call("load", autoPlay);
                         this.set("quartile", "first");
                         this.trackAdsPerformance(`ads-load-start`);
-                        this.set(`ads-load-started`, true);
+                        this.set(`ads_load_started`, true);
                     },
                     "ads:firstQuartile": function() {
                         this.set("quartile", "second");

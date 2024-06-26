@@ -11,7 +11,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
         _start: function() {
             /** Uncomment below to track the states */
-            // this.cls.debugStates([`LoadVideo`], this.allAttr(), this._locals);
+            this.cls.debugStates([`LoadVideo`], this.allAttr(), this._locals);
 
             this.dyn = this.host.dynamic;
             Objs.iter(Objs.extend({
@@ -833,25 +833,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                     this.dyn.channel("ads").trigger("load");
                 });
             }, this);
-            // TODO: TEST
-            /*
-            if (this.dyn.get(`ads_loaded`)) {
-                this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
-                    if (this.dyn && this.dyn.player) {
-                        this.dyn.player.pause();
-                    } else {
-                        this.dyn.execute(`pause`);
-                    }
-                    var position = this.dyn.getCurrentPosition();
-                    if (position === 0) {
-                        this.next("PrerollAd");
-                    } else {
-                        if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
-                            this.next("PostrollAd");
-                        } else this.next("MidrollAd");
-                    }
-                }, this);
-            } */
             this.listenOn(this.dyn, "change:currentstream", function() {
                 this.dyn.set("autoplay", true);
                 this.dyn.set("autoseek", this.dyn.player.position());

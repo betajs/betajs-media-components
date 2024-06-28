@@ -3189,13 +3189,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         const {
                             selector,
                             id,
-                            adslotid
+                            adslotid,
+                            incontainer
                         } = location;
                         if (!selector || !(id || adslotid)) {
                             console.warn(`Please provide selector and adslotid for companion ad`);
                             return;
                         }
-                        const element = document.querySelector(selector);
+                        let element;
+                        if (!incontainer) {
+                            element = document.querySelector(selector);
+                        } else {
+                            element = this.activeElement().querySelector(selector);
+                        }
                         if (element) {
                             Objs.map(companionAds, function(ad) {
                                 const adContent = ad.data?.content;

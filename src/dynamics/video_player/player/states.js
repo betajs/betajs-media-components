@@ -94,7 +94,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
                 console.trace(`%cRunning state: "${runningState}";`, `background-color: yellow; black: white; padding: 2px 5px; border-radius: 2px; font-weight: bold;`) :
                 console.log(`%cRunning state: "${runningState}";`, `background-color: yellow; black: white; padding: 2px 5px; border-radius: 2px; font-weight: bold;`);
             if (locals.length > 0) {
-                console.log(`${runningState} locals: ${locals.map((k) => attrs[k] ? `${k}: ${attrs[k]}` : '')}`);
+                console.log(`${runningState} locals: ${locals.map((k) => typeof attrs[k] !== "undefined" ? `${k}: ${attrs[k]}` : '')}`);
             }
         }
     });

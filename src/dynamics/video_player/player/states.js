@@ -11,7 +11,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.State", [
 
         _start: function() {
             /** Uncomment below to track the states */
-            this.cls.debugStates([`LoadVideo`], this.allAttr(), this._locals);
+            // this.cls.debugStates([`LoadVideo`], this.allAttr(), this._locals);
 
             this.dyn = this.host.dynamic;
             Objs.iter(Objs.extend({

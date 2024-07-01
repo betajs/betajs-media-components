@@ -24,4 +24,5 @@ google-translate-creds.json
 tests/playwright/.cache/
 .nyc_output
 .npm
+.env.test
 /test-results/

@@ -1,9 +1,12 @@
 const { defineConfig, devices } = require('@playwright/test');
+import dotenv from 'dotenv';
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
- */
+*/
+dotenv.config({path:'.env.test'});
+
 const PORT = process.env?.PLAYWRIGHT_PORT || 5000;
 const CI = process.env?.CI === true || process.env?.CI === "true";
 

@@ -14,7 +14,7 @@ class PlayerPage {
     constructor(page, attrs, context, urlOptions, testid = 'ba-testid') {
         this.page = page;
         this.context = context;
-        this.debug = false;
+        this.debug = true;
         this.fullURI = `${PLAYER_URI}?${createOptions(urlOptions)}`;
         this.attrs = attrs;
         this.testid = testid;
@@ -22,7 +22,7 @@ class PlayerPage {
 
     async goto() {
         await this.page.goto(this.fullURI, { waitUntil: 'load' });
-        if (this.debug) console.log(`Will visit URL: ${this.page.url()}`);
+        if (this.debug) console.log(`DEBUG: Will visit URL: ${this.page.url()}`);
     }
 
     async setPlayerInstance() {
@@ -48,7 +48,7 @@ class PlayerPage {
         const event = await this.playerInstance.evaluateHandle(async (ins, [key, debug]) => {
             if (typeof ins.scopes && typeof ins.scopes.adsplayer && typeof ins.scopes.adsplayer.get === 'function') {
                 if (debug)
-                    console.log(`We have to have value: ${ins.scopes.adsplayer.get(key)} for key: ${key}`);
+                    console.log(`DEBUG: We have to have value: ${ins.scopes.adsplayer.get(key)} for key: ${key}`);
                 return Promise.resolve(ins.scopes.adsplayer.get(key));
             }
             throw new Error(`Ads Player instance does not have get method, to return ${keyName} value`);
@@ -122,7 +122,7 @@ class PlayerPage {
     async getLocatorInState(
         selector, container = null, state, testIt = false, timeout = 3000
     ) {
-        if (this.debug) console.log(`Looking for selector ${selector}`);
+        if (this.debug) console.log(`DEBUG: Looking for selector ${selector}`);
         const parent = container || this.page;
         const locator = await parent.locator(selector);
         state = state || 'visible';
@@ -149,10 +149,11 @@ class PlayerPage {
      * @return {Promise<*>}
      */
     async listenPlayerEvent(eventName, timeOutSeconds = 5, force = false) {
+        timeOutSeconds = timeOutSeconds > 500 ? Math.floor(timeOutSeconds / 1000) : timeOutSeconds;
         return await this.page.waitForFunction(([eventName, timeOut, force, debug]) => {
             const promise = new Promise((resolve, reject) => {
                 const playerInstance = window.player;
-                if (typeof playerInstance.on !== 'function') {
+                if (typeof playerInstance.once !== 'function') {
                     const message = `Player instance does not have get method`;
                     if (force) { console.log(message); return reject(); }
                     new Error(message);
@@ -160,7 +161,7 @@ class PlayerPage {
                 let timeoutID = null;
                 if (timeOut > 0) {
                     timeoutID = setTimeout(() => {
-                        const message = `Event ${eventName} was not fired in ${timeOut} seconds`;
+                        const message = `DEBUG: Event ${eventName} was not fired in ${timeOut} seconds`;
                         if (force) { console.log(message); return reject(); }
                         throw new Error(message);
                     }, timeOut * 1000);
@@ -168,21 +169,22 @@ class PlayerPage {
                 if (eventName.includes(":")) {
                     const channel = eventName.split(":")[0];
                     const event = eventName.split(":")[1];
-                    if (debug) console.log(`DEBUG: Will listen event ${event} on channel: ${channel}`);
-                    playerInstance.channel(channel).on(event, (data) => {
-                        if (debug) console.log(`DEBUG: Will handle event ${eventName} and return data: ${data}`);
+                    if (debug) console.log(`DEBUG: Will listen event "${event}" on channel: "${channel}"`);
+                    playerInstance.channel(channel).once(event, (data) => {
+                        if (debug) console.log(`DEBUG: Handling event "${eventName}" and return data: "${data}"`);
                         if (timeoutID) clearTimeout(timeoutID);
                         return resolve(data);
                     });
                 } else {
-                    playerInstance.on(eventName, (data) => {
-                        if (debug) console.log(`Will handle event ${eventName} and return data: ${data}`);
+                    playerInstance.once(eventName, (data) => {
+                        if (debug) console.log(`DEBUG: Will handle event ${eventName} and return data: ${data}`);
                         if (timeoutID) clearTimeout(timeoutID);
-                        return resolve(data);
+                        return resolve(true);
                     });
                 }
-            })
-            return promise.then((d) => true).catch(() => force);
+            });
+            // const resp = promise.then((d) => true).catch(() => force);
+            return promise.then((d) => (d && typeof d === `object`) ? d.jsonValue() : !!d).catch(() => force);
         }, [eventName, timeOutSeconds, force, this.debug], { timeout: timeOutSeconds * 1000 });
     }
 
@@ -197,13 +199,17 @@ class PlayerPage {
     async waitNextSecondPosition(waitFor = 1, debug = false, timeout = 12000) {
         const position = await this.getPlayerAttribute(`position`);
         const isPlaying = await this.getPlayerAttribute(`playing`);
+        const currentPosition = await this.getPlayerAttribute(`position`);
+        const diff = Math.abs((currentPosition - waitFor) * 1000);
+        if (diff > timeout) timeout = diff + 1000;
         return this.page.waitForFunction(
             (args) => {
                 const [cp, isPlaying, wait, debug] = args;
+                const currentPosition = window.player.get("position");
                 if (debug)
-                    console.log(`Current position: ${window.player.get("position")} and wait for: ${cp + wait}`);
-                return window.player.get("position") >= (cp + wait) || isPlaying;
-            }, [position, isPlaying, waitFor, debug], {timeout}
+                    console.log(`DEBUG: Current position: "${currentPosition}" and wait for: "${cp + wait}"`);
+                return currentPosition >= (cp + wait) || isPlaying;
+            }, [position, isPlaying, waitFor, debug], {timeout, polling: 500}
         );
     }
 
@@ -214,15 +220,17 @@ class PlayerPage {
      * @return {Promise<*>}
      */
     async waitAdsRemainingSeconds(position = null, timeout = 12000) {
-        position = position || (await this.getAdsPlayerAttribute(`remaining`) - 1);
+        position = Number(position || (await this.getAdsPlayerAttribute(`remaining`) - 1));
         return this.page.waitForFunction(
             ([remaining, debug]) => {
                 if (typeof window.player.scopes.adsplayer === "undefined")
                     throw new Error(`Seems ads not active get it's remaining position: ${position}`);
-                if (debug)
-                    console.log(`Waited remaining ${remaining} and current remaining ${window.player.scopes.adsplayer.get("remaining")}`);
-                return window.player.scopes.adsplayer.get("remaining") < remaining
-            }, [position, this.debug], { timeout }
+                this.__remaining = Number(window.player.scopes.adsplayer.get("remaining"));
+                if (debug) {
+                    console.log(`DEBUG: Waited until remain: "${remaining}" where current remaining is: "${this.__remaining}"`);
+                }
+                return this.__remaining <= remaining;
+            }, [position, this.debug], { timeout, polling: 500 }
         );
     }
 
@@ -254,7 +262,7 @@ class PlayerPage {
             ([k, st, debug]) => {
                 if (typeof window.player.get(k) === "undefined") return false;
                 if (debug)
-                    console.log(`Key: ${k} and value ${window.player.get(k)}, Statement ${st} and it is type ${typeof st}`);
+                    console.log(`DEBUG: Key: ${k} and value ${window.player.get(k)}, Statement ${st} and it is type ${typeof st}`);
                 return typeof window.player.get(k) === 'boolean' && Boolean(window.player.get(k)) === st
             }, args
         );
@@ -331,6 +339,33 @@ class PlayerPage {
                 throw new Error(`Player instance has no any state`);
             return Promise.resolve(ins?.host?.state()?.state_name());
         });
+    }
+
+    async skipToPosition(position) {
+        let percentage;
+        const mouse = this.page.mouse;
+        const progressBar = this.getElementByTestID(`progress-bar-inner`);
+        const playerContainer = this.getElementByTestID(`player-container`);
+        if (position > 1.0) {
+            const duration = await this.getPlayerAttribute(`duration`);
+            percentage = Number((position / duration).toFixed(2));
+        }
+
+        await (await playerContainer).hover();
+        await expect(await progressBar).toBeInViewport();
+
+        const { x, y, width } = await (await progressBar).boundingBox();
+        const from = Number(x + Math.floor(width * 0.05));
+        const to = Number(x + Math.floor(width * (percentage || position)));
+
+        await mouse.click(Number(from), y, {
+            button: `left`
+        });
+        await mouse.down();
+        await mouse.move(Number(to), y, {
+            steps: 10
+        });
+        await mouse.up();
     }
 
     async testScrollToAd(){

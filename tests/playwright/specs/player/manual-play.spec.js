@@ -117,7 +117,7 @@ test.describe(`With Ads`, () => {
             const adsPlayButton = player.getElementByTestID(`ads-controlbar-play-button`);
             const adsPauseButton = player.getElementByTestID(`ads-controlbar-pause-button`);
             const adsPlaying = async () => player.getAdsPlayerAttribute(`adsplaying`);
-            const adsStarted =  player.listenPlayerEvent(`ads:start`, 2000);
+            const adsStartedEvent =  async () => player.listenPlayerEvent(`ads:start`, 2000);
 
             const wrapperElement = player.getElementByTestID(`player-container`);
             await expect(await wrapperElement).toBeInViewport();
@@ -125,7 +125,7 @@ test.describe(`With Ads`, () => {
             await expect(await playButton).toBeInViewport();
             await expect(await adsPauseButton).not.toBeVisible();
             await (await playButton).click();
-            await adsStarted;
+            await adsStartedEvent();
 
             await (await wrapperElement).hover();
             await expect(await adsPauseButton).toBeVisible();

@@ -66,7 +66,7 @@ test(`preload ads`, async ({ page, browserName, browser, context }) => {
         await player.goto();
         await player.setPlayerInstance();
 
-        await player.listenPlayerEvent(`ads:loaded`, 2000);
+        await player.listenPlayerEvent(`ads:loaded`, 10);
 
         const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
         await expect(adsLoaded).toBeTruthy();
@@ -104,7 +104,7 @@ test(`preload ads, skipinitial, manual play`, async ({ page, browserName, browse
         await player.goto();
         await player.setPlayerInstance();
 
-        await player.listenPlayerEvent(`ads:loaded`, 2000);
+        await player.listenPlayerEvent(`ads:loaded`, 10);
         const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
         await expect(adsLoaded).toBeTruthy();
 
@@ -140,7 +140,7 @@ test(`preload ads, auto play`, async ({ page, browserName, browser, context }) =
         await player.goto();
         await player.setPlayerInstance();
 
-        await player.listenPlayerEvent(`ads:loaded`, 2000);
+        await player.listenPlayerEvent(`ads:loaded`, 10);
 
         const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
         await expect(adsLoaded).toBeTruthy();
@@ -173,7 +173,7 @@ test(`preload ads, playwhenvisible when player on view port`, async ({ page, bro
         await player.goto();
         await player.setPlayerInstance();
 
-        await player.listenPlayerEvent(`ads:loaded`, 2000);
+        await player.listenPlayerEvent(`ads:loaded`, 10);
 
         const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
         await expect(adsLoaded).toBeTruthy();
@@ -206,7 +206,7 @@ test(`preload ads, scroll playwhenvisible when player on view port`, async ({ pa
         await player.goto();
         await player.setPlayerInstance();
 
-        await player.listenPlayerEvent(`ads:loaded`, 2000);
+        await player.listenPlayerEvent(`ads:loaded`, 10);
 
         let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
         await expect(adsLoaded).toBeTruthy();

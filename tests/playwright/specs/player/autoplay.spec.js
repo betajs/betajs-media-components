@@ -147,13 +147,13 @@ test.describe(`With ads`, () => {
             await player.scrollToTheElement(wrapperElement);
             await expect(wrapperElement).toBeInViewport();
 
-            await player.listenPlayerEvent(`ads:firstQuartile`, 2000);
+            await player.listenPlayerEvent(`ads:firstQuartile`, 20);
             // as soon as ads starts ads_loaded becomes falsy till next loaded ad
             let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeFalsy();
 
             await player.clickAdsSkipButton();
-            await player.listenPlayerEvent(`ads:complete`, 2000);
+            await player.listenPlayerEvent(`ads:complete`, 20);
 
             await player.listenPlayerEvent(`change:position`);
             await player.waitNextSecondPosition(3);
@@ -186,20 +186,21 @@ test.describe(`With ads`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            const adsCompletedEvent = player.listenPlayerEvent(`ads:complete`, 1000);
-            const adsLoaded = () => player.getPlayerAttribute(`ads_loaded`);
+            const adsCompletedEvent = player.listenPlayerEvent(`ads:complete`, 20);
+            const adsLoaded = async () => player.getPlayerAttribute(`ads_loaded`);
 
-            await player.listenPlayerEvent(`ads:loaded`, 2000);
+            await player.listenPlayerEvent(`ads:loaded`, 20);
 
             // When ads starts playing, IMA SDK will bring player to the view port
             const wrapperElement = await player.getElementByTestID(`player-container`);
             await expect(wrapperElement).toBeInViewport();
 
-            await player.listenPlayerEvent(`ads:start`);
-            await expect(await adsLoaded()).toBeFalsy();
-
+            await player.listenPlayerEvent(`ads:start`, 20);
+            await player.waitAdsRemainingSeconds(8);
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeTruthy();
+            await expect(await adsLoaded()).toBeFalsy();
+
             let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
             await expect(adsPauseButton).toBeInViewport();
 
@@ -241,7 +242,7 @@ test.describe(`With ads`, () => {
             await expect(await adsContainer).toBeVisible();
             await player.scrollToTheElement(await adsContainer);
 
-            await player.listenPlayerEvent(`ads:firstQuartile`, 3000);
+            await player.listenPlayerEvent(`ads:firstQuartile`, 30);
             const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeFalsy();
 

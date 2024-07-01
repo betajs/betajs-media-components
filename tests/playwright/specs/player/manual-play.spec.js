@@ -55,12 +55,12 @@ test.describe(`With Ads`, () => {
             await expect(await overlayPlayButton).toBeVisible();
             await (await overlayPlayButton).click();
 
-            await player.listenPlayerEvent(`ads:loaded`, 2000);
+            await player.listenPlayerEvent(`ads:loaded`, 5);
 
             let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeTruthy();
 
-            await player.listenPlayerEvent(`ads:firstQuartile`, 2000);
+            await player.waitAdsRemainingSeconds(5);
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeTruthy();
             adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
@@ -71,7 +71,7 @@ test.describe(`With Ads`, () => {
             await expect(await adsPlayButton).toBeVisible();
             await (await adsPlayButton).click();
 
-            const waitForSkip =  player.listenPlayerEvent(`ads:skip`, 2000);
+            const waitForSkip =  player.listenPlayerEvent(`ads:skip`, 5);
             await player.clickAdsSkipButton();
             await waitForSkip;
 
@@ -117,7 +117,7 @@ test.describe(`With Ads`, () => {
             const adsPlayButton = player.getElementByTestID(`ads-controlbar-play-button`);
             const adsPauseButton = player.getElementByTestID(`ads-controlbar-pause-button`);
             const adsPlaying = async () => player.getAdsPlayerAttribute(`adsplaying`);
-            const adsStartedEvent =  async () => player.listenPlayerEvent(`ads:start`, 2000);
+            const adsStartedEvent =  async () => player.listenPlayerEvent(`ads:start`, 20);
 
             const wrapperElement = player.getElementByTestID(`player-container`);
             await expect(await wrapperElement).toBeInViewport();

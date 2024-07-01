@@ -14,7 +14,7 @@ class PlayerPage {
     constructor(page, attrs, context, urlOptions, testid = 'ba-testid') {
         this.page = page;
         this.context = context;
-        this.debug = true;
+        this.debug = false;
         this.fullURI = `${PLAYER_URI}?${createOptions(urlOptions)}`;
         this.attrs = attrs;
         this.testid = testid;
@@ -149,7 +149,7 @@ class PlayerPage {
      * @return {Promise<*>}
      */
     async listenPlayerEvent(eventName, timeOutSeconds = 5, force = false) {
-        timeOutSeconds = timeOutSeconds > 500 ? Math.floor(timeOutSeconds / 1000) : timeOutSeconds;
+        timeOutSeconds = timeOutSeconds > 500 ? Math.ceil(timeOutSeconds / 1000) : timeOutSeconds;
         return await this.page.waitForFunction(([eventName, timeOut, force, debug]) => {
             const promise = new Promise((resolve, reject) => {
                 const playerInstance = window.player;

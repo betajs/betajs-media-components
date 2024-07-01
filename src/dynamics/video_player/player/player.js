@@ -189,9 +189,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "volume": 1.0,
                         "title": "",
                         "description": "",
-                        "uploaddate": "",
-                        "contenturl": "",
-                        "thumbnailurl": "",
+                        "upload_date": "",
+                        "content_url": "",
+                        "thumbnail_url": "",
                         "initialseek": null,
                         "sharevideo": [],
                         "sharevideourl": "",
@@ -540,9 +540,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "showchaptertext": "boolean",
                     "title": "string",
                     "description": "string",
-                    "uploaddate": "string",
-                    "contenturl": "string",
-                    "thumbnailurl": "string",
+                    "upload_date": "string",
+                    "content_url": "string",
+                    "thumbnail_url": "string",
                     "videofitstrategy": "string",
                     "posterfitstrategy": "string",
                     "adtagurl": "string",
@@ -598,9 +598,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 events: {
-                    "change:uploaddate": function(value) {
+                    "change:upload_date": function(value) {
                         if (typeof value === "number")
-                            this.set("uploaddate", TimeFormat.format("yyyy-mm-dd", value * 1000));
+                            this.set("upload_date", TimeFormat.format("yyyy-mm-dd", value * 1000));
                     },
                     "change:starttime": function(startTime) {
                         if (startTime > this.getCurrentPosition()) {

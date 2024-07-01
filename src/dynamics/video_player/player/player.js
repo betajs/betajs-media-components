@@ -1296,7 +1296,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 initMidRollAds: function() {
-                    var schedules;
+                    let schedules;
                     // Split all via comma exclude inside brackets
                     schedules = Objs.map(this.get("adsposition").split(/(?![^)(]*\([^)(]*?\)\)),(?![^\[]*\])/), function(item) {
                         return item.trim();
@@ -1688,7 +1688,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
 
                         if (this.get("playwhenvisible")) {
-                            console.log(`Will play when visible`);
                             this.set("skipinitial", true);
                             this._playWhenVisible(video);
                         }
@@ -3080,18 +3079,17 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     ) {
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
                         if (this.get("midrollads").length > 0) {
-                            var _current = null;
+                            let _current = null;
                             Objs.iter(this.get("midrollads"), function(roll, index) {
                                 if (roll.position && roll.position > this.get("position")) {
                                     // First ad position, if less than 1 it means it's percentage not second
-                                    var _position = roll.position < 1 ?
+                                    let _position = roll.position < 1 ?
                                         Math.floor(this.get("duration") * roll.position) :
                                         roll.position;
                                     // If the user does not set, and we will not get the same ad position, avoids dublication,
                                     // prevent very close ads and also wrong set position which exceeds the duration
                                     if ((Math.abs(_position - _current) > this.__adMinIntervals) && (this.get("infiniteduration") || _position < this.get("duration"))) {
                                         _current = _position;
-                                        _nextPositionIndex = index;
                                         this._adsRollPositionsCollection.add({
                                             position: _position,
                                             duration: null,

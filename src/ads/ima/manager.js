@@ -86,19 +86,12 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 inherited.destroy.call(this);
             },
 
-            /**
-             *
-             * @param {RequestAdsOptions} requestAdsOptions
-             */
-            requestAds: function(requestAdsOptions) {
-                // save the current volume to determine if ad should play with sound
-                this.volume = requestAdsOptions.volume;
-
+            requestAds: function(options) {
                 this._adsRequest = new google.ima.AdsRequest();
-                if (requestAdsOptions.adTagUrl) {
-                    this._adsRequest.adTagUrl = requestAdsOptions.adTagUrl;
-                } else if (requestAdsOptions.inlinevastxml) {
-                    this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
+                if (options.adTagUrl) {
+                    this._adsRequest.adTagUrl = options.adTagUrl;
+                } else if (options.inlinevastxml) {
+                    this._adsRequest.adsResponse = options.inlinevastxml;
                 }
                 this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;
                 this._adsRequest.linearAdSlotHeight = options.linearAdSlotHeight;

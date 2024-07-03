@@ -100,9 +100,6 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 } else if (requestAdsOptions.inlinevastxml) {
                     this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
                 }
-
-                if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
-                else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
                 this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;
                 this._adsRequest.linearAdSlotHeight = options.linearAdSlotHeight;
                 this._adsRequest.nonLinearAdSlotWidth = options.nonLinearAdSlotWidth;

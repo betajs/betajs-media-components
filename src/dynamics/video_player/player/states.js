@@ -357,24 +357,21 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             // If autoplay is true skipinitial will be false by default
             if (this.dyn?.get("autoplay")) {
                 if (this.dyn.get("autoplaywhenvisible")) {
+                    this.preloadAds(false);
                     Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                         if (!this.destroyed()) this.runAutoplay();
                     }, this);
                 } else {
                     this.runAutoplay();
                 }
+                return;
             } else if (this.dyn?.get(`skipinitial`)) {
                 this.dyn.set(`controlbar_active`, true);
                 this.dyn.set(`playbutton_active`, false);
                 // Will wait while user will press play button in the controlbar to start
             }
 
-            if (this.dyn?.get(`preload_ads`) && !this.dyn?.get(`ads_loaded`) && this.dyn?.get(`adshassource`)) {
-                this.next("LoadAds", {
-                    position: State.ADS_POSITIONS.PREROLL,
-                    autoplay: false
-                });
-            }
+            this.preloadAds(false);
         },
 
         play: function() {
@@ -429,6 +426,15 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                         this.play();
                     }
                 }, this);
+            }
+        },
+
+        preloadAds: function(autoplay) {
+            if (this.dyn?.get(`preload_ads`) && !this.dyn?.get(`ads_loaded`) && this.dyn?.get(`adshassource`)) {
+                this.next("LoadAds", {
+                    position: State.ADS_POSITIONS.PREROLL,
+                    autoplay: autoplay
+                });
             }
         }
     });

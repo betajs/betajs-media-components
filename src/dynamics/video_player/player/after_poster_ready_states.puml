@@ -30,17 +30,28 @@ box "Player States" #LightGreen
     participant PlayAd
     participant PosterError
 
-    --> PosterReady
+    --> PosterReady : starting position
 
     alt autoplay
-        alt preload_ads
-            alt adshassource
-            else !adshassource
-            end
-        else !preload_ads
-            alt adshassource
-            else !adshassource
-            end
+        alt adshassource
+            PosterReady -> PosterReady: **1.** runAutoplay()
+            PosterReady -> PosterReady: **2.** play()
+            PosterReady -> LoadAds : **3.** {autoplay: true,\n position: pre}
+            LoadAds -> AdsPlayer :**4.** ads:load({autoplay: true})
+            LoadAds --> LoadAds :**5.** (wait:ads:loaded)
+            AdsPlayer -> AdsPlayer: **6.** load(true)
+            AdsPlayer --> LoadAds :**7.** (on:ads:loaded)
+            LoadAds --> LoadVideo: **8.** {autoplay: true}
+            LoadVideo --> Player : **9.** (attachVideo)
+            LoadVideo -> PrerollAd: **10.** (on:contentPauseRequested)
+            PrerollAd -> PlayAd: **11.** (wait:ads:contentResumeRequested)
+            PlayAd -> PlayAd : **12.** resume()(on:ads:contentResumeRequested)
+            PlayAd --> PlayAd: **13.** Player.player.play()
+            PlayAd -> PlayVideo : **14.** Player.play()
+        else !adshassource
+            PosterReady -> PosterReady: **1.** runAutoplay()
+            PosterReady -> LoadVideo : **2.** (on:play){autoplay: true}
+            LoadVideo -> PlayVideo : **3.** (wait:next_video)
         end
 
     else !autoplay
@@ -58,10 +69,11 @@ box "Player States" #LightGreen
                 ' as ads already loaded now, we will move to LoadVideo
                 PosterReady -> LoadVideo : **6.** {autoplay: true}
                 LoadVideo --> LoadVideo : **7.** (wait:ads:contentPauseRequested)
+                LoadVideo --> Player : **7a.** (attachVideo)
                 ' LoadVideo will also attach video
                 LoadVideo -> PrerollAd: **8.** (on:contentPauseRequested)
                 PrerollAd -> PlayAd: **9.** (wait:ads:contentResumeRequested)
-                PlayAd -> PlayAd : **10.** PlayAd.resume()(on:ads:contentResumeRequested)
+                PlayAd -> PlayAd : **10.** resume()(on:ads:contentResumeRequested)
                 PlayAd --> PlayAd: **11.** Player.player.play()
                 PlayAd -> PlayVideo : **12.** Player.play()
             else !adshassource

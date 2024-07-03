@@ -222,4 +222,45 @@ test.describe(`Separate AdTags`, () => {
         }, testRunner, browserSettings);
     });
 
+    test(`Skip to later progress bar position`, async ({ page, browserName, browser, context }) => {
+        const testRunner = async (page, browser, context) => {
+            const player = new PlayerPage(page,
+                {
+                    ...defaultPlayerAttributes,
+                    ...descriptionPlayerAttributes,
+                    ...{
+                        nextwidget: false,
+                        autoplay: true,
+                        adsposition: "mid",
+                    }
+                }, context, [{
+                    blk: 0
+                }]);
+
+            // Go to the starting url before each test.
+            await player.goto();
+            await player.setPlayerInstance();
+
+            const waitAdsStartEvent = async (timeout) => player.listenPlayerEvent(`ads:start`, timeout || 25);
+            const progressBar = player.getElementByTestID(`progress-bar-inner`);
+
+            await waitAdsStartEvent();
+            await player.clickAdsSkipButton();
+
+            await player.waitNextSecondPosition(1);
+
+            await player.skipToPosition(0.75);
+            await waitAdsStartEvent();
+            await player.clickAdsSkipButton();
+            await expect(await progressBar).toBeInViewport();
+
+            await browser.close();
+        }
+
+        await runTestMethod({
+            page, browserName, browser, context
+        }, testRunner, browserSettings);
+    });
+
+
 });

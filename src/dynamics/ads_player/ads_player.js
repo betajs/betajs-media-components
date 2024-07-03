@@ -84,7 +84,32 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return true;
                 },
 
+                /**
+                 * @typedef {Object} RequestAdsOptions
+                 * @property {string} adTagUrl
+                 * @property {Object} IMASettings - IMA setings object configuration
+                 * @property {string} inlinevastxml
+                 * @property {boolean} continuousPlayback
+                 * @property {number} linearAdSlotWidth
+                 * @property {number} linearAdSlotHeight
+                 * @property {number} nonLinearAdSlotWidth
+                 * @property {number} nonLinearAdSlotHeight
+                 * @property {boolean} adWillAutoPlay
+                 * @property {boolean} adWillPlayMuted
+                 * @property {boolean} autoPlayAdBreaks
+                 * @property {number} width
+                 * @property {number} height
+                 * @property {number} volume
+                 * @property {number} vastLoadTimeout
+                 */
+
+                /**
+                 *
+                 * @returns {RequestAdsOptions}
+                 * @private
+                 */
                 _baseRequestAdsOptions: function() {
+                    /** @type {RequestAdsOptions} */
                     const requestAdsOptions = {
                         adTagUrl: this.get("adtagurl"),
                         IMASettings: this.get("imasettings"),
@@ -402,11 +427,34 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     return true;
                 },
+                getMediaUrl: function(adObj) {
+                    let adMediaUrl = adObj?.data?.mediaUrl;
+                    if (adMediaUrl) {
+                        return adMediaUrl;
+                    }
+                    // backup plan if mediaurl is not in data object
+                    if (adObj?.data?.traffickingParameters) {
+                        try {
+                            const mediaFiles = JSON.parse(adObj.data.traffickingParameters)?.mediaFiles;
+                            if (Array.isArray(mediaFiles)) {
+                                const mediaFile = mediaFiles.find(file => !!file?.uri).uri;
+                                return mediaFile || "";
+                            }
+                        } catch (err) {
+                            console.error(err)
+                        }
+                    }
+                    return "";
+                },
                 checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");
-                    const ad = adObj?.data?.mediaUrl;
-                    if (Info.isSafari() && ad) {
-                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    let adMediaUrl = adObj?.data?.mediaUrl;
+                    if (!adMediaUrl) {
+                        adMediaUrl = this.getMediaUrl(adObj);
+                    }
+
+                    if (Info.isSafari() && adMediaUrl) {
+                        this.renderVideoFrame(adMediaUrl, this.getAdWidth(), this.getAdHeight())
                     }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
@@ -427,6 +475,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
+
+                    if (!ad?.data?.mediaUrl) {
+                        ad.data.mediaUrl = this.getMediaUrl(ad);
+                    }
+
                     if (ad) {
                         this.generateEndCardImage(ad, width, height);
                     }

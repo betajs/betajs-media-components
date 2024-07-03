@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.494 - 2024-06-17
+betajs-media-components - v0.0.498 - 2024-07-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.494 - 2024-06-17
+betajs-media-components - v0.0.498 - 2024-07-03
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.494",
-    "datetime": 1718647965615
+    "version": "0.0.498",
+    "datetime": 1720013678330
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1363,24 +1363,31 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 inherited.destroy.call(this);
             },
 
-            requestAds: function(options) {
+            /**
+             *
+             * @param {RequestAdsOptions} requestAdsOptions
+             */
+            requestAds: function(requestAdsOptions) {
+                // save the current volume to determine if ad should play with sound
+                this.volume = requestAdsOptions.volume;
+
                 this._adsRequest = new google.ima.AdsRequest();
-                if (options.adTagUrl) this._adsRequest.adTagUrl = options.adTagUrl;
-                else if (options.inlinevastxml) this._adsRequest.adsResponse = options.inlinevastxml;
-                this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;
-                this._adsRequest.linearAdSlotHeight = options.linearAdSlotHeight;
-                this._adsRequest.nonLinearAdSlotWidth = options.nonLinearAdSlotWidth;
-                this._adsRequest.nonLinearAdSlotHeight = options.nonLinearAdSlotHeight;
-                this._adsRequest.setAdWillAutoPlay(options.adWillAutoPlay);
-                this._adsRequest.setAdWillPlayMuted(options.adWillPlayMuted);
-                this._adsRequest.setContinuousPlayback(options.continuousPlayback);
-                this._adsLoader.getSettings().setAutoPlayAdBreaks(options.autoPlayAdBreaks);
+                if (requestAdsOptions.adTagUrl) {
+                    this._adsRequest.adTagUrl = requestAdsOptions.adTagUrl;
+                } else if (requestAdsOptions.inlinevastxml) {
+                    this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
+                }
+
+                this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
+                this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
+                this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
+                this._adsRequest.nonLinearAdSlotHeight = requestAdsOptions.nonLinearAdSlotHeight;
+                this._adsRequest.setAdWillAutoPlay(requestAdsOptions.adWillAutoPlay);
+                this._adsRequest.setAdWillPlayMuted(requestAdsOptions.adWillPlayMuted);
+                this._adsRequest.setContinuousPlayback(requestAdsOptions.continuousPlayback);
+
+                this._adsLoader.getSettings().setAutoPlayAdBreaks(requestAdsOptions.autoPlayAdBreaks);
                 this._adsLoader.requestAds(this._adsRequest);
-                // this.once("adsManagerLoaded", function() {
-                //     this._adsManager.init(options.width, options.height, google.ima.ViewMode.NORMAL);
-                //     this._adsManager.setVolume(options.volume);
-                //     this._adsManager.start();
-                // }.bind(this));
             },
 
             onAdsManagerLoaded: function(adsManagerLoadedEvent) {
@@ -1413,7 +1420,9 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adsManager = adsManagerLoadedEvent.getAdsManager(
                         this._options.videoElement, adsRenderingSettings
                     );
-                    if (adsManagerLoadedEvent.getUserRequestContext()) {
+                    if (parseInt(this.volume) <= 1) {
+                        this._adsManager.setVolume(this.volume);
+                    } else if (adsManagerLoadedEvent.getUserRequestContext()) {
                         this._adsManager.setVolume(adsManagerLoadedEvent.getUserRequestContext().options.volume);
                     } else {
                         this._adsManager.setVolume(this._options?.videoElement?.volume || 0);
@@ -1518,36 +1527,36 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
             __events: function() {
                 return [
-                    google.ima.AdErrorEvent.Type.AD_ERROR,
-                    google.ima.AdEvent.Type.AD_CAN_PLAY,
-                    google.ima.AdEvent.Type.IMPRESSION,
+                    google.ima.AdErrorEvent.Type.AD_ERROR, // adError
+                    google.ima.AdEvent.Type.AD_CAN_PLAY, // adCanPlay
+                    google.ima.AdEvent.Type.IMPRESSION, // impression
                     google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, // contentPauseRequested
                     google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, // contentResumeRequested
                     google.ima.AdEvent.Type.LOADED, // loaded
-                    google.ima.AdEvent.Type.STARTED, // start
+                    google.ima.AdEvent.Type.STARTED, // started
                     google.ima.AdEvent.Type.FIRST_QUARTILE, // firstQuartile
                     google.ima.AdEvent.Type.MIDPOINT, // midpoint
                     google.ima.AdEvent.Type.THIRD_QUARTILE, // thirdQuartile
                     google.ima.AdEvent.Type.COMPLETE, // complete
                     google.ima.AdEvent.Type.ALL_ADS_COMPLETED, // allAdsCompleted
-                    google.ima.AdEvent.Type.PAUSED, // pause
-                    google.ima.AdEvent.Type.RESUMED,
-                    google.ima.AdEvent.Type.CLICK,
-                    google.ima.AdEvent.Type.VIDEO_CLICKED,
-                    google.ima.AdEvent.Type.AD_PROGRESS,
-                    google.ima.AdEvent.Type.DURATION_CHANGE,
-                    google.ima.AdEvent.Type.SKIPPED,
-                    google.ima.AdEvent.Type.LINEAR_CHANGED,
-                    google.ima.AdEvent.Type.VOLUME_CHANGED, // volumeChange
-                    google.ima.AdEvent.Type.VOLUME_MUTED,
-                    google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED,
-                    google.ima.AdEvent.Type.INTERACTION,
-                    google.ima.AdEvent.Type.USER_CLOSE,
-                    google.ima.AdEvent.Type.VIDEO_ICON_CLICKED,
-                    google.ima.AdEvent.Type.AD_BUFFERING,
-                    google.ima.AdEvent.Type.AD_METADATA,
-                    google.ima.AdEvent.Type.AD_BREAK_READY,
-                    google.ima.AdEvent.Type.LOG
+                    google.ima.AdEvent.Type.PAUSED, // paused
+                    google.ima.AdEvent.Type.RESUMED, // resumed
+                    google.ima.AdEvent.Type.CLICK, // click
+                    google.ima.AdEvent.Type.VIDEO_CLICKED, // videoClicked
+                    google.ima.AdEvent.Type.AD_PROGRESS, // adProgress
+                    google.ima.AdEvent.Type.DURATION_CHANGE, // durationChange
+                    google.ima.AdEvent.Type.SKIPPED, // skipped
+                    google.ima.AdEvent.Type.LINEAR_CHANGED, // linearChanged
+                    google.ima.AdEvent.Type.VOLUME_CHANGED, // volumeChanged
+                    google.ima.AdEvent.Type.VOLUME_MUTED, // volumeMuted
+                    google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED, // skippableStateChanged
+                    google.ima.AdEvent.Type.INTERACTION, // interaction
+                    google.ima.AdEvent.Type.USER_CLOSE, // userClose
+                    google.ima.AdEvent.Type.VIDEO_ICON_CLICKED, // videoIconClicked
+                    google.ima.AdEvent.Type.AD_BUFFERING, // adBuffering
+                    google.ima.AdEvent.Type.AD_METADATA, // adMetadata
+                    google.ima.AdEvent.Type.AD_BREAK_READY, // adBreakReady
+                    google.ima.AdEvent.Type.LOG, // log
                 ];
             }
         };
@@ -3809,7 +3818,32 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     return true;
                 },
 
+                /**
+                 * @typedef {Object} RequestAdsOptions
+                 * @property {string} adTagUrl
+                 * @property {Object} IMASettings - IMA setings object configuration
+                 * @property {string} inlinevastxml
+                 * @property {boolean} continuousPlayback
+                 * @property {number} linearAdSlotWidth
+                 * @property {number} linearAdSlotHeight
+                 * @property {number} nonLinearAdSlotWidth
+                 * @property {number} nonLinearAdSlotHeight
+                 * @property {boolean} adWillAutoPlay
+                 * @property {boolean} adWillPlayMuted
+                 * @property {boolean} autoPlayAdBreaks
+                 * @property {number} width
+                 * @property {number} height
+                 * @property {number} volume
+                 * @property {number} vastLoadTimeout
+                 */
+
+                /**
+                 *
+                 * @returns {RequestAdsOptions}
+                 * @private
+                 */
                 _baseRequestAdsOptions: function() {
+                    /** @type {RequestAdsOptions} */
                     const requestAdsOptions = {
                         adTagUrl: this.get("adtagurl"),
                         IMASettings: this.get("imasettings"),
@@ -4113,11 +4147,34 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                     return true;
                 },
+                getMediaUrl: function(adObj) {
+                    let adMediaUrl = adObj?.data?.mediaUrl;
+                    if (adMediaUrl) {
+                        return adMediaUrl;
+                    }
+                    // backup plan if mediaurl is not in data object
+                    if (adObj?.data?.traffickingParameters) {
+                        try {
+                            const mediaFiles = JSON.parse(adObj.data.traffickingParameters)?.mediaFiles;
+                            if (Array.isArray(mediaFiles)) {
+                                const mediaFile = mediaFiles.find(file => !!file?.uri).uri;
+                                return mediaFile || "";
+                            }
+                        } catch (err) {
+                            console.error(err)
+                        }
+                    }
+                    return "";
+                },
                 checkIfAdHasMediaUrl: function() {
                     const adObj = this.get("ad");
-                    const ad = adObj?.data?.mediaUrl;
-                    if (Info.isSafari() && ad) {
-                        this.renderVideoFrame(ad, this.getAdWidth(), this.getAdHeight())
+                    let adMediaUrl = adObj?.data?.mediaUrl;
+                    if (!adMediaUrl) {
+                        adMediaUrl = this.getMediaUrl(adObj);
+                    }
+
+                    if (Info.isSafari() && adMediaUrl) {
+                        this.renderVideoFrame(adMediaUrl, this.getAdWidth(), this.getAdHeight())
                     }
                 },
                 renderVideoFrame: function(mediaUrl, width, height) {
@@ -4138,6 +4195,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
+
+                    if (!ad?.data?.mediaUrl) {
+                        ad.data.mediaUrl = this.getMediaUrl(ad);
+                    }
+
                     if (ad) {
                         this.generateEndCardImage(ad, width, height);
                     }
@@ -8687,13 +8749,19 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         const {
                             selector,
                             id,
-                            adslotid
+                            adslotid,
+                            incontainer
                         } = location;
                         if (!selector || !(id || adslotid)) {
                             console.warn(`Please provide selector and adslotid for companion ad`);
                             return;
                         }
-                        const element = document.querySelector(selector);
+                        let element;
+                        if (!incontainer) {
+                            element = document.querySelector(selector);
+                        } else {
+                            element = this.activeElement().querySelector(selector);
+                        }
                         if (element) {
                             Objs.map(companionAds, function(ad) {
                                 const adContent = ad.data?.content;

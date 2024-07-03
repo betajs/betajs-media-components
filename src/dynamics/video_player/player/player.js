@@ -264,7 +264,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "companionad": null, // if just set to true, it will set companionads attribute for further use cases and will not render companion ad
                         "companionads": [],
                         "adsrendertimeout": null,
-                        preload_ads: false,
+                        preload_ads: true,
                         ads_source_init_timeout: null, // we can set any microseconds to show player content in any case if ads not initialized
                         "linearadplayer": true,
                         "customnonlinear": false, // Currently, not fully supported

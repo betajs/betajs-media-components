@@ -147,7 +147,7 @@ test.describe(`With ads`, () => {
             await player.scrollToTheElement(wrapperElement);
             await expect(wrapperElement).toBeInViewport();
 
-            await player.listenPlayerEvent(`ads:firstQuartile`, 20);
+            await player.waitAdsRemainingSeconds(8);
             // as soon as ads starts ads_loaded becomes falsy till next loaded ad
             let adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
             await expect(adsLoaded).toBeFalsy();

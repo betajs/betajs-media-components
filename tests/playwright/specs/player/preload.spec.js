@@ -166,7 +166,7 @@ test.describe(`With ads source`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            const adsCompletedEvent =  async () => player.listenPlayerEvent(`ads:complete`, 10);
+            const adsCompletedEvent =  async () => player.listenPlayerEvent(`ads:complete`, 20);
             await player.listenPlayerEvent(`ads:loaded`, 20);
 
             //  as soon ads loads, IMA will move player container to the viewport

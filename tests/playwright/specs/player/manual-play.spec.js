@@ -18,6 +18,7 @@ test.describe(`With Ads`, () => {
     const describeAttrs = {
         adtagurl: AD_TAG_URL,
         width: playerWidth,
+        preload_ads: false,
     }
 
     test.describe.configure({

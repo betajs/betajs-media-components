@@ -123,6 +123,7 @@ test.describe(`Check timeout on ads rendering settings`, () => {
             adsPlaying = await player.getPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeFalsy();
 
+            await player.waitNextSecondPosition(1);
             let contentPlaying = await player.getPlayerAttribute(`playing`);
             await expect(contentPlaying).toBeTruthy();
 

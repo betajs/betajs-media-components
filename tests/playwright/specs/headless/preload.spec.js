@@ -26,7 +26,8 @@ test(`preload video content`, async ({ page, browserName, browser, context }) =>
             {
                 ...defaultPlayerAttributes,
                 ...commonPlayerAttributes, ...{
-                    adtagurl: null
+                    adtagurl: null,
+                    preload_ads: false,
                 },
             }, context, [{
                 blk: 2
@@ -55,9 +56,6 @@ test(`preload ads`, async ({ page, browserName, browser, context }) => {
             {
                 ...defaultPlayerAttributes,
                 ...commonPlayerAttributes,
-                ...{
-                    preload_ads: true,
-                }
             }, context, [{
                 blk: 0
             }]);
@@ -94,7 +92,6 @@ test(`preload ads, skipinitial, manual play`, async ({ page, browserName, browse
                 ...commonPlayerAttributes,
                 ...{
                     skipinitial: true,
-                    preload_ads: true,
                 }
             }, context, [{
                 blk: 0
@@ -129,8 +126,7 @@ test(`preload ads, auto play`, async ({ page, browserName, browser, context }) =
                 ...defaultPlayerAttributes,
                 ...commonPlayerAttributes,
                 ...{
-                    autoplay: true,
-                    preload_ads: true,
+                    autoplay: true
                 }
             }, context, [{
                 blk: 0
@@ -162,7 +158,6 @@ test(`preload ads, playwhenvisible when player on view port`, async ({ page, bro
                 ...defaultPlayerAttributes,
                 ...commonPlayerAttributes,
                 ...{
-                    preload_ads: true,
                     autoplaywhenvisible: true,
                 }
             }, context, [{
@@ -195,7 +190,6 @@ test(`preload ads, scroll playwhenvisible when player on view port`, async ({ pa
                 ...defaultPlayerAttributes,
                 ...commonPlayerAttributes,
                 ...{
-                    preload_ads: true,
                     autoplaywhenvisible: true,
                 }
             }, context, [{

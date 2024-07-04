@@ -86,22 +86,22 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 inherited.destroy.call(this);
             },
 
-            requestAds: function(options) {
+            requestAds: function(requestAdsOptions) {
                 this._adsRequest = new google.ima.AdsRequest();
-                if (options.adTagUrl) {
-                    this._adsRequest.adTagUrl = options.adTagUrl;
-                } else if (options.inlinevastxml) {
-                    this._adsRequest.adsResponse = options.inlinevastxml;
+                if (requestAdsOptions.adTagUrl) {
+                    this._adsRequest.adTagUrl = requestAdsOptions.adTagUrl;
+                } else if (requestAdsOptions.inlinevastxml) {
+                    this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
                 }
-                this._adsRequest.linearAdSlotWidth = options.linearAdSlotWidth;
-                this._adsRequest.linearAdSlotHeight = options.linearAdSlotHeight;
-                this._adsRequest.nonLinearAdSlotWidth = options.nonLinearAdSlotWidth;
-                this._adsRequest.nonLinearAdSlotHeight = options.nonLinearAdSlotHeight;
+                this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
+                this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
+                this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
+                this._adsRequest.nonLinearAdSlotHeight = requestAdsOptions.nonLinearAdSlotHeight;
                 // setAdWillAutoPlay: void. Notifies the SDK and changing this setting will have no impact on ad playback.
-                this._adsRequest.setAdWillAutoPlay(options.adWillAutoPlay);
-                this._adsRequest.setAdWillPlayMuted(options.adWillPlayMuted);
-                this._adsRequest.setContinuousPlayback(options.continuousPlayback);
-                this._adsLoader.getSettings().setAutoPlayAdBreaks(options.autoPlayAdBreaks);
+                this._adsRequest.setAdWillAutoPlay(requestAdsOptions.adWillAutoPlay);
+                this._adsRequest.setAdWillPlayMuted(requestAdsOptions.adWillPlayMuted);
+                this._adsRequest.setContinuousPlayback(requestAdsOptions.continuousPlayback);
+                this._adsLoader.getSettings().setAutoPlayAdBreaks(requestAdsOptions.autoPlayAdBreaks);
                 this._adsLoader.requestAds(this._adsRequest);
             },
 

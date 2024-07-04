@@ -1,3 +1,5 @@
+export const DATA_TEST_ID_PREFIX = process.env?.DATA_TEST_ID_PREFIX || `ba-testid`;
+
 export const PLAYER_URI = `/static/tests/playwright/html/player.html`;
 export const SAMPLE_VIDEO_PATH = '/static/demos/sample-video.mp4';
 export const SAMPLE_VIDEO_POSTER = '/static/demos/assets/sample-cover.png';
@@ -12,11 +14,13 @@ export const ASSETS_PATH = './tests/playwright/static/demos/assets';
 // https://github.com/InteractiveAdvertisingBureau/AdCOM/blob/master/AdCOM%20v1.0%20FINAL.md#list_apiframeworks
 // omid_p=examplepartnername/1.0.0.0&sdk_apis=7
 export const AD_TAG_URL = `https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=`;// &omid_p=other&sdk_apis=501
+// export const AD_TAG_URL = `//static/tests/playwright/html/vast.xml`;
 export const ERROR_TAG_URL = `https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dredirecterror&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&nofb=1&correlator=`;// &omid_p=other&sdk_apis=501
 // export const AD_TAG_URL = `//localhost:5050/static/demos/vast-samples/VAST_4_2/Inline_Linear_Tag-test.xml`;
 export const BROWSER_LAUNCH_PATH =
     process.env?.PLAYWRIGHT_BROWSER_LAUNCHER ||
     `/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary`;
+    // `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`;
 
 export const defaultPlayerAttributes = {
     source: SAMPLE_VIDEO_PATH,
@@ -72,4 +76,3 @@ export const transcript = {
         }
     ]
 }
-

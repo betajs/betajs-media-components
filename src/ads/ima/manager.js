@@ -86,7 +86,13 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 inherited.destroy.call(this);
             },
 
+            /**
+             *
+             * @param {RequestAdsOptions} requestAdsOptions
+             */
             requestAds: function(requestAdsOptions) {
+                // save the current volume to determine if ad should play with sound
+                this.volume = requestAdsOptions.volume;
                 this._adsRequest = new google.ima.AdsRequest();
                 if (requestAdsOptions.adTagUrl) {
                     this._adsRequest.adTagUrl = requestAdsOptions.adTagUrl;
@@ -263,22 +269,22 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, // contentPauseRequested
                     google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, // contentResumeRequested
                     google.ima.AdEvent.Type.LOADED, // loaded
-                    google.ima.AdEvent.Type.STARTED, // started
+                    google.ima.AdEvent.Type.STARTED, // start
                     google.ima.AdEvent.Type.FIRST_QUARTILE, // firstQuartile
                     google.ima.AdEvent.Type.MIDPOINT, // midpoint
                     google.ima.AdEvent.Type.THIRD_QUARTILE, // thirdQuartile
                     google.ima.AdEvent.Type.COMPLETE, // complete
                     google.ima.AdEvent.Type.ALL_ADS_COMPLETED, // allAdsCompleted
-                    google.ima.AdEvent.Type.PAUSED, // paused
-                    google.ima.AdEvent.Type.RESUMED, // resumed
+                    google.ima.AdEvent.Type.PAUSED, // pause
+                    google.ima.AdEvent.Type.RESUMED, // resume
                     google.ima.AdEvent.Type.CLICK, // click
                     google.ima.AdEvent.Type.VIDEO_CLICKED, // videoClicked
                     google.ima.AdEvent.Type.AD_PROGRESS, // adProgress
                     google.ima.AdEvent.Type.DURATION_CHANGE, // durationChange
-                    google.ima.AdEvent.Type.SKIPPED, // skipped
+                    google.ima.AdEvent.Type.SKIPPED, // skip
                     google.ima.AdEvent.Type.LINEAR_CHANGED, // linearChanged
-                    google.ima.AdEvent.Type.VOLUME_CHANGED, // volumeChanged
-                    google.ima.AdEvent.Type.VOLUME_MUTED, // volumeMuted
+                    google.ima.AdEvent.Type.VOLUME_CHANGED, // volumeChange
+                    google.ima.AdEvent.Type.VOLUME_MUTED, // mute
                     google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED, // skippableStateChanged
                     google.ima.AdEvent.Type.INTERACTION, // interaction
                     google.ima.AdEvent.Type.USER_CLOSE, // userClose

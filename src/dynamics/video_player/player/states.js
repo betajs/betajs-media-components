@@ -345,7 +345,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             this.dyn.set("placeholderstyle", "");
             // Will attach video silently without starting playing the video
             if (this.dyn && !this.dyn.get("skipinitial") && this.dyn.get("preload") && !this.dyn.videoAttached()) {
-                this.dyn._attachVideo(true);
+                this.dyn._attachVideo(!this.dyn?.get("autoplay"));
             }
             this.dyn.trigger("ready_to_play");
             this.dyn.trigger("loaded");
@@ -356,11 +356,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
             // If autoplay is true skipinitial will be false by default
             if (this.dyn?.get("autoplay")) {
-                if (this.dyn.get("autoplaywhenvisible")) {
-                    this.preloadAds(false);
+                // this.preloadAds(!this.dyn.get("autoplaywhenvisible"));
+                if (this.dyn?.get("autoplaywhenvisible")) {
                     Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                         if (!this.destroyed()) this.runAutoplay();
                     }, this);
+                    this.preloadAds(false);
                 } else {
                     this.runAutoplay();
                 }
@@ -405,6 +406,32 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         },
 
         runAutoplay: function() {
+            this.loadAdsOnAutoPlayAllowedState();
+            this.playOnUserInteraction();
+        },
+
+        preloadAds: function(autoplay) {
+            if (this.dyn?.get(`preload_ads`) && !this.dyn?.get(`ads_loaded`) && this.dyn?.get(`adshassource`)) {
+                this.next("LoadAds", {
+                    position: State.ADS_POSITIONS.PREROLL,
+                    autoplay: autoplay
+                });
+            }
+        },
+
+        loadAdsOnAutoPlayAllowedState: function() {
+            if (!this.dyn?.get(`autoplay-allowed`)) {
+                if (Types.is_boolean(this.dyn.get("wait-user-interaction"))) {
+                    this.preloadAds(!!this.dyn.get("wait-user-interaction"));
+                } else {
+                    this.listenOnce(this.dyn, `change:autoplay-allowed`, function(allowed) {
+                        if (!allowed) this.preloadAds(false);
+                    }, this);
+                }
+            };
+        },
+
+        playOnUserInteraction: function() {
             // If the ready state launches later
             if (Types.is_defined(this.dyn.get("wait-user-interaction"))) {
                 if (this.dyn.get("wait-user-interaction")) {
@@ -415,8 +442,9 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                     this.play();
                 }
             } else {
-                if (!this.dyn.videoAttached() && !this.dyn.get("adsplayer_active"))
+                if (!this.dyn.videoAttached() && !this.dyn.get("adsplayer_active") && !this.dyn.__attachRequested) {
                     this.dyn.reattachVideo();
+                }
                 this.listenOn(this.dyn, "change:wait-user-interaction", function(wait) {
                     if (wait) {
                         this.dyn.once("user-has-interaction", function() {
@@ -426,15 +454,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
                         this.play();
                     }
                 }, this);
-            }
-        },
-
-        preloadAds: function(autoplay) {
-            if (this.dyn?.get(`preload_ads`) && !this.dyn?.get(`ads_loaded`) && this.dyn?.get(`adshassource`)) {
-                this.next("LoadAds", {
-                    position: State.ADS_POSITIONS.PREROLL,
-                    autoplay: autoplay
-                });
             }
         }
     });

@@ -1006,7 +1006,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                         }, this);
                     }
-
+///comment only
                     this.__attachPlayerInteractionEvents();
                     this.set('clearDebounce', 0);
                     this.__mergeDeepAttributes();

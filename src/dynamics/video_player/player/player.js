@@ -189,6 +189,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "title": "",
                         "description": "",
                         "upload_date": "",
+                        "uploaddate": "",
                         "content_url": "",
                         "thumbnail_url": "",
                         "contenturl": "",
@@ -544,6 +545,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "title": "string",
                     "description": "string",
                     "upload_date": "string",
+                    "uploaddate": "string",
                     "content_url": "string",
                     "thumbnail_url": "string",
                     "contenturl": "string",
@@ -607,6 +609,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "change:upload_date": function(value) {
                         if (typeof value === "number")
                             this.set("upload_date", TimeFormat.format("yyyy-mm-dd", value * 1000));
+                    },
+                    "change:uploaddate": function(value) {
+                        if (typeof value === "number")
+                            this.set("uploaddate", TimeFormat.format("yyyy-mm-dd", value * 1000));
                     },
                     "change:starttime": function(startTime) {
                         if (startTime > this.getCurrentPosition()) {

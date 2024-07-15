@@ -18,8 +18,8 @@
     <meta itemprop="description" content="{{description || 'Video Player'}}" />
     <meta itemprop="uploadDate" content="{{upload_date}}" />
     <meta itemprop="caption" content="{{title}}" />
-    <meta itemprop="thumbnailUrl" content="{{thumbnail_url}}" />
-    <meta itemprop="contentUrl" content="{{content_url}}" />
+    <meta itemprop="thumbnailUrl" content="{{thumbnail_url || thumbnailUrl}}" />
+    <meta itemprop="contentUrl" content="{{content_url || contenturl}}" />
     <div class="{{cssplayer}}-content" data-selector="ba-player-container"
          ba-styles="{{playercontainerstyles}}"
     >

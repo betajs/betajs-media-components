@@ -7,6 +7,7 @@
 ## Checklist
 - [ ] Tested locally
 - [ ] Added new unit, integration or regression tests
+- [ ] Passed all e2e tests in local machine
 - [ ] Updated docs
 
 ## Demo

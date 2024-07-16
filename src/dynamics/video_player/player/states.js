@@ -979,17 +979,31 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
 });
 
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PrerollAd", [
-    "module:VideoPlayer.Dynamics.PlayerStates.PlayAd"
-], function(State, scoped) {
+    "module:VideoPlayer.Dynamics.PlayerStates.PlayAd",
+    "browser:Dom"
+], function(State, Dom,scoped) {
     return State.extend({
         scoped: scoped
     }, function(inherited) {
         return {
             _started: function() {
                 const floating = this.dyn.get("sticky") || this.dyn.get("floating");
-                if (floating && this.dyn.floatHandler)
-                    this.dyn.floatHandler.start();
-                inherited._started.call(this);
+                if (this.dyn.get(`autoplaywhenvisible`)) {
+                    // after player being visible, start float handler when out of view.
+                    Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                        this.dyn.set(`autoplaywhenvisible`, false);
+                        if (floating && this.dyn.floatHandler)
+                            this.dyn.floatHandler.start();
+                        inherited._started.call(this);
+                    }, this);
+                } else {
+                    // before first time player being visible only start float handler if only `autoplay` is true.
+                    const autoPlay = this.dyn.get(`autoplay`) && !this.dyn.get(`autoplaywhenvisible`);
+                    if (floating && autoPlay && this.dyn.floatHandler) {
+                        this.dyn.floatHandler.start();
+                    }
+                    inherited._started.call(this);
+                }  
             }
         };
     });

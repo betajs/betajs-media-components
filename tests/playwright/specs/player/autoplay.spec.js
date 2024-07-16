@@ -174,6 +174,7 @@ test.describe(`With ads`, () => {
                 {
                     ...defaultPlayerAttributes,
                     ...describeAttributes,
+                    width: 640, height: 360,
                     ...{
                         autoplay: true,
                         skipinitial: false,
@@ -195,7 +196,6 @@ test.describe(`With ads`, () => {
             const wrapperElement = await player.getElementByTestID(`player-container`);
             await expect(wrapperElement).toBeInViewport();
 
-            await player.listenPlayerEvent(`ads:start`, 20);
             await player.waitAdsRemainingSeconds(8);
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeTruthy();

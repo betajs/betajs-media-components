@@ -153,10 +153,11 @@ test.describe(`With ads source`, () => {
                     ...defaultPlayerAttributes,
                     ...{
                         adtagurl: AD_TAG_URL,
+                        width: 640, height: 360,
                         autoplay: true,
                         skipinitial: false,
                         preload_ads: true,
-                        autoplaywhenvisible: false
+                        autoplaywhenvisible: false,
                     }
                 }, context, [{
                     blk: 2
@@ -173,7 +174,6 @@ test.describe(`With ads source`, () => {
             const wrapperElement = await player.getElementByTestID(`player-container`);
             await expect(wrapperElement).toBeInViewport();
 
-            await player.listenPlayerEvent(`ads:start`, 20);
             await player.waitAdsRemainingSeconds(8);
 
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);

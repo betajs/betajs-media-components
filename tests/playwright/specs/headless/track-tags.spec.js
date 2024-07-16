@@ -24,7 +24,6 @@ test.describe(`Player track tags`, () => {
     test.describe.configure({
         headless: true,
         mode: 'default',
-        retries: 0,
         // timeout: 120_000,
         video: 'on-first-retry',
     });

@@ -1,0 +1,151 @@
+@startuml
+skinparam maxMessageSize 120
+
+' attributes are #lightgreen
+' states are #lightblue
+' methods are #f5676e
+' listeners are #edf50f
+' caller are #54c0de
+
+' participant "Player" as player <<Content Player>>
+' participant "Ads Player" as ads_player
+' participant "Player States" as player_states
+
+'!procedure runAutoplay()
+'note over LoadVideo
+'
+'end note
+'!endprocedure
+
+box "Content Player" #LightBlue
+	participant Player
+end box
+
+box "Player States" #LightGreen
+    participant PosterReady
+    participant LoadAds
+    participant LoadVideo
+    participant PlayVideo
+    participant PrerollAd
+    participant PlayAd
+    participant PosterError
+
+    --> PosterReady : starting position
+
+    alt autoplay
+        alt adshassource
+            PosterReady -> PosterReady: **1.** runAutoplay()
+            PosterReady -> PosterReady: **2.** play()
+            PosterReady -> LoadAds : **3.** {autoplay: true,\n position: pre}
+            LoadAds -> AdsPlayer :**4.** ads:load({autoplay: true})
+            LoadAds --> LoadAds :**5.** (wait:ads:loaded)
+            AdsPlayer -> AdsPlayer: **6.** load(true)
+            AdsPlayer --> LoadAds :**7.** (on:ads:loaded)
+            LoadAds --> LoadVideo: **8.** {autoplay: true}
+            LoadVideo --> Player : **9.** (attachVideo)
+            LoadVideo -> PrerollAd: **10.** (on:contentPauseRequested)
+            PrerollAd -> PlayAd: **11.** (wait:ads:contentResumeRequested)
+            PlayAd -> PlayAd : **12.** resume()(on:ads:contentResumeRequested)
+            PlayAd --> PlayAd: **13.** Player.player.play()
+            PlayAd -> PlayVideo : **14.** Player.play()
+        else !adshassource
+            PosterReady -> PosterReady: **1.** runAutoplay()
+            PosterReady -> LoadVideo : **2.** (on:play){autoplay: true}
+            LoadVideo -> PlayVideo : **3.** (wait:next_video)
+        end
+
+    else !autoplay
+        ' on skipinitial false preload will be attached anyway
+        alt preload
+            'If autoplay is true, silence will be ignored, and player start to play
+        end
+        alt preload_ads
+            alt adshassource
+                PosterReady -> LoadAds : **1.** {autoplay: false,\n position: pre}
+                LoadAds -> AdsPlayer :**2.** ads:load({autoplay: false})
+                AdsPlayer -> LoadAds :**3.** (wait:ads:loaded)
+                LoadAds -> PosterReady :**4.** (on:ads:loaded){autoplay: false}
+                PosterReady --> PosterReady : **5.** (wait:Player.play())
+                ' as ads already loaded now, we will move to LoadVideo
+                PosterReady -> LoadVideo : **6.** {autoplay: true}
+                LoadVideo --> LoadVideo : **7.** (wait:ads:contentPauseRequested)
+                LoadVideo --> Player : **7a.** (attachVideo)
+                ' LoadVideo will also attach video
+                LoadVideo -> PrerollAd: **8.** (on:contentPauseRequested)
+                PrerollAd -> PlayAd: **9.** (wait:ads:contentResumeRequested)
+                PlayAd -> PlayAd : **10.** resume()(on:ads:contentResumeRequested)
+                PlayAd --> PlayAd: **11.** Player.player.play()
+                PlayAd -> PlayVideo : **12.** Player.play()
+            else !adshassource
+                PosterReady --> PosterReady : **1.** (wait:Player.play())
+                PosterReady -> LoadVideo : **2.** (on:play){autoplay: true}
+                LoadVideo -> PlayVideo : **3.** (wait:next_video)
+            end
+        'no-autoplay, no-skipinitial, no-preload_ads
+        else !preload_ads
+            alt adshassource
+                ' manual-play.spec: `With Ads: scroll and play on click`
+                ' Will start as soon as user will click to start play
+                PosterReady --> PosterReady : **1.** (wait:Player.play())
+                Player --> PosterReady : **2.** PosterReady.play()
+                PosterReady -> LoadAds: **3.** {autoplay: true}
+                LoadAds -> AdsPlayer: **4.** load({autoplay: true})
+                AdsPlayer --> AdsPlayer: **5.** (wait:ads:loaded)
+                LoadAds --> LoadAds : **6.** (wait:ads:contentResumeRequested)
+                LoadAds --> LoadAds : **7.** (wait:ads:error)
+                AdsPlayer -> LoadAds : **8.** (ads:loaded)
+                LoadAds -> LoadVideo : **9.** {autoplay: true}
+                'this one is ignored later
+                LoadVideo --> LoadVideo: (wait:ads:contentPauseRequested)
+                LoadVideo --> LoadVideo : **10.** (wait:attached)
+                LoadVideo -> LoadVideo : **11.** LoadVideo._playVideo()
+                ' will not run Player.player.play() as ads is loaded
+                LoadVideo -> LoadVideo: **12.** LoadVideo.play()
+                LoadVideo --> PlayVideo : **13.** (wait:ads:contentPauseRequested)
+                PlayVideo --> PrerollAd : **14.** (contentPauseRequested)
+                PrerollAd --> PlayAd : **15.** (wait:ads:contentResumeRequested)
+                PlayAd --> PlayAd : **16.** (contentPauseRequested)
+                PlayAd -> PlayAd : **17.** PlayAd.resume()
+                PlayAd --> PlayAd: **18.** Player.player.play()
+                PlayAd -> PlayVideo : **19.** Player.play()
+            else !adshassource
+                ' manual-play.spec: `No Ads: scroll to play`
+                ' Will start as soon as user will click to start play
+                PosterReady --> PosterReady : **1.** (wait:Player.play())
+                Player --> PosterReady : **2.** PosterReady.play()
+                PosterReady -> LoadVideo : **3.** {autoplay: true}
+                LoadVideo -> Player : **4.** reattachVideo()
+                Player --> LoadVideo : **5.** (attached)
+                LoadVideo -> LoadVideo : **6.** LoadVideo._playVideo()
+                ' PlayVideo play method will call state's play method
+                LoadVideo --> LoadVideo: **7.** LoadVideo.play()
+                LoadVideo --> LoadVideo: **8.** Player.player.play()
+                LoadVideo --> PlayVideo : **9.**
+                PlayVideo --> PlayVideo : **10.** (wait:next_video)
+            end
+        end
+    end
+
+    ' PosterReady --> Player : (ready_to_play)
+    ' PosterReady --> Player : (loaded)
+'    alt fullscreen_IOS
+'        LoadAds -> LoadVideo : {adsplayer_active: false}
+'    else !fullscreen_IOS
+'        LoadAds -> Player : {adsplayer_active: true}
+'        LoadAds -> AdsPlayer : ads:load(autoplay?)
+'        LoadAds --> LoadAds : _waitForAdLogs()
+'        LoadAds --> LoadAds : _waitContentResumeRequested()
+'        LoadAds --> LoadAds : _waitForAdsErrors()
+'    end
+end box
+
+box "Ads Player" #LightYellow
+	participant AdsPlayer
+'	AdsPlayer --> AdsPlayer : load(autoplay?)
+'	AdsPlayer --> AdsPlayer : {quartile: 'first'}
+end box
+
+box "Content Player" #LightBlue
+end box
+
+@enduml

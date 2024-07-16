@@ -1,6 +1,7 @@
 <div
     class="ba-ad-container {{linear ? (css + '-overlay') : ''}}
     {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}
+    {{adsplaying ? (cssadsplayer  + '-linear-ads-playing') : ''}}
     {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}"
     ba-styles="{{floating ? {} : parentcontainersizingstyles}}"
     data-video="ima-ad-container" data-testid="{{testid}}-ads-player-container"

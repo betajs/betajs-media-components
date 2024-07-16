@@ -110,9 +110,26 @@
         attrs, availablepresetoptions
     } from "../assets/options.js";
 
-    const localAttrs = {...attrs, ...{
-            fullscreenasmodal: true,
+    // attrs.preload = false;
+    // attrs.autoplay = false;
+    // attrs.skipinitial = false;
+    // attrs.preload_ads = false;
+    // attrs.autoplaywhenvisible = false;
+
+    const localAttrs = {
+        ...attrs,
+        ...{
+            // adtagurl: null,
+            // outstream: true,
+            // preload: true,
+            // autoplay: true,
+            // skipinitial: true,
+            // preload_ads: true,
             // autoplaywhenvisible: true,
+            // showsidebargallery: true,
+            // adsposition: "mid",
+            // playwhenvisible: true,
+            // ads_source_init_timeout: 3000,
             // hidebeforeadstarts: false, // Will help hide player poster before ads start
             // showplayercontentafter: 1500, // we can set any seconds to show player content in any case if ads not intialized
             // hideoninactivity: false,
@@ -406,15 +423,16 @@
         }, player);
     }
     player.on("attached", function (playerInstance) {
+        console.log(`%cPlayer Attached`, `background-color: green; color: white; padding: 2px 5px; border-radius: 2px; font-weight: bold;`);
         // ['autoplay', 'skipinitial','autoplaywhenvisible', 'outstream'].forEach(key => {
         //     console.log(`${key} = ${player.get(key)}\n`);
         // });
-        ['sidebaroptions'].forEach(key => {
-            console.log(`${key} = ${JSON.stringify(player.get(key))}\n`);
-        });
-        playerInstance.on("fullscreen-change", function (isFullscreen) {
-            console.log('is Full', isFullscreen);
-        }, this);
+        // ['sidebaroptions'].forEach(key => {
+        //     console.log(`${key} = ${JSON.stringify(player.get(key))}\n`);
+        // });
+        // playerInstance.on("fullscreen-change", function (isFullscreen) {
+        //     console.log('is Full', isFullscreen);
+        // }, this);
 
         // player.showTooltip({
         //     tooltiptext: "Hello World 3...",
@@ -432,6 +450,10 @@
         //         disappearafterseconds: -1,
         //     });
         // }, 5000);
+    }, player);
+
+    player.on("ads:loaded", (ev) => {
+        console.log(`Ads are loaded...`);
     }, player);
 
     player.on("ready_to_play", (ev) => {

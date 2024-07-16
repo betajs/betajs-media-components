@@ -981,7 +981,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PrerollAd", [
     "module:VideoPlayer.Dynamics.PlayerStates.PlayAd",
     "browser:Dom"
-], function(State, Dom,scoped) {
+], function(State, Dom, scoped) {
     return State.extend({
         scoped: scoped
     }, function(inherited) {
@@ -1003,7 +1003,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PrerollAd", [
                         this.dyn.floatHandler.start();
                     }
                     inherited._started.call(this);
-                }  
+                }
             }
         };
     });

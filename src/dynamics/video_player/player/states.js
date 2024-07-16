@@ -1090,8 +1090,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.NextVideo", [
             this.dyn.set("last-played-position", 0);
             this.dyn.set("currentstream", {});
             this.dyn.set("sources", []);
-            this.dyn.set("upload_date", []);
-            this.dyn.set("uploaddate", []);
         },
 
         /**

@@ -96,6 +96,7 @@ test.describe(`Separate AdTags`, () => {
                 {
                     ...defaultPlayerAttributes,
                     ...descriptionPlayerAttributes,
+                    width: 640, height: 360,
                     ...{
                         nextwidget: false,
                         autoplay: true,
@@ -116,11 +117,10 @@ test.describe(`Separate AdTags`, () => {
             await player.clickAdsSkipButton();
 
             await expect(await progressBar).toBeVisible();
-
             await player.skipToPosition(0.45)
 
             // Midroll starts to load
-            await player.waitAdsRemainingSeconds(8);
+            await player.waitAdsRemainingSeconds(8, 20000);
             await player.clickAdsSkipButton();
             await expect(await progressBar).toBeVisible();
 

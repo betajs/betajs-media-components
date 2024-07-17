@@ -120,7 +120,7 @@ test.describe(`Separate AdTags`, () => {
             await player.skipToPosition(0.45)
 
             // Midroll starts to load
-            await waitAdsStartEvent();
+            await player.waitAdsRemainingSeconds(8);
             await player.clickAdsSkipButton();
             await expect(await progressBar).toBeVisible();
 
@@ -244,10 +244,10 @@ test.describe(`Separate AdTags`, () => {
             const waitAdsStartEvent = async (timeout) => player.listenPlayerEvent(`ads:start`, timeout || 25);
             const progressBar = player.getElementByTestID(`progress-bar-inner`);
 
-            await waitAdsStartEvent();
+            await player.waitAdsRemainingSeconds(9);
             await player.clickAdsSkipButton();
 
-            await player.waitNextSecondPosition(1);
+            await player.waitNextSecondPosition(2);
 
             await player.skipToPosition(0.75);
             await player.waitAdsRemainingSeconds(9);

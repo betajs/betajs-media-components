@@ -1,3 +1,5 @@
+import {define} from "jsdom/lib/jsdom/utils";
+
 const { expect } = require('@playwright/test')
 import createOptions from '../utils/create-options';
 import { PLAYER_URI, DATA_TEST_ID_PREFIX } from '../consts.js';
@@ -331,14 +333,33 @@ class PlayerPage {
         await skipButton.click();
     }
 
-    async getPlayerCurrentStateName() {
+    async getPlayerCurrentStateName(expectedStateName, timeout) {
+        timeout = (!isNaN(timeout) && (timeout > 1000 ? timeout : Math.ceil(timeout / 1000))) || 5000;
         if (!this.playerInstance)
             throw new Error(`Player instance is not defined on getPlayerCurrentStateName method name`);
-        return this.playerInstance.evaluate(async (ins) => {
+        return this.playerInstance.evaluate(async (ins, [expected, timeout, debug]) => {
             if (typeof ins.host === 'undefined')
                 throw new Error(`Player instance has no any state`);
-            return Promise.resolve(ins?.host?.state()?.state_name());
-        });
+            return new Promise((resolve, reject) => {
+                const currentStateName = ins?.host?.state()?.state_name();
+                if (typeof expected !== "undefined" && isNaN(expected) && currentStateName !== expected) {
+                    const intervalID = setInterval(() => {
+                        console.log(`Interval started: ${intervalID}`);
+                        if (ins?.host?.state()?.state_name() === expected) {
+                            clearInterval(intervalID);
+                            resolve(expected);
+                        }
+                    }, 100);
+                    setTimeout(() => {
+                        clearInterval(intervalID);
+                        console.log(`State ${expected} was not detected in ${timeout / 1000} seconds`);
+                        resolve(currentStateName);
+                    }, timeout);
+                } else {
+                    resolve(ins?.host?.state()?.state_name());
+                }
+            });
+        }, [expectedStateName, timeout, this.debug]);
     }
 
     async skipToPosition(position) {

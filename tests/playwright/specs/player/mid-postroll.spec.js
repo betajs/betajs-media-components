@@ -250,7 +250,7 @@ test.describe(`Separate AdTags`, () => {
             await player.waitNextSecondPosition(1);
 
             await player.skipToPosition(0.75);
-            await waitAdsStartEvent();
+            await player.waitAdsRemainingSeconds(9);
             await player.clickAdsSkipButton();
             await expect(await progressBar).toBeInViewport();
 

@@ -153,9 +153,7 @@ test.describe(`With ads`, () => {
             await expect(adsLoaded).toBeFalsy();
 
             await player.clickAdsSkipButton();
-            await player.listenPlayerEvent(`ads:complete`, 20);
 
-            await player.listenPlayerEvent(`change:position`);
             await player.waitNextSecondPosition(3);
             const playing = await player.getPlayerAttribute(`playing`);
             await expect(playing).toBeTruthy();
@@ -187,13 +185,15 @@ test.describe(`With ads`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            const adsCompletedEvent = player.listenPlayerEvent(`ads:complete`, 20);
             const adsLoaded = async () => player.getPlayerAttribute(`ads_loaded`);
+
+            await player.listenPlayerEvent(`ads:loaded`, 20);
 
             // When ads starts playing, IMA SDK will bring player to the view port
             const wrapperElement = await player.getElementByTestID(`player-container`);
             await expect(wrapperElement).toBeInViewport();
 
+            await player.listenPlayerEvent(`ads:start`, 20);
             await player.waitAdsRemainingSeconds(8);
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeTruthy();
@@ -203,7 +203,6 @@ test.describe(`With ads`, () => {
             await expect(adsPauseButton).toBeInViewport();
 
             await player.clickAdsSkipButton();
-            await adsCompletedEvent;
 
             await player.waitNextSecondPosition(3);
             const playing = await player.getPlayerAttribute(`playing`);

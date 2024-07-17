@@ -328,7 +328,7 @@ class PlayerPage {
         }
         if (this.debug) console.log(`DEBUG: Iframe found: ${iFrame}`);
         const skipButton = iFrame.locator(`button.videoAdUiSkipButton`);
-        await skipButton.waitFor({ state: 'visible', timeout: 8000 });
+        await skipButton.waitFor({ state: 'visible', timeout: 20000 });
         if (this.debug) console.log(`DEBUG: Skip button: ${skipButton}`);
         await skipButton.click();
     }

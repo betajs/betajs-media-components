@@ -1,5 +1,3 @@
-import {define} from "jsdom/lib/jsdom/utils";
-
 const { expect } = require('@playwright/test')
 import createOptions from '../utils/create-options';
 import { PLAYER_URI, DATA_TEST_ID_PREFIX } from '../consts.js';

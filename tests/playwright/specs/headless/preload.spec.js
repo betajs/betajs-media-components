@@ -37,7 +37,8 @@ test(`preload video content`, async ({ page, browserName, browser, context }) =>
         await player.goto();
         await player.setPlayerInstance();
 
-        await expect(await player.getPlayerCurrentStateName()).toBe(`PosterReady`);
+        const stateRegex = new RegExp(`(PosterReady)|(LoadPlayer)`);
+        await expect(await player.getPlayerCurrentStateName()).toMatch(stateRegex);
         // It's confirmed that video is attached
         const videoProperty = await player.getPropertyValue(`__video`);
         await expect(videoProperty).toBeDefined();

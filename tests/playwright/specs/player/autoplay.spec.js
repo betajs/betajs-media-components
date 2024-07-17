@@ -190,8 +190,6 @@ test.describe(`With ads`, () => {
             const adsCompletedEvent = player.listenPlayerEvent(`ads:complete`, 20);
             const adsLoaded = async () => player.getPlayerAttribute(`ads_loaded`);
 
-            await player.listenPlayerEvent(`ads:loaded`, 20);
-
             // When ads starts playing, IMA SDK will bring player to the view port
             const wrapperElement = await player.getElementByTestID(`player-container`);
             await expect(wrapperElement).toBeInViewport();

@@ -168,14 +168,12 @@ test.describe(`With ads source`, () => {
             await player.setPlayerInstance();
 
             const adsCompletedEvent =  async () => player.listenPlayerEvent(`ads:complete`, 20);
-            await player.listenPlayerEvent(`ads:loaded`, 20);
 
             //  as soon ads loads, IMA will move player container to the viewport
             const wrapperElement = await player.getElementByTestID(`player-container`);
             await expect(wrapperElement).toBeInViewport();
 
             await player.waitAdsRemainingSeconds(8);
-
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeTruthy();
 

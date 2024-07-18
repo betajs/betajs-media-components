@@ -15,6 +15,79 @@ Scoped.define("module:Ads.Dynamics.Player", [
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
+            const SUPPORTED_VAST_TAG_PARAMS = new Set([
+                "aconp",
+                "ad_rule",
+                "ad_type",
+                "addtl_consent",
+                "afvsz",
+                "allcues",
+                "an",
+                "ciu_szs",
+                "correlator",
+                "cmsid",
+                "cust_params",
+                "description_url",
+                "env",
+                "excl_cat",
+                "gdfp_req",
+                "gdpr",
+                "gdpr_consent",
+                "hl",
+                "iabexcl",
+                "idtype",
+                "ipd",
+                "ipe",
+                "is_lat",
+                "iu",
+                "lip",
+                "ltd",
+                "max_ad_duration",
+                "min_ad_duration",
+                "mridx",
+                "msid",
+                "nofb",
+                "npa",
+                "omid_p",
+                "output",
+                "plcmt",
+                "pmad",
+                "pmnd",
+                "pmxd",
+                "pod",
+                "pp",
+                "ppt",
+                "ppid",
+                "ppos",
+                "ppsj",
+                "ptpl",
+                "ptpln",
+                "pubf",
+                "pvid",
+                "pvid_s",
+                "pvtf",
+                "rdid",
+                "rdp",
+                "scor",
+                "sdk_apis",
+                "sdmax",
+                "sid",
+                "ssss",
+                "sz",
+                "tfcd",
+                "trt",
+                "unviewed_position_start",
+                "url",
+                "vad_type",
+                "vconp",
+                "vid",
+                "vid_d",
+                "vpa",
+                "vpi",
+                "vpmute",
+                "vpos",
+                "wta",
+            ]);
             return {
                 template: "<%= template(dirname + '/ads_player.html') %>",
 
@@ -86,21 +159,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 /**
                  * @typedef {Object} RequestAdsOptions
+                 * @property {Object} adTagParams - supported query params from adTagUrl
                  * @property {string} adTagUrl
-                 * @property {Object} IMASettings - IMA setings object configuration
-                 * @property {string} inlinevastxml
-                 * @property {boolean} continuousPlayback
-                 * @property {number} linearAdSlotWidth
-                 * @property {number} linearAdSlotHeight
-                 * @property {number} nonLinearAdSlotWidth
-                 * @property {number} nonLinearAdSlotHeight
                  * @property {boolean} adWillAutoPlay
                  * @property {boolean} adWillPlayMuted
                  * @property {boolean} autoPlayAdBreaks
-                 * @property {number} width
+                 * @property {boolean} continuousPlayback
                  * @property {number} height
-                 * @property {number} volume
+                 * @property {Object} IMASettings - IMA settings object configuration
+                 * @property {string} inlinevastxml
+                 * @property {number} linearAdSlotHeight
+                 * @property {number} linearAdSlotWidth
+                 * @property {number} nonLinearAdSlotHeight
+                 * @property {number} nonLinearAdSlotWidth
                  * @property {number} vastLoadTimeout
+                 * @property {number} volume
+                 * @property {number} width
                  */
 
                 /**
@@ -109,9 +183,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  * @private
                  */
                 _baseRequestAdsOptions: function() {
+                    const adTagUrl = this.get("adtagurl");
                     /** @type {RequestAdsOptions} */
                     const requestAdsOptions = {
-                        adTagUrl: this.get("adtagurl"),
+                        adTagUrl: adTagUrl,
+                        adTagParams: this._adTagUrlParamsToMap(adTagUrl),
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
                         continuousPlayback: true,
@@ -550,7 +626,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillPlayMuted: function() {
-                    return this.get("muted") || this.get("volume") === 0;
+                    // there is a delay for parent volume propagating to the ad player so we check if volume for both
+                    return this.get("muted") || (this.get("volume") === 0 && this.parent().get("volume") === 0);
                 },
 
                 trackAdsPerformance: function(name) {
@@ -892,6 +969,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
                         adWillAutoPlay: Types.is_defined(autoPlay) ? autoPlay : true
                     }
+                },
+
+                /**
+                 *
+                 * @private
+                 * @param {string} url
+                 * @return {Object} param key value map
+                 */
+                _adTagUrlParamsToMap: function(url) {
+                    return new URL(this._adsRequest.adTagUrl) // convert URL string to URL object
+                        .searchParams.toString() // grab query url string
+                        .split("&") //down to each query param pair
+                        .reduce((acc, current) => {
+                            const [key, value] = current.split("=");
+                            if (SUPPORTED_VAST_TAG_PARAMS.has(key)) {
+                                acc[key] = value;
+                            }
+                            return acc
+                        }, {});
                 }
             };
         }).register("ba-adsplayer")

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.501 - 2024-07-16
+betajs-media-components - v0.0.502 - 2024-07-18
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.501 - 2024-07-16
+betajs-media-components - v0.0.502 - 2024-07-18
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.501",
-    "datetime": 1721152457401
+    "version": "0.0.502",
+    "datetime": 1721336409223
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1376,10 +1376,15 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 } else if (requestAdsOptions.inlinevastxml) {
                     this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
                 }
-                this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
-                this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
-                this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
-                this._adsRequest.nonLinearAdSlotHeight = requestAdsOptions.nonLinearAdSlotHeight;
+
+                // if size query param is not on the ad tag url, define them
+                if (!requestAdsOptions.adTagParams.sz || !requestAdsOptions.adTagParams.sz.length > 0) {
+                    this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
+                    this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
+                    this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
+                    this._adsRequest.nonLinearAdSlotHeight = requestAdsOptions.nonLinearAdSlotHeight;
+                }
+
                 // setAdWillAutoPlay: void. Notifies the SDK and changing this setting will have no impact on ad playback.
                 this._adsRequest.setAdWillAutoPlay(requestAdsOptions.adWillAutoPlay);
                 this._adsRequest.setAdWillPlayMuted(requestAdsOptions.adWillPlayMuted);
@@ -3764,6 +3769,79 @@ Scoped.define("module:Ads.Dynamics.Player", [
     return Class.extend({
             scoped: scoped
         }, function(inherited) {
+            const SUPPORTED_VAST_TAG_PARAMS = new Set([
+                "aconp",
+                "ad_rule",
+                "ad_type",
+                "addtl_consent",
+                "afvsz",
+                "allcues",
+                "an",
+                "ciu_szs",
+                "correlator",
+                "cmsid",
+                "cust_params",
+                "description_url",
+                "env",
+                "excl_cat",
+                "gdfp_req",
+                "gdpr",
+                "gdpr_consent",
+                "hl",
+                "iabexcl",
+                "idtype",
+                "ipd",
+                "ipe",
+                "is_lat",
+                "iu",
+                "lip",
+                "ltd",
+                "max_ad_duration",
+                "min_ad_duration",
+                "mridx",
+                "msid",
+                "nofb",
+                "npa",
+                "omid_p",
+                "output",
+                "plcmt",
+                "pmad",
+                "pmnd",
+                "pmxd",
+                "pod",
+                "pp",
+                "ppt",
+                "ppid",
+                "ppos",
+                "ppsj",
+                "ptpl",
+                "ptpln",
+                "pubf",
+                "pvid",
+                "pvid_s",
+                "pvtf",
+                "rdid",
+                "rdp",
+                "scor",
+                "sdk_apis",
+                "sdmax",
+                "sid",
+                "ssss",
+                "sz",
+                "tfcd",
+                "trt",
+                "unviewed_position_start",
+                "url",
+                "vad_type",
+                "vconp",
+                "vid",
+                "vid_d",
+                "vpa",
+                "vpi",
+                "vpmute",
+                "vpos",
+                "wta",
+            ]);
             return {
                 template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{adsplaying ? (cssadsplayer  + '-linear-ads-playing') : ''}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{floating ? {} : parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\" data-testid=\"{{testid}}-ads-player-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n        data-testid=\"{{testid}}-top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{showlearnmorebutton && moredetailslink}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{redirect(moredetailslink)}}\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n                data-testid=\"{{testid}}-ads-player-more-details-button\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </button>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                    title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n                    data-testid=\"{{testid}}-ads-player-replay-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </button>\n        </div>\n        <div ba-if=\"{{!hideclosebutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                    title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n                    data-testid=\"{{testid}}-ads-player-close-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </button>\n        </div>\n    </div>\n    <div ba-if=\"{{ adsclicktroughurl && customclickthrough }}\"\n         data-selector=\"ba-ads-clickthrough-container\"\n         class=\"{{css}}-overlay {{csscommon}}-clickable\"\n    ></div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-testid=\"{{testid}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-skipvisible=\"{{skipvisible}}\"\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-tooltips=\"{{tooltips}}\"\n    ba-adsplaying=\"{{adsplaying}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n    ba-showadchoices=\"{{showadchoices}}\"\n    ba-event:resume=\"resume\"\n    ba-event:pause=\"pause\"\n    ba-event:stop=\"stop\"\n    ba-event:volume=\"set_volume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-event:toggle_volume=\"{{toggle_volume}}\"\n></ba-{{dyncontrolbar}}>\n",
 
@@ -3835,21 +3913,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 /**
                  * @typedef {Object} RequestAdsOptions
+                 * @property {Object} adTagParams - supported query params from adTagUrl
                  * @property {string} adTagUrl
-                 * @property {Object} IMASettings - IMA setings object configuration
-                 * @property {string} inlinevastxml
-                 * @property {boolean} continuousPlayback
-                 * @property {number} linearAdSlotWidth
-                 * @property {number} linearAdSlotHeight
-                 * @property {number} nonLinearAdSlotWidth
-                 * @property {number} nonLinearAdSlotHeight
                  * @property {boolean} adWillAutoPlay
                  * @property {boolean} adWillPlayMuted
                  * @property {boolean} autoPlayAdBreaks
-                 * @property {number} width
+                 * @property {boolean} continuousPlayback
                  * @property {number} height
-                 * @property {number} volume
+                 * @property {Object} IMASettings - IMA settings object configuration
+                 * @property {string} inlinevastxml
+                 * @property {number} linearAdSlotHeight
+                 * @property {number} linearAdSlotWidth
+                 * @property {number} nonLinearAdSlotHeight
+                 * @property {number} nonLinearAdSlotWidth
                  * @property {number} vastLoadTimeout
+                 * @property {number} volume
+                 * @property {number} width
                  */
 
                 /**
@@ -3858,9 +3937,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  * @private
                  */
                 _baseRequestAdsOptions: function() {
+                    const adTagUrl = this.get("adtagurl");
                     /** @type {RequestAdsOptions} */
                     const requestAdsOptions = {
-                        adTagUrl: this.get("adtagurl"),
+                        adTagUrl: adTagUrl,
+                        adTagParams: this._adTagUrlParamsToMap(adTagUrl),
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
                         continuousPlayback: true,
@@ -4299,7 +4380,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 getAdWillPlayMuted: function() {
-                    return this.get("muted") || this.get("volume") === 0;
+                    // there is a delay for parent volume propagating to the ad player so we check if volume for both
+                    return this.get("muted") || (this.get("volume") === 0 && this.parent().get("volume") === 0);
                 },
 
                 trackAdsPerformance: function(name) {
@@ -4641,6 +4723,25 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
                         adWillAutoPlay: Types.is_defined(autoPlay) ? autoPlay : true
                     }
+                },
+
+                /**
+                 *
+                 * @private
+                 * @param {string} url
+                 * @return {Object} param key value map
+                 */
+                _adTagUrlParamsToMap: function(url) {
+                    return new URL(this._adsRequest.adTagUrl) // convert URL string to URL object
+                        .searchParams.toString() // grab query url string
+                        .split("&") //down to each query param pair
+                        .reduce((acc, current) => {
+                            const [key, value] = current.split("=");
+                            if (SUPPORTED_VAST_TAG_PARAMS.has(key)) {
+                                acc[key] = value;
+                            }
+                            return acc
+                        }, {});
                 }
             };
         }).register("ba-adsplayer")
@@ -9551,7 +9652,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
         playOnUserInteraction: function() {
             // If the ready state launches later
-            if (Types.is_defined(this.dyn.get("wait-user-interaction"))) {
+            if (Types.is_defined(this.dyn?.get("wait-user-interaction"))) {
                 if (this.dyn.get("wait-user-interaction")) {
                     this.dyn.once("user-has-interaction", function() {
                         this.play();

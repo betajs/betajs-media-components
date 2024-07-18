@@ -433,7 +433,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
         playOnUserInteraction: function() {
             // If the ready state launches later
-            if (Types.is_defined(this.dyn.get("wait-user-interaction"))) {
+            if (Types.is_defined(this.dyn?.get("wait-user-interaction"))) {
                 if (this.dyn.get("wait-user-interaction")) {
                     this.dyn.once("user-has-interaction", function() {
                         this.play();
@@ -981,7 +981,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
 Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PrerollAd", [
     "module:VideoPlayer.Dynamics.PlayerStates.PlayAd",
     "browser:Dom"
-], function(State, Dom,scoped) {
+], function(State, Dom, scoped) {
     return State.extend({
         scoped: scoped
     }, function(inherited) {
@@ -1003,7 +1003,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PrerollAd", [
                         this.dyn.floatHandler.start();
                     }
                     inherited._started.call(this);
-                }  
+                }
             }
         };
     });

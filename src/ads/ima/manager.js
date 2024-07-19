@@ -99,10 +99,15 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 } else if (requestAdsOptions.inlinevastxml) {
                     this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
                 }
-                this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
-                this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
-                this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
-                this._adsRequest.nonLinearAdSlotHeight = requestAdsOptions.nonLinearAdSlotHeight;
+
+                // if size query param is not on the ad tag url, define them
+                if (!requestAdsOptions.adTagParams.sz || !requestAdsOptions.adTagParams.sz.length > 0) {
+                    this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
+                    this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
+                    this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
+                    this._adsRequest.nonLinearAdSlotHeight = requestAdsOptions.nonLinearAdSlotHeight;
+                }
+
                 // setAdWillAutoPlay: void. Notifies the SDK and changing this setting will have no impact on ad playback.
                 this._adsRequest.setAdWillAutoPlay(requestAdsOptions.adWillAutoPlay);
                 this._adsRequest.setAdWillPlayMuted(requestAdsOptions.adWillPlayMuted);

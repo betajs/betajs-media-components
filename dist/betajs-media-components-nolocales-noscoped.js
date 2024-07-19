@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.502 - 2024-07-18
+betajs-media-components - v0.0.503 - 2024-07-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.502",
-    "datetime": 1721336409224
+    "version": "0.0.503",
+    "datetime": 1721364437823
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -3530,7 +3530,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  * @return {Object} param key value map
                  */
                 _adTagUrlParamsToMap: function(url) {
-                    return new URL(this._adsRequest.adTagUrl) // convert URL string to URL object
+                    return new URL(url) // convert URL string to URL object
                         .searchParams.toString() // grab query url string
                         .split("&") //down to each query param pair
                         .reduce((acc, current) => {
@@ -8449,8 +8449,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
         },
 
         playOnUserInteraction: function() {
+            if (!this.dyn) {
+                return;
+            }
             // If the ready state launches later
-            if (Types.is_defined(this.dyn?.get("wait-user-interaction"))) {
+            if (Types.is_defined(this.dyn.get("wait-user-interaction"))) {
                 if (this.dyn.get("wait-user-interaction")) {
                     this.dyn.once("user-has-interaction", function() {
                         this.play();

@@ -978,7 +978,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  * @return {Object} param key value map
                  */
                 _adTagUrlParamsToMap: function(url) {
-                    return new URL(this._adsRequest.adTagUrl) // convert URL string to URL object
+                    return new URL(url) // convert URL string to URL object
                         .searchParams.toString() // grab query url string
                         .split("&") //down to each query param pair
                         .reduce((acc, current) => {

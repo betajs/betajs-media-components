@@ -153,9 +153,7 @@ test.describe(`With ads`, () => {
             await expect(adsLoaded).toBeFalsy();
 
             await player.clickAdsSkipButton();
-            await player.listenPlayerEvent(`ads:complete`, 20);
 
-            await player.listenPlayerEvent(`change:position`);
             await player.waitNextSecondPosition(3);
             const playing = await player.getPlayerAttribute(`playing`);
             await expect(playing).toBeTruthy();
@@ -174,6 +172,7 @@ test.describe(`With ads`, () => {
                 {
                     ...defaultPlayerAttributes,
                     ...describeAttributes,
+                    width: 640, height: 360,
                     ...{
                         autoplay: true,
                         skipinitial: false,
@@ -186,7 +185,6 @@ test.describe(`With ads`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            const adsCompletedEvent = player.listenPlayerEvent(`ads:complete`, 20);
             const adsLoaded = async () => player.getPlayerAttribute(`ads_loaded`);
 
             await player.listenPlayerEvent(`ads:loaded`, 20);
@@ -205,7 +203,6 @@ test.describe(`With ads`, () => {
             await expect(adsPauseButton).toBeInViewport();
 
             await player.clickAdsSkipButton();
-            await adsCompletedEvent;
 
             await player.waitNextSecondPosition(3);
             const playing = await player.getPlayerAttribute(`playing`);

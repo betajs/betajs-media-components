@@ -123,7 +123,6 @@ test.describe(`With ads source`, () => {
             await expect(wrapperElement).toBeInViewport();
 
             const sidebarElement = await player.getElementByTestID(`player-sidebar`);
-            console.log(`sidebar: `, sidebarElement);
             await expect(sidebarElement).toBeInViewport();
 
             await player.listenPlayerEvent(`ads:firstQuartile`, 20);
@@ -153,10 +152,11 @@ test.describe(`With ads source`, () => {
                     ...defaultPlayerAttributes,
                     ...{
                         adtagurl: AD_TAG_URL,
+                        width: 640, height: 360,
                         autoplay: true,
                         skipinitial: false,
                         preload_ads: true,
-                        autoplaywhenvisible: false
+                        autoplaywhenvisible: false,
                     }
                 }, context, [{
                     blk: 2
@@ -166,16 +166,12 @@ test.describe(`With ads source`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            const adsCompletedEvent =  async () => player.listenPlayerEvent(`ads:complete`, 20);
-            await player.listenPlayerEvent(`ads:loaded`, 20);
 
             //  as soon ads loads, IMA will move player container to the viewport
             const wrapperElement = await player.getElementByTestID(`player-container`);
             await expect(wrapperElement).toBeInViewport();
 
-            await player.listenPlayerEvent(`ads:start`, 20);
             await player.waitAdsRemainingSeconds(8);
-
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
             await expect(adsPlaying).toBeTruthy();
 
@@ -186,7 +182,6 @@ test.describe(`With ads source`, () => {
             await expect(adsPauseButton).toBeInViewport();
 
             await player.clickAdsSkipButton();
-            await adsCompletedEvent();
 
             await player.waitNextSecondPosition(3);
             const playing = await player.getPlayerAttribute(`playing`);

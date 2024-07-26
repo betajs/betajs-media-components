@@ -336,13 +336,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     const adManagerOptions = {
                         adContainer: adContainer,
                         adsRenderingSettings: this.get("imaadsrenderingsetting"),
-                        IMASettings: {
-                            ...this.get("imasettings"),
-                            ...{
-                                isMobile
-                            }
-                        }
+                        IMASettings: this.get("imasettings")
                     };
+
+                    if (isMobile && Info.iOSversion().major >= 10) {
+                        adManagerOptions.IMASettings.iOS10Plus = true;
+                    }
+
                     if (!isMobile && this.getVideoElement()) {
                         // It's optionalParameter
                         adManagerOptions.videoElement = this.getVideoElement();

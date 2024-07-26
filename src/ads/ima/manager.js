@@ -18,9 +18,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
 
                 if (google && google.ima && options.IMASettings)
                     this._setIMASettings(options);
-                this._adDisplayContainer = new google.ima.AdDisplayContainer(
-                    options.adContainer, options.videoElement, options.customclickthrough || null
-                );
+                this._adDisplayContainer = new google.ima.AdDisplayContainer(options.adContainer, options.videoElement);
                 this._adsLoader = new google.ima.AdsLoader(this._adDisplayContainer);
                 this._adsLoader.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError.bind(this), false);
                 this._adsLoader.addEventListener(google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, this.onAdsManagerLoaded.bind(this), false);
@@ -52,8 +50,8 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 }
 
                 // boolean: Sets whether to disable custom playback on iOS 10+ browsers. If true, ads will play inline if the content video is inline.
-                if (settings.disableCustomPlaybackForIOS10Plus) {
-                    google.ima.settings.setDisableCustomPlaybackForIOS10Plus(settings.disableCustomPlaybackForIOS10Plus);
+                if (settings.isMobile) {
+                    google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
                 }
 
                 // string: Sets the publisher provided locale. Must be called before creating AdsLoader or AdDisplayContainer.
@@ -101,7 +99,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 }
 
                 // if size query param is not on the ad tag url, define them
-                if (!requestAdsOptions.adTagParams.sz || !requestAdsOptions.adTagParams.sz.length > 0) {
+                if (requestAdsOptions.adTagParams && !requestAdsOptions?.adTagParams?.sz.length > 0) {
                     this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
                     this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
                     this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;

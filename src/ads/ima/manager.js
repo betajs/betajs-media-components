@@ -99,7 +99,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 }
 
                 // if size query param is not on the ad tag url, define them
-                if (requestAdsOptions.adTagParams && !requestAdsOptions?.adTagParams?.sz.length > 0) {
+                if (!requestAdsOptions?.adTagParams?.sz.length > 0) {
                     this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
                     this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
                     this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;

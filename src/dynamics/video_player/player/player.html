@@ -115,7 +115,7 @@
             ba-vmapads="{{vmapads}}"
         ></ba-{{dynadsplayer}}>
         <div class="{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}"
-             ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" ba-styles="{{placeholderstyle}}"
+             ba-show="{{!showbuiltincontroller && !outstream && !adsplaying}}" style="{{placeholderstyle}}"
              data-testid="{{testid}}-content-player-container"
         >
             <div tabindex="-1" class="{{css}}-player-toggle-overlay" data-selector="player-toggle-overlay"

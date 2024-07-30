@@ -113,6 +113,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     adsplaying: false,
                     companionads: [],
                     companionadcontent: null,
+                    customclickthrough: null,
                     persistentcompanionad: false,
                     ads_loaded: false,
                     ads_load_started: false
@@ -254,6 +255,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("quartile", "fourth");
                     },
                     "ads:start": function(ev) {
+                        if (this.get('customclickthrough')) {
+                            this.get('customclickthrough').style.display = 'block';
+                        }
                         this._onStart(ev);
                         this.trackAdsPerformance(`ads-start`);
                         this.set(`ads_loaded`, false);
@@ -318,6 +322,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:contentResumeRequested": function() {
                         this.set("adsplaying", false);
+                        if (this.get('customclickthrough')) {
+                            this.get('customclickthrough').style.display = 'none';
+                        }
                     },
                     "ads:contentPauseRequested": function() {
                         this.set("adsplaying", true);
@@ -331,22 +338,33 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 create: function() {
                     const dynamics = this.parent();
-                    const isMobile = Info.isMobile();
                     const adContainer = this.getAdContainer();
+                    const IMASettings = this.get("imasettings");
                     const adManagerOptions = {
                         adContainer: adContainer,
                         adsRenderingSettings: this.get("imaadsrenderingsetting"),
-                        IMASettings: this.get("imasettings")
-                    };
-
-                    if (isMobile && Info.iOSversion().major >= 10) {
-                        adManagerOptions.IMASettings.iOS10Plus = true;
+                        videoElement: this.getVideoElement() || null,
+                        IMASettings
                     }
 
-                    if (!isMobile && this.getVideoElement()) {
-                        // It's optionalParameter
-                        adManagerOptions.videoElement = this.getVideoElement();
+                    if (Info.isMobile()) {
+                        this.set('isMobile', true);
+
+                        if (Info.iOSversion().major >= 10) {
+                            adManagerOptions.IMASettings.iOS10Plus = true;
+                        }
+    
+                        if (IMASettings.customClickElementId) {
+                            const clickThroughEl = document.getElementById(IMASettings.customClickElementId);
+    
+                            if (clickThroughEl) {
+                                this.set('customclickthrough', clickThroughEl);
+                                adManagerOptions.customClickthroughEl = clickThroughEl;
+                            }
+                        }
                     }
+
+
                     this.adsManager = this.auto_destroy(
                         new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());

@@ -113,7 +113,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     adsplaying: false,
                     companionads: [],
                     companionadcontent: null,
-                    customclickthrough: false,
                     persistentcompanionad: false,
                     ads_loaded: false,
                     ads_load_started: false
@@ -187,7 +186,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     /** @type {RequestAdsOptions} */
                     const requestAdsOptions = {
                         adTagUrl: adTagUrl,
-                        adTagParams: this._adTagUrlParamsToMap(adTagUrl),
+                        adTagParams: adTagUrl && this._adTagUrlParamsToMap(adTagUrl),
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
                         continuousPlayback: true,
@@ -332,18 +331,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 create: function() {
                     const dynamics = this.parent();
+                    const isMobile = Info.isMobile();
                     const adContainer = this.getAdContainer();
                     const adManagerOptions = {
                         adContainer: adContainer,
                         adsRenderingSettings: this.get("imaadsrenderingsetting"),
                         IMASettings: this.get("imasettings")
                     };
-                    if (!Info.isMobile() && this.getVideoElement()) {
+
+                    if (isMobile && Info.iOSversion().major >= 10) {
+                        adManagerOptions.IMASettings.iOS10Plus = true;
+                    }
+
+                    if (!isMobile && this.getVideoElement()) {
                         // It's optionalParameter
                         adManagerOptions.videoElement = this.getVideoElement();
-                    } else {
-                        adManagerOptions.customclickthrough = this.getClickTroughElement();
-                        this.set("customclickthrough", !!adManagerOptions.customclickthrough);
                     }
                     this.adsManager = this.auto_destroy(
                         new AdsManager(adManagerOptions, dynamics));
@@ -627,10 +629,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     const noRepeat = !dyn.get("outstreamoptions.allowRepeat");
                     const showFirstFrameAsEndCard = dyn.get("outstreamoptions.firstframeasendcard");
                     return dyn && (showEndCard || noRepeat) && showFirstFrameAsEndCard;
-                },
-
-                getClickTroughElement: function() {
-                    return this.activeElement().querySelector('[data-selector="ba-ads-clickthrough-container"]') || null;
                 },
 
                 getAdWillAutoPlay: function() {

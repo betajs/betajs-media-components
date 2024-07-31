@@ -212,7 +212,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const adData = event.getAdData();
                         if (adData && adData.currentTime && adData.duration) {
                             const currentTime = adData.currentTime;
-                            const duration = adData.adBreakDuration;
+                            const duration = adData.duration;
                             if (currentTime > duration) {
                                 this.adsManager.trigger('allAdsCompleted');
                                 this.adsManager.trigger('contentResumeRequested');

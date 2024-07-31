@@ -212,6 +212,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "noengagenext": 5,
                         "stayengaged": false,
                         "next_active": false,
+                        "max_shortform_video_duration": 600, // 10 min in seconds https://support.google.com/google-ads/answer/2382886?hl=en#:~:text=Shortform%20videos%20are%20under%2010,or%20longform%20videos%2C%20or%20both.
                         /** tooltip
                          {
                          "tooltiptext": null,
@@ -1328,7 +1329,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (/^[\d\s]+\*$/.test(item)) {
                                         item = +item.replace("\*", '');
                                         this.on("change:duration", function(duration) {
-                                            if (duration > 0 && this.get("midrollads").length === 0) {
+                                            if ((duration > 0) && this.get("midrollads").length === 0) {
                                                 var step = Math.floor(duration / item);
                                                 if (this.get("infiniteduration"))
                                                     step = 100;

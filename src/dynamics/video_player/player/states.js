@@ -850,7 +850,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 } else {
                     if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
                         this.next("PostrollAd");
-                    } else this.next("MidrollAd");
+                    } else {
+                        if (this.dyn.get("duration") > this.get("max_shortform_video_duration")) {
+                            this.next("MidrollAd")
+                        }
+                    };
                 }
             }, this);
             this.listenOn(this.dyn, "playnextmidroll", function() {

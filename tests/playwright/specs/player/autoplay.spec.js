@@ -25,7 +25,7 @@ test.describe(`No ads`, () => {
         video: 'on-first-retry',
     });
 
-    test(`autoplay on out of view`, async ({ page, browserName, browser, context }) => {
+    test(`don't autoplay on out of view`, async ({ page, browserName, browser, context }) => {
         const runAdsTester = async (page, browser, context) => {
             const player = new PlayerPage(page,
                 {
@@ -50,7 +50,7 @@ test.describe(`No ads`, () => {
             await player.listenPlayerEvent(`change:position`);
             await player.waitNextSecondPosition(3);
             const playing = await player.getPlayerAttribute(`playing`);
-            await expect(playing).toBeTruthy();
+            await expect(playing).toBeFalsy();
 
             const pauseButton = await player.getElementByTestID(`content-pause-button`);
             await expect(pauseButton).toBeVisible();
@@ -166,7 +166,7 @@ test.describe(`With ads`, () => {
         }, runAdsTester, browserSettings);
     });
 
-    test(`autoplay on out of view`, async ({ page, browserName, browser, context }) => {
+    test(`dont't autoplay on out of view`, async ({ page, browserName, browser, context }) => {
         const runAdsTester = async (page, browser, context) => {
             const player = new PlayerPage(page,
                 {
@@ -196,7 +196,7 @@ test.describe(`With ads`, () => {
             await player.listenPlayerEvent(`ads:start`, 20);
             await player.waitAdsRemainingSeconds(8);
             let adsPlaying = await player.getAdsPlayerAttribute(`adsplaying`);
-            await expect(adsPlaying).toBeTruthy();
+            await expect(adsPlaying).toBeFalsy();
             await expect(await adsLoaded()).toBeFalsy();
 
             let adsPauseButton = await player.getElementByTestID(`ads-controlbar-pause-button`);
@@ -206,7 +206,7 @@ test.describe(`With ads`, () => {
 
             await player.waitNextSecondPosition(3);
             const playing = await player.getPlayerAttribute(`playing`);
-            await expect(playing).toBeTruthy();
+            await expect(playing).toBeFalsy();
 
             await browser.close();
         }

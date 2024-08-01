@@ -851,7 +851,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                     if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
                         this.next("PostrollAd");
                     } else {
-                        if (this.dyn.get("duration") > this.get("max_shortform_video_duration")) {
+                        if (this.dyn.get("duration") > this.dyn.get("max_shortform_video_duration")) {
                             this.next("MidrollAd")
                         }
                     };

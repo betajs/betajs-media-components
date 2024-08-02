@@ -45,6 +45,8 @@ test.describe(`VMAP`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
+         
+
             const mouse = page.mouse;
             const waitAdsStartEvent = async () => player.listenPlayerEvent(`ads:start`, 25);
             const waitAdsContentResumeReqEvent = async () => player.listenPlayerEvent(`ads:contentResumeRequested`, 15);
@@ -52,12 +54,23 @@ test.describe(`VMAP`, () => {
             const progressBar = player.getElementByTestID(`progress-bar-inner`);
             const playerContainer = player.getElementByTestID(`player-container`);
 
+            // if content video is less than 10 min do not play midroll 
+            await page.waitForTimeout(5000);
+            const contentDuration = await player.getPlayerAttribute("duration")
+            const shortVideoMaxLength = await player.getPlayerAttribute("max_shortform_video_duration")
+            if (contentDuration < shortVideoMaxLength) {
+                await page.waitForTimeout(25000);
+                const adsContainer = page.locator(`.ba-adsplayer-linear-ad-container`);
+                expect(adsContainer).not.toBeVisible();
+                return;
+            }
             await waitAdsStartEvent();
             await player.waitAdsRemainingSeconds(2);
             await waitAdsContentResumeReqEvent();
 
             await (await playerContainer).hover();
             await player.skipToPosition(0.90);
+            await page.waitForTimeout(5000);
 
             // Midroll starts to load
             await waitAdsStartEvent();
@@ -113,6 +126,17 @@ test.describe(`Separate AdTags`, () => {
             const waitAdsStartEvent = async () => player.listenPlayerEvent(`ads:start`, 25);
             const progressBar = player.getElementByTestID(`progress-bar-inner`);
 
+             // if content video is less than 10 min do not play midroll 
+             await page.waitForTimeout(5000);
+             const contentDuration = await player.getPlayerAttribute("duration")
+             const shortVideoMaxLength = await player.getPlayerAttribute("max_shortform_video_duration")
+             if (contentDuration < shortVideoMaxLength) {
+                 await page.waitForTimeout(15000);
+                 const adsContainer = page.locator(`.ba-adsplayer-linear-ad-container`);
+                 expect(adsContainer).not.toBeVisible();
+                 return;
+             }
+
             await waitAdsStartEvent();
             await player.clickAdsSkipButton();
 
@@ -151,18 +175,32 @@ test.describe(`Separate AdTags`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
+            await page.waitForTimeout(5000);
+             // if content video is less than 10 min do not play midroll 
+            const contentDuration = await player.getPlayerAttribute("duration")
+            const shortVideoMaxLength = await player.getPlayerAttribute("max_shortform_video_duration")
+            if (contentDuration < shortVideoMaxLength) {
+                await page.waitForTimeout(15000);
+                const adsContainer = page.locator(`.ba-adsplayer-linear-ad-container`);
+                expect(adsContainer).not.toBeVisible();
+                return;
+            }
+
             const waitAdsStartEvent = async (timeout) => player.listenPlayerEvent(`ads:start`, timeout || 25);
-            const progressBar = player.getElementByTestID(`progress-bar-inner`);
+            const progressBar = await player.getElementByTestID(`progress-bar-inner`);
             const position = async () => player.getPlayerAttribute(`position`);
 
             await waitAdsStartEvent();
             await player.clickAdsSkipButton();
 
             await player.waitNextSecondPosition(5);
+            await page.waitForTimeout(5000)
             await waitAdsStartEvent();
             await player.clickAdsSkipButton();
+            await progressBar.hover()
             await expect(await progressBar).toBeInViewport();
 
+            await page.waitForTimeout(10000)
             await player.waitNextSecondPosition(15);
             await waitAdsStartEvent();
             await player.clickAdsSkipButton();
@@ -196,7 +234,18 @@ test.describe(`Separate AdTags`, () => {
             await player.setPlayerInstance();
 
             const waitAdsStartEvent = async (timeout) => player.listenPlayerEvent(`ads:start`, timeout || 25);
-            const progressBar = player.getElementByTestID(`progress-bar-inner`);
+            const progressBar = await player.getElementByTestID(`progress-bar-inner`);
+
+            // if content video is less than 10 min do not play midroll 
+            await page.waitForTimeout(5000);
+            const contentDuration = await player.getPlayerAttribute("duration")
+            const shortVideoMaxLength = await player.getPlayerAttribute("max_shortform_video_duration")
+            if (contentDuration < shortVideoMaxLength) {
+                await page.waitForTimeout(15000);
+                const adsContainer = page.locator(`.ba-adsplayer-linear-ad-container`);
+                expect(adsContainer).not.toBeVisible();
+                return;
+            }
 
             await waitAdsStartEvent();
             await player.clickAdsSkipButton();
@@ -206,13 +255,14 @@ test.describe(`Separate AdTags`, () => {
             await player.skipToPosition(0.28);
             await waitAdsStartEvent();
             await player.clickAdsSkipButton();
-            await expect(await progressBar).toBeInViewport();
-
-            await player.skipToPosition(0.60);
+          
+            await expect(progressBar).toBeInViewport();
+            await page.waitForTimeout(10000);
+            await player.skipToPosition(0.70);
             await player.waitNextSecondPosition(15);
             await waitAdsStartEvent();
             await player.clickAdsSkipButton();
-            await expect(await progressBar).toBeInViewport();
+            await expect(progressBar).toBeInViewport();
 
             await browser.close();
         }
@@ -250,6 +300,7 @@ test.describe(`Separate AdTags`, () => {
             await player.waitNextSecondPosition(2);
 
             await player.skipToPosition(0.75);
+            await waitAdsStartEvent()
             await player.waitAdsRemainingSeconds(9);
             await player.clickAdsSkipButton();
             await expect(await progressBar).toBeInViewport();

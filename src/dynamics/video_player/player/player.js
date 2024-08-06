@@ -3114,7 +3114,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     });
                                 }
                             }
-                        });      
+                        });
                     } else {
                         this.__adMinIntervals = this.__adMinIntervals === 0 ?
                             this.get("minadintervals") : (this.__adMinIntervals - 1);
@@ -3153,13 +3153,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    
+
                     if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && (this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend") || this.get("infiniteduration"))) {
                         if (this.__adMinIntervals > 0) {
                             return;
                         }
+
                         function handleTriggerMidRollEvent() {
-                            if (shouldPlayMidrolls) this.trigger("playnextmidroll");
+                            if (this.get("duration") > this.get("max_shortform_video_duration")) {
+                                this.trigger("playnextmidroll");
+                            }
                         }
                         // If active ads player is existed
                         if (this.get("adsplayer_active") && this.scopes.adsplayer) {
@@ -3167,7 +3170,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             handleTriggerMidRollEvent();
                         } else {
                             // In case if preroll not exists, so ads_player is not activated
-                            handleTriggerMidRollEvent();
+                            this.trigger("playnextmidroll");
                         }
                         this._nextRollPosition = null; // To be able to grab another next position from the Collection
                     }

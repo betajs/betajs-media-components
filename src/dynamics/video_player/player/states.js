@@ -355,16 +355,11 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
             }, this);
 
             // If autoplay is true skipinitial will be false by default
-            if (this.dyn?.get("autoplay")) {
-                // this.preloadAds(!this.dyn.get("autoplaywhenvisible"));
-                if (this.dyn?.get("autoplaywhenvisible")) {
-                    Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
-                        if (!this.destroyed()) this.runAutoplay();
-                    }, this);
-                    this.preloadAds(false);
-                } else {
-                    this.runAutoplay();
-                }
+            if (this.dyn?.get("autoplay") || this.dyn?.get("autoplaywhenvisible")) {
+                Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
+                    if (!this.destroyed()) this.runAutoplay();
+                }, this);
+                if (this.dyn?.get("autoplaywhenvisible")) this.preloadAds(false);
                 return;
             } else if (this.dyn?.get(`skipinitial`)) {
                 this.dyn.set(`controlbar_active`, true);

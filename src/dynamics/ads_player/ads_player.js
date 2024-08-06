@@ -113,6 +113,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     adsplaying: false,
                     companionads: [],
                     companionadcontent: null,
+                    custom_clickthrough: null,
                     persistentcompanionad: false,
                     ads_loaded: false,
                     ads_load_started: false
@@ -211,7 +212,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         const adData = event.getAdData();
                         if (adData && adData.currentTime && adData.duration) {
                             const currentTime = adData.currentTime;
-                            const duration = adData.adBreakDuration;
+                            const duration = adData.duration;
                             if (currentTime > duration) {
                                 this.adsManager.trigger('allAdsCompleted');
                                 this.adsManager.trigger('contentResumeRequested');
@@ -254,6 +255,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("quartile", "fourth");
                     },
                     "ads:start": function(ev) {
+                        if (this.get('custom_clickthrough')) {
+                            this.get('custom_clickthrough').style.display = 'block';
+                        }
                         this._onStart(ev);
                         this.trackAdsPerformance(`ads-start`);
                         this.set(`ads_loaded`, false);
@@ -318,6 +322,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:contentResumeRequested": function() {
                         this.set("adsplaying", false);
+                        if (this.get('custom_clickthrough')) {
+                            this.get('custom_clickthrough').style.display = 'none';
+                        }
                     },
                     "ads:contentPauseRequested": function() {
                         this.set("adsplaying", true);
@@ -331,22 +338,20 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 create: function() {
                     const dynamics = this.parent();
-                    const isMobile = Info.isMobile();
                     const adContainer = this.getAdContainer();
-                    const adManagerOptions = {
+                    const IMASettings = this.get("imasettings");
+                    let adManagerOptions = {
                         adContainer: adContainer,
                         adsRenderingSettings: this.get("imaadsrenderingsetting"),
-                        IMASettings: this.get("imasettings")
-                    };
-
-                    if (isMobile && Info.iOSversion().major >= 10) {
-                        adManagerOptions.IMASettings.iOS10Plus = true;
+                        videoElement: this.getVideoElement() || null,
+                        IMASettings
                     }
 
-                    if (!isMobile && this.getVideoElement()) {
-                        // It's optionalParameter
-                        adManagerOptions.videoElement = this.getVideoElement();
+                    if (Info.isMobile()) {
+                        this.set('isMobile', true);
+                        adManagerOptions = this.normalizeOptionsForMobile(adManagerOptions);
                     }
+
                     this.adsManager = this.auto_destroy(
                         new AdsManager(adManagerOptions, dynamics));
                     this.adsManager.requestAds(this._baseRequestAdsOptions());
@@ -479,6 +484,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     }
                 },
 
+                normalizeOptionsForMobile: function(adManagerOptions) {
+                    if (Info.iOSversion().major >= 10) {
+                        adManagerOptions.IMASettings.iOS10Plus = true;
+                    }
+
+                    const clickElId = adManagerOptions.IMASettings.customClickElementId;
+                    if (clickElId) {
+                        const clickThroughEl = document.getElementById(clickElId);
+
+                        if (clickThroughEl) {
+                            this.set('custom_clickthrough', clickThroughEl);
+                            adManagerOptions.customClickthroughEl = clickThroughEl;
+                        }
+                    }
+                    return adManagerOptions;
+                },
                 getAdWidth: function() {
                     if (!this.activeElement()) return null;
                     if ((this.get("sidebar_active") || (this.get("sticky") || this.get("floating"))) && this.parent()) {

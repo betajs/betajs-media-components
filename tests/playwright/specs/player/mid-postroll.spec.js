@@ -163,7 +163,7 @@ test.describe(`Separate AdTags`, () => {
             await player.clickAdsSkipButton();
 
             await expect(progressBar).toBeVisible();
-            await player.skipToPosition(0.65)
+            await player.skipToPosition(0.85)
 
             // Midroll starts to load
             await player.waitAdsRemainingSeconds(8, 20000);

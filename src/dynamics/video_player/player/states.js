@@ -853,14 +853,12 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 }
             }, this);
             this.listenOn(this.dyn, "playnextmidroll", function() {
-                if (this.dyn.get("duration") > this.dyn.get("max_shortform_video_duration")) {
-                    if (!this.dyn.get("adsplayer_active")) {
-                        this.dyn.set("adsplayer_active", true);
-                    }
-                    this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
-                        this.dyn.channel("ads").trigger("load");
-                    });
+                if (!this.dyn.get("adsplayer_active")) {
+                    this.dyn.set("adsplayer_active", true);
                 }
+                this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                    this.dyn.channel("ads").trigger("load");
+                });
             }, this);
             this.listenOn(this.dyn, "change:currentstream", function() {
                 this.dyn.set("autoplay", true);

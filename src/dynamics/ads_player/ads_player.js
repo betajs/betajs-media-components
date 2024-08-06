@@ -208,18 +208,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 channels: {
-                    "ads:adProgress": function(event, ad) {
-                        const adData = event.getAdData();
-                        if (adData && adData.currentTime && adData.duration) {
-                            const currentTime = adData.currentTime;
-                            const duration = adData.duration;
-                            if (currentTime > duration) {
-                                this.adsManager.trigger('allAdsCompleted');
-                                this.adsManager.trigger('contentResumeRequested');
-
-                            }
-                        }
-                    },
                     "ads:ad-error": function() {
                         this.set(`adsplaying`, false);
                         this.set(`ads_loaded`, false);

@@ -1329,7 +1329,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     if (/^[\d\s]+\*$/.test(item)) {
                                         item = +item.replace("\*", '');
                                         this.on("change:duration", function(duration) {
-                                            if ((duration > 0) && this.get("midrollads").length === 0) {
+                                            if (duration > 0 && this.get("midrollads").length === 0) {
                                                 var step = Math.floor(duration / item);
                                                 if (this.get("infiniteduration"))
                                                     step = 100;

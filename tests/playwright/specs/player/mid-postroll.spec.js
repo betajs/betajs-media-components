@@ -46,20 +46,18 @@ test.describe(`VMAP`, () => {
 
             const waitAdsStartEvent = async () => player.listenPlayerEvent(`ads:start`, 25);
             const waitAdsContentResumeReqEvent = async () => player.listenPlayerEvent(`ads:contentResumeRequested`, 15);
-            const waitPlayerEndedEvent = async () => player.listenPlayerEvent(`ended`, 15);
-            const playerContainer = await player.getElementByTestID(`player-container`);
 
             await waitAdsStartEvent();
             await waitAdsContentResumeReqEvent();
 
-            await (playerContainer).hover();
-            await player.skipToPosition(0.90);
-
+            
             // Midroll starts to load
             await waitAdsStartEvent();
             await waitAdsContentResumeReqEvent();
 
-            await waitPlayerEndedEvent();
+            // Postroll startds to load
+            await player.skipToPosition(0.90);
+            await player.runMethod('play')
             await waitAdsStartEvent();
 
             await browser.close();

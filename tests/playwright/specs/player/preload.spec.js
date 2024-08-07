@@ -475,7 +475,7 @@ test.describe(`With no ads`, () => {
 
             
             let pauseButton = await player.getElementByTestID(`content-pause-button`);
-            await expect(pauseButton).toBeVisible();
+            await expect(pauseButton).not.toBeVisible();
 
             const playing = await player.getPlayerAttribute(`playing`);
             await expect(playing).toBeFalsy();

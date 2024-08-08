@@ -3153,13 +3153,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-
                     if (this._nextRollPosition && this.get("adshassource") && this._nextRollPosition.position < this.get("position") && (this.get("duration") - this.get("position") > this.get("midrollminintervalbeforeend") || this.get("infiniteduration"))) {
                         if (this.__adMinIntervals > 0) {
                             return;
                         }
 
-                        function handleTriggerMidRollEvent() {
+                        const handleTriggerMidRollEvent = () => {
                             if (this.get("duration") > this.get("max_shortform_video_duration")) {
                                 this.trigger("playnextmidroll");
                             }

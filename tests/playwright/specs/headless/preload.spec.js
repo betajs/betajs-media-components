@@ -40,8 +40,9 @@ test(`preload video content`, async ({ page, browserName, browser, context }) =>
         const stateRegex = new RegExp(`(PosterReady)|(LoadPlayer)`);
         await expect(await player.getPlayerCurrentStateName()).toMatch(stateRegex);
         // It's confirmed that video is attached
+        await page.waitForTimeout(2000);
         const videoProperty = await player.getPropertyValue(`__video`);
-        await expect(videoProperty).toBeDefined();
+        expect(videoProperty).toBeDefined();
 
         const playButton = await player.getElementByTestID(`overlay-play-button`);
         await expect(playButton).toBeVisible();

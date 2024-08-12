@@ -212,6 +212,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "noengagenext": 5,
                         "stayengaged": false,
                         "next_active": false,
+                        "max_shortform_video_duration": 600, // 10 min in seconds https://support.google.com/google-ads/answer/2382886?hl=en#:~:text=Shortform%20videos%20are%20under%2010,or%20longform%20videos%2C%20or%20both.
                         /** tooltip
                          {
                          "tooltiptext": null,
@@ -3084,37 +3085,36 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * @private
                  */
                 __controlAdRolls: function() {
+                    const shouldPlayMidrolls = this.get("duration") > this.get("max_shortform_video_duration");
+                    const hasMidRolls = this.get("midrollads").length > 0;
                     // If we have mid-rolls, then prepare mid-Rolls
-                    if (
-                        this.get("midrollads").length > 0 && this.get("duration") > 0.0 && !this._adsRollPositionsCollection
-                    ) {
+                    if (shouldPlayMidrolls && hasMidRolls && this.get("duration") > 0.0 && !this._adsRollPositionsCollection) {
                         this._adsRollPositionsCollection = this.auto_destroy(new Collection()); // our adsCollections
-                        if (this.get("midrollads").length > 0) {
-                            let _current = null;
-                            Objs.iter(this.get("midrollads"), function(roll, index) {
-                                if (roll.position && roll.position > this.get("position")) {
-                                    // First ad position, if less than 1 it means it's percentage not second
-                                    let _position = roll.position < 1 ?
-                                        Math.floor(this.get("duration") * roll.position) :
-                                        roll.position;
-                                    // If the user does not set, and we will not get the same ad position, avoids dublication,
-                                    // prevent very close ads and also wrong set position which exceeds the duration
-                                    if ((Math.abs(_position - _current) > this.__adMinIntervals) && (this.get("infiniteduration") || _position < this.get("duration"))) {
-                                        _current = _position;
-                                        this._adsRollPositionsCollection.add({
-                                            position: _position,
-                                            duration: null,
-                                            type: 'linear',
-                                            isLinear: true,
-                                            dimensions: {
-                                                width: Dom.elementDimensions(this.activeElement()).width || this.parentWidth(),
-                                                height: Dom.elementDimensions(this.activeElement()).height || this.parentHeight()
-                                            }
-                                        });
-                                    }
+                        let _current = null;
+                        const midrollsAds = this.get("midrollads");
+                        midrollsAds.forEach(roll => {
+                            if (roll.position && roll.position > this.get("position")) {
+                                // First ad position, if less than 1 it means it's percentage not second
+                                let _position = roll.position < 1 ?
+                                    Math.floor(this.get("duration") * roll.position) :
+                                    roll.position;
+                                // If the user does not set, and we will not get the same ad position, avoids dublication,
+                                // prevent very close ads and also wrong set position which exceeds the duration
+                                if ((Math.abs(_position - _current) > this.__adMinIntervals) && (this.get("infiniteduration") || _position < this.get("duration"))) {
+                                    _current = _position;
+                                    this._adsRollPositionsCollection.add({
+                                        position: _position,
+                                        duration: null,
+                                        type: 'linear',
+                                        isLinear: true,
+                                        dimensions: {
+                                            width: Dom.elementDimensions(this.activeElement()).width || this.parentWidth(),
+                                            height: Dom.elementDimensions(this.activeElement()).height || this.parentHeight()
+                                        }
+                                    });
                                 }
-                            }, this);
-                        }
+                            }
+                        });
                     } else {
                         this.__adMinIntervals = this.__adMinIntervals === 0 ?
                             this.get("minadintervals") : (this.__adMinIntervals - 1);
@@ -3157,10 +3157,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.__adMinIntervals > 0) {
                             return;
                         }
+
+                        const handleTriggerMidRollEvent = () => {
+                            if (this.get("duration") > this.get("max_shortform_video_duration")) {
+                                this.trigger("playnextmidroll");
+                            }
+                        }
                         // If active ads player is existed
                         if (this.get("adsplayer_active") && this.scopes.adsplayer) {
                             this.brakeAdsManually();
-                            this.trigger("playnextmidroll");
+                            handleTriggerMidRollEvent();
                         } else {
                             // In case if preroll not exists, so ads_player is not activated
                             this.trigger("playnextmidroll");

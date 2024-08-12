@@ -125,9 +125,8 @@ test.describe('Unmute on click behave', () => {
     });
 
     test(`Content Player Unmute only on engagement`, async ({
-                                                                page, browserName, browser, context
-                                                            }) => {
-
+        page, browserName, browser, context
+    }) => {
         const runTest = async (page, browser, context) => {
             // delete defaultPlayerAttributes['poster'];
             delete descriptionPlayerAttributes['adtagurl'];
@@ -196,7 +195,9 @@ test.describe('Unmute on click behave', () => {
 
             // PART 2: Reload now click on the unmute button
             await reloadPage(player, unMuteButton, dataTestId);
-
+            
+            // After reloading playing is out of view
+            await page.mouse.wheel(0, -400);
             // Now click on the unmute player
             await expect(unMuteButton).toBeVisible();
             await unMuteButton.click();

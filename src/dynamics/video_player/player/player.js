@@ -649,6 +649,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("hasplaceholderstyle", value.length > 10);
                     },
                     "change:position": function(position, old) {
+                        if (this.get("userengagedwithplayer") && this.get("nextwidget") && !this.get("next_active"))
+                            return;
+
                         if (!this.get("nextwidget") || this.get("stayengaged") || this.get("adsplaying"))
                             return;
                         if (position - old > 1) return this.channel("next").trigger("setStay");
@@ -664,6 +667,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             if (this.get("duration") >= minDurationNext && showNextTime && position > showNextTime && !this.get("next_active")) {
                                 this.set("next_active", true);
                             }
+
 
                             if (this.get("duration") >= minDurationNext && position > engageTime && engageTime > 0) {
                                 this.channel("next").trigger("autoPlayNext");
@@ -766,10 +770,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("floatingsidebar", !hideSidebar && isFloating && withSidebar);
                         this.set("gallerysidebar", !hideSidebar && !isFloating && (Types.is_defined(mobileViewport) && !mobileViewport) && !outstream);
                         if (this.get("gallerysidebar")) {
-                            if (!this.get("nextwidget") && Types.is_undefined(this.set("initialoptions.nextwidget"))) {
+                            if (!this.get("nextwidget") && Types.is_undefined(this.get("initialoptions.nextwidget"))) {
                                 this.set("initialoptions.nextwidget", false);
                             }
-                            this.set("nextwidget", this.set("sidebaroptions.autonext"));
+                            this.set("nextwidget", this.get("sidebaroptions.autonext"));
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
                     },
@@ -1054,7 +1058,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
                         volumelevel: this.get("volume"),
-                        autoplay: this.get("autoplay")
+                        autoplay: this.get("autoplay"),
+                    }));
+                    //Will set initial state
+                    this.set("sidebaroptions", Objs.tree_merge(this.get("sidebaroptions"), {
+                        autonext: this.get("nextwidget"),
                     }));
                     if (this.get("sample_brightness")) {
                         this.__brightnessSampler = this.auto_destroy(new Timers.Timer({

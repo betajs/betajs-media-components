@@ -257,6 +257,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onAdComplete(ev);
                     },
                     "ads:allAdsCompleted": function() {
+                        this.set(`ads_load_started`, false);
                         this.trackAdsPerformance(`ads-all-completed`);
                         if (this.parent() && (
                                 this.parent().get("outstreamoptions").noEndCard ||

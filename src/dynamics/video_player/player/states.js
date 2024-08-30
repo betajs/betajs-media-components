@@ -903,7 +903,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
                 this.dyn.scopes.adsplayer.execute(`requestAds`);
                 this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
                     this.next("LoadAds", {
-                        position: this.getAdPosition()
+                        position: this.getAdPosition(),
+                        autoplay: true
                     });
                 });
             }, this);

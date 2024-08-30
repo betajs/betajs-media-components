@@ -883,7 +883,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             this.listenOn(this.dyn, "error:video", function() {
                 this.next("ErrorVideo");
             }, this);
-            this.addLongitudeFallbackListener();
+            this.addManualFallbackListener();
         },
 
         getAdPosition: function() {
@@ -897,8 +897,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             }
         },
 
-        addLongitudeFallbackListener: function() {
-            this.listenOn(this.dyn, "longitudeFallback", (fallbackUrl) => {
+        addManualFallbackListener: function() {
+            this.listenOn(this.dyn, "manualFallback", (fallbackUrl) => {
                 this.dyn.set('adtagurl', fallbackUrl);
                 this.dyn.scopes.adsplayer.execute(`requestAds`);
                 this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {

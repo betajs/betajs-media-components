@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.509 - 2024-08-28
+betajs-media-components - v0.0.510 - 2024-09-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.509 - 2024-08-28
+betajs-media-components - v0.0.510 - 2024-09-09
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.509",
-    "datetime": 1724839295031
+    "version": "0.0.510",
+    "datetime": 1725921704372
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -4003,6 +4003,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onStart(ev);
                         this.trackAdsPerformance(`ads-start`);
                         this.set(`ads_loaded`, false);
+                        // Mute again to prevent edge case with VPAID creatives unmuting the player and not synching with IMA SDK.
+                        if (this.get('muted') || this.get('volume') === 0) {
+                            this.adsManager.setVolume(0);
+                        }
                     },
                     "ads:skippableStateChanged": function(event) {
                         this.set("skipvisible", true);

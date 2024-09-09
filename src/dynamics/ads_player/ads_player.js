@@ -249,6 +249,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this._onStart(ev);
                         this.trackAdsPerformance(`ads-start`);
                         this.set(`ads_loaded`, false);
+                        // Mute again to prevent edge case with VPAID creatives unmuting the player and not synching with IMA SDK.
+                        if (this.get('muted') || this.get('volume') === 0) {
+                            this.adsManager.setVolume(0);
+                        }
                     },
                     "ads:skippableStateChanged": function(event) {
                         this.set("skipvisible", true);

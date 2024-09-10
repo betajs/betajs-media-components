@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.510 - 2024-09-09
+betajs-media-components - v0.0.511 - 2024-09-10
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.510",
-    "datetime": 1725921704372
+    "version": "0.0.511",
+    "datetime": 1726005390875
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -9085,18 +9085,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             }
             this.listenOn(this.dyn.channel("ads"), "contentPauseRequested", function() {
                 this.dyn.pause();
-                var position = this.dyn.getCurrentPosition();
-                if (position === 0) {
-                    this.next("PrerollAd");
-                } else {
-                    if (Math.abs(this.dyn.getCurrentPosition() - this.dyn.get("duration")) < 0.1) {
-                        this.next("PostrollAd");
-                    } else {
-                        if (this.dyn.get("duration") > this.dyn.get("max_shortform_video_duration")) {
-                            this.next("MidrollAd")
-                        }
-                    };
-                }
+                const position = this.getAdPosition();
+                // Uppercase the returned ad break type value
+                const adBreak = position.charAt(0).toUpperCase() + position.slice(1) + "rollAd";
+                this.next(adBreak);
             }, this);
             this.listenOn(this.dyn, "playnextmidroll", function() {
                 if (!this.dyn.get("adsplayer_active")) {
@@ -9136,6 +9128,31 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayVideo", [
             }, this);
             this.listenOn(this.dyn, "error:video", function() {
                 this.next("ErrorVideo");
+            }, this);
+            this.addManualFallbackListener();
+        },
+
+        getAdPosition: function() {
+            const currentPosition = this.dyn.getCurrentPosition();
+            if (currentPosition === 0) {
+                return State.ADS_POSITIONS.PREROLL
+            } else if (Math.abs(currentPosition - this.dyn.get("duration")) < 0.1) {
+                return State.ADS_POSITIONS.POSTROLL
+            } else {
+                return State.ADS_POSITIONS.MIDROLL
+            }
+        },
+
+        addManualFallbackListener: function() {
+            this.listenOn(this.dyn, "manualFallback", (fallbackUrl) => {
+                this.dyn.set('adtagurl', fallbackUrl);
+                this.dyn.scopes.adsplayer.execute(`requestAds`);
+                this.listenOnce(this.dyn.channel("ads"), "adsManagerLoaded", function() {
+                    this.next("LoadAds", {
+                        position: this.getAdPosition(),
+                        autoplay: true
+                    });
+                });
             }, this);
         },
 

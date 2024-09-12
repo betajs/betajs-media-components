@@ -61,16 +61,14 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     google.ima.settings.setLocale(settings.locale);
                 }
 
-                // number: Specifies the maximum number of redirects before the subsequent redirects will be denied, and the ad load aborted.
-                if (settings.numRedirects) {
-                    google.ima.settings.setNumRedirects(settings.numRedirects);
-                }
-
                 // Sets the companion backfill mode. See the various modes available in ImaSdkSettings.CompanionBackfillMode.
                 // The default mode is ImaSdkSettings.CompanionBackfillMode.ALWAYS.
                 if (settings.companionBackfillMode) {
                     google.ima.settings.setCompanionBackfill(settings.companionBackfillMode);
                 }
+
+                // number: Specifies the maximum number of redirects before the subsequent redirects will be denied, and the ad load aborted.
+                google.ima.settings.setNumRedirects(settings.numRedirects || 10);
             },
 
             destroy: function() {

@@ -68,7 +68,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 }
 
                 // number: Specifies the maximum number of redirects before the subsequent redirects will be denied, and the ad load aborted.
-                google.ima.settings.setNumRedirects(settings.numRedirects || 10);
+                google.ima.settings.setNumRedirects(10);
             },
 
             destroy: function() {

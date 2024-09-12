@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.511 - 2024-09-10
+betajs-media-components - v0.0.512 - 2024-09-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.511 - 2024-09-10
+betajs-media-components - v0.0.512 - 2024-09-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.511",
-    "datetime": 1726005390875
+    "version": "0.0.512",
+    "datetime": 1726169829548
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -1338,16 +1338,14 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     google.ima.settings.setLocale(settings.locale);
                 }
 
-                // number: Specifies the maximum number of redirects before the subsequent redirects will be denied, and the ad load aborted.
-                if (settings.numRedirects) {
-                    google.ima.settings.setNumRedirects(settings.numRedirects);
-                }
-
                 // Sets the companion backfill mode. See the various modes available in ImaSdkSettings.CompanionBackfillMode.
                 // The default mode is ImaSdkSettings.CompanionBackfillMode.ALWAYS.
                 if (settings.companionBackfillMode) {
                     google.ima.settings.setCompanionBackfill(settings.companionBackfillMode);
                 }
+
+                // number: Specifies the maximum number of redirects before the subsequent redirects will be denied, and the ad load aborted.
+                google.ima.settings.setNumRedirects(10);
             },
 
             destroy: function() {

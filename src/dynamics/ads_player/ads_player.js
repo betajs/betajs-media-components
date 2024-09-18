@@ -212,7 +212,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set(`adsplaying`, false);
                         this.set(`ads_loaded`, false);
                         this.set(`ads_load_started`, false);
-                        if (this.parent().get("outstream")) {
+                        if (this.parent()?.get("outstream")) {
                             this.parent().hidePlayerContainer();
                         }
                         this.trackAdsPerformance(`ad-error`);
@@ -655,7 +655,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 trackAdsPerformance: function(name) {
-                    this.parent()._recordPerformance(name);
+                    if (this.parent()) {
+                        this.parent()._recordPerformance(name);
+                    }
                 },
 
                 _onStart: function(ev) {

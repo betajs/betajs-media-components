@@ -1260,6 +1260,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.vidEle = document.createElement('video');
                         this.imgEle = document.createElement('img');
                     }
+
+                    // Init the number of outstream ad error retries on immediate requests.
+                    if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
+                        this.resetOutstreamRetries();
+                    }
                 },
 
                 /**
@@ -2624,8 +2629,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 hidePlayerContainer: function(forceClose = false) {
                     const immediateOutstreamRequests = this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0;
 
-                    // Return early if we have an outstream player with immediate adRequest interval and the maxRetries has not been met.
-                    if (!forceClose && immediateOutstreamRequests && !this.get("maxRetriesMet")) {
+                    // Return early if we have an outstream player with immediate adRequest interval and leftover retries.
+                    if (!forceClose && immediateOutstreamRequests && this.get("availableOutstreamRetries")) {
                         return;
                     }
 
@@ -2664,7 +2669,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
                         const requestInterval = this.get("outstreamoptions.recurrenceperiod");
-                        if (requestInterval === 0 && !this.get("maxRetriesMet")) {
+                        if (requestInterval === 0 && this.get("availableOutstreamRetries")) {
                             immediate = true;
                         }
 
@@ -2684,18 +2689,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 resetOutstreamRetries() {
-                    this.set("maxRetriesMet", false);
-                    this.set("retriesOnError", 0);
+                    this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
                 },
 
                 trackOutstreamRetries() {
                     const maxErrorsInARow = this.get("outstreamoptions.numOfRetriesOnError") || 0;
-                    const currentAttemptNumber = this.get("retriesOnError") || 0;
+                    const retriesAvailable = this.get("availableOutstreamRetries") || maxErrorsInARow;
 
-                    if (currentAttemptNumber === maxErrorsInARow) {
-                        this.set("maxRetriesMet", true);
-                    } else {
-                        this.set("retriesOnError", currentAttemptNumber + 1);
+                    if (retriesAvailable && retriesAvailable <= maxErrorsInARow) {
+                        this.set("availableOutstreamRetries", retriesAvailable - 1);
                     }
                 },
 

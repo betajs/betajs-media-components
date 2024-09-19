@@ -901,6 +901,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
+
+                        // Outstream should not have a side bar and should always be floating.
+                        if (outstream) {
+                            this.set("floatingoptions.floatingonly", true);
+                            this.set("floatingoptions.sidebar", false);
+                        }
+
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";

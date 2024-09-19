@@ -696,7 +696,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             }
 
             // Return early to prevent outstream player from hiding/re-appearing.
-            if (this.dyn.get('outstreamoptions.recurrenceperiod') === 0) {
+            if (this.dyn.get('outstreamoptions.recurrenceperiod') === 0 && !this.dyn.get("maxRetriesMet")) {
                 this.dyn.set('adsplayer_active', false);
                 return;
             }

@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.512 - 2024-09-12
+betajs-media-components - v0.0.513 - 2024-09-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.512",
-    "datetime": 1726169829548
+    "version": "0.0.513",
+    "datetime": 1726785553650
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2949,11 +2949,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 channels: {
+                    "ads:impression": function() {
+                        if (this.parent()?.get("outstream")) {
+                            // On ad impression, reset the retry on ad-error count.
+                            this.parent().resetOutstreamRetries();
+                        }
+                    },
                     "ads:ad-error": function() {
                         this.set(`adsplaying`, false);
                         this.set(`ads_loaded`, false);
                         this.set(`ads_load_started`, false);
-                        if (this.parent().get("outstream")) {
+                        if (this.parent()?.get("outstream")) {
+                            this.parent().trackOutstreamRetries();
                             this.parent().hidePlayerContainer();
                         }
                         this.trackAdsPerformance(`ad-error`);
@@ -3396,7 +3403,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 trackAdsPerformance: function(name) {
-                    this.parent()._recordPerformance(name);
+                    if (this.parent()) {
+                        this.parent()._recordPerformance(name);
+                    }
                 },
 
                 _onStart: function(ev) {
@@ -3708,7 +3717,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
                     this._hideCompanionAd();
-                    dyn.hidePlayerContainer();
+                    dyn.hidePlayerContainer(true);
                     // dyn.weakDestroy(); // << Create will not work as expected
                 },
 
@@ -5108,6 +5117,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // below are default settings
                             "outstreamoptions": {
                                 hideOnCompletion: true,
+                                numOfRetriesOnError: 0, // # of retries on adError before falling back to `recurrenceperiod` interval from `immediate`.
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
                                 maxadstoshow: -1, // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                                 noEndCard: false, // No end cart at the end when outstream completed
@@ -5606,6 +5616,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
+
+                        // Outstream should not have a side bar and should always be floating.
+                        if (outstream) {
+                            this.set("floatingoptions.floatingonly", true);
+                            this.set("floatingoptions.sidebar", false);
+                        }
+
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
@@ -5957,6 +5974,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (Info.isSafari()) {
                         this.vidEle = document.createElement('video');
                         this.imgEle = document.createElement('img');
+                    }
+
+                    // Init the number of outstream ad error retries on immediate requests.
+                    if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
+                        this.resetOutstreamRetries();
                     }
                 },
 
@@ -7178,14 +7200,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If player is not sticky but floating we need hide whole player,
                                 // this is true also if we want to hide player container on floating close
                                 // Hide container element if player will be destroyed
-                                this.hidePlayerContainer();
+                                this.hidePlayerContainer(true);
                                 if (destroy) this.destroy();
                             } else {
                                 // If we want left player container visible and close floating player
                                 this.set("view_type", "default");
                             }
                         } else {
-                            this.hidePlayerContainer();
+                            this.hidePlayerContainer(true);
                             if (destroy) this.destroy();
                         }
                     }
@@ -7318,7 +7340,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return NaN;
                 },
 
-                hidePlayerContainer: function() {
+                // `forceClose` accounts for `outstream` completion or users closing the player.
+                hidePlayerContainer: function(forceClose = false) {
+                    const immediateOutstreamRequests = this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0;
+
+                    // Return early if we have an outstream player with immediate adRequest interval and leftover retries.
+                    if (!forceClose && immediateOutstreamRequests && this.get("availableOutstreamRetries")) {
+                        return;
+                    }
+
                     if (this.activeElement() && !this.get("hidden")) {
                         this.set("hidden", true);
                         // If floating sidebar then it will be hidden via player itself so not set companionads as []
@@ -7353,6 +7383,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if ((this.get("nextadtagurls") && this.get("nextadtagurls").length > 0) || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
+                        const requestInterval = this.get("outstreamoptions.recurrenceperiod");
+                        if (requestInterval === 0 && this.get("availableOutstreamRetries")) {
+                            immediate = true;
+                        }
+
                         Async.eventually(function() {
                             var _promise = this.requestForTheNextAdTagURL();
                             var isGlobalPromise = typeof _promise.then === "function";
@@ -7363,9 +7398,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     return promise.asyncError(error);
                                 }, this) :
                                 console.log("Please define requestForTheNextAdTagURL method with Promise.");
-                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
+                        }, this, immediate ? 100 : requestInterval || 30000);
                     }
                     return promise;
+                },
+
+                resetOutstreamRetries() {
+                    this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
+                },
+
+                trackOutstreamRetries() {
+                    const maxErrorsInARow = this.get("outstreamoptions.numOfRetriesOnError") || 0;
+                    const retriesAvailable = this.get("availableOutstreamRetries") || maxErrorsInARow;
+
+                    if (retriesAvailable && retriesAvailable <= maxErrorsInARow) {
+                        this.set("availableOutstreamRetries", retriesAvailable - 1);
+                    }
                 },
 
                 /**
@@ -8938,6 +8986,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             } else {
                 if (this.dyn.get("outstreamoptions.hideOnCompletion")) this.dyn.hidePlayerContainer();
             }
+
+            // Return early to prevent outstream player from hiding/re-appearing.
+            if (this.dyn.get('outstreamoptions.recurrenceperiod') === 0 && this.dyn.get("availableOutstreamRetries")) {
+                this.dyn.set('adsplayer_active', false);
+                return;
+            }
+
             this.dyn.trigger("outstream-completed");
             // Somehow below code is running even this.dyn is undefined and this states checked in the above statement
             if (this.dyn) this.dyn.channel("ads").trigger("outstreamCompleted", this.dyn);

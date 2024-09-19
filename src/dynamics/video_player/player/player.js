@@ -666,9 +666,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (this.get("duration") >= minDurationNext && showNextTime && position > showNextTime && !this.get("next_active")) {
                                 this.set("next_active", true);
-                            }        
-                            
-                            
+                            }
+
+
                             if (this.get("duration") >= minDurationNext && position > engageTime && engageTime > 0) {
                                 this.channel("next").trigger("autoPlayNext");
                                 this.channel("next").trigger("playNext", true);
@@ -2647,6 +2647,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if ((this.get("nextadtagurls") && this.get("nextadtagurls").length > 0) || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
+                        const requestInterval = this.get("outstreamoptions.recurrenceperiod");
+
+                        if (requestInterval === 0) {
+                            immediate = true;
+                        }
+
                         Async.eventually(function() {
                             var _promise = this.requestForTheNextAdTagURL();
                             var isGlobalPromise = typeof _promise.then === "function";
@@ -2657,7 +2663,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     return promise.asyncError(error);
                                 }, this) :
                                 console.log("Please define requestForTheNextAdTagURL method with Promise.");
-                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
+                        }, this, immediate ? 100 : requestInterval || 30000);
                     }
                     return promise;
                 },

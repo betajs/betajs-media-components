@@ -402,6 +402,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // below are default settings
                             "outstreamoptions": {
                                 hideOnCompletion: true,
+                                numOfRetriesOnError: 0, // # of retries on adError before falling back to `recurrenceperiod` interval from `immediate`.
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
                                 maxadstoshow: -1, // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                                 noEndCard: false, // No end cart at the end when outstream completed
@@ -2472,14 +2473,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If player is not sticky but floating we need hide whole player,
                                 // this is true also if we want to hide player container on floating close
                                 // Hide container element if player will be destroyed
-                                this.hidePlayerContainer();
+                                this.hidePlayerContainer(true);
                                 if (destroy) this.destroy();
                             } else {
                                 // If we want left player container visible and close floating player
                                 this.set("view_type", "default");
                             }
                         } else {
-                            this.hidePlayerContainer();
+                            this.hidePlayerContainer(true);
                             if (destroy) this.destroy();
                         }
                     }
@@ -2612,7 +2613,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return NaN;
                 },
 
-                hidePlayerContainer: function() {
+                // `forceClose` accounts for `outstream` completion or users closing the player.
+                hidePlayerContainer: function(forceClose = false) {
+                    const immediateOutstreamRequests = this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0;
+
+                    // Return early if we have an outstream player with immediate adRequest interval and the maxRetries has not been met.
+                    if (!forceClose && immediateOutstreamRequests && !this.get("maxRetriesMet")) {
+                        return;
+                    }
+
                     if (this.activeElement() && !this.get("hidden")) {
                         this.set("hidden", true);
                         // If floating sidebar then it will be hidden via player itself so not set companionads as []
@@ -2648,8 +2657,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
                         const requestInterval = this.get("outstreamoptions.recurrenceperiod");
-
-                        if (requestInterval === 0) {
+                        if (requestInterval === 0 && !this.get("maxRetriesMet")) {
                             immediate = true;
                         }
 
@@ -2666,6 +2674,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }, this, immediate ? 100 : requestInterval || 30000);
                     }
                     return promise;
+                },
+
+                resetOutstreamRetries() {
+                    this.set("maxRetriesMet", false);
+                    this.set("retriesOnError", 0);
+                },
+
+                trackOutstreamRetries() {
+                    const maxErrorsInARow = this.get("outstreamoptions.numOfRetriesOnError") || 0;
+                    const currentAttemptNumber = this.get("retriesOnError") || 0;
+
+                    if (currentAttemptNumber === maxErrorsInARow) {
+                        this.set("maxRetriesMet", true);
+                    } else {
+                        this.set("retriesOnError", currentAttemptNumber + 1);
+                    }
                 },
 
                 /**

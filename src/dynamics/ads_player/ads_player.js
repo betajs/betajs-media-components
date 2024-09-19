@@ -208,11 +208,18 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 channels: {
+                    "ads:impression": function() {
+                        if (this.parent()?.get("outstream")) {
+                            // On ad impression, reset the retry on ad-error count.
+                            this.parent().resetOutstreamRetries();
+                        }
+                    },
                     "ads:ad-error": function() {
                         this.set(`adsplaying`, false);
                         this.set(`ads_loaded`, false);
                         this.set(`ads_load_started`, false);
                         if (this.parent()?.get("outstream")) {
+                            this.parent().trackOutstreamRetries();
                             this.parent().hidePlayerContainer();
                         }
                         this.trackAdsPerformance(`ad-error`);
@@ -969,7 +976,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (Types.is_undefined(dyn.activeElement))
                         throw Error("Wrong dynamics instance was provided to _hideContentPlayer");
                     this._hideCompanionAd();
-                    dyn.hidePlayerContainer();
+                    dyn.hidePlayerContainer(true);
                     // dyn.weakDestroy(); // << Create will not work as expected
                 },
 

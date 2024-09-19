@@ -694,6 +694,13 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             } else {
                 if (this.dyn.get("outstreamoptions.hideOnCompletion")) this.dyn.hidePlayerContainer();
             }
+
+            // Return early to prevent outstream player from hiding/re-appearing.
+            if (this.dyn.get('outstreamoptions.recurrenceperiod') === 0 && this.dyn.get("availableOutstreamRetries")) {
+                this.dyn.set('adsplayer_active', false);
+                return;
+            }
+
             this.dyn.trigger("outstream-completed");
             // Somehow below code is running even this.dyn is undefined and this states checked in the above statement
             if (this.dyn) this.dyn.channel("ads").trigger("outstreamCompleted", this.dyn);

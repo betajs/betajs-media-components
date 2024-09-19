@@ -402,6 +402,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // below are default settings
                             "outstreamoptions": {
                                 hideOnCompletion: true,
+                                numOfRetriesOnError: 0, // # of retries on adError before falling back to `recurrenceperiod` interval from `immediate`.
                                 recurrenceperiod: 30000, // Period when a new request will be sent if ads is not showing, default: 30 seconds
                                 maxadstoshow: -1, // Maximum number of ads to show, if there's next ads or errors occurred default: -1 (unlimited)
                                 noEndCard: false, // No end cart at the end when outstream completed
@@ -666,9 +667,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                             if (this.get("duration") >= minDurationNext && showNextTime && position > showNextTime && !this.get("next_active")) {
                                 this.set("next_active", true);
-                            }        
-                            
-                            
+                            }
+
+
                             if (this.get("duration") >= minDurationNext && position > engageTime && engageTime > 0) {
                                 this.channel("next").trigger("autoPlayNext");
                                 this.channel("next").trigger("playNext", true);
@@ -900,6 +901,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
+
+                        // Outstream should not have a side bar and should always be floating.
+                        if (outstream) {
+                            this.set("floatingoptions.floatingonly", true);
+                            this.set("floatingoptions.sidebar", false);
+                        }
+
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
                         if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
@@ -1251,6 +1259,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (Info.isSafari()) {
                         this.vidEle = document.createElement('video');
                         this.imgEle = document.createElement('img');
+                    }
+
+                    // Init the number of outstream ad error retries on immediate requests.
+                    if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
+                        this.resetOutstreamRetries();
                     }
                 },
 
@@ -2472,14 +2485,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 // If player is not sticky but floating we need hide whole player,
                                 // this is true also if we want to hide player container on floating close
                                 // Hide container element if player will be destroyed
-                                this.hidePlayerContainer();
+                                this.hidePlayerContainer(true);
                                 if (destroy) this.destroy();
                             } else {
                                 // If we want left player container visible and close floating player
                                 this.set("view_type", "default");
                             }
                         } else {
-                            this.hidePlayerContainer();
+                            this.hidePlayerContainer(true);
                             if (destroy) this.destroy();
                         }
                     }
@@ -2612,7 +2625,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     return NaN;
                 },
 
-                hidePlayerContainer: function() {
+                // `forceClose` accounts for `outstream` completion or users closing the player.
+                hidePlayerContainer: function(forceClose = false) {
+                    const immediateOutstreamRequests = this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0;
+
+                    // Return early if we have an outstream player with immediate adRequest interval and leftover retries.
+                    if (!forceClose && immediateOutstreamRequests && this.get("availableOutstreamRetries")) {
+                        return;
+                    }
+
                     if (this.activeElement() && !this.get("hidden")) {
                         this.set("hidden", true);
                         // If floating sidebar then it will be hidden via player itself so not set companionads as []
@@ -2647,6 +2668,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if ((this.get("nextadtagurls") && this.get("nextadtagurls").length > 0) || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
+                        const requestInterval = this.get("outstreamoptions.recurrenceperiod");
+                        if (requestInterval === 0 && this.get("availableOutstreamRetries")) {
+                            immediate = true;
+                        }
+
                         Async.eventually(function() {
                             var _promise = this.requestForTheNextAdTagURL();
                             var isGlobalPromise = typeof _promise.then === "function";
@@ -2657,9 +2683,22 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     return promise.asyncError(error);
                                 }, this) :
                                 console.log("Please define requestForTheNextAdTagURL method with Promise.");
-                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
+                        }, this, immediate ? 100 : requestInterval || 30000);
                     }
                     return promise;
+                },
+
+                resetOutstreamRetries() {
+                    this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
+                },
+
+                trackOutstreamRetries() {
+                    const maxErrorsInARow = this.get("outstreamoptions.numOfRetriesOnError") || 0;
+                    const retriesAvailable = this.get("availableOutstreamRetries") || maxErrorsInARow;
+
+                    if (retriesAvailable && retriesAvailable <= maxErrorsInARow) {
+                        this.set("availableOutstreamRetries", retriesAvailable - 1);
+                    }
                 },
 
                 /**

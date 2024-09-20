@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.513 - 2024-09-19
+betajs-media-components - v0.0.514 - 2024-09-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.513 - 2024-09-19
+betajs-media-components - v0.0.514 - 2024-09-20
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.513",
-    "datetime": 1726785553650
+    "version": "0.0.514",
+    "datetime": 1726866994720
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -6627,12 +6627,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
-
-                        // Outstream should not have a side bar and should always be floating.
-                        if (outstream) {
-                            this.set("floatingoptions.floatingonly", true);
-                            this.set("floatingoptions.sidebar", false);
-                        }
 
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";

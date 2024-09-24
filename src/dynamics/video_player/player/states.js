@@ -664,8 +664,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
 
             this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
 
-            // When we run out of ad retries with immediate requests, we manually trigger `outstreamRetryWithInterval` to use `recurrenceperiod`.
-            this.listenOn(this.dyn, "outstreamRetryWithInterval", function() {
+            // When we run out of ad retries with immediate requests, we manually trigger `outstreamRetryOnInterval` to use `recurrenceperiod`.
+            this.listenOn(this.dyn, "outstreamRetryOnInterval", function() {
                 this.dyn.setNextOutstreamAdTagURL(false, this, "LoadPlayer");
             });
 

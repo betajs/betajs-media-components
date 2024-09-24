@@ -2688,7 +2688,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
                     } else {
                         // Manually trigger a non-immediate ad request when we toggle to false.
-                        this.trigger("outstreamRetryWithInterval");
+                        this.trigger("outstreamRetryOnInterval");
                     }
                 },
 
@@ -2712,7 +2712,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.setImmediateOutstreamRequests(false);
                         }
                     } else if (immediateRequestEnabled === false) {
-                        this.trigger("outstreamRetryWithInterval");
+                        this.trigger("outstreamRetryOnInterval");
                     }
 
                     this.hidePlayerContainer();

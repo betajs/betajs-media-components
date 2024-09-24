@@ -656,8 +656,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         dynamics: ["adscontrolbar"],
 
         _started: function() {
-            // if player is not hidden below method will do nothing
-            this.dyn.showHiddenPlayerContainer();
+            this.listenOn(this.dyn.channel("ads"), "impression", function() {
+                // if player is not hidden below method will do nothing
+                this.dyn.showHiddenPlayerContainer();
+            });
 
             const floating = this.dyn.get("sticky") || this.dyn.get("floating");
             if (floating && this.dyn.floatHandler) this.dyn.floatHandler.start();

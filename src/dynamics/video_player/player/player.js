@@ -2676,7 +2676,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     return promise.asyncError(error);
                                 }, this) :
                                 console.log("Please define requestForTheNextAdTagURL method with Promise.");
-                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 5000);
+                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 30000);
                     }
                     return promise;
                 },
@@ -2688,7 +2688,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
                     } else {
                         // Manually trigger a non-immediate ad request when we toggle to false.
-                        this.trigger("outstreamErrorRetry");
+                        this.trigger("outstreamRetryWithInterval");
                     }
                 },
 
@@ -2712,7 +2712,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.setImmediateOutstreamRequests(false);
                         }
                     } else if (immediateRequestEnabled === false) {
-                        this.trigger("outstreamErrorRetry");
+                        this.trigger("outstreamRetryWithInterval");
                     }
 
                     this.hidePlayerContainer();

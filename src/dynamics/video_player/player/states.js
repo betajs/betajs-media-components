@@ -664,6 +664,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
 
             this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
 
+            this.listenOn(this.dyn, "outstreamErrorRetry", function() {
+                this.dyn.setNextOutstreamAdTagURL(false, this, "LoadPlayer");
+            });
+
             this.listenOn(this.dyn.channel("ads"), "allAdsCompleted", function() {
                 this.afterAdCompleted();
             }, this);
@@ -696,7 +700,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             }
 
             // Return early to prevent outstream player from hiding/re-appearing.
-            if (this.dyn.get('outstreamoptions.recurrenceperiod') === 0 && this.dyn.get("availableOutstreamRetries")) {
+            if (this.dyn.get('immediateOutstreamRequests')) {
                 this.dyn.set('adsplayer_active', false);
                 return;
             }

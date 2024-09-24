@@ -1257,7 +1257,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     // Init the number of outstream ad error retries on immediate requests.
                     if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
-                        this.resetOutstreamRetries();
+                        this.setImmediateOutstreamRequests(true);
                     }
                 },
 
@@ -2467,6 +2467,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
                         const floating = this.get("sticky") || this.get("floating");
+
+                        // Unset immediateOutstreamRequests on close to prevent ad retries.
+                        if (this.get("outstream")) {
+                            this.set("immediateOutstreamRequests", undefined);
+                        }
+
                         if (floating || this.get("floatingoptions.floatingonly")) {
                             if (this.get("adsplaying")) {
                                 this._pauseAdsOnFloatCloseHandle();
@@ -2621,10 +2627,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 // `forceClose` accounts for `outstream` completion or users closing the player.
                 hidePlayerContainer: function(forceClose = false) {
-                    const immediateOutstreamRequests = this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0;
-
-                    // Return early if we have an outstream player with immediate adRequest interval and leftover retries.
-                    if (!forceClose && immediateOutstreamRequests && this.get("availableOutstreamRetries")) {
+                    // Return early if we have an outstream player with immediate adRequest interval.
+                    if (!forceClose && this.get("immediateOutstreamRequests")) {
                         return;
                     }
 
@@ -2662,11 +2666,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if ((this.get("nextadtagurls") && this.get("nextadtagurls").length > 0) || (this.get("adtagurlfallbacks") && this.get("adtagurlfallbacks").length > 0)) {
                         promise.asyncSuccess(this.get("nextadtagurls").length > 0 ? this.get("nextadtagurls").shift() : this.get("adtagurlfallbacks").shift());
                     } else {
-                        const requestInterval = this.get("outstreamoptions.recurrenceperiod");
-                        if (requestInterval === 0 && this.get("availableOutstreamRetries")) {
-                            immediate = true;
-                        }
-
                         Async.eventually(function() {
                             var _promise = this.requestForTheNextAdTagURL();
                             var isGlobalPromise = typeof _promise.then === "function";
@@ -2677,22 +2676,46 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     return promise.asyncError(error);
                                 }, this) :
                                 console.log("Please define requestForTheNextAdTagURL method with Promise.");
-                        }, this, immediate ? 100 : requestInterval || 30000);
+                        }, this, immediate ? 100 : this.get("outstreamoptions.recurrenceperiod") || 5000);
                     }
                     return promise;
                 },
 
-                resetOutstreamRetries() {
-                    this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
+                setImmediateOutstreamRequests(value) {
+                    this.set("immediateOutstreamRequests", value);
+
+                    if (value) {
+                        this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
+                    } else {
+                        // Manually trigger a non-immediate ad request when we toggle to false.
+                        this.trigger("outstreamErrorRetry");
+                    }
                 },
 
-                trackOutstreamRetries() {
-                    const maxErrorsInARow = this.get("outstreamoptions.numOfRetriesOnError") || 0;
-                    const retriesAvailable = this.get("availableOutstreamRetries") || maxErrorsInARow;
-
-                    if (retriesAvailable && retriesAvailable <= maxErrorsInARow) {
-                        this.set("availableOutstreamRetries", retriesAvailable - 1);
+                handleOutstreamAdImpression() {
+                    const immediateRequests = this.get("immediateOutstreamRequests");
+                    // Reset `availableOutstreamRetries` for immediate outstream requests.
+                    if (immediateRequests !== undefined) {
+                        this.setImmediateOutstreamRequests(true);
                     }
+                },
+
+                handleOutstreamAdError() {
+                    const immediateRequestEnabled = this.get("immediateOutstreamRequests");
+
+                    if (immediateRequestEnabled) {
+                        const retriesAvailable = this.get("availableOutstreamRetries");
+                        if (retriesAvailable && retriesAvailable > 0) {
+                            this.set("availableOutstreamRetries", retriesAvailable - 1);
+                            return;
+                        } else {
+                            this.setImmediateOutstreamRequests(false);
+                        }
+                    } else if (immediateRequestEnabled === false) {
+                        this.trigger("outstreamErrorRetry");
+                    }
+
+                    this.hidePlayerContainer();
                 },
 
                 /**
@@ -2714,6 +2737,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  */
                 setNextOutstreamAdTagURL: function(immediate, stateContext, nextState) {
                     immediate = immediate || false;
+
+                    if (this.get("immediateOutstreamRequests")) {
+                        immediate = true;
+                    }
                     // if we have set nextadtagurls, then we will try to load next adtagurl
                     this.getNextOutstreamAdTagURLs(immediate)
                         .success(function(response) {

@@ -656,6 +656,8 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         dynamics: ["adscontrolbar"],
 
         _started: function() {
+            // When we have multiple bad ads while attempting fallback, the player will show up with a black screen with no ad content.
+            // So listen on `impression` before showing the player.
             this.listenOn(this.dyn.channel("ads"), "impression", function() {
                 // if player is not hidden below method will do nothing
                 this.dyn.showHiddenPlayerContainer();

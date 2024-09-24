@@ -2683,20 +2683,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 setImmediateOutstreamRequests(value) {
                     this.set("immediateOutstreamRequests", value);
-
-                    if (value) {
-                        this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
-                    } else {
-                        // Manually trigger a non-immediate ad request when we toggle to false.
-                        this.trigger("outstreamRetryOnInterval");
-                    }
                 },
 
                 handleOutstreamAdImpression() {
                     const immediateRequests = this.get("immediateOutstreamRequests");
-                    // Reset `availableOutstreamRetries` for immediate outstream requests.
                     if (immediateRequests !== undefined) {
                         this.setImmediateOutstreamRequests(true);
+                        // Reset number of available retries for immediate outstream requests.
+                        this.set("availableOutstreamRetries", this.get("outstreamoptions.numOfRetriesOnError") || 0);
                     }
                 },
 
@@ -2711,7 +2705,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         } else {
                             this.setImmediateOutstreamRequests(false);
                         }
-                    } else if (immediateRequestEnabled === false) {
+                    }
+
+                    // Trigger a non-immediate manual retry using on ad-error if `immediateOutstreamRequests` was toggled to false.
+                    if (this.get("immediateOutstreamRequests") === false) {
                         this.trigger("outstreamRetryOnInterval");
                     }
 

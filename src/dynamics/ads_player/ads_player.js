@@ -210,8 +210,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 channels: {
                     "ads:impression": function() {
                         if (this.parent()?.get("outstream")) {
-                            // On ad impression, reset the retry on ad-error count.
-                            this.parent().resetOutstreamRetries();
+                            this.parent().handleOutstreamAdImpression();
                         }
                     },
                     "ads:ad-error": function() {
@@ -219,8 +218,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set(`ads_loaded`, false);
                         this.set(`ads_load_started`, false);
                         if (this.parent()?.get("outstream")) {
-                            this.parent().trackOutstreamRetries();
-                            this.parent().hidePlayerContainer();
+                            this.parent().handleOutstreamAdError();
                         }
                         this.trackAdsPerformance(`ad-error`);
                     },

@@ -656,13 +656,22 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
         dynamics: ["adscontrolbar"],
 
         _started: function() {
-            // if player is not hidden below method will do nothing
-            this.dyn.showHiddenPlayerContainer();
+            // When we have multiple bad ads while attempting fallback, the player will show up with a black screen with no ad content.
+            // So listen on `adCanPlay` before showing the player.
+            this.listenOn(this.dyn.channel("ads"), "adCanPlay", function() {
+                // if player is not hidden below method will do nothing
+                this.dyn.showHiddenPlayerContainer();
+            });
 
             const floating = this.dyn.get("sticky") || this.dyn.get("floating");
             if (floating && this.dyn.floatHandler) this.dyn.floatHandler.start();
 
             this.dyn.channel("ads").trigger("outstreamStarted", this.dyn);
+
+            // When we run out of ad retries with immediate requests, we manually trigger `outstreamRetryOnInterval` to use `recurrenceperiod`.
+            this.listenOn(this.dyn, "outstreamRetryOnInterval", function() {
+                this.dyn.setNextOutstreamAdTagURL(false, this, "LoadPlayer");
+            });
 
             this.listenOn(this.dyn.channel("ads"), "allAdsCompleted", function() {
                 this.afterAdCompleted();
@@ -696,7 +705,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayOutstream", [
             }
 
             // Return early to prevent outstream player from hiding/re-appearing.
-            if (this.dyn.get('outstreamoptions.recurrenceperiod') === 0 && this.dyn.get("availableOutstreamRetries")) {
+            if (this.dyn.get('immediateOutstreamRequests')) {
                 this.dyn.set('adsplayer_active', false);
                 return;
             }

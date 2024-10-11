@@ -2326,7 +2326,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }.bind(this), {
                                     once: true
                                 });
-                            } else Dom.elementEnterFullscreen(this.getFullscreenElement());
+                            } else Dom.elementEnterFullscreen(this.activeElement().childNodes[0] || this.getFullscreenElement());
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },

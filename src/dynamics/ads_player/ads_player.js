@@ -350,9 +350,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         adManagerOptions = this.normalizeOptionsForMobile(adManagerOptions);
                     }
 
-                    this.adsManager = this.auto_destroy(
-                        new AdsManager(adManagerOptions, dynamics));
-                    this.adsManager.requestAds(this._baseRequestAdsOptions());
+                    this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
+                    try {
+                        this.adsManager.requestAds(this._baseRequestAdsOptions());
+                        this.channel("ads").trigger(`requested`, adManagerOptions);
+                    } catch (e) {
+                        this.channel("ads").trigger(`request-error`, e, adManagerOptions);
+                    }
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
                     this.adsManager.on("all", function(event, ad, ...rest) {

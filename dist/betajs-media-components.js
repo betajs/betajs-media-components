@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.515 - 2024-09-24
+betajs-media-components - v0.0.516 - 2024-10-16
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.515 - 2024-09-24
+betajs-media-components - v0.0.516 - 2024-10-16
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.515",
-    "datetime": 1727194307466
+    "version": "0.0.516",
+    "datetime": 1729093782711
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -8050,7 +8050,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }.bind(this), {
                                     once: true
                                 });
-                            } else Dom.elementEnterFullscreen(this.getFullscreenElement());
+                            } else Dom.elementEnterFullscreen(this.activeElement().childNodes[0]);
                         }
                         this.set("fullscreened", !this.get("fullscreened"));
                     },

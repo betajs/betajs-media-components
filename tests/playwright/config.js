@@ -7,6 +7,8 @@ const { defineConfig, devices } = require('@playwright/test');
 const PORT = process.env?.PLAYWRIGHT_PORT || 5000;
 const CI = process.env?.CI === true || process.env?.CI === "true";
 
+console.log(`PORT: ${PORT}; CI: ${CI}; browser launch path: ${process.env?.PLAYWRIGHT_BROWSER_LAUNCHER}`);
+
 const config = {
     testDir: './',
     outputDir: './output',

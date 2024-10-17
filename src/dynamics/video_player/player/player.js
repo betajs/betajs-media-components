@@ -242,7 +242,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "imaadsrenderingsetting": {},
                         "adtagurl": null,
                         "adchoiceslink": null,
-                        "adtagurlfallbacks": [],
+                        "adtagurlfallbacks": '',
                         "pause_ads_on_float_close": false,
                         "nextadtagurls": [],
                         "inlinevastxml": null,
@@ -556,7 +556,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "posterfitstrategy": "string",
                     "adtagurl": "string",
                     "adchoiceslink": "string",
-                    "adtagurlfallbacks": "array",
+                    "adtagurlfallbacks": "string",
                     "nextadtagurls": "array",
                     "hideadscontrolbar": "boolean",
                     "inlinevastxml": "string",
@@ -1286,7 +1286,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                                 // If after passing the time, ads still not playing, we should trigger an error
                                 this.channel("ads").trigger("render-timeout");
-                                this.brakeAdsManually(true);
+                                this.breakAdsManually(true);
                             }.bind(this),
                             delay: repeatMicroseconds,
                             start: true,
@@ -3230,7 +3230,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         // If active ads player is existed
                         if (this.get("adsplayer_active") && this.scopes.adsplayer) {
-                            this.brakeAdsManually();
+                            this.breakAdsManually();
                             handleTriggerMidRollEvent();
                         } else {
                             // In case if preroll not exists, so ads_player is not activated
@@ -3330,7 +3330,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
-                brakeAdsManually: function(hard) {
+                breakAdsManually: function(hard) {
                     hard = hard || false;
                     var adsPlayer = this.scopes.adsplayer;
 

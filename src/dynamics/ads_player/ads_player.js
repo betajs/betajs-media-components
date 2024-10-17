@@ -116,7 +116,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     custom_clickthrough: null,
                     persistentcompanionad: false,
                     ads_loaded: false,
-                    ads_load_started: false
+                    ads_load_started: false,
+                    adurl_fallback_attempted: false,
                 },
 
                 events: {
@@ -214,13 +215,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                     },
                     "ads:ad-error": function() {
-                        this.set(`adsplaying`, false);
-                        this.set(`ads_loaded`, false);
-                        this.set(`ads_load_started`, false);
-                        if (this.parent()?.get("outstream")) {
-                            this.parent().handleOutstreamAdError();
+                        const fallbackUrl = this.parent()?.get('adtagurlfallbacks')
+                        const fallbackAttempted = this.get('adurl_fallback_attempted')
+
+                        if (fallbackUrl && !fallbackAttempted) {
+                            this.set('adtagurl', fallbackUrl)
+                            this.set('adurl_fallback_attempted', true)
+                            this.adsManager.requestAds(this._baseRequestAdsOptions());
+                        } else {
+                            this.set(`adsplaying`, false);
+                            this.set(`ads_loaded`, false);
+                            this.set(`ads_load_started`, false);
+                            if (this.parent()?.get("outstream")) {
+                                this.parent().handleOutstreamAdError();
+                            }
+                            this.trackAdsPerformance(`ad-error`);
                         }
-                        this.trackAdsPerformance(`ad-error`);
                     },
                     "ads:render-timeout": function() {
                         this.set(`adsplaying`, false);
@@ -425,6 +435,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("linear", true);
                         this.set("adscompleted", true);
                         this.set("adsplaying", false);
+                        this.set('adurl_fallback_attempted', true)
                         this.adsManager.reset();
                         // this.adsManager.contentComplete();
                     },

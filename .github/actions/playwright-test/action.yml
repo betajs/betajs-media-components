@@ -46,7 +46,9 @@ runs:
     - name: Run Playwright on Linux
       if: ${{ contains(runner.os, 'Linux') }}
       shell: bash
-      run: xvfb-run npx playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
+      run: |
+        echo "Chrome Browser launcher from: ${{ inputs.browser-launcher }}"
+        xvfb-run npx playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
       env:
         CI: 'true'
         PLAYWRIGHT_PORT: ${{ inputs.port }}

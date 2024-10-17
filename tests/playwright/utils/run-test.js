@@ -7,6 +7,7 @@ export default async (args, func, browserSettings) => {
     if (!browserSettings.executablePath && BROWSER_LAUNCH_PATH && !browserSettings.headless) {
         browserSettings.executablePath = BROWSER_LAUNCH_PATH;
     }
+    console.log(`Browser executable path: ${browserSettings.executablePath}; headless: ${browserSettings.headless}`);
     if (browserName === 'chromium' && browserSettings.executablePath) {
         await (async () => {
             // const browser = await firefox.launch();

@@ -41,7 +41,10 @@ runs:
       # NOTE: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD not works as expected --with-deps chromium also included, not to install all browsers
       run: |
         npm install @playwright/test
-        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 PLAYWRIGHT_BROWSER_LAUNCHER=${{ inputs.browser-launcher }} npx playwright install
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 PLAYWRIGHT_BROWSER_LAUNCHER=${{ inputs.browser-launcher }} \
+        PLAYWRIGHT_BROWSERS_PATH=0
+          npx playwright install
+      # --with-deps chromium
 
     - name: Run Playwright on Linux
       if: ${{ contains(runner.os, 'Linux') }}
@@ -52,7 +55,7 @@ runs:
       env:
         CI: 'true'
         PLAYWRIGHT_PORT: ${{ inputs.port }}
-        PLAYWRIGHT_BROWSERS_PATH: ''
+        PLAYWRIGHT_BROWSERS_PATH: 0
         PLAYWRIGHT_BROWSER_LAUNCHER: ${{ inputs.browser-launcher }}
         PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS: 'false'
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
@@ -65,8 +68,8 @@ runs:
       env:
         CI: 'true'
         PLAYWRIGHT_PORT: ${{ inputs.port }}
-        PLAYWRIGHT_BROWSERS_PATH: ''
-        PLAYWRIGHT_BROWSER_LAUNCHER: "${{ inputs.browser-launcher }}"
+        PLAYWRIGHT_BROWSERS_PATH: 0
+        PLAYWRIGHT_BROWSER_LAUNCHER: ${{ inputs.browser-launcher }}
         PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS: 'false'
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 

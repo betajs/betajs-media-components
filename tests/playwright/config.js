@@ -23,7 +23,9 @@ const config = {
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!CI,
     /* Retry on CI only */
-    retries: CI ? 5 : 0,
+    // TODO: restore after debug by uncommenting the line below
+    // retries: CI ? 5 : 0,
+    retries: CI ? 0 : 0,
     /* Opt out of parallel tests on CI. */
     workers: CI ? 1 : undefined,
 

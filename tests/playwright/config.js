@@ -7,6 +7,8 @@ const { defineConfig, devices } = require('@playwright/test');
 const PORT = process.env?.PLAYWRIGHT_PORT || 5000;
 const CI = process.env?.CI === true || process.env?.CI === "true";
 
+console.log(`PORT: ${PORT}; CI: ${CI}; browser launch path: ${process.env?.PLAYWRIGHT_BROWSER_LAUNCHER}`);
+
 const config = {
     testDir: './',
     outputDir: './output',
@@ -21,7 +23,9 @@ const config = {
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!CI,
     /* Retry on CI only */
-    retries: CI ? 5 : 0,
+    // TODO: restore after debug by uncommenting the line below
+    // retries: CI ? 5 : 0,
+    retries: CI ? 0 : 0,
     /* Opt out of parallel tests on CI. */
     workers: CI ? 1 : undefined,
 
@@ -48,7 +52,16 @@ const config = {
     projects: [
         {
             name: 'chromium',
-            use: { ...devices['Desktop Chrome'] },
+            // use: {
+            //     launchOptions: {
+            //         exec
+            //     }
+            // }
+            // use: { ...devices['Desktop Chrome'] },
+            // browserName: "chromium",
+            // launchOptions: {
+            //     executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
+            // }
         },
 
         // {

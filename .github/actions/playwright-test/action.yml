@@ -41,7 +41,7 @@ runs:
       # NOTE: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD not works as expected --with-deps chromium also included, not to install all browsers
       run: |
         npm install @playwright/test
-        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install --with-deps chromium
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install
 
     - name: Run Playwright on Linux
       if: ${{ contains(runner.os, 'Linux') }}

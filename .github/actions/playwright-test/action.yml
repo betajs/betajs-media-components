@@ -25,15 +25,15 @@ runs:
       shell: bash
       run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
 
-    - name: Cache playwright binaries
-      uses: actions/cache@v4
-      id: playwright-cache
-      with:
-        path: |
-          ~/.cache/ms-playwright
-        key: "${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}"
-        restore-keys: "${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}"
-        save-always: true
+#    - name: Cache playwright binaries
+#      uses: actions/cache@v4
+#      id: playwright-cache
+#      with:
+#        path: |
+#          ~/.cache/ms-playwright
+#        key: "${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}"
+#        restore-keys: "${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}"
+#        save-always: true
 
     - name: Install Playwright Test Package
       if: steps.playwright-cache.outputs.cache-hit != 'true'

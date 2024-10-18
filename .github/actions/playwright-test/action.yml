@@ -38,14 +38,14 @@ runs:
 #        save-always: true
 
     - name: Install Playwright Test Package
-      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      # if: steps.playwright-cache.outputs.cache-hit != 'true'
       shell: bash
       # NOTE: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD not works as expected --with-deps chromium also included, not to install all browsers
       run: |
         npm install @playwright/test
-      env:
-        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
-        PLAYWRIGHT_BROWSER_LAUNCHER=${{ inputs.browser-launcher }}
+#      env:
+#        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+#        PLAYWRIGHT_BROWSER_LAUNCHER=${{ inputs.browser-launcher }}
       # npx playwright install
       # --with-deps chromium
       # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 PLAYWRIGHT_BROWSER_LAUNCHER=${{ inputs.browser-launcher }} \

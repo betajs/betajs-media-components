@@ -52,13 +52,13 @@ const config = {
     projects: [
         {
             name: 'chromium',
+            browserName: "chromium",
             // use: {
             //     launchOptions: {
             //         exec
             //     }
             // }
             // use: { ...devices['Desktop Chrome'] },
-            // browserName: "chromium",
             // launchOptions: {
             //     executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
             // }

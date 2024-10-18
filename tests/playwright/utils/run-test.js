@@ -4,10 +4,10 @@ import { BROWSER_LAUNCH_PATH } from '../consts.js';
 export default async (args, func, browserSettings) => {
     browserSettings = browserSettings || {};
     const { page, browserName, browser, context } = args;
+    console.log(`Browser executable path: ${browserSettings.executablePath}; headless: ${browserSettings.headless}`);
     if (!browserSettings.executablePath && BROWSER_LAUNCH_PATH && !browserSettings.headless) {
         browserSettings.executablePath = BROWSER_LAUNCH_PATH;
     }
-    console.log(`Browser executable path: ${browserSettings.executablePath}; headless: ${browserSettings.headless}`);
     if (browserName === 'chromium' && browserSettings.executablePath) {
         await (async () => {
             // const browser = await firefox.launch();

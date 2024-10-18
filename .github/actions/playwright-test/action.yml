@@ -42,7 +42,7 @@ runs:
       shell: bash
       # NOTE: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD not works as expected --with-deps chromium also included, not to install all browsers
       run: |
-        npm install @playwright/test
+        npm install @playwright/test playwright-core
 #      env:
 #        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 #        PLAYWRIGHT_BROWSER_LAUNCHER=${{ inputs.browser-launcher }}
@@ -56,7 +56,7 @@ runs:
       shell: bash
       run: |
         echo "Chrome Browser launcher from: ${{ inputs.browser-launcher }}"
-        xvfb-run npx playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
+        xvfb-run npx PLAYWRIGHT_BROWSERS_PATH=0 playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
       env:
         CI: 'true'
         PLAYWRIGHT_PORT: ${{ inputs.port }}

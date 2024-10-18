@@ -41,7 +41,10 @@ runs:
       # NOTE: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD not works as expected --with-deps chromium also included, not to install all browsers
       run: |
         npm install @playwright/test
-        npx playwright install
+      env:
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+        PLAYWRIGHT_BROWSER_LAUNCHER=${{ inputs.browser-launcher }}
+      # npx playwright install
       # --with-deps chromium
       # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 PLAYWRIGHT_BROWSER_LAUNCHER=${{ inputs.browser-launcher }} \
       # PLAYWRIGHT_BROWSERS_PATH=0

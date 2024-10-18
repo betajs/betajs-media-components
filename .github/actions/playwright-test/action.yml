@@ -25,7 +25,7 @@ runs:
       shell: bash
       run: |
         echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
-        echo "CHROME_VERSION=$(/usr/bin/google-chrome-stable -v)" >> $GITHUB_ENV
+        echo "$(/usr/bin/google-chrome-stable -v)"
 
 #    - name: Cache playwright binaries
 #      uses: actions/cache@v4

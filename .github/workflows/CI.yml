@@ -75,7 +75,7 @@ jobs:
           chmod +x .github/scripts/install-linux-chrome.sh
           .github/scripts/install-linux-chrome.sh
           echo "CHROME_INSTALL_PATH=$(which google-chrome-stable)" >> $GITHUB_ENV
-
+          echo "Chrome has been installed at ${{ env.CHROME_INSTALL_PATH }}"
 
   e2e-tests:
     timeout-minutes: 60

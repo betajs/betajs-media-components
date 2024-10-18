@@ -8,6 +8,8 @@ const PORT = process.env?.PLAYWRIGHT_PORT || 5000;
 const CI = process.env?.CI === true || process.env?.CI === "true";
 
 console.log(`PORT: ${PORT}; CI: ${CI}; browser launch path: ${process.env?.PLAYWRIGHT_BROWSER_LAUNCHER}`);
+console.log(`PLAYWRIGHT_BROWSERS_PATH: ${process.env?.PLAYWRIGHT_BROWSERS_PATH}`);
+console.log(`PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: ${process.env?.PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD}`);
 
 const config = {
     testDir: './',
@@ -53,6 +55,9 @@ const config = {
         {
             name: 'chromium',
             browserName: "chromium",
+            use: {
+                executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
+            }
             // use: {
             //     launchOptions: {
             //         exec

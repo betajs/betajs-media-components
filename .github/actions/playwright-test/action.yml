@@ -56,7 +56,7 @@ runs:
       shell: bash
       run: |
         echo "Chrome Browser launcher from: ${{ inputs.browser-launcher }}"
-        xvfb-run npx PLAYWRIGHT_BROWSERS_PATH=0 playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
+        xvfb-run npx playwright test --project=${{ inputs.project }} --config ${{ inputs.config-file }}
       env:
         CI: 'true'
         PLAYWRIGHT_PORT: ${{ inputs.port }}

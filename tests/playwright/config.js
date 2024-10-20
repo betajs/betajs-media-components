@@ -52,9 +52,9 @@ const config = {
                 ...devices['Desktop Chrome'],
                 browserName: 'chromium',
                 // executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
-                launchOptions: {
-                    executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
-                }
+                // launchOptions: {
+                //     executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
+                // }
             }
             // use: { ...devices['Desktop Chrome'] },
             // launchOptions: {

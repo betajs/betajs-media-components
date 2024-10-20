@@ -29,11 +29,11 @@ test.describe(`Autoplay: Later ads source integration`, () => {
         mode: 'default',
         viewport: { width: 1280, height: 720 },
         video: 'on-first-retry',
-        // browserType: {
-        //     chromium: {
-        //         executablePath: BROWSER_LAUNCH_PATH,
-        //     }
-        // },
+        browserType: {
+            chromium: {
+                executablePath: BROWSER_LAUNCH_PATH,
+            }
+        },
     });
 
     test(`Success: Wait for ads source`, async ({ page, browserName, browser, context }) => {

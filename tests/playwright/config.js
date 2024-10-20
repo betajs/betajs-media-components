@@ -21,7 +21,7 @@ const config = {
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!CI,
     /* Retry on CI only */
-    retries: CI ? 1 : 0,
+    retries: CI ? 5 : 0,
     /* Opt out of parallel tests on CI. */
     workers: CI ? 1 : undefined,
 
@@ -51,15 +51,10 @@ const config = {
             use: {
                 ...devices['Desktop Chrome'],
                 browserName: 'chromium',
-                // executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
-                // launchOptions: {
-                //     executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
-                // }
+                launchOptions: {
+                    executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
+                }
             }
-            // use: { ...devices['Desktop Chrome'] },
-            // launchOptions: {
-            //     executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
-            // }
         },
 
         // {

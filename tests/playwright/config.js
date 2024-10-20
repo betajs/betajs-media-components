@@ -1,4 +1,5 @@
 const { defineConfig, devices } = require('@playwright/test');
+const {BROWSER_LAUNCH_PATH} = require("./consts");
 
 /**
  * Read environment variables from file.
@@ -52,7 +53,7 @@ const config = {
                 ...devices['Desktop Chrome'],
                 browserName: 'chromium',
                 launchOptions: {
-                    executablePath: process.env?.PLAYWRIGHT_BROWSER_LAUNCHER,
+                    executablePath: BROWSER_LAUNCH_PATH,
                 }
             }
         },

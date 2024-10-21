@@ -86,41 +86,42 @@ test(`preload ads`, async ({ page, browserName, browser, context }) => {
     }, runAdsTester, browserSettings);
 });
 
-test(`preload ads, skipinitial, manual play`, async ({ page, browserName, browser, context }) => {
-    const runAdsTester = async (page, browser, context) => {
-        let adsPlaying;
-        const player = new PlayerPage(page,
-            {
-                ...defaultPlayerAttributes,
-                ...commonPlayerAttributes,
-                ...{
-                    skipinitial: true,
-                }
-            }, context, [{
-                blk: 0
-            }]);
-
-        // Go to the starting url before each test.
-        await player.goto();
-        await player.setPlayerInstance();
-
-        await player.listenPlayerEvent(`ads:loaded`, 10);
-        const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
-        await expect(adsLoaded).toBeTruthy();
-
-        const playerButton = await player.getElementByTestID(`content-play-button`);
-        await expect(playerButton).toBeVisible();
-
-        await playerButton.click();
-
-        const adsContainer = await player.getElementByTestID(`ads-player-container`);
-        await expect(adsContainer).toBeVisible();
-    }
-
-    await runTestMethod({
-        page, browserName, browser, context
-    }, runAdsTester, browserSettings);
-});
+// NOTE: temporarily disabled feature, as for now player used only with autoplay
+// test(`preload ads, skipinitial, manual play`, async ({ page, browserName, browser, context }) => {
+//     const runAdsTester = async (page, browser, context) => {
+//         let adsPlaying;
+//         const player = new PlayerPage(page,
+//             {
+//                 ...defaultPlayerAttributes,
+//                 ...commonPlayerAttributes,
+//                 ...{
+//                     skipinitial: true,
+//                 }
+//             }, context, [{
+//                 blk: 0
+//             }]);
+//
+//         // Go to the starting url before each test.
+//         await player.goto();
+//         await player.setPlayerInstance();
+//
+//         await player.listenPlayerEvent(`ads:loaded`, 10);
+//         const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
+//         await expect(adsLoaded).toBeTruthy();
+//
+//         const playerButton = await player.getElementByTestID(`content-play-button`);
+//         await expect(playerButton).toBeVisible();
+//
+//         await playerButton.click();
+//
+//         const adsContainer = await player.getElementByTestID(`ads-player-container`);
+//         await expect(adsContainer).toBeVisible();
+//     }
+//
+//     await runTestMethod({
+//         page, browserName, browser, context
+//     }, runAdsTester, browserSettings);
+// });
 
 test(`preload ads, auto play`, async ({ page, browserName, browser, context }) => {
     const runAdsTester = async (page, browser, context) => {

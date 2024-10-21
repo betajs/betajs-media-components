@@ -76,7 +76,6 @@ jobs:
           .github/scripts/install-linux-chrome.sh
           echo "CHROME_INSTALL_PATH=$(which google-chrome-stable)" >> $GITHUB_ENV
 
-
   e2e-tests:
     timeout-minutes: 60
     needs: [ build, install-chrome ]
@@ -111,7 +110,6 @@ jobs:
         with:
           project: ${{ matrix.project }}
           browser-launcher: ${{ needs.install-chrome.outputs.chrome-launcher }}
-
 
   unit-tests:
     timeout-minutes: 10

@@ -903,7 +903,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         };
 
                         // Removing player space on article if outstream
-                        if (outstream && this.activeElement()) {
+                        if (outstream && this.activeElement()?.parentNode?.style?.height) {
                             this.activeElement().parentNode.style.height = 0;
                         }
 
@@ -1262,6 +1262,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     // Init the number of outstream ad error retries on immediate requests.
                     if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
+                        this.hidePlayerContainer();
                         this.setImmediateOutstreamRequests(true);
                     }
                 },

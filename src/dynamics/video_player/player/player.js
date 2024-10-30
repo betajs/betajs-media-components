@@ -1264,7 +1264,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     // Init the number of outstream ad error retries on immediate requests.
                     if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
-                        this.hidePlayerContainer();
                         this.setImmediateOutstreamRequests(true);
                     }
                 },

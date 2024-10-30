@@ -903,8 +903,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         };
 
                         // Removing player space on article if outstream
-                        if (outstream && this.activeElement()?.parentNode?.style?.height) {
-                            this.activeElement().parentNode.style.height = 0;
+                        if (outstream && this.activeElement()?.parentNode) {
+                            this.activeElement().parentNode.style = {
+                                height: 0
+                            };
                         }
 
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;

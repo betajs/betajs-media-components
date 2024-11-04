@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.518 - 2024-10-17
+betajs-media-components - v0.0.519 - 2024-11-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.518",
-    "datetime": 1729201608911
+    "version": "0.0.519",
+    "datetime": 1730711582222
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -5629,6 +5629,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
+
+                        // Removing player space on article if outstream
+                        if (outstream && this.activeElement()?.parentNode) {
+                            this.activeElement().parentNode.style = {
+                                height: 0
+                            };
+                        }
 
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";

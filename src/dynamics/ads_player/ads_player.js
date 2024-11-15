@@ -1037,7 +1037,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 /**
-                 * returns true if the user agent string is an iOS device with major version 10 or greater
+                 * returns true if the user agent string is an iOS device with major version greater than 10
                  * @param {string} userAgent
                  * @private
                  * @returns {boolean}
@@ -1048,7 +1048,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // Using a different iOS check instead of Info.isiOS() because it has false positives leading to
                     // a thrown exception
                     // regex taken from https://github.com/faisalman/ua-parser-js/blob/master/src/main/ua-parser.js#L857C14-L857C64
-                    const isIos = !!userAgent.match(/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i);
+                    // regex modified to ignore opera agent string since they don't have OS version
+                    const isIos = !!userAgent.match(/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac)/i);
 
                     let majorVersion = '';
                     try {

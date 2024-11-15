@@ -498,7 +498,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 normalizeOptionsForMobile: function(adManagerOptions) {
-                    if (Info.iOSversion().major >= 10) {
+                    if (this._isIos10Plus()) {
                         adManagerOptions.IMASettings.iOS10Plus = true;
                     }
 
@@ -1034,6 +1034,33 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }
                             return acc
                         }, {});
+                },
+
+                /**
+                 * returns true if the user agent string is an iOS device with major version 10 or greater
+                 * @param {string} userAgent
+                 * @private
+                 * @returns {boolean}
+                 */
+                _isIos10Plus: function() {
+                    const userAgent = Info.getNavigator().userAgent;
+
+                    // Using a different iOS check instead of Info.isiOS() because it has false positives leading to
+                    // a thrown exception
+                    // regex taken from https://github.com/faisalman/ua-parser-js/blob/master/src/main/ua-parser.js#L857C14-L857C64
+                    const isIos = !!userAgent.match(/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i);
+
+                    let majorVersion = '';
+                    try {
+                        if (isIos) {
+                            // Info.iOSversion() throws an exception if unable to parse version
+                            majorVersion = Info.iOSversion().major;
+                        }
+                    } catch (e) {
+                        Debug.log(e);
+                    }
+
+                    return majorVersion && majorVersion > 10;
                 }
             };
         }).register("ba-adsplayer")

@@ -1049,19 +1049,29 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     // a thrown exception
                     // regex taken from https://github.com/faisalman/ua-parser-js/blob/master/src/main/ua-parser.js#L857C14-L857C64
                     // regex modified to ignore opera agent string since they don't have OS version
-                    const isIos = !!userAgent.match(/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac)/i);
+                    const isIosInBrowser = !!userAgent.match(/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac)/i);
+                    const iosInAppBrowserMatch = userAgent.match(/(?:ios;fbsv\/|iphone.+ios[\/ ])([\d\.]+)/i)
+                    const isIosInAppBrowser = !!iosInAppBrowserMatch;
 
-                    let majorVersion = '';
+                    let majorVersion = 0;
                     try {
-                        if (isIos) {
+                        if (isIosInBrowser) {
                             // Info.iOSversion() throws an exception if unable to parse version
                             majorVersion = Info.iOSversion().major;
+                        } else if (isIosInAppBrowser) {
+                            // we do this check second because the regex can have a false positive against the
+                            // in-browser regex and in-app browsers have a different version format string to parse
+                            // that is dot-delimited
+                            let versionString = iosInAppBrowserMatch[1].split(".")[0];
+                            if (versionString) {
+                                majorVersion = parseInt(versionString, 10);
+                            }
                         }
                     } catch (e) {
                         Debug.log(e);
                     }
 
-                    return majorVersion && majorVersion > 10;
+                    return majorVersion > 10;
                 }
             };
         }).register("ba-adsplayer")

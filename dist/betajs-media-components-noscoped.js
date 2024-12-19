@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.521 - 2024-12-09
+betajs-media-components - v0.0.522 - 2024-12-19
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -14,8 +14,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.521",
-    "datetime": 1733758807683
+    "version": "0.0.522",
+    "datetime": 1734625717404
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -7448,8 +7448,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    // Trigger a non-immediate manual retry using on ad-error if `immediateOutstreamRequests` was toggled to false.
-                    if (this.get("immediateOutstreamRequests") === false) {
+                    // Trigger a non-immediate manual retry using on ad-error
+                    if (!this.get("immediateOutstreamRequests")) {
                         this.trigger("outstreamRetryOnInterval");
                     }
 
@@ -8817,7 +8817,6 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
 
             this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
                 if (this.dyn.get("outstream")) {
-                    this.dyn.hidePlayerContainer();
                     if ((this.dyn.get("nextadtagurls") && this.dyn.get("nextadtagurls").length > 0)) {
                         this.dyn.set("adtagurl", this.dyn.get("nextadtagurls").shift());
                         this.dyn.scopes.adsplayer.execute("requestAds");

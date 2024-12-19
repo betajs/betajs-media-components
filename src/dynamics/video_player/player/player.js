@@ -2720,8 +2720,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    // Trigger a non-immediate manual retry using on ad-error if `immediateOutstreamRequests` was toggled to false.
-                    if (this.get("immediateOutstreamRequests") === false) {
+                    // Trigger a non-immediate manual retry using on ad-error
+                    if (!this.get("immediateOutstreamRequests")) {
                         this.trigger("outstreamRetryOnInterval");
                     }
 

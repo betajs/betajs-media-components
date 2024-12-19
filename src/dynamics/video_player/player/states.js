@@ -485,6 +485,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
                         this.dyn.set("adtagurl", this.dyn.get("nextadtagurls").shift());
                         this.dyn.scopes.adsplayer.execute("requestAds");
                     } else {
+                        this.dyn.set("immediateOutstreamRequests", false)
                         this.dyn.setNextOutstreamAdTagURL(false, this);
                     }
                 } else {

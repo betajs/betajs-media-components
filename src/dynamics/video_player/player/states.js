@@ -481,12 +481,10 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.Outstream", [
 
             this.listenOn(this.dyn.channel("ads"), "ad-error", function() {
                 if (this.dyn.get("outstream")) {
-                    this.dyn.hidePlayerContainer();
                     if ((this.dyn.get("nextadtagurls") && this.dyn.get("nextadtagurls").length > 0)) {
                         this.dyn.set("adtagurl", this.dyn.get("nextadtagurls").shift());
                         this.dyn.scopes.adsplayer.execute("requestAds");
                     } else {
-                        this.dyn.set("immediateOutstreamRequests", false)
                         this.dyn.setNextOutstreamAdTagURL(false, this);
                     }
                 } else {
@@ -937,7 +935,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
                         this.pause();
                     }, this);
                 }
-               
+
                 this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
                     this.resume();
                 }, this);

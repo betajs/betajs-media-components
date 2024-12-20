@@ -18,7 +18,7 @@ const config = {
     // screenshotPathTemplate: './screenshots/__TEST__-__SUITE__-__USERAGENT__-__LOCALE___-__DARKMODE__.png',
 
     /* Run tests in files in parallel */
-    fullyParallel: !CI,
+    fullyParallel: !!CI,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!CI,
     /* Retry on CI only */

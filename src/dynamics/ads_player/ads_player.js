@@ -116,7 +116,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     custom_clickthrough: null,
                     persistentcompanionad: false,
                     ads_loaded: false,
-                    ads_load_started: false
+                    ads_load_started: false,
+                    adurl_fallback_attempted: false,
                 },
 
                 events: {
@@ -214,13 +215,22 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                     },
                     "ads:ad-error": function() {
-                        this.set(`adsplaying`, false);
-                        this.set(`ads_loaded`, false);
-                        this.set(`ads_load_started`, false);
-                        if (this.parent()?.get("outstream")) {
-                            this.parent().handleOutstreamAdError();
+                        const fallbackUrl = this.parent()?.get('adtagurlfallbacks')
+                        const fallbackAttempted = this.get('adurl_fallback_attempted')
+
+                        if (fallbackUrl && !fallbackAttempted) {
+                            this.set('adtagurl', fallbackUrl)
+                            this.set('adurl_fallback_attempted', true)
+                            this.adsManager.requestAds(this._baseRequestAdsOptions());
+                        } else {
+                            this.set(`adsplaying`, false);
+                            this.set(`ads_loaded`, false);
+                            this.set(`ads_load_started`, false);
+                            if (this.parent()?.get("outstream")) {
+                                this.parent().handleOutstreamAdError();
+                            }
+                            this.trackAdsPerformance(`ad-error`);
                         }
-                        this.trackAdsPerformance(`ad-error`);
                     },
                     "ads:render-timeout": function() {
                         this.set(`adsplaying`, false);
@@ -350,9 +360,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         adManagerOptions = this.normalizeOptionsForMobile(adManagerOptions);
                     }
 
-                    this.adsManager = this.auto_destroy(
-                        new AdsManager(adManagerOptions, dynamics));
-                    this.adsManager.requestAds(this._baseRequestAdsOptions());
+                    this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));
+                    try {
+                        this.adsManager.requestAds(this._baseRequestAdsOptions());
+                        this.channel("ads").trigger(`requested`, adManagerOptions);
+                    } catch (e) {
+                        this.channel("ads").trigger(`request-error`, e, adManagerOptions);
+                    }
                     // Will list events which are require some additional actions,
                     // ignore events like adsProgress for additional statement checks
                     this.adsManager.on("all", function(event, ad, ...rest) {
@@ -421,6 +435,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         this.set("linear", true);
                         this.set("adscompleted", true);
                         this.set("adsplaying", false);
+                        this.set('adurl_fallback_attempted', true)
                         this.adsManager.reset();
                         // this.adsManager.contentComplete();
                     },
@@ -483,7 +498,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 normalizeOptionsForMobile: function(adManagerOptions) {
-                    if (Info.iOSversion().major >= 10) {
+                    if (this._isIos10Plus()) {
                         adManagerOptions.IMASettings.iOS10Plus = true;
                     }
 
@@ -1019,6 +1034,44 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }
                             return acc
                         }, {});
+                },
+
+                /**
+                 * returns true if the user agent string is an iOS device with major version greater than 10
+                 * @param {string} userAgent
+                 * @private
+                 * @returns {boolean}
+                 */
+                _isIos10Plus: function() {
+                    const userAgent = Info.getNavigator().userAgent;
+
+                    // Using a different iOS check instead of Info.isiOS() because it has false positives leading to
+                    // a thrown exception
+                    // regex taken from https://github.com/faisalman/ua-parser-js/blob/master/src/main/ua-parser.js#L857C14-L857C64
+                    // regex modified to ignore opera agent string since they don't have OS version
+                    const isIosInBrowser = !!userAgent.match(/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac)/i);
+                    const iosInAppBrowserMatch = userAgent.match(/(?:ios;fbsv\/|iphone.+ios[\/ ])([\d\.]+)/i)
+                    const isIosInAppBrowser = !!iosInAppBrowserMatch;
+
+                    let majorVersion = 0;
+                    try {
+                        if (isIosInBrowser) {
+                            // Info.iOSversion() throws an exception if unable to parse version
+                            majorVersion = Info.iOSversion().major;
+                        } else if (isIosInAppBrowser) {
+                            // we do this check second because the regex can have a false positive against the
+                            // in-browser regex and in-app browsers have a different version format string to parse
+                            // that is dot-delimited
+                            let versionString = iosInAppBrowserMatch[1].split(".")[0];
+                            if (versionString) {
+                                majorVersion = parseInt(versionString, 10);
+                            }
+                        }
+                    } catch (e) {
+                        Debug.log(e);
+                    }
+
+                    return majorVersion > 10;
                 }
             };
         }).register("ba-adsplayer")

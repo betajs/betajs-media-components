@@ -1,6 +1,10 @@
 name: 'Run Playwright test'
 description: 'Run e2e tests via chrome browser using playwright'
 
+env:
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1 # Skip downloading during yarn install
+  PLAYWRIGHT_BROWSERS_PATH: 0 # Places binaries to node_modules/@playwright/test
+
 inputs:
   project:
     description: Project which will run on testing
@@ -38,10 +42,7 @@ runs:
     - name: Install Playwright Test Package
       if: steps.playwright-cache.outputs.cache-hit != 'true'
       shell: bash
-      # NOTE: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD not works as expected --with-deps chromium also included, not to install all browsers
-      run: |
-        npm install @playwright/test
-        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install --with-deps chromium
+      run: npm install @playwright/test playwright-core
 
     - name: Run Playwright on Linux
       if: ${{ contains(runner.os, 'Linux') }}
@@ -50,7 +51,6 @@ runs:
       env:
         CI: 'true'
         PLAYWRIGHT_PORT: ${{ inputs.port }}
-        PLAYWRIGHT_BROWSERS_PATH: ''
         PLAYWRIGHT_BROWSER_LAUNCHER: ${{ inputs.browser-launcher }}
         PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS: 'false'
 
@@ -62,7 +62,6 @@ runs:
       env:
         CI: 'true'
         PLAYWRIGHT_PORT: ${{ inputs.port }}
-        PLAYWRIGHT_BROWSERS_PATH: ''
         PLAYWRIGHT_BROWSER_LAUNCHER: "${{ inputs.browser-launcher }}"
         PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS: 'false'
 

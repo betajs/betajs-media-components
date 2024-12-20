@@ -242,7 +242,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "imaadsrenderingsetting": {},
                         "adtagurl": null,
                         "adchoiceslink": null,
-                        "adtagurlfallbacks": [],
+                        "adtagurlfallbacks": '',
                         "pause_ads_on_float_close": false,
                         "nextadtagurls": [],
                         "inlinevastxml": null,
@@ -556,7 +556,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     "posterfitstrategy": "string",
                     "adtagurl": "string",
                     "adchoiceslink": "string",
-                    "adtagurlfallbacks": "array",
+                    "adtagurlfallbacks": "string",
                     "nextadtagurls": "array",
                     "hideadscontrolbar": "boolean",
                     "inlinevastxml": "string",
@@ -901,6 +901,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         styles = {
                             aspectRatio: aspectRatio
                         };
+
+                        // Removing player space on article if outstream
+                        if (outstream && this.activeElement()?.parentNode) {
+                            this.activeElement().parentNode.style = {
+                                height: 0
+                            };
+                        }
 
                         if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
                         if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
@@ -1286,7 +1293,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 }
                                 // If after passing the time, ads still not playing, we should trigger an error
                                 this.channel("ads").trigger("render-timeout");
-                                this.brakeAdsManually(true);
+                                this.breakAdsManually(true);
                             }.bind(this),
                             delay: repeatMicroseconds,
                             start: true,
@@ -2463,7 +2470,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.channel("ads").trigger("resume");
                     },
 
-                    close_floating: function(destroy) {
+                    close_floating: function(destroy, event) {
+                        if (event) {
+                            if (event[0].type === 'touchstart') {
+                                event[0].preventDefault();
+                                event[0].stopPropagation();
+                            }
+                        }
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
                         const floating = this.get("sticky") || this.get("floating");
@@ -2707,8 +2720,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    // Trigger a non-immediate manual retry using on ad-error if `immediateOutstreamRequests` was toggled to false.
-                    if (this.get("immediateOutstreamRequests") === false) {
+                    // Trigger a non-immediate manual retry using on ad-error
+                    if (!this.get("immediateOutstreamRequests")) {
                         this.trigger("outstreamRetryOnInterval");
                     }
 
@@ -3230,7 +3243,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         // If active ads player is existed
                         if (this.get("adsplayer_active") && this.scopes.adsplayer) {
-                            this.brakeAdsManually();
+                            this.breakAdsManually();
                             handleTriggerMidRollEvent();
                         } else {
                             // In case if preroll not exists, so ads_player is not activated
@@ -3330,7 +3343,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     }, this);
                 },
 
-                brakeAdsManually: function(hard) {
+                breakAdsManually: function(hard) {
                     hard = hard || false;
                     var adsPlayer = this.scopes.adsplayer;
 

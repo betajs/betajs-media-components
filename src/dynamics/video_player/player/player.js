@@ -2470,7 +2470,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         this.channel("ads").trigger("resume");
                     },
 
-                    close_floating: function(destroy) {
+                    close_floating: function(destroy, event) {
+                        if (event) {
+                            if (event[0].type === 'touchstart') {
+                                event[0].preventDefault();
+                                event[0].stopPropagation();
+                            }
+                        }
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
                         const floating = this.get("sticky") || this.get("floating");
@@ -2714,8 +2720,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }
 
-                    // Trigger a non-immediate manual retry using on ad-error if `immediateOutstreamRequests` was toggled to false.
-                    if (this.get("immediateOutstreamRequests") === false) {
+                    // Trigger a non-immediate manual retry using on ad-error
+                    if (!this.get("immediateOutstreamRequests")) {
                         this.trigger("outstreamRetryOnInterval");
                     }
 

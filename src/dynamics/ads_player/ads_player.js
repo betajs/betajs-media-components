@@ -682,8 +682,8 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 _onStart: function(ev) {
                     // Set companion ads array and render for normal content player viewport
-                    if (ad) {
-                        this._getCompanionAds(ad);
+                    if (ev.ad) {
+                        this._getCompanionAds(ev.ad);
                     }
 
                     this.set("playing", true);

@@ -600,7 +600,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
 
-                    if (!ad?.data?.mediaUrl) {
+                    if (ad?.data && !ad.data.mediaUrl) {
                         ad.data.mediaUrl = this.getMediaUrl(ad);
                     }
 
@@ -681,6 +681,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onStart: function(ev) {
+                    // Set companion ads array and render for normal content player viewport
+                    if (ev.ad) {
+                        this._getCompanionAds(ev.ad);
+                    }
+
                     this.set("playing", true);
                     this.set("currenttime", 0);
                     this.set("remaining", this.get("duration"));
@@ -715,9 +720,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this.adsManager.reset();
                             this.adsManager.requestAds(this._baseRequestAdsOptions());
                         }
-
-                        // Set companion ads array and render for normal content player viewport
-                        if (ad) this._getCompanionAds(ad);
                     }
 
                     // reset adsrendertimeout
@@ -799,7 +801,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  */
                 _getCompanionAds: function(ad) {
                     ad = ad || this.get("ad");
-                    var companionAds = [];
+                    let companionAds = [];
                     if (google && google.ima && ad && Types.is_function(ad.getCompanionAds)) {
                         // if options is not boolean, then we have provided more options, like size and selector
                         var selectionCriteria = new google.ima.CompanionAdSelectionSettings();

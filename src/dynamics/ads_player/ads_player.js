@@ -192,16 +192,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
                         continuousPlayback: true,
-                        linearAdSlotWidth: this.getAdWidth(),
-                        linearAdSlotHeight: this.getAdHeight(),
-                        nonLinearAdSlotWidth: this.getAdWidth(),
-                        nonLinearAdSlotHeight: this.getAdHeight() / 3,
                         adWillAutoPlay: this.getAdWillAutoPlay(),
                         adWillPlayMuted: this.getAdWillPlayMuted(),
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
-                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
+                        settings: this.get("ads_request_options"),
                     };
                     if (this.get("adsrendertimeout") && this.get("adsrendertimeout") > 0)
                         requestAdsOptions.vastLoadTimeout = this.get("adsrendertimeout");

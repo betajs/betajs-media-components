@@ -277,6 +277,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "midrollads": [],
                         "adchoicesontop": true,
                         "mobilebreakpoint": 560,
+                        // Accept Interface AdsRequestInterface properties from IMA SDK
+                        /**
+                         * all vendors could be listed from `google.ima.OmidVerificationVendor` enum
+                         * all access modes could be listed from `google.ima.OmidAccessMode` enum
+                         * example:*
+                         * ads_request_options: {
+                         *     adsResponse: 'VAST XML test', // if inlinevastxml was set, this one will be overwritten
+                         *     omidAccessModeRules: {
+                         *         'OmidVerificationVendor.GOOGLE': 'OmidAccessMode.FULL' or 9: 'full', // which is equal: google.ima.OmidVerificationVendor.GOOGLE: google.ima.OmidAccessMode.FULL,
+                         *         'OmidVerificationVendor.OTHER': 'OmidAccessMode.LIMITED' or 1: 'limited',// which is equal: google.ima.OmidVerificationVendor.OTHER: google.ima.OmidAccessMode.LIMITED,
+                         *         'OmidVerificationVendor.MOAT': 'OmidAccessMode.DOMAIN' or 2: 'domain' // which is equal: google.ima.OmidVerificationVendor.MOAT: google.ima.OmidAccessMode.DOMAIN,
+                         *     }
+                         * }
+                         */
+                        ads_request_options: {},
 
                         /* Options */
                         "allowpip": true, // Picture-In-Picture Mode

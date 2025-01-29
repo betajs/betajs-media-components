@@ -90,25 +90,25 @@ Scoped.define("module:Ads.IMA.AdsManager", [
              */
             requestAds: function(requestAdsOptions) {
                 const {
-                    settings,
                     adTagUrl,
                     inlinevastxml,
-                    adTagParams
+                    adTagParams,
+                    options,
                 } = requestAdsOptions;
                 // save the current volume to determine if ad should play with sound
                 this.volume = requestAdsOptions.volume;
                 this._adsRequest = new google.ima.AdsRequest();
                 const invalidSettings = [];
 
-                // Put before all other manually applied settings, as could be overwritten
-                if (Types.is_object_instance(settings) && Object.keys(settings).length > 0) {
-                    for (let key in settings) {
+                // Put before all other manually applied options, as could be overwritten
+                if (Types.is_object_instance(options) && Object.keys(options).length > 0) {
+                    for (let key in options) {
                         if (!this._adsRequest.hasOwnProperty(key)) {
                             invalidSettings.push(key);
                             continue;
                         }
                         // grab from IMA enums if it's exists
-                        const value = this._grabSettingsFromIMAEnums(key) || settings[key];
+                        const value = this._grabSettingsFromIMAEnums(key) || options[key];
                         if (Types.is_string(value) || Types.isNumber(value) || Types.is_boolean(value)) {
                             this._adsRequest[key] = value;
                             continue;
@@ -129,10 +129,11 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 if (invalidSettings.length > 0) {
                     console.warn(`The following settings are not supported by IMA AdsRequest: ${invalidSettings.join(", ")}`);
                 }
-                if (adTagUrl || settings.adTagUrl) {
-                    this._adsRequest.adTagUrl = adTagUrl || settings.adTagUrl;
-                } else if (inlinevastxml || settings.adsResponse) {
-                    this._adsRequest.adsResponse = inlinevastxml || settings.adsResponse;
+
+                if (adTagUrl) {
+                    this._adsRequest.adTagUrl = adTagUrl;
+                } else if (inlinevastxml) {
+                    this._adsRequest.adsResponse = inlinevastxml;
                 }
 
                 // if size query param is not on the ad tag url, define them

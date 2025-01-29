@@ -198,7 +198,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
                         volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
-                        settings: this.get("ads_request_options"),
+                        options: this.get("ads_request_options"),
                     };
                     if (this.get("adsrendertimeout") && this.get("adsrendertimeout") > 0)
                         requestAdsOptions.vastLoadTimeout = this.get("adsrendertimeout");

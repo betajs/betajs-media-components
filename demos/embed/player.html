@@ -73,11 +73,9 @@
                 thirdWrong: [],
                 // adsResponse: "SOME XML",
                 omidAccessModeRules: {
-                    'OmidVerificationVendor.GOOGLE': 'OmidAccessMode.FULL',
-                    'OmidVerificationVendor.OTHER': 'OmidAccessMode.LIMITED',
-                    'OmidVerificationVendor.MOAT': 'OmidAccessMode.DOMAIN', // which is equal: google.ima.OmidVerificationVendor.MOAT: google.ima.OmidAccessMode.DOMAIN,
-                    // 9: 'full',
-                    // 1: 'limited',
+                    'OmidVerificationVendor.GOOGLE': 'OmidAccessMode.FULL', // 9: 'full',
+                    'OmidVerificationVendor.OTHER': 'OmidAccessMode.LIMITED', // 1: 'limited',
+                    'OmidVerificationVendor.MOAT': 'OmidAccessMode.DOMAIN',
                 }
             },
             // theme: "cube",
@@ -94,8 +92,6 @@
             // width: '80%',
             // videofitstrategy: "pad",// "crop", "pad", "original"
         }};
-
-        console.log(`Local attrs: `, localAttrs);
 
         const player = new BetaJS.MediaComponents.VideoPlayer.Dynamics.Player({
             element: document.getElementById("player"),

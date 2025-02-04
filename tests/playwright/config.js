@@ -5,7 +5,7 @@ const {BROWSER_LAUNCH_PATH} = require("./consts");
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-const PORT = process.env?.PLAYWRIGHT_PORT || 5000;
+const PORT = process.env?.PLAYWRIGHT_PORT || 5012;
 const CI = process.env?.CI === true || process.env?.CI === "true";
 
 const config = {

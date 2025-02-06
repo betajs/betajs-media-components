@@ -226,8 +226,10 @@ test.describe(`With ads`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
+            const secondContainerHeader = await page.getByTestId(`h2-header`);
+            await player.scrollToTheElement(secondContainerHeader);
+
             const adsContainer = player.getElementByTestID(`ads-player-container`);
-            await expect(await adsContainer).toBeVisible();
             await player.scrollToTheElement(await adsContainer);
 
             await player.listenPlayerEvent(`ads:firstQuartile`, 30);

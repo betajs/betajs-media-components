@@ -216,7 +216,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:adCanPlay": function() {
                         if (!this.get("adsplaying")) {
-                            console.log("Ad can play");
                             this.set("adsplaying", true);
                         }
                     },

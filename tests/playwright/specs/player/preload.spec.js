@@ -245,7 +245,7 @@ test.describe(`With ads source`, () => {
             await player.setPlayerInstance();
 
             const secondContainerHeader = await page.getByTestId(`h2-header`);
-            await player.scrollToTheElement(secondContainerHeader);
+            await player.scrollToTheElement(secondContainerHeader, -150);
 
             const adsContainer = await player.getElementByTestID(`ads-player-container`);
             await player.scrollToTheElement(await adsContainer);

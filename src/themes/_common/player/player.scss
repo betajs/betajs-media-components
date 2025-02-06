@@ -121,3 +121,7 @@
     overflow: initial;
 }
 
+.#{$cssplayer}-hide-outstream {
+    visibility: hidden;
+    right: -500vw;
+}

@@ -5,7 +5,7 @@
 .#{$csscommon}-flex-column {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 
 .#{$csscommon}-portrait-aspect-ratio { aspect-ratio: 9/16; }

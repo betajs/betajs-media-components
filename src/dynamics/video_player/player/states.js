@@ -936,7 +936,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PlayAd", [
                         this.pause();
                     }, this);
                 }
-               
+
                 this.listenOn(this.dyn.channel("ads"), "contentResumeRequested", function() {
                     this.resume();
                 }, this);

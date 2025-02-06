@@ -89,17 +89,55 @@ Scoped.define("module:Ads.IMA.AdsManager", [
              * @param {RequestAdsOptions} requestAdsOptions
              */
             requestAds: function(requestAdsOptions) {
+                const {
+                    adTagUrl,
+                    inlinevastxml,
+                    adTagParams,
+                    options,
+                } = requestAdsOptions;
                 // save the current volume to determine if ad should play with sound
                 this.volume = requestAdsOptions.volume;
                 this._adsRequest = new google.ima.AdsRequest();
-                if (requestAdsOptions.adTagUrl) {
-                    this._adsRequest.adTagUrl = requestAdsOptions.adTagUrl;
-                } else if (requestAdsOptions.inlinevastxml) {
-                    this._adsRequest.adsResponse = requestAdsOptions.inlinevastxml;
+                const invalidSettings = [];
+
+                // Put before all other manually applied options, as could be overwritten
+                if (Types.is_object_instance(options) && Object.keys(options).length > 0) {
+                    for (let key in options) {
+                        if (!this._adsRequest.hasOwnProperty(key)) {
+                            invalidSettings.push(key);
+                            continue;
+                        }
+                        // grab from IMA enums if it's exists
+                        const value = this._grabSettingsFromIMAEnums(key) || options[key];
+                        if (Types.is_string(value) || Types.isNumber(value) || Types.is_boolean(value)) {
+                            this._adsRequest[key] = value;
+                            continue;
+                        }
+                        if (Types.is_object_instance(value)) {
+                            this._adsRequest[key] = {};
+                            for (let subKey in value) {
+                                const v = this._grabSettingsFromIMAEnums(value[subKey]) || value[subKey];
+                                subKey = this._grabSettingsFromIMAEnums(subKey) || subKey;
+                                this._adsRequest[key][subKey] = v;
+                            }
+                            continue;
+                        }
+                        console.log(`Wrong setting value type was provided for IMA AdsRequest setting: ${key}`);
+                    }
+                }
+
+                if (invalidSettings.length > 0) {
+                    console.warn(`The following settings are not supported by IMA AdsRequest: ${invalidSettings.join(", ")}`);
+                }
+
+                if (adTagUrl) {
+                    this._adsRequest.adTagUrl = adTagUrl;
+                } else if (inlinevastxml) {
+                    this._adsRequest.adsResponse = inlinevastxml;
                 }
 
                 // if size query param is not on the ad tag url, define them
-                if (!requestAdsOptions?.adTagParams?.sz) {
+                if (!adTagParams?.sz) {
                     this._adsRequest.linearAdSlotWidth = requestAdsOptions.linearAdSlotWidth;
                     this._adsRequest.linearAdSlotHeight = requestAdsOptions.linearAdSlotHeight;
                     this._adsRequest.nonLinearAdSlotWidth = requestAdsOptions.nonLinearAdSlotWidth;
@@ -240,6 +278,14 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 if (this.__adDisplayContainerInitialized) return;
                 this._adDisplayContainer.initialize();
                 this.__adDisplayContainerInitialized = true;
+            },
+
+            _grabSettingsFromIMAEnums: function(key) {
+                if (Types.is_string(key) && google.ima) {
+                    const value = key.split('.').reduce((o, i) => o[i], google.ima);
+                    return value || null;
+                }
+                return null;
             },
 
             __methods: function() {

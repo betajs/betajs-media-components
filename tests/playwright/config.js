@@ -5,7 +5,7 @@ const {BROWSER_LAUNCH_PATH} = require("./consts");
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-const PORT = process.env?.PLAYWRIGHT_PORT || 5050;
+const PORT = process.env?.PLAYWRIGHT_PORT || 5012;
 const CI = process.env?.CI === true || process.env?.CI === "true";
 
 const config = {
@@ -18,7 +18,7 @@ const config = {
     // screenshotPathTemplate: './screenshots/__TEST__-__SUITE__-__USERAGENT__-__LOCALE___-__DARKMODE__.png',
 
     /* Run tests in files in parallel */
-    fullyParallel: !CI,
+    fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!CI,
     /* Retry on CI only */

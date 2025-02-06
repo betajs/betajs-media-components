@@ -192,16 +192,13 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         IMASettings: this.get("imasettings"),
                         inlinevastxml: this.get("inlinevastxml"),
                         continuousPlayback: true,
-                        linearAdSlotWidth: this.getAdWidth(),
-                        linearAdSlotHeight: this.getAdHeight(),
-                        nonLinearAdSlotWidth: this.getAdWidth(),
-                        nonLinearAdSlotHeight: this.getAdHeight() / 3,
                         adWillAutoPlay: this.getAdWillAutoPlay(),
                         adWillPlayMuted: this.getAdWillPlayMuted(),
                         autoPlayAdBreaks: true,
                         width: this.getAdWidth(),
                         height: this.getAdHeight(),
-                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume")
+                        volume: this.getAdWillPlayMuted() ? 0 : this.get("volume"),
+                        options: this.get("ads_request_options"),
                     };
                     if (this.get("adsrendertimeout") && this.get("adsrendertimeout") > 0)
                         requestAdsOptions.vastLoadTimeout = this.get("adsrendertimeout");
@@ -504,7 +501,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 normalizeOptionsForMobile: function(adManagerOptions) {
-                    if (Info.iOSversion().major >= 10) {
+                    if (this._isIos10Plus()) {
                         adManagerOptions.IMASettings.iOS10Plus = true;
                     }
 
@@ -606,7 +603,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
 
-                    if (!ad?.data?.mediaUrl) {
+                    if (ad?.data && !ad.data.mediaUrl) {
                         ad.data.mediaUrl = this.getMediaUrl(ad);
                     }
 
@@ -687,6 +684,11 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 },
 
                 _onStart: function(ev) {
+                    // Set companion ads array and render for normal content player viewport
+                    if (ev.ad) {
+                        this._getCompanionAds(ev.ad);
+                    }
+
                     this.set("playing", true);
                     this.set("currenttime", 0);
                     this.set("remaining", this.get("duration"));
@@ -721,9 +723,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             this.adsManager.reset();
                             this.adsManager.requestAds(this._baseRequestAdsOptions());
                         }
-
-                        // Set companion ads array and render for normal content player viewport
-                        if (ad) this._getCompanionAds(ad);
                     }
 
                     // reset adsrendertimeout
@@ -805,7 +804,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                  */
                 _getCompanionAds: function(ad) {
                     ad = ad || this.get("ad");
-                    var companionAds = [];
+                    let companionAds = [];
                     if (google && google.ima && ad && Types.is_function(ad.getCompanionAds)) {
                         // if options is not boolean, then we have provided more options, like size and selector
                         var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
@@ -1040,6 +1039,44 @@ Scoped.define("module:Ads.Dynamics.Player", [
                             }
                             return acc
                         }, {});
+                },
+
+                /**
+                 * returns true if the user agent string is an iOS device with major version greater than 10
+                 * @param {string} userAgent
+                 * @private
+                 * @returns {boolean}
+                 */
+                _isIos10Plus: function() {
+                    const userAgent = Info.getNavigator().userAgent;
+
+                    // Using a different iOS check instead of Info.isiOS() because it has false positives leading to
+                    // a thrown exception
+                    // regex taken from https://github.com/faisalman/ua-parser-js/blob/master/src/main/ua-parser.js#L857C14-L857C64
+                    // regex modified to ignore opera agent string since they don't have OS version
+                    const isIosInBrowser = !!userAgent.match(/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac)/i);
+                    const iosInAppBrowserMatch = userAgent.match(/(?:ios;fbsv\/|iphone.+ios[\/ ])([\d\.]+)/i)
+                    const isIosInAppBrowser = !!iosInAppBrowserMatch;
+
+                    let majorVersion = 0;
+                    try {
+                        if (isIosInBrowser) {
+                            // Info.iOSversion() throws an exception if unable to parse version
+                            majorVersion = Info.iOSversion().major;
+                        } else if (isIosInAppBrowser) {
+                            // we do this check second because the regex can have a false positive against the
+                            // in-browser regex and in-app browsers have a different version format string to parse
+                            // that is dot-delimited
+                            let versionString = iosInAppBrowserMatch[1].split(".")[0];
+                            if (versionString) {
+                                majorVersion = parseInt(versionString, 10);
+                            }
+                        }
+                    } catch (e) {
+                        Debug.log(e);
+                    }
+
+                    return majorVersion > 10;
                 }
             };
         }).register("ba-adsplayer")

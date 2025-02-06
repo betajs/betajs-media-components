@@ -212,9 +212,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                     },
                     "ads:adCanPlay": function() {
-                        if (!this.get("adsplaying")) {
-                            this.set("adsplaying", true);
-                        }
+                        this.set("adsplaying", true);
                     },
                     "ads:ad-error": function() {
                         const fallbackUrl = this.parent()?.get('adtagurlfallbacks')
@@ -338,7 +336,9 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     "ads:contentPauseRequested": function() {
                         // outstream ads will be visible on ads can play event
-                        this.set("adsplaying", !this.get("isoutstream"));
+                        if (!this.get("isoutstream")) {
+                            this.set("adsplaying", true)
+                        }
                         this.trackAdsPerformance(`ads-content-pause-requested`);
                     }
                 },

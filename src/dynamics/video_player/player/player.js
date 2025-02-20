@@ -1110,7 +1110,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
                         this.setImmediateOutstreamRequests(true);
                     }
-                    // this._activeElementResizeObserver.observe(this.activeElement());
                     this.__computeContainersStyleStates();
                     this._activeElementResizeObserver = new ResizeObserver(function(entries) {
                         for (let i = 0; i < entries.length; i++) {

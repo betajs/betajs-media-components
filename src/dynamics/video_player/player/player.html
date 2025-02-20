@@ -3,7 +3,7 @@
      {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser
      {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}
      {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}
-     {{is_floating ? cssfloatingclasses : ''}}
+     {{is_floating ? cssfloatingclasses : cssplayer + '-in-article'}}
      {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}
      {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}
      {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}
@@ -22,6 +22,7 @@
     <meta itemprop="thumbnailUrl" content="{{thumbnail_url || thumbnailUrl}}" />
     <meta itemprop="contentUrl" content="{{content_url || contenturl}}" />
     <div class="{{cssplayer}}-content" data-selector="ba-player-container"
+         data-testid="{{testid}}-player-media-container"
          ba-styles="{{playercontainerstyles}}"
     >
         <ba-{{dynnext}}
@@ -71,6 +72,7 @@
             ba-cssplayer="{{cssplayer}}"
             ba-csscommon="{{csscommon}}"
             ba-testid="{{testid}}"
+            ba-parentcontainersizingstyles="{{playercontainerstyles}}"
             ba-duration="{{=adduration}}"
             ba-debug_ima="{{debug_ima}}"
             ba-volume="{{adsunmuted ? volume : 0}}"

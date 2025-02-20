@@ -7,14 +7,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "browser:Dom",
     "module:Assets",
     "base:Timers.Timer",
-    "module:StylesMixin",
-    "browser:DomMutation.MutationObserverNodeInsertObserver"
+    "module:StylesMixin"
 ], [
     "module:Common.Dynamics.Spinner",
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
+], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {

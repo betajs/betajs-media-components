@@ -397,6 +397,12 @@ class PlayerPage {
         await mouse.up();
     }
 
+    async sidebarVisible(){
+        const sidebar = await this.getElementByTestID(`player-sidebar`);
+        const sidebarImage = await sidebar.locator('li:nth-child(1) img');
+        await expect(sidebarImage).toBeVisible();
+    }
+
     async testScrollToAd(){
         const player = this;
 

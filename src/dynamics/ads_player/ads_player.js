@@ -118,6 +118,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     ads_loaded: false,
                     ads_load_started: false,
                     adurl_fallback_attempted: false,
+                    parentcontainersizingstyles: {},
                 },
 
                 events: {
@@ -458,10 +459,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     pause: function() {
                         this.checkIfAdHasMediaUrl();
-                        return this.adsManager.pause();
+                        return this.adsManager?.pause();
                     },
                     resume: function() {
-                        return this.adsManager.resume();
+                        return this.adsManager?.resume();
                     },
                     set_volume: function(volume) {
                         this._onPlayerEngaged();
@@ -602,21 +603,17 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
-
-                    if (ad?.data && !ad.data.mediaUrl) {
-                        ad.data.mediaUrl = this.getMediaUrl(ad);
-                    }
-
                     if (ad) {
+                        if (!ad.data?.mediaUrl) {
+                            ad.data.mediaUrl = this.getMediaUrl(ad);
+                        }
                         this.generateEndCardImage(ad, width, height);
                     }
                 },
 
                 setEndCardBackground: function(width, height) {
-                    if (this.shouldShowFirstFrameAsEndcard()) {
-                        if (width && height) {
-                            this.captureAdEndCardBackground(width, height);
-                        }
+                    if (this.shouldShowFirstFrameAsEndcard() && width && height) {
+                        this.captureAdEndCardBackground(width, height);
                     }
                 },
 

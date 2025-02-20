@@ -125,3 +125,10 @@
     visibility: hidden;
     right: -500vw;
 }
+
+div.#{$cssvideoplayer}-container {
+    &.#{$cssplayer}-in-article {
+        height: 100%;
+        width: 100%;
+    }
+}

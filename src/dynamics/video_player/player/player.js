@@ -823,7 +823,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return false;
                     },
                     "containerSizingStyles:computedstyles,is_floating": function(styles, isFloating) {
-                        if (!styles?.activeElement) return {};
+                        if (!styles?.activeElement) return this.get('containerSizingStyles') || {};
                         let {
                             player,
                             sidebar,
@@ -961,13 +961,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     this.__initFloatingOptions();
-                    this._activeElementResizeObserver = new ResizeObserver(function(entries) {
-                        for (let i = 0; i < entries.length; i++) {
-                            if (!this._styleApplyingLocked) {
-                                this.__computeContainersStyleStates(entries[i]?.contentRect);
-                            }
-                        }
-                    }.bind(this));
                     this.initAdSources();
                     this._validateParameters();
                     // Will set volume initial state
@@ -1110,7 +1103,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
 
-                    this._activeElementResizeObserver.observe(this.activeElement());
                     this.__initFloatingOptions();
                     this.__initResizeSensitiveAttributes();
 
@@ -1118,6 +1110,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
                         this.setImmediateOutstreamRequests(true);
                     }
+                    // this._activeElementResizeObserver.observe(this.activeElement());
+                    this.__computeContainersStyleStates();
+                    this._activeElementResizeObserver = new ResizeObserver(function(entries) {
+                        for (let i = 0; i < entries.length; i++) {
+                            if (!this._styleApplyingLocked) {
+                                this.__computeContainersStyleStates(entries[i]?.contentRect);
+                            }
+                        }
+                    }.bind(this));
                 },
 
                 /**
@@ -2384,11 +2385,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 resetResizeObserver: function(element) {
                     if (this._observedElement !== element) {
-                        if (this._activeElementResizeObserver)
+                        this._observedElement = element || this.activeElement().firstChild;
+                        if (this._activeElementResizeObserver) {
                             this._activeElementResizeObserver.disconnect();
+                        }
                         if (element || this.activeElement()) {
-                            this._observedElement = element || this.activeElement().firstChild;
-                            this._activeElementResizeObserver.observe(element || this.activeElement().firstChild);
+                            if (this._activeElementResizeObserver) {
+                                this._activeElementResizeObserver.observe(this._observedElement);
+                            } else {
+                                this.__computeContainersStyleStates();
+                            }
                         }
                     }
                 },
@@ -3393,7 +3399,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                 },
 
                 __computeContainersStyleStates: function(resizedContainer) {
-                    const activeElement = this.activeElement();
+                    const activeElement = resizedContainer?.target || this.activeElement();
                     if (!activeElement || (this.get("is_floating") && this.get(`states.floatingclosed`))) {
                         return;
                     }
@@ -3417,14 +3423,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get(`fullscreen`)) return resetPlayerStyles();
 
-                    const containerDimensions = Dom.elementDimensions(activeElement.firstChild);
+                    const containerDimensions = Dom.elementDimensions(activeElement);
                     const {
                         width: containerWidthNum,
                         height: containerHeightNum
                     } = resizedContainer || containerDimensions;
+                    const floatingWidth = Dom.elementDimensions(activeElement || this.activeElement().firstChild)?.width;
 
                     const floatingOnly = !!this.get(`floatingoptions.floatingonly`);
-                    const floating = this.get(`states.floatingclosed`) ? {} : getFloatingStyles(containerWidthNum);
+                    const floating = this.get(`states.floatingclosed`) ? {} : getFloatingStyles(floatingWidth);
 
                     const possibleSidebar = isSidebarPossible();
                     this.set(`states.possiblesidebar`, !!possibleSidebar);
@@ -3439,7 +3446,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     let playerWidthNum = (containerWidthNum - sidebarWidthNum);
                     let width = containerWidthNum;
-                    let height = (playerWidthNum / expectedPlayerAspectRatioNum) || containerHeightNum;
+                    const _arBasedHeight = playerWidthNum / expectedPlayerAspectRatioNum;
+                    let height = (!isNaN(_arBasedHeight) && _arBasedHeight) ? _arBasedHeight : containerHeightNum;
 
                     const presetWidth = this.get(`width`);
                     const presetHeight = this.get(`height`);

@@ -121,11 +121,6 @@
     overflow: initial;
 }
 
-.#{$cssplayer}-hide-outstream {
-    visibility: hidden;
-    right: -500vw;
-}
-
 div.#{$cssvideoplayer}-container {
     &.#{$cssplayer}-in-article {
         height: 100%;

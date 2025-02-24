@@ -3839,7 +3839,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     const propertyNamePassed = Types.is_defined(propertyName);
                     const _propertyName = propertyName || "width";
                     const _measure = isNaN(measure) ? measure : parseFloat(measure).toFixed(2) + "px";
-                    if (window && !window.CSS.supports(_propertyName, _measure)) {
+                    if (window && !window.CSS?.supports(_propertyName, _measure)) {
                         let message = `Value: "${_measure}" you provided as CSS unit, not supported by the browser`;
                         message += propertyNamePassed ? `for the CSS ${_propertyName} property name;` : ``;
                         console.error(message);

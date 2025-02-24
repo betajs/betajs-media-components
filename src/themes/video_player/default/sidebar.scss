@@ -8,8 +8,12 @@
     z-index: 1;
 }
 
-div.#{$cssplayer}-with-sidebar {
+div.#{$cssvideoplayer}-container.#{$cssplayer}-with-sidebar {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
+    justify-content: center;
+    .#{$cssplayer}-content {
+        position: relative;
+    }
 }

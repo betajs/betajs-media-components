@@ -100,7 +100,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "showsidebargallery": false,
                         "sidebaroptions": {
                             // percentage by default, or could be in px
-                            "presetwidth": 24,
+                            "presetwidth": 30,
                             "afteradsendtext": null,
                             "gallerytitletext": null,
                             "headerlogourl": null,
@@ -339,12 +339,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
-                                "height": 197,
                                 "bottom": 30,
                                 "sidebar": false,
                                 "companionad": false
 
                                 /** optional settings */
+                                // "height": number,
                                 // "size": null", // any key
                                 // "availablesizes": {
                                 //     'key1': heightInNumber, 'key2': heightInNumber2, ...
@@ -352,7 +352,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             },
                             "mobile": {
                                 "position": "top", // positions of floating video player for mobile
-                                "height": 75,
                                 "sidebar": true,
                                 "companionad": true,
                                 "positioning": {
@@ -361,6 +360,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     "applyProperty": 'margin-top' // will apply height of the relativeSelector
                                 }
                                 /** optional settings */
+                                // "height": number,
                                 // "size": null", // any key
                                 // "availablesizes": {
                                 //     'key1': heightInNumber, 'key2': heightInNumber2, ...
@@ -461,6 +461,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "userhadplayerinteraction": false,
                         // If settings are open and visible
                         "states": {
+                            floatingclosed: false,
                             "poster_error": {
                                 "ignore": false,
                                 "click_play": true
@@ -473,6 +474,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 "visible": true
                             }
                         },
+                        "computedstyles": {},
                         "placeholderstyle": "",
                         "hasplaceholderstyle": false,
                         "playerorientation": undefined,
@@ -758,13 +760,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 computed: {
                     "aspectRatioFallback:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
-                        var f = fallback.split("/");
+                        const f = fallback.split("/");
                         return {
                             paddingTop: 100 / (aspectRatio || (f[0] / f[1])) + "%"
                         };
-                    },
-                    "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
-                        return aspectRatio || fallback;
                     },
                     "hide_sidebar:with_sidebar,is_floating,showsidebargallery,playlist": function(
                         withSidebar, isFloating, showSidebarGallery, playlist
@@ -792,82 +791,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("nextwidget", this.get("sidebaroptions.autonext"));
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
-                    },
-                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth,is_floating": function(showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth, isFloating) {
-                        let width, styles;
-                        // before setting any computed to sidebar width, we set a default max-width value based on showSidebar, gallerySidebar and isFloating states.
-                        const defaultMaxWidthSB = (showSidebar && gallerySidebar && !isFloating) ? '30%' : '50%';
-                        this.set("sidebarstyles", {
-                            maxWidth: defaultMaxWidthSB
-                        });
-                        if (showSidebar && gallerySidebar && !fullscreened) {
-                            if (typeof sidebarPresetWidth === "string") {
-                                sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
-                                    parseFloat(sidebarPresetWidth).toFixed(2) :
-                                    sidebarPresetWidth;
-                            }
-                            if (sidebarPresetWidth) {
-                                if (!width) width = typeof sidebarPresetWidth === "number" ? ((100 - sidebarPresetWidth) + "%") : `calc(100% - ${sidebarPresetWidth})`;
-                                if (window && window.CSS) {
-                                    styles = window.CSS.supports("width", width);
-                                }
-                                if (width && Types.is_defined(styles) && styles) {
-                                    this.set("controlbarstyles", {
-                                        width: width
-                                    });
-                                    return {
-                                        width: width,
-                                        position: 'relative'
-                                    };
-                                }
-                            } else if (videoWidth && this.__video && this.get("width") && this.activeElement()) {
-                                let sidebarWidth;
-                                const videoWidthInNumber = Dom.elementDimensions(this.__video).width;
-                                const videoHeightInNumber = Dom.elementDimensions(this.__video).height;
-                                const playerContainerWidthInNumber = Dom.elementDimensions(this.activeElement()).width;
-                                const playerContainerHeightInNumber = Dom.elementDimensions(this.activeElement()).height;
-                                if (playerContainerHeightInNumber > 0 && videoHeightInNumber) {
-                                    let _ar = this.get("sidebaroptions.preferredratio") || 1.7778;
-                                    if (Types.is_string(_ar)) {
-                                        if (_ar.includes("/"))
-                                            _ar = parseFloat(_ar.split("/").reduce((a, b) => a / b));
-                                        else if (_ar.includes(":"))
-                                            _ar = parseFloat(_ar.split(":").reduce((a, b) => a / b));
-                                    }
-                                    _ar = Number(parseFloat(_ar).toFixed(2));
-                                    if (typeof _ar === "number") {
-                                        sidebarWidth = playerContainerWidthInNumber - (playerContainerHeightInNumber * _ar);
-                                    }
-                                    if (sidebarWidth && sidebarWidth > 0) {
-                                        // if sidebar non-fluid, we will calculate based on preferred ar or first video we're getting
-                                        if (!this.get('sidebaroptions.fluid')) {
-                                            this.set("sidebaroptions.presetwidth", sidebarWidth + "px");
-                                        }
-                                        this.set("sidebarstyles", {
-                                            maxWidth: sidebarWidth + 'px',
-                                        });
-                                        this.set("controlbarstyles", {
-                                            maxWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
-                                        });
-                                        return {
-                                            minWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
-                                            flexBasis: 0,
-                                        };
-                                    } else if (videoWidthInNumber) {
-                                        this.set("controlbarstyles", {
-                                            maxWidth: videoWidthInNumber + 'px',
-                                        });
-                                        return {
-                                            minWidth: videoWidthInNumber + 'px',
-                                        };
-                                    }
-                                }
-                            }
-                        }
-                        // reset styles
-                        this.set("sidebarstyles", {});
-                        this.set("controlbarstyles", {});
-                        return {};
                     },
                     "adsinitialized:adtagurl,inlinevastxml": function(adsTagURL, inlineVastXML) {
                         if ((!!adsTagURL || !!inlineVastXML) && !this.get("adshassource")) {
@@ -899,101 +822,71 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:outstream,aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
-                        outstream,
-                        aspectRatio,
-                        height,
-                        width,
-                        isFloating,
-                        hidden,
-                        floatingonly,
-                        fullscreened,
-                        showsidebargallery,
-                        gallerySidebar,
-                        layout,
-                    ) {
-                        let containerStyles, styles;
-                        styles = {
-                            aspectRatio: aspectRatio
-                        };
+                    "containerSizingStyles:computedstyles,is_floating": function(styles, isFloating) {
+                        if (!styles?.activeElement) return this.get('containerSizingStyles') || {};
+                        let {
+                            player,
+                            sidebar,
+                            floating,
+                            container,
+                            aspectRatio,
+                            activeElement,
+                        } = styles;
 
-                        // Removing player space on article if outstream
-                        if (outstream && this.activeElement()?.parentNode) {
-                            this.activeElement().parentNode.style = {
-                                height: 0
-                            };
-                        }
-
-                        if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
-                        if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
-                        if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
-                        containerStyles = floatingonly ? {
-                            height: 0
-                        } : Objs.extend({}, styles);
-                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
-                            if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
-                        }
                         if (isFloating) {
-                            const calculated = this.__calculateFloatingDimensions();
-
-                            const floatingTop = calculated.floating_top;
-                            const floatingBottom = calculated.floating_bottom;
-                            const floatingRight = calculated.floating_right;
-                            const floatingLeft = calculated.floating_left;
-
-                            if (floatingTop !== undefined) styles.top = parseFloat(floatingTop).toFixed() + 'px';
-                            if (floatingRight !== undefined) styles.right = parseFloat(floatingRight).toFixed() + 'px';
-                            if (floatingBottom !== undefined) styles.bottom = parseFloat(floatingBottom).toFixed() + 'px';
-                            if (floatingLeft !== undefined) styles.left = parseFloat(floatingLeft).toFixed() + 'px';
-
-                            const floatingWidth = calculated.floating_width;
-                            const floatingHeight = calculated.floating_height;
-
-                            if (floatingWidth) styles.width = isNaN(floatingWidth) ? floatingWidth : parseFloat(floatingWidth).toFixed(2) + "px";
-                            if (floatingHeight) styles.height = isNaN(floatingHeight) ? floatingHeight : parseFloat(floatingHeight).toFixed(2) + "px";
-                        }
-
-                        if (hidden) {
-                            styles.opacity = 0;
-                            if (isFloating) {
-                                styles.display = 'none';
-                                return styles;
+                            player = floating.player || {};
+                            sidebar = floating.sidebar || {};
+                            container = floating.container || {};
+                            if (container.width && container.height && container.aspectRatio) {
+                                delete container.aspectRatio;
                             }
-                        }
-
-                        if (this.activeElement()) {
-                            if (containerStyles.width && (containerStyles.width).toString().includes("%") && (styles.width).toString().includes("%")) {
-                                // If container width is in percentage, then we need to set the width of the player to auto
-                                // in other case width will be applied twice
-                                containerStyles.width = "100%";
+                            this.resetResizeObserver(this.activeElement()?.firstChild);
+                        } else {
+                            if (aspectRatio) {
+                                this.set("aspect_ratio", aspectRatio);
+                                container.aspectRatio = aspectRatio;
+                                activeElement.aspectRatio = aspectRatio;
+                            } else if (container.height) {
+                                activeElement.height = container.height;
                             }
-                            this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
-                            this.__lastContainerSizingStyles = containerStyles;
+                            this.__lastActiveElementStyles = this._applyStyles(this.activeElement(), activeElement, this.__lastActiveElementStyles);
+                            this.resetResizeObserver(this.activeElement());
                         }
-                        if (fullscreened) {
-                            delete styles.width;
-                            delete styles.height;
+                        if (container.width && container.height && container.aspectRatio) {
+                            this.set(`aspect_ratio`, null);
+                            delete container.aspectRatio;
                         }
-                        return styles;
+                        this.set("sidebarstyles", sidebar);
+                        this.set("playercontainerstyles", player);
+                        Functions.debounce(() => {
+                            this._styleApplyingLocked = false;
+                            this.trigger("resize", {
+                                width: container.width,
+                                height: container.height
+                            });
+                        }, 10)();
+                        this._styleApplyingLocked = true;
+                        return container;
                     },
-                    "cssfloatingclasses:floatingoptions.desktop.position": function(position) {
+                    "cssfloatingclasses:floatingoptions.desktop.position,floatingclosed": function(position, closed) {
+                        if (closed) return "";
                         return [
                             this.get("cssplayer") + "-floating",
                             this.get("csscommon") + "-sticky",
                             this.get("csscommon") + "-sticky-" + position || "bottom-right",
-                            this.FloatHandler && this.FloatHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
+                            this.floatHandler && this.floatHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
                         if (playing) this.__playedStats(position, this.get("duration"));
-                        return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
+                        return playing && buffered < position && ld > 1000;
                     },
                     "is_floating:view_type,fullscreened": function(view_type, fullscreened) {
                         if (fullscreened) return false;
                         return view_type === "float" || (view_type && this.get("floatingoptions.floatingonly"));
                     },
                     "layout:mobileviewport": function(mobileviewport) {
-                        this.applyPresets();
+                        this.applyPresets(mobileviewport);
                         return mobileviewport ? "mobile" : "desktop";
                     },
                     "placement:outstream": function(outstream) {
@@ -1004,9 +897,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return ["first", "second", "third", "fourth"][passedQuarter];
                     },
                     "orientation:videowidth,videoheight,fallback-aspect-ratio": function(videoWidth, videoHeight, fallbackAspectRatio) {
-                        var fallbackDimensions = fallbackAspectRatio.split("/");
-                        var width = videoWidth || fallbackDimensions[0];
-                        var height = videoHeight || fallbackDimensions[1];
+                        const fallbackDimensions = fallbackAspectRatio.split("/");
+                        const width = videoWidth || fallbackDimensions[0];
+                        const height = videoHeight || fallbackDimensions[1];
                         if (width === height) return "square";
                         return width > height ? "landscape" : "portrait";
                     }
@@ -1025,7 +918,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get("autoplaywhenvisible")) {
                         this.set("autoplay", true);
-                        Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
+                        Dom.onScrollIntoView(this.activeElement().firstChild, this.get("visibilityfraction"), function() {
                             if (this.destroyed()) return;
                             this.set("autoplaywhenvisible", false);
                         }, this);
@@ -1068,16 +961,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     this.__initFloatingOptions();
-                    this._observer = new ResizeObserver(function(entries) {
-                        for (var i = 0; i < entries.length; i++) {
-                            this.trigger("resize", {
-                                width: entries[i].contentRect.width,
-                                height: entries[i].contentRect.height
-                            });
-                        }
-                    }.bind(this));
                     this.initAdSources();
-                    this._observer.observe(this.activeElement().firstChild);
                     this._validateParameters();
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
@@ -1162,7 +1046,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("firefox", Info.isFirefox());
                     this.set("mobileview", Info.isMobile());
                     this.set("mobileviewport", this.__isInMobileViewport());
-                    this.applyPresets();
+                    this.applyPresets(this.get("mobileviewport"));
                     this.set("hasnext", this.get("loop") || this.get("loopall") || this.get("playlist") && this.get("playlist").length > 1);
                     // For Apple, it's very important that their users always remain in control of the volume of the sounds their devices emit
                     this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
@@ -1219,68 +1103,21 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
 
-                    const isAbleToFloatOnViewport = () => {
-                        if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
-                        if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
-                        return true;
-                    }
-                    if (this.get("floatingoptions.floatingonly") && isAbleToFloatOnViewport()) {
-                        this.set("view_type", "float")
-                    }
-                    // Only init floatHandler if floantingonly is desabled
-                    const floating = this.get("sticky") || this.get("floating");
-                    if (floating && !this.get("floatingoptions.floatingonly")) {
-                        var stickyOptions = {
-                            threshold: this.get("sticky-threshold") || this.get("floatingoptions.threshold"),
-                            paused: (this.get("sticky-starts-paused") || this.get("floatingoptions.starts-paused")) || !floating,
-                            "static": this.get("floatingoptions.static"),
-                            floatCondition: function(elementRect) {
-                                if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
-                                if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
-                                if (this.get("floatingoptions.noFloatIfAbove") && this.get("mobileviewport") && elementRect.top >= 0) return false
-                                if (this.get("floatingoptions.noFloatIfBelow") && this.get("mobileviewport") && elementRect.top <= 0) return false
-                                return true;
-                            }.bind(this),
-                        };
-                        this.floatHandler = this.auto_destroy(new FloatHandler(
-                            this.activeElement().firstChild,
-                            this.activeElement(),
-                            stickyOptions
-                        ));
-
-                        this.floatHandler.on("transitionToFloat", function() {
-                            this.set("view_type", "float");
-                        }, this);
-                        this.floatHandler.on("transitionToView", function() {
-                            this.set("view_type", "default");
-                        }, this);
-                        this.floatHandler.on("transitionOutOfView", function() {
-                            this.set("view_type", "out_of_view");
-                        }, this);
-                        this.delegateEvents(null, this.floatHandler);
-                        this.floatHandler.init();
-
-                        if (this.get("floating") && this.get("floatingoptions").mobile) {
-                            const floatingElement = this.floatHandler.element;
-                            const viewport = window.visualViewport;
-
-                            function viewportHandler() {
-                                floatingElement.style.transform = `translate(${viewport.offsetLeft}px, ${viewport.offsetTop}px)`;
-                            }
-
-                            viewport.addEventListener("scroll", viewportHandler);
-
-                        }
-                    }
-                    if (Info.isSafari()) {
-                        this.vidEle = document.createElement('video');
-                        this.imgEle = document.createElement('img');
-                    }
+                    this.__initFloatingOptions();
+                    this.__initResizeSensitiveAttributes();
 
                     // Init the number of outstream ad error retries on immediate requests.
                     if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
                         this.setImmediateOutstreamRequests(true);
                     }
+                    this.__computeContainersStyleStates();
+                    this._activeElementResizeObserver = new ResizeObserver(function(entries) {
+                        for (let i = 0; i < entries.length; i++) {
+                            if (!this._styleApplyingLocked) {
+                                this.__computeContainersStyleStates(entries[i]?.contentRect);
+                            }
+                        }
+                    }.bind(this));
                 },
 
                 /**
@@ -1576,11 +1413,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
                         console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
                     }
+                    // TODO:  check and remove if useless
+                    // if (this.get("floating") && this.get("floatingoptions.mobile.position") && !(mobilePositions.includes(this.get("floatingoptions.mobile.position")))) {
                     if (this.get("floating") && !(mobilePositions.includes(this.get("floatingoptions").mobile))) {
                         console.warn("Please choose one of the following values instead:", mobilePositions);
                     }
 
-                    var deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];
+                    const deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];
                     deprecatedCSS.forEach(function(parameter) {
                         if (Types.is_string(parameter)) {
                             if (this.get(parameter))
@@ -1588,7 +1427,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }.bind(this));
 
-                    var deprecatedParams = {
+                    const deprecatedParams = {
                         "sticky-position": "floatingoptions.desktop.position",
                     };
                     Object.keys(deprecatedParams).forEach(function(key) {
@@ -1605,6 +1444,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get(key))
                             console.warn(key + " parameter will be deprecated on future version, please use " + toBeDeprecatedParams[key] + " instead.");
                     }.bind(this));
+
+                    if (this.get("height")) {
+                        let supportedHeight = typeof this.get("height") === "number";
+                        supportedHeight ||= isNaN(this.get("height")) && this.get("height").includes("px");
+                        if (!supportedHeight) {
+                            console.warn(`Please set height as px or just a number, other way of settings are deprecated`);
+                        }
+                    }
                 },
 
                 getCurrentPosition: function() {
@@ -1766,7 +1613,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
-                            if (floating && this.floatHandler) this.floatHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
 
@@ -2494,6 +2340,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
+                        this.set(`states.floatingclosed`, true);
                         const floating = this.get("sticky") || this.get("floating");
 
                         // Unset immediateOutstreamRequests on close to prevent ad retries.
@@ -2535,8 +2382,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     };
                 },
 
+                resetResizeObserver: function(element) {
+                    if (this._observedElement !== element) {
+                        this._observedElement = element || this.activeElement().firstChild;
+                        if (this._activeElementResizeObserver) {
+                            this._activeElementResizeObserver.disconnect();
+                        }
+                        if (element || this.activeElement()) {
+                            if (this._activeElementResizeObserver) {
+                                this._activeElementResizeObserver.observe(this._observedElement);
+                            } else {
+                                this.__computeContainersStyleStates();
+                            }
+                        }
+                    }
+                },
+
                 destroy: function() {
-                    if (this._observer) this._observer.disconnect();
+                    if (this._activeElementResizeObserver) this._activeElementResizeObserver.disconnect();
                     if (this._performanceObserver) {
                         this._performanceObserver.disconnect();
                     }
@@ -2799,8 +2662,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 aspectRatio: function() {
                     // Don't use a shortcut way of getting an aspect ratio, will act as not expected.
-                    var height = this.videoHeight();
-                    var width = this.videoWidth();
+                    const height = this.videoHeight();
+                    const width = this.videoWidth();
 
                     return width / height;
                 },
@@ -3019,6 +2882,52 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                     }, this);
+
+                    const isAbleToFloatOnViewport = () => {
+                        if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
+                        return !(this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport"));
+
+                    }
+                    if (this.get("floatingoptions.floatingonly") && isAbleToFloatOnViewport()) {
+                        this.set("view_type", "float");
+                    }
+
+                    if (this.__isInMobileViewport() && Types.is_object(this.get("floatingoptions.mobile.positioning"))) {
+                        this.__applyMobileRelativePositionBasedOnSelector();
+                    }
+
+                    // Only init floatHandler if floatingonly is disabled
+                    const floating = this.get("sticky") || this.get("floating");
+                    if (floating && !this.get("floatingoptions.floatingonly")) {
+                        const stickyOptions = {
+                            threshold: this.get("sticky-threshold") || this.get("floatingoptions.threshold"),
+                            paused: (this.get("sticky-starts-paused") || this.get("floatingoptions.starts-paused")) || !floating,
+                            "static": this.get("floatingoptions.static"),
+                            floatCondition: function(elementRect) {
+                                if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
+                                if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
+                                if (this.get("floatingoptions.noFloatIfAbove") && this.get("mobileviewport") && elementRect.top >= 0) return false
+                                return !(this.get("floatingoptions.noFloatIfBelow") && this.get("mobileviewport") && elementRect.top <= 0);
+                            }.bind(this),
+                        };
+                        this.floatHandler = this.auto_destroy(new FloatHandler(
+                            this.activeElement().firstChild,
+                            this.activeElement(),
+                            stickyOptions
+                        ));
+                        this.floatHandler.on("transitionToFloat", function() {
+                            this.set("view_type", "float");
+                        }, this);
+                        this.floatHandler.on("transitionToView", function() {
+                            this.set("view_type", "default");
+                        }, this);
+                        this.floatHandler.on("transitionOutOfView", function() {
+                            this.set("view_type", "out_of_view");
+                        }, this);
+                        this.delegateEvents(null, this.floatHandler);
+                        this.floatHandler.init();
+                        this.floatHandler.start();
+                    }
                 },
 
                 __isInMobileViewport: function() {
@@ -3037,7 +2946,24 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * we have to set via mobile boolean false or object key.
                  * NOTE: if require we also can add floating presets
                  */
-                applyPresets: function() {
+                applyPresets: function(isMobileView) {
+                    const _isMobileView = isMobileView || this.__isInMobileViewport();
+                    // if we have mobile view, then we need to calculate mobile presets
+                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
+                    [`sidebaroptions`, `floatingoptions`].forEach((k) => {
+                        let currentOptions = {
+                            ...this.get(k)
+                        };
+                        if (currentOptions && Types.is_object(currentOptions)) {
+                            const deviceRelatedSidebarOptions = _isMobileView ?
+                                (currentOptions[`mobile`] || {}) : (currentOptions[`desktop`] || {});
+                            currentOptions = {
+                                ...currentOptions,
+                                ...deviceRelatedSidebarOptions
+                            }
+                            this.set(k, currentOptions);
+                        }
+                    });
                     const presetKey = this.get("presetkey");
                     // No need to apply presets if presetkey is not defined
                     if (!presetKey) return;
@@ -3051,14 +2977,10 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // will check if attribute exists in root level or in object level
                     const existingAttribute = (key) => Types.is_defined(this.attrs()[key]) || (Types.is_string(key) && key.split('.').some(k => this.attrs()[k]));
 
-                    // if we have mobile view, then we need to calculate mobile presets
-                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
-                    const isMobileView = this.__isInMobileViewport();
-
                     // If it's true then we previously applied all presets
                     if (Types.is_defined(this.get("initialoptions.mobilepresets"))) {
                         // if mobile viewport and we have mobile presets, then apply them
-                        if (isMobileView) {
+                        if (_isMobileView) {
                             // apply only attributes which are defined as desktop presets
                             if (Objs.count(this.get("initialoptions.mobilepresets")) > 0) {
                                 Objs.iter(this.get("initialoptions.mobilepresets"), (v, k) => existingAttribute(k) && this.set(k, v), this);
@@ -3082,95 +3004,15 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     } else {
                                         if (Types.is_object(presets.mobile) && presets.mobile[k]) {
                                             this.set(`initialoptions.mobilepresets.${k}`, presets.mobile[k]);
-                                            if (isMobileView) this.set(k, presets.mobile[k]);
+                                            if (_isMobileView) this.set(k, presets.mobile[k]);
                                         }
                                     }
                                 }
                                 // if key already preset in root level, and key contains object key separated via dots
-                                if (existingAttribute(k) && !isMobileView) this.set(k, v);
+                                if (existingAttribute(k) && !_isMobileView) this.set(k, v);
                             }, this);
                         }
                     }
-                },
-
-                /**
-                 * @private
-                 */
-                __calculateFloatingDimensions: function() {
-                    var height, width, playerWidth, position, viewportOptions, response = {};
-                    var aspectRatio = typeof this.get("aspect_ratio") === "string" ? this.get("aspect_ratio").split("/") : 1.77;
-                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
-                    var isMobile = this.__isInMobileViewport();
-                    if (Types.is_array(aspectRatio)) {
-                        aspectRatio = aspectRatio[0] / aspectRatio[1];
-                    }
-                    aspectRatio = Number(parseFloat(aspectRatio).toFixed(2));
-                    if (isMobile) {
-                        response.floating_left = 0;
-                        width = '100%'; // Not set via CSS, will break the player
-                        viewportOptions = this.get("floatingoptions.mobile");
-                        if (viewportOptions) {
-                            height = +this.get("floatingoptions.mobile.height");
-                            position = this.get("floatingoptions.mobile.position");
-                        }
-                        if (this.activeElement()) {
-                            this.activeElement().classList.add(this.get("csscommon") + "-full-width");
-                        }
-                        if (Types.is_defined(this.get("floatingoptions.mobile.sidebar")) && this.get("floatingoptions.sidebar"))
-                            this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
-                        if (typeof this.get("floatingoptions.mobile.positioning") === "object") {
-                            var playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
-                            positioningApplySelector = this.get("floatingoptions.mobile.positioning.applySelector");
-                            positioningRelativeSelector = this.get("floatingoptions.mobile.positioning.relativeSelector");
-                            positioningProperty = Strings.camelCase(this.get("floatingoptions.mobile.positioning.applyProperty") || 'margin-top');
-                            if (typeof positioningRelativeSelector === "string") {
-                                if (positioningRelativeSelector)
-                                    playerApplyForSelector = this.activeElement().querySelector(positioningApplySelector);
-                                if (playerApplyForSelector) playerApplyForSelector = this.activeElement().firstChild;
-                                documentRelativeSelector = document.querySelector(positioningRelativeSelector);
-                                if (documentRelativeSelector && playerApplyForSelector) {
-                                    var relativeSelectorHeight = Dom.elementDimensions(documentRelativeSelector).height;
-                                    playerApplyForSelector.style[positioningProperty] = relativeSelectorHeight + 'px';
-                                }
-                            }
-                        }
-                    } else {
-                        viewportOptions = this.get("floatingoptions.desktop");
-                        if (viewportOptions) {
-                            position = viewportOptions.position;
-                            height = +viewportOptions.height;
-                        }
-                        if (this.activeElement()) {
-                            this.activeElement().classList.remove(this.get("csscommon") + "-full-width");
-                        }
-                        if (Types.is_defined(this.get("floatingoptions.desktop.sidebar")) && this.get("floatingoptions.sidebar"))
-                            this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
-                    }
-                    if (position) {
-                        Objs.iter(["top", "right", "bottom", "left"], function(val) {
-                            if (position.includes(val)) {
-                                response['floating_' + val] = viewportOptions[val] ? viewportOptions[val] : 0;
-                            }
-                        }, this);
-                    }
-                    if (height)
-                        height = +parseFloat(height).toFixed(2);
-                    else height = isMobile ?
-                        this.get("fallback-floating-mobile-height") :
-                        this.get("fallback-floating-desktop-height");
-                    // this.set("height", height);
-                    playerWidth = Number(parseFloat(
-                        aspectRatio > 1 ? (aspectRatio * height) : (height / aspectRatio)
-                    ).toFixed(2));
-                    if (this.get("with_sidebar") && !isMobile) {
-                        width = playerWidth + Number(aspectRatio > 1 ? playerWidth : height);
-                    }
-                    response.floating_height = height;
-                    response.player_width = playerWidth;
-                    response.floating_width = width ? width : playerWidth;
-
-                    // this.setAll(response);
-                    return response;
                 },
 
                 /**
@@ -3538,6 +3380,510 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get("forciblymuted")) this.set("forciblymuted", false);
                     }.bind(this), 1);
                     this.set('clearDebounce', clearDebounce);
+                },
+
+                __initResizeSensitiveAttributes: function() {
+                    const resizeSensitiveAttributes = [
+                        "width", "height", "show_sidebar",
+                        "mobileviewport", "layout",
+                        "sidebaroptions.presetwidth",
+                        "fallback-aspect-ratio"
+                    ];
+
+                    resizeSensitiveAttributes.forEach((attr) => {
+                        this.on(`change:${attr}`, () => {
+                            this.__computeContainersStyleStates();
+                        });
+                    });
+                },
+
+                __computeContainersStyleStates: function(resizedContainer) {
+                    const activeElement = resizedContainer?.target || this.activeElement();
+                    if (!activeElement || (this.get("is_floating") && this.get(`states.floatingclosed`))) {
+                        return;
+                    }
+
+                    let aspectRatio;
+                    let activeElementStyles = {},
+                        playerStyles = {},
+                        sidebarStyles = {},
+                        containerStyles = {};
+
+                    // Only purpose declaring and calling as this way is to make code more readable
+                    const {
+                        resetPlayerStyles,
+                        isSidebarPossible,
+                        getFloatingStyles,
+                        getSidebarWidthNum,
+                        setSidebarPosition,
+                        getPresetAspectRatioNum,
+                        centerPlayerIfSmallerThanContainer,
+                    } = this.__containerSizeComputeHelperFunctions();
+
+                    if (this.get(`fullscreen`)) return resetPlayerStyles();
+
+                    const containerDimensions = Dom.elementDimensions(activeElement);
+                    const {
+                        width: containerWidthNum,
+                        height: containerHeightNum
+                    } = resizedContainer || containerDimensions;
+                    const floatingWidth = Dom.elementDimensions(activeElement || this.activeElement().firstChild)?.width;
+
+                    const floatingOnly = !!this.get(`floatingoptions.floatingonly`);
+                    const floating = this.get(`states.floatingclosed`) ? {} : getFloatingStyles(floatingWidth);
+
+                    const possibleSidebar = isSidebarPossible();
+                    this.set(`states.possiblesidebar`, !!possibleSidebar);
+                    const sidebarPosition = this.get(`sidebaroptions.position`);
+                    const sidebarBorderRadius = this.get(`sidebaroptions.borderradius`);
+
+                    const sidebarAsColumn = [undefined, null, `right`, `left`].includes(sidebarPosition);
+                    this.set(`states.sidebarascolumn`, !!sidebarAsColumn);
+                    let sidebarWidthNum = (possibleSidebar && sidebarAsColumn) ?
+                        getSidebarWidthNum(containerWidthNum) : 0;
+                    const expectedPlayerAspectRatioNum = getPresetAspectRatioNum(sidebarWidthNum);
+
+                    let playerWidthNum = (containerWidthNum - sidebarWidthNum);
+                    let width = containerWidthNum;
+                    const _arBasedHeight = playerWidthNum / expectedPlayerAspectRatioNum;
+                    let height = (!isNaN(_arBasedHeight) && _arBasedHeight) ? _arBasedHeight : containerHeightNum;
+
+                    const presetWidth = this.get(`width`);
+                    const presetHeight = this.get(`height`);
+
+                    if (!presetHeight && !presetWidth) {
+                        const containerAspectRatio = typeof height === "number" && height > 0 ?
+                            (containerWidthNum / height) :
+                            (containerWidthNum / containerHeightNum)
+                        // This will make player fluid, both has to be aspectRatio
+                        containerStyles.aspectRatio = containerAspectRatio;
+                        activeElementStyles.aspectRatio = containerAspectRatio;
+                    } else {
+                        if (presetWidth) {
+                            width = this.__convertToCSSSupportedUnit(presetWidth);
+                            activeElementStyles.width = width;
+                            containerStyles.width = width;
+                        }
+
+                        if (presetHeight) {
+                            height = this.__convertToCSSSupportedUnit(presetHeight);
+                            activeElementStyles.height = floatingOnly ? 0 : height;
+                            containerStyles.height = this.__convertToCSSSupportedUnit(height);
+                            if (expectedPlayerAspectRatioNum && !presetWidth) {
+                                playerWidthNum = this.__convertCSSUnitToNumber(height) * expectedPlayerAspectRatioNum;
+                                if (
+                                    this.get(`sidebaroptions.presetwidth`) === null &&
+                                    this.get(`sidebaroptions.preferredratio`) !== null &&
+                                    sidebarWidthNum > 0
+                                ) {
+                                    sidebarWidthNum = containerWidthNum - playerWidthNum;
+                                }
+                            }
+                        }
+                    }
+
+                    if (sidebarWidthNum > 0) {
+                        // activeElementStyles.display = `flex`;
+                        sidebarStyles.width = this.__convertToCSSSupportedUnit(sidebarWidthNum);
+                        sidebarStyles.height = containerStyles.height || this.__convertToCSSSupportedUnit(height);
+                    }
+
+                    if (!containerStyles.aspectRatio) {
+                        if (sidebarWidthNum > 0) {
+                            aspectRatio = (containerWidthNum || (playerWidthNum + sidebarWidthNum)) / height;
+                            aspectRatio = Number(aspectRatio.toFixed(2));
+                            activeElement.aspectRatio = aspectRatio;
+                            containerStyles.aspectRatio = aspectRatio;
+                        } else {
+                            containerStyles.height = this.__convertToCSSSupportedUnit(height);
+                        }
+                    }
+
+                    if (Types.is_string(activeElementStyles.width) && activeElementStyles.width.includes(`%`)) {
+                        containerStyles.width = `100%`;
+                    }
+                    playerStyles = centerPlayerIfSmallerThanContainer(playerStyles, playerWidthNum, containerWidthNum, 10);
+                    playerStyles.width = playerWidthNum ? this.__convertToCSSSupportedUnit(playerWidthNum) : "100%";
+                    playerStyles.height = this.__convertToCSSSupportedUnit(height);
+                    // this.__playerAreaSize = playerDimensions.height * playerDimensions.width;
+                    let computedStyles = {
+                        floating,
+                        aspectRatio,
+                        player: playerStyles,
+                        sidebar: sidebarStyles,
+                        container: containerStyles,
+                        activeElement: activeElementStyles,
+                    };
+
+                    if (possibleSidebar && Types.is_defined(sidebarPosition)) {
+                        computedStyles = {
+                            ...computedStyles,
+                            ...setSidebarPosition(
+                                computedStyles, sidebarPosition, sidebarBorderRadius
+                            ),
+                        }
+                    }
+
+                    this.set(`computedstyles`, computedStyles);
+                },
+
+                /**
+                 * All return functions will are very tightly specific for dimensions calculations
+                 * and using player instance. So why not moved to another module
+                 * @return
+                 */
+                __containerSizeComputeHelperFunctions: function() {
+
+                    const resetPlayerStyles = () => {
+                        this.set(`computedstyles`, {});
+                    }
+
+                    const isSidebarPossible = (forFloatingOnly) => {
+                        const gallerySidebar = this.get(`showsidebargallery`);
+                        let sidebarCompanion = this.get(`sidebaroptions.showcompanionad`);
+
+                        let floatingSidebar = this.get(`floatingoptions.sidebar`);
+
+                        if (!!forFloatingOnly) return !!floatingSidebar && !this.get("states.sidebarclosed");
+
+                        let possibleSidebar = (!!sidebarCompanion && this.get(`adshassource`));
+                        possibleSidebar ||= (!this.get(`outstream`) && gallerySidebar);
+                        possibleSidebar ||= (this.get(`is_floating`) && floatingSidebar);
+
+                        return (possibleSidebar || !!this.get("with_sidebar")) && !this.get("states.sidebarclosed");
+                    }
+
+                    const getSidebarWidthNum = (containerWidth) => {
+                        let presetWidth = this.get(`sidebarpresetwidth`);
+                        presetWidth ||= this.get(`sidebaroptions.presetwidth`);
+                        presetWidth ||= (this.get(`outstream`) ? `50%` : `30%`);
+
+                        if (Types.is_string(presetWidth) && presetWidth.includes('px')) {
+                            return Number(presetWidth.parseFloat().fixed(2));
+                        }
+
+                        const widthInPercentageNumber = _getDimensionAsFloatPercentage(presetWidth, containerWidth);
+                        return containerWidth * widthInPercentageNumber;
+                    }
+
+                    const getPresetAspectRatioNum = (sidebarWidthNum) => {
+                        const possibleSidebar = sidebarWidthNum > 0;
+                        let expectedPlayerAspectRatioNum;
+                        if (possibleSidebar) {
+                            expectedPlayerAspectRatioNum = this.get(`sidebaroptions.aspectratio`);
+                            expectedPlayerAspectRatioNum ||= this.get(`sidebaroptions.preferredratio`);
+                        }
+                        expectedPlayerAspectRatioNum ||= this.get(`aspectratio`);
+                        expectedPlayerAspectRatioNum ||= this.get(`fallback-aspect-ratio`) || 1.77;
+                        if (isNaN(expectedPlayerAspectRatioNum)) {
+                            expectedPlayerAspectRatioNum = _convertAspectRatioToNumber(expectedPlayerAspectRatioNum);
+                        }
+                        return expectedPlayerAspectRatioNum;
+                    }
+
+                    const getFloatingStyles = (containerWidthNum) => {
+                        let player = {},
+                            sidebar = {},
+                            container = {};
+
+                        const isMobile = this.__isInMobileViewport();
+
+                        const withSidebar = isSidebarPossible(true);
+                        this.set(`with_sidebar`, !!withSidebar);
+
+                        const expectedSidebarWidth = withSidebar ?
+                            _getFloatingSidebarWidth(isMobile) : -1;
+
+                        let {
+                            height: heightNum,
+                            width: playerWidthNum,
+                            position,
+                            sidebarPosition,
+                            sidebarBorderRadius
+                        } = _getFloatingDimensionsAndPosition(
+                            isMobile, expectedSidebarWidth, containerWidthNum
+                        );
+
+                        let sidebarWidthNum = 0;
+                        const sidebarAsColumn = [undefined, null, `right`, `left`].includes(sidebarPosition);
+                        const borderRadius = sidebarAsColumn ? 0 : sidebarBorderRadius;
+
+                        container.height = this.__convertToCSSSupportedUnit(heightNum);
+
+                        if (playerWidthNum) {
+                            player.width = this.__convertToCSSSupportedUnit(playerWidthNum);
+                            if (expectedSidebarWidth > 0 && sidebarAsColumn) {
+                                // if (isMobile && !this.get("sidebaroptions.mobile.sidebarwidth")) {
+                                //     sidebarWidthNum = containerWidthNum - playerWidthNum;
+                                // } else
+                                if (expectedSidebarWidth <= 1) {
+                                    if (isMobile) {
+                                        containerWidthNum = `100%`;
+                                        sidebarWidthNum = this.get(`sidebaroptions.mobile.sidebarwidth`) ?
+                                            containerWidthNum * expectedSidebarWidth :
+                                            `calc(100% - ${player.width})`;
+                                    } else {
+                                        containerWidthNum = playerWidthNum / (1 - expectedSidebarWidth);
+                                        sidebarWidthNum = containerWidthNum - playerWidthNum;
+                                    }
+                                } else {
+                                    if (isMobile) {
+                                        containerWidthNum = `100%`;
+                                        sidebarWidthNum = this.get(`sidebaroptions.mobile.sidebarwidth`) ?
+                                            containerWidthNum - expectedSidebarWidth :
+                                            `calc(100% - ${player.width})`;
+                                    } else {
+                                        sidebarWidthNum = expectedSidebarWidth;
+                                        containerWidthNum = sidebarWidthNum + playerWidthNum;
+                                    }
+                                }
+                                sidebar.width = this.__convertToCSSSupportedUnit(sidebarWidthNum);
+                                container.width = this.__convertToCSSSupportedUnit(containerWidthNum);
+                            } else {
+                                container.width = isMobile ? `100%` : player.width;
+                            }
+                            if (container.width && !isMobile) player.width = `100%`;
+                        } else {
+                            console.warn(`something wrong with calculating floating player dimensions`);
+                        }
+
+                        container = {
+                            ...container,
+                            ...position,
+                        };
+
+                        player = centerPlayerIfSmallerThanContainer(player, playerWidthNum, containerWidthNum, 5);
+
+                        const styles = {
+                            player,
+                            sidebar,
+                            container
+                        };
+
+                        return {
+                            ...styles,
+                            ...setSidebarPosition(styles, sidebarPosition, borderRadius),
+                        }
+                    }
+
+                    const centerPlayerIfSmallerThanContainer = (styles, playerWidthNum, containerWidthNum, moreThanPx) => {
+                        const _moreThanPx = (!isNaN(moreThanPx) ? moreThanPx : 10) || 10;
+                        if (playerWidthNum + _moreThanPx < containerWidthNum) {
+                            return {
+                                height: `100%`,
+                                ...styles,
+                                margin: `0 auto`,
+                                position: `relative`,
+                            };
+                        }
+                        return styles;
+                    }
+
+                    const setSidebarPosition = (styles, position, borderRadius) => {
+                        const {
+                            container,
+                            sidebar
+                        } = styles;
+                        if (this.activeElement() && sidebar) {
+                            const {
+                                height
+                            } = Dom.elementDimensions(this.activeElement().firstChild) || {};
+                            if ([`top`, `bottom`].includes(position)) {
+                                container.overflow = `visible`;
+                                container.flexDirection = `column`
+                                sidebar.overflow = `overlay`;
+                                sidebar.width = `100%`;
+                                sidebar.position = `absolute`;
+                                sidebar.borderRadius = borderRadius || 0;
+                            }
+                            switch (position) {
+                                case `left`:
+                                    container.flexDirection = `row`
+                                    container.flexDirection = `row-reverse`;
+                                    break;
+                                case `top`:
+                                    container.flexDirection = `column-reverse`;
+                                    sidebar.bottom = Types.is_defined(height) ? this.__convertToCSSSupportedUnit(height + 10) : 0;
+                                    break;
+                                case `bottom`:
+                                    sidebar.top = Types.is_defined(height) ? this.__convertToCSSSupportedUnit(height + 10) : 0;
+                                    break;
+                                default:
+                                    container.flexDirection = `row`
+                                    break;
+                            }
+                        }
+
+                        return {
+                            ...container,
+                            ...sidebar,
+                        };
+                    }
+
+                    const _getFloatingPosition = (isMobile, settings, positions) => {
+                        const styles = {};
+                        const _positions = positions.split("-");
+                        Objs.iter(["top", "right", "bottom", "left"], function(val) {
+                            if ((val === `right` || val === `left`) && isMobile) return;
+                            if (_positions.includes(val)) {
+                                styles[val] = settings[val] ? this.__convertToCSSSupportedUnit(settings[val]) : 0;
+                            }
+                        }, this);
+                        return styles;
+                    }
+
+                    // get percentage as float number less than 1
+                    const _getDimensionAsFloatPercentage = (value, basedContainerInPx) => {
+                        if (isNaN(value)) {
+                            if (value.includes("%")) {
+                                return Number(parseFloat(value).toFixed(2)) / 100;
+                            } else if (value.includes("px") && !isNaN(parseFloat(basedContainerInPx))) {
+                                return basedContainerInPx / Number(parseFloat(value).toFixed(2));
+                            } else {
+                                console.warn(`Please provide correct CSS unit as "px" or "%"`);
+                            }
+                        } else {
+                            value = value > 1 ? value / 100 : value;
+                        }
+                        return Number(value > 0 ? value : 0);
+                    }
+
+                    const _getFloatingSidebarWidth = () => {
+                        let presetWidth = this.get("floatingoptions.sidebarwidth") || 50;
+                        const num = this.__convertCSSUnitToNumber(presetWidth);
+                        if (isNaN(presetWidth) && num > 1 && !presetWidth.includes(`%`)) {
+                            return num;
+                        }
+                        return Number(num > 1 ? (num / 100).toFixed(2) : num);
+                    }
+
+                    const _convertAspectRatioToNumber = (ar) => {
+                        if (!ar) return null;
+                        if (isNaN(ar)) {
+                            let aspectRatio = ar.split(/[:\/]/, 2);
+                            if (Types.is_array(aspectRatio) && aspectRatio.length === 2) {
+                                ar = (parseFloat(aspectRatio[0]) / parseFloat(aspectRatio[1])).toFixed(2);
+                            } else {
+                                ar = ar.parseFloat().fixed(2);
+                            }
+                        }
+                        return Number(ar);
+                    }
+
+                    const _getFloatingDimensionsAndPosition = (isMobile, sidebarWidth, containerWidth) => {
+                        const floatingOptions = this.get(`floatingoptions`);
+                        const withSidebar = sidebarWidth !== -1;
+
+                        let presetAspectRatio = floatingOptions['aspectratio'];
+                        let fallbackAR = this.get("aspectratio");
+                        fallbackAR ||= this.get("fallback-aspect-ratio") || 1.77;
+
+                        fallbackAR = _convertAspectRatioToNumber(fallbackAR);
+                        presetAspectRatio = _convertAspectRatioToNumber(presetAspectRatio);
+
+                        const fallback = {
+                            height: this.get(`floating-fallback-${isMobile ? 'mobile' : 'desktop'}-height`),
+                            position: isMobile ? "top" : "bottom-right",
+                        }
+
+                        const presetHeight = floatingOptions['height'];
+                        const fallbackHeight = fallback['height'] || (isMobile ? 75 : 240);
+                        const presetPosition = floatingOptions['position'] || fallback['position'];
+
+                        if (floatingOptions['width']) {
+                            console.warn(`floating options are not supporting width parameter, for now`);
+                        }
+
+                        let width, height = presetHeight;
+                        if (presetHeight && presetAspectRatio) {
+                            width = presetAspectRatio * height;
+                        } else if (presetHeight && fallbackAR) {
+                            width = fallbackAR * height;
+                        } else {
+                            if (isMobile) {
+                                if (withSidebar) {
+                                    width = withSidebar > 1 ?
+                                        containerWidth - sidebarWidth :
+                                        containerWidth * (1 - sidebarWidth);
+                                    height = width / (presetAspectRatio || fallbackAR);
+                                } else {
+                                    height = containerWidth / (presetAspectRatio || fallbackAR);
+                                }
+                            } else {
+                                height = fallbackHeight;
+                                width = height * (presetAspectRatio ? presetAspectRatio : fallbackAR);
+                            }
+                        }
+
+                        return {
+                            height,
+                            width: width || `100%`,
+                            sidebarPosition: floatingOptions['sidebarposition'] || `right`,
+                            sidebarBorderRadius: floatingOptions[`borderradius`] || 0,
+                            position: _getFloatingPosition(isMobile, floatingOptions, presetPosition)
+                        };
+                    };
+
+                    return {
+                        resetPlayerStyles,
+                        isSidebarPossible,
+                        getFloatingStyles,
+                        getSidebarWidthNum,
+                        setSidebarPosition,
+                        getPresetAspectRatioNum,
+                        centerPlayerIfSmallerThanContainer
+                    };
+                },
+
+                __convertToCSSSupportedUnit: function(measure, propertyName) {
+                    const propertyNamePassed = Types.is_defined(propertyName);
+                    const _propertyName = propertyName || "width";
+                    const _measure = isNaN(measure) ? measure : parseFloat(measure).toFixed(2) + "px";
+                    if (window && !window.CSS?.supports(_propertyName, _measure)) {
+                        let message = `Value: "${_measure}" you provided as CSS unit, not supported by the browser`;
+                        message += propertyNamePassed ? `for the CSS ${_propertyName} property name;` : ``;
+                        console.error(message);
+                    }
+                    return _measure;
+                },
+
+                __convertCSSUnitToNumber: function(unit) {
+                    let convertedUnit;
+                    if (isNaN(unit)) {
+                        if (Types.is_string(unit)) {
+                            if (unit.includes("%")) {
+                                return Number(parseFloat(unit).toFixed(2)) / 100;
+                            } else if (unit.includes("px")) {
+                                return Number(parseFloat(unit).toFixed(2));
+                            } else {
+                                const convertedUnit = parseFloat(unit).toFixed(2);
+                            }
+                        } else {
+                            console.warn(`${this.__convertCSSUnitToNumber.name}: argument is not correct`);
+                            return 0;
+                        }
+                    }
+                    return Number(convertedUnit || unit);
+                },
+
+                __applyMobileRelativePositionBasedOnSelector: function() {
+                    let playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
+                    positioningApplySelector = this.get("floatingoptions.mobile.positioning.applySelector");
+                    positioningRelativeSelector = this.get("floatingoptions.mobile.positioning.relativeSelector");
+                    positioningProperty = Strings.camelCase(this.get("floatingoptions.mobile.positioning.applyProperty") || 'margin-top');
+                    if (typeof positioningRelativeSelector === "string") {
+                        if (positioningRelativeSelector) {
+                            playerApplyForSelector = this.activeElement().querySelector(positioningApplySelector);
+                        }
+                        if (playerApplyForSelector) {
+                            playerApplyForSelector = this.activeElement().firstChild;
+                        }
+                        documentRelativeSelector = document.querySelector(positioningRelativeSelector);
+                        if (documentRelativeSelector && playerApplyForSelector) {
+                            const relativeSelectorHeight = Dom.elementDimensions(documentRelativeSelector).height;
+                            playerApplyForSelector.style[positioningProperty] = relativeSelectorHeight + 'px';
+                        }
+                    }
                 },
 
                 _recordPerformance: function(name) {

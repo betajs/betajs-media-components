@@ -305,12 +305,22 @@ class PlayerPage {
         }, [topPosition, steps]);
     }
 
+    async scrollToYPosition(number, steps = 5) {
+        for (let i = 0; i < number;) {
+            await this.page.mouse.wheel(0, i);
+            if ((number > 0 && number <= i) || (number <= 0 && number >= i)) {
+                return await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            i = number > 0 ? (i + steps) : (i - steps);
+        }
+    }
+
     // after found page: page.waitForTimeout()
     async delay(delay = 5) {
         await this.page.evaluate(async(delay) => {
-            delay = delay > 100 ? delay : delay * 1000;
+            const sleep = delay > 100 ? delay : delay * 1000;
             await new Promise(function(resolve) {
-                setTimeout(resolve, delay);
+                setTimeout(resolve, sleep);
             });
         }, delay);
     }
@@ -385,6 +395,12 @@ class PlayerPage {
             steps: 10
         });
         await mouse.up();
+    }
+
+    async sidebarVisible(){
+        const sidebar = await this.getElementByTestID(`player-sidebar`);
+        const sidebarImage = await sidebar.locator('li:nth-child(1) img');
+        await expect(sidebarImage).toBeVisible();
     }
 
     async testScrollToAd(){

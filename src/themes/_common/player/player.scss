@@ -127,3 +127,8 @@ div.#{$cssvideoplayer}-container {
         width: 100%;
     }
 }
+
+.#{$cssplayer}-hide-outstream {
+    visibility: hidden;
+    right: -500vw;
+}

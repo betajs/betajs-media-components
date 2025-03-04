@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.526 - 2025-02-24
+betajs-media-components - v0.0.527 - 2025-03-04
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -2496,6 +2496,11 @@ div.ba-player-with-sidebar.ba-player-fullscreen-view .ba-adsplayer-controlbar, d
 div.ba-videoplayer-container.ba-player-in-article {
   height: 100%;
   width: 100%;
+}
+
+.ba-player-hide-outstream {
+  visibility: hidden;
+  right: -500vw;
 }
 
 .ba-player-share-action-container {

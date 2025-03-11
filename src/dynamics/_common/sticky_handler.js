@@ -3,15 +3,15 @@ Scoped.define("module:FloatHandler", [
     "base:Events.EventsMixin",
     "base:Maths",
     "browser:Events",
-    "base:Functions"
-], function(Class, EventsMixin, Maths, DomEvents, Functions, scoped) {
+    "browser:Info"
+], function(Class, EventsMixin, Maths, DomEvents, Info, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
         return {
             /**
-             * @param {HTMLElement} element is playerContainer
-             * @param {HTMLElement} container is activeElement, highest element
+             * @param {HTMLElement} element
+             * @param {HTMLElement} container
              * @param {Object} [options]
              * @param {boolean} [options.paused] - used to temporarily stop element from sticking to view
              */
@@ -20,16 +20,17 @@ Scoped.define("module:FloatHandler", [
                 this.element = element;
                 this.container = container;
                 this.paused = options.paused || false;
-                this.floatCondition = options?.floatCondition;
-                this.noFloatIfBelow = options?.noFloatIfBelow || false;
-                this.noFloatIfAbove = options?.noFloatIfAbove || false;
-                this.threshold = options?.threshold;
+                this.floatCondition = options.floatCondition;
+                this.noFloatIfBelow = options.noFloatIfBelow || false;
+                this.noFloatIfAbove = options.noFloatIfAbove || false;
+                this.threshold = options.threshold;
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
                 this.observing = false;
             },
 
             destroy: function() {
+                if (this._elementObserver) this._elementObserver.disconnect();
                 if (this._containerObserver) this._containerObserver.disconnect();
                 inherited.destroy.call(this);
             },
@@ -46,10 +47,14 @@ Scoped.define("module:FloatHandler", [
             start: function() {
                 this.paused = false;
                 this.elementRect = this.element.getBoundingClientRect();
+                if (this.floatCondition && !this.floatCondition(this.elementRect)) return;
+                if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
             },
 
             stop: function() {
                 if (!this.observing) return;
+                if (this._elementObserver && this.element)
+                    this._elementObserver.unobserve(this.element);
                 if (this._containerObserver && this.container)
                     this._containerObserver.unobserve(this.container);
                 this.observing = false;
@@ -57,6 +62,8 @@ Scoped.define("module:FloatHandler", [
 
             resume: function() {
                 if (this.observing) return;
+                if (this._elementObserver && this.element)
+                    this._elementObserver.observe(this.element);
                 if (this._containerObserver && this.container)
                     this._containerObserver.observe(this.container);
                 this.observing = true;
@@ -92,30 +99,44 @@ Scoped.define("module:FloatHandler", [
             },
 
             _initIntersectionObservers: function() {
-                const containerCallback = (entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting) {
-                            if (this.paused || (this.floatCondition && !this.floatCondition(this.elementRect))) {
-                                this.trigger("transitionOutOfView");
-                                return;
-                            }
-                            this.transitionToFloat();
-                        } else {
-                            if (!this.floating) return;
-                            this.floating = false;
-                            this.trigger("transitionToView");
-                            this.removeFloatingStyles();
-                            if (this.events) this.events.off(this.element, "mousedown touchstart");
-                            this.dragging = false;
+                var elementFirstObservation = true;
+                this._elementObserver = new IntersectionObserver(elementCallback.bind(this), {
+                    threshold: this.threshold
+                });
+                this._containerObserver = new IntersectionObserver(containerCallback.bind(this), {
+                    threshold: this.threshold
+                });
+
+                function elementCallback(entries, observer) {
+                    this.elementRect = this.element.getBoundingClientRect();
+                    entries.forEach(function(entry) {
+                        this.elementIsVisible = entry.isIntersecting;
+                        if (elementFirstObservation) {
+                            elementFirstObservation = false;
+                            return;
                         }
-                    });
+                        if (entry.isIntersecting) return;
+
+                        if (this.paused || (this.floatCondition && !this.floatCondition(this.elementRect))) {
+                            this.trigger("transitionOutOfView");
+                            return;
+                        }
+                        this.transitionToFloat();
+                    }.bind(this));
                 }
 
-                this._containerObserver = new IntersectionObserver(
-                    (entries) => Functions.debounce(containerCallback, 10).apply(this, [entries]), {
-                        threshold: this.threshold
-                    }
-                );
+                function containerCallback(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (!entry.isIntersecting) return;
+                        this.floating = false;
+                        this.trigger("transitionToView");
+                        this.removeFloatingStyles();
+                        if (this.events) this.events.off(this.element, "mousedown touchstart");
+                        this.dragging = false;
+                    }.bind(this));
+                }
+
+                this._elementObserver.observe(this.element);
                 this._containerObserver.observe(this.container);
                 this.observing = true;
             },

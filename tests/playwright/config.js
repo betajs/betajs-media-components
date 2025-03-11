@@ -38,8 +38,7 @@ const config = {
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
-        // baseURL: `https://localhost:${PORT}`,
-        baseURL: `http://localhost:${PORT}`,
+        baseURL: `https://localhost:${PORT}`,
         ignoreHTTPSErrors: true,
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -92,8 +91,7 @@ const config = {
         // npm install -g http-server && `http-server ./ -p ${PORT} > http-server.log 2>&1 &`
         // command: `node ../../node_modules/nano-media-server/server.js --staticserve ../../ --port='${PORT}'`,
         // url: `http://127.0.0.1:${PORT}`,
-        // command: `npm run server -- --port='${PORT}' --sslkey='tests/playwright/html/certs/localhost-key.pem' --sslcert='tests/playwright/html/certs/localhost.pem'`,
-        command: `npm run server -- --port='${PORT}'`,
+        command: `npm run server -- --port='${PORT}' --sslkey='tests/playwright/html/certs/localhost-key.pem' --sslcert='tests/playwright/html/certs/localhost.pem'`,
         reuseExistingServer: !CI,
     }
 }

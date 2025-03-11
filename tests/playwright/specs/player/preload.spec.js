@@ -244,11 +244,9 @@ test.describe(`With ads source`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            const secondContainerHeader = await page.getByTestId(`h2-header`);
-            await player.scrollToTheElement(secondContainerHeader, -150);
-
             const adsContainer = await player.getElementByTestID(`ads-player-container`);
-            await player.scrollToTheElement(await adsContainer);
+            await expect(adsContainer).toBeVisible();
+            await player.scrollToTheElement(adsContainer);
 
             await player.listenPlayerEvent(`ads:firstQuartile`, 30);
             const adsLoaded = await player.getPlayerAttribute(`ads_loaded`);
@@ -475,7 +473,7 @@ test.describe(`With no ads`, () => {
                 await player.waitNextSecondPosition(3);
             }
 
-
+            
             let pauseButton = await player.getElementByTestID(`content-pause-button`);
             await expect(pauseButton).not.toBeVisible();
 

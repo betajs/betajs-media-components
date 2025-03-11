@@ -121,9 +121,3 @@
     overflow: initial;
 }
 
-div.#{$cssvideoplayer}-container {
-    &.#{$cssplayer}-in-article {
-        height: 100%;
-        width: 100%;
-    }
-}

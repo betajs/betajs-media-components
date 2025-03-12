@@ -1,5 +1,5 @@
 /*!
-betajs-media-components - v0.0.528 - 2025-03-11
+betajs-media-components - v0.0.529 - 2025-03-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1010,7 +1010,7 @@ Public.exports();
 	return Public;
 }).call(this);
 /*!
-betajs-media-components - v0.0.528 - 2025-03-11
+betajs-media-components - v0.0.529 - 2025-03-12
 Copyright (c) Ziggeo,Oliver Friedmann,Rashad Aliyev
 Apache-2.0 Software License.
 */
@@ -1025,8 +1025,8 @@ Scoped.binding('dynamics', 'global:BetaJS.Dynamics');
 Scoped.define("module:", function () {
 	return {
     "guid": "7a20804e-be62-4982-91c6-98eb096d2e70",
-    "version": "0.0.528",
-    "datetime": 1741721159522
+    "version": "0.0.529",
+    "datetime": 1741811221157
 };
 });
 Scoped.assumeVersion('base:version', '~1.0.96');
@@ -2370,15 +2370,15 @@ Scoped.define("module:FloatHandler", [
     "base:Events.EventsMixin",
     "base:Maths",
     "browser:Events",
-    "base:Functions"
-], function(Class, EventsMixin, Maths, DomEvents, Functions, scoped) {
+    "browser:Info"
+], function(Class, EventsMixin, Maths, DomEvents, Info, scoped) {
     return Class.extend({
         scoped: scoped
     }, [EventsMixin, function(inherited) {
         return {
             /**
-             * @param {HTMLElement} element is playerContainer
-             * @param {HTMLElement} container is activeElement, highest element
+             * @param {HTMLElement} element
+             * @param {HTMLElement} container
              * @param {Object} [options]
              * @param {boolean} [options.paused] - used to temporarily stop element from sticking to view
              */
@@ -2387,16 +2387,17 @@ Scoped.define("module:FloatHandler", [
                 this.element = element;
                 this.container = container;
                 this.paused = options.paused || false;
-                this.floatCondition = options?.floatCondition;
-                this.noFloatIfBelow = options?.noFloatIfBelow || false;
-                this.noFloatIfAbove = options?.noFloatIfAbove || false;
-                this.threshold = options?.threshold;
+                this.floatCondition = options.floatCondition;
+                this.noFloatIfBelow = options.noFloatIfBelow || false;
+                this.noFloatIfAbove = options.noFloatIfAbove || false;
+                this.threshold = options.threshold;
                 if (!options["static"]) this.events = this.auto_destroy(new DomEvents());
                 this.floating = false;
                 this.observing = false;
             },
 
             destroy: function() {
+                if (this._elementObserver) this._elementObserver.disconnect();
                 if (this._containerObserver) this._containerObserver.disconnect();
                 inherited.destroy.call(this);
             },
@@ -2413,10 +2414,14 @@ Scoped.define("module:FloatHandler", [
             start: function() {
                 this.paused = false;
                 this.elementRect = this.element.getBoundingClientRect();
+                if (this.floatCondition && !this.floatCondition(this.elementRect)) return;
+                if (!this.elementIsVisible && !this.floating) this.transitionToFloat();
             },
 
             stop: function() {
                 if (!this.observing) return;
+                if (this._elementObserver && this.element)
+                    this._elementObserver.unobserve(this.element);
                 if (this._containerObserver && this.container)
                     this._containerObserver.unobserve(this.container);
                 this.observing = false;
@@ -2424,6 +2429,8 @@ Scoped.define("module:FloatHandler", [
 
             resume: function() {
                 if (this.observing) return;
+                if (this._elementObserver && this.element)
+                    this._elementObserver.observe(this.element);
                 if (this._containerObserver && this.container)
                     this._containerObserver.observe(this.container);
                 this.observing = true;
@@ -2459,30 +2466,44 @@ Scoped.define("module:FloatHandler", [
             },
 
             _initIntersectionObservers: function() {
-                const containerCallback = (entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting) {
-                            if (this.paused || (this.floatCondition && !this.floatCondition(this.elementRect))) {
-                                this.trigger("transitionOutOfView");
-                                return;
-                            }
-                            this.transitionToFloat();
-                        } else {
-                            if (!this.floating) return;
-                            this.floating = false;
-                            this.trigger("transitionToView");
-                            this.removeFloatingStyles();
-                            if (this.events) this.events.off(this.element, "mousedown touchstart");
-                            this.dragging = false;
+                var elementFirstObservation = true;
+                this._elementObserver = new IntersectionObserver(elementCallback.bind(this), {
+                    threshold: this.threshold
+                });
+                this._containerObserver = new IntersectionObserver(containerCallback.bind(this), {
+                    threshold: this.threshold
+                });
+
+                function elementCallback(entries, observer) {
+                    this.elementRect = this.element.getBoundingClientRect();
+                    entries.forEach(function(entry) {
+                        this.elementIsVisible = entry.isIntersecting;
+                        if (elementFirstObservation) {
+                            elementFirstObservation = false;
+                            return;
                         }
-                    });
+                        if (entry.isIntersecting) return;
+
+                        if (this.paused || (this.floatCondition && !this.floatCondition(this.elementRect))) {
+                            this.trigger("transitionOutOfView");
+                            return;
+                        }
+                        this.transitionToFloat();
+                    }.bind(this));
                 }
 
-                this._containerObserver = new IntersectionObserver(
-                    (entries) => Functions.debounce(containerCallback, 10).apply(this, [entries]), {
-                        threshold: this.threshold
-                    }
-                );
+                function containerCallback(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (!entry.isIntersecting) return;
+                        this.floating = false;
+                        this.trigger("transitionToView");
+                        this.removeFloatingStyles();
+                        if (this.events) this.events.off(this.element, "mousedown touchstart");
+                        this.dragging = false;
+                    }.bind(this));
+                }
+
+                this._elementObserver.observe(this.element);
                 this._containerObserver.observe(this.container);
                 this.observing = true;
             },
@@ -3239,16 +3260,10 @@ Scoped.define("module:StylesMixin", [
 ], function(Objs) {
     return {
         _applyStyles: function(element, styles, oldStyles) {
-            if (typeof oldStyles !== "undefined") {
-                if (Objs.count(oldStyles) === 0 || oldStyles === null) {
-                    element.removeAttribute("style");
-                } else {
-                    Objs.iter(oldStyles, function(v, k) {
-                        if (!(k in styles)) element.style.removeProperty(k);
-                    });
-                }
-            }
-            return Objs.extend(element.style, styles);
+            Objs.iter(oldStyles, function(v, k) {
+                if (!(k in styles)) element.style.removeProperty(k);
+            });
+            Objs.extend(element.style, styles);
         }
     };
 });
@@ -3872,7 +3887,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                 "wta",
             ]);
             return {
-                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{adsplaying ? (cssadsplayer  + '-linear-ads-playing') : ''}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\" data-testid=\"{{testid}}-ads-player-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n        data-testid=\"{{testid}}-top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{showlearnmorebutton && moredetailslink}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{redirect(moredetailslink)}}\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n                data-testid=\"{{testid}}-ads-player-more-details-button\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </button>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                    title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n                    data-testid=\"{{testid}}-ads-player-replay-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </button>\n        </div>\n        <div ba-if=\"{{!hideclosebutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                    title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n                    data-testid=\"{{testid}}-ads-player-close-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </button>\n        </div>\n    </div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-testid=\"{{testid}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-skipvisible=\"{{skipvisible}}\"\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-tooltips=\"{{isMobile ? '' : tooltips}}\"\n    ba-adsplaying=\"{{adsplaying}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n    ba-showadchoices=\"{{showadchoices}}\"\n    ba-event:resume=\"resume\"\n    ba-event:pause=\"pause\"\n    ba-event:stop=\"stop\"\n    ba-event:volume=\"set_volume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-event:toggle_volume=\"{{toggle_volume}}\"\n></ba-{{dyncontrolbar}}>\n",
+                template: "<div\n    class=\"ba-ad-container {{linear ? (css + '-overlay') : ''}}\n    {{cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')}}\n    {{adsplaying ? (cssadsplayer  + '-linear-ads-playing') : ''}}\n    {{hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''}}\"\n    ba-styles=\"{{floating ? {} : parentcontainersizingstyles}}\"\n    data-video=\"ima-ad-container\" data-testid=\"{{testid}}-ads-player-container\"\n>\n    <ba-ads-choices-link\n        ba-if=\"{{showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active}}\"\n        ba-adchoiceslink=\"{{adchoiceslink}}\"\n        ba-cssadsplayer=\"{{cssadsplayer}}\"\n        ba-datatestselector=\"top-ads-choices-button\"\n        data-testid=\"{{testid}}-top-ads-choices-button\"\n    ></ba-ads-choices-link>\n\n    <div ba-if=\"{{showactionbuttons && isoutstream}}\"\n        class=\"{{cssadsplayer}}-actions-button-container {{csscommon}}-center-all\"\n    >\n        <div ba-if=\"{{showlearnmorebutton && moredetailslink}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{redirect(moredetailslink)}}\"\n                title=\"{{moredetailstext ? moredetailstext : string('learn-more')}}\"\n                data-testid=\"{{testid}}-ads-player-more-details-button\"\n            >\n                <i class=\"{{csscommon}}-icon-share\"></i>\n                {{moredetailstext ? moredetailstext : string('learn-more')}}\n            </button>\n        </div>\n        <div ba-if=\"{{showrepeatbutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button\" ba-click=\"{{replay()}}\"\n                    title=\"{{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\"\n                    data-testid=\"{{testid}}-ads-player-replay-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cw\"></i>\n                {{repeatbuttontext ? repeatbuttontext : string('replay-ad')}}\n            </button>\n        </div>\n        <div ba-if=\"{{!hideclosebutton}}\">\n            <button class=\"{{cssadsplayer}}-action-button {{cssadsplayer}}-reversed-color\"\n                    title=\"{{string('close-ad')}}\" ba-click=\"{{close()}}\"\n                    data-testid=\"{{testid}}-ads-player-close-button\"\n            >\n                <i class=\"{{csscommon}}-icon-cancel\"></i>\n                {{string('close-ad')}}\n            </button>\n        </div>\n    </div>\n</div>\n<ba-{{dyncontrolbar}}\n    ba-if=\"{{!hidecontrolbar && linear && !showactionbuttons}}\"\n    ba-css=\"{{css}}\"\n    ba-csscommon=\"{{csscommon}}\"\n    ba-cssadsplayer=\"{{cssadsplayer}}\"\n    ba-testid=\"{{testid}}\"\n    ba-template=\"{{tmplcontrolbar}}\"\n    ba-linear={{linear}}\n    ba-duration=\"{{duration}}\"\n    ba-volume=\"{{volume}}\"\n    ba-muted=\"{{muted}}\"\n    ba-remaining=\"{{=remaining}}\"\n    ba-unmuteonclick=\"{{unmuteonclick}}\"\n    ba-playing={{playing}}\n    ba-skipvisible=\"{{skipvisible}}\"\n    ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n    ba-currenttime={{=currenttime}}\n    ba-hideoninactivity={{hideoninactivity}}\n    ba-tooltips=\"{{isMobile ? '' : tooltips}}\"\n    ba-adsplaying=\"{{adsplaying}}\"\n    ba-fullscreened=\"{{fullscreened}}\"\n    ba-view_type=\"{{view_type}}\"\n    ba-floating=\"{{floating}}\"\n    ba-adchoicesontop=\"{{adchoicesontop}}\"\n    ba-adchoiceslink=\"{{adchoiceslink}}\"\n    ba-adchoicesstring=\"{{string('ad-choices')}}\"\n    ba-controlbarstyles=\"{{controlbarstyles}}\"\n    ba-showadchoices=\"{{showadchoices}}\"\n    ba-event:resume=\"resume\"\n    ba-event:pause=\"pause\"\n    ba-event:stop=\"stop\"\n    ba-event:volume=\"set_volume\"\n    ba-event:fullscreen=\"{{trigger('fullscreen')}}\"\n    ba-event:toggle_volume=\"{{toggle_volume}}\"\n></ba-{{dyncontrolbar}}>\n",
 
                 attrs: {
                     dyncontrolbar: "ads-controlbar",
@@ -3901,7 +3916,6 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     ads_loaded: false,
                     ads_load_started: false,
                     adurl_fallback_attempted: false,
-                    parentcontainersizingstyles: {},
                 },
 
                 events: {
@@ -4116,7 +4130,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                         }
                     },
                     "ads:contentPauseRequested": function() {
-                        this.set("adsplaying", true)
+                        this.set("adsplaying", true);
                         this.trackAdsPerformance(`ads-content-pause-requested`);
                     }
                 },
@@ -4236,10 +4250,10 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     },
                     pause: function() {
                         this.checkIfAdHasMediaUrl();
-                        return this.adsManager?.pause();
+                        return this.adsManager.pause();
                     },
                     resume: function() {
-                        return this.adsManager?.resume();
+                        return this.adsManager.resume();
                     },
                     set_volume: function(volume) {
                         this._onPlayerEngaged();
@@ -4380,17 +4394,21 @@ Scoped.define("module:Ads.Dynamics.Player", [
 
                 captureAdEndCardBackground: function(width, height) {
                     const ad = this.get("ad");
+
+                    if (ad?.data && !ad.data.mediaUrl) {
+                        ad.data.mediaUrl = this.getMediaUrl(ad);
+                    }
+
                     if (ad) {
-                        if (!ad.data?.mediaUrl) {
-                            ad.data.mediaUrl = this.getMediaUrl(ad);
-                        }
                         this.generateEndCardImage(ad, width, height);
                     }
                 },
 
                 setEndCardBackground: function(width, height) {
-                    if (this.shouldShowFirstFrameAsEndcard() && width && height) {
-                        this.captureAdEndCardBackground(width, height);
+                    if (this.shouldShowFirstFrameAsEndcard()) {
+                        if (width && height) {
+                            this.captureAdEndCardBackground(width, height);
+                        }
                     }
                 },
 
@@ -4855,7 +4873,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
             };
         }).register("ba-adsplayer")
         .registerFunctions({
-            /**/"linear ? (css + '-overlay') : ''": function (obj) { return obj.linear ? (obj.css + '-overlay') : ''; }, "cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')": function (obj) { return obj.cssadsplayer + (obj.linear ? '-linear-ad-container' : '-non-linear-ad-container'); }, "adsplaying ? (cssadsplayer  + '-linear-ads-playing') : ''": function (obj) { return obj.adsplaying ? (obj.cssadsplayer  + '-linear-ads-playing') : ''; }, "hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''": function (obj) { return obj.hideoninactivity ? (obj.cssplayer + '-controlbar-hidden') : ''; }, "parentcontainersizingstyles": function (obj) { return obj.parentcontainersizingstyles; }, "testid": function (obj) { return obj.testid; }, "showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active": function (obj) { return obj.showadchoices && obj.adchoiceslink && obj.adchoicesontop && obj.adsplaying && !obj.floating && !obj.sidebar_active; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "cssadsplayer": function (obj) { return obj.cssadsplayer; }, "showactionbuttons && isoutstream": function (obj) { return obj.showactionbuttons && obj.isoutstream; }, "csscommon": function (obj) { return obj.csscommon; }, "showlearnmorebutton && moredetailslink": function (obj) { return obj.showlearnmorebutton && obj.moredetailslink; }, "redirect(moredetailslink)": function (obj) { return obj.redirect(obj.moredetailslink); }, "moredetailstext ? moredetailstext : string('learn-more')": function (obj) { return obj.moredetailstext ? obj.moredetailstext : obj.string('learn-more'); }, "showrepeatbutton": function (obj) { return obj.showrepeatbutton; }, "replay()": function (obj) { return obj.replay(); }, "repeatbuttontext ? repeatbuttontext : string('replay-ad')": function (obj) { return obj.repeatbuttontext ? obj.repeatbuttontext : obj.string('replay-ad'); }, "!hideclosebutton": function (obj) { return !obj.hideclosebutton; }, "string('close-ad')": function (obj) { return obj.string('close-ad'); }, "close()": function (obj) { return obj.close(); }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "!hidecontrolbar && linear && !showactionbuttons": function (obj) { return !obj.hidecontrolbar && obj.linear && !obj.showactionbuttons; }, "css": function (obj) { return obj.css; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "linear": function (obj) { return obj.linear; }, "duration": function (obj) { return obj.duration; }, "volume": function (obj) { return obj.volume; }, "muted": function (obj) { return obj.muted; }, "remaining": function (obj) { return obj.remaining; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "playing": function (obj) { return obj.playing; }, "skipvisible": function (obj) { return obj.skipvisible; }, "userhadplayerinteraction": function (obj) { return obj.userhadplayerinteraction; }, "currenttime": function (obj) { return obj.currenttime; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "isMobile ? '' : tooltips": function (obj) { return obj.isMobile ? '' : obj.tooltips; }, "adsplaying": function (obj) { return obj.adsplaying; }, "fullscreened": function (obj) { return obj.fullscreened; }, "view_type": function (obj) { return obj.view_type; }, "floating": function (obj) { return obj.floating; }, "adchoicesontop": function (obj) { return obj.adchoicesontop; }, "string('ad-choices')": function (obj) { return obj.string('ad-choices'); }, "controlbarstyles": function (obj) { return obj.controlbarstyles; }, "showadchoices": function (obj) { return obj.showadchoices; }, "trigger('fullscreen')": function (obj) { return obj.trigger('fullscreen'); }, "toggle_volume": function (obj) { return obj.toggle_volume; }/**/
+            /**/"linear ? (css + '-overlay') : ''": function (obj) { return obj.linear ? (obj.css + '-overlay') : ''; }, "cssadsplayer + (linear ? '-linear-ad-container' : '-non-linear-ad-container')": function (obj) { return obj.cssadsplayer + (obj.linear ? '-linear-ad-container' : '-non-linear-ad-container'); }, "adsplaying ? (cssadsplayer  + '-linear-ads-playing') : ''": function (obj) { return obj.adsplaying ? (obj.cssadsplayer  + '-linear-ads-playing') : ''; }, "hideoninactivity ? (cssplayer + '-controlbar-hidden') : ''": function (obj) { return obj.hideoninactivity ? (obj.cssplayer + '-controlbar-hidden') : ''; }, "floating ? {} : parentcontainersizingstyles": function (obj) { return obj.floating ? {} : obj.parentcontainersizingstyles; }, "testid": function (obj) { return obj.testid; }, "showadchoices && adchoiceslink && adchoicesontop && adsplaying && !floating && !sidebar_active": function (obj) { return obj.showadchoices && obj.adchoiceslink && obj.adchoicesontop && obj.adsplaying && !obj.floating && !obj.sidebar_active; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "cssadsplayer": function (obj) { return obj.cssadsplayer; }, "showactionbuttons && isoutstream": function (obj) { return obj.showactionbuttons && obj.isoutstream; }, "csscommon": function (obj) { return obj.csscommon; }, "showlearnmorebutton && moredetailslink": function (obj) { return obj.showlearnmorebutton && obj.moredetailslink; }, "redirect(moredetailslink)": function (obj) { return obj.redirect(obj.moredetailslink); }, "moredetailstext ? moredetailstext : string('learn-more')": function (obj) { return obj.moredetailstext ? obj.moredetailstext : obj.string('learn-more'); }, "showrepeatbutton": function (obj) { return obj.showrepeatbutton; }, "replay()": function (obj) { return obj.replay(); }, "repeatbuttontext ? repeatbuttontext : string('replay-ad')": function (obj) { return obj.repeatbuttontext ? obj.repeatbuttontext : obj.string('replay-ad'); }, "!hideclosebutton": function (obj) { return !obj.hideclosebutton; }, "string('close-ad')": function (obj) { return obj.string('close-ad'); }, "close()": function (obj) { return obj.close(); }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "!hidecontrolbar && linear && !showactionbuttons": function (obj) { return !obj.hidecontrolbar && obj.linear && !obj.showactionbuttons; }, "css": function (obj) { return obj.css; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "linear": function (obj) { return obj.linear; }, "duration": function (obj) { return obj.duration; }, "volume": function (obj) { return obj.volume; }, "muted": function (obj) { return obj.muted; }, "remaining": function (obj) { return obj.remaining; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "playing": function (obj) { return obj.playing; }, "skipvisible": function (obj) { return obj.skipvisible; }, "userhadplayerinteraction": function (obj) { return obj.userhadplayerinteraction; }, "currenttime": function (obj) { return obj.currenttime; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "isMobile ? '' : tooltips": function (obj) { return obj.isMobile ? '' : obj.tooltips; }, "adsplaying": function (obj) { return obj.adsplaying; }, "fullscreened": function (obj) { return obj.fullscreened; }, "view_type": function (obj) { return obj.view_type; }, "floating": function (obj) { return obj.floating; }, "adchoicesontop": function (obj) { return obj.adchoicesontop; }, "string('ad-choices')": function (obj) { return obj.string('ad-choices'); }, "controlbarstyles": function (obj) { return obj.controlbarstyles; }, "showadchoices": function (obj) { return obj.showadchoices; }, "trigger('fullscreen')": function (obj) { return obj.trigger('fullscreen'); }, "toggle_volume": function (obj) { return obj.toggle_volume; }/**/
         }).attachStringTable(Assets.strings)
         .addStrings({
             "replay-ad": "Replay Video",
@@ -5874,7 +5892,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
         }, [StylesMixin, function(inherited) {
             return {
 
-                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}\n     {{is_floating ? cssfloatingclasses : cssplayer + '-in-article'}}\n     {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}\n     {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}\n     {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}\n     {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{containerSizingStyles}}\"\n     data-testid=\"{{testid}}-player-container\"\n>\n    <meta itemprop=\"name\" content=\"{{title || 'Video Player'}}\" />\n    <meta itemprop=\"description\" content=\"{{description || 'Video Player'}}\" />\n    <meta itemprop=\"uploadDate\" content=\"{{upload_date || uploaddate}}\" />\n    <meta itemprop=\"caption\" content=\"{{title}}\" />\n    <meta itemprop=\"thumbnailUrl\" content=\"{{thumbnail_url || thumbnailUrl}}\" />\n    <meta itemprop=\"contentUrl\" content=\"{{content_url || contenturl}}\" />\n    <div class=\"{{cssplayer}}-content\" data-selector=\"ba-player-container\"\n         data-testid=\"{{testid}}-player-media-container\"\n         ba-styles=\"{{playercontainerstyles}}\"\n    >\n        <ba-{{dynnext}}\n            ba-if=\"{{next_active && !playing_ad}}\"\n            ba-is_floating=\"{{is_floating}}\"\n            ba-style=\"{{layout}}\"\n            ba-with_sidebar=\"{{with_sidebar}}\"\n            ba-playlist=\"{{playlist}}\"\n            ba-current_video_from_playlist=\"{{current_video_from_playlist}}\"\n            ba-position=\"{{position}}\"\n            ba-shownext=\"{{shownext}}\"\n            ba-noengagenext=\"{{noengagenext}}\"\n            ba-gallerysidebar=\"{{gallerysidebar}}\"\n        ></ba-{{dynnext}}>\n        <div class=\"{{css}}-tooltips-list-container\"\n            ba-repeat=\"{{tooltip :: tooltips}}\"\n        >\n            <ba-{{dyntooltip}}\n                ba-if=\"{{tooltip.tooltiptext}}\"\n                ba-id=\"{{tooltip.id}}\"\n                ba-tooltip=\"{{tooltip}}\"\n                ba-playing=\"{{playing}}\"\n                ba-adsplaying=\"{{adsplaying}}\"\n            ></ba-{{dyntooltip}}>\n        </div>\n        <div ba-show=\"{{(videoelement_active || !imageelement_active) && !silent_attach}}\" class=\"{{css}}-video-container\">\n            <video tabindex=\"-1\" class=\"{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit\" data-video=\"video\"\n                   preload=\"{{preload ? 'auto' : 'metadata'}}\"\n                   elementtiming=\"ba-player-video\"\n                   ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n            ></video>\n        </div>\n        <div ba-show=\"{{(imageelement_active && !videoelement_active) || silent_attach}}\" class=\"{{css}}-poster-container\">\n            <img tabindex=\"-1\" data-image=\"image\" alt=\"{{posteralt}}\"\n                 class=\"{{csscommon}}-{{posterfitstrategy}}-fit\"\n                 elementtiming=\"ba-player-poster\"\n            />\n        </div>\n        <ba-{{dynadsplayer}}\n            ba-if=\"{{adsplayer_active}}\"\n            ba-ad=\"{{=ad}}\"\n            ba-addata=\"{{=addata}}\"\n            ba-adsmanagerloaded=\"{{=adsmanagerloaded}}\"\n            ba-ads_loaded=\"{{=ads_loaded}}\"\n            ba-ads_load_started=\"{{=ads_load_started}}\"\n            ba-css=\"{{css}}\"\n            ba-cssplayer=\"{{cssplayer}}\"\n            ba-csscommon=\"{{csscommon}}\"\n            ba-testid=\"{{testid}}\"\n            ba-parentcontainersizingstyles=\"{{playercontainerstyles}}\"\n            ba-duration=\"{{=adduration}}\"\n            ba-debug_ima=\"{{debug_ima}}\"\n            ba-volume=\"{{adsunmuted ? volume : 0}}\"\n            ba-muted=\"{{muted}}\"\n            ba-containerstyle=\"{{containerSizingStyles}}\"\n            ba-unmuteonclick=\"{{unmuteonclick}}\"\n            ba-adtagurl=\"{{adtagurl}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-adsunmuted=\"{{=adsunmuted}}\"\n            ba-inlinevastxml=\"{{inlinevastxml}}\"\n            ba-outstreamoptions=\"{{outstreamoptions}}\"\n            ba-quartile=\"{{=adsquartile}}\"\n            ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n            ba-controlbarstyles=\"{{controlbarstyles}}\"\n            ba-sidebar_active=\"{{sidebar_active}}\"\n            ba-imasettings=\"{{imasettings}}\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-hidecontrolbar=\"{{!adscontrolbar_active}}\"\n            ba-hideadscontrolbar=\"{{hideadscontrolbar}}\"\n            ba-tmplcontrolbar=\"{{tmpladscontrolbar}}\"\n            ba-dyncontrolbar=\"{{dynadscontrolbar}}\"\n            ba-companionad=\"{{companionad}}\"\n            ba-tooltips=\"{{tooltips}}\"\n            ba-companionads=\"{{=companionads}}\"\n            ba-hideoninactivity=\"{{(activity_delta > hidebarafter) && hideoninactivity}}\"\n            ba-view_type=\"{{view_type}}\"\n            ba-adsplaying=\"{{=adsplaying}}\"\n            ba-playing=\"{{=adnotpaused}}\"\n            ba-showlearnmorebutton=\"{{showlearnmorebutton}}\"\n            ba-moredetailslink=\"{{=moredetailslink}}\"\n            ba-moredetailstext=\"{{=moredetailstext}}\"\n            ba-mobileview=\"{{mobileview}}\"\n            ba-floating=\"{{is_floating}}\"\n            ba-withsidebar=\"{{with_sidebar}}\"\n            ba-floatingoptions=\"{{floatingoptions}}\"\n            ba-mobileviewport=\"{{mobileviewport}}\"\n            ba-adchoicesontop=\"{{adchoicesontop && !gallerysidebar}}\"\n            ba-presetedtooltips=\"{{presetedtooltips}}\"\n            ba-showadchoices=\"{{showadchoices}}\"\n            ba-imaadsrenderingsetting=\"{{imaadsrenderingsetting}}\"\n            ba-autoplay=\"{{autoplay}}\"\n            ba-vmapads=\"{{vmapads}}\"\n            ba-ads_request_options=\"{{ads_request_options}}\"\n        ></ba-{{dynadsplayer}}>\n        <div class=\"{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}\"\n             ba-show=\"{{!showbuiltincontroller && !outstream && !adsplaying}}\" style=\"{{placeholderstyle}}\"\n             data-testid=\"{{testid}}-content-player-container\"\n        >\n            <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n                 ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n                 ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n                 ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n                 ba-hotkey:space^enter=\"{{toggle_player(true)}}\"\n                 ba-click=\"{{toggle_player(true)}}\"\n            ></div>\n            <ba-{{dyntrimmer}}\n                ba-if=\"{{trimmingmode && videoelement_active}}\"\n                ba-playing=\"{{playing}}\"\n                ba-startposition=\"{{=starttime}}\"\n                ba-position=\"{{position}}\"\n                ba-endposition=\"{{=endtime}}\"\n                ba-minduration=\"{{timeminlimit}}\"\n                ba-duration=\"{{duration}}\"\n                ba-source=\"{{source}}\"\n                ba-event:play=\"play\"\n                ba-event:pause=\"pause\"\n                ba-event:seek=\"seek\"\n            ></ba-{{dyntrimmer}}>\n            <ba-{{dyncontrolbar}}\n                ba-show=\"{{controlbar_active && !hidecontrolbar}}\"\n                ba-css=\"{{csscontrolbar || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-testid=\"{{testid}}\"\n                ba-logo=\"{{controlbar_logo}}\"\n                ba-themecolor=\"{{themecolor}}\"\n                ba-template=\"{{tmplcontrolbar}}\"\n                ba-playing=\"{{playing}}\"\n                ba-showcontroll=\"{{showcontroll}}\"\n                ba-playwhenvisible=\"{{playwhenvisible}}\"\n                ba-playerspeeds=\"{{playerspeeds}}\"\n                ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n                ba-playlist=\"{{playlist}}\"\n                ba-airplay=\"{{airplay}}\"\n                ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n                ba-chromecast=\"{{chromecast}}\"\n                ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n                ba-sidebar_active=\"{{sidebar_active}}\"\n                ba-tabindex=\"{{tabindex}}\"\n                ba-showchaptertext=\"{{showchaptertext}}\"\n                ba-chapterslist=\"{{chapterslist}}\"\n                ba-tracktextvisible=\"{{tracktextvisible}}\"\n                ba-tracktags=\"{{tracktags}}\"\n                ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n                ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n                ba-tracksshowselection=\"{{tracksshowselection}}\"\n                ba-volume=\"{{volume}}\"\n                ba-muted=\"{{muted}}\"\n                ba-unmuteonclick=\"{{unmuteonclick}}\"\n                ba-duration=\"{{duration}}\"\n                ba-cached=\"{{buffered}}\"\n                ba-title=\"{{title}}\"\n                ba-prominent_title=\"{{prominent_title}}\"\n                ba-closeable_title=\"{{closeable_title}}\"\n                ba-position=\"{{position}}\"\n                ba-activitydelta=\"{{activity_delta}}\"\n                ba-hasnext=\"{{hasnext}}\"\n                ba-hideoninactivity=\"{{hideoninactivity}}\"\n                ba-hidebarafter=\"{{hidebarafter}}\"\n                ba-rerecordable=\"{{rerecordable}}\"\n                ba-submittable=\"{{submittable}}\"\n                ba-frameselectionmode=\"{{frameselectionmode}}\"\n                ba-timeminlimit=\"{{timeminlimit}}\"\n                ba-streams=\"{{streams}}\"\n                ba-currentstream=\"{{=currentstream}}\"\n                ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n                ba-fullscreened=\"{{fullscreened}}\"\n                ba-source=\"{{source}}\"\n                ba-disablepause=\"{{disablepause}}\"\n                ba-disableseeking=\"{{disableseeking}}\"\n                ba-skipseconds=\"{{skipseconds}}\"\n                ba-skipinitial=\"{{skipinitial}}\"\n                ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n                ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n                ba-hidevolumebar=\"{{hidevolumebar}}\"\n                ba-manuallypaused=\"{{manuallypaused}}\"\n                ba-view_type=\"{{view_type}}\"\n                ba-is_floating=\"{{is_floating}}\"\n                ba-isseeking=\"{{=isseeking}}\"\n                ba-with_sidebar=\"{{with_sidebar}}\"\n                ba-event:rerecord=\"rerecord\"\n                ba-event:submit=\"submit\"\n                ba-event:play=\"play\"\n                ba-event:pause=\"pause\"\n                ba-event:position=\"seek\"\n                ba-event:volume=\"set_volume\"\n                ba-event:set_speed=\"set_speed\"\n                ba-event:settings_menu=\"toggle_settings_menu\"\n                ba-event:fullscreen=\"toggle_fullscreen\"\n                ba-event:toggle_player=\"toggle_player\"\n                ba-event:tab_index_move=\"tab_index_move\"\n                ba-event:seek=\"seek\"\n                ba-event:toggle_tracks=\"toggle_tracks\"\n                ba-event:toggle_volume=\"toggle_volume\"\n            ></ba-{{dyncontrolbar}}>\n\n            <ba-{{dyntracks}}\n                ba-css=\"{{csstracks || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n                ba-tracksshowselection=\"{{tracksshowselection}}\"\n                ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n                ba-tracktags=\"{{tracktags}}\"\n                ba-hidebarafter=\"{{hidebarafter}}\"\n                ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n                ba-trackcuetext=\"{{trackcuetext}}\"\n                ba-tracktextvisible=\"{{tracktextvisible}}\"\n                ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n                ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n                ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n                ba-uploadlocales=\"{{uploadlocales}}\"\n                ba-activitydelta=\"{{activity_delta}}\"\n                ba-hideoninactivity=\"{{hideoninactivity}}\"\n                ba-event:selected_label_value=\"selected_label_value\"\n                ba-event:upload-text-tracks=\"upload_text_tracks\"\n                ba-event:move_to_option=\"move_to_option\"\n            ></ba-{{dyntracks}}>\n\n            <ba-{{dynsettingsmenu}}\n                ba-css=\"{{css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-show=\"{{settingsmenu_active}}\"\n                ba-template=\"{{tmplsettingsmenu}}\"\n                ba-toggle_settings_menu=\"{{toggle_settings_menu}}\"\n                ba-toggle_share=\"{{toggle_share}}\"\n            ></ba-{{dynsettingsmenu}}>\n\n            <ba-{{dynplaybutton}}\n                ba-show=\"{{playbutton_active}}\"\n                ba-css=\"{{cssplaybutton || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-testid=\"{{testid}}\"\n                ba-template=\"{{tmplplaybutton}}\"\n                ba-rerecordable=\"{{rerecordable}}\"\n                ba-submittable=\"{{submittable}}\"\n                ba-trimmingmode=\"{{trimmingmode}}\"\n                ba-showduration=\"{{showduration}}\"\n                ba-duration=\"{{duration}}\"\n                ba-event:play=\"playbutton_click\"\n                ba-event:rerecord=\"rerecord\"\n                ba-event:submit=\"submit\"\n                ba-event:tab_index_move=\"tab_index_move\"\n            ></ba-{{dynplaybutton}}>\n\n            <ba-{{dynloader}}\n                ba-css=\"{{cssloader || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-testid=\"{{testid}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplloader}}\"\n                ba-playwhenvisible=\"{{playwhenvisible}}\"\n                ba-show=\"{{loader_active}}\"\n            ></ba-{{dynloader}}>\n\n            <ba-{{dynshare}}\n                ba-css=\"{{cssshare || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplshare}}\"\n                ba-show=\"{{sharevideourl && sharevideo.length > 0 && share_active}}\"\n                ba-visible=\"{{=share_active}}\"\n                ba-url=\"{{sharevideourl}}\"\n                ba-shares=\"{{sharevideo}}\"\n            ></ba-{{dynshare}}>\n\n            <ba-{{dynmessage}}\n                ba-css=\"{{cssmessage || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplmessage}}\"\n                ba-show=\"{{message_active}}\"\n                ba-message=\"{{message}}\"\n                ba-event:click=\"message_click\"\n            ></ba-{{dynmessage}}>\n\n            <ba-{{dyntopmessage}}\n                ba-css=\"{{csstopmessage || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmpltopmessage}}\"\n                ba-show=\"{{topmessage}}\"\n                ba-topmessage=\"{{topmessage}}\"\n            ></ba-{{dyntopmessage}}>\n        </div>\n        <div ba-show=\"{{useAspectRatioFallback}}\" ba-styles=\"{{aspectRatioFallback}}\"></div>\n    </div>\n    <div ba-show=\"{{show_sidebar}}\" class=\"{{cssplayer}}-sidebar\"\n         ba-styles=\"{{sidebarstyles}}\" data-testid=\"{{testid}}-player-sidebar\"\n    >\n        <ba-{{dynsidebar}}\n            ba-if=\"{{sidebar_active}}\"\n            ba-css=\"{{css}}\"\n            ba-cssplayer=\"{{cssplayer}}\"\n            ba-csscommon=\"{{csscommon}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-ad=\"{{ad}}\"\n            ba-title=\"{{next_active ? '' : title || 'Video Player'}}\"\n            ba-addata=\"{{addata}}\"\n            ba-companionads=\"{{companionads}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-is_floating=\"{{is_floating}}\"\n            ba-showlearnmorebutton=\"{{showlearnmorebutton}}\"\n            ba-sidebaroptions=\"{{sidebaroptions}}\"\n            ba-floatingoptions=\"{{floatingoptions}}\"\n            ba-floatingsidebar=\"{{floatingsidebar}}\"\n            ba-showsidebargallery=\"{{showsidebargallery}}\"\n            ba-gallerysidebar=\"{{gallerysidebar}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-moredetailslink=\"{{moredetailslink}}\"\n            ba-moredetailstext=\"{{moredetailstext}}\"\n            ba-adsplaying=\"{{adsplaying}}\"\n            ba-linear=\"{{=linear}}\"\n            ba-playlist=\"{{playlist}}\"\n            ba-playing=\"{{playing}}\"\n            ba-position=\"{{position}}\"\n            ba-shownext=\"{{shownext}}\"\n            ba-nextactive=\"{{next_active}}\"\n            ba-noengagenext=\"{{noengagenext}}\"\n            ba-mobileviewport=\"{{mobileviewport}}\"\n            ba-showadchoices=\"{{showadchoices}}\"\n            ba-unknownadsrc=\"{{unknownadsrc}}\"\n            ba-event:pause_ads=\"pause_ads\"\n        ></ba-{{dynsidebar}}>\n    </div>\n    <div ba-if=\"{{!fullscreened && is_floating && floatingoptions.closeable}}\"\n         class=\"{{cssplayer}}-close-container\"\n         ba-click=\"close_floating()\"\n         ba-on:touchend=\"{{close_floating()}}\"\n    >\n        <svg viewBox=\"0 0 32 32\" xml:space=\"preserve\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path\n                d=\"m17.459 16.014 8.239-8.194a.992.992 0 0 0 0-1.414 1.016 1.016 0 0 0-1.428 0l-8.232 8.187L7.73 6.284a1.009 1.009 0 0 0-1.428 0 1.015 1.015 0 0 0 0 1.432l8.302 8.303-8.332 8.286a.994.994 0 0 0 0 1.414 1.016 1.016 0 0 0 1.428 0l8.325-8.279 8.275 8.276a1.009 1.009 0 0 0 1.428 0 1.015 1.015 0 0 0 0-1.432l-8.269-8.27z\"\n                class=\"{{cssplayer}}-close-svg-button\"\n            ></path>\n        </svg>\n    </div>\n</div>\n",
+                template: "<div itemscope itemtype=\"http://schema.org/VideoObject\"\n     class=\"{{css}}-container {{cssplayer}}-size-{{csssize}} {{iecss}}-{{ie8 ? 'ie8' : 'noie8'}} {{csstheme}}\n     {{cssplayer}}-{{fullscreened ? 'fullscreen' : 'normal'}}-view {{cssplayer}}-{{firefox ? 'firefox' : 'common'}}-browser\n     {{cssplayer}}-{{themecolor}}-color {{cssplayer}}-device-type-{{mobileview ? 'mobile' : 'desktop'}}\n     {{cssplayer}}-viewport-{{mobileviewport ? 'mobile' : 'desktop'}}\n     {{is_floating ? cssfloatingclasses : ''}}\n     {{presetkey ? cssplayer + '-preset-' + presetkey : ''}}\n     {{(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''}}\n     {{(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'}}\n     {{cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')}}\"\n     ba-on:mousemove=\"{{user_activity()}}\"\n     ba-on:mousedown=\"{{user_activity(true)}}\"\n     ba-on:touchstart=\"{{user_activity(true)}}\"\n     ba-styles=\"{{containerSizingStyles}}\"\n     data-testid=\"{{testid}}-player-container\"\n>\n    <meta itemprop=\"name\" content=\"{{title || 'Video Player'}}\" />\n    <meta itemprop=\"description\" content=\"{{description || 'Video Player'}}\" />\n    <meta itemprop=\"uploadDate\" content=\"{{upload_date || uploaddate}}\" />\n    <meta itemprop=\"caption\" content=\"{{title}}\" />\n    <meta itemprop=\"thumbnailUrl\" content=\"{{thumbnail_url || thumbnailUrl}}\" />\n    <meta itemprop=\"contentUrl\" content=\"{{content_url || contenturl}}\" />\n    <div class=\"{{cssplayer}}-content\" data-selector=\"ba-player-container\"\n         ba-styles=\"{{playercontainerstyles}}\"\n    >\n        <ba-{{dynnext}}\n            ba-if=\"{{next_active && !playing_ad}}\"\n            ba-is_floating=\"{{is_floating}}\"\n            ba-style=\"{{layout}}\"\n            ba-with_sidebar=\"{{with_sidebar}}\"\n            ba-playlist=\"{{playlist}}\"\n            ba-current_video_from_playlist=\"{{current_video_from_playlist}}\"\n            ba-position=\"{{position}}\"\n            ba-shownext=\"{{shownext}}\"\n            ba-noengagenext=\"{{noengagenext}}\"\n            ba-gallerysidebar=\"{{gallerysidebar}}\"\n        ></ba-{{dynnext}}>\n        <div class=\"{{css}}-tooltips-list-container\"\n            ba-repeat=\"{{tooltip :: tooltips}}\"\n        >\n            <ba-{{dyntooltip}}\n                ba-if=\"{{tooltip.tooltiptext}}\"\n                ba-id=\"{{tooltip.id}}\"\n                ba-tooltip=\"{{tooltip}}\"\n                ba-playing=\"{{playing}}\"\n                ba-adsplaying=\"{{adsplaying}}\"\n            ></ba-{{dyntooltip}}>\n        </div>\n        <div ba-show=\"{{(videoelement_active || !imageelement_active) && !silent_attach}}\" class=\"{{css}}-video-container\">\n            <video tabindex=\"-1\" class=\"{{css}}-video {{csscommon}}-{{videofitstrategy}}-fit\" data-video=\"video\"\n                   preload=\"{{preload ? 'auto' : 'metadata'}}\"\n                   elementtiming=\"ba-player-video\"\n                   ba-toggle:playsinline=\"{{!playfullscreenonmobile}}\"\n            ></video>\n        </div>\n        <div ba-show=\"{{(imageelement_active && !videoelement_active) || silent_attach}}\" class=\"{{css}}-poster-container\">\n            <img tabindex=\"-1\" data-image=\"image\" alt=\"{{posteralt}}\"\n                 class=\"{{csscommon}}-{{posterfitstrategy}}-fit\"\n                 elementtiming=\"ba-player-poster\"\n            />\n        </div>\n        <ba-{{dynadsplayer}}\n            ba-if=\"{{adsplayer_active}}\"\n            ba-ad=\"{{=ad}}\"\n            ba-addata=\"{{=addata}}\"\n            ba-adsmanagerloaded=\"{{=adsmanagerloaded}}\"\n            ba-ads_loaded=\"{{=ads_loaded}}\"\n            ba-ads_load_started=\"{{=ads_load_started}}\"\n            ba-css=\"{{css}}\"\n            ba-cssplayer=\"{{cssplayer}}\"\n            ba-csscommon=\"{{csscommon}}\"\n            ba-testid=\"{{testid}}\"\n            ba-duration=\"{{=adduration}}\"\n            ba-debug_ima=\"{{debug_ima}}\"\n            ba-volume=\"{{adsunmuted ? volume : 0}}\"\n            ba-muted=\"{{muted}}\"\n            ba-containerstyle=\"{{containerSizingStyles}}\"\n            ba-unmuteonclick=\"{{unmuteonclick}}\"\n            ba-adtagurl=\"{{adtagurl}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-adsunmuted=\"{{=adsunmuted}}\"\n            ba-inlinevastxml=\"{{inlinevastxml}}\"\n            ba-outstreamoptions=\"{{outstreamoptions}}\"\n            ba-quartile=\"{{=adsquartile}}\"\n            ba-userhadplayerinteraction=\"{{userhadplayerinteraction}}\"\n            ba-controlbarstyles=\"{{controlbarstyles}}\"\n            ba-sidebar_active=\"{{sidebar_active}}\"\n            ba-imasettings=\"{{imasettings}}\"\n            ba-event:fullscreen=\"toggle_fullscreen\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-hidecontrolbar=\"{{!adscontrolbar_active}}\"\n            ba-hideadscontrolbar=\"{{hideadscontrolbar}}\"\n            ba-tmplcontrolbar=\"{{tmpladscontrolbar}}\"\n            ba-dyncontrolbar=\"{{dynadscontrolbar}}\"\n            ba-companionad=\"{{companionad}}\"\n            ba-tooltips=\"{{tooltips}}\"\n            ba-companionads=\"{{=companionads}}\"\n            ba-hideoninactivity=\"{{(activity_delta > hidebarafter) && hideoninactivity}}\"\n            ba-view_type=\"{{view_type}}\"\n            ba-adsplaying=\"{{=adsplaying}}\"\n            ba-playing=\"{{=adnotpaused}}\"\n            ba-showlearnmorebutton=\"{{showlearnmorebutton}}\"\n            ba-moredetailslink=\"{{=moredetailslink}}\"\n            ba-moredetailstext=\"{{=moredetailstext}}\"\n            ba-mobileview=\"{{mobileview}}\"\n            ba-floating=\"{{is_floating}}\"\n            ba-withsidebar=\"{{with_sidebar}}\"\n            ba-floatingoptions=\"{{floatingoptions}}\"\n            ba-mobileviewport=\"{{mobileviewport}}\"\n            ba-adchoicesontop=\"{{adchoicesontop && !gallerysidebar}}\"\n            ba-presetedtooltips=\"{{presetedtooltips}}\"\n            ba-showadchoices=\"{{showadchoices}}\"\n            ba-imaadsrenderingsetting=\"{{imaadsrenderingsetting}}\"\n            ba-autoplay=\"{{autoplay}}\"\n            ba-vmapads=\"{{vmapads}}\"\n            ba-ads_request_options=\"{{ads_request_options}}\"\n        ></ba-{{dynadsplayer}}>\n        <div class=\"{{css}}-overlay {{hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''}}\"\n             ba-show=\"{{!showbuiltincontroller && !outstream && !adsplaying}}\" style=\"{{placeholderstyle}}\"\n             data-testid=\"{{testid}}-content-player-container\"\n        >\n            <div tabindex=\"-1\" class=\"{{css}}-player-toggle-overlay\" data-selector=\"player-toggle-overlay\"\n                 ba-hotkey:right=\"{{seek(position + skipseconds)}}\" ba-hotkey:left=\"{{seek(position - skipseconds)}}\"\n                 ba-hotkey:alt+right=\"{{seek(position + skipseconds * 3)}}\" ba-hotkey:alt+left=\"{{seek(position - skipseconds * 3)}}\"\n                 ba-hotkey:up=\"{{set_volume(volume + 0.1)}}\" ba-hotkey:down=\"{{set_volume(volume - 0.1)}}\"\n                 ba-hotkey:space^enter=\"{{toggle_player(true)}}\"\n                 ba-click=\"{{toggle_player(true)}}\"\n            ></div>\n            <ba-{{dyntrimmer}}\n                ba-if=\"{{trimmingmode && videoelement_active}}\"\n                ba-playing=\"{{playing}}\"\n                ba-startposition=\"{{=starttime}}\"\n                ba-position=\"{{position}}\"\n                ba-endposition=\"{{=endtime}}\"\n                ba-minduration=\"{{timeminlimit}}\"\n                ba-duration=\"{{duration}}\"\n                ba-source=\"{{source}}\"\n                ba-event:play=\"play\"\n                ba-event:pause=\"pause\"\n                ba-event:seek=\"seek\"\n            ></ba-{{dyntrimmer}}>\n            <ba-{{dyncontrolbar}}\n                ba-show=\"{{controlbar_active && !hidecontrolbar}}\"\n                ba-css=\"{{csscontrolbar || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-testid=\"{{testid}}\"\n                ba-logo=\"{{controlbar_logo}}\"\n                ba-themecolor=\"{{themecolor}}\"\n                ba-template=\"{{tmplcontrolbar}}\"\n                ba-playing=\"{{playing}}\"\n                ba-showcontroll=\"{{showcontroll}}\"\n                ba-playwhenvisible=\"{{playwhenvisible}}\"\n                ba-playerspeeds=\"{{playerspeeds}}\"\n                ba-playercurrentspeed=\"{{playercurrentspeed}}\"\n                ba-playlist=\"{{playlist}}\"\n                ba-airplay=\"{{airplay}}\"\n                ba-airplaybuttonvisible=\"{{airplaybuttonvisible}}\"\n                ba-chromecast=\"{{chromecast}}\"\n                ba-castbuttonvisble=\"{{castbuttonvisble}}\"\n                ba-sidebar_active=\"{{sidebar_active}}\"\n                ba-tabindex=\"{{tabindex}}\"\n                ba-showchaptertext=\"{{showchaptertext}}\"\n                ba-chapterslist=\"{{chapterslist}}\"\n                ba-tracktextvisible=\"{{tracktextvisible}}\"\n                ba-tracktags=\"{{tracktags}}\"\n                ba-showsubtitlebutton=\"{{hassubtitles && tracktagssupport}}\"\n                ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n                ba-tracksshowselection=\"{{tracksshowselection}}\"\n                ba-volume=\"{{volume}}\"\n                ba-muted=\"{{muted}}\"\n                ba-unmuteonclick=\"{{unmuteonclick}}\"\n                ba-duration=\"{{duration}}\"\n                ba-cached=\"{{buffered}}\"\n                ba-title=\"{{title}}\"\n                ba-prominent_title=\"{{prominent_title}}\"\n                ba-closeable_title=\"{{closeable_title}}\"\n                ba-position=\"{{position}}\"\n                ba-activitydelta=\"{{activity_delta}}\"\n                ba-hasnext=\"{{hasnext}}\"\n                ba-hideoninactivity=\"{{hideoninactivity}}\"\n                ba-hidebarafter=\"{{hidebarafter}}\"\n                ba-rerecordable=\"{{rerecordable}}\"\n                ba-submittable=\"{{submittable}}\"\n                ba-frameselectionmode=\"{{frameselectionmode}}\"\n                ba-timeminlimit=\"{{timeminlimit}}\"\n                ba-streams=\"{{streams}}\"\n                ba-currentstream=\"{{=currentstream}}\"\n                ba-fullscreen=\"{{fullscreensupport && !nofullscreen}}\"\n                ba-fullscreened=\"{{fullscreened}}\"\n                ba-source=\"{{source}}\"\n                ba-disablepause=\"{{disablepause}}\"\n                ba-disableseeking=\"{{disableseeking}}\"\n                ba-skipseconds=\"{{skipseconds}}\"\n                ba-skipinitial=\"{{skipinitial}}\"\n                ba-settingsmenubutton=\"{{showsettingsmenu}}\"\n                ba-settingsmenuactive=\"{{settingsmenu_active}}\"\n                ba-hidevolumebar=\"{{hidevolumebar}}\"\n                ba-manuallypaused=\"{{manuallypaused}}\"\n                ba-view_type=\"{{view_type}}\"\n                ba-is_floating=\"{{is_floating}}\"\n                ba-isseeking=\"{{=isseeking}}\"\n                ba-with_sidebar=\"{{with_sidebar}}\"\n                ba-event:rerecord=\"rerecord\"\n                ba-event:submit=\"submit\"\n                ba-event:play=\"play\"\n                ba-event:pause=\"pause\"\n                ba-event:position=\"seek\"\n                ba-event:volume=\"set_volume\"\n                ba-event:set_speed=\"set_speed\"\n                ba-event:settings_menu=\"toggle_settings_menu\"\n                ba-event:fullscreen=\"toggle_fullscreen\"\n                ba-event:toggle_player=\"toggle_player\"\n                ba-event:tab_index_move=\"tab_index_move\"\n                ba-event:seek=\"seek\"\n                ba-event:toggle_tracks=\"toggle_tracks\"\n                ba-event:toggle_volume=\"toggle_volume\"\n            ></ba-{{dyncontrolbar}}>\n\n            <ba-{{dyntracks}}\n                ba-css=\"{{csstracks || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-show=\"{{tracktagssupport || allowtexttrackupload}}\"\n                ba-tracksshowselection=\"{{tracksshowselection}}\"\n                ba-trackselectorhovered=\"{{trackselectorhovered}}\"\n                ba-tracktags=\"{{tracktags}}\"\n                ba-hidebarafter=\"{{hidebarafter}}\"\n                ba-tracktagsstyled=\"{{tracktagsstyled}}\"\n                ba-trackcuetext=\"{{trackcuetext}}\"\n                ba-tracktextvisible=\"{{tracktextvisible}}\"\n                ba-allowtexttrackupload=\"{{allowtexttrackupload}}\"\n                ba-uploadtexttracksvisible=\"{{uploadtexttracksvisible}}\"\n                ba-acceptedtracktexts=\"{{acceptedtracktexts}}\"\n                ba-uploadlocales=\"{{uploadlocales}}\"\n                ba-activitydelta=\"{{activity_delta}}\"\n                ba-hideoninactivity=\"{{hideoninactivity}}\"\n                ba-event:selected_label_value=\"selected_label_value\"\n                ba-event:upload-text-tracks=\"upload_text_tracks\"\n                ba-event:move_to_option=\"move_to_option\"\n            ></ba-{{dyntracks}}>\n\n            <ba-{{dynsettingsmenu}}\n                ba-css=\"{{css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-show=\"{{settingsmenu_active}}\"\n                ba-template=\"{{tmplsettingsmenu}}\"\n                ba-toggle_settings_menu=\"{{toggle_settings_menu}}\"\n                ba-toggle_share=\"{{toggle_share}}\"\n            ></ba-{{dynsettingsmenu}}>\n\n            <ba-{{dynplaybutton}}\n                ba-show=\"{{playbutton_active}}\"\n                ba-css=\"{{cssplaybutton || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-testid=\"{{testid}}\"\n                ba-template=\"{{tmplplaybutton}}\"\n                ba-rerecordable=\"{{rerecordable}}\"\n                ba-submittable=\"{{submittable}}\"\n                ba-trimmingmode=\"{{trimmingmode}}\"\n                ba-showduration=\"{{showduration}}\"\n                ba-duration=\"{{duration}}\"\n                ba-event:play=\"playbutton_click\"\n                ba-event:rerecord=\"rerecord\"\n                ba-event:submit=\"submit\"\n                ba-event:tab_index_move=\"tab_index_move\"\n            ></ba-{{dynplaybutton}}>\n\n            <ba-{{dynloader}}\n                ba-css=\"{{cssloader || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-testid=\"{{testid}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplloader}}\"\n                ba-playwhenvisible=\"{{playwhenvisible}}\"\n                ba-show=\"{{loader_active}}\"\n            ></ba-{{dynloader}}>\n\n            <ba-{{dynshare}}\n                ba-css=\"{{cssshare || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplshare}}\"\n                ba-show=\"{{sharevideourl && sharevideo.length > 0 && share_active}}\"\n                ba-visible=\"{{=share_active}}\"\n                ba-url=\"{{sharevideourl}}\"\n                ba-shares=\"{{sharevideo}}\"\n            ></ba-{{dynshare}}>\n\n            <ba-{{dynmessage}}\n                ba-css=\"{{cssmessage || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmplmessage}}\"\n                ba-show=\"{{message_active}}\"\n                ba-message=\"{{message}}\"\n                ba-event:click=\"message_click\"\n            ></ba-{{dynmessage}}>\n\n            <ba-{{dyntopmessage}}\n                ba-css=\"{{csstopmessage || css}}\"\n                ba-csstheme=\"{{csstheme || css}}\"\n                ba-cssplayer=\"{{cssplayer || css}}\"\n                ba-theme-color=\"{{themecolor}}\"\n                ba-template=\"{{tmpltopmessage}}\"\n                ba-show=\"{{topmessage}}\"\n                ba-topmessage=\"{{topmessage}}\"\n            ></ba-{{dyntopmessage}}>\n        </div>\n        <div ba-show=\"{{useAspectRatioFallback}}\" ba-styles=\"{{aspectRatioFallback}}\"></div>\n    </div>\n    <div ba-show=\"{{show_sidebar}}\" class=\"{{cssplayer}}-sidebar\"\n         ba-styles=\"{{sidebarstyles}}\" data-testid=\"{{testid}}-player-sidebar\"\n    >\n        <ba-{{dynsidebar}}\n            ba-if=\"{{sidebar_active}}\"\n            ba-css=\"{{css}}\"\n            ba-cssplayer=\"{{cssplayer}}\"\n            ba-csscommon=\"{{csscommon}}\"\n            ba-csstheme=\"{{csstheme || css}}\"\n            ba-ad=\"{{ad}}\"\n            ba-title=\"{{next_active ? '' : title || 'Video Player'}}\"\n            ba-addata=\"{{addata}}\"\n            ba-companionads=\"{{companionads}}\"\n            ba-fullscreened=\"{{fullscreened}}\"\n            ba-is_floating=\"{{is_floating}}\"\n            ba-showlearnmorebutton=\"{{showlearnmorebutton}}\"\n            ba-sidebaroptions=\"{{sidebaroptions}}\"\n            ba-floatingoptions=\"{{floatingoptions}}\"\n            ba-floatingsidebar=\"{{floatingsidebar}}\"\n            ba-showsidebargallery=\"{{showsidebargallery}}\"\n            ba-gallerysidebar=\"{{gallerysidebar}}\"\n            ba-adchoiceslink=\"{{adchoiceslink}}\"\n            ba-moredetailslink=\"{{moredetailslink}}\"\n            ba-moredetailstext=\"{{moredetailstext}}\"\n            ba-adsplaying=\"{{adsplaying}}\"\n            ba-linear=\"{{=linear}}\"\n            ba-playlist=\"{{playlist}}\"\n            ba-playing=\"{{playing}}\"\n            ba-position=\"{{position}}\"\n            ba-shownext=\"{{shownext}}\"\n            ba-nextactive=\"{{next_active}}\"\n            ba-noengagenext=\"{{noengagenext}}\"\n            ba-mobileviewport=\"{{mobileviewport}}\"\n            ba-showadchoices=\"{{showadchoices}}\"\n            ba-unknownadsrc=\"{{unknownadsrc}}\"\n            ba-event:pause_ads=\"pause_ads\"\n        ></ba-{{dynsidebar}}>\n    </div>\n    <div ba-if=\"{{!fullscreened && is_floating && floatingoptions.closeable}}\"\n         class=\"{{cssplayer}}-close-container\"\n         ba-click=\"close_floating()\"\n         ba-on:touchend=\"{{close_floating()}}\"\n    >\n        <svg viewBox=\"0 0 32 32\" xml:space=\"preserve\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path\n                d=\"m17.459 16.014 8.239-8.194a.992.992 0 0 0 0-1.414 1.016 1.016 0 0 0-1.428 0l-8.232 8.187L7.73 6.284a1.009 1.009 0 0 0-1.428 0 1.015 1.015 0 0 0 0 1.432l8.302 8.303-8.332 8.286a.994.994 0 0 0 0 1.414 1.016 1.016 0 0 0 1.428 0l8.325-8.279 8.275 8.276a1.009 1.009 0 0 0 1.428 0 1.015 1.015 0 0 0 0-1.432l-8.269-8.27z\"\n                class=\"{{cssplayer}}-close-svg-button\"\n            ></path>\n        </svg>\n    </div>\n</div>\n",
 
                 attrs: function() {
                     return {
@@ -5904,7 +5922,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "showsidebargallery": false,
                         "sidebaroptions": {
                             // percentage by default, or could be in px
-                            "presetwidth": 30,
+                            "presetwidth": 24,
                             "afteradsendtext": null,
                             "gallerytitletext": null,
                             "headerlogourl": null,
@@ -6143,12 +6161,12 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             // "fluidsidebar": true, // TODO: not works for now, if false, 50% width will be applied on sidebar
                             "desktop": {
                                 "position": "bottom-right", // position of floating video player for desktop
+                                "height": 197,
                                 "bottom": 30,
                                 "sidebar": false,
                                 "companionad": false
 
                                 /** optional settings */
-                                // "height": number,
                                 // "size": null", // any key
                                 // "availablesizes": {
                                 //     'key1': heightInNumber, 'key2': heightInNumber2, ...
@@ -6156,6 +6174,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             },
                             "mobile": {
                                 "position": "top", // positions of floating video player for mobile
+                                "height": 75,
                                 "sidebar": true,
                                 "companionad": true,
                                 "positioning": {
@@ -6164,7 +6183,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     "applyProperty": 'margin-top' // will apply height of the relativeSelector
                                 }
                                 /** optional settings */
-                                // "height": number,
                                 // "size": null", // any key
                                 // "availablesizes": {
                                 //     'key1': heightInNumber, 'key2': heightInNumber2, ...
@@ -6265,7 +6283,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         "userhadplayerinteraction": false,
                         // If settings are open and visible
                         "states": {
-                            floatingclosed: false,
                             "poster_error": {
                                 "ignore": false,
                                 "click_play": true
@@ -6278,7 +6295,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                 "visible": true
                             }
                         },
-                        "computedstyles": {},
                         "placeholderstyle": "",
                         "hasplaceholderstyle": false,
                         "playerorientation": undefined,
@@ -6564,10 +6580,13 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 computed: {
                     "aspectRatioFallback:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
-                        const f = fallback.split("/");
+                        var f = fallback.split("/");
                         return {
                             paddingTop: 100 / (aspectRatio || (f[0] / f[1])) + "%"
                         };
+                    },
+                    "aspect_ratio:aspectratio,fallback-aspect-ratio": function(aspectRatio, fallback) {
+                        return aspectRatio || fallback;
                     },
                     "hide_sidebar:with_sidebar,is_floating,showsidebargallery,playlist": function(
                         withSidebar, isFloating, showSidebarGallery, playlist
@@ -6595,6 +6614,82 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             this.set("nextwidget", this.get("sidebaroptions.autonext"));
                         }
                         return this.get("floatingsidebar") || this.get("gallerysidebar");
+                    },
+                    "playercontainerstyles:show_sidebar,gallerysidebar,sidebaroptions.presetwidth,fullscreened,videowidth,is_floating": function(showSidebar, gallerySidebar, sidebarPresetWidth, fullscreened, videoWidth, isFloating) {
+                        let width, styles;
+                        // before setting any computed to sidebar width, we set a default max-width value based on showSidebar, gallerySidebar and isFloating states.
+                        const defaultMaxWidthSB = (showSidebar && gallerySidebar && !isFloating) ? '30%' : '50%';
+                        this.set("sidebarstyles", {
+                            maxWidth: defaultMaxWidthSB
+                        });
+                        if (showSidebar && gallerySidebar && !fullscreened) {
+                            if (typeof sidebarPresetWidth === "string") {
+                                sidebarPresetWidth = sidebarPresetWidth.includes("%") ?
+                                    parseFloat(sidebarPresetWidth).toFixed(2) :
+                                    sidebarPresetWidth;
+                            }
+                            if (sidebarPresetWidth) {
+                                if (!width) width = typeof sidebarPresetWidth === "number" ? ((100 - sidebarPresetWidth) + "%") : `calc(100% - ${sidebarPresetWidth})`;
+                                if (window && window.CSS) {
+                                    styles = window.CSS.supports("width", width);
+                                }
+                                if (width && Types.is_defined(styles) && styles) {
+                                    this.set("controlbarstyles", {
+                                        width: width
+                                    });
+                                    return {
+                                        width: width,
+                                        position: 'relative'
+                                    };
+                                }
+                            } else if (videoWidth && this.__video && this.get("width") && this.activeElement()) {
+                                let sidebarWidth;
+                                const videoWidthInNumber = Dom.elementDimensions(this.__video).width;
+                                const videoHeightInNumber = Dom.elementDimensions(this.__video).height;
+                                const playerContainerWidthInNumber = Dom.elementDimensions(this.activeElement()).width;
+                                const playerContainerHeightInNumber = Dom.elementDimensions(this.activeElement()).height;
+                                if (playerContainerHeightInNumber > 0 && videoHeightInNumber) {
+                                    let _ar = this.get("sidebaroptions.preferredratio") || 1.7778;
+                                    if (Types.is_string(_ar)) {
+                                        if (_ar.includes("/"))
+                                            _ar = parseFloat(_ar.split("/").reduce((a, b) => a / b));
+                                        else if (_ar.includes(":"))
+                                            _ar = parseFloat(_ar.split(":").reduce((a, b) => a / b));
+                                    }
+                                    _ar = Number(parseFloat(_ar).toFixed(2));
+                                    if (typeof _ar === "number") {
+                                        sidebarWidth = playerContainerWidthInNumber - (playerContainerHeightInNumber * _ar);
+                                    }
+                                    if (sidebarWidth && sidebarWidth > 0) {
+                                        // if sidebar non-fluid, we will calculate based on preferred ar or first video we're getting
+                                        if (!this.get('sidebaroptions.fluid')) {
+                                            this.set("sidebaroptions.presetwidth", sidebarWidth + "px");
+                                        }
+                                        this.set("sidebarstyles", {
+                                            maxWidth: sidebarWidth + 'px',
+                                        });
+                                        this.set("controlbarstyles", {
+                                            maxWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
+                                        });
+                                        return {
+                                            minWidth: (playerContainerWidthInNumber - sidebarWidth) + 'px',
+                                            flexBasis: 0,
+                                        };
+                                    } else if (videoWidthInNumber) {
+                                        this.set("controlbarstyles", {
+                                            maxWidth: videoWidthInNumber + 'px',
+                                        });
+                                        return {
+                                            minWidth: videoWidthInNumber + 'px',
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                        // reset styles
+                        this.set("sidebarstyles", {});
+                        this.set("controlbarstyles", {});
+                        return {};
                     },
                     "adsinitialized:adtagurl,inlinevastxml": function(adsTagURL, inlineVastXML) {
                         if ((!!adsTagURL || !!inlineVastXML) && !this.get("adshassource")) {
@@ -6626,71 +6721,101 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (hidebeforeadstarts && adshassource) return !adsinitialized;
                         return false;
                     },
-                    "containerSizingStyles:computedstyles,is_floating": function(styles, isFloating) {
-                        if (!styles?.activeElement) return this.get('containerSizingStyles') || {};
-                        let {
-                            player,
-                            sidebar,
-                            floating,
-                            container,
-                            aspectRatio,
-                            activeElement,
-                        } = styles;
+                    "containerSizingStyles:outstream,aspect_ratio,height,width,is_floating,hideplayer,floatingoptions.floatingonly,fullscreened,showsidebargallery,gallerysidebar,layout": function(
+                        outstream,
+                        aspectRatio,
+                        height,
+                        width,
+                        isFloating,
+                        hidden,
+                        floatingonly,
+                        fullscreened,
+                        showsidebargallery,
+                        gallerySidebar,
+                        layout,
+                    ) {
+                        let containerStyles, styles;
+                        styles = {
+                            aspectRatio: aspectRatio
+                        };
 
+                        // Removing player space on article if outstream
+                        if (outstream && this.activeElement()?.parentNode) {
+                            this.activeElement().parentNode.style = {
+                                height: 0
+                            };
+                        }
+
+                        if (!fullscreened && gallerySidebar) styles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        if (height) styles.height = isNaN(height) ? height : parseFloat(height).toFixed(2) + "px";
+                        if (width) styles.width = isNaN(width) ? width : parseFloat(width).toFixed(2) + "px";
+                        containerStyles = floatingonly ? {
+                            height: 0
+                        } : Objs.extend({}, styles);
+                        if (!gallerySidebar && showsidebargallery && layout === "desktop" && !fullscreened) {
+                            if (!outstream) containerStyles.aspectRatio = this.get("sidebaroptions.aspectratio") || 838 / 360;
+                        }
                         if (isFloating) {
-                            player = floating.player || {};
-                            sidebar = floating.sidebar || {};
-                            container = floating.container || {};
-                            if (container.width && container.height && container.aspectRatio) {
-                                delete container.aspectRatio;
-                            }
-                            this.resetResizeObserver(this.activeElement()?.firstChild);
-                        } else {
-                            if (aspectRatio) {
-                                this.set("aspect_ratio", aspectRatio);
-                                container.aspectRatio = aspectRatio;
-                                activeElement.aspectRatio = aspectRatio;
-                            } else if (container.height) {
-                                activeElement.height = container.height;
-                            }
-                            this.__lastActiveElementStyles = this._applyStyles(this.activeElement(), activeElement, this.__lastActiveElementStyles);
-                            this.resetResizeObserver(this.activeElement());
+                            const calculated = this.__calculateFloatingDimensions();
+
+                            const floatingTop = calculated.floating_top;
+                            const floatingBottom = calculated.floating_bottom;
+                            const floatingRight = calculated.floating_right;
+                            const floatingLeft = calculated.floating_left;
+
+                            if (floatingTop !== undefined) styles.top = parseFloat(floatingTop).toFixed() + 'px';
+                            if (floatingRight !== undefined) styles.right = parseFloat(floatingRight).toFixed() + 'px';
+                            if (floatingBottom !== undefined) styles.bottom = parseFloat(floatingBottom).toFixed() + 'px';
+                            if (floatingLeft !== undefined) styles.left = parseFloat(floatingLeft).toFixed() + 'px';
+
+                            const floatingWidth = calculated.floating_width;
+                            const floatingHeight = calculated.floating_height;
+
+                            if (floatingWidth) styles.width = isNaN(floatingWidth) ? floatingWidth : parseFloat(floatingWidth).toFixed(2) + "px";
+                            if (floatingHeight) styles.height = isNaN(floatingHeight) ? floatingHeight : parseFloat(floatingHeight).toFixed(2) + "px";
                         }
-                        if (container.width && container.height && container.aspectRatio) {
-                            this.set(`aspect_ratio`, null);
-                            delete container.aspectRatio;
+
+                        if (hidden) {
+                            styles.opacity = 0;
+                            if (isFloating) {
+                                styles.display = 'none';
+                                return styles;
+                            }
                         }
-                        this.set("sidebarstyles", sidebar);
-                        this.set("playercontainerstyles", player);
-                        Functions.debounce(() => {
-                            this._styleApplyingLocked = false;
-                            this.trigger("resize", {
-                                width: container.width,
-                                height: container.height
-                            });
-                        }, 10)();
-                        this._styleApplyingLocked = true;
-                        return container;
+
+                        if (this.activeElement()) {
+                            if (containerStyles.width && (containerStyles.width).toString().includes("%") && (styles.width).toString().includes("%")) {
+                                // If container width is in percentage, then we need to set the width of the player to auto
+                                // in other case width will be applied twice
+                                containerStyles.width = "100%";
+                            }
+                            this._applyStyles(this.activeElement(), containerStyles, this.__lastContainerSizingStyles);
+                            this.__lastContainerSizingStyles = containerStyles;
+                        }
+                        if (fullscreened) {
+                            delete styles.width;
+                            delete styles.height;
+                        }
+                        return styles;
                     },
-                    "cssfloatingclasses:floatingoptions.desktop.position,floatingclosed": function(position, closed) {
-                        if (closed) return "";
+                    "cssfloatingclasses:floatingoptions.desktop.position": function(position) {
                         return [
                             this.get("cssplayer") + "-floating",
                             this.get("csscommon") + "-sticky",
                             this.get("csscommon") + "-sticky-" + position || "bottom-right",
-                            this.floatHandler && this.floatHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
+                            this.FloatHandler && this.FloatHandler.elementWasDragged() ? "ba-commoncss-fade-up" : ""
                         ].join(" ");
                     },
                     "buffering:buffered,position,last_position_change_delta,playing": function(buffered, position, ld, playing) {
                         if (playing) this.__playedStats(position, this.get("duration"));
-                        return playing && buffered < position && ld > 1000;
+                        return this.get("playing") && this.get("buffered") < this.get("position") && this.get("last_position_change_delta") > 1000;
                     },
                     "is_floating:view_type,fullscreened": function(view_type, fullscreened) {
                         if (fullscreened) return false;
                         return view_type === "float" || (view_type && this.get("floatingoptions.floatingonly"));
                     },
                     "layout:mobileviewport": function(mobileviewport) {
-                        this.applyPresets(mobileviewport);
+                        this.applyPresets();
                         return mobileviewport ? "mobile" : "desktop";
                     },
                     "placement:outstream": function(outstream) {
@@ -6701,9 +6826,9 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         return ["first", "second", "third", "fourth"][passedQuarter];
                     },
                     "orientation:videowidth,videoheight,fallback-aspect-ratio": function(videoWidth, videoHeight, fallbackAspectRatio) {
-                        const fallbackDimensions = fallbackAspectRatio.split("/");
-                        const width = videoWidth || fallbackDimensions[0];
-                        const height = videoHeight || fallbackDimensions[1];
+                        var fallbackDimensions = fallbackAspectRatio.split("/");
+                        var width = videoWidth || fallbackDimensions[0];
+                        var height = videoHeight || fallbackDimensions[1];
                         if (width === height) return "square";
                         return width > height ? "landscape" : "portrait";
                     }
@@ -6722,7 +6847,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                     if (this.get("autoplaywhenvisible")) {
                         this.set("autoplay", true);
-                        Dom.onScrollIntoView(this.activeElement().firstChild, this.get("visibilityfraction"), function() {
+                        Dom.onScrollIntoView(this.activeElement(), this.get("visibilityfraction"), function() {
                             if (this.destroyed()) return;
                             this.set("autoplaywhenvisible", false);
                         }, this);
@@ -6765,7 +6890,16 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("prominent_title", this.get("prominent-title"));
                     this.set("closeable_title", this.get("closeable-title"));
                     this.__initFloatingOptions();
+                    this._observer = new ResizeObserver(function(entries) {
+                        for (var i = 0; i < entries.length; i++) {
+                            this.trigger("resize", {
+                                width: entries[i].contentRect.width,
+                                height: entries[i].contentRect.height
+                            });
+                        }
+                    }.bind(this));
                     this.initAdSources();
+                    this._observer.observe(this.activeElement().firstChild);
                     this._validateParameters();
                     // Will set volume initial state
                     this.set("initialoptions", Objs.tree_merge(this.get("initialoptions"), {
@@ -6850,7 +6984,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set("firefox", Info.isFirefox());
                     this.set("mobileview", Info.isMobile());
                     this.set("mobileviewport", this.__isInMobileViewport());
-                    this.applyPresets(this.get("mobileviewport"));
+                    this.applyPresets();
                     this.set("hasnext", this.get("loop") || this.get("loopall") || this.get("playlist") && this.get("playlist").length > 1);
                     // For Apple, it's very important that their users always remain in control of the volume of the sounds their devices emit
                     this.set("hidevolumebar", (Info.isMobile() && Info.isiOS()));
@@ -6907,21 +7041,68 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // to detect only video playing container dimensions, when there also sidebar exists
                     this.__playerContainer = this.activeElement().querySelector("[data-selector='ba-player-container']");
 
-                    this.__initFloatingOptions();
-                    this.__initResizeSensitiveAttributes();
+                    const isAbleToFloatOnViewport = () => {
+                        if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
+                        if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
+                        return true;
+                    }
+                    if (this.get("floatingoptions.floatingonly") && isAbleToFloatOnViewport()) {
+                        this.set("view_type", "float")
+                    }
+                    // Only init floatHandler if floantingonly is desabled
+                    const floating = this.get("sticky") || this.get("floating");
+                    if (floating && !this.get("floatingoptions.floatingonly")) {
+                        var stickyOptions = {
+                            threshold: this.get("sticky-threshold") || this.get("floatingoptions.threshold"),
+                            paused: (this.get("sticky-starts-paused") || this.get("floatingoptions.starts-paused")) || !floating,
+                            "static": this.get("floatingoptions.static"),
+                            floatCondition: function(elementRect) {
+                                if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
+                                if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
+                                if (this.get("floatingoptions.noFloatIfAbove") && this.get("mobileviewport") && elementRect.top >= 0) return false
+                                if (this.get("floatingoptions.noFloatIfBelow") && this.get("mobileviewport") && elementRect.top <= 0) return false
+                                return true;
+                            }.bind(this),
+                        };
+                        this.floatHandler = this.auto_destroy(new FloatHandler(
+                            this.activeElement().firstChild,
+                            this.activeElement(),
+                            stickyOptions
+                        ));
+
+                        this.floatHandler.on("transitionToFloat", function() {
+                            this.set("view_type", "float");
+                        }, this);
+                        this.floatHandler.on("transitionToView", function() {
+                            this.set("view_type", "default");
+                        }, this);
+                        this.floatHandler.on("transitionOutOfView", function() {
+                            this.set("view_type", "out_of_view");
+                        }, this);
+                        this.delegateEvents(null, this.floatHandler);
+                        this.floatHandler.init();
+
+                        if (this.get("floating") && this.get("floatingoptions").mobile) {
+                            const floatingElement = this.floatHandler.element;
+                            const viewport = window.visualViewport;
+
+                            function viewportHandler() {
+                                floatingElement.style.transform = `translate(${viewport.offsetLeft}px, ${viewport.offsetTop}px)`;
+                            }
+
+                            viewport.addEventListener("scroll", viewportHandler);
+
+                        }
+                    }
+                    if (Info.isSafari()) {
+                        this.vidEle = document.createElement('video');
+                        this.imgEle = document.createElement('img');
+                    }
 
                     // Init the number of outstream ad error retries on immediate requests.
                     if (this.get('outstream') && this.get('outstreamoptions.recurrenceperiod') === 0) {
                         this.setImmediateOutstreamRequests(true);
                     }
-                    this.__computeContainersStyleStates();
-                    this._activeElementResizeObserver = new ResizeObserver(function(entries) {
-                        for (let i = 0; i < entries.length; i++) {
-                            if (!this._styleApplyingLocked) {
-                                this.__computeContainersStyleStates(entries[i]?.contentRect);
-                            }
-                        }
-                    }.bind(this));
                 },
 
                 /**
@@ -7217,13 +7398,11 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     if (this.get("stretch") || this.get("stretchwidth") || this.get("stretchheight")) {
                         console.warn("Stretch parameters were deprecated, your player will stretch to the full container width by default.");
                     }
-                    // TODO:  check and remove if useless
-                    // if (this.get("floating") && this.get("floatingoptions.mobile.position") && !(mobilePositions.includes(this.get("floatingoptions.mobile.position")))) {
                     if (this.get("floating") && !(mobilePositions.includes(this.get("floatingoptions").mobile))) {
                         console.warn("Please choose one of the following values instead:", mobilePositions);
                     }
 
-                    const deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];
+                    var deprecatedCSS = ["minheight", "minwidth", "minheight", "minwidth"];
                     deprecatedCSS.forEach(function(parameter) {
                         if (Types.is_string(parameter)) {
                             if (this.get(parameter))
@@ -7231,7 +7410,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                     }.bind(this));
 
-                    const deprecatedParams = {
+                    var deprecatedParams = {
                         "sticky-position": "floatingoptions.desktop.position",
                     };
                     Object.keys(deprecatedParams).forEach(function(key) {
@@ -7248,14 +7427,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         if (this.get(key))
                             console.warn(key + " parameter will be deprecated on future version, please use " + toBeDeprecatedParams[key] + " instead.");
                     }.bind(this));
-
-                    if (this.get("height")) {
-                        let supportedHeight = typeof this.get("height") === "number";
-                        supportedHeight ||= isNaN(this.get("height")) && this.get("height").includes("px");
-                        if (!supportedHeight) {
-                            console.warn(`Please set height as px or just a number, other way of settings are deprecated`);
-                        }
-                    }
                 },
 
                 getCurrentPosition: function() {
@@ -7417,6 +7588,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }
                             const floating = this.get("sticky") || this.get("floating");
                             if (this.get("sample_brightness")) this.__brightnessSampler.start();
+                            if (floating && this.floatHandler) this.floatHandler.start();
                             this.set("playing", true);
                             this.trigger("playing");
 
@@ -8144,7 +8316,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                         }
                         destroy = destroy || false;
                         this.trigger("floatingplayerclosed");
-                        this.set(`states.floatingclosed`, true);
                         const floating = this.get("sticky") || this.get("floating");
 
                         // Unset immediateOutstreamRequests on close to prevent ad retries.
@@ -8186,24 +8357,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     };
                 },
 
-                resetResizeObserver: function(element) {
-                    if (this._observedElement !== element) {
-                        this._observedElement = element || this.activeElement().firstChild;
-                        if (this._activeElementResizeObserver) {
-                            this._activeElementResizeObserver.disconnect();
-                        }
-                        if (element || this.activeElement()) {
-                            if (this._activeElementResizeObserver) {
-                                this._activeElementResizeObserver.observe(this._observedElement);
-                            } else {
-                                this.__computeContainersStyleStates();
-                            }
-                        }
-                    }
-                },
-
                 destroy: function() {
-                    if (this._activeElementResizeObserver) this._activeElementResizeObserver.disconnect();
+                    if (this._observer) this._observer.disconnect();
                     if (this._performanceObserver) {
                         this._performanceObserver.disconnect();
                     }
@@ -8466,8 +8621,8 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
                 aspectRatio: function() {
                     // Don't use a shortcut way of getting an aspect ratio, will act as not expected.
-                    const height = this.videoHeight();
-                    const width = this.videoWidth();
+                    var height = this.videoHeight();
+                    var width = this.videoWidth();
 
                     return width / height;
                 },
@@ -8686,52 +8841,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                             }, this);
                         }
                     }, this);
-
-                    const isAbleToFloatOnViewport = () => {
-                        if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
-                        return !(this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport"));
-
-                    }
-                    if (this.get("floatingoptions.floatingonly") && isAbleToFloatOnViewport()) {
-                        this.set("view_type", "float");
-                    }
-
-                    if (this.__isInMobileViewport() && Types.is_object(this.get("floatingoptions.mobile.positioning"))) {
-                        this.__applyMobileRelativePositionBasedOnSelector();
-                    }
-
-                    // Only init floatHandler if floatingonly is disabled
-                    const floating = this.get("sticky") || this.get("floating");
-                    if (floating && !this.get("floatingoptions.floatingonly")) {
-                        const stickyOptions = {
-                            threshold: this.get("sticky-threshold") || this.get("floatingoptions.threshold"),
-                            paused: (this.get("sticky-starts-paused") || this.get("floatingoptions.starts-paused")) || !floating,
-                            "static": this.get("floatingoptions.static"),
-                            floatCondition: function(elementRect) {
-                                if (this.get("floatingoptions.noFloatOnDesktop") && !this.get("mobileviewport")) return false;
-                                if (this.get("floatingoptions.noFloatOnMobile") && this.get("mobileviewport")) return false;
-                                if (this.get("floatingoptions.noFloatIfAbove") && this.get("mobileviewport") && elementRect.top >= 0) return false
-                                return !(this.get("floatingoptions.noFloatIfBelow") && this.get("mobileviewport") && elementRect.top <= 0);
-                            }.bind(this),
-                        };
-                        this.floatHandler = this.auto_destroy(new FloatHandler(
-                            this.activeElement().firstChild,
-                            this.activeElement(),
-                            stickyOptions
-                        ));
-                        this.floatHandler.on("transitionToFloat", function() {
-                            this.set("view_type", "float");
-                        }, this);
-                        this.floatHandler.on("transitionToView", function() {
-                            this.set("view_type", "default");
-                        }, this);
-                        this.floatHandler.on("transitionOutOfView", function() {
-                            this.set("view_type", "out_of_view");
-                        }, this);
-                        this.delegateEvents(null, this.floatHandler);
-                        this.floatHandler.init();
-                        this.floatHandler.start();
-                    }
                 },
 
                 __isInMobileViewport: function() {
@@ -8750,24 +8859,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                  * we have to set via mobile boolean false or object key.
                  * NOTE: if require we also can add floating presets
                  */
-                applyPresets: function(isMobileView) {
-                    const _isMobileView = isMobileView || this.__isInMobileViewport();
-                    // if we have mobile view, then we need to calculate mobile presets
-                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
-                    [`sidebaroptions`, `floatingoptions`].forEach((k) => {
-                        let currentOptions = {
-                            ...this.get(k)
-                        };
-                        if (currentOptions && Types.is_object(currentOptions)) {
-                            const deviceRelatedSidebarOptions = _isMobileView ?
-                                (currentOptions[`mobile`] || {}) : (currentOptions[`desktop`] || {});
-                            currentOptions = {
-                                ...currentOptions,
-                                ...deviceRelatedSidebarOptions
-                            }
-                            this.set(k, currentOptions);
-                        }
-                    });
+                applyPresets: function() {
                     const presetKey = this.get("presetkey");
                     // No need to apply presets if presetkey is not defined
                     if (!presetKey) return;
@@ -8781,10 +8873,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     // will check if attribute exists in root level or in object level
                     const existingAttribute = (key) => Types.is_defined(this.attrs()[key]) || (Types.is_string(key) && key.split('.').some(k => this.attrs()[k]));
 
+                    // if we have mobile view, then we need to calculate mobile presets
+                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
+                    const isMobileView = this.__isInMobileViewport();
+
                     // If it's true then we previously applied all presets
                     if (Types.is_defined(this.get("initialoptions.mobilepresets"))) {
                         // if mobile viewport and we have mobile presets, then apply them
-                        if (_isMobileView) {
+                        if (isMobileView) {
                             // apply only attributes which are defined as desktop presets
                             if (Objs.count(this.get("initialoptions.mobilepresets")) > 0) {
                                 Objs.iter(this.get("initialoptions.mobilepresets"), (v, k) => existingAttribute(k) && this.set(k, v), this);
@@ -8808,15 +8904,95 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                                     } else {
                                         if (Types.is_object(presets.mobile) && presets.mobile[k]) {
                                             this.set(`initialoptions.mobilepresets.${k}`, presets.mobile[k]);
-                                            if (_isMobileView) this.set(k, presets.mobile[k]);
+                                            if (isMobileView) this.set(k, presets.mobile[k]);
                                         }
                                     }
                                 }
                                 // if key already preset in root level, and key contains object key separated via dots
-                                if (existingAttribute(k) && !_isMobileView) this.set(k, v);
+                                if (existingAttribute(k) && !isMobileView) this.set(k, v);
                             }, this);
                         }
                     }
+                },
+
+                /**
+                 * @private
+                 */
+                __calculateFloatingDimensions: function() {
+                    var height, width, playerWidth, position, viewportOptions, response = {};
+                    var aspectRatio = typeof this.get("aspect_ratio") === "string" ? this.get("aspect_ratio").split("/") : 1.77;
+                    // Adding condition: "|| Info.isMobile()" will be always true/false as it's getting data from the userAgent and at once;
+                    var isMobile = this.__isInMobileViewport();
+                    if (Types.is_array(aspectRatio)) {
+                        aspectRatio = aspectRatio[0] / aspectRatio[1];
+                    }
+                    aspectRatio = Number(parseFloat(aspectRatio).toFixed(2));
+                    if (isMobile) {
+                        response.floating_left = 0;
+                        width = '100%'; // Not set via CSS, will break the player
+                        viewportOptions = this.get("floatingoptions.mobile");
+                        if (viewportOptions) {
+                            height = +this.get("floatingoptions.mobile.height");
+                            position = this.get("floatingoptions.mobile.position");
+                        }
+                        if (this.activeElement()) {
+                            this.activeElement().classList.add(this.get("csscommon") + "-full-width");
+                        }
+                        if (Types.is_defined(this.get("floatingoptions.mobile.sidebar")) && this.get("floatingoptions.sidebar"))
+                            this.set("with_sidebar", this.get("floatingoptions.mobile.sidebar"));
+                        if (typeof this.get("floatingoptions.mobile.positioning") === "object") {
+                            var playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
+                            positioningApplySelector = this.get("floatingoptions.mobile.positioning.applySelector");
+                            positioningRelativeSelector = this.get("floatingoptions.mobile.positioning.relativeSelector");
+                            positioningProperty = Strings.camelCase(this.get("floatingoptions.mobile.positioning.applyProperty") || 'margin-top');
+                            if (typeof positioningRelativeSelector === "string") {
+                                if (positioningRelativeSelector)
+                                    playerApplyForSelector = this.activeElement().querySelector(positioningApplySelector);
+                                if (playerApplyForSelector) playerApplyForSelector = this.activeElement().firstChild;
+                                documentRelativeSelector = document.querySelector(positioningRelativeSelector);
+                                if (documentRelativeSelector && playerApplyForSelector) {
+                                    var relativeSelectorHeight = Dom.elementDimensions(documentRelativeSelector).height;
+                                    playerApplyForSelector.style[positioningProperty] = relativeSelectorHeight + 'px';
+                                }
+                            }
+                        }
+                    } else {
+                        viewportOptions = this.get("floatingoptions.desktop");
+                        if (viewportOptions) {
+                            position = viewportOptions.position;
+                            height = +viewportOptions.height;
+                        }
+                        if (this.activeElement()) {
+                            this.activeElement().classList.remove(this.get("csscommon") + "-full-width");
+                        }
+                        if (Types.is_defined(this.get("floatingoptions.desktop.sidebar")) && this.get("floatingoptions.sidebar"))
+                            this.set("with_sidebar", this.get("floatingoptions.desktop.sidebar"));
+                    }
+                    if (position) {
+                        Objs.iter(["top", "right", "bottom", "left"], function(val) {
+                            if (position.includes(val)) {
+                                response['floating_' + val] = viewportOptions[val] ? viewportOptions[val] : 0;
+                            }
+                        }, this);
+                    }
+                    if (height)
+                        height = +parseFloat(height).toFixed(2);
+                    else height = isMobile ?
+                        this.get("fallback-floating-mobile-height") :
+                        this.get("fallback-floating-desktop-height");
+                    // this.set("height", height);
+                    playerWidth = Number(parseFloat(
+                        aspectRatio > 1 ? (aspectRatio * height) : (height / aspectRatio)
+                    ).toFixed(2));
+                    if (this.get("with_sidebar") && !isMobile) {
+                        width = playerWidth + Number(aspectRatio > 1 ? playerWidth : height);
+                    }
+                    response.floating_height = height;
+                    response.player_width = playerWidth;
+                    response.floating_width = width ? width : playerWidth;
+
+                    // this.setAll(response);
+                    return response;
                 },
 
                 /**
@@ -9186,510 +9362,6 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
                     this.set('clearDebounce', clearDebounce);
                 },
 
-                __initResizeSensitiveAttributes: function() {
-                    const resizeSensitiveAttributes = [
-                        "width", "height", "show_sidebar",
-                        "mobileviewport", "layout",
-                        "sidebaroptions.presetwidth",
-                        "fallback-aspect-ratio"
-                    ];
-
-                    resizeSensitiveAttributes.forEach((attr) => {
-                        this.on(`change:${attr}`, () => {
-                            this.__computeContainersStyleStates();
-                        });
-                    });
-                },
-
-                __computeContainersStyleStates: function(resizedContainer) {
-                    const activeElement = resizedContainer?.target || this.activeElement();
-                    if (!activeElement || (this.get("is_floating") && this.get(`states.floatingclosed`))) {
-                        return;
-                    }
-
-                    let aspectRatio;
-                    let activeElementStyles = {},
-                        playerStyles = {},
-                        sidebarStyles = {},
-                        containerStyles = {};
-
-                    // Only purpose declaring and calling as this way is to make code more readable
-                    const {
-                        resetPlayerStyles,
-                        isSidebarPossible,
-                        getFloatingStyles,
-                        getSidebarWidthNum,
-                        setSidebarPosition,
-                        getPresetAspectRatioNum,
-                        centerPlayerIfSmallerThanContainer,
-                    } = this.__containerSizeComputeHelperFunctions();
-
-                    if (this.get(`fullscreen`)) return resetPlayerStyles();
-
-                    const containerDimensions = Dom.elementDimensions(activeElement);
-                    const {
-                        width: containerWidthNum,
-                        height: containerHeightNum
-                    } = resizedContainer || containerDimensions;
-                    const floatingWidth = Dom.elementDimensions(activeElement || this.activeElement().firstChild)?.width;
-
-                    const floatingOnly = !!this.get(`floatingoptions.floatingonly`);
-                    const floating = this.get(`states.floatingclosed`) ? {} : getFloatingStyles(floatingWidth);
-
-                    const possibleSidebar = isSidebarPossible();
-                    this.set(`states.possiblesidebar`, !!possibleSidebar);
-                    const sidebarPosition = this.get(`sidebaroptions.position`);
-                    const sidebarBorderRadius = this.get(`sidebaroptions.borderradius`);
-
-                    const sidebarAsColumn = [undefined, null, `right`, `left`].includes(sidebarPosition);
-                    this.set(`states.sidebarascolumn`, !!sidebarAsColumn);
-                    let sidebarWidthNum = (possibleSidebar && sidebarAsColumn) ?
-                        getSidebarWidthNum(containerWidthNum) : 0;
-                    const expectedPlayerAspectRatioNum = getPresetAspectRatioNum(sidebarWidthNum);
-
-                    let playerWidthNum = (containerWidthNum - sidebarWidthNum);
-                    let width = containerWidthNum;
-                    const _arBasedHeight = playerWidthNum / expectedPlayerAspectRatioNum;
-                    let height = (!isNaN(_arBasedHeight) && _arBasedHeight) ? _arBasedHeight : containerHeightNum;
-
-                    const presetWidth = this.get(`width`);
-                    const presetHeight = this.get(`height`);
-
-                    if (!presetHeight && !presetWidth) {
-                        const containerAspectRatio = typeof height === "number" && height > 0 ?
-                            (containerWidthNum / height) :
-                            (containerWidthNum / containerHeightNum)
-                        // This will make player fluid, both has to be aspectRatio
-                        containerStyles.aspectRatio = containerAspectRatio;
-                        activeElementStyles.aspectRatio = containerAspectRatio;
-                    } else {
-                        if (presetWidth) {
-                            width = this.__convertToCSSSupportedUnit(presetWidth);
-                            activeElementStyles.width = width;
-                            containerStyles.width = width;
-                        }
-
-                        if (presetHeight) {
-                            height = this.__convertToCSSSupportedUnit(presetHeight);
-                            activeElementStyles.height = floatingOnly ? 0 : height;
-                            containerStyles.height = this.__convertToCSSSupportedUnit(height);
-                            if (expectedPlayerAspectRatioNum && !presetWidth) {
-                                playerWidthNum = this.__convertCSSUnitToNumber(height) * expectedPlayerAspectRatioNum;
-                                if (
-                                    this.get(`sidebaroptions.presetwidth`) === null &&
-                                    this.get(`sidebaroptions.preferredratio`) !== null &&
-                                    sidebarWidthNum > 0
-                                ) {
-                                    sidebarWidthNum = containerWidthNum - playerWidthNum;
-                                }
-                            }
-                        }
-                    }
-
-                    if (sidebarWidthNum > 0) {
-                        // activeElementStyles.display = `flex`;
-                        sidebarStyles.width = this.__convertToCSSSupportedUnit(sidebarWidthNum);
-                        sidebarStyles.height = containerStyles.height || this.__convertToCSSSupportedUnit(height);
-                    }
-
-                    if (!containerStyles.aspectRatio) {
-                        if (sidebarWidthNum > 0) {
-                            aspectRatio = (containerWidthNum || (playerWidthNum + sidebarWidthNum)) / height;
-                            aspectRatio = Number(aspectRatio.toFixed(2));
-                            activeElement.aspectRatio = aspectRatio;
-                            containerStyles.aspectRatio = aspectRatio;
-                        } else {
-                            containerStyles.height = this.__convertToCSSSupportedUnit(height);
-                        }
-                    }
-
-                    if (Types.is_string(activeElementStyles.width) && activeElementStyles.width.includes(`%`)) {
-                        containerStyles.width = `100%`;
-                    }
-                    playerStyles = centerPlayerIfSmallerThanContainer(playerStyles, playerWidthNum, containerWidthNum, 10);
-                    playerStyles.width = playerWidthNum ? this.__convertToCSSSupportedUnit(playerWidthNum) : "100%";
-                    playerStyles.height = this.__convertToCSSSupportedUnit(height);
-                    // this.__playerAreaSize = playerDimensions.height * playerDimensions.width;
-                    let computedStyles = {
-                        floating,
-                        aspectRatio,
-                        player: playerStyles,
-                        sidebar: sidebarStyles,
-                        container: containerStyles,
-                        activeElement: activeElementStyles,
-                    };
-
-                    if (possibleSidebar && Types.is_defined(sidebarPosition)) {
-                        computedStyles = {
-                            ...computedStyles,
-                            ...setSidebarPosition(
-                                computedStyles, sidebarPosition, sidebarBorderRadius
-                            ),
-                        }
-                    }
-
-                    this.set(`computedstyles`, computedStyles);
-                },
-
-                /**
-                 * All return functions will are very tightly specific for dimensions calculations
-                 * and using player instance. So why not moved to another module
-                 * @return
-                 */
-                __containerSizeComputeHelperFunctions: function() {
-
-                    const resetPlayerStyles = () => {
-                        this.set(`computedstyles`, {});
-                    }
-
-                    const isSidebarPossible = (forFloatingOnly) => {
-                        const gallerySidebar = this.get(`showsidebargallery`);
-                        let sidebarCompanion = this.get(`sidebaroptions.showcompanionad`);
-
-                        let floatingSidebar = this.get(`floatingoptions.sidebar`);
-
-                        if (!!forFloatingOnly) return !!floatingSidebar && !this.get("states.sidebarclosed");
-
-                        let possibleSidebar = (!!sidebarCompanion && this.get(`adshassource`));
-                        possibleSidebar ||= (!this.get(`outstream`) && gallerySidebar);
-                        possibleSidebar ||= (this.get(`is_floating`) && floatingSidebar);
-
-                        return (possibleSidebar || !!this.get("with_sidebar")) && !this.get("states.sidebarclosed");
-                    }
-
-                    const getSidebarWidthNum = (containerWidth) => {
-                        let presetWidth = this.get(`sidebarpresetwidth`);
-                        presetWidth ||= this.get(`sidebaroptions.presetwidth`);
-                        presetWidth ||= (this.get(`outstream`) ? `50%` : `30%`);
-
-                        if (Types.is_string(presetWidth) && presetWidth.includes('px')) {
-                            return Number(presetWidth.parseFloat().fixed(2));
-                        }
-
-                        const widthInPercentageNumber = _getDimensionAsFloatPercentage(presetWidth, containerWidth);
-                        return containerWidth * widthInPercentageNumber;
-                    }
-
-                    const getPresetAspectRatioNum = (sidebarWidthNum) => {
-                        const possibleSidebar = sidebarWidthNum > 0;
-                        let expectedPlayerAspectRatioNum;
-                        if (possibleSidebar) {
-                            expectedPlayerAspectRatioNum = this.get(`sidebaroptions.aspectratio`);
-                            expectedPlayerAspectRatioNum ||= this.get(`sidebaroptions.preferredratio`);
-                        }
-                        expectedPlayerAspectRatioNum ||= this.get(`aspectratio`);
-                        expectedPlayerAspectRatioNum ||= this.get(`fallback-aspect-ratio`) || 1.77;
-                        if (isNaN(expectedPlayerAspectRatioNum)) {
-                            expectedPlayerAspectRatioNum = _convertAspectRatioToNumber(expectedPlayerAspectRatioNum);
-                        }
-                        return expectedPlayerAspectRatioNum;
-                    }
-
-                    const getFloatingStyles = (containerWidthNum) => {
-                        let player = {},
-                            sidebar = {},
-                            container = {};
-
-                        const isMobile = this.__isInMobileViewport();
-
-                        const withSidebar = isSidebarPossible(true);
-                        this.set(`with_sidebar`, !!withSidebar);
-
-                        const expectedSidebarWidth = withSidebar ?
-                            _getFloatingSidebarWidth(isMobile) : -1;
-
-                        let {
-                            height: heightNum,
-                            width: playerWidthNum,
-                            position,
-                            sidebarPosition,
-                            sidebarBorderRadius
-                        } = _getFloatingDimensionsAndPosition(
-                            isMobile, expectedSidebarWidth, containerWidthNum
-                        );
-
-                        let sidebarWidthNum = 0;
-                        const sidebarAsColumn = [undefined, null, `right`, `left`].includes(sidebarPosition);
-                        const borderRadius = sidebarAsColumn ? 0 : sidebarBorderRadius;
-
-                        container.height = this.__convertToCSSSupportedUnit(heightNum);
-
-                        if (playerWidthNum) {
-                            player.width = this.__convertToCSSSupportedUnit(playerWidthNum);
-                            if (expectedSidebarWidth > 0 && sidebarAsColumn) {
-                                // if (isMobile && !this.get("sidebaroptions.mobile.sidebarwidth")) {
-                                //     sidebarWidthNum = containerWidthNum - playerWidthNum;
-                                // } else
-                                if (expectedSidebarWidth <= 1) {
-                                    if (isMobile) {
-                                        containerWidthNum = `100%`;
-                                        sidebarWidthNum = this.get(`sidebaroptions.mobile.sidebarwidth`) ?
-                                            containerWidthNum * expectedSidebarWidth :
-                                            `calc(100% - ${player.width})`;
-                                    } else {
-                                        containerWidthNum = playerWidthNum / (1 - expectedSidebarWidth);
-                                        sidebarWidthNum = containerWidthNum - playerWidthNum;
-                                    }
-                                } else {
-                                    if (isMobile) {
-                                        containerWidthNum = `100%`;
-                                        sidebarWidthNum = this.get(`sidebaroptions.mobile.sidebarwidth`) ?
-                                            containerWidthNum - expectedSidebarWidth :
-                                            `calc(100% - ${player.width})`;
-                                    } else {
-                                        sidebarWidthNum = expectedSidebarWidth;
-                                        containerWidthNum = sidebarWidthNum + playerWidthNum;
-                                    }
-                                }
-                                sidebar.width = this.__convertToCSSSupportedUnit(sidebarWidthNum);
-                                container.width = this.__convertToCSSSupportedUnit(containerWidthNum);
-                            } else {
-                                container.width = isMobile ? `100%` : player.width;
-                            }
-                            if (container.width && !isMobile) player.width = `100%`;
-                        } else {
-                            console.warn(`something wrong with calculating floating player dimensions`);
-                        }
-
-                        container = {
-                            ...container,
-                            ...position,
-                        };
-
-                        player = centerPlayerIfSmallerThanContainer(player, playerWidthNum, containerWidthNum, 5);
-
-                        const styles = {
-                            player,
-                            sidebar,
-                            container
-                        };
-
-                        return {
-                            ...styles,
-                            ...setSidebarPosition(styles, sidebarPosition, borderRadius),
-                        }
-                    }
-
-                    const centerPlayerIfSmallerThanContainer = (styles, playerWidthNum, containerWidthNum, moreThanPx) => {
-                        const _moreThanPx = (!isNaN(moreThanPx) ? moreThanPx : 10) || 10;
-                        if (playerWidthNum + _moreThanPx < containerWidthNum) {
-                            return {
-                                height: `100%`,
-                                ...styles,
-                                margin: `0 auto`,
-                                position: `relative`,
-                            };
-                        }
-                        return styles;
-                    }
-
-                    const setSidebarPosition = (styles, position, borderRadius) => {
-                        const {
-                            container,
-                            sidebar
-                        } = styles;
-                        if (this.activeElement() && sidebar) {
-                            const {
-                                height
-                            } = Dom.elementDimensions(this.activeElement().firstChild) || {};
-                            if ([`top`, `bottom`].includes(position)) {
-                                container.overflow = `visible`;
-                                container.flexDirection = `column`
-                                sidebar.overflow = `overlay`;
-                                sidebar.width = `100%`;
-                                sidebar.position = `absolute`;
-                                sidebar.borderRadius = borderRadius || 0;
-                            }
-                            switch (position) {
-                                case `left`:
-                                    container.flexDirection = `row`
-                                    container.flexDirection = `row-reverse`;
-                                    break;
-                                case `top`:
-                                    container.flexDirection = `column-reverse`;
-                                    sidebar.bottom = Types.is_defined(height) ? this.__convertToCSSSupportedUnit(height + 10) : 0;
-                                    break;
-                                case `bottom`:
-                                    sidebar.top = Types.is_defined(height) ? this.__convertToCSSSupportedUnit(height + 10) : 0;
-                                    break;
-                                default:
-                                    container.flexDirection = `row`
-                                    break;
-                            }
-                        }
-
-                        return {
-                            ...container,
-                            ...sidebar,
-                        };
-                    }
-
-                    const _getFloatingPosition = (isMobile, settings, positions) => {
-                        const styles = {};
-                        const _positions = positions.split("-");
-                        Objs.iter(["top", "right", "bottom", "left"], function(val) {
-                            if ((val === `right` || val === `left`) && isMobile) return;
-                            if (_positions.includes(val)) {
-                                styles[val] = settings[val] ? this.__convertToCSSSupportedUnit(settings[val]) : 0;
-                            }
-                        }, this);
-                        return styles;
-                    }
-
-                    // get percentage as float number less than 1
-                    const _getDimensionAsFloatPercentage = (value, basedContainerInPx) => {
-                        if (isNaN(value)) {
-                            if (value.includes("%")) {
-                                return Number(parseFloat(value).toFixed(2)) / 100;
-                            } else if (value.includes("px") && !isNaN(parseFloat(basedContainerInPx))) {
-                                return basedContainerInPx / Number(parseFloat(value).toFixed(2));
-                            } else {
-                                console.warn(`Please provide correct CSS unit as "px" or "%"`);
-                            }
-                        } else {
-                            value = value > 1 ? value / 100 : value;
-                        }
-                        return Number(value > 0 ? value : 0);
-                    }
-
-                    const _getFloatingSidebarWidth = () => {
-                        let presetWidth = this.get("floatingoptions.sidebarwidth") || 50;
-                        const num = this.__convertCSSUnitToNumber(presetWidth);
-                        if (isNaN(presetWidth) && num > 1 && !presetWidth.includes(`%`)) {
-                            return num;
-                        }
-                        return Number(num > 1 ? (num / 100).toFixed(2) : num);
-                    }
-
-                    const _convertAspectRatioToNumber = (ar) => {
-                        if (!ar) return null;
-                        if (isNaN(ar)) {
-                            let aspectRatio = ar.split(/[:\/]/, 2);
-                            if (Types.is_array(aspectRatio) && aspectRatio.length === 2) {
-                                ar = (parseFloat(aspectRatio[0]) / parseFloat(aspectRatio[1])).toFixed(2);
-                            } else {
-                                ar = ar.parseFloat().fixed(2);
-                            }
-                        }
-                        return Number(ar);
-                    }
-
-                    const _getFloatingDimensionsAndPosition = (isMobile, sidebarWidth, containerWidth) => {
-                        const floatingOptions = this.get(`floatingoptions`);
-                        const withSidebar = sidebarWidth !== -1;
-
-                        let presetAspectRatio = floatingOptions['aspectratio'];
-                        let fallbackAR = this.get("aspectratio");
-                        fallbackAR ||= this.get("fallback-aspect-ratio") || 1.77;
-
-                        fallbackAR = _convertAspectRatioToNumber(fallbackAR);
-                        presetAspectRatio = _convertAspectRatioToNumber(presetAspectRatio);
-
-                        const fallback = {
-                            height: this.get(`floating-fallback-${isMobile ? 'mobile' : 'desktop'}-height`),
-                            position: isMobile ? "top" : "bottom-right",
-                        }
-
-                        const presetHeight = floatingOptions['height'];
-                        const fallbackHeight = fallback['height'] || (isMobile ? 75 : 240);
-                        const presetPosition = floatingOptions['position'] || fallback['position'];
-
-                        if (floatingOptions['width']) {
-                            console.warn(`floating options are not supporting width parameter, for now`);
-                        }
-
-                        let width, height = presetHeight;
-                        if (presetHeight && presetAspectRatio) {
-                            width = presetAspectRatio * height;
-                        } else if (presetHeight && fallbackAR) {
-                            width = fallbackAR * height;
-                        } else {
-                            if (isMobile) {
-                                if (withSidebar) {
-                                    width = withSidebar > 1 ?
-                                        containerWidth - sidebarWidth :
-                                        containerWidth * (1 - sidebarWidth);
-                                    height = width / (presetAspectRatio || fallbackAR);
-                                } else {
-                                    height = containerWidth / (presetAspectRatio || fallbackAR);
-                                }
-                            } else {
-                                height = fallbackHeight;
-                                width = height * (presetAspectRatio ? presetAspectRatio : fallbackAR);
-                            }
-                        }
-
-                        return {
-                            height,
-                            width: width || `100%`,
-                            sidebarPosition: floatingOptions['sidebarposition'] || `right`,
-                            sidebarBorderRadius: floatingOptions[`borderradius`] || 0,
-                            position: _getFloatingPosition(isMobile, floatingOptions, presetPosition)
-                        };
-                    };
-
-                    return {
-                        resetPlayerStyles,
-                        isSidebarPossible,
-                        getFloatingStyles,
-                        getSidebarWidthNum,
-                        setSidebarPosition,
-                        getPresetAspectRatioNum,
-                        centerPlayerIfSmallerThanContainer
-                    };
-                },
-
-                __convertToCSSSupportedUnit: function(measure, propertyName) {
-                    const propertyNamePassed = Types.is_defined(propertyName);
-                    const _propertyName = propertyName || "width";
-                    const _measure = isNaN(measure) ? measure : parseFloat(measure).toFixed(2) + "px";
-                    if (window && !window.CSS?.supports(_propertyName, _measure)) {
-                        let message = `Value: "${_measure}" you provided as CSS unit, not supported by the browser`;
-                        message += propertyNamePassed ? `for the CSS ${_propertyName} property name;` : ``;
-                        console.error(message);
-                    }
-                    return _measure;
-                },
-
-                __convertCSSUnitToNumber: function(unit) {
-                    let convertedUnit;
-                    if (isNaN(unit)) {
-                        if (Types.is_string(unit)) {
-                            if (unit.includes("%")) {
-                                return Number(parseFloat(unit).toFixed(2)) / 100;
-                            } else if (unit.includes("px")) {
-                                return Number(parseFloat(unit).toFixed(2));
-                            } else {
-                                const convertedUnit = parseFloat(unit).toFixed(2);
-                            }
-                        } else {
-                            console.warn(`${this.__convertCSSUnitToNumber.name}: argument is not correct`);
-                            return 0;
-                        }
-                    }
-                    return Number(convertedUnit || unit);
-                },
-
-                __applyMobileRelativePositionBasedOnSelector: function() {
-                    let playerApplyForSelector, documentRelativeSelector, positioningApplySelector, positioningRelativeSelector, positioningProperty;
-                    positioningApplySelector = this.get("floatingoptions.mobile.positioning.applySelector");
-                    positioningRelativeSelector = this.get("floatingoptions.mobile.positioning.relativeSelector");
-                    positioningProperty = Strings.camelCase(this.get("floatingoptions.mobile.positioning.applyProperty") || 'margin-top');
-                    if (typeof positioningRelativeSelector === "string") {
-                        if (positioningRelativeSelector) {
-                            playerApplyForSelector = this.activeElement().querySelector(positioningApplySelector);
-                        }
-                        if (playerApplyForSelector) {
-                            playerApplyForSelector = this.activeElement().firstChild;
-                        }
-                        documentRelativeSelector = document.querySelector(positioningRelativeSelector);
-                        if (documentRelativeSelector && playerApplyForSelector) {
-                            const relativeSelectorHeight = Dom.elementDimensions(documentRelativeSelector).height;
-                            playerApplyForSelector.style[positioningProperty] = relativeSelectorHeight + 'px';
-                        }
-                    }
-                },
-
                 _recordPerformance: function(name) {
                     const recordName = `${this.get(`performanceprefix`)}-${name}`;
                     // Entry Types starting Chrome 59: "element", "event", "first-input",
@@ -9761,7 +9433,7 @@ Scoped.define("module:VideoPlayer.Dynamics.Player", [
 
         }).register("ba-videoplayer")
         .registerFunctions({
-            /**/"css": function (obj) { return obj.css; }, "cssplayer": function (obj) { return obj.cssplayer; }, "csssize": function (obj) { return obj.csssize; }, "iecss": function (obj) { return obj.iecss; }, "ie8 ? 'ie8' : 'noie8'": function (obj) { return obj.ie8 ? 'ie8' : 'noie8'; }, "csstheme": function (obj) { return obj.csstheme; }, "fullscreened ? 'fullscreen' : 'normal'": function (obj) { return obj.fullscreened ? 'fullscreen' : 'normal'; }, "firefox ? 'firefox' : 'common'": function (obj) { return obj.firefox ? 'firefox' : 'common'; }, "themecolor": function (obj) { return obj.themecolor; }, "mobileview ? 'mobile' : 'desktop'": function (obj) { return obj.mobileview ? 'mobile' : 'desktop'; }, "mobileviewport ? 'mobile' : 'desktop'": function (obj) { return obj.mobileviewport ? 'mobile' : 'desktop'; }, "is_floating ? cssfloatingclasses : cssplayer + '-in-article'": function (obj) { return obj.is_floating ? obj.cssfloatingclasses : obj.cssplayer + '-in-article'; }, "presetkey ? cssplayer + '-preset-' + presetkey : ''": function (obj) { return obj.presetkey ? obj.cssplayer + '-preset-' + obj.presetkey : ''; }, "(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''": function (obj) { return (obj.sidebar_active && obj.gallerysidebar) ? obj.cssplayer + '-with-sidebar-gallery' : ''; }, "(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'": function (obj) { return (obj.sidebar_active && obj.show_sidebar) ? obj.cssplayer + '-with-sidebar' : obj.csscommon + '-full-width'; }, "cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')": function (obj) { return obj.cssplayer + (((obj.activity_delta > obj.hidebarafter) && obj.hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible'); }, "user_activity()": function (obj) { return obj.user_activity(); }, "user_activity(true)": function (obj) { return obj.user_activity(true); }, "containerSizingStyles": function (obj) { return obj.containerSizingStyles; }, "testid": function (obj) { return obj.testid; }, "title || 'Video Player'": function (obj) { return obj.title || 'Video Player'; }, "description || 'Video Player'": function (obj) { return obj.description || 'Video Player'; }, "upload_date || uploaddate": function (obj) { return obj.upload_date || obj.uploaddate; }, "title": function (obj) { return obj.title; }, "thumbnail_url || thumbnailUrl": function (obj) { return obj.thumbnail_url || obj.thumbnailUrl; }, "content_url || contenturl": function (obj) { return obj.content_url || obj.contenturl; }, "playercontainerstyles": function (obj) { return obj.playercontainerstyles; }, "dynnext": function (obj) { return obj.dynnext; }, "next_active && !playing_ad": function (obj) { return obj.next_active && !obj.playing_ad; }, "is_floating": function (obj) { return obj.is_floating; }, "layout": function (obj) { return obj.layout; }, "with_sidebar": function (obj) { return obj.with_sidebar; }, "playlist": function (obj) { return obj.playlist; }, "current_video_from_playlist": function (obj) { return obj.current_video_from_playlist; }, "position": function (obj) { return obj.position; }, "shownext": function (obj) { return obj.shownext; }, "noengagenext": function (obj) { return obj.noengagenext; }, "gallerysidebar": function (obj) { return obj.gallerysidebar; }, "tooltips": function (obj) { return obj.tooltips; }, "dyntooltip": function (obj) { return obj.dyntooltip; }, "tooltip.tooltiptext": function (obj) { return obj.tooltip.tooltiptext; }, "tooltip.id": function (obj) { return obj.tooltip.id; }, "tooltip": function (obj) { return obj.tooltip; }, "playing": function (obj) { return obj.playing; }, "adsplaying": function (obj) { return obj.adsplaying; }, "(videoelement_active || !imageelement_active) && !silent_attach": function (obj) { return (obj.videoelement_active || !obj.imageelement_active) && !obj.silent_attach; }, "csscommon": function (obj) { return obj.csscommon; }, "videofitstrategy": function (obj) { return obj.videofitstrategy; }, "preload ? 'auto' : 'metadata'": function (obj) { return obj.preload ? 'auto' : 'metadata'; }, "!playfullscreenonmobile": function (obj) { return !obj.playfullscreenonmobile; }, "(imageelement_active && !videoelement_active) || silent_attach": function (obj) { return (obj.imageelement_active && !obj.videoelement_active) || obj.silent_attach; }, "posteralt": function (obj) { return obj.posteralt; }, "posterfitstrategy": function (obj) { return obj.posterfitstrategy; }, "dynadsplayer": function (obj) { return obj.dynadsplayer; }, "adsplayer_active": function (obj) { return obj.adsplayer_active; }, "ad": function (obj) { return obj.ad; }, "addata": function (obj) { return obj.addata; }, "adsmanagerloaded": function (obj) { return obj.adsmanagerloaded; }, "ads_loaded": function (obj) { return obj.ads_loaded; }, "ads_load_started": function (obj) { return obj.ads_load_started; }, "adduration": function (obj) { return obj.adduration; }, "debug_ima": function (obj) { return obj.debug_ima; }, "adsunmuted ? volume : 0": function (obj) { return obj.adsunmuted ? obj.volume : 0; }, "muted": function (obj) { return obj.muted; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "adtagurl": function (obj) { return obj.adtagurl; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "adsunmuted": function (obj) { return obj.adsunmuted; }, "inlinevastxml": function (obj) { return obj.inlinevastxml; }, "outstreamoptions": function (obj) { return obj.outstreamoptions; }, "adsquartile": function (obj) { return obj.adsquartile; }, "userhadplayerinteraction": function (obj) { return obj.userhadplayerinteraction; }, "controlbarstyles": function (obj) { return obj.controlbarstyles; }, "sidebar_active": function (obj) { return obj.sidebar_active; }, "imasettings": function (obj) { return obj.imasettings; }, "fullscreened": function (obj) { return obj.fullscreened; }, "!adscontrolbar_active": function (obj) { return !obj.adscontrolbar_active; }, "hideadscontrolbar": function (obj) { return obj.hideadscontrolbar; }, "tmpladscontrolbar": function (obj) { return obj.tmpladscontrolbar; }, "dynadscontrolbar": function (obj) { return obj.dynadscontrolbar; }, "companionad": function (obj) { return obj.companionad; }, "companionads": function (obj) { return obj.companionads; }, "(activity_delta > hidebarafter) && hideoninactivity": function (obj) { return (obj.activity_delta > obj.hidebarafter) && obj.hideoninactivity; }, "view_type": function (obj) { return obj.view_type; }, "adnotpaused": function (obj) { return obj.adnotpaused; }, "showlearnmorebutton": function (obj) { return obj.showlearnmorebutton; }, "moredetailslink": function (obj) { return obj.moredetailslink; }, "moredetailstext": function (obj) { return obj.moredetailstext; }, "mobileview": function (obj) { return obj.mobileview; }, "floatingoptions": function (obj) { return obj.floatingoptions; }, "mobileviewport": function (obj) { return obj.mobileviewport; }, "adchoicesontop && !gallerysidebar": function (obj) { return obj.adchoicesontop && !obj.gallerysidebar; }, "presetedtooltips": function (obj) { return obj.presetedtooltips; }, "showadchoices": function (obj) { return obj.showadchoices; }, "imaadsrenderingsetting": function (obj) { return obj.imaadsrenderingsetting; }, "autoplay": function (obj) { return obj.autoplay; }, "vmapads": function (obj) { return obj.vmapads; }, "ads_request_options": function (obj) { return obj.ads_request_options; }, "hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''": function (obj) { return obj.hasplaceholderstyle ? (obj.css + '-overlay-with-placeholder') : ''; }, "!showbuiltincontroller && !outstream && !adsplaying": function (obj) { return !obj.showbuiltincontroller && !obj.outstream && !obj.adsplaying; }, "placeholderstyle": function (obj) { return obj.placeholderstyle; }, "seek(position + skipseconds)": function (obj) { return obj.seek(obj.position + obj.skipseconds); }, "seek(position - skipseconds)": function (obj) { return obj.seek(obj.position - obj.skipseconds); }, "seek(position + skipseconds * 3)": function (obj) { return obj.seek(obj.position + obj.skipseconds * 3); }, "seek(position - skipseconds * 3)": function (obj) { return obj.seek(obj.position - obj.skipseconds * 3); }, "set_volume(volume + 0.1)": function (obj) { return obj.set_volume(obj.volume + 0.1); }, "set_volume(volume - 0.1)": function (obj) { return obj.set_volume(obj.volume - 0.1); }, "toggle_player(true)": function (obj) { return obj.toggle_player(true); }, "dyntrimmer": function (obj) { return obj.dyntrimmer; }, "trimmingmode && videoelement_active": function (obj) { return obj.trimmingmode && obj.videoelement_active; }, "starttime": function (obj) { return obj.starttime; }, "endtime": function (obj) { return obj.endtime; }, "timeminlimit": function (obj) { return obj.timeminlimit; }, "duration": function (obj) { return obj.duration; }, "source": function (obj) { return obj.source; }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "controlbar_active && !hidecontrolbar": function (obj) { return obj.controlbar_active && !obj.hidecontrolbar; }, "csscontrolbar || css": function (obj) { return obj.csscontrolbar || obj.css; }, "cssplayer || css": function (obj) { return obj.cssplayer || obj.css; }, "csstheme || css": function (obj) { return obj.csstheme || obj.css; }, "controlbar_logo": function (obj) { return obj.controlbar_logo; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "showcontroll": function (obj) { return obj.showcontroll; }, "playwhenvisible": function (obj) { return obj.playwhenvisible; }, "playerspeeds": function (obj) { return obj.playerspeeds; }, "playercurrentspeed": function (obj) { return obj.playercurrentspeed; }, "airplay": function (obj) { return obj.airplay; }, "airplaybuttonvisible": function (obj) { return obj.airplaybuttonvisible; }, "chromecast": function (obj) { return obj.chromecast; }, "castbuttonvisble": function (obj) { return obj.castbuttonvisble; }, "tabindex": function (obj) { return obj.tabindex; }, "showchaptertext": function (obj) { return obj.showchaptertext; }, "chapterslist": function (obj) { return obj.chapterslist; }, "tracktextvisible": function (obj) { return obj.tracktextvisible; }, "tracktags": function (obj) { return obj.tracktags; }, "hassubtitles && tracktagssupport": function (obj) { return obj.hassubtitles && obj.tracktagssupport; }, "allowtexttrackupload": function (obj) { return obj.allowtexttrackupload; }, "tracksshowselection": function (obj) { return obj.tracksshowselection; }, "volume": function (obj) { return obj.volume; }, "buffered": function (obj) { return obj.buffered; }, "prominent_title": function (obj) { return obj.prominent_title; }, "closeable_title": function (obj) { return obj.closeable_title; }, "activity_delta": function (obj) { return obj.activity_delta; }, "hasnext": function (obj) { return obj.hasnext; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "hidebarafter": function (obj) { return obj.hidebarafter; }, "rerecordable": function (obj) { return obj.rerecordable; }, "submittable": function (obj) { return obj.submittable; }, "frameselectionmode": function (obj) { return obj.frameselectionmode; }, "streams": function (obj) { return obj.streams; }, "currentstream": function (obj) { return obj.currentstream; }, "fullscreensupport && !nofullscreen": function (obj) { return obj.fullscreensupport && !obj.nofullscreen; }, "disablepause": function (obj) { return obj.disablepause; }, "disableseeking": function (obj) { return obj.disableseeking; }, "skipseconds": function (obj) { return obj.skipseconds; }, "skipinitial": function (obj) { return obj.skipinitial; }, "showsettingsmenu": function (obj) { return obj.showsettingsmenu; }, "settingsmenu_active": function (obj) { return obj.settingsmenu_active; }, "hidevolumebar": function (obj) { return obj.hidevolumebar; }, "manuallypaused": function (obj) { return obj.manuallypaused; }, "isseeking": function (obj) { return obj.isseeking; }, "dyntracks": function (obj) { return obj.dyntracks; }, "csstracks || css": function (obj) { return obj.csstracks || obj.css; }, "tracktagssupport || allowtexttrackupload": function (obj) { return obj.tracktagssupport || obj.allowtexttrackupload; }, "trackselectorhovered": function (obj) { return obj.trackselectorhovered; }, "tracktagsstyled": function (obj) { return obj.tracktagsstyled; }, "trackcuetext": function (obj) { return obj.trackcuetext; }, "uploadtexttracksvisible": function (obj) { return obj.uploadtexttracksvisible; }, "acceptedtracktexts": function (obj) { return obj.acceptedtracktexts; }, "uploadlocales": function (obj) { return obj.uploadlocales; }, "dynsettingsmenu": function (obj) { return obj.dynsettingsmenu; }, "tmplsettingsmenu": function (obj) { return obj.tmplsettingsmenu; }, "toggle_settings_menu": function (obj) { return obj.toggle_settings_menu; }, "toggle_share": function (obj) { return obj.toggle_share; }, "dynplaybutton": function (obj) { return obj.dynplaybutton; }, "playbutton_active": function (obj) { return obj.playbutton_active; }, "cssplaybutton || css": function (obj) { return obj.cssplaybutton || obj.css; }, "tmplplaybutton": function (obj) { return obj.tmplplaybutton; }, "trimmingmode": function (obj) { return obj.trimmingmode; }, "showduration": function (obj) { return obj.showduration; }, "dynloader": function (obj) { return obj.dynloader; }, "cssloader || css": function (obj) { return obj.cssloader || obj.css; }, "tmplloader": function (obj) { return obj.tmplloader; }, "loader_active": function (obj) { return obj.loader_active; }, "dynshare": function (obj) { return obj.dynshare; }, "cssshare || css": function (obj) { return obj.cssshare || obj.css; }, "tmplshare": function (obj) { return obj.tmplshare; }, "sharevideourl && sharevideo.length > 0 && share_active": function (obj) { return obj.sharevideourl && obj.sharevideo.length > 0 && obj.share_active; }, "share_active": function (obj) { return obj.share_active; }, "sharevideourl": function (obj) { return obj.sharevideourl; }, "sharevideo": function (obj) { return obj.sharevideo; }, "dynmessage": function (obj) { return obj.dynmessage; }, "cssmessage || css": function (obj) { return obj.cssmessage || obj.css; }, "tmplmessage": function (obj) { return obj.tmplmessage; }, "message_active": function (obj) { return obj.message_active; }, "message": function (obj) { return obj.message; }, "dyntopmessage": function (obj) { return obj.dyntopmessage; }, "csstopmessage || css": function (obj) { return obj.csstopmessage || obj.css; }, "tmpltopmessage": function (obj) { return obj.tmpltopmessage; }, "topmessage": function (obj) { return obj.topmessage; }, "useAspectRatioFallback": function (obj) { return obj.useAspectRatioFallback; }, "aspectRatioFallback": function (obj) { return obj.aspectRatioFallback; }, "show_sidebar": function (obj) { return obj.show_sidebar; }, "sidebarstyles": function (obj) { return obj.sidebarstyles; }, "dynsidebar": function (obj) { return obj.dynsidebar; }, "next_active ? '' : title || 'Video Player'": function (obj) { return obj.next_active ? '' : obj.title || 'Video Player'; }, "sidebaroptions": function (obj) { return obj.sidebaroptions; }, "floatingsidebar": function (obj) { return obj.floatingsidebar; }, "showsidebargallery": function (obj) { return obj.showsidebargallery; }, "linear": function (obj) { return obj.linear; }, "next_active": function (obj) { return obj.next_active; }, "unknownadsrc": function (obj) { return obj.unknownadsrc; }, "!fullscreened && is_floating && floatingoptions.closeable": function (obj) { return !obj.fullscreened && obj.is_floating && obj.floatingoptions.closeable; }, "close_floating()": function (obj) { return obj.close_floating(); }/**/
+            /**/"css": function (obj) { return obj.css; }, "cssplayer": function (obj) { return obj.cssplayer; }, "csssize": function (obj) { return obj.csssize; }, "iecss": function (obj) { return obj.iecss; }, "ie8 ? 'ie8' : 'noie8'": function (obj) { return obj.ie8 ? 'ie8' : 'noie8'; }, "csstheme": function (obj) { return obj.csstheme; }, "fullscreened ? 'fullscreen' : 'normal'": function (obj) { return obj.fullscreened ? 'fullscreen' : 'normal'; }, "firefox ? 'firefox' : 'common'": function (obj) { return obj.firefox ? 'firefox' : 'common'; }, "themecolor": function (obj) { return obj.themecolor; }, "mobileview ? 'mobile' : 'desktop'": function (obj) { return obj.mobileview ? 'mobile' : 'desktop'; }, "mobileviewport ? 'mobile' : 'desktop'": function (obj) { return obj.mobileviewport ? 'mobile' : 'desktop'; }, "is_floating ? cssfloatingclasses : ''": function (obj) { return obj.is_floating ? obj.cssfloatingclasses : ''; }, "presetkey ? cssplayer + '-preset-' + presetkey : ''": function (obj) { return obj.presetkey ? obj.cssplayer + '-preset-' + obj.presetkey : ''; }, "(sidebar_active && gallerysidebar) ? cssplayer + '-with-sidebar-gallery' : ''": function (obj) { return (obj.sidebar_active && obj.gallerysidebar) ? obj.cssplayer + '-with-sidebar-gallery' : ''; }, "(sidebar_active && show_sidebar) ? cssplayer + '-with-sidebar' : csscommon + '-full-width'": function (obj) { return (obj.sidebar_active && obj.show_sidebar) ? obj.cssplayer + '-with-sidebar' : obj.csscommon + '-full-width'; }, "cssplayer + (((activity_delta > hidebarafter) && hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible')": function (obj) { return obj.cssplayer + (((obj.activity_delta > obj.hidebarafter) && obj.hideoninactivity) ? '-controlbar-hidden' : '-controlbar-visible'); }, "user_activity()": function (obj) { return obj.user_activity(); }, "user_activity(true)": function (obj) { return obj.user_activity(true); }, "containerSizingStyles": function (obj) { return obj.containerSizingStyles; }, "testid": function (obj) { return obj.testid; }, "title || 'Video Player'": function (obj) { return obj.title || 'Video Player'; }, "description || 'Video Player'": function (obj) { return obj.description || 'Video Player'; }, "upload_date || uploaddate": function (obj) { return obj.upload_date || obj.uploaddate; }, "title": function (obj) { return obj.title; }, "thumbnail_url || thumbnailUrl": function (obj) { return obj.thumbnail_url || obj.thumbnailUrl; }, "content_url || contenturl": function (obj) { return obj.content_url || obj.contenturl; }, "playercontainerstyles": function (obj) { return obj.playercontainerstyles; }, "dynnext": function (obj) { return obj.dynnext; }, "next_active && !playing_ad": function (obj) { return obj.next_active && !obj.playing_ad; }, "is_floating": function (obj) { return obj.is_floating; }, "layout": function (obj) { return obj.layout; }, "with_sidebar": function (obj) { return obj.with_sidebar; }, "playlist": function (obj) { return obj.playlist; }, "current_video_from_playlist": function (obj) { return obj.current_video_from_playlist; }, "position": function (obj) { return obj.position; }, "shownext": function (obj) { return obj.shownext; }, "noengagenext": function (obj) { return obj.noengagenext; }, "gallerysidebar": function (obj) { return obj.gallerysidebar; }, "tooltips": function (obj) { return obj.tooltips; }, "dyntooltip": function (obj) { return obj.dyntooltip; }, "tooltip.tooltiptext": function (obj) { return obj.tooltip.tooltiptext; }, "tooltip.id": function (obj) { return obj.tooltip.id; }, "tooltip": function (obj) { return obj.tooltip; }, "playing": function (obj) { return obj.playing; }, "adsplaying": function (obj) { return obj.adsplaying; }, "(videoelement_active || !imageelement_active) && !silent_attach": function (obj) { return (obj.videoelement_active || !obj.imageelement_active) && !obj.silent_attach; }, "csscommon": function (obj) { return obj.csscommon; }, "videofitstrategy": function (obj) { return obj.videofitstrategy; }, "preload ? 'auto' : 'metadata'": function (obj) { return obj.preload ? 'auto' : 'metadata'; }, "!playfullscreenonmobile": function (obj) { return !obj.playfullscreenonmobile; }, "(imageelement_active && !videoelement_active) || silent_attach": function (obj) { return (obj.imageelement_active && !obj.videoelement_active) || obj.silent_attach; }, "posteralt": function (obj) { return obj.posteralt; }, "posterfitstrategy": function (obj) { return obj.posterfitstrategy; }, "dynadsplayer": function (obj) { return obj.dynadsplayer; }, "adsplayer_active": function (obj) { return obj.adsplayer_active; }, "ad": function (obj) { return obj.ad; }, "addata": function (obj) { return obj.addata; }, "adsmanagerloaded": function (obj) { return obj.adsmanagerloaded; }, "ads_loaded": function (obj) { return obj.ads_loaded; }, "ads_load_started": function (obj) { return obj.ads_load_started; }, "adduration": function (obj) { return obj.adduration; }, "debug_ima": function (obj) { return obj.debug_ima; }, "adsunmuted ? volume : 0": function (obj) { return obj.adsunmuted ? obj.volume : 0; }, "muted": function (obj) { return obj.muted; }, "unmuteonclick": function (obj) { return obj.unmuteonclick; }, "adtagurl": function (obj) { return obj.adtagurl; }, "adchoiceslink": function (obj) { return obj.adchoiceslink; }, "adsunmuted": function (obj) { return obj.adsunmuted; }, "inlinevastxml": function (obj) { return obj.inlinevastxml; }, "outstreamoptions": function (obj) { return obj.outstreamoptions; }, "adsquartile": function (obj) { return obj.adsquartile; }, "userhadplayerinteraction": function (obj) { return obj.userhadplayerinteraction; }, "controlbarstyles": function (obj) { return obj.controlbarstyles; }, "sidebar_active": function (obj) { return obj.sidebar_active; }, "imasettings": function (obj) { return obj.imasettings; }, "fullscreened": function (obj) { return obj.fullscreened; }, "!adscontrolbar_active": function (obj) { return !obj.adscontrolbar_active; }, "hideadscontrolbar": function (obj) { return obj.hideadscontrolbar; }, "tmpladscontrolbar": function (obj) { return obj.tmpladscontrolbar; }, "dynadscontrolbar": function (obj) { return obj.dynadscontrolbar; }, "companionad": function (obj) { return obj.companionad; }, "companionads": function (obj) { return obj.companionads; }, "(activity_delta > hidebarafter) && hideoninactivity": function (obj) { return (obj.activity_delta > obj.hidebarafter) && obj.hideoninactivity; }, "view_type": function (obj) { return obj.view_type; }, "adnotpaused": function (obj) { return obj.adnotpaused; }, "showlearnmorebutton": function (obj) { return obj.showlearnmorebutton; }, "moredetailslink": function (obj) { return obj.moredetailslink; }, "moredetailstext": function (obj) { return obj.moredetailstext; }, "mobileview": function (obj) { return obj.mobileview; }, "floatingoptions": function (obj) { return obj.floatingoptions; }, "mobileviewport": function (obj) { return obj.mobileviewport; }, "adchoicesontop && !gallerysidebar": function (obj) { return obj.adchoicesontop && !obj.gallerysidebar; }, "presetedtooltips": function (obj) { return obj.presetedtooltips; }, "showadchoices": function (obj) { return obj.showadchoices; }, "imaadsrenderingsetting": function (obj) { return obj.imaadsrenderingsetting; }, "autoplay": function (obj) { return obj.autoplay; }, "vmapads": function (obj) { return obj.vmapads; }, "ads_request_options": function (obj) { return obj.ads_request_options; }, "hasplaceholderstyle ? (css + '-overlay-with-placeholder') : ''": function (obj) { return obj.hasplaceholderstyle ? (obj.css + '-overlay-with-placeholder') : ''; }, "!showbuiltincontroller && !outstream && !adsplaying": function (obj) { return !obj.showbuiltincontroller && !obj.outstream && !obj.adsplaying; }, "placeholderstyle": function (obj) { return obj.placeholderstyle; }, "seek(position + skipseconds)": function (obj) { return obj.seek(obj.position + obj.skipseconds); }, "seek(position - skipseconds)": function (obj) { return obj.seek(obj.position - obj.skipseconds); }, "seek(position + skipseconds * 3)": function (obj) { return obj.seek(obj.position + obj.skipseconds * 3); }, "seek(position - skipseconds * 3)": function (obj) { return obj.seek(obj.position - obj.skipseconds * 3); }, "set_volume(volume + 0.1)": function (obj) { return obj.set_volume(obj.volume + 0.1); }, "set_volume(volume - 0.1)": function (obj) { return obj.set_volume(obj.volume - 0.1); }, "toggle_player(true)": function (obj) { return obj.toggle_player(true); }, "dyntrimmer": function (obj) { return obj.dyntrimmer; }, "trimmingmode && videoelement_active": function (obj) { return obj.trimmingmode && obj.videoelement_active; }, "starttime": function (obj) { return obj.starttime; }, "endtime": function (obj) { return obj.endtime; }, "timeminlimit": function (obj) { return obj.timeminlimit; }, "duration": function (obj) { return obj.duration; }, "source": function (obj) { return obj.source; }, "dyncontrolbar": function (obj) { return obj.dyncontrolbar; }, "controlbar_active && !hidecontrolbar": function (obj) { return obj.controlbar_active && !obj.hidecontrolbar; }, "csscontrolbar || css": function (obj) { return obj.csscontrolbar || obj.css; }, "cssplayer || css": function (obj) { return obj.cssplayer || obj.css; }, "csstheme || css": function (obj) { return obj.csstheme || obj.css; }, "controlbar_logo": function (obj) { return obj.controlbar_logo; }, "tmplcontrolbar": function (obj) { return obj.tmplcontrolbar; }, "showcontroll": function (obj) { return obj.showcontroll; }, "playwhenvisible": function (obj) { return obj.playwhenvisible; }, "playerspeeds": function (obj) { return obj.playerspeeds; }, "playercurrentspeed": function (obj) { return obj.playercurrentspeed; }, "airplay": function (obj) { return obj.airplay; }, "airplaybuttonvisible": function (obj) { return obj.airplaybuttonvisible; }, "chromecast": function (obj) { return obj.chromecast; }, "castbuttonvisble": function (obj) { return obj.castbuttonvisble; }, "tabindex": function (obj) { return obj.tabindex; }, "showchaptertext": function (obj) { return obj.showchaptertext; }, "chapterslist": function (obj) { return obj.chapterslist; }, "tracktextvisible": function (obj) { return obj.tracktextvisible; }, "tracktags": function (obj) { return obj.tracktags; }, "hassubtitles && tracktagssupport": function (obj) { return obj.hassubtitles && obj.tracktagssupport; }, "allowtexttrackupload": function (obj) { return obj.allowtexttrackupload; }, "tracksshowselection": function (obj) { return obj.tracksshowselection; }, "volume": function (obj) { return obj.volume; }, "buffered": function (obj) { return obj.buffered; }, "prominent_title": function (obj) { return obj.prominent_title; }, "closeable_title": function (obj) { return obj.closeable_title; }, "activity_delta": function (obj) { return obj.activity_delta; }, "hasnext": function (obj) { return obj.hasnext; }, "hideoninactivity": function (obj) { return obj.hideoninactivity; }, "hidebarafter": function (obj) { return obj.hidebarafter; }, "rerecordable": function (obj) { return obj.rerecordable; }, "submittable": function (obj) { return obj.submittable; }, "frameselectionmode": function (obj) { return obj.frameselectionmode; }, "streams": function (obj) { return obj.streams; }, "currentstream": function (obj) { return obj.currentstream; }, "fullscreensupport && !nofullscreen": function (obj) { return obj.fullscreensupport && !obj.nofullscreen; }, "disablepause": function (obj) { return obj.disablepause; }, "disableseeking": function (obj) { return obj.disableseeking; }, "skipseconds": function (obj) { return obj.skipseconds; }, "skipinitial": function (obj) { return obj.skipinitial; }, "showsettingsmenu": function (obj) { return obj.showsettingsmenu; }, "settingsmenu_active": function (obj) { return obj.settingsmenu_active; }, "hidevolumebar": function (obj) { return obj.hidevolumebar; }, "manuallypaused": function (obj) { return obj.manuallypaused; }, "isseeking": function (obj) { return obj.isseeking; }, "dyntracks": function (obj) { return obj.dyntracks; }, "csstracks || css": function (obj) { return obj.csstracks || obj.css; }, "tracktagssupport || allowtexttrackupload": function (obj) { return obj.tracktagssupport || obj.allowtexttrackupload; }, "trackselectorhovered": function (obj) { return obj.trackselectorhovered; }, "tracktagsstyled": function (obj) { return obj.tracktagsstyled; }, "trackcuetext": function (obj) { return obj.trackcuetext; }, "uploadtexttracksvisible": function (obj) { return obj.uploadtexttracksvisible; }, "acceptedtracktexts": function (obj) { return obj.acceptedtracktexts; }, "uploadlocales": function (obj) { return obj.uploadlocales; }, "dynsettingsmenu": function (obj) { return obj.dynsettingsmenu; }, "tmplsettingsmenu": function (obj) { return obj.tmplsettingsmenu; }, "toggle_settings_menu": function (obj) { return obj.toggle_settings_menu; }, "toggle_share": function (obj) { return obj.toggle_share; }, "dynplaybutton": function (obj) { return obj.dynplaybutton; }, "playbutton_active": function (obj) { return obj.playbutton_active; }, "cssplaybutton || css": function (obj) { return obj.cssplaybutton || obj.css; }, "tmplplaybutton": function (obj) { return obj.tmplplaybutton; }, "trimmingmode": function (obj) { return obj.trimmingmode; }, "showduration": function (obj) { return obj.showduration; }, "dynloader": function (obj) { return obj.dynloader; }, "cssloader || css": function (obj) { return obj.cssloader || obj.css; }, "tmplloader": function (obj) { return obj.tmplloader; }, "loader_active": function (obj) { return obj.loader_active; }, "dynshare": function (obj) { return obj.dynshare; }, "cssshare || css": function (obj) { return obj.cssshare || obj.css; }, "tmplshare": function (obj) { return obj.tmplshare; }, "sharevideourl && sharevideo.length > 0 && share_active": function (obj) { return obj.sharevideourl && obj.sharevideo.length > 0 && obj.share_active; }, "share_active": function (obj) { return obj.share_active; }, "sharevideourl": function (obj) { return obj.sharevideourl; }, "sharevideo": function (obj) { return obj.sharevideo; }, "dynmessage": function (obj) { return obj.dynmessage; }, "cssmessage || css": function (obj) { return obj.cssmessage || obj.css; }, "tmplmessage": function (obj) { return obj.tmplmessage; }, "message_active": function (obj) { return obj.message_active; }, "message": function (obj) { return obj.message; }, "dyntopmessage": function (obj) { return obj.dyntopmessage; }, "csstopmessage || css": function (obj) { return obj.csstopmessage || obj.css; }, "tmpltopmessage": function (obj) { return obj.tmpltopmessage; }, "topmessage": function (obj) { return obj.topmessage; }, "useAspectRatioFallback": function (obj) { return obj.useAspectRatioFallback; }, "aspectRatioFallback": function (obj) { return obj.aspectRatioFallback; }, "show_sidebar": function (obj) { return obj.show_sidebar; }, "sidebarstyles": function (obj) { return obj.sidebarstyles; }, "dynsidebar": function (obj) { return obj.dynsidebar; }, "next_active ? '' : title || 'Video Player'": function (obj) { return obj.next_active ? '' : obj.title || 'Video Player'; }, "sidebaroptions": function (obj) { return obj.sidebaroptions; }, "floatingsidebar": function (obj) { return obj.floatingsidebar; }, "showsidebargallery": function (obj) { return obj.showsidebargallery; }, "linear": function (obj) { return obj.linear; }, "next_active": function (obj) { return obj.next_active; }, "unknownadsrc": function (obj) { return obj.unknownadsrc; }, "!fullscreened && is_floating && floatingoptions.closeable": function (obj) { return !obj.fullscreened && obj.is_floating && obj.floatingoptions.closeable; }, "close_floating()": function (obj) { return obj.close_floating(); }/**/
         })
         .attachStringTable(Assets.strings)
         .addStrings({
@@ -10129,9 +9801,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
             // If autoplay is true skipinitial will be false by default
             if (this.dyn?.get("autoplay") || this.dyn?.get("autoplaywhenvisible")) {
-                const trackedElement = this.dyn.get(`floatingoptions.floatingonly`) ?
-                    this.dyn.activeElement()?.firstChild : this.dyn.activeElement();
-                Dom.onScrollIntoView(trackedElement, this.dyn.get("visibilityfraction"), function() {
+                Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                     if (!this.destroyed()) this.runAutoplay();
                 }, this);
                 if (this.dyn?.get("autoplaywhenvisible")) this.preloadAds(false);
@@ -10943,13 +10613,14 @@ Scoped.define("module:VideoPlayer.Dynamics.Sidebar", [
     "browser:Dom",
     "module:Assets",
     "base:Timers.Timer",
-    "module:StylesMixin"
+    "module:StylesMixin",
+    "browser:DomMutation.MutationObserverNodeInsertObserver"
 ], [
     "module:Common.Dynamics.Spinner",
     "module:Ads.Dynamics.ChoicesLink",
     "module:Ads.Dynamics.LearnMoreButton",
     "module:Common.Dynamics.CircleProgress"
-], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, scoped) {
+], function(Class, Objs, Async, Types, Functions, DOM, Assets, Timer, StylesMixin, DomMutationObserver, scoped) {
     return Class.extend({
             scoped: scoped
         }, [StylesMixin, function(inherited) {

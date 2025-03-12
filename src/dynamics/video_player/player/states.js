@@ -356,9 +356,7 @@ Scoped.define("module:VideoPlayer.Dynamics.PlayerStates.PosterReady", [
 
             // If autoplay is true skipinitial will be false by default
             if (this.dyn?.get("autoplay") || this.dyn?.get("autoplaywhenvisible")) {
-                const trackedElement = this.dyn.get(`floatingoptions.floatingonly`) ?
-                    this.dyn.activeElement()?.firstChild : this.dyn.activeElement();
-                Dom.onScrollIntoView(trackedElement, this.dyn.get("visibilityfraction"), function() {
+                Dom.onScrollIntoView(this.dyn.activeElement(), this.dyn.get("visibilityfraction"), function() {
                     if (!this.destroyed()) this.runAutoplay();
                 }, this);
                 if (this.dyn?.get("autoplaywhenvisible")) this.preloadAds(false);

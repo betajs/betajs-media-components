@@ -226,11 +226,8 @@ test.describe(`With ads`, () => {
             await player.goto();
             await player.setPlayerInstance();
 
-            // Initially player is not in view, and set as visibility hidden
-            const secondContainerHeader = await page.getByTestId(`h2-header`);
-            await player.scrollToTheElement(secondContainerHeader, -150);
-
             const adsContainer = player.getElementByTestID(`ads-player-container`);
+            await expect(await adsContainer).toBeVisible();
             await player.scrollToTheElement(await adsContainer);
 
             await player.listenPlayerEvent(`ads:firstQuartile`, 30);

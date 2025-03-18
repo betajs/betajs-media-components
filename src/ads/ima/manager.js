@@ -198,7 +198,7 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                         });
                     }
                 }
-                this.addEventListeners();
+                this.addEventListeners(this._options);
                 this.__methods().forEach(function(method) {
                     this[method] = this._adsManager[method].bind(this._adsManager);
                 }.bind(this));
@@ -220,9 +220,13 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                 this.trigger('ad-error', message, event);
             },
 
-            addEventListeners: function() {
+            addEventListeners: function(options) {
                 Objs.iter(this.__events(), function(eventType) {
                     this._adsManager.addEventListener(eventType, function(event) {
+                        // hides the IMA styling (Learn More topbar) if fabrik outstream
+                        if (event.type === "loaded" && options?.IMASettings?.isOutstream === true) {
+                            document.querySelector('iframe[id^="goog_"]').style.opacity = 0;
+                        }
                         if (event.type === google.ima.AdErrorEvent.Type.AD_ERROR) return this.onAdError(event);
                         return this.onAdEvent(event);
                     }, false, this);

@@ -355,6 +355,7 @@ Scoped.define("module:Ads.Dynamics.Player", [
                     if (Info.isMobile()) {
                         this.set('isMobile', true);
                         adManagerOptions = this.normalizeOptionsForMobile(adManagerOptions);
+                        adManagerOptions.IMASettings.isOutstream = dynamics.get("outstream");
                     }
 
                     this.adsManager = this.auto_destroy(new AdsManager(adManagerOptions, dynamics));

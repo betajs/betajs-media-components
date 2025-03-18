@@ -225,7 +225,10 @@ Scoped.define("module:Ads.IMA.AdsManager", [
                     this._adsManager.addEventListener(eventType, function(event) {
                         // hides the IMA styling (Learn More topbar) if fabrik outstream
                         if (event.type === "loaded" && options?.IMASettings?.isOutstream === true) {
-                            document.querySelector('iframe[id^="goog_"]').style.opacity = 0;
+                            const googleImaFrame = document.querySelector('iframe[id^="goog_"]');
+                            if (googleImaFrame) {
+                                googleImaFrame.style.opacity = 0;
+                            }
                         }
                         if (event.type === google.ima.AdErrorEvent.Type.AD_ERROR) return this.onAdError(event);
                         return this.onAdEvent(event);

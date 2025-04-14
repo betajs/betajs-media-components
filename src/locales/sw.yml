@@ -1,0 +1,252 @@
+language:sw:
+  ba-circle-progress.fullscreen-video: Ingia kwenye skrini kamili
+  ba-common-settingsmenu.tooltip: Bonyeza kucheza.
+  ba-common-settingsmenu.setting-menu: Mipangilio yote
+  ba-common-settingsmenu.source-quality: Ubora wa chanzo
+  ba-common-settingsmenu.player-speed: Kasi ya mchezaji
+  ba-common-settingsmenu.set-menu-option: Weka chaguo
+  ba-common-settingsmenu.submit-video: Thibitisha video
+  ba-common-settingsmenu.picture-in-picture: Picha ndani ya picha
+  ba-common-settingsmenu.exit-fullscreen-video: Ondoka kwenye skrini kamili
+  ba-common-settingsmenu.fullscreen-video: Ingia kwenye skrini kamili
+  ba-ads-choices-link.ad-choices: Chaguo za Matangazo
+  ba-ads-controlbar.skip-ad: Ruka tangazo
+  ba-ads-controlbar.play-ad: Cheza
+  ba-ads-controlbar.pause-video: Simamisha
+  ba-ads-controlbar.volume-mute: Zima sauti
+  ba-ads-controlbar.volume-button: Weka sauti
+  ba-ads-controlbar.elapsed-time: Muda uliopita
+  ba-ads-controlbar.volume-unmute: Wezesha sauti
+  ba-ads-controlbar.can-skip-after: Ruka baada ya %d
+  ba-ads-controlbar.fullscreen-video: Ingia kwenye skrini kamili
+  ba-ads-controlbar.exit-fullscreen-video: Ondoka kwenye skrini kamili
+  ba-ads-controlbar.ad-will-end-after: Tangazo litaisha baada ya %s
+  ba-ads-controlbar.pause-video-disabled: Kusimamisha hakutumiwi
+  ba-adsplayer.replay-ad: Cheza tena
+  ba-adsplayer.close-ad: Funga
+  ba-adsplayer.ad-choices: Chaguo za Matangazo
+  ba-adsplayer.learn-more: Jifunze zaidi
+  ba-ads-learn-more-button.learn-more: Jifunze zaidi
+  ba-videoplayer-controlbar.video-progress: Maendeleo
+  ba-videoplayer-controlbar.rerecord-video: Fanya upya?
+  ba-videoplayer-controlbar.submit-video: Thibitisha
+  ba-videoplayer-controlbar.play-video: Cheza
+  ba-videoplayer-controlbar.pause-video: Simamisha
+  ba-videoplayer-controlbar.pause-video-disabled: Kusimamisha hakutumiwi
+  ba-videoplayer-controlbar.elapsed-time: Muda uliopita
+  ba-videoplayer-controlbar.total-time: Muda wote wa
+  ba-videoplayer-controlbar.fullscreen-video: Ingia kwenye skrini kamili
+  ba-videoplayer-controlbar.volume-button: Weka sauti
+  ba-videoplayer-controlbar.volume-mute: Zima sauti
+  ba-videoplayer-controlbar.volume-unmute: Wezesha sauti
+  ba-videoplayer-controlbar.change-resolution: Badilisha uchanganuzi
+  ba-videoplayer-controlbar.exit-fullscreen-video: Ondoka kwenye skrini kamili
+  ba-videoplayer-controlbar.close-tracks: Funga CC
+  ba-videoplayer-controlbar.show-tracks: Onyesha CC
+  ba-videoplayer-controlbar.player-speed: Kasi ya mchezaji
+  ba-videoplayer-controlbar.settings: Mipangilio
+  ba-videoplayer-controlbar.airplay: Airplay
+  ba-videoplayer-controlbar.airplay-icon: Aikoni ya Airplay.
+  ba-videoplayer-controlbar.remaining-time: Muda uliobaki
+  ba-videoplayer-controlbar.select-frame: Chagua
+  ba-videoplayer-controlbar.trim-video: Kata
+  ba-videoplayer-loader.tooltip: Inapakia...
+  ba-videoplayer-next.stay: Kaa
+  ba-videoplayer-next.next: Ifuatayo
+  ba-videoplayer-playbutton.tooltip: Bonyeza kucheza.
+  ba-videoplayer-playbutton.rerecord: Fanya upya
+  ba-videoplayer-playbutton.submit-video: Thibitisha video
+  ba-videoplayer-playbutton.trim: Kata
+  ba-videoplayer-playbutton.skip: Ruka
+  ba-videoplayer-share.share: Shiriki media
+  ba-videoplayer-sidebar.up-next: Inayofuata
+  ba-videoplayer-sidebar.continue-on-ads-end: Maudhui yataendelea baada ya tangazo hili.
+  ba-videoplayer-tooltip.tooltip: Kielelezo cha mwongozo
+  ba-videoplayer-tooltip.hover-to-pause-tooltip-close: Shika kipanya kwenye, kusimamisha kufunga kielelezo cha mwongozo
+  ba-videoplayer-tracks.upload-text-tracks: Pakia faili za maandishi ya wimbo
+  ba-videoplayer-tracks.select-text-track-language: Lugha ya Manukuu
+  ba-videoplayer-tracks.info-select-locale-first: Chagua eneo kwanza
+  ba-videoplayer-tracks.select-text-track-file: Bonyeza kuchagua faili
+  ba-videoplayer-tracks.back: rudi
+  ba-videoplayer.video-error: Hitilafu imetokea, tafadhali jaribu tena baadaye. Bonyeza kujaribu tena.
+  ba-videoplayer.all-settings: Mipangilio yote
+  ba-videoplayer.player-speed: Kasi ya mchezaji
+  ba-videoplayer.full-screen: Skrini kamili
+  ba-videorecorder-chooser.record-video: Rekodi Video
+  ba-videorecorder-chooser.record-audio: Rekodi Sauti
+  ba-videorecorder-chooser.record-screen: Rekodi Skrini
+  ba-videorecorder-chooser.multi-stream: Mkondo Mwingi
+  ba-videorecorder-chooser.upload-video: Pakia Video
+  ba-videorecorder-controlbar.settings: Mipangilio
+  ba-videorecorder-controlbar.camerahealthy: Mwanga ni mzuri
+  ba-videorecorder-controlbar.cameraunhealthy: Mwanga sio bora
+  ba-videorecorder-controlbar.microphonehealthy: Sauti ni nzuri
+  ba-videorecorder-controlbar.microphoneunhealthy: Haiwezi kukamata sauti yoyote
+  ba-videorecorder-controlbar.record: Rekodi
+  ba-videorecorder-controlbar.record-tooltip: Bonyeza hapa kurekodi.
+  ba-videorecorder-controlbar.rerecord: Fanya upya
+  ba-videorecorder-controlbar.rerecord-tooltip: Bonyeza hapa kufanya upya.
+  ba-videorecorder-controlbar.upload-covershot: Pakia Kifuniko
+  ba-videorecorder-controlbar.upload-covershot-tooltip: Bonyeza hapa kupakia kifuniko maalum
+  ba-videorecorder-controlbar.stop: Simamisha
+  ba-videorecorder-controlbar.stop-tooltip: Bonyeza hapa kusimamisha.
+  ba-videorecorder-controlbar.skip: Ruka
+  ba-videorecorder-controlbar.skip-tooltip: Bonyeza hapa kuruka.
+  ba-videorecorder-controlbar.stop-available-after: Muda wa chini wa kurekodi ni sekunde %d
+  ba-videorecorder-controlbar.cancel: Ghairi
+  ba-videorecorder-controlbar.cancel-tooltip: Bonyeza hapa kughairi.
+  ba-videorecorder-controlbar.add-stream: Ongeza Mkondo
+  ba-videorecorder-controlbar.pause-recorder: Simamisha kirekodi
+  ba-videorecorder-controlbar.resume-recorder: Endeleza kirekodi
+  ba-videorecorder-controlbar.no-video-source: Chanzo cha video cha ziada kimekosekana
+  ba-videorecorder-controlbar.stream-already-selected: Mkondo wa ziada tayari umechaguliwa
+  ba-videorecorder-imagegallery.upload-covershot: Pakia Kifuniko
+  ba-videorecorder.recorder-error: Hitilafu imetokea, tafadhali jaribu tena baadaye. Bonyeza kujaribu tena.
+  ba-videorecorder.attach-error: >-
+    Hatukuweza kufikia kiolesura cha media. Kulingana na kifaa na kivinjari, huenda ukahitaji kufikia ukurasa kupitia SSL.
+  ba-videorecorder.software-required: >-
+    Tafadhali bonyeza hapa chini kusakinisha / kuamilisha mahitaji yafuatayo ili kuendelea.
+  ba-videorecorder.software-waiting: >-
+    Inasubiri mahitaji kusakinishwa / kuamilishwa. Huenda ukahitaji kufungua ukurasa upya baada ya kukamilika.
+  ba-videorecorder.access-forbidden: Ufikiaji wa media ulikataliwa. Bonyeza kujaribu tena.
+  ba-videorecorder.pick-covershot: Chagua kifuniko.
+  ba-videorecorder.pick-covershot-frame: Chagua fremu kutumia kama kifuniko.
+  ba-videorecorder.framerate-warning: >-
+    Kiwango cha fremu cha video ni cha chini sana. Tunapendekeza kufunga programu zote na violezo vya kivinjari au kutumia kompyuta ya kasi zaidi.
+  ba-videorecorder.uploading: Inapakia
+  ba-videorecorder.uploading-src-error: Haiwezi kucheza video sasa, upakiaji bado unaendelea
+  ba-videorecorder.uploading-failed: Upakiaji umeshindwa - bonyeza hapa kujaribu tena.
+  ba-videorecorder.upload-error-duration: >-
+    Urefu wa video uliyopakia haukidhi mahitaji - bonyeza hapa kujaribu tena.
+  ba-videorecorder.resolution-constraint-error: >-
+    Faili uliyochagua hailingani na uchanganuzi unaohitajika - bonyeza hapa kujaribu tena.
+  ba-videorecorder.verifying: Inathibitisha
+  ba-videorecorder.verifying-failed: Uthibitishaji umeshindwa - bonyeza hapa kujaribu tena.
+  ba-videorecorder.rerecord-confirm: Je, unataka kweli kufanya upya video yako?
+  ba-videorecorder.cancel-confirm: Je, unataka kweli kughairi upakiaji wa video yako?
+  ba-videorecorder.video_file_too_large: >-
+    Faili yako ya video ni kubwa sana (%s) - bonyeza hapa kujaribu tena na faili ndogo ya video.
+  ba-videorecorder.unsupported_video_type: 'Tafadhali pakia: %s - bonyeza hapa kujaribu tena.'
+  ba-videorecorder.orientation-portrait-required: Tafadhali zungusha kifaa chako kurekodi kwa hali ya wima.
+  ba-videorecorder.orientation-landscape-required: Tafadhali zungusha kifaa chako kurekodi kwa hali ya mlalo.
+  ba-videorecorder.switch-camera: Badilisha kamera
+  ba-videorecorder.prepare-covershot: Inatayarisha vifuniko
+  ba-videorecorder.prepare-thumbnails: Inatayarisha vidokezo vya kutafuta
+  ba-videorecorder.adding-new-stream: Inaongeza Mkondo Mpya
+  ba-videorecorder.missing-track: Wimbo wa sauti au video unahitajika umekosekana
+  ba-videorecorder.device-already-in-use: Angalau kifaa kimoja cha mawasiliano kimetumika tayari
+  ba-videorecorder.browser-permission-denied: Ruhusa imekataliwa na kivinjari, tafadhali ruhusu ufikiaji na upya ukurasa
+  ba-videorecorder.screen-recorder-is-not-supported: Kirekodi cha skrini hakitumiwi kwenye kifaa hiki
+  ba-videorecorder.trim-prompt: Je, unataka kukata video yako?
+  ba-videorecorder.trim-video: Songa alama za mwanzo na mwisho kukata video yako
+  ba-videorecorder.wait-for-trim: Inasubiri amri ya kukata...
+  ba-videorecorder.supported-mode: Uchanganuzi wa media unapaswa kuwa katika hali ya '%s'.
+  ba-videorecorder.re-choose-action: Tafadhali bonyeza kuchagua kifaa kingine cha mawasiliano au jaribu tena kitendo.
+  ba-videorecorder-trimmer.trim: Kata
+  ba-videorecorder-trimmer.skip: Ruka
+  ba-imageviewer-controlbar.rerecord-image: Fanya upya?
+  ba-imageviewer-controlbar.submit-image: Thibitisha
+  ba-imageviewer-controlbar.fullscreen-image: Ingia kwenye skrini kamili
+  ba-imageviewer-controlbar.exit-fullscreen-image: Ondoka kwenye skrini kamili
+  ba-imageviewer.image-error: Hitilafu imetokea, tafadhali jaribu tena baadaye. Bonyeza kujaribu tena.
+  ba-imagecapture-chooser.image-capture: Kamata Picha
+  ba-imagecapture-chooser.upload-image: Pakia Picha
+  ba-imagecapture-controlbar.settings: Mipangilio
+  ba-imagecapture-controlbar.camerahealthy: Mwanga ni mzuri
+  ba-imagecapture-controlbar.cameraunhealthy: Mwanga sio bora
+  ba-imagecapture-controlbar.record: Kamata
+  ba-imagecapture-controlbar.record-tooltip: Bonyeza hapa kukamata.
+  ba-imagecapture-controlbar.rerecord: Fanya upya
+  ba-imagecapture-controlbar.rerecord-tooltip: Bonyeza hapa kufanya upya.
+  ba-imagecapture-controlbar.cancel: Ghairi
+  ba-imagecapture-controlbar.cancel-tooltip: Bonyeza hapa kughairi.
+  ba-imagecapture.recorder-error: Hitilafu imetokea, tafadhali jaribu tena baadaye. Bonyeza kujaribu tena.
+  ba-imagecapture.attach-error: >-
+    Hatukuweza kufikia kiolesura cha media. Kulingana na kifaa na kivinjari, huenda ukahitaji kufikia ukurasa kupitia SSL.
+  ba-imagecapture.software-required: >-
+    Tafadhali bonyeza hapa chini kusakinisha / kuamilisha mahitaji yafuatayo ili kuendelea.
+  ba-imagecapture.software-waiting: >-
+    Inasubiri mahitaji kusakinishwa / kuamilishwa. Huenda ukahitaji kufungua ukurasa upya baada ya kukamilika.
+  ba-imagecapture.access-forbidden: Ufikiaji wa media ulikataliwa. Bonyeza kujaribu tena.
+  ba-imagecapture.uploading: Inapakia
+  ba-imagecapture.uploading-failed: Upakiaji umeshindwa - bonyeza hapa kujaribu tena.
+  ba-imagecapture.upload-error-duration: >-
+    Urefu wa picha uliyopakia haukidhi mahitaji - bonyeza hapa kujaribu tena.
+  ba-imagecapture.resolution-constraint-error: >-
+    Faili uliyochagua hailingani na uchanganuzi unaohitajika - bonyeza hapa kujaribu tena.
+  ba-imagecapture.verifying: Inathibitisha
+  ba-imagecapture.verifying-failed: Uthibitishaji umeshindwa - bonyeza hapa kujaribu tena.
+  ba-imagecapture.rerecord-confirm: Je, unataka kweli kuchukua picha yako tena?
+  ba-imagecapture.image_file_too_large: >-
+    Faili yako ya picha ni kubwa sana (%s) - bonyeza hapa kujaribu tena na faili ndogo ya picha.
+  ba-imagecapture.unsupported_image_type: 'Tafadhali pakia: %s - bonyeza hapa ujaribu tena.'
+  ba-imagecapture.orientation-portrait-required: Zungusha kifaa chako ili kuchukulia picha katika hali ya kimshada.
+  ba-imagecapture.orientation-landscape-required: Zungusha kifaa chako ili kuchukulia picha katika hali ya kisahani.
+  ba-audioplayer-controlbar.audio-progress: Maendeleo
+  ba-audioplayer-controlbar.rerecord-audio: Fanya upya?
+  ba-audioplayer-controlbar.submit-audio: Thibitisha
+  ba-audioplayer-controlbar.play-audio: Cheza
+  ba-audioplayer-controlbar.pause-audio: Chunguza
+  ba-audioplayer-controlbar.pause-audio-disabled: Kugawa hakiaunganishi
+  ba-audioplayer-controlbar.elapsed-time: Muda uliopita
+  ba-audioplayer-controlbar.total-time: Urefu wa jumla wa
+  ba-audioplayer-controlbar.volume-button: Weka sauti
+  ba-audioplayer-controlbar.volume-mute: Lemaza sauti
+  ba-audioplayer-controlbar.volume-unmute: Zingusa sauti
+  ba-audioplayer-loader.tooltip: Inapakia...
+  ba-audioplayer.audio-error: Hitilafu imetokea, tafadhali jaribu tena baadae. Bonyeza ili ujaribu tena.
+  ba-audioplayer.all-settings: Mipangilio yote
+  ba-audiorecorder-chooser.record-audio: Rekodi Sauti
+  ba-audiorecorder-chooser.upload-audio: Pakia Sauti
+  ba-audiorecorder-controlbar.settings: Mipangilio
+  ba-audiorecorder-controlbar.microphonehealthy: Sauti ni nzuri
+  ba-audiorecorder-controlbar.microphoneunhealthy: Haiwezi kuchukua sauti
+  ba-audiorecorder-controlbar.record: Rekodi
+  ba-audiorecorder-controlbar.record-tooltip: Bonyeza hapa ili kurekodi.
+  ba-audiorecorder-controlbar.rerecord: Fanya upya
+  ba-audiorecorder-controlbar.rerecord-tooltip: Bonyeza hapa ili ufanye upya.
+  ba-audiorecorder-controlbar.stop: Simamisha
+  ba-audiorecorder-controlbar.stop-tooltip: Bonyeza hapa ili usimamisha.
+  ba-audiorecorder-controlbar.stop-available-after: Muda wa kirekodia unahitajika ni sekunde %d
+  ba-audiorecorder-controlbar.cancel: Ghairi
+  ba-audiorecorder-controlbar.cancel-tooltip: Bonyeza hapa ili ughairi.
+  ba-audiorecorder-controlbar.pause-recorder: Chunguza Rekoda
+  ba-audiorecorder-controlbar.resume-recorder: Endelea na Rekoda
+  ba-audiorecorder.recorder-error: Hitilafu imetokea, tafadhali jaribu tena baadae. Bonyeza ili ujaribu tena.
+  ba-audiorecorder.attach-error: >-
+    Hatukuweza kufikia kiolesura cha media. Kutegemea kifaa na kipaumbele, unaweza hitaji kufikia ukurasa kupitia SSL.
+  ba-audiorecorder.software-required: >-
+    Tafadhali bonyeza chini ili usakinishe / amilishe mahitaji yafuatayo ili uendelee.
+  ba-audiorecorder.software-waiting: >-
+    Inasubiri mahitaji yasakinishwe / yamilishwe. Unaweza kuhitaji kuandaa ukurasa baada ya kukamilisha.
+  ba-audiorecorder.access-forbidden: Ufikiaji wa media umezuiliwa. Bonyeza ili ujaribu tena.
+  ba-audiorecorder.uploading: Inapakia
+  ba-audiorecorder.uploading-failed: Upakiaji umeshindikana - bonyeza hapa ujaribu tena.
+  ba-audiorecorder.upload-error-duration: >-
+    Urefu wa sauti iliyopakiwa hauhitaji - bonyeza hapa ujaribu tena.
+  ba-audiorecorder.verifying: Inathibitisha
+  ba-audiorecorder.verifying-failed: Uthibitishaji umeshindikana - bonyeza hapa ujaribu tena.
+  ba-audiorecorder.rerecord-confirm: Je, una uhakika unataka kurejesha sauti yako?
+  ba-audiorecorder.cancel-confirm: Je, una uhakika unataka kughairi upakiaji wa sauti yako?
+  ba-audiorecorder.audio_file_too_large: >-
+    Faili yako ya sauti ni kubwa sana (%s) - bonyeza hapa ujaribu tena na faili ndogo zaidi.
+  ba-audiorecorder.unsupported_audio_type: 'Tafadhali pakia: %s - bonyeza hapa ujaribu tena.'
+  ba-audiorecorder.uploading-src-error: Haiwezi kucheza sauti sasa, upakiaji bado unaendelea
+  ba-audiorecorder.missing-track: Kirekodia cha sauti kinahitajika hakipo
+  ba-audiorecorder.device-already-in-use: Angalau zana moja ya kiinput yako tayari inatumika
+  ba-audiorecorder.browser-permission-denied: Ruhusa imekataliwa na kipaumbele, tafadhali ruhusa na anzisha upya ukurasa
+  ba-local-view.local-camera-connection-error: Hitilafu imetokea wakati wa kuunganisha kamera ya eneo. Bonyeza ili ujaribu tena.
+  ba-call-controlbar.camera-button: Onyesha/Ficha Kamera
+  ba-call-controlbar.leave-button: Acha Simu
+  ba-call-controlbar.mute-button: Lemaza/Zingusa
+  ba-call-lobby.camera-button: Kamera
+  ba-call-lobby.description-create: Unapokuwa tayari bonyeza kitufe chini ili unda simu.
+  ba-call-lobby.description-join: Unapokuwa tayari bonyeza kitufe chini ili jiunge na simu.
+  ba-call-lobby.join-button: Jiunge
+  ba-call-lobby.create-button: Unda
+  ba-call-lobby.mute-button: Lemaza
+  ba-call-lobby.title-create: Unda Simu
+  ba-call-lobby.title-join: Jiunge na Simu
+  ba-video-call.call-ended: Simu imemalizika
+  ba-video-call.connecting: Inaunganisha...
+  ba-video-call.connection-error: Hitilafu imetokea wakati wa kuunganisha, tafadhali bonyeza ujaribu tena.
